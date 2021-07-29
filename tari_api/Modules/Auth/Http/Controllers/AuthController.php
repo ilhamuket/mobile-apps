@@ -63,16 +63,26 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $check = User::where('email', $request->email)->first();
+        try {
+            $check = User::where('email', $request->email)->first();
 
-        if (!$check || Hash::check($request->password, $check->password)) {
-            throw Validator::withMessages([
-                'Password' => ['The provided credentials are incorrect']
-            ]);
+            if (!$check || Hash::check($request->password, $check->password)) {
+                throw Validator::withMessages([
+                    'Password' => ['The provided credentials are incorrect']
+                ]);
+            }
+
+            $master = $check->createToken('auth')->plainTextToken;
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         }
+    }
 
-        $master = $check->createToken('auth')->plainTextToken;
-        return Json::response($master);
+    public function logout(Request $request)
+    {
+        $data = $request->user()->currentAccessToken()->delete();
+        return Json::response($data);
     }
     /**
      * Display a listing of the resource.
