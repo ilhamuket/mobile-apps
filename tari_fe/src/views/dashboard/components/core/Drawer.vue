@@ -78,9 +78,9 @@
     <template v-slot:append>
       <base-item
         :item="{
-          title: $t('upgrade'),
-          icon: 'mdi-package-up',
-          to: '/upgrade',
+          title: $t('logout'),
+          icon: 'mdi-logout',
+          to: '/logout',
         }"
       />
     </template>
@@ -233,11 +233,9 @@
 .custumize-light
   font-weight: bold
   font-size: 20px
-  font-family: 'Zen Loop', cursive
   height: 100%
 .custumize-dark
   font-weight: bold
-  font-family: 'Zen Loop', cursive
 </style>
 <style>
 .custumize-light

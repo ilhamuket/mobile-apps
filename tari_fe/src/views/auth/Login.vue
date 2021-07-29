@@ -69,7 +69,7 @@
                         color="primary"
                         width="100%"
                         type="submit"
-                        @click="login2"
+                        @click="login"
                       >
                         Login
                       </v-btn>
@@ -109,7 +109,6 @@
 </template>
 
 <script>
-  import axios from 'axios'
   export default {
     data: () => ({
       email: 'dikamahar884@malinator.com',
@@ -136,16 +135,6 @@
               this.isWrong = true
               this.alert = true
             }
-          })
-      },
-      login2 () {
-        axios
-          .post('http://127.0.0.1:8000/v1/auth/login', {
-            email: this.email,
-            password: this.password,
-          })
-          .then(res => {
-            console.log(res)
           })
       },
     },
