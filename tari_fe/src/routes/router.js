@@ -21,7 +21,7 @@ const router = new Router({
             requiresAuth: true,
           },
         },
-        // Pages
+        // Pages Null
         {
           name: 'User Profile',
           path: 'pages/user',
@@ -77,6 +77,15 @@ const router = new Router({
           name: 'Upgrade',
           path: 'upgrade',
           component: () => import('@/views/dashboard/Upgrade'),
+          meta: {
+            requiresAuth: true,
+          },
+        },
+        // My Pages
+        {
+          name: 'dashboard_',
+          path: '/dashboard',
+          component: () => import('@/views/pages/dashboard/Index'),
           meta: {
             requiresAuth: true,
           },

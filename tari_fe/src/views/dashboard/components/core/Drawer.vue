@@ -233,7 +233,7 @@
 .custumize-light
   font-weight: bold
   font-size: 20px
-  height: 100%
+  height: 100% !important
 .custumize-dark
   font-weight: bold
 </style>

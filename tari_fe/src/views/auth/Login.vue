@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <div class="d-flex flex-row justify-center">
+    <div class="d-flex flex-row justify-center my-auto">
       <div class="d-flex flex-column">
         <base-material-card
           title="Login"
@@ -18,90 +18,104 @@
             </div>
           </template>
 
-          <v-card
-            width="400"
-            height="400"
-            class="mx-auto px-6 custumize-round"
-          >
-            <v-list>
-              <v-list-item>
-                <v-list-item-content>
-                  <v-form>
-                    <v-text-field
-                      v-model="email"
-                      outlined
-                      dense
-                      label="Input Your Emaill"
-                      placeholder="E-mail"
-                      prepend-icon="mdi-email"
-                    />
-
-                    <v-text-field
-                      v-model="password"
-                      outlined
-                      dense
-                      label="Input Your Password"
-                      placeholder="Password"
-                      prepend-icon="mdi-lock"
-                      append-icon="mdi-eye"
-                      :type="show ? 'text' : 'password'"
-                      @click:append="show = !show"
-                    />
-                  </v-form>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-content>
-                  <div class="d-flex flex-row justify-center ml-2">
-                    <div class="d-flex flex-column align-center">
-                      <v-chip
-                        class="mr-4"
-                        color="transparent"
-                      >
-                        <v-btn
-                          text
-                          color="primary"
-                        >
-                          Lupa Password
-                        </v-btn>
-                      </v-chip>
-                      <v-btn
-                        color="primary"
-                        width="100%"
-                        type="submit"
-                        @click="login"
-                      >
-                        Login
-                      </v-btn>
-                    </div>
-                  </div>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
-
-            <div class="d-flex flex-row justify-center mt-2">
+          <v-list class="mx-auto px-1">
+            <div
+              v-if="isWrong == true"
+              class="d-flex flex-row justify-center"
+            >
               <div class="d-flex flex-column">
-                <v-chip
-                  color="transparent"
-                  class="d-flex justify-center"
-                >
-                  <h3 class="text--primary">
-                    Tidak Punya Akun ?
-                  </h3>
-                </v-chip>
-                <v-btn
-                  class="mt-2"
-                  height="40"
+                <v-alert
+                  v-model="isWrong"
+                  dismissible
+                  dark
+                  dense
+                  class="text-nowrap"
                   outlined
-                  rounded
-                  color="info"
-                  width="200"
+                  type="error"
+                  close
+                  close-text="Close Alert"
                 >
-                  SignUp
-                </v-btn>
+                  password atau email Anda salah
+                </v-alert>
               </div>
             </div>
-          </v-card>
+            <v-list-item>
+              <v-list-item-content>
+                <v-form>
+                  <v-text-field
+                    v-model="email"
+                    outlined
+                    dense
+                    label="Input Your Emaill"
+                    placeholder="E-mail"
+                    prepend-icon="mdi-email"
+                  />
+
+                  <v-text-field
+                    v-model="password"
+                    outlined
+                    dense
+                    label="Input Your Password"
+                    placeholder="Password"
+                    prepend-icon="mdi-lock"
+                    append-icon="mdi-eye"
+                    :type="show ? 'text' : 'password'"
+                    @click:append="show = !show"
+                  />
+                </v-form>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-content>
+                <div class="d-flex flex-row justify-center ml-2">
+                  <div class="d-flex flex-column align-center">
+                    <v-chip
+                      class="mr-4"
+                      color="transparent"
+                    >
+                      <v-btn
+                        text
+                        color="primary"
+                      >
+                        Lupa Password
+                      </v-btn>
+                    </v-chip>
+                    <v-btn
+                      color="primary"
+                      width="100%"
+                      type="submit"
+                      @click="login"
+                    >
+                      Login
+                    </v-btn>
+                  </div>
+                </div>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+
+          <div class="d-flex flex-row justify-center mt-2">
+            <div class="d-flex flex-column">
+              <v-chip
+                color="transparent"
+                class="d-flex justify-center"
+              >
+                <h3 class="text--primary">
+                  Tidak Punya Akun ?
+                </h3>
+              </v-chip>
+              <v-btn
+                class="mt-2"
+                height="40"
+                outlined
+                rounded
+                color="info"
+                width="200"
+              >
+                SignUp
+              </v-btn>
+            </div>
+          </div>
         </base-material-card>
       </div>
     </div>
@@ -111,8 +125,8 @@
 <script>
   export default {
     data: () => ({
-      email: 'dikamahar884@malinator.com',
-      password: 'password',
+      email: '',
+      password: '',
       isWrong: false,
       show: false,
     }),

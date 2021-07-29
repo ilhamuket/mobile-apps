@@ -7,6 +7,7 @@ export default {
   getters: {},
   mutations: {
     TOKEN: (state, paylaod) => (state.token = paylaod),
+    REMOVE_TOKEN: state => (state.token = null),
   },
   actions: {
     login: ({ commit }, payload) => {
@@ -36,13 +37,13 @@ export default {
           .then(response => {
             localStorage.removeItem('access_token')
             localStorage.removeItem('ME')
-            commit('removeToken')
+            commit('REMOVE_TOKEN')
             resolve(response)
           })
           .catch(error => {
             reject(error)
             localStorage.removeItem('access_token')
-            commit('removeToken')
+            commit('REMOVE_TOKEN')
           })
       })
     },
