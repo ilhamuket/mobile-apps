@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
-
+use Modules\Classes\Http\Controllers\ClassesController;
+use Modules\Media\Http\Controllers\PostController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,6 +14,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/media', function (Request $request) {
+Route::middleware('auth:api')->get('/media1', function (Request $request) {
     return $request->user();
+});
+
+Route::prefix('media')->middleware(['auth:sanctum'])->group(function () {
+    Route::get('post', [PostController::class, 'index']);
+    Route::post('post', [PostController::class, 'store']);
+    Route::get('class', [ClassesController::class, 'store']);
 });
