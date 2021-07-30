@@ -2,9 +2,11 @@
 
 namespace Modules\Classes\Http\Controllers;
 
+use Brryfrmnn\Transformers\Json;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Classes\Entities\Classes;
 
 class ClassesController extends Controller
 {
@@ -14,7 +16,17 @@ class ClassesController extends Controller
      */
     public function index()
     {
-        return view('classes::index');
+        try {
+            $master = Classes::with('teacher')->get();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = nev('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**

@@ -49,16 +49,24 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $master = new User();
-        $master->firstName = $request->firstName;
-        $master->lastName = $request->lastName;
-        $master->email = $request->email;
-        $master->password = Hash::make($request->password);
-        $master->dateOfBirth = $request->dateOfBirth;
-        $master->homeAddress = $request->homeAddress;
-        $master->save();
+        try {
+            $master = new User();
+            $master->firstName = $request->firstName;
+            $master->lastName = $request->lastName;
+            $master->email = $request->email;
+            $master->password = Hash::make($request->password);
+            $master->dateOfBirth = $request->dateOfBirth;
+            $master->homeAddress = $request->homeAddress;
+            $master->save();
 
-        return Json::response($master);
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? e : '');
+        }
     }
 
     public function login(Request $request)
@@ -66,16 +74,18 @@ class AuthController extends Controller
         try {
             $check = User::where('email', $request->email)->first();
 
-            if (!$check || Hash::check($request->password, $check->password)) {
-                throw Validator::withMessages([
-                    'Password' => ['The provided credentials are incorrect']
-                ]);
+            if (!$check || !Hash::check($request->password, $check->password)) {
+                return Json::exception('Password Anda salah');
             }
 
             $master = $check->createToken('auth')->plainTextToken;
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         }
     }
 

@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Modules\Classes\Http\Controllers\ClassesController;
+use Modules\Media\Http\Controllers\MediaController;
 use Modules\Media\Http\Controllers\PostController;
 /*
 |--------------------------------------------------------------------------
@@ -14,12 +15,15 @@ use Modules\Media\Http\Controllers\PostController;
 |
 */
 
-Route::middleware('auth:api')->get('/media1', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/media1', function (Request $request) {
+//     return $request->user();
+// });
 
 Route::prefix('media')->middleware(['auth:sanctum'])->group(function () {
     Route::get('post', [PostController::class, 'index']);
     Route::post('post', [PostController::class, 'store']);
     Route::get('class', [ClassesController::class, 'store']);
+
+    Route::get('category', [MediaController::class, 'index']);
+    Route::post('category', [MediaController::class, 'store']);
 });

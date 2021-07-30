@@ -24,4 +24,5 @@ Route::prefix('user')->middleware(['auth:sanctum'])->group(function () {
     Route::post('roles', [RoleController::class, "store"]);
 
     Route::get('', [UserController::class, 'index']);
+    Route::get('me', [UserController::class, 'me']);
 });

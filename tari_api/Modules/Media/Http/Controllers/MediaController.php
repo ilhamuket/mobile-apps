@@ -2,9 +2,11 @@
 
 namespace Modules\Media\Http\Controllers;
 
+use Brryfrmnn\Transformers\Json;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Media\Entities\Category;
 
 class MediaController extends Controller
 {
@@ -14,7 +16,17 @@ class MediaController extends Controller
      */
     public function index()
     {
-        return view('media::index');
+        try {
+            $master = Category::with('posts')->get();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**
@@ -33,7 +45,21 @@ class MediaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $category = new Category();
+            $category->name = $request->name;
+            $category->display_name = $request->display_name;
+            $category->status = $request->input('status', 'preview');
+            $category->save();
+
+            return Json::response($category);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**
