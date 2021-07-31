@@ -135,18 +135,110 @@
             >
               <v-list-item>
                 <v-list-item-content>
-                  <v-img
-                    class="mt-12 img-shadow"
-                    width="100%"
-                    height="200"
-                    src="https://i.ytimg.com/vi/liuSjQERYMk/hqdefault.jpg"
-                  >
-                    <div class="d-flex item-center align-center">
-                      <v-icon>
-                        mdi-eye
-                      </v-icon>
-                    </div>
-                  </v-img>
+                  <base-card>
+                    <v-img
+                      class="mt-12 img-shadow"
+                      width="100%"
+                      height="200"
+                      src="https://i.ytimg.com/vi/liuSjQERYMk/hqdefault.jpg"
+                    >
+                      <v-row class="fill-height text-right ma-0">
+                        <v-col cols="12">
+                          <v-chip
+                            label
+                            class="mx-0 mb-2 text-uppercase"
+                            color="grey darken-3"
+                            text-color="white"
+                            small
+                            @click.stop=""
+                          >
+                            Ballet
+                          </v-chip>
+
+                          <!-- <v-chip class="">
+                            Mahardika || Beginner
+                          </v-chip> -->
+                          <v-chip
+                            label
+                            class="mx-0 ml-2 mb-2 text-uppercase"
+                            color="red darken-3"
+                            text-color="white"
+                            small
+                            @click.stop=""
+                          >
+                            Mahardika Kessuma Denie || Beginner
+                          </v-chip>
+                        </v-col>
+
+                        <v-col class="mx-auto ml-12 px-4 mr-12 mb-12">
+                          <div
+                            class="d-flex flex-row justify-center float-right mx-auto"
+                          >
+                            <v-list-item class="mr-12">
+                              <v-list-item-avatar left>
+                                <v-icon
+                                  class="icon-large"
+                                  x-large
+                                  color="pallet1"
+                                  @click="play"
+                                >
+                                  mdi-play-circle
+                                </v-icon>
+                              </v-list-item-avatar>
+                            </v-list-item>
+                          </div>
+                        </v-col>
+
+                        <!-- <v-col align-self="end">
+                          <v-chip
+                            class="text-uppercase ma-0"
+                            color="primary"
+                            label
+                            small
+                          >
+                            Read More
+                          </v-chip>
+                        </v-col> -->
+                      </v-row>
+                    </v-img>
+
+                    <v-container>
+                      <div class="d-flex flex-row justify-start">
+                        <div class="d-flex flex-column">
+                          <!-- <v-chip
+                            outlined
+                            color="pallet1"
+                            label
+                            small
+                          >
+                            <v-icon left>
+                              mdi-account-circle-outline
+                            </v-icon>
+                            <v-list-item-title class="overflow-x">
+                              <h5 class="text-center">
+                                Tips Menjadi PROGRAMMER ZAMAN NOW Feat. Eko
+                                Kurniawan Khannedy
+                              </h5>
+                            </v-list-item-title>
+                          </v-chip> -->
+                          <p>
+                            Tips Menjadi PROGRAMMER ZAMAN NOW Feat. Eko
+                            Kurniawan Khannedy
+                          </p>
+                        </div>
+                      </div>
+                      <!-- <div class="d-flex flex-row justify-start float-left ">
+                        <div class="d-flex flex-column">
+                          <v-chip color="transparent">
+                            <h4>
+                              Tips Menjadi PROGRAMMER ZAMAN NOW Feat. Eko
+                              Kurniawan Khannedy
+                            </h4>
+                          </v-chip>
+                        </div>
+                      </div> -->
+                    </v-container>
+                  </base-card>
                 </v-list-item-content>
               </v-list-item>
               <v-list-item>
@@ -188,6 +280,9 @@
       onScroll () {
         this.scrollInvoked++
       },
+      play () {
+        console.log('click')
+      },
     },
   }
 </script>
@@ -208,4 +303,6 @@
   width: 110px !important
 .text-center
   text-align: center !important
+.overflow-x
+  overflow-x: auto !important
 </style>
