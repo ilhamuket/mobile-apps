@@ -2,46 +2,42 @@
   <v-app>
     <div class="d-flex flex-row justify-center my-auto">
       <div class="d-flex flex-column">
-        <base-material-card
-          title="Login"
-          icon="mdi-login-variant"
-        >
-          <template v-slot:after-heading>
+        <base-material-card icon="mdi-login-variant">
+          <template v-slot:heading>
             <div class="d-flex flex-row justify-center">
               <div class="d-flex flex-column">
                 <v-chip color="transparent">
                   <h1 class="">
-                    Sign In To Joget-In
+                    Sign In
                   </h1>
                 </v-chip>
               </div>
             </div>
           </template>
-
-          <v-list class="mx-auto px-1">
-            <div
-              v-if="isWrong == true"
-              class="d-flex flex-row justify-center"
-            >
-              <div class="d-flex flex-column">
-                <v-alert
-                  v-model="isWrong"
-                  dismissible
-                  dark
-                  dense
-                  class="text-nowrap"
-                  outlined
-                  type="error"
-                  close
-                  close-text="Close Alert"
-                >
-                  password atau email Anda salah
-                </v-alert>
-              </div>
+          <div
+            v-if="isWrong == true"
+            class="d-flex flex-row justify-center"
+          >
+            <div class="d-flex flex-column">
+              <v-alert
+                v-model="isWrong"
+                dismissible
+                dark
+                dense
+                class="text-nowrap"
+                outlined
+                type="error"
+                close
+                close-text="Close Alert"
+              >
+                password atau email Anda salah
+              </v-alert>
             </div>
+          </div>
+          <v-list class="mx-auto px-2">
             <v-list-item>
               <v-list-item-content>
-                <v-form>
+                <v-form @submit.enter="login">
                   <v-text-field
                     v-model="email"
                     outlined
@@ -84,7 +80,7 @@
                       color="primary"
                       width="100%"
                       type="submit"
-                      @click="login"
+                      @click.prevent="login"
                     >
                       Login
                     </v-btn>

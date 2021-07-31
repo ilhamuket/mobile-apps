@@ -2,10 +2,9 @@
   <v-navigation-drawer
     id="core-navigation-drawer"
     v-model="drawer"
-    :dark="barColor !== 'rgba(228, 226, 226, 1), rgba(255, 255, 255, 0.7)'"
+    class="on-hover"
     :expand-on-hover="drawer === false"
     :right="$vuetify.rtl"
-    :src="barImage"
     :class="$vuetify.theme.dark ? 'custumize-dark' : 'custumize-light'"
     mobile-breakpoint="960"
     app
@@ -25,6 +24,7 @@
     <v-list
       dense
       nav
+      :class="$vuetify.theme.dark ? 'bg--dark' : 'bg--light'"
     >
       <v-list-item>
         <v-list-item-avatar
@@ -33,22 +33,29 @@
           contain
         >
           <v-img
-            src="https://demos.creative-tim.com/vuetify-material-dashboard/favicon.ico"
-            max-height="30"
+            src="https://eshendetesia.com/images/user-profile.png"
+            max-height="40"
           />
+          <!-- <span v-if="profile">{{ profile.initials }}</span> -->
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title v-text="profile.title" />
+          <v-list-item-title
+            class="text-capitalize"
+            v-text="profile.title"
+          />
         </v-list-item-content>
       </v-list-item>
     </v-list>
 
-    <v-divider class="mb-2" />
+    <!-- <v-divider class="mb-2" /> -->
 
     <v-list
       expand
       nav
+      :class="
+        $vuetify.theme.dark ? 'bg--dark height-max' : 'bg--light height-max'
+      "
     >
       <!-- Style cascading bug  -->
       <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
@@ -82,6 +89,9 @@
           icon: 'mdi-logout',
           to: '/logout',
         }"
+        :class="
+          $vuetify.theme.dark ? 'bg--dark height-max' : 'bg--light height-max'
+        "
       />
     </template>
   </v-navigation-drawer>
@@ -104,8 +114,13 @@
     data: () => ({
       items: [
         {
-          icon: 'mdi-view-dashboard',
+          icon: 'mdi-view-dashboard-variant-outline',
           title: 'dashboard',
+          to: '/dashboard',
+        },
+        {
+          icon: 'mdi-view-dashboard',
+          title: 'menu',
           to: '/',
         },
         {
@@ -157,11 +172,17 @@
       profile () {
         return {
           avatar: true,
-          title: this.$t('avatar'),
+          title: this.users.firstName + ' ' + this.users.lastName,
         }
+      },
+      users () {
+        return this.$store.state.user.me
       },
     },
 
+    mounted () {
+      this.getMe()
+    },
     methods: {
       mapItem (item) {
         return {
@@ -169,6 +190,9 @@
           children: item.children ? item.children.map(this.mapItem) : undefined,
           title: this.$t(item.title),
         }
+      },
+      getMe () {
+        this.$store.dispatch('user/me')
       },
     },
   }
@@ -234,8 +258,20 @@
   font-weight: bold
   font-size: 20px
   height: 100% !important
+.bg--light
+  background-color: #F0F2F5 !important
+  border-bottom: 4px double #848E84 !important
+.bg--dark
+  background-color: #121212 !important
+  border-bottom: 4px double #848E84 !important
+on-hover
+  overflow-y: hidden !important
+.height-max
+  height: 100%
 .custumize-dark
   font-weight: bold
+.text-capitalize
+  text-transform: capitalize
 </style>
 <style>
 .custumize-light

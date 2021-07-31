@@ -21,19 +21,49 @@
             <iframe
               width="100%"
               height="400"
-              src="https://www.youtube.com/embed/8o49U8xAfZ4?autoplay=1&mute=1&rel=0&modestbranding=1&fs=1"
+              src="https://www.youtube.com/embed/liuSjQERYMk?autoplay=1&mute=1&rel=0&modestbranding=1&fs=1"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
               sandbox="allow-scripts allow-same-origin"
               allowfullscreen
               frameborder="0"
             />
+            <v-container>
+              <div class="d-flex flex-row justify-start">
+                <div class="d-flex flex-column">
+                  <v-chip
+                    outlined
+                    color="pallet1"
+                    label
+                  >
+                    <v-icon left>
+                      mdi-account-circle-outline
+                    </v-icon>
+                    <v-list-item-title>
+                      <h4 class="text-center">
+                        Mahardika Kessuma Denie || Beginner
+                      </h4>
+                    </v-list-item-title>
+                  </v-chip>
+                </div>
+              </div>
+              <div class="d-flex flex-row justify-start">
+                <div class="d-flex flex-column">
+                  <v-chip color="transparent">
+                    <h1>
+                      Tips Menjadi PROGRAMMER ZAMAN NOW Feat. Eko Kurniawan
+                      Khannedy
+                    </h1>
+                  </v-chip>
+                </div>
+              </div>
+            </v-container>
           </v-card>
-          <div class="d-flex flex-row justify-center align-center mt-12 py-2">
+          <div class="d-flex flex-row justify-center align-center">
             <div class="d-flex flex-column">
               <v-btn
                 large
                 outlined
-                color="grey"
+                color="pallet1"
                 width="300"
               >
                 Tambah Kelas
@@ -52,7 +82,7 @@
             <v-card-title>
               <v-app-bar
                 absolute
-                color="#6B75AA"
+                color="pallet1"
                 dark
                 src="https://picsum.photos/1920/1080?random"
                 scroll-target="#scrolling-techniques-3"
@@ -82,7 +112,7 @@
                 </v-btn>
                 <div
                   v-else
-                  class="d-flex flex-row mt-2 align-center"
+                  class="d-flex flex-row mt-5 align-center"
                 >
                   <div class="d-flex flex-column">
                     <v-text-field
@@ -99,8 +129,9 @@
               </v-app-bar>
             </v-card-title>
             <v-list
+              v-scroll.self="onScroll"
               max-height="600"
-              class="overflow"
+              class="overflow-y-auto"
             >
               <v-list-item>
                 <v-list-item-content>
@@ -151,7 +182,13 @@
     data: () => ({
       is_img: false,
       is_field: false,
+      scrollInvoked: 0,
     }),
+    methods: {
+      onScroll () {
+        this.scrollInvoked++
+      },
+    },
   }
 </script>
 
@@ -164,6 +201,11 @@
   border-bottom-left-radius: 20px !important
   border-bottom-right-radius: 20px !important
 .overflow
-    position: inherit
     overflow: auto
+.font
+  font-size: large
+.width-chips
+  width: 110px !important
+.text-center
+  text-align: center !important
 </style>
