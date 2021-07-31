@@ -10,6 +10,29 @@ use Modules\Classes\Entities\Schedule;
 
 class ScheduleController extends Controller
 {
+    public function autoPlay(Request $request)
+    {
+        try {
+            $me = $request->user();
+
+            $start_at = now()->toString();
+            // dd($start_at);
+            $schedules = Schedule::where('student_id', $me->id)
+                ->with('classes', 'student')
+                ->first();
+
+            $master = Schedule::with('classes', 'student')
+                ->findOrFail($request->input('schedule_id', $schedules->id));
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     public function haveSchedules(Request $request)
     {
         try {
@@ -18,7 +41,9 @@ class ScheduleController extends Controller
             $schedules = Schedule::join('class_schedules', 'schedules.id', '=', 'class_schedules.schedule_id')
                 ->select('schedules.*', 'class_schedules.class_id as class_id')
                 ->where('schedules.student_id', $me->id)
+                // ->where('status', $request->status)
                 ->with('classes', 'student')
+                ->search($request->search)
                 ->get();
 
             return Json::response($schedules);

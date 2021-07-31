@@ -44,4 +44,22 @@ class Schedule extends Model
 
         return $status;
     }
+
+    public function scopeSearch($query, $q)
+    {
+        if ($q != '' && $q != null) {
+            $query->where('name', 'like', '%' . $q . '%');
+        } else {
+            $query;
+        }
+    }
+
+    public function scopeDate($query, $start_at)
+    {
+        if ($start_at != null) {
+            return $query->whereDate('start_at', '==', $start_at);
+        }
+
+        return $query;
+    }
 }
