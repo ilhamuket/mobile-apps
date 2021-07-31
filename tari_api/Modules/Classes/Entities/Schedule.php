@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use Modules\Media\Entities\Post;
 
 class Schedule extends Model
 {
@@ -28,6 +28,11 @@ class Schedule extends Model
     public function classes()
     {
         return $this->belongsToMany(Classes::class, 'class_schedules', 'schedule_id', 'class_id');
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'class_id');
     }
 
     public function getStatusAttribute()
@@ -59,7 +64,6 @@ class Schedule extends Model
         if ($start_at != null) {
             return $query->whereDate('start_at', '==', $start_at);
         }
-
         return $query;
     }
 }

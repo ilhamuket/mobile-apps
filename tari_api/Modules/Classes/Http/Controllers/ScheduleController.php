@@ -21,7 +21,7 @@ class ScheduleController extends Controller
                 ->with('classes', 'student')
                 ->first();
 
-            $master = Schedule::with('classes', 'student')
+            $master = Schedule::with('classes', 'student', 'posts')
                 ->findOrFail($request->input('schedule_id', $schedules->id));
 
             return Json::response($master);
