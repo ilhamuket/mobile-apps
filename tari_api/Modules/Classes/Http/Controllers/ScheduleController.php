@@ -18,11 +18,23 @@ class ScheduleController extends Controller
             $start_at = now()->toString();
             // dd($start_at);
             $schedules = Schedule::where('student_id', $me->id)
-                ->with('classes', 'student')
+                // ->with('classes', 'student')
                 ->first();
 
-            $master = Schedule::with('classes', 'student', 'posts')
-                ->findOrFail($request->input('schedule_id', $schedules->id));
+            $master = Schedule::where('schedules.id', $request->input('schedule_id', $schedules->id))
+                ->join('classes', 'classes.id', '=', 'schedules.class_id')
+                ->join('posts', 'posts.class_id', '=', 'classes.id')
+                ->join('users', 'users.id', '=', 'posts.author_id')
+                ->select(
+                    'schedules.*',
+                    'posts.id as post_id',
+                    'posts.url',
+                    'posts.title_yt',
+                    'posts.thumbnail_url',
+                    'users.firstName as author_first_name',
+                    'users.lastName as author_last_name',
+                    'classes.type as class_type'
+                )->first();
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
@@ -35,25 +47,40 @@ class ScheduleController extends Controller
     }
     public function haveSchedules(Request $request)
     {
-        try {
-            $me = $request->user();
-            // dd($me->id);
-            $schedules = Schedule::join('class_schedules', 'schedules.id', '=', 'class_schedules.schedule_id')
-                ->select('schedules.*', 'class_schedules.class_id as class_id')
-                ->where('schedules.student_id', $me->id)
-                // ->where('status', $request->status)
-                ->with('classes', 'student')
-                ->search($request->search)
-                ->get();
+        // try {
+        $me = $request->user();
+        // dd($me->id);
+        // $schedules = Schedule::join('classes', 'classes.id', '=', 'schedules.class_id')
+        //     ->select('schedules.*', 'classes.id as class_id')
+        //     ->where('schedules.student_id', $me->id)
+        //     // ->where('status', $request->status)
+        //     ->with('classes', 'student', 'posts')
+        //     ->search($request->search)
+        //     ->get();
 
-            return Json::response($schedules);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
-        } catch (\Illuminate\Database\QueryException $e) {
-            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
-        } catch (\ErrorException $e) {
-            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
-        }
+        $master = Schedule::join('classes', 'classes.id', '=', 'schedules.class_id')
+            ->join('posts', 'posts.class_id', '=', 'classes.id')
+            ->join('users', 'users.id', '=', 'posts.author_id')
+            ->where('schedules.student_id', $me->id)
+            ->select(
+                'schedules.*',
+                'posts.id as post_id',
+                'posts.url',
+                'posts.title_yt',
+                'posts.thumbnail_url',
+                'users.firstName as author_first_name',
+                'users.lastName as author_last_name',
+                'classes.type as class_type'
+            )->get();
+
+        return Json::response($master);
+        // } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+        //     return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        // } catch (\Illuminate\Database\QueryException $e) {
+        //     return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        // } catch (\ErrorException $e) {
+        //     return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        // }
     }
     /**
      * Display a listing of the resource.
@@ -62,7 +89,7 @@ class ScheduleController extends Controller
     public function index()
     {
         try {
-            $master = Schedule::with('student', 'classes')->get();
+            $master = Schedule::with('student', 'classes', 'posts')->get();
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

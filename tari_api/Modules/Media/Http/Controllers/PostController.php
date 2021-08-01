@@ -52,16 +52,17 @@ class PostController extends Controller
             $validator = \Validator::make($request->all(), [
                 'url' => 'required'
             ]);
-            $post = new Post();
-            $post->title = $request->title;
-            $post->author_id = $request->user()->id;
-            $post->status = $request->input('status', 'priview');
-            $post->category_id = $request->category_id;
-            $post->class_id = $request->class_id;
-            $post->isVerified = false;
-            $post->type = $request->type;
+
             if (is_array($request->url)) {
                 foreach ($request->url as $url) {
+                    $post = new Post();
+                    $post->title = $request->title;
+                    $post->author_id = $request->user()->id;
+                    $post->status = $request->input('status', 'priview');
+                    $post->category_id = $request->category_id;
+                    $post->class_id = $request->class_id;
+                    $post->isVerified = false;
+                    $post->type = $request->type;
                     $yid = explode('v=', $url);
                     if (isset($yid[1])) {
                         $content_id = $yid[1];
@@ -80,9 +81,10 @@ class PostController extends Controller
                     $post->title_yt = $res['title'];
                     $post->slug = \Str::slug($res['title']);
                     $post->thumbnail_url = $res['thumbnail_url'];
+                    $post->save();
                 }
             }
-            $post->save();
+
 
             return Json::response($post);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

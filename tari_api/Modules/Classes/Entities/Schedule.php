@@ -27,12 +27,12 @@ class Schedule extends Model
 
     public function classes()
     {
-        return $this->belongsToMany(Classes::class, 'class_schedules', 'schedule_id', 'class_id');
+        return $this->hasMany(Classes::class, 'schedule_id');
     }
 
     public function posts()
     {
-        return $this->hasMany(Post::class, 'class_id');
+        return $this->belongsTo(Post::class, 'class_id');
     }
 
     public function getStatusAttribute()

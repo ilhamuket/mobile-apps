@@ -21,6 +21,7 @@ use Modules\Classes\Http\Controllers\ScheduleController;
 
 Route::prefix('classes')->middleware(['auth:sanctum'])->group(function () {
     Route::get('', [ClassesController::class, 'index']);
+    Route::post('', [ClassesController::class, 'store']);
 
     Route::get('schedule', [ScheduleController::class, 'index']);
     Route::get('schedule/me', [ScheduleController::class, 'haveSchedules']);

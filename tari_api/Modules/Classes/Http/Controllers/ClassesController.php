@@ -17,7 +17,7 @@ class ClassesController extends Controller
     public function index()
     {
         try {
-            $master = Classes::with('teacher')->get();
+            $master = Classes::with('teacher', 'posts')->get();
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
@@ -45,7 +45,24 @@ class ClassesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $master = new Classes();
+            $master->name = $request->name;
+            $master->display_name = $request->display_name;
+            $master->author_id = $request->user()->id;
+            $master->teacher_id = $request->teacher_id;
+            $master->status = $request->status;
+            $master->type = $request->type;
+            $master->save();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = nev('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**
