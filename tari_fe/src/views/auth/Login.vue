@@ -2,7 +2,10 @@
   <v-app>
     <div class="d-flex flex-row justify-center my-auto">
       <div class="d-flex flex-column">
-        <base-material-card icon="mdi-login-variant">
+        <base-material-card
+          icon="mdi-login-variant"
+          color="pallet1"
+        >
           <template v-slot:heading>
             <div class="d-flex flex-row justify-center">
               <div class="d-flex flex-column">
@@ -77,7 +80,7 @@
                       </v-btn>
                     </v-chip>
                     <v-btn
-                      color="primary"
+                      color="pallet1"
                       width="100%"
                       type="submit"
                       @click.prevent="login"

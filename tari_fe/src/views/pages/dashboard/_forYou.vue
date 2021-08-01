@@ -21,7 +21,9 @@
             <iframe
               width="100%"
               height="400"
-              src="https://www.youtube.com/embed/liuSjQERYMk?autoplay=1&mute=1&rel=0&modestbranding=1&fs=1&loop=0"
+              :src="
+                `${vidios.url}?autoplay=1&mute=1&rel=0&modestbranding=1&fs=1&loop=0&autopause=0`
+              "
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
               sandbox="allow-scripts allow-same-origin"
               allowfullscreen
@@ -33,14 +35,20 @@
                   <v-chip
                     outlined
                     color="pallet1"
+                    text-color=""
                     label
                   >
                     <v-icon left>
                       mdi-account-circle-outline
                     </v-icon>
                     <v-list-item-title>
-                      <h4 class="text-center">
-                        Mahardika Kessuma Denie || Beginner
+                      <h4 class="text-center text-capitalize">
+                        {{
+                          vidios.author_first_name +
+                            ' ' +
+                            vidios.author_last_name
+                        }}
+                        || {{ vidios.class_type }}
                       </h4>
                     </v-list-item-title>
                   </v-chip>
@@ -50,8 +58,7 @@
                 <div class="d-flex flex-column">
                   <v-chip color="transparent">
                     <h1>
-                      Tips Menjadi PROGRAMMER ZAMAN NOW Feat. Eko Kurniawan
-                      Khannedy
+                      {{ vidios.title_yt }}
                     </h1>
                   </v-chip>
                 </div>
@@ -271,11 +278,24 @@
 
 <script>
   export default {
+    props: {
+      vidios: {
+        type: Object,
+        default: null,
+      },
+      playList: {
+        type: Array,
+        default: null,
+      },
+    },
     data: () => ({
       is_img: false,
       is_field: false,
       scrollInvoked: 0,
     }),
+    mounted () {
+      console.log(this.vidios)
+    },
     methods: {
       onScroll () {
         this.scrollInvoked++
