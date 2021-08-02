@@ -22,6 +22,11 @@ import vuetify from './plugins/vuetify'
 import i18n from './i18n'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import VueSweetalert2 from 'vue-sweetalert2'
+
+import 'sweetalert2/dist/sweetalert2.min.css'
+
+Vue.use(VueSweetalert2)
 
 Vue.use(VueAxios, axios)
 
