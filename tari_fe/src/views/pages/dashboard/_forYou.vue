@@ -19,6 +19,7 @@
         >
           <v-card>
             <iframe
+              class="iframe"
               width="100%"
               height="400"
               :src="
@@ -72,6 +73,7 @@
                 outlined
                 color="pallet1"
                 width="300"
+                @click="addDialog"
               >
                 Tambah Kelas
               </v-btn>
@@ -82,191 +84,118 @@
           cols="12"
           md="4"
         >
-          <v-card
-            overflow-hidden
-            color="transparent"
-          >
-            <v-card-title>
-              <v-app-bar
-                absolute
-                color="pallet1"
-                dark
-                src="https://picsum.photos/1920/1080?random"
-                scroll-target="#scrolling-techniques-3"
+          <v-card color="transparent">
+            <v-app-bar
+              absolute
+              color="pallet1"
+              dark
+              src="https://picsum.photos/1920/1080?random"
+              scroll-target="#scrolling-techniques-3"
+            >
+              <template v-slot:img="{ props }">
+                <v-img
+                  v-bind="props"
+                  gradient="to top right, rgba(100,115,201,.7), rgba(25,32,72,.7)"
+                />
+              </template>
+
+              <v-app-bar-title v-if="is_field === false">
+                <h3>
+                  Kelas Hari Ini
+                </h3>
+              </v-app-bar-title>
+
+              <v-spacer />
+
+              <v-btn
+                v-if="is_field === false"
+                icon
               >
-                <template v-slot:img="{ props }">
-                  <v-img
-                    v-bind="props"
-                    gradient="to top right, rgba(100,115,201,.7), rgba(25,32,72,.7)"
+                <v-icon @click="is_field = true">
+                  mdi-magnify
+                </v-icon>
+              </v-btn>
+              <div
+                v-else
+                class="d-flex flex-row mt-5 align-center"
+              >
+                <div class="d-flex flex-column">
+                  <v-text-field
+                    append-icon="mdi-magnify"
+                    class="mt-5 ml-9"
+                    outlined
+                    rounded
+                    width="100%"
+                    dense
+                    @click:append="is_field = false"
                   />
-                </template>
-
-                <v-app-bar-title v-if="is_field === false">
-                  <h3>
-                    Kelas Hari Ini
-                  </h3>
-                </v-app-bar-title>
-
-                <v-spacer />
-
-                <v-btn
-                  v-if="is_field === false"
-                  icon
-                >
-                  <v-icon @click="is_field = true">
-                    mdi-magnify
-                  </v-icon>
-                </v-btn>
-                <div
-                  v-else
-                  class="d-flex flex-row mt-5 align-center"
-                >
-                  <div class="d-flex flex-column">
-                    <v-text-field
-                      append-icon="mdi-magnify"
-                      class="mt-5 ml-9"
-                      outlined
-                      rounded
-                      width="100%"
-                      dense
-                      @click:append="is_field = false"
-                    />
-                  </div>
                 </div>
-              </v-app-bar>
-            </v-card-title>
+              </div>
+            </v-app-bar>
+
             <v-list
               v-scroll.self="onScroll"
               max-height="600"
               class="overflow-y-auto"
             >
-              <v-list-item>
-                <v-list-item-content>
-                  <base-card>
-                    <v-img
-                      class="mt-12 img-shadow"
-                      width="100%"
-                      height="200"
-                      src="https://i.ytimg.com/vi/liuSjQERYMk/hqdefault.jpg"
-                    >
-                      <v-row class="fill-height text-right ma-0">
-                        <v-col cols="12">
-                          <v-chip
-                            label
-                            class="mx-0 mb-2 text-uppercase"
-                            color="grey darken-3"
-                            text-color="white"
-                            small
-                            @click.stop=""
-                          >
-                            Ballet
-                          </v-chip>
+              <v-list-item
+                v-for="(list, i) in schedule"
+                :key="i"
+              >
+                <v-card
+                  v-if="
+                    list.status === 'ongoing' &&
+                      list.title_yt !== vidios.title_yt
+                  "
+                >
+                  <v-img
+                    class="mt-12 img-shadow"
+                    style="cursor:pointer"
+                    width="100%"
+                    height="230"
+                    :src="`${list.thumbnail_url}`"
+                    @click="play(list)"
+                  >
+                    <v-row class="fill-height text-right ma-0">
+                      <v-col cols="12">
+                        <v-chip
+                          label
+                          class="mx-0 ml-2 mb-2 text-uppercase"
+                          color="pallet1"
+                          text-color="white"
+                          small
+                          @click.stop=""
+                        >
+                          {{
+                            list.author_first_name + ' ' + list.author_last_name
+                          }}
+                          || {{ list.class_type }}
+                        </v-chip>
+                      </v-col>
 
-                          <!-- <v-chip class="">
-                            Mahardika || Beginner
-                          </v-chip> -->
-                          <v-chip
-                            label
-                            class="mx-0 ml-2 mb-2 text-uppercase"
-                            color="red darken-3"
-                            text-color="white"
-                            small
-                            @click.stop=""
-                          >
-                            Mahardika Kessuma Denie || Beginner
-                          </v-chip>
-                        </v-col>
+                      <v-col align-self="end">
+                        <v-chip
+                          class="text-uppercase ma-0"
+                          color="primary"
+                          label
+                          small
+                        >
+                          {{ list.status }}
+                        </v-chip>
+                      </v-col>
+                    </v-row>
+                  </v-img>
 
-                        <v-col class="mx-auto ml-12 px-4 mr-12 mb-12">
-                          <div
-                            class="d-flex flex-row justify-center float-right mx-auto"
-                          >
-                            <v-list-item class="mr-12">
-                              <v-list-item-avatar left>
-                                <v-icon
-                                  class="icon-large"
-                                  x-large
-                                  color="pallet1"
-                                  @click="play"
-                                >
-                                  mdi-play-circle
-                                </v-icon>
-                              </v-list-item-avatar>
-                            </v-list-item>
-                          </div>
-                        </v-col>
-
-                        <!-- <v-col align-self="end">
-                          <v-chip
-                            class="text-uppercase ma-0"
-                            color="primary"
-                            label
-                            small
-                          >
-                            Read More
-                          </v-chip>
-                        </v-col> -->
-                      </v-row>
-                    </v-img>
-
-                    <v-container>
-                      <div class="d-flex flex-row justify-start">
-                        <div class="d-flex flex-column">
-                          <!-- <v-chip
-                            outlined
-                            color="pallet1"
-                            label
-                            small
-                          >
-                            <v-icon left>
-                              mdi-account-circle-outline
-                            </v-icon>
-                            <v-list-item-title class="overflow-x">
-                              <h5 class="text-center">
-                                Tips Menjadi PROGRAMMER ZAMAN NOW Feat. Eko
-                                Kurniawan Khannedy
-                              </h5>
-                            </v-list-item-title>
-                          </v-chip> -->
-                          <p>
-                            Tips Menjadi PROGRAMMER ZAMAN NOW Feat. Eko
-                            Kurniawan Khannedy
-                          </p>
-                        </div>
+                  <v-container>
+                    <div class="d-flex flex-row justify-start">
+                      <div class="d-flex flex-column">
+                        <p>
+                          {{ list.title_yt }}
+                        </p>
                       </div>
-                      <!-- <div class="d-flex flex-row justify-start float-left ">
-                        <div class="d-flex flex-column">
-                          <v-chip color="transparent">
-                            <h4>
-                              Tips Menjadi PROGRAMMER ZAMAN NOW Feat. Eko
-                              Kurniawan Khannedy
-                            </h4>
-                          </v-chip>
-                        </div>
-                      </div> -->
-                    </v-container>
-                  </base-card>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-content>
-                  <v-img
-                    class="mt-12 img-shadow"
-                    width="100%"
-                    height="200"
-                    src="https://i.ytimg.com/vi/2xhdt43QDCo/hqdefault.jpg"
-                  />
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-content>
-                  <v-img
-                    class="mt-12 img-shadow"
-                    width="100%"
-                    height="200"
-                    src="https://i.ytimg.com/vi/J1E5kG6369c/hqdefault.jpg"
-                  />
-                </v-list-item-content>
+                    </div>
+                  </v-container>
+                </v-card>
               </v-list-item>
             </v-list>
           </v-card>
@@ -283,7 +212,7 @@
         type: Object,
         default: null,
       },
-      playList: {
+      schedule: {
         type: Array,
         default: null,
       },
@@ -292,16 +221,46 @@
       is_img: false,
       is_field: false,
       scrollInvoked: 0,
+      dialog: {
+        open: false,
+      },
     }),
-    mounted () {
-      console.log(this.vidios)
-    },
+    mounted () {},
     methods: {
       onScroll () {
         this.scrollInvoked++
       },
-      play () {
-        console.log('click')
+      play (item) {
+        this.$emit('input', { item: item })
+      },
+      addDialog () {
+        this.dialog.open = !this.dialog.open
+        this.$emit('dialog', { item: this.dialog })
+
+        const Toast = this.$swal.mixin({
+          toast: true,
+          position: 'top-end',
+          icon: 'success',
+          title: 'Your work has been saved',
+          showConfirmButton: false,
+          timer: 1500,
+          didOpen: toast => {
+            toast.addEventListener('mouseenter', this.$swal.stopTimer)
+            toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+          },
+          popup: 'swal2-show',
+          backdrop: 'swal2-backdrop-show',
+        // icon: 'swal2-icon-show',
+        })
+
+        Toast.fire({
+          icon: 'success',
+          title: 'Dialog Di Buka',
+        })
+      },
+      closeDialog () {
+        this.dialog.open = false
+        this.$emit('close', { item: this.dialog })
       },
     },
   }
@@ -316,7 +275,7 @@
   border-bottom-left-radius: 20px !important
   border-bottom-right-radius: 20px !important
 .overflow
-    overflow: auto
+  overflow: auto !important
 .font
   font-size: large
 .width-chips

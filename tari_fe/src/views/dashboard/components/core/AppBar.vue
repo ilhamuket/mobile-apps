@@ -32,7 +32,7 @@
 
     <div class="mx-3" />
 
-    <v-menu
+    <!-- <v-menu
       bottom
       left
       offset-y
@@ -69,13 +69,12 @@
           <v-list-item
             v-for="(n, i) in notifications"
             :key="`item-${i}`"
-            class="overflow-y"
           >
             <v-list-item-title v-text="n" />
           </v-list-item>
         </v-list-item-group>
       </v-list>
-    </v-menu>
+    </v-menu> -->
 
     <v-switch
       v-model="$vuetify.theme.dark"
@@ -207,16 +206,16 @@
       notify: false,
       model: null,
       items: [
-        {
-          icon: 'mdi-wifi',
-          text: 'Setting',
-          to: '/pages/user',
-        },
-        {
-          icon: 'mdi-bluetooth',
-          text: 'Bluetooth',
-          to: '/index/announcement',
-        },
+        // {
+        //   icon: 'mdi-wifi',
+        //   text: 'Setting',
+        //   to: '/pages/user',
+        // },
+        // {
+        //   icon: 'mdi-bluetooth',
+        //   text: 'Bluetooth',
+        //   to: '/index/announcement',
+        // },
         {
           icon: 'mdi-logout',
           text: 'Logout',
