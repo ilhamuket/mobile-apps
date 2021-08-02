@@ -30,10 +30,10 @@ class Schedule extends Model
         return $this->belongsTo(Classes::class, 'schedule_id');
     }
 
-    public function posts()
-    {
-        return $this->belongsTo(Post::class, 'class_id');
-    }
+    // public function posts()
+    // {
+    //     return $this->belongsTo(Post::class, 'class_id');
+    // }
 
     public function getStatusAttribute()
     {
@@ -62,7 +62,7 @@ class Schedule extends Model
     public function scopeDate($query, $start_at)
     {
         if ($start_at != null) {
-            return $query->whereDate('start_at', '==', $start_at);
+            return $query->whereDate('start_at', $start_at);
         }
         return $query;
     }

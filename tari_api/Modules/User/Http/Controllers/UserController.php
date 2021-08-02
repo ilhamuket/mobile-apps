@@ -11,6 +11,10 @@ use Modules\User\Entities\User;
 
 class UserController extends Controller
 {
+    public function coba()
+    {
+        return Json::response('');
+    }
     public function me(Request $request)
     {
         try {

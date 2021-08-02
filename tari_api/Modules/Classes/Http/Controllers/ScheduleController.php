@@ -47,49 +47,54 @@ class ScheduleController extends Controller
     }
     public function haveSchedules(Request $request)
     {
-        // try {
-        $me = $request->user();
-        // dd($me->id);
-        // $schedules = Schedule::join('classes', 'classes.id', '=', 'schedules.class_id')
-        //     ->select('schedules.*', 'classes.id as class_id')
-        //     ->where('schedules.student_id', $me->id)
-        //     // ->where('status', $request->status)
-        //     ->with('classes', 'student', 'posts')
-        //     ->search($request->search)
-        //     ->get();
+        try {
+            $me = $request->user();
 
-        $master = Schedule::join('classes', 'classes.id', '=', 'schedules.class_id')
-            ->join('posts', 'posts.class_id', '=', 'classes.id')
-            ->join('users', 'users.id', '=', 'posts.author_id')
-            ->where('schedules.student_id', $me->id)
-            ->select(
-                'schedules.*',
-                'posts.id as post_id',
-                'posts.url',
-                'posts.title_yt',
-                'posts.thumbnail_url',
-                'users.firstName as author_first_name',
-                'users.lastName as author_last_name',
-                'classes.type as class_type'
-            )->get();
+            // dd($me->id);
+            // $schedules = Schedule::join('classes', 'classes.id', '=', 'schedules.class_id')
+            //     ->select('schedules.*', 'classes.id as class_id')
+            //     ->where('schedules.student_id', $me->id)
+            //     // ->where('status', $request->status)
+            //     ->with('classes', 'student', 'posts')
+            //     ->search($request->search)
+            //     ->get();
 
-        return Json::response($master);
-        // } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-        //     return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
-        // } catch (\Illuminate\Database\QueryException $e) {
-        //     return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
-        // } catch (\ErrorException $e) {
-        //     return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
-        // }
+            $master = Schedule::join('classes', 'classes.id', '=', 'schedules.class_id')
+                ->join('posts', 'posts.class_id', '=', 'classes.id')
+                ->join('users', 'users.id', '=', 'posts.author_id')
+                ->where('schedules.student_id', $me->id)
+                ->select(
+                    'schedules.*',
+                    'posts.id as post_id',
+                    'posts.url',
+                    'posts.title_yt',
+                    'posts.thumbnail_url',
+                    'users.firstName as author_first_name',
+                    'users.lastName as author_last_name',
+                    'classes.type as class_type'
+                )
+                ->date($request->start_at)
+                ->get();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $master = Schedule::with('student', 'classes', 'posts')->get();
+            $me = $request->user();
+            dd($me->hasRole('admin'));
+            $master = Schedule::with('student', 'classes')->get();
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

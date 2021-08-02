@@ -24,7 +24,7 @@ Route::prefix('classes')->middleware(['auth:sanctum'])->group(function () {
     Route::post('', [ClassesController::class, 'store']);
 
     Route::get('schedule', [ScheduleController::class, 'index']);
-    Route::get('schedule/me', [ScheduleController::class, 'haveSchedules']);
+    Route::get('schedule/me', [ScheduleController::class, 'haveSchedules'])->middleware(['role:SuperAdmin|admin']);
     Route::post('schedule', [ScheduleController::class, 'store']);
-    Route::get('schedule/show', [ScheduleController::class, 'autoPlay']);
+    Route::get('schedule/show', [ScheduleController::class, 'autoPlay'])->middleware('role:SuperAdmin');
 });
