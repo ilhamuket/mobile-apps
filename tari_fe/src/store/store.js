@@ -4,6 +4,7 @@ import auth from './modules/auth'
 import user from './modules/user'
 import vidios from './modules/vidios'
 import classes from './modules/class'
+import category from './modules/category'
 
 Vue.use(Vuex)
 
@@ -13,6 +14,7 @@ export default new Vuex.Store({
     user: user,
     vidios: vidios,
     class: classes,
+    category: category,
   },
   state: {
     barColor: 'rgba(0, 0, 0, .8), rgba(0, 0, 0, .8)',

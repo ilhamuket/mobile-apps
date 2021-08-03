@@ -24,7 +24,14 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueSweetalert2 from 'vue-sweetalert2'
 
+import moment from 'moment-timezone'
+import VueMoment from 'vue-moment'
+
 import 'sweetalert2/dist/sweetalert2.min.css'
+
+Vue.use(VueMoment, {
+  moment,
+})
 
 Vue.use(VueSweetalert2)
 

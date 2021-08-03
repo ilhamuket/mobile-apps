@@ -19,8 +19,6 @@
       />
     </template>
 
-    <v-divider class="mb-1" />
-
     <v-list
       dense
       nav
@@ -44,11 +42,43 @@
             class="text-capitalize"
             v-text="profile.title"
           />
+          <v-list-item-subtitle
+            class="text-capitalize"
+            v-text="users.role_name"
+          />
         </v-list-item-content>
       </v-list-item>
     </v-list>
 
-    <!-- <v-divider class="mb-2" /> -->
+    <v-list
+      v-if="users && filterAdmin"
+      expand
+      nav
+      :class="$vuetify.theme.dark ? 'bg--dark' : 'bg--light'"
+    >
+      <!-- Style cascading bug  -->
+      <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
+
+      <template v-for="(item, i) in computedItemsForAdmin">
+        <base-item-group
+          v-if="item.children"
+          :key="`group-${i}`"
+          :item="item"
+        >
+          <!--  -->
+        </base-item-group>
+
+        <base-item
+          v-else
+          :key="`item-${i}`"
+          :item="item"
+        />
+      </template>
+
+      <!-- Style cascading bug  -->
+      <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
+      <div />
+    </v-list>
 
     <v-list
       expand
@@ -154,6 +184,13 @@
           to: '/components/notifications',
         },
       ],
+      itemsAdmin: [
+        {
+          icon: 'mdi-shape-outline',
+          title: 'category',
+          to: '/category',
+        },
+      ],
     }),
 
     computed: {
@@ -166,8 +203,20 @@
           this.$store.commit('SET_DRAWER', (val = false))
         },
       },
+      filterAdmin () {
+        // const Me = localStorage.getItem('ME')
+        const users = this.users
+        if (users.roles) {
+          return users.roles.some(x => x.name === 'superadmin')
+        }
+
+        return false
+      },
       computedItems () {
         return this.items.map(this.mapItem)
+      },
+      computedItemsForAdmin () {
+        return this.itemsAdmin.map(this.mapItemAdmin)
       },
       profile () {
         return {
@@ -188,6 +237,15 @@
         return {
           ...item,
           children: item.children ? item.children.map(this.mapItem) : undefined,
+          title: this.$t(item.title),
+        }
+      },
+      mapItemAdmin (item) {
+        return {
+          ...item,
+          children: item.children
+            ? item.children.map(this.mapItemAdmin)
+            : undefined,
           title: this.$t(item.title),
         }
       },

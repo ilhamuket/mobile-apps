@@ -13,7 +13,10 @@
         </v-col>
       </v-row>
     </v-container>
-    <app-dialog-add :dialog="dialog" />
+    <app-dialog-add
+      :dialog="dialog"
+      :classes="classes"
+    />
   </v-app>
 </template>
 
@@ -39,6 +42,9 @@
       playlist () {
         return this.$store.state.vidios.playlist
       },
+      classes () {
+        return this.$store.state.class.classes
+      },
       currentDate () {
         const today = new Date()
         const year = today.getFullYear()
@@ -52,14 +58,16 @@
     mounted () {
       this.getVidios()
       this.getPlayList()
-      console.log(this.currentDate)
+      this.getClasses()
     },
     methods: {
+      // vidios SHow
       getVidios () {
         this.$store.dispatch('vidios/showVidios', {
           schedule_id: localStorage.getItem('schedule_id'),
         })
       },
+      // Playlist
       getPlayList () {
         this.$store.dispatch('vidios/getPlayList', {
           start: this.currentDate,
@@ -70,6 +78,7 @@
         localStorage.setItem('schedule_id', this.id)
         this.getVidios()
       },
+      // Dialog
       openDialog (event) {
         this.dialog = event.item
       },
@@ -93,6 +102,12 @@
         Toast.fire({
           icon: 'error',
           title: 'Password atau Email Anda salah',
+        })
+      },
+      // classes List
+      getClasses () {
+        this.$store.dispatch('class/getClasses').then(res => {
+          console.log(res)
         })
       },
     },

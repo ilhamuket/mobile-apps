@@ -58,21 +58,33 @@
                 max-height="300"
                 class="overflow-y-auto"
               >
-                <v-list-item class="mb-2">
+                <v-list-item
+                  v-for="list in classes"
+                  :key="list.id"
+                  class="mb-2"
+                >
                   <v-card>
-                    <div class="d-flex flex-row flex-nowrap">
+                    <div
+                      v-if="list.posts"
+                      class="d-flex flex-row flex-nowrap"
+                    >
                       <div class="d-flex flex-column">
                         <v-img
-                          src="https://i.ytimg.com/vi/dJ9NEUjd__k/hqdefault.jpg"
+                          :src="`${list.posts.thumbnail_url}`"
                           width="242"
                           height="100"
                         />
                       </div>
                     </div>
-                    <div class="d-flex flex-column ml-2">
+                    <div
+                      v-if="list.posts && list.teacher"
+                      class="d-flex flex-column ml-2"
+                    >
                       <h6 class="text-nowrap">
-                        [ 1 Hour ] Camilo , Pedro Capó -- Tutu - Alma Zarza
-                        Cover ( Tiktok Song ) - Mahardika
+                        {{ list.posts.title_yt }} -
+                        {{
+                          list.teacher.firstName + ' ' + list.teacher.lastName
+                        }}
                       </h6>
                     </div>
                     <div class="d-flex flex-row-reverse justify-center mb-2">
@@ -87,7 +99,7 @@
                     </div>
                   </v-card>
                 </v-list-item>
-                <v-list-item class="mb-2">
+                <!-- <v-list-item class="mb-2">
                   <v-card>
                     <div class="d-flex flex-row flex-nowrap">
                       <div class="d-flex flex-column">
@@ -143,7 +155,7 @@
                       </div>
                     </div>
                   </v-card>
-                </v-list-item>
+                </v-list-item> -->
               </v-list>
             </v-col>
           </v-row>
@@ -175,6 +187,10 @@
     props: {
       dialog: {
         type: Object,
+        default: null,
+      },
+      classes: {
+        type: Array,
         default: null,
       },
     },

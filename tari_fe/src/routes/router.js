@@ -90,6 +90,15 @@ const router = new Router({
             requiresAuth: true,
           },
         },
+        // Categories
+        {
+          name: 'Category',
+          path: '/category',
+          component: () => import('@/views/pages/classes/category/Index'),
+          meta: {
+            requiresAuth: true,
+          },
+        },
       ],
     },
     {
