@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AlterTableClass extends Migration
+class AlterTableAddColumnForeignKeyClassIdInTableSchedule extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class AlterTableClass extends Migration
      */
     public function up()
     {
-        Schema::table('classes', function (Blueprint $table) {
-            $table->dropForeign(['schedule_id']);
-            $table->dropColumn('schedule_id');
+        Schema::table('schedules', function (Blueprint $table) {
+            $table->foreignId('class_id')->constrained();
         });
     }
 
@@ -26,8 +25,9 @@ class AlterTableClass extends Migration
      */
     public function down()
     {
-        Schema::table('classes', function (Blueprint $table) {
-            $table->foreignId('schedule_id')->nullable()->constrained();
+        Schema::table('schedules', function (Blueprint $table) {
+            $table->dropForeign(['class_id']);
+            $table->dropColumn('class_id');
         });
     }
 }

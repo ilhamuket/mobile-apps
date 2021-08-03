@@ -11,15 +11,16 @@ use Modules\User\Entities\User;
 
 class UserController extends Controller
 {
-    public function coba()
-    {
-        return Json::response('');
-    }
+
     public function me(Request $request)
     {
         try {
             $me = $request->user();
-            $user = User::with('roles')->findOrFail($me->id);
+            $user = User::join('model_has_roles', 'model_has_roles.model_id', "=", "users.id")
+                ->join('roles', 'model_has_roles.role_id', '=', 'roles.id')
+                ->with('roles')
+                ->select('users.*', 'roles.name as role_name')
+                ->findOrFail($me->id);
 
             return Json::response($user);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

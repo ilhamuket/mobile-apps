@@ -17,7 +17,9 @@ class ClassesController extends Controller
     public function index()
     {
         try {
-            $master = Classes::with('teacher', 'posts')->get();
+            $master = Classes::with('teacher', 'posts')
+
+                ->get();
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

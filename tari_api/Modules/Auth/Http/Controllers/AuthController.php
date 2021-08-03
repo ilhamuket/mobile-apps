@@ -35,7 +35,7 @@ class AuthController extends Controller
             $master->dateOfBirth = $request->input('dateOfBirth', now());
             $master->homeAddress = $request->homeAddress;
             $master->save();
-            $master->assignRole('SuperAdmin');
+            $master->assignRole('superadmin');
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
