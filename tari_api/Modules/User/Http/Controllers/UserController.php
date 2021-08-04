@@ -2,12 +2,12 @@
 
 namespace Modules\User\Http\Controllers;
 
+use App\Models\User;
 use Brryfrmnn\Transformers\Json;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\User\Entities\Role;
-use Modules\User\Entities\User;
 
 class UserController extends Controller
 {
@@ -18,7 +18,7 @@ class UserController extends Controller
             $me = $request->user();
             $user = User::join('model_has_roles', 'model_has_roles.model_id', "=", "users.id")
                 ->join('roles', 'model_has_roles.role_id', '=', 'roles.id')
-                ->with('roles')
+                ->with('role')
                 ->select('users.*', 'roles.name as role_name')
                 ->findOrFail($me->id);
 

@@ -21,4 +21,17 @@ class Category extends Model
     {
         return $this->hasMany(Post::class);
     }
+
+    public function scopeVerified($query, $verified)
+    {
+        if ($verified == 'verified') {
+            $query->where('isVerified', true);
+        } else if ($verified == 'not_verified') {
+            $query->where('isVerified', false);
+        } else if ($verified == 'deleted') {
+            $query->onlyTrashed();
+        } else {
+            return $query;
+        }
+    }
 }

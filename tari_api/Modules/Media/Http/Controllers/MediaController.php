@@ -10,14 +10,29 @@ use Modules\Media\Entities\Category;
 
 class MediaController extends Controller
 {
+    public function summary(Request $request)
+    {
+        $me = $request->user();
+
+        $master = Category::SelectRaw(
+            '
+                count(id) as total,
+                (SELECT COUNT(id) from categories WHERE isVerified =  \'1\' ) as verified,
+                (SELECT COUNT(id) from categories WHERE isVerified =  \'0\' ) as not_verified,
+                (SELECT COUNT(id) from categories WHERE deleted_at is not null ) as deleted
+            '
+        )->first();
+
+        return Json::response($master);
+    }
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $master = Category::with('posts')->get();
+            $master = Category::with('posts')->verified($request->verified)->get();
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

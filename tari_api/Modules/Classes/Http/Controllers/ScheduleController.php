@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Classes\Entities\Schedule;
+use Modules\Media\Entities\Category;
 
 class ScheduleController extends Controller
 {

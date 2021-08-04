@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+// use Illuminate\Routing\Route;
 use Modules\Classes\Http\Controllers\ClassesController;
 use Modules\Media\Http\Controllers\MediaController;
 use Modules\Media\Http\Controllers\PostController;
@@ -28,4 +29,8 @@ Route::prefix('media')->middleware(['auth:sanctum'])->group(function () {
     Route::post('category', [MediaController::class, 'store']);
     Route::patch('category/{id}', [MediaController::class, 'update']);
     Route::delete('category/{id}', [MediaController::class, 'destroy']);
+});
+
+Route::prefix('summary')->middleware(['auth:sanctum'])->group(function () {
+    Route::get('category', [MediaController::class, 'summary']);
 });
