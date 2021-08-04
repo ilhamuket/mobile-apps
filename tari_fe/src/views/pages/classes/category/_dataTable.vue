@@ -29,7 +29,6 @@
           <v-btn
             outlined
             color="pallet1"
-            width="130"
             class="ml-10"
             @click="openDialog"
           >
@@ -143,6 +142,11 @@
         name: '',
         status: '',
       },
+      removeDialog: {
+        open: false,
+        id: 0,
+        name: '',
+      },
       search: '',
     }),
     methods: {
@@ -163,11 +167,59 @@
         this.editDialog.status = item.status
         this.$emit('edit', { item: this.editDialog })
       },
+      removeData (item) {
+        // this.removeDialog.open = true
+        // this.removeDialog.id = item.id
+        // this.removeDialog.name = item.name
+        // this.$emit('remove', { item: this.removeDialog })
+        this.$swal
+          .fire({
+            title: `Yakin Ingin Menghapus Category ${item.name}`,
+            icon: 'question',
+            // text: 'Something went wrong!',
+            showCancelButton: true,
+            cancelButtonText: 'Kembali',
+            confirmButtonText: 'Hapus!',
+          })
+          .then(result => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+              this.$store
+                .dispatch('category/removeData', {
+                  id: item.id,
+                })
+                .then(res => {
+                  const Toast = this.$swal.mixin({
+                    toast: true,
+                    position: 'bottom-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: toast => {
+                      toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                      toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                    },
+                    popup: 'swal2-show',
+                    backdrop: 'swal2-backdrop-show',
+                    icon: 'swal2-icon-show',
+                  })
+
+                  Toast.fire({
+                    icon: 'success',
+                    title: 'Data Sudah Berhasil DiHapus',
+                  })
+                })
+            } else if (result.isDismissed) {
+              this.$swal.fire('Kembali', '', 'error')
+            }
+          })
+      },
     },
   }
 </script>
 
 <style lang="sass" scoped>
+
 .chips-hover
   cursor: pointer
   &:hover

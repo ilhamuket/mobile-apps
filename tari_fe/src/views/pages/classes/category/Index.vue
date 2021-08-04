@@ -48,7 +48,7 @@
           <app-data-table
             :data="category"
             @openDialog="openDialog"
-            @edit="editData"
+            @edit="editDialog"
           />
         </v-col>
       </v-row>
@@ -57,7 +57,10 @@
       :dialog="dialog"
       @input="insertData"
     />
-    <app-data-edit-dialog :dialog="dialogEdit" />
+    <app-data-edit-dialog
+      :dialog="dialogEdit"
+      @input="editDataCategory"
+    />
   </v-app>
 </template>
 
@@ -123,14 +126,69 @@
 
               Toast.fire({
                 icon: 'success',
-                title: 'data has been added',
+                title: 'Data Sudah Berhasil DiBuat',
               })
             }
           })
       },
-      editData (event) {
+      editDialog (event) {
         this.dialogEdit = event.item
+        const Toast = this.$swal.mixin({
+          toast: true,
+          position: 'bottom-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: toast => {
+            toast.addEventListener('mouseenter', this.$swal.stopTimer)
+            toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+          },
+          popup: 'swal2-show',
+          backdrop: 'swal2-backdrop-show',
+          icon: 'swal2-icon-show',
+        })
+
+        Toast.fire({
+          icon: 'info',
+          title: 'Dialog Di Buka',
+        })
       },
+      editDataCategory (event) {
+        this.$store
+          .dispatch('category/editData', {
+            id: event.item.id,
+            name: event.item.name,
+            display_name: event.item.name.replace(/(?:^|\s)\S/g, function (a) {
+              return a.toUpperCase()
+            }),
+            status: event.item.status,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              this.dialogEdit.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                },
+                popup: 'swal2-show',
+                backdrop: 'swal2-backdrop-show',
+                icon: 'swal2-icon-show',
+              })
+
+              Toast.fire({
+                icon: 'success',
+                title: 'Data Berhasil Di Edit',
+              })
+            }
+          })
+      },
+      deleteDialog (event) {},
     },
   }
 </script>

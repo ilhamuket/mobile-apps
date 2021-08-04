@@ -142,60 +142,59 @@
                 v-for="(list, i) in schedule"
                 :key="i"
               >
-                <v-card
-                  v-if="
-                    list.status === 'ongoing' &&
-                      list.title_yt !== vidios.title_yt
-                  "
-                >
-                  <v-img
-                    class="mt-12 img-shadow"
-                    style="cursor:pointer"
-                    width="100%"
-                    height="230"
-                    :src="`${list.thumbnail_url}`"
-                    @click="play(list)"
-                  >
-                    <v-row class="fill-height text-right ma-0">
-                      <v-col cols="12">
-                        <v-chip
-                          label
-                          class="mx-0 ml-2 mb-2 text-uppercase"
-                          color="pallet1"
-                          text-color="white"
-                          small
-                          @click.stop=""
-                        >
-                          {{
-                            list.author_first_name + ' ' + list.author_last_name
-                          }}
-                          || {{ list.class_type }}
-                        </v-chip>
-                      </v-col>
+                <v-list-item-content class="mt-7">
+                  <v-card v-if="list.status === 'ongoing'">
+                    <v-img
+                      :class="
+                        list.title_yt === vidios.title_yt ? 'border-mark' : ''
+                      "
+                      style="cursor:pointer"
+                      width="100%"
+                      height="100%"
+                      :src="`${list.thumbnail_url}`"
+                      @click="play(list)"
+                    >
+                      <v-row class="fill-height text-right ma-0">
+                        <v-col cols="12">
+                          <v-chip
+                            label
+                            class="mx-0 ml-2 mb-2 text-uppercase"
+                            color="pallet1"
+                            text-color="white"
+                            small
+                            @click.stop=""
+                          >
+                            {{
+                              list.author_first_name +
+                                ' ' +
+                                list.author_last_name
+                            }}
+                            || {{ list.class_type }}
+                          </v-chip>
+                        </v-col>
 
-                      <v-col align-self="end">
-                        <v-chip
-                          class="text-uppercase ma-0"
-                          color="primary"
-                          label
-                          small
-                        >
-                          {{ list.status }}
-                        </v-chip>
-                      </v-col>
-                    </v-row>
-                  </v-img>
+                        <v-col align-self="end">
+                          <v-chip
+                            class="text-uppercase ma-0"
+                            color="primary"
+                            label
+                            small
+                          >
+                            {{ list.status }}
+                          </v-chip>
+                        </v-col>
+                      </v-row>
+                    </v-img>
 
-                  <v-container>
-                    <div class="d-flex flex-row justify-start">
+                    <div class="d-flex flex-row justify-start mt-4">
                       <div class="d-flex flex-column">
                         <p>
                           {{ list.title_yt }}
                         </p>
                       </div>
                     </div>
-                  </v-container>
-                </v-card>
+                  </v-card>
+                </v-list-item-content>
               </v-list-item>
             </v-list>
           </v-card>
@@ -284,4 +283,6 @@
   text-align: center !important
 .overflow-x
   overflow-x: auto !important
+.border-mark
+  border: 10px double blue !important
 </style>

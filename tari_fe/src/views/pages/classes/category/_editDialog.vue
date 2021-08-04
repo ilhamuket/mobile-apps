@@ -100,7 +100,7 @@
         <v-btn
           color="pallet1"
           outlined
-          @click="dialog.open = false"
+          @click="editData"
         >
           Save
         </v-btn>
@@ -128,6 +128,11 @@
         status: '',
       },
     }),
+    methods: {
+      editData () {
+        this.$emit('input', { item: this.dialog })
+      },
+    },
   }
 </script>
 
