@@ -90,7 +90,21 @@ class MediaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $master = Category::findOrFail($id);
+            $master->name = $request->input('name', $master->name);
+            $master->display_name = $request->input('display_name', $master->display_name);
+            $master->status = $request->input('status', $master->status);
+            $master->save();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**
@@ -100,6 +114,10 @@ class MediaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $master = Category::findOrFail($id);
+
+        $master->delete();
+
+        return Json::response($master);
     }
 }

@@ -26,4 +26,6 @@ Route::prefix('media')->middleware(['auth:sanctum'])->group(function () {
 
     Route::get('category', [MediaController::class, 'index']);
     Route::post('category', [MediaController::class, 'store']);
+    Route::patch('category/{id}', [MediaController::class, 'update']);
+    Route::delete('category/{id}', [MediaController::class, 'destroy']);
 });

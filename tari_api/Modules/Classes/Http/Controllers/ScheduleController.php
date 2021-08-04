@@ -20,21 +20,27 @@ class ScheduleController extends Controller
             $schedules = Schedule::where('student_id', $me->id)
                 // ->with('classes', 'student')
                 ->first();
+            // dd(is_object($schedules));
+            if (is_object($schedules)) {
+                $master = Schedule::where('schedules.id', $request->input('schedule_id', $schedules->id))
+                    ->join('classes', 'classes.id', '=', 'schedules.class_id')
+                    ->join('posts', 'posts.class_id', '=', 'classes.id')
+                    ->join('users', 'users.id', '=', 'posts.author_id')
+                    ->select(
+                        'schedules.*',
+                        'posts.id as post_id',
+                        'posts.url',
+                        'posts.title_yt',
+                        'posts.thumbnail_url',
+                        'users.firstName as author_first_name',
+                        'users.lastName as author_last_name',
+                        'classes.type as class_type'
+                    )->first();
+            } else {
+                return Json::response([]);
+            }
 
-            $master = Schedule::where('schedules.id', $request->input('schedule_id', $schedules->id))
-                ->join('classes', 'classes.id', '=', 'schedules.class_id')
-                ->join('posts', 'posts.class_id', '=', 'classes.id')
-                ->join('users', 'users.id', '=', 'posts.author_id')
-                ->select(
-                    'schedules.*',
-                    'posts.id as post_id',
-                    'posts.url',
-                    'posts.title_yt',
-                    'posts.thumbnail_url',
-                    'users.firstName as author_first_name',
-                    'users.lastName as author_last_name',
-                    'classes.type as class_type'
-                )->first();
+
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
@@ -74,6 +80,7 @@ class ScheduleController extends Controller
                     'classes.type as class_type'
                 )
                 ->date($request->start_at)
+                ->orderBy('schedules.id', 'asc')
                 ->get();
 
             return Json::response($master);
