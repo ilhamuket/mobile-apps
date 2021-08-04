@@ -211,8 +211,8 @@
       filterAdmin () {
         // const Me = localStorage.getItem('ME')
         const users = this.users
-        if (users.roles) {
-          return users.roles.some(x => x.name === 'superadmin')
+        if (users.role) {
+          return users.role.some(x => x.name === 'superadmin')
         }
 
         return false

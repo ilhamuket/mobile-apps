@@ -75,7 +75,7 @@
                 width="300"
                 @click="addDialog"
               >
-                Tambah Kelas
+                Add Class
               </v-btn>
             </div>
           </div>
@@ -101,7 +101,7 @@
 
               <v-app-bar-title v-if="is_field === false">
                 <h3>
-                  Kelas Hari Ini
+                  Today's Schedule
                 </h3>
               </v-app-bar-title>
 
