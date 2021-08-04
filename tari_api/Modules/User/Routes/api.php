@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Modules\Auth\Http\Controllers\AuthController;
 use Modules\User\Http\Controllers\RoleController;
 use Modules\User\Http\Controllers\UserController;
 
@@ -25,4 +26,5 @@ Route::prefix('user')->middleware(['auth:sanctum'])->group(function () {
 
     Route::get('', [UserController::class, 'index']);
     Route::get('me', [UserController::class, 'me']);
+    Route::patch('changepassword', [AuthController::class, 'changePassword']);
 });
