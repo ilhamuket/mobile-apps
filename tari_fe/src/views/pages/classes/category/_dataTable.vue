@@ -2,8 +2,17 @@
   <base-material-card
     icon="mdi-shape-outline"
     color="pallet1"
-    title="Category - ALL"
   >
+    <template v-slot:after-heading>
+      <v-chip
+        color="transparent"
+        text-color="pallet1"
+      >
+        <h1>
+          {{ computedTitle }}
+        </h1>
+      </v-chip>
+    </template>
     <v-container>
       <v-row>
         <v-col
@@ -24,15 +33,14 @@
           cols="12"
           md="1"
           offset-md="6"
-          class="mr-4 large"
+          class="mr-4"
         >
           <v-btn
             outlined
             color="pallet1"
-            class="ml-10"
             @click="openDialog"
           >
-            Add
+            Add Category
           </v-btn>
         </v-col>
         <v-col cols="12">
@@ -76,7 +84,12 @@
               {{ item.created_at | moment('dddd D MMM YYYY') }}
             </template>
             <template v-slot:[`item.isVerified`]="{ item }">
-              {{ item.isverified === 1 ? 'Verified' : 'Non-Verified' }}
+              <v-chip
+                :color="getColorVerified(item.isVerified)"
+                outlined
+              >
+                {{ item.isVerified === 1 ? 'Verified' : 'Non-Verified' }}
+              </v-chip>
             </template>
             <template v-slot:[`item.actions`]="{ item }">
               <v-icon
@@ -108,6 +121,10 @@
       data: {
         type: Array,
         default: null,
+      },
+      title: {
+        type: String,
+        default: '',
       },
     },
     data: () => ({
@@ -149,6 +166,16 @@
       },
       search: '',
     }),
+    computed: {
+      computedTitle () {
+        if (this.title === '') return 'Category - All'
+        if (this.title === 'verified') return 'Category - Verified'
+        if (this.title === 'not_verified') return 'Category - Unverified'
+        if (this.title === 'deleted') return 'Category - Deleted'
+
+        return this.title
+      },
+    },
     methods: {
       openDialog () {
         this.dialog.open = !this.dialog.open
@@ -174,7 +201,7 @@
         // this.$emit('remove', { item: this.removeDialog })
         this.$swal
           .fire({
-            title: `Yakin Ingin Menghapus Category ${item.name}`,
+            title: `Are You Sure Want to Delete Category ${item.name}`,
             icon: 'question',
             // text: 'Something went wrong!',
             showCancelButton: true,
@@ -206,13 +233,21 @@
 
                   Toast.fire({
                     icon: 'success',
-                    title: 'Data Sudah Berhasil DiHapus',
+                    title: 'Data has been successfully deleted',
                   })
                 })
             } else if (result.isDismissed) {
-              this.$swal.fire('Kembali', '', 'error')
+              this.$swal.fire(
+                'Cancelled',
+                'Your imaginary file is safe :)',
+                'error',
+              )
             }
           })
+      },
+      getColorVerified (verified) {
+        if (verified === 1) return 'primary'
+        else return 'red'
       },
     },
   }

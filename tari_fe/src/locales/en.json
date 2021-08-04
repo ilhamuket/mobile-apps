@@ -43,5 +43,6 @@
   "widgets": "Widgets",
   "wizard": "Wizard",
   "menu": "Menu",
-  "category": "Category"
+  "category": "Category",
+  "class": "Class"
 }

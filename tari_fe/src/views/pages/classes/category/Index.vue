@@ -4,41 +4,62 @@
       <v-row dense>
         <v-col
           cols="12"
-          md="4"
+          md="3"
         >
           <base-material-stats-card
             color="info"
             icon="mdi-twitter"
-            title="Followers"
-            value="+245"
+            title="Total"
+            :value="String(summary.total)"
             sub-icon="mdi-clock"
             sub-text="Just Updated"
+            style="cursor:pointer"
+            @click.native="sortByType('')"
           />
         </v-col>
         <v-col
           cols="12"
-          md="4"
+          md="3"
         >
           <base-material-stats-card
             color="info"
             icon="mdi-twitter"
-            title="Followers"
-            value="+245"
+            title="Verified"
+            :value="String(summary.verified)"
             sub-icon="mdi-clock"
             sub-text="Just Updated"
+            style="cursor:pointer"
+            @click.native="sortByType('verified')"
           />
         </v-col>
         <v-col
           cols="12"
-          md="4"
+          md="3"
         >
           <base-material-stats-card
             color="info"
             icon="mdi-twitter"
-            title="Followers"
-            value="+245"
+            title="UnVerified"
+            :value="String(summary.not_verified)"
             sub-icon="mdi-clock"
             sub-text="Just Updated"
+            style="cursor:pointer"
+            @click.native="sortByType('not_verified')"
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          md="3"
+        >
+          <base-material-stats-card
+            color="info"
+            icon="mdi-twitter"
+            title="Deleted"
+            :value="String(summary.deleted)"
+            sub-icon="mdi-clock"
+            sub-text="Just Updated"
+            style="cursor:pointer"
+            @click.native="sortByType('deleted')"
           />
         </v-col>
         <v-col
@@ -47,6 +68,7 @@
         >
           <app-data-table
             :data="category"
+            :title="type"
             @openDialog="openDialog"
             @edit="editDialog"
           />
@@ -77,19 +99,34 @@
     data: () => ({
       dialog: {},
       dialogEdit: {},
+      type: '',
     }),
     computed: {
       category () {
         return this.$store.state.category.list
       },
+      summary () {
+        return this.$store.state.category.summary
+      },
+    },
+    watch: {
+      type (newVal) {
+        this.$router.push({ query: { ...this.$route.query, type: newVal } })
+      },
+      '$route.query.type': function (val) {
+        this.type = val
+      },
     },
     mounted () {
       this.getData()
+      this.getDataSummary()
     },
     methods: {
       // List Category
       getData () {
-        this.$store.dispatch('category/getData')
+        this.$store.dispatch('category/getData', {
+          verified: this.type,
+        })
       },
       //   Emit
       openDialog (event) {
@@ -126,7 +163,7 @@
 
               Toast.fire({
                 icon: 'success',
-                title: 'Data Sudah Berhasil DiBuat',
+                title: 'Data has been successfully created',
               })
             }
           })
@@ -183,12 +220,21 @@
 
               Toast.fire({
                 icon: 'success',
-                title: 'Data Berhasil Di Edit',
+                title: 'Data Successfully Edited',
               })
             }
           })
       },
       deleteDialog (event) {},
+
+      // Sumarry Category
+      getDataSummary () {
+        this.$store.dispatch('category/getDataSummary')
+      },
+      sortByType (val) {
+        this.type = val
+        this.getData()
+      },
     },
   }
 </script>

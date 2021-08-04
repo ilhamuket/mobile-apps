@@ -143,7 +143,7 @@
                 :key="i"
               >
                 <v-list-item-content class="mt-7">
-                  <v-card v-if="list.status === 'ongoing'">
+                  <v-card>
                     <v-img
                       :class="
                         list.title_yt === vidios.title_yt ? 'border-mark' : ''

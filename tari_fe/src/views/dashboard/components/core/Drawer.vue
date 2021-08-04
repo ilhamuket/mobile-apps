@@ -186,6 +186,11 @@
       ],
       itemsAdmin: [
         {
+          title: 'class',
+          icon: 'mdi-google-classroom',
+          to: '/class',
+        },
+        {
           icon: 'mdi-shape-outline',
           title: 'category',
           to: '/category',

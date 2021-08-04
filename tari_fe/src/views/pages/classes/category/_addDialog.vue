@@ -15,79 +15,72 @@
           </h2>
         </v-chip>
       </template>
-      <v-card-text>
-        <v-container>
-          <v-row>
-            <v-col cols="12">
-              <v-text-field
-                v-model="form.name"
-                label="Input Name"
-                placeholder="name"
-                dense
-                outlined
-                color="pallet1"
-                prepend-icon="mdi-rename-box"
-              />
-            </v-col>
-            <v-col cols="12">
-              <v-select
-                v-model="form.status"
-                label="Input Status"
-                placeholder="status"
-                outlined
-                dense
-                :items="items"
-                item-color="pallet1"
-                color="pallet1"
-                prepend-icon="mdi-list-status"
-              >
-                <template
-                  slot="selection"
-                  slot-scope="data"
-                >
-                  <slot
-                    name="item"
-                    v-bind="data"
-                  >
-                    <v-chip
-                      color="transparent"
-                      style="text-transform: capitalize"
-                    >
-                      <v-avatar left>
-                        <v-img
-                          src="https://sumedangtandang.com/upload/logo/logo_259.jpg"
-                        />
-                      </v-avatar>
-                      {{ data.item }}
-                    </v-chip>
-                  </slot>
-                </template>
-                <template
-                  slot="item"
-                  slot-scope="data"
-                >
-                  <slot
-                    name="item"
-                    v-bind="data"
-                  >
-                    <v-chip
-                      color="transparent"
-                      class="text-capitalize"
-                    >
-                      <v-avatar left>
-                        <v-img
-                          src="https://sumedangtandang.com/upload/logo/logo_259.jpg"
-                        />
-                      </v-avatar>
-                      {{ data.item }}
-                    </v-chip>
-                  </slot>
-                </template>
-              </v-select>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-card-text>
+
+      <v-text-field
+        v-model="form.name"
+        label="Input Name"
+        placeholder="name"
+        dense
+        outlined
+        color="pallet1"
+        prepend-icon="mdi-rename-box"
+      />
+
+      <v-select
+        v-model="form.status"
+        label="Input Status"
+        placeholder="status"
+        outlined
+        dense
+        :items="items"
+        item-color="pallet1"
+        color="pallet1"
+        prepend-icon="mdi-list-status"
+      >
+        <template
+          slot="selection"
+          slot-scope="data"
+        >
+          <slot
+            name="item"
+            v-bind="data"
+          >
+            <v-chip
+              color="transparent"
+              style="text-transform: capitalize"
+            >
+              <v-avatar left>
+                <v-img
+                  src="https://sumedangtandang.com/upload/logo/logo_259.jpg"
+                />
+              </v-avatar>
+              {{ data.item }}
+            </v-chip>
+          </slot>
+        </template>
+        <template
+          slot="item"
+          slot-scope="data"
+        >
+          <slot
+            name="item"
+            v-bind="data"
+          >
+            <v-chip
+              color="transparent"
+              class="text-capitalize"
+            >
+              <v-avatar left>
+                <v-img
+                  src="https://sumedangtandang.com/upload/logo/logo_259.jpg"
+                />
+              </v-avatar>
+              {{ data.item }}
+            </v-chip>
+          </slot>
+        </template>
+      </v-select>
+
       <v-card-actions>
         <v-spacer />
         <v-btn

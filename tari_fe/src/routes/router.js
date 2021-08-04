@@ -99,6 +99,14 @@ const router = new Router({
             requiresAuth: true,
           },
         },
+        {
+          name: 'Class',
+          path: '/class',
+          component: () => import('@/views/pages/classes/index'),
+          meta: {
+            requiresAuth: true,
+          },
+        },
       ],
     },
     {

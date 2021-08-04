@@ -96,7 +96,7 @@
       },
       color: {
         type: String,
-        default: 'success',
+        default: 'pallet1',
       },
       icon: {
         type: String,

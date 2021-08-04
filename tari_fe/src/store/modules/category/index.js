@@ -3,6 +3,12 @@ export default {
   namespaced: true,
   state: {
     list: [],
+    summary: {
+      total: 0,
+      verified: 0,
+      non_verified: 0,
+      deleted: 0,
+    },
   },
   getters: {},
   mutations: {
@@ -25,6 +31,8 @@ export default {
       const index = state.list.indexOf(id)
       state.list.splice(index, 1)
     },
+    // Summary
+    GET_DATA_SUMMARY: (state, payload) => (state.summary = payload),
   },
   actions: {
     getData: ({ commit }, payload) => {
@@ -92,6 +100,24 @@ export default {
           .delete(`media/category/${payload.id}`)
           .then(res => {
             commit('REMOVE_DATA', payload.id)
+            resolve(res)
+          })
+          .catch(e => {
+            reject(e)
+          })
+      })
+    },
+    getDataSummary: ({ commit }) => {
+      axios.defaults.headers.common.Authorization =
+        'Bearer ' + localStorage.getItem('access_token')
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        axios
+          .get('summary/category')
+          .then(res => {
+            const data = res.data.data
+            commit('GET_DATA_SUMMARY', data)
             resolve(res)
           })
           .catch(e => {
