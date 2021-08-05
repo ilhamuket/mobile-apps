@@ -136,7 +136,28 @@ class ClassesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $master = Classes::find($id);
+            $master->name = $request->input('name', $master->name);
+            $master->display_name = $request->input('display_name', $master->display_name);
+            $master->teacher_id = $request->input('teacher_id', $master->teacher_id);
+            $master->status = $request->input('status', $master->status);
+            $master->type = $request->input('type', $master->type);
+            $master->save();
+
+            DB::commit();
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            DB::rollBack();
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**
@@ -146,6 +167,17 @@ class ClassesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $master = Classes::find($id);
+            $master->delete();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = nev('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 }
