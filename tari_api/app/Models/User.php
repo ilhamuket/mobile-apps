@@ -49,4 +49,13 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class, 'model_has_roles', 'model_id', 'role_id');
     }
+
+    public function scopeByRole($query, $role_id)
+    {
+        if ($role_id != null) {
+            $query->where('id', $role_id);
+        }
+
+        return $query;
+    }
 }

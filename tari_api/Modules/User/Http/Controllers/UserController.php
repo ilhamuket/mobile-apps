@@ -5,13 +5,13 @@ namespace Modules\User\Http\Controllers;
 use App\Models\User;
 use Brryfrmnn\Transformers\Json;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\User\Entities\Role;
 
 class UserController extends Controller
 {
-
     public function me(Request $request)
     {
         try {
@@ -35,10 +35,13 @@ class UserController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $master = User::with('roles')->get();
+            $role_id = $request->role_id;
+            $master = User::whereHas('roles', function (Builder $query) use ($role_id) {
+                $query->where('id', $role_id);
+            })->with('roles')->get();
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

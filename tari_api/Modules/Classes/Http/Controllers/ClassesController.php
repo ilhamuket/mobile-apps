@@ -91,6 +91,9 @@ class ClassesController extends Controller
             $post->thumbnail_url = $res['thumbnail_url'];
             $post->save();
 
+            $master->teacher;
+            $master->posts;
+
             DB::commit();
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
