@@ -323,10 +323,10 @@
   height: 100% !important
 .bg--light
   background-color: #F0F2F5 !important
-  border-bottom: 4px double #848E84 !important
+  border-bottom: 1px double #fff !important
 .bg--dark
   background-color: #121212 !important
-  border-bottom: 4px double #848E84 !important
+  border-bottom: 1px double #848E84 !important
 on-hover
   overflow-y: hidden !important
 .height-max

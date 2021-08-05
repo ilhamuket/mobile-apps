@@ -44,5 +44,22 @@
   "wizard": "Wizard",
   "menu": "Menu",
   "category": "Category",
-  "class": "Class"
+  "class": "Class",
+  "dashboard_": "DashBoard",
+  "all": "All",
+  "verified": "Verified",
+  "unverified": "Unverified",
+  "deleted": "Deleted",
+  "categories": {
+    "btn": {
+      "btn_name": "Add Category"
+    },
+    "delete": {
+      "content": "Are You Sure Want to Delete Category ",
+      "cancel": "Cancel",
+      "submit": "Delete !",
+      "response": "Cancelled",
+      "text_responses": "Your file is safe :)"
+    }
+  }
 }

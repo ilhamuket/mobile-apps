@@ -3,8 +3,8 @@ import Vuex from 'vuex'
 import auth from './modules/auth'
 import user from './modules/user'
 import vidios from './modules/vidios'
-import classes from './modules/class'
-import category from './modules/category'
+import classes from './modules/media/class'
+import category from './modules/media/category'
 
 Vue.use(Vuex)
 

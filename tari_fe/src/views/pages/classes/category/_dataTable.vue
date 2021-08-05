@@ -23,6 +23,7 @@
           <v-text-field
             v-model="search"
             append-icon="mdi-magnify"
+            :label="$t('search')"
             dense
             outlined
             rounded
@@ -33,14 +34,13 @@
           cols="12"
           md="1"
           offset-md="6"
-          class="mr-4"
         >
           <v-btn
             outlined
             color="pallet1"
             @click="openDialog"
           >
-            Add Category
+            {{ $t('categories.btn.btn_name') }}
           </v-btn>
         </v-col>
         <v-col cols="12">
@@ -81,7 +81,9 @@
               </v-chip>
             </template>
             <template v-slot:[`item.created_at`]="{ item }">
-              {{ item.created_at | moment('dddd D MMM YYYY') }}
+              <v-chip color="transparent">
+                {{ item.created_at | moment('dddd D MMM YYYY') }}
+              </v-chip>
             </template>
             <template v-slot:[`item.isVerified`]="{ item }">
               <v-chip
@@ -168,10 +170,17 @@
     }),
     computed: {
       computedTitle () {
-        if (this.title === '') return 'Category - All'
-        if (this.title === 'verified') return 'Category - Verified'
-        if (this.title === 'not_verified') return 'Category - Unverified'
-        if (this.title === 'deleted') return 'Category - Deleted'
+        if (this.title === '') return this.$t('category') + ' - ' + this.$t('all')
+        if (this.title === 'verified') {
+          return this.$t('category') + ' - ' + this.$t('verified')
+        }
+        if (this.title === 'not_verified') {
+          return this.$t('category') + ' - ' + this.$t('unverified')
+        }
+
+        if (this.title === 'deleted') {
+          return this.$t('category') + ' - ' + this.$t('deleted')
+        }
 
         return this.title
       },
@@ -201,12 +210,12 @@
         // this.$emit('remove', { item: this.removeDialog })
         this.$swal
           .fire({
-            title: `Are You Sure Want to Delete Category ${item.name}`,
+            title: this.$t('categories.delete.content') + `${item.name}`,
             icon: 'question',
             // text: 'Something went wrong!',
             showCancelButton: true,
-            cancelButtonText: 'Kembali',
-            confirmButtonText: 'Hapus!',
+            cancelButtonText: this.$t('categories.delete.cancel'),
+            confirmButtonText: this.$t('categories.delete.submit'),
           })
           .then(result => {
             /* Read more about isConfirmed, isDenied below */
@@ -238,8 +247,8 @@
                 })
             } else if (result.isDismissed) {
               this.$swal.fire(
-                'Cancelled',
-                'Your imaginary file is safe :)',
+                this.$t('categories.delete.response'),
+                this.$t('categories.delete.text_responses'),
                 'error',
               )
             }

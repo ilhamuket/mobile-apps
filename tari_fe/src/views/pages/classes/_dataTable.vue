@@ -59,17 +59,21 @@
                 }}
               </v-chip>
             </template>
+            <template v-slot:[`item.display_name`]="{ item }">
+              <v-chip color="transparent">
+                {{ item.display_name }}
+              </v-chip>
+            </template>
             <template v-slot:[`item.status`]="{ item }">
               <v-chip
                 class="text-capitalize"
                 color="transparent"
                 text-color="pallet1"
               >
-                <h3>
-                  {{ item.status }}
-                </h3>
+                {{ item.status }}
               </v-chip>
             </template>
+
             <template v-slot:[`item.isVerified`]="{ item }">
               <v-chip
                 outlined
@@ -80,12 +84,17 @@
               </v-chip>
             </template>
             <template v-slot:[`item.type`]="{ item }">
-              <span class="text-capitalize">
+              <v-chip
+                color="transparent"
+                class="text-capitalize"
+              >
                 {{ item.type }}
-              </span>
+              </v-chip>
             </template>
             <template v-slot:[`item.created_at`]="{ item }">
-              {{ item.created_at | moment('D MMM YYYY') }}
+              <v-chip color="transparent">
+                {{ item.created_at | moment('D MMM YYYY') }}
+              </v-chip>
             </template>
             <template v-slot:[`item.teacher.firstName`]="{ item }">
               <v-chip
@@ -96,22 +105,29 @@
                 {{ item.teacher.firstName + ' ' + item.teacher.lastName }}
               </v-chip>
             </template>
+            <template v-slot:[`item.posts.title_yt`]="{ item }">
+              <v-chip color="transparent">
+                {{ item.posts.title_yt }}
+              </v-chip>
+            </template>
             <template v-slot:[`item.actions`]="{ item }">
-              <v-icon
-                small
-                class="mr-2"
-                color="blue"
-                @click="editItem(item)"
-              >
-                mdi-pencil
-              </v-icon>
-              <v-icon
-                color="red"
-                small
-                @click="removeData(item)"
-              >
-                mdi-delete
-              </v-icon>
+              <v-chip color="transparent">
+                <v-icon
+                  small
+                  class="mr-2"
+                  color="blue"
+                  @click="editItem(item)"
+                >
+                  mdi-pencil
+                </v-icon>
+                <v-icon
+                  color="red"
+                  small
+                  @click="removeData(item)"
+                >
+                  mdi-delete
+                </v-icon>
+              </v-chip>
             </template>
           </v-data-table>
         </v-col>
@@ -137,25 +153,29 @@
         },
         {
           text: 'Name',
-          sortable: false,
           value: 'display_name',
-          align: 'start',
         },
-        { text: 'Status', value: 'status', align: 'start' },
+        { text: 'Status', value: 'status' },
         { text: 'Type', value: 'type' },
         { text: 'Teacher', value: 'teacher.firstName' },
         { text: 'Vidio Title', value: 'posts.title_yt' },
         {
           text: 'Verification ',
           value: 'isVerified',
-          align: 'start',
         },
-        { text: 'Created At', value: 'created_at', align: 'start' },
+        { text: 'Created At', value: 'created_at' },
 
-        { text: 'Actions', value: 'actions', align: 'end' },
+        { text: 'Actions', value: 'actions', align: 'start', justify: 'end' },
       ],
       dialog: {
         open: false,
+      },
+      dialogEdit: {
+        open: false,
+        name: '',
+        teacher_id: 0,
+        type: '',
+        status: '',
       },
       search: '',
     }),
@@ -171,8 +191,30 @@
         this.dialog.open = !this.dialog.open
         this.$emit('open', { item: this.dialog })
       },
+      editItem (item) {
+        this.dialogEdit.open = true
+        this.dialogEdit.name = item.name
+        this.dialogEdit.teacher_id = item.teacher_id
+        this.dialogEdit.type = item.type
+        this.dialogEdit.status = item.status
+        this.$emit('edit', { item: this.dialogEdit })
+      },
     },
   }
 </script>
 
-<style></style>
+<style lang="sass">
+
+::-webkit-scrollbar
+  height: 7px
+  width: 4px
+  border: 1px solid #d5d5d5
+
+::-webkit-scrollbar-track .theme-dark
+  border-radius: 0
+  background: #eeeeee
+
+::-webkit-scrollbar-thumb
+  border-radius: 0
+  background: #b0b0b0
+</style>

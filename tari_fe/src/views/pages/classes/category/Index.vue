@@ -7,9 +7,9 @@
           md="3"
         >
           <base-material-stats-card
-            color="info"
-            icon="mdi-twitter"
-            title="Total"
+            color="primary"
+            icon="mdi-check-all"
+            :title="$t('all')"
             :value="String(summary.total)"
             sub-icon="mdi-clock"
             sub-text="Just Updated"
@@ -22,9 +22,9 @@
           md="3"
         >
           <base-material-stats-card
-            color="info"
-            icon="mdi-twitter"
-            title="Verified"
+            color="#91FF91"
+            icon="mdi-lock-check-outline"
+            :title="$t('verified')"
             :value="String(summary.verified)"
             sub-icon="mdi-clock"
             sub-text="Just Updated"
@@ -39,7 +39,7 @@
           <base-material-stats-card
             color="info"
             icon="mdi-twitter"
-            title="UnVerified"
+            :title="$t('unverified')"
             :value="String(summary.not_verified)"
             sub-icon="mdi-clock"
             sub-text="Just Updated"
@@ -54,7 +54,7 @@
           <base-material-stats-card
             color="info"
             icon="mdi-twitter"
-            title="Deleted"
+            :title="$t('deleted')"
             :value="String(summary.deleted)"
             sub-icon="mdi-clock"
             sub-text="Just Updated"

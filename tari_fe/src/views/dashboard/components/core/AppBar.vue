@@ -25,12 +25,65 @@
 
     <v-toolbar-title
       class="hidden-sm-and-down font-weight-light"
-      v-text="$route.name"
+      v-text="$t($route.name)"
     />
 
     <v-spacer />
 
-    <div class="mx-3" />
+    <v-col cols="2">
+      <div class="d-flex flex-row mt-6 mr-2">
+        <div class="d-flex flex-column justify-start ml-6">
+          <v-select
+            v-model="$i18n.locale"
+            outlined
+            dense
+            class="ml-9"
+            :items="lenguage"
+            item-text="name"
+            item-value="name"
+          >
+            <template
+              slot="selection"
+              slot-scope="data"
+            >
+              <slot
+                name="item"
+                v-bind="data"
+              >
+                <v-chip
+                  color="transparent"
+                  style="text-transform: uppercase"
+                >
+                  <v-avatar left>
+                    <v-img :src="data.item.img" />
+                  </v-avatar>
+                  {{ data.item.name }}
+                </v-chip>
+              </slot>
+            </template>
+            <template
+              slot="item"
+              slot-scope="data"
+            >
+              <slot
+                name="item"
+                v-bind="data"
+              >
+                <v-chip
+                  color="transparent"
+                  class="text-uppercase"
+                >
+                  <v-avatar left>
+                    <v-img :src="data.item.img" />
+                  </v-avatar>
+                  {{ data.item.name }}
+                </v-chip>
+              </slot>
+            </template>
+          </v-select>
+        </div>
+      </div>
+    </v-col>
 
     <!-- <v-menu
       bottom
@@ -205,6 +258,18 @@
       ],
       notify: false,
       model: null,
+      lenguage: [
+        {
+          name: 'en',
+          img:
+            'https://media.istockphoto.com/vectors/flag-of-great-britain-vector-id497118178?s=612x612',
+        },
+        {
+          name: 'id',
+          img:
+            'https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg',
+        },
+      ],
       items: [
         // {
         //   icon: 'mdi-wifi',

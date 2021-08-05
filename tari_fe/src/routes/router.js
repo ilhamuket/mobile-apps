@@ -92,7 +92,7 @@ const router = new Router({
         },
         // Categories
         {
-          name: 'Category',
+          name: 'category',
           path: '/category',
           component: () => import('@/views/pages/classes/category/Index'),
           meta: {
@@ -100,7 +100,7 @@ const router = new Router({
           },
         },
         {
-          name: 'Class',
+          name: 'class',
           path: '/class',
           component: () => import('@/views/pages/classes/index'),
           meta: {
