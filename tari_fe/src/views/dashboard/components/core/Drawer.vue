@@ -112,18 +112,15 @@
       <div />
     </v-list>
 
-    <template v-slot:append>
+    <!-- <template v-slot:append>
       <base-item
         :item="{
           title: $t('logout'),
           icon: 'mdi-logout',
           to: '/logout',
         }"
-        :class="
-          $vuetify.theme.dark ? 'bg--dark height-max' : 'bg--light height-max'
-        "
       />
-    </template>
+    </template> -->
   </v-navigation-drawer>
 </template>
 
@@ -337,10 +334,10 @@ on-hover
   text-transform: capitalize
 </style>
 <style>
-.custumize-light
+.custumize-dark
   /* width */
   ::-webkit-scrollbar {
-  width: 7px;
+  width: 2px !important;
   background-color: #efefef;
 }
 

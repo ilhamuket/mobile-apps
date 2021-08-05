@@ -11,8 +11,6 @@
             icon="mdi-check-all"
             :title="$t('all')"
             :value="String(summary.total)"
-            sub-icon="mdi-clock"
-            sub-text="Just Updated"
             style="cursor:pointer"
             @click.native="sortByType('')"
           />
@@ -22,12 +20,10 @@
           md="3"
         >
           <base-material-stats-card
-            color="#91FF91"
-            icon="mdi-lock-check-outline"
+            color="info"
+            icon="mdi-check-decagram-outline"
             :title="$t('verified')"
             :value="String(summary.verified)"
-            sub-icon="mdi-clock"
-            sub-text="Just Updated"
             style="cursor:pointer"
             @click.native="sortByType('verified')"
           />
@@ -37,12 +33,10 @@
           md="3"
         >
           <base-material-stats-card
-            color="info"
-            icon="mdi-twitter"
+            color="warning"
+            icon="mdi-help-circle-outline"
             :title="$t('unverified')"
             :value="String(summary.not_verified)"
-            sub-icon="mdi-clock"
-            sub-text="Just Updated"
             style="cursor:pointer"
             @click.native="sortByType('not_verified')"
           />
@@ -52,12 +46,10 @@
           md="3"
         >
           <base-material-stats-card
-            color="info"
-            icon="mdi-twitter"
+            color="#F6114C"
+            icon="mdi-delete-clock-outline"
             :title="$t('deleted')"
             :value="String(summary.deleted)"
-            sub-icon="mdi-clock"
-            sub-text="Just Updated"
             style="cursor:pointer"
             @click.native="sortByType('deleted')"
           />

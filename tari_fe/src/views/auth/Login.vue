@@ -1,123 +1,130 @@
 <template>
   <v-app>
-    <div class="d-flex flex-row justify-center my-auto">
-      <div class="d-flex flex-column">
-        <base-material-card
-          icon="mdi-login-variant"
-          color="pallet1"
-        >
-          <template v-slot:heading>
-            <div class="d-flex flex-row justify-center">
+    <v-img
+      src="https://aws1.discourse-cdn.com/elastic/original/3X/9/0/90df22ab443662d632838fd82f6ea38b2cba025a.png"
+      max-height="620"
+      class="my-auto"
+    >
+      <div class="d-flex flex-row justify-center mt-12">
+        <div class="d-flex flex-column">
+          <base-material-card
+            icon="mdi-login-variant"
+            color="pallet1"
+            class="mt-5"
+          >
+            <template v-slot:heading>
+              <div class="d-flex flex-row justify-center">
+                <div class="d-flex flex-column">
+                  <v-chip color="transparent">
+                    <h1 class="">
+                      Sign In
+                    </h1>
+                  </v-chip>
+                </div>
+              </div>
+            </template>
+            <div
+              v-if="isWrong == true"
+              class="d-flex flex-row justify-center"
+            >
               <div class="d-flex flex-column">
-                <v-chip color="transparent">
-                  <h1 class="">
-                    Sign In
-                  </h1>
-                </v-chip>
+                <v-alert
+                  v-model="isWrong"
+                  dismissible
+                  dark
+                  dense
+                  class="text-nowrap"
+                  outlined
+                  type="error"
+                  close
+                  close-text="Close Alert"
+                >
+                  password atau email Anda salah
+                </v-alert>
               </div>
             </div>
-          </template>
-          <div
-            v-if="isWrong == true"
-            class="d-flex flex-row justify-center"
-          >
-            <div class="d-flex flex-column">
-              <v-alert
-                v-model="isWrong"
-                dismissible
-                dark
-                dense
-                class="text-nowrap"
-                outlined
-                type="error"
-                close
-                close-text="Close Alert"
-              >
-                password atau email Anda salah
-              </v-alert>
-            </div>
-          </div>
-          <v-list class="mx-auto px-2">
-            <v-list-item>
-              <v-list-item-content>
-                <v-form @submit.enter="login">
-                  <v-text-field
-                    v-model="email"
-                    outlined
-                    dense
-                    label="Input Your Emaill"
-                    placeholder="E-mail"
-                    prepend-icon="mdi-email"
-                  />
+            <v-list class="mx-auto px-2">
+              <v-list-item>
+                <v-list-item-content>
+                  <v-form @submit.enter="login">
+                    <v-text-field
+                      v-model="email"
+                      outlined
+                      dense
+                      label="Input Your Emaill"
+                      placeholder="E-mail"
+                      prepend-icon="mdi-email"
+                    />
 
-                  <v-text-field
-                    v-model="password"
-                    outlined
-                    dense
-                    label="Input Your Password"
-                    placeholder="Password"
-                    prepend-icon="mdi-lock"
-                    append-icon="mdi-eye"
-                    :type="show ? 'text' : 'password'"
-                    @click:append="show = !show"
-                  />
-                </v-form>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-content>
-                <div class="d-flex flex-row justify-center ml-2">
-                  <div class="d-flex flex-column align-center">
-                    <v-chip
-                      class="mr-4"
-                      color="transparent"
-                    >
-                      <v-btn
-                        text
-                        color="primary"
+                    <v-text-field
+                      v-model="password"
+                      outlined
+                      dense
+                      label="Input Your Password"
+                      placeholder="Password"
+                      prepend-icon="mdi-lock"
+                      append-icon="mdi-eye"
+                      :type="show ? 'text' : 'password'"
+                      @click:append="show = !show"
+                    />
+                  </v-form>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-content>
+                  <div class="d-flex flex-row justify-center ml-2">
+                    <div class="d-flex flex-column align-center">
+                      <v-chip
+                        class="mr-4"
+                        color="transparent"
                       >
-                        Lupa Password
+                        <v-btn
+                          text
+                          color="primary"
+                        >
+                          Lupa Password
+                        </v-btn>
+                      </v-chip>
+                      <v-btn
+                        color="pallet1"
+                        width="100%"
+                        type="submit"
+                        @click.prevent="login"
+                      >
+                        Login
                       </v-btn>
-                    </v-chip>
-                    <v-btn
-                      color="pallet1"
-                      width="100%"
-                      type="submit"
-                      @click.prevent="login"
-                    >
-                      Login
-                    </v-btn>
+                    </div>
                   </div>
-                </div>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
 
-          <div class="d-flex flex-row justify-center mt-2">
-            <div class="d-flex flex-column">
-              <v-chip
-                color="transparent"
-                class="d-flex justify-center"
-              >
-                <h3 class="text--primary">
-                  Tidak Punya Akun ?
-                </h3>
-              </v-chip>
-              <v-btn
-                class="mt-2"
-                height="40"
-                outlined
-                rounded
-                color="info"
-                width="200"
-              >
-                SignUp
-              </v-btn>
+            <div class="d-flex flex-row justify-center mt-2">
+              <div class="d-flex flex-column">
+                <v-chip
+                  color="transparent"
+                  class="d-flex justify-center"
+                >
+                  <h3 class="text--primary">
+                    Tidak Punya Akun ?
+                  </h3>
+                </v-chip>
+                <v-btn
+                  class="mt-2"
+                  height="40"
+                  outlined
+                  rounded
+                  color="info"
+                  width="200"
+                >
+                  SignUp
+                </v-btn>
+              </div>
             </div>
-          </div>
-        </base-material-card>
+          </base-material-card>
+        </div>
       </div>
-    </div>
+    </v-img>
   </v-app>
 </template>
 
@@ -133,6 +140,9 @@
       passwordMatch () {
         return () => this.password === this.verify || 'Password must match'
       },
+    },
+    mounted () {
+      this.$vuetify.theme.light = true
     },
     methods: {
       login () {

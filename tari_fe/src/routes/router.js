@@ -28,6 +28,7 @@ const router = new Router({
           component: () => import('@/views/dashboard/pages/UserProfile'),
           meta: {
             requiresAuth: true,
+            requiresAdmin: true,
           },
         },
         {
@@ -133,21 +134,21 @@ router.beforeEach((to, from, next) => {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
 
-    // if (to.matched.some(record => record.meta.requiresAdmin)) {
-    //   if (auth.state.token) {
-    //     const Me = localStorage.getItem('ME')
-    //     const users = JSON.parse(Me)
-    //     if (users !== null) {
-    //       if (users.roles.some(x => x.name === 'admin' || 'teachers')) {
-    //         next()
-    //       } else {
-    //         next({
-    //           path: '/',
-    //         })
-    //       }
-    //     }
-    //   }
-    // }
+    if (to.matched.some(record => record.meta.requiresAdmin)) {
+      if (auth.state.token) {
+        const Me = localStorage.getItem('ME')
+        const users = JSON.parse(Me)
+        if (users !== null) {
+          if (users.role.some(x => x.name === 'admin' || 'superadmin')) {
+            next()
+          } else {
+            next({
+              path: '/',
+            })
+          }
+        }
+      }
+    }
 
     // if (to.matched.some(record => record.meta.requiresTeachers)) {
     //   if (auth.state.token) {

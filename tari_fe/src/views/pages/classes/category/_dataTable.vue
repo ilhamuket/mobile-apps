@@ -6,7 +6,7 @@
     <template v-slot:after-heading>
       <v-chip
         color="transparent"
-        text-color="pallet1"
+        :text-color="$vuetify.theme.dark ? 'white' : 'pallet1'"
       >
         <h1>
           {{ computedTitle }}
@@ -37,7 +37,7 @@
         >
           <v-btn
             outlined
-            color="pallet1"
+            :color="$vuetify.theme.dark ? 'white' : 'pallet1'"
             @click="openDialog"
           >
             {{ $t('categories.btn.btn_name') }}

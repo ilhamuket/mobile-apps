@@ -8,8 +8,9 @@
     height="75"
   >
     <v-btn
-      class="ml-3"
+      :class="drawer ? 'mr-2' : 'ml-2'"
       elevation="1"
+      color="#283046"
       fab
       small
       @click="setDrawer(!drawer)"
@@ -22,7 +23,7 @@
         mdi-dots-vertical
       </v-icon>
     </v-btn>
-
+    <div class="mr-2" />
     <v-toolbar-title
       class="hidden-sm-and-down font-weight-light"
       v-text="$t($route.name)"
@@ -137,6 +138,7 @@
       class="ma-0 pa-0 ml-5"
       color="success"
       hide-details
+      @click="toogle_dark_theme"
     />
 
     <v-menu
@@ -315,7 +317,12 @@
 
     created () {
       this.getMe()
-    // console.log(this.$vuetify.breakpoint.smAndDown)
+      const theme = localStorage.getItem('dark_theme')
+      if (theme === 'true') {
+        this.$vuetify.theme.dark = true
+      } else {
+        this.$vuetify.theme.dark = false
+      }
     },
     methods: {
       ...mapMutations({
@@ -323,6 +330,9 @@
       }),
       getMe () {
         this.$store.dispatch('user/me')
+      },
+      toogle_dark_theme () {
+        localStorage.setItem('dark_theme', this.$vuetify.theme.dark.toString())
       },
     },
   }

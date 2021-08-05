@@ -1,8 +1,8 @@
 <template>
   <v-main>
-    <router-view class="ml-4" />
-
-    <dashboard-core-footer />
+    <router-view />
+    <!--
+    <dashboard-core-footer /> -->
   </v-main>
 </template>
 
@@ -10,8 +10,8 @@
   export default {
     name: 'DashboardCoreView',
 
-    components: {
-      DashboardCoreFooter: () => import('./Footer'),
-    },
+  // components: {
+  //   DashboardCoreFooter: () => import('./Footer'),
+  // },
   }
 </script>

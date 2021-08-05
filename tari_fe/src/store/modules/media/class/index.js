@@ -12,6 +12,10 @@ export default {
       classes.unshift(payload)
       state.classes = classes
     },
+    DELETE_CLASS: (state, payload) => {
+      const index = state.classes.indexOf(x => x.id === payload.id)
+      state.classes.splice(index, 1)
+    },
   },
   actions: {
     getClasses: ({ commit }, payload) => {
@@ -44,6 +48,23 @@ export default {
           .then(res => {
             const data = res.data.data
             commit('INSERT_CLASS', data)
+            resolve(res)
+          })
+          .catch(e => {
+            reject(e)
+          })
+      })
+    },
+    deleteClass: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        'Bearer ' + localStorage.getItem('access_token')
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        axios
+          .delete(`classes/${payload.id}`)
+          .then(res => {
+            commit('DELETE_CLASS', payload.id)
             resolve(res)
           })
           .catch(e => {

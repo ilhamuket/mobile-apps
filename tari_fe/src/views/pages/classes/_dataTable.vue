@@ -6,7 +6,7 @@
     <template v-slot:after-heading>
       <v-chip
         color="transparent"
-        text-color="pallet1"
+        :text-color="$vuetify.theme.dark ? 'white' : 'pallet1'"
       >
         <h1>
           Class - All
@@ -32,11 +32,10 @@
           cols="12"
           md="1"
           offset-md="6"
-          class="mr-4 large"
         >
           <v-btn
             outlined
-            color="pallet1"
+            :color="$vuetify.theme.dark ? 'white' : 'pallet1'"
             @click="openDialog"
           >
             Add Class

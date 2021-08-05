@@ -161,23 +161,27 @@
           </v-row>
         </v-container>
       </v-card-text>
-      <v-card-actions>
-        <v-spacer />
-        <v-btn
-          color="blue darken-1"
-          text
-          @click="close"
-        >
-          Close
-        </v-btn>
-        <v-btn
-          color="blue darken-1"
-          text
-          @click="log"
-        >
-          Save
-        </v-btn>
-      </v-card-actions>
+
+      <div class="d-flex flex-row-reverse">
+        <div class="d-flex flex-column">
+          <v-btn
+            color="blue darken-1"
+            outlined
+            @click="close"
+          >
+            Close
+          </v-btn>
+        </div>
+        <div class="d-flex flex-column mr-2">
+          <v-btn
+            color="blue darken-1"
+            outlined
+            @click="log"
+          >
+            Save
+          </v-btn>
+        </div>
+      </div>
     </base-material-card>
   </v-dialog>
 </template>

@@ -17,7 +17,7 @@
           cols="12"
           md="8"
         >
-          <v-card>
+          <v-card v-if="vidios.length !== 0">
             <iframe
               class="iframe"
               width="100%"
@@ -65,6 +65,15 @@
                 </div>
               </div>
             </v-container>
+          </v-card>
+          <v-card v-else>
+            <v-alert
+              dense
+              outlined
+              type="error"
+            >
+              You dont have a Schedules
+            </v-alert>
           </v-card>
           <div class="d-flex flex-row justify-center align-center">
             <div class="d-flex flex-column">
@@ -142,7 +151,10 @@
                 v-for="(list, i) in schedule"
                 :key="i"
               >
-                <v-list-item-content class="mt-7">
+                <v-list-item-content
+                  v-if="list.length !== 0"
+                  class="mt-7"
+                >
                   <v-card>
                     <v-img
                       :class="
@@ -195,6 +207,19 @@
                     </div>
                   </v-card>
                 </v-list-item-content>
+                <v-card
+                  v-else
+                  class="mt-12 mx-auto"
+                >
+                  <v-alert
+                    class="mt-12 mx-auto"
+                    dense
+                    outlined
+                    type="error"
+                  >
+                    You dont have a Vidio Class
+                  </v-alert>
+                </v-card>
               </v-list-item>
             </v-list>
           </v-card>

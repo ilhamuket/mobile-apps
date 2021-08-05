@@ -4,7 +4,6 @@
       <v-row>
         <v-col>
           <app-for-you
-            v-if="vidios.length !== 0"
             :vidios="vidios"
             :schedule="playlist"
             @input="getPlay"

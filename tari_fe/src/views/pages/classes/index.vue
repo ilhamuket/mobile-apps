@@ -129,11 +129,19 @@
           })
           .then(res => {
             if (res.isConfirmed) {
-              this.$swal.fire(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success',
-              )
+              this.$store
+                .dispatch('class/deleteClass', {
+                  id: event.item.id,
+                })
+                .then(res => {
+                  if (res.data.meta.status) {
+                    this.$swal.fire(
+                      'Deleted!',
+                      'Your file has been deleted.',
+                      'success',
+                    )
+                  }
+                })
             } else if (
               /* Read more about handling dismissals below */
               res.dismiss === this.$swal.DismissReason.cancel
