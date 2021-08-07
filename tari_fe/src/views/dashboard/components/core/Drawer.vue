@@ -3,7 +3,7 @@
     id="core-navigation-drawer"
     v-model="drawer"
     class="on-hover"
-    :expand-on-hover="drawer === false"
+    :mini-variant="!drawer"
     :right="$vuetify.rtl"
     :class="$vuetify.theme.dark ? 'custumize-dark' : 'custumize-light'"
     mobile-breakpoint="960"
@@ -11,6 +11,7 @@
     width="260"
     v-bind="$attrs"
     permanent
+    hide-overlay
   >
     <template v-slot:img="props">
       <v-img
@@ -64,6 +65,7 @@
           v-if="item.children"
           :key="`group-${i}`"
           :item="item"
+          text
         >
           <!--  -->
         </base-item-group>
@@ -84,7 +86,7 @@
       expand
       nav
       :class="
-        $vuetify.theme.dark ? 'bg--dark height-max' : 'bg--light height-max'
+        $vuetify.theme.dark ? 'bg--dark height-max ' : 'bg--light height-max'
       "
     >
       <!-- Style cascading bug  -->
@@ -112,7 +114,7 @@
       <div />
     </v-list>
 
-    <!-- <template v-slot:append>
+    <!-- <template v-slot:prepend>
       <base-item
         :item="{
           title: $t('logout'),
@@ -155,30 +157,11 @@
           title: 'user',
           to: '/pages/user',
         },
-        {
-          title: 'rtables',
-          icon: 'mdi-clipboard-outline',
-          to: '/tables/regular-tables',
-        },
-        {
-          title: 'typography',
-          icon: 'mdi-format-font',
-          to: '/components/typography',
-        },
-        {
-          title: 'icons',
-          icon: 'mdi-chart-bubble',
-          to: '/components/icons',
-        },
+
         {
           title: 'google',
           icon: 'mdi-map-marker',
           to: '/maps/google-maps',
-        },
-        {
-          title: 'notifications',
-          icon: 'mdi-bell',
-          to: '/components/notifications',
         },
       ],
       itemsAdmin: [
@@ -264,8 +247,7 @@
   width: 90px !important
 #core-navigation-drawer
   .v-list-group__header.v-list-item--active:before
-    opacity: .24
-
+    opacity: .3
   .v-list-item
     &__icon--text,
     &__icon:first-child
@@ -293,7 +275,7 @@
         padding-left: 8px
 
       +rtl()
-        padding-right: 8px
+        padding-right: 80px
 
     .v-list-group__header
       +ltr()
@@ -315,19 +297,18 @@
         +rtl()
           margin-left: 8px
 .custumize-light
+  background-color: #fff !important
   font-weight: bold
   font-size: 20px
   height: 100% !important
 .bg--light
-  background-color: #F0F2F5 !important
   border-bottom: 1px double #fff !important
 .bg--dark
-  background-color: #121212 !important
   border-bottom: 1px double #848E84 !important
 on-hover
   overflow-y: hidden !important
 .height-max
-  height: 100%
+  height: 68%
 .custumize-dark
   font-weight: bold
 .text-capitalize

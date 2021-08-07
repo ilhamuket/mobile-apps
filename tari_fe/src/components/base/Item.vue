@@ -4,7 +4,7 @@
     :rel="href && href !== '#' ? 'noopener' : undefined"
     :target="href && href !== '#' ? '_blank' : undefined"
     :to="item.to"
-    :active-class="`primary ${!isDark ? 'black' : 'white'}--text`"
+    :active-class="`pallet1 ${!isDark ? 'white' : 'white'}--text`"
   >
     <v-list-item-icon
       v-if="text"
@@ -13,7 +13,15 @@
     />
 
     <v-list-item-icon v-else-if="item.icon">
-      <v-icon v-text="item.icon" />
+      <div>
+        <v-icon v-text="item.icon" />
+        <p
+          v-if="!drawer"
+          class="font-weight-light fs-12"
+        >
+          {{ item.title }}
+        </p>
+      </div>
     </v-list-item-icon>
 
     <v-list-item-content v-if="item.title || item.subtitle">
@@ -47,9 +55,16 @@
         type: Boolean,
         default: false,
       },
+    // drawer: {
+    //   type: Boolean,
+    //   default: false,
+    // },
     },
 
     computed: {
+      drawer () {
+        return this.$store.state.drawer
+      },
       computedText () {
         if (!this.item || !this.item.title) return ''
 
@@ -67,3 +82,7 @@
     },
   }
 </script>
+<style lang="sass" scoped>
+.fs-12
+  font-size: 12px
+</style>

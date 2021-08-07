@@ -11,6 +11,9 @@ const router = new Router({
     {
       path: '/',
       component: () => import('@/views/dashboard/Index'),
+      meta: {
+        requiresAuth: true,
+      },
       children: [
         // Dashboard
         {
@@ -126,6 +129,22 @@ const router = new Router({
         requiresAuth: true,
       },
     },
+    {
+      path: '/landingpage',
+      component: () => import('@/views/landingpage/index'),
+      meta: {
+        requiresVisitor: true,
+      },
+      children: [
+        {
+          path: '',
+          component: () => import('@/views/landingpage/landingPage'),
+          meta: {
+            requiresVisitor: true,
+          },
+        },
+      ],
+    },
   ],
 })
 
@@ -133,6 +152,18 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
+    if (localStorage.getItem('access_token') === null) {
+      // console.log(, 'from')
+
+      next({
+        path: '/landingpage',
+        query: { redirect: to.fullPath },
+      })
+    } else {
+      next({})
+    }
+
+    // console.log(to.fullPath, 'normal')
 
     if (to.matched.some(record => record.meta.requiresAdmin)) {
       if (auth.state.token) {
@@ -181,28 +212,14 @@ router.beforeEach((to, from, next) => {
     //     }
     //   }
     // }
-
-    if (
-      auth.state.token === null &&
-      localStorage.getItem('access_item') === null
-    ) {
-      next({
-        path: '/login',
-        // query: { redirect: '/login' },
-      })
-    } else {
-      next()
-    }
   } else if (to.matched.some(record => record.meta.requiresVisitor)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    if (
-      auth.state.token !== null &&
-      localStorage.getItem('access_item') !== null
-    ) {
+    if (localStorage.getItem('access_token')) {
+      console.log(localStorage.getItem('access_item'))
       next({
         path: '/',
-        // query: { redirect: to.fullPath },
+        query: { redirect: to.fullPath },
       })
     } else {
       next()

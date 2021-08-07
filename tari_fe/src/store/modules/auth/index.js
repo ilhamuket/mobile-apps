@@ -37,6 +37,7 @@ export default {
           .then(response => {
             localStorage.removeItem('access_token')
             localStorage.removeItem('ME')
+            localStorage.removeItem('dark_theme')
             commit('REMOVE_TOKEN')
             resolve(response)
           })

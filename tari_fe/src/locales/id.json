@@ -17,7 +17,7 @@
     "grid": "Grid System",
     "icons": "Icons",
     "lock": "Lock Screen Page",
-    "login": "Login Page",
+    "login": "Masuk",
     "maps": "Peta",
     "multi": "Multi Level Collapse",
     "notifications": "Notifications",
@@ -37,8 +37,9 @@
     "tim": "Creative Tim",
     "timeline": "Timeline",
     "typography": "Typography",
-    "logout": "Logout",
-    "user": "User Profile",
+    "logout": "Keluar",
+    "user": "Profil Pengguna",
+    "User Profile": "Profil Pengguna",
     "vforms": "Validation Forms",
     "widgets": "Widgets",
     "wizard": "Wizard",
@@ -60,6 +61,16 @@
             "submit": "Hapus !",
             "response": "Batal",
             "text_responses": "File Anda Aman :)"
+        },
+        "login": {
+            "forget": "Lupa Password",
+            "haveAcc": "Tidak Punya Akun"
         }
+    },
+    "landingPage": {
+        "home": "Utama",
+        "about_us": "Tentang Kita",
+        "pricing": "Harga",
+        "contact": "Kontak"
     }
 }

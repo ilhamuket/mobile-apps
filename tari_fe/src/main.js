@@ -26,8 +26,14 @@ import VueSweetalert2 from 'vue-sweetalert2'
 
 import moment from 'moment-timezone'
 import VueMoment from 'vue-moment'
+import VueYouTubeEmbed from 'vue-youtube-embed'
 
 import 'sweetalert2/dist/sweetalert2.min.css'
+Vue.use(VueYouTubeEmbed)
+// if you don't want install the component globally
+Vue.use(VueYouTubeEmbed, { global: false })
+// if you want to install the component globally with a different name
+Vue.use(VueYouTubeEmbed, { global: true, componentId: 'youtube-media' })
 
 Vue.use(VueMoment, {
   moment,

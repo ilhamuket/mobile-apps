@@ -77,17 +77,24 @@
       :category="category"
       @send="insertClass"
     />
+    <app-edit-dialog
+      :dialog="dialogEdit"
+      :instructor="instructor"
+      @edit="updateClass"
+    />
   </v-app>
 </template>
 
 <script>
   import dataTable from './_dataTable.vue'
   import addDialog from './_addDialog.vue'
+  import editDialog from './_editDialog.vue'
   //   import swicth from '../../../i18n'
   export default {
     components: {
       'app-data-table': dataTable,
       'app-add-dialog': addDialog,
+      'app-edit-dialog': editDialog,
     },
     data: () => ({
       dialogAdd: {},
@@ -114,7 +121,6 @@
         this.$store.dispatch('class/getClasses')
       },
       removeItem (event) {
-        console.log(event.item)
         this.$swal
           .fire({
             text: `${event.item.posts.title_yt}`,
@@ -168,6 +174,7 @@
             type: item.type,
             status: item.status,
             category_id: item.category_id,
+            typeLevelsPost: item.typeLevelsPost,
             url: item.url,
           })
           .then(res => {
@@ -202,7 +209,7 @@
           })
       },
       editClass ({ item }) {
-        this.editClass = item
+        this.dialogEdit = item
       },
       getDataInstructor () {
         this.$store.dispatch('user/getDataUser', {
@@ -211,6 +218,45 @@
       },
       getDataCategory () {
         this.$store.dispatch('category/getData')
+      },
+      updateClass ({ item }) {
+        console.log(item)
+        this.$store
+          .dispatch('class/editClass', {
+            id: item.id,
+            name: item.name,
+            display_name: item.name.replace(/(?:^|\s)\S/g, function (a) {
+              return a.toUpperCase()
+            }),
+            teacher_id: item.teacher_id,
+            status: item.status,
+            type: item.type,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              this.dialogEdit.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                },
+                popup: 'swal2-show',
+                backdrop: 'swal2-backdrop-show',
+                icon: 'swal2-icon-show',
+              })
+
+              Toast.fire({
+                icon: 'success',
+                title: 'Data has been successfully Editted',
+              })
+              this.getClasses()
+            }
+          })
       },
     },
   }

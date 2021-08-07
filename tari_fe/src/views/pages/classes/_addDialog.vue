@@ -73,6 +73,56 @@
             </slot>
           </template>
         </v-select>
+        <v-select
+          v-model="form.typeLevelsPost"
+          outlined
+          label="Please choose Class Levels"
+          dense
+          :items="itemsTypeClassPost"
+        >
+          <template
+            slot="selection"
+            slot-scope="data"
+          >
+            <slot
+              name="item"
+              v-bind="data"
+            >
+              <v-chip
+                color="transparent"
+                style="text-transform: capitalize"
+              >
+                <v-avatar left>
+                  <v-img
+                    src="https://sumedangtandang.com/upload/logo/logo_259.jpg"
+                  />
+                </v-avatar>
+                {{ data.item }}
+              </v-chip>
+            </slot>
+          </template>
+          <template
+            slot="item"
+            slot-scope="data"
+          >
+            <slot
+              name="item"
+              v-bind="data"
+            >
+              <v-chip
+                color="transparent"
+                class="text-capitalize"
+              >
+                <v-avatar left>
+                  <v-img
+                    src="https://sumedangtandang.com/upload/logo/logo_259.jpg"
+                  />
+                </v-avatar>
+                {{ data.item }}
+              </v-chip>
+            </slot>
+          </template>
+        </v-select>
         <v-text-field
           v-model="form.url"
           label="Input Url"
@@ -281,6 +331,7 @@
     data: () => ({
       itemsStatus: ['publish', 'preview', 'concept'],
       itemsType: ['Live Class', 'Playlist'],
+      itemsTypeClassPost: ['beginner', 'intermediate', 'advanced'],
       form: {
         title: '',
         type: '',
@@ -288,6 +339,7 @@
         instructor_id: null,
         status: '',
         category_id: null,
+        typeLevelsPost: '',
       },
     }),
     methods: {

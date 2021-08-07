@@ -18,7 +18,7 @@
   "grid": "Grid System",
   "icons": "Icons",
   "lock": "Lock Screen Page",
-  "login": "Login Page",
+  "login": "Login",
   "maps": "Maps",
   "multi": "Multi Level Collapse",
   "notifications": "Notifications",
@@ -40,6 +40,7 @@
   "typography": "Typography",
   "logout": "Logout",
   "user": "User Profile",
+  "User Profile": "User Profile",
   "vforms": "Validation Forms",
   "widgets": "Widgets",
   "wizard": "Wizard",
@@ -61,6 +62,16 @@
       "submit": "Delete !",
       "response": "Cancelled",
       "text_responses": "Your file is safe :)"
+    },
+    "login": {
+      "forget": "Forgot The Password",
+      "haveAcc": "Don't Have An Account"
     }
+  },
+  "landingPage": {
+    "home": "Home",
+    "about_us": "About Us",
+    "pricing": "Pricing",
+    "contact": "Contact"
   }
 }

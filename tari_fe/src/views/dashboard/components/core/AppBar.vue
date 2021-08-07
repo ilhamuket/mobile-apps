@@ -194,7 +194,7 @@
             </v-list-item-icon>
 
             <v-list-item-content>
-              <v-list-item-title v-text="item.text" />
+              <v-list-item-title v-text="$t(item.text)" />
             </v-list-item-content>
           </v-list-item>
         </v-list-item-group>
@@ -273,11 +273,11 @@
         },
       ],
       items: [
-        // {
-        //   icon: 'mdi-wifi',
-        //   text: 'Setting',
-        //   to: '/pages/user',
-        // },
+        {
+          icon: 'mdi-account',
+          text: 'user',
+          to: '/pages/user',
+        },
         // {
         //   icon: 'mdi-bluetooth',
         //   text: 'Bluetooth',
@@ -285,7 +285,7 @@
         // },
         {
           icon: 'mdi-logout',
-          text: 'Logout',
+          text: 'logout',
           to: '/logout',
         },
       ],

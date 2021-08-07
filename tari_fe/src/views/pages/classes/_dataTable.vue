@@ -46,36 +46,67 @@
             :headers="headers"
             :items="data"
             :search="search"
+            @mouseover="item.isVerified = !item.isVerified"
+            @mouseleave="item.isVerified = !item.isVerified"
           >
             <template v-slot:[`item.id`]="{ item }">
-              <v-chip color="primary">
-                {{
-                  data
-                    .map(x => {
-                      return x.id
-                    })
-                    .indexOf(item.id) + 1
-                }}
-              </v-chip>
+              <v-img
+                v-if="item.posts"
+                :src="item.posts.thumbnail_url"
+                width="100"
+              />
             </template>
             <template v-slot:[`item.display_name`]="{ item }">
-              <v-chip color="transparent">
+              <div>
                 {{ item.display_name }}
-              </v-chip>
+              </div>
+              <div class="bg-hover">
+                <div class="d-flex flex-row flex-nowrap">
+                  <div class="d-flex flex-column">
+                    <v-chip
+                      small
+                      color="transparent"
+                      text-color="blue"
+                      @click="editItem(item)"
+                    >
+                      <v-icon
+                        small
+                        color="blue"
+                        class="mr-1"
+                      >
+                        mdi-pencil
+                      </v-icon>
+                      Edit
+                    </v-chip>
+                  </div>
+                  <div class="d-flex flex-column">
+                    <v-chip
+                      color="transparent"
+                      small
+                      text
+                      @click="removeData(item)"
+                    >
+                      <v-icon
+                        color="red"
+                        small
+                        class="mr-1"
+                      >
+                        mdi-delete
+                      </v-icon>
+                      delete
+                    </v-chip>
+                  </div>
+                </div>
+              </div>
             </template>
             <template v-slot:[`item.status`]="{ item }">
-              <v-chip
-                class="text-capitalize"
-                color="transparent"
-                text-color="pallet1"
-              >
+              <span class="text-capitalize">
                 {{ item.status }}
-              </v-chip>
+              </span>
             </template>
 
             <template v-slot:[`item.isVerified`]="{ item }">
               <v-chip
-                outlined
                 class="text-capitalize"
                 :color="getColorVerified(item.isVerified)"
               >
@@ -83,11 +114,21 @@
               </v-chip>
             </template>
             <template v-slot:[`item.type`]="{ item }">
-              <v-chip
-                color="transparent"
+              <div
+                :color="setTypeColor(item.type)"
                 class="text-capitalize"
               >
                 {{ item.type }}
+              </div>
+            </template>
+            <template v-slot:[`item.posts.type`]="{ item }">
+              <v-chip
+                :color="setColorLevel(item.posts.type)"
+                class="text-capitalize"
+              >
+                <div>
+                  {{ item.posts.type }}
+                </div>
               </v-chip>
             </template>
             <template v-slot:[`item.created_at`]="{ item }">
@@ -105,9 +146,22 @@
               </v-chip>
             </template>
             <template v-slot:[`item.posts.title_yt`]="{ item }">
-              <v-chip color="transparent">
-                {{ item.posts.title_yt }}
-              </v-chip>
+              <v-tooltip
+                bottom
+                color="blue"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <!--  -->
+                  <span
+                    v-bind="attrs"
+                    color="transparent"
+                    v-on="on"
+                  >
+                    {{ item.posts.title_yt.substr(0, 15) + '....' }}
+                  </span>
+                </template>
+                <span>{{ item.posts.title_yt }}</span>
+              </v-tooltip>
             </template>
             <template v-slot:[`item.actions`]="{ item }">
               <v-chip color="transparent">
@@ -156,6 +210,7 @@
         },
         { text: 'Status', value: 'status' },
         { text: 'Type', value: 'type' },
+        { text: 'Levels', value: 'posts.type' },
         { text: 'Teacher', value: 'teacher.firstName' },
         { text: 'Vidio Title', value: 'posts.title_yt' },
         {
@@ -164,13 +219,15 @@
         },
         { text: 'Created At', value: 'created_at' },
 
-        { text: 'Actions', value: 'actions', align: 'start', justify: 'end' },
+      // { text: 'Actions', value: 'actions', align: 'start', justify: 'end' },
       ],
+      active: false,
       dialog: {
         open: false,
       },
       dialogEdit: {
         open: false,
+        id: 0,
         name: '',
         teacher_id: 0,
         type: '',
@@ -192,17 +249,46 @@
       },
       editItem (item) {
         this.dialogEdit.open = true
+        this.dialogEdit.id = item.id
         this.dialogEdit.name = item.name
         this.dialogEdit.teacher_id = item.teacher_id
         this.dialogEdit.type = item.type
         this.dialogEdit.status = item.status
         this.$emit('edit', { item: this.dialogEdit })
       },
+      setColorStatus (status) {
+        if (status === 'publish') return 'primary'
+        if (status === 'preview') return 'info'
+        if (status === 'concept') return 'warning'
+      },
+      setTypeColor (status) {
+        if (status === 'Playlist') return '#36CE24'
+        if (status === 'Live Class') return 'info'
+      },
+      setColorLevel (levels) {
+        if (levels === 'intermediate') return '#F606DD'
+        if (levels === 'beginner') return 'info'
+        if (levels === 'advanced') return '#D0EF0B'
+      },
+      mouseOver: function () {
+        this.active = !this.active
+      },
     },
   }
 </script>
 
 <style lang="sass">
+.bg-hover
+  display: none
+.theme--dark.v-data-table > .v-data-table__wrapper > table > tbody > tr:hover:not(.v-data-table__expanded__content):not(.v-data-table__empty-wrapper)
+  .bg-hover
+    display: inline
+  background: #616161 !important
+
+.theme--light.v-data-table > .v-data-table__wrapper > table > tbody > tr:hover:not(.v-data-table__expanded__content):not(.v-data-table__empty-wrapper)
+  .bg-hover
+    display: inline
+  background: #eeeeee !important
 
 ::-webkit-scrollbar
   height: 7px
@@ -216,4 +302,6 @@
 ::-webkit-scrollbar-thumb
   border-radius: 0
   background: #b0b0b0
+.border
+  background-color: red !important
 </style>

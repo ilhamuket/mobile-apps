@@ -11,6 +11,7 @@ const theme = {
   accent: '#9C27b0',
   info: '#00CAE3',
   pallet1: '#6B75AA',
+  landingpage: '#171B34',
 }
 
 export default new Vuetify({

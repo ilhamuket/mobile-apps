@@ -5,12 +5,18 @@
       max-height="620"
       class="my-auto"
     >
+      <app-navigations
+        color="#DD5B87"
+        class="mb-12"
+        :page-login="true"
+      />
+
       <div class="d-flex flex-row justify-center mt-12">
         <div class="d-flex flex-column">
           <base-material-card
             icon="mdi-login-variant"
             color="pallet1"
-            class="mt-5"
+            class="mt-12"
           >
             <template v-slot:heading>
               <div class="d-flex flex-row justify-center">
@@ -82,7 +88,7 @@
                           text
                           color="primary"
                         >
-                          Lupa Password
+                          {{ $t('categories.login.forget') }}
                         </v-btn>
                       </v-chip>
                       <v-btn
@@ -106,7 +112,7 @@
                   class="d-flex justify-center"
                 >
                   <h3 class="text--primary">
-                    Tidak Punya Akun ?
+                    {{ $t('categories.login.haveAcc') }}
                   </h3>
                 </v-chip>
                 <v-btn
@@ -129,7 +135,11 @@
 </template>
 
 <script>
+  import navigations from '../landingpage/components/Navigation.vue'
   export default {
+    components: {
+      'app-navigations': navigations,
+    },
     data: () => ({
       email: '',
       password: '',
