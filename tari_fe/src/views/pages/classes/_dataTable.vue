@@ -94,7 +94,7 @@
                   </div>
                 </div>
               </div>
-              <div class="bg-unHover">
+              <!-- <div class="bg-unHover">
                 <div class="d-flex flex-row flex-nowrap">
                   <div class="d-flex flex-column mt-2">
                     <a
@@ -109,7 +109,7 @@
                     />
                   </div>
                 </div>
-              </div>
+              </div> -->
             </template>
             <template v-slot:[`item.status`]="{ item }">
               <span class="text-capitalize">

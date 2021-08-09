@@ -48,6 +48,17 @@
             v-text="users.role_name"
           />
         </v-list-item-content>
+
+        <v-btn
+          dark
+          color="pallet1"
+          icon
+          outlined
+          small
+          @click.stop="drawer = !drawer"
+        >
+          <v-icon>mdi-chevron-left</v-icon>
+        </v-btn>
       </v-list-item>
     </v-list>
 
@@ -114,12 +125,11 @@
       <div />
     </v-list>
 
-    <!-- <template v-slot:prepend>
+    <!-- <template v-slot:append>
       <base-item
         :item="{
           title: $t('logout'),
           icon: 'mdi-logout',
-          to: '/logout',
         }"
       />
     </template> -->
@@ -147,11 +157,7 @@
           title: 'dashboard',
           to: '/dashboard',
         },
-        {
-          icon: 'mdi-view-dashboard',
-          title: 'menu',
-          to: '/',
-        },
+
         {
           icon: 'mdi-account',
           title: 'user',
@@ -165,6 +171,11 @@
         },
       ],
       itemsAdmin: [
+        {
+          icon: 'mdi-view-dashboard',
+          title: 'menu',
+          to: '/',
+        },
         {
           icon: 'mdi-account',
           title: 'users',
@@ -197,7 +208,7 @@
         // const Me = localStorage.getItem('ME')
         const users = this.users
         if (users.role) {
-          return users.role.some(x => x.name === 'superadmin')
+          return users.role.some(x => x.name === 'superadministrator')
         }
 
         return false
@@ -248,8 +259,9 @@
 
 <style lang="sass">
 @import '~vuetify/src/styles/tools/_rtl.sass'
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap')
 .v-navigation-drawer--mini-variant
-  width: 90px !important
+  width: 100px !important
 #core-navigation-drawer
   .v-list-group__header.v-list-item--active:before
     opacity: .3
@@ -303,6 +315,7 @@
           margin-left: 8px
 .custumize-light
   background-color: #fff !important
+  font-family: 'Roboto', sans-serif !important
   font-weight: bold
   font-size: 20px
   height: 100% !important
@@ -316,6 +329,7 @@ on-hover
   height: 68%
 .custumize-dark
   font-weight: bold
+  font-family: 'Roboto', sans-serif !important
 .text-capitalize
   text-transform: capitalize
 </style>

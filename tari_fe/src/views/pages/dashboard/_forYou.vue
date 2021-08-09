@@ -72,7 +72,7 @@
               outlined
               type="error"
             >
-              You dont have a Schedules
+              You dont have a Schedules, please choose class
             </v-alert>
           </v-card>
           <div class="d-flex flex-row justify-center align-center">

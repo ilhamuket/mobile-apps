@@ -5,6 +5,13 @@ export default {
     me: {},
     data: [],
     indexAll: [],
+    summary: {
+      total: 0,
+      superadmin: 0,
+      admin: 0,
+      instructor: 0,
+      student: 0,
+    },
   },
   getters: {},
   mutations: {
@@ -13,6 +20,7 @@ export default {
     GET_DATA_ALL: (state, payload) => {
       state.indexAll = payload
     },
+    GET_SUMMARY: (state, payload) => (state.summary = payload),
   },
   actions: {
     me: ({ commit }, payload) => {
@@ -65,6 +73,24 @@ export default {
           .then(res => {
             const data = res.data.data
             commit('GET_DATA', data)
+            resolve(res)
+          })
+          .catch(e => {
+            reject(e)
+          })
+      })
+    },
+    getSummary: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        'Bearer ' + localStorage.getItem('access_token')
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        axios
+          .get('user/summary')
+          .then(res => {
+            const data = res.data.data
+            commit('GET_SUMMARY', data)
             resolve(res)
           })
           .catch(e => {

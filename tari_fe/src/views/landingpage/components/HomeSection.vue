@@ -233,6 +233,9 @@
 .font-roboto-thin-2 {
   font-family: 'Roboto', sans-serif !important;
 }
+.img-rotate {
+  transform: rotate(-40deg);
+}
 .circle {
   stroke: white;
   stroke-dasharray: 650;

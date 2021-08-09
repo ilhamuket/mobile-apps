@@ -8,7 +8,8 @@
     height="75"
   >
     <v-btn
-      :class="drawer ? 'mr-2' : 'ml-2'"
+      v-if="!drawer"
+      :class="drawer ? 'mr-6' : 'ml-6'"
       elevation="1"
       color="#283046"
       fab

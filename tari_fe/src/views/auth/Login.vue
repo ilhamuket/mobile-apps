@@ -17,7 +17,7 @@
             <v-container>
               <v-row class="d-flex justify-center">
                 <v-col cols="4">
-                  <v-card>
+                  <v-card :color="$vuetify.theme.dark ? 'FFFFFF' : ''">
                     <v-card-title class="d-flex justify-center">
                       <h3 class="d-flex justify-center mr-4">
                         Login
@@ -118,7 +118,7 @@
       },
     },
     mounted () {
-      this.$vuetify.theme.light = true
+      this.$vuetify.theme.dark = false
     },
     methods: {
       login () {
@@ -135,7 +135,7 @@
               this.alert = true
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: 'top-end',
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,

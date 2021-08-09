@@ -6,7 +6,7 @@ export default {
     summary: {
       total: 0,
       verified: 0,
-      non_verified: 0,
+      not_verified: 0,
       deleted: 0,
     },
   },

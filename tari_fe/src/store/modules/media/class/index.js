@@ -3,7 +3,15 @@ export default {
   namespaced: true,
   state: {
     classes: [],
-    summary: {},
+    summary: {
+      total: 0,
+      intermediate: 0,
+      beginner: 0,
+      advanced: 0,
+      verified: 0,
+      unverified: 8,
+      deleted: 0,
+    },
   },
   getters: {},
   mutations: {

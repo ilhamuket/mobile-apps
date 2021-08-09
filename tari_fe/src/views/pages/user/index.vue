@@ -10,10 +10,12 @@
           <base-material-stats-card
             color="info"
             icon="mdi-twitter"
-            title="Followers"
-            value="+245"
+            title="Total"
+            :value="String(summary.total)"
             sub-icon="mdi-clock"
             sub-text="Just Updated"
+            style="cursor:pointer"
+            @click.native="setSummary('')"
           />
         </v-col>
         <v-col
@@ -24,10 +26,12 @@
           <base-material-stats-card
             color="info"
             icon="mdi-twitter"
-            title="Followers"
-            value="+245"
+            title="SuperAdministrator"
+            :value="String(summary.superadmin)"
             sub-icon="mdi-clock"
             sub-text="Just Updated"
+            style="cursor:pointer"
+            @click.native="setSummary('superadministrator')"
           />
         </v-col>
         <v-col
@@ -38,10 +42,12 @@
           <base-material-stats-card
             color="info"
             icon="mdi-twitter"
-            title="Followers"
-            value="+245"
+            title="Admin"
+            :value="String(summary.admin)"
             sub-icon="mdi-clock"
             sub-text="Just Updated"
+            style="cursor:pointer"
+            @click.native="setSummary('administrator')"
           />
         </v-col>
         <v-col
@@ -52,10 +58,12 @@
           <base-material-stats-card
             color="info"
             icon="mdi-twitter"
-            title="Followers"
-            value="+245"
+            title="Instructor"
+            :value="String(summary.instructor)"
             sub-icon="mdi-clock"
             sub-text="Just Updated"
+            style="cursor:pointer"
+            @click.native="setSummary('instructor')"
           />
         </v-col>
 
@@ -73,17 +81,53 @@
     components: {
       'app-data-table': dataTable,
     },
+    data: () => ({
+      type: '',
+    }),
     computed: {
       user () {
         return this.$store.state.user.indexAll
       },
+      summary () {
+        return this.$store.state.user.summary
+      },
+      cumputedTitle () {
+        if (this.type === 'superadministrator') {
+          return 'User - Super Administrator'
+        }
+        if (this.type === 'administrator') {
+          return 'User - Administrator'
+        }
+        if (this.type === 'administrator') {
+          return 'User - Administrator'
+        }
+        return 'User - All'
+      },
+    },
+    watch: {
+      type (newVal) {
+        this.$router.push({ query: { ...this.$route.query, type: newVal } })
+      },
+      '$route.query.type': function (val) {
+        this.type = val
+      },
     },
     mounted () {
       this.getIndexUser()
+      this.getSummary()
     },
     methods: {
       getIndexUser () {
-        this.$store.dispatch('user/getIndexUser')
+        this.$store.dispatch('user/getIndexUser', {
+          type: this.type,
+        })
+      },
+      getSummary () {
+        this.$store.dispatch('user/getSummary')
+      },
+      setSummary (val) {
+        this.type = val
+        this.getIndexUser()
       },
     },
   }

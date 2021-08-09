@@ -110,6 +110,9 @@
           console.log(res)
         })
       },
+      insertClass () {
+        this.$store.dispatch('vidios/insertClass')
+      },
     },
   }
 </script>

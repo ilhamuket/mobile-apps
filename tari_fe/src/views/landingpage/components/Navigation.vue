@@ -55,8 +55,11 @@
     >
       <v-toolbar-title>
         <v-img
-          src="@/assets/img/logo1.png"
-          max-width="50px"
+          v-if="!pageLogin"
+          class="mt-4"
+          src="@/assets/img/a.png"
+          width="60px"
+          height="79px"
         />
       </v-toolbar-title>
       <v-spacer class="ml-12" />
@@ -205,7 +208,7 @@
     props: {
       color: {
         type: String,
-        default: null,
+        default: '#DD5B87',
       },
       flat: Boolean,
       pageLogin: {

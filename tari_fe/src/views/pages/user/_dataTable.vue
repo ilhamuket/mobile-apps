@@ -26,6 +26,7 @@
             :items="data"
             :headers="headers"
             show-select
+            :sort-desc="false"
           >
             <template v-slot:[`item.id`]="{ item }">
               {{
@@ -37,7 +38,7 @@
               }}
             </template>
             <template v-slot:[`item.firstName`]="{ item }">
-              <div class="mt-9 text-capitalize">
+              <div class="mt-9 text-capitalize d-flex flex-nowrap">
                 {{ item.firstName + ' ' + item.lastName }}
               </div>
 
@@ -79,26 +80,49 @@
                   </div>
                 </div>
               </div>
-              <div class="bg-unHover">
-                <div class="d-flex flex-row flex-nowrap">
-                  <div class="d-flex flex-column mt-1">
-                    <a
-                      small
-                      color="transparent"
-                      text-color="blue"
-                      @click="editItem(item)"
-                    />
-                  </div>
-                  <div class="d-flex flex-column mt-1">
-                    <a
-                      color="transparent"
-                      small
-                      text
-                      @click="removeData(item)"
-                    />
-                  </div>
-                </div>
-              </div>
+            </template>
+            <template #[`item.nickName`]="{item}">
+              <v-tooltip
+                v-if="item.nickName.length > 10"
+                bottom
+                color="blue"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <!--  -->
+                  <span
+                    v-bind="attrs"
+                    color="transparent"
+                    style="cursor:pointer"
+                    v-on="on"
+                  >
+                    {{ item.nickName.substr(0, 10) + '....' }}
+                  </span>
+                </template>
+                <span>{{ item.nickName }}</span>
+              </v-tooltip>
+              <span v-else>{{ item.nickName }}</span>
+            </template>
+
+            <template #[`item.email`]="{item}">
+              <v-tooltip
+                v-if="item.email.length > 10"
+                bottom
+                color="blue"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <!--  -->
+                  <span
+                    v-bind="attrs"
+                    color="transparent"
+                    style="cursor:pointer"
+                    v-on="on"
+                  >
+                    {{ item.email.substr(0, 10) + '....' }}
+                  </span>
+                </template>
+                <span>{{ item.email }}</span>
+              </v-tooltip>
+              <span v-else>{{ item.email }}</span>
             </template>
             <template v-slot:[`item.noHp`]="{ item }">
               {{ item.noHp === null ? '-' : item.noHp }}
@@ -110,6 +134,7 @@
                   :key="role.id"
                 >
                   <v-chip
+                    :text-color="$vuetify.theme.dark ? 'black' : ''"
                     :color="setColorRoleName(role.name)"
                     class="text-capitalize"
                     v-text="role.name"
@@ -154,13 +179,15 @@
         {
           text: 'Fullname',
           value: 'firstName',
+          sortable: false,
         },
-        { text: 'Email', value: 'email' },
-        { text: 'Number Phone', value: 'noHp' },
-        { text: 'Role Name', value: 'role' },
-        { text: 'Created At', value: 'created_at' },
-        { text: 'Verification', value: 'isVerified' },
-        { text: 'Subcription', value: 'isSubcribe' },
+        { text: 'Email', value: 'email', sortable: false },
+        { text: 'UserName', value: 'nickName' },
+        { text: 'Number Phone', value: 'noHp', sortable: false },
+        { text: 'Role Name', value: 'role', sortable: false },
+        { text: 'Created At', value: 'created_at', sortable: false },
+        { text: 'Verification', value: 'isVerified', sortable: false },
+        { text: 'Subcription', value: 'isSubcribe', sortable: false },
 
       // { text: 'Actions', value: 'actions', align: 'start', justify: 'end' },
       ],
@@ -179,9 +206,9 @@
         if (status === 0) return '#F44336'
       },
       setColorRoleName (name) {
-        if (name === 'superadmin') return '#E33219'
-        if (name === 'admin') return '#529A27'
-        if (name === 'instructor') return '#163BD3'
+        if (name === 'superadministrator') return '#81F109'
+        if (name === 'administrator') return '#529A27'
+        if (name === 'instructor') return '#DF0EE5'
       },
       editItem (item) {},
     },

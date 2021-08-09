@@ -187,7 +187,9 @@ router.beforeEach((to, from, next) => {
         const Me = localStorage.getItem('ME')
         const users = JSON.parse(Me)
         if (users !== null) {
-          if (users.role.some(x => x.name === 'admin' || 'superadmin')) {
+          if (
+            users.role.some(x => x.name === 'admin' || 'superadministrator')
+          ) {
             next()
           } else {
             next({
