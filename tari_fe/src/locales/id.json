@@ -38,6 +38,7 @@
     "timeline": "Timeline",
     "typography": "Typography",
     "logout": "Keluar",
+    "users": "Pengguna",
     "user": "Profil Pengguna",
     "User Profile": "Profil Pengguna",
     "vforms": "Validation Forms",
@@ -51,6 +52,12 @@
     "verified": "Terverifikasi",
     "unverified": "Tidak terverifikasi",
     "deleted": "Dihapus",
+    "classes": {
+        "summary": {
+            "hidden": "Sembunyikan Ringakasan",
+            "see": "Lihat Semua Ringkasan"
+        }
+    },
     "categories": {
         "btn": {
             "btn_name": "Tambah Kategory"
@@ -63,8 +70,8 @@
             "text_responses": "File Anda Aman :)"
         },
         "login": {
-            "forget": "Lupa Password",
-            "haveAcc": "Tidak Punya Akun"
+            "forget": "Lupa Password ? ",
+            "haveAcc": "Tidak Punya Akun ? "
         }
     },
     "landingPage": {

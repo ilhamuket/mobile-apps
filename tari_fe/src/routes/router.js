@@ -111,12 +111,29 @@ const router = new Router({
             requiresAuth: true,
           },
         },
+        // User
+        {
+          name: 'user',
+          path: '/user',
+          component: () => import('@/views/pages/user/index'),
+          meta: {
+            requiresAuth: true,
+          },
+        },
       ],
     },
     {
       name: 'Login',
       path: '/login',
       component: () => import('@/views/auth/Login'),
+      meta: {
+        requiresVisitor: true,
+      },
+    },
+    {
+      name: 'Sign-Up',
+      path: '/sign-up',
+      component: () => import('@/views/auth/signUp'),
       meta: {
         requiresVisitor: true,
       },

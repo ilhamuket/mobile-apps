@@ -39,6 +39,7 @@
   "timeline": "Timeline",
   "typography": "Typography",
   "logout": "Logout",
+  "users": "Users",
   "user": "User Profile",
   "User Profile": "User Profile",
   "vforms": "Validation Forms",
@@ -52,6 +53,12 @@
   "verified": "Verified",
   "unverified": "Unverified",
   "deleted": "Deleted",
+  "classes": {
+    "summary": {
+      "hidden": "Hidden Summary",
+      "see": "See All Summary"
+    }
+  },
   "categories": {
     "btn": {
       "btn_name": "Add Category"
@@ -64,8 +71,8 @@
       "text_responses": "Your file is safe :)"
     },
     "login": {
-      "forget": "Forgot The Password",
-      "haveAcc": "Don't Have An Account"
+      "forget": "Forgot The Password ? ",
+      "haveAcc": "Don't Have An Account ? "
     }
   },
   "landingPage": {
