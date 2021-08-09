@@ -5,7 +5,16 @@
 </template>
 
 <script>
-  export default {}
+  export default {
+    created () {
+      this.light()
+    },
+    methods: {
+      light () {
+        return this.$vuetify.theme.light
+      },
+    },
+  }
 </script>
 
 <style></style>

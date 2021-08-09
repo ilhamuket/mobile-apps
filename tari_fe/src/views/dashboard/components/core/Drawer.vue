@@ -166,6 +166,11 @@
       ],
       itemsAdmin: [
         {
+          icon: 'mdi-account',
+          title: 'users',
+          to: '/user',
+        },
+        {
           title: 'class',
           icon: 'mdi-google-classroom',
           to: '/class',

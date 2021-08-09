@@ -4,14 +4,9 @@
     color="pallet1"
   >
     <template v-slot:after-heading>
-      <v-chip
-        color="transparent"
-        :text-color="$vuetify.theme.dark ? 'white' : 'pallet1'"
-      >
-        <h1>
-          Class - All
-        </h1>
-      </v-chip>
+      <h2 :class="$vuetify.theme.dark ? 'text--white' : 'text--pallet1'">
+        {{ computedTitle }}
+      </h2>
     </template>
     <v-container>
       <v-row>
@@ -43,11 +38,13 @@
         </v-col>
         <v-col cols="12">
           <v-data-table
+            v-model="selected"
             :headers="headers"
             :items="data"
             :search="search"
-            @mouseover="item.isVerified = !item.isVerified"
-            @mouseleave="item.isVerified = !item.isVerified"
+            show-select
+            :items-per-page="5"
+            @input="selectItems"
           >
             <template v-slot:[`item.id`]="{ item }">
               <v-img
@@ -57,44 +54,59 @@
               />
             </template>
             <template v-slot:[`item.display_name`]="{ item }">
-              <div>
+              <div class="mt-9">
                 {{ item.display_name }}
               </div>
               <div class="bg-hover">
                 <div class="d-flex flex-row flex-nowrap">
-                  <div class="d-flex flex-column">
-                    <v-chip
-                      small
-                      color="transparent"
-                      text-color="blue"
-                      @click="editItem(item)"
-                    >
-                      <v-icon
-                        small
-                        color="blue"
-                        class="mr-1"
+                  <div>
+                    <div class="d-flex flex-column flex-nowrap mt-2">
+                      <a
+                        class="font-a d-flex flex-nowrap"
+                        @click="editItem(item)"
                       >
-                        mdi-pencil
-                      </v-icon>
-                      Edit
-                    </v-chip>
+                        <v-icon
+                          small
+                          color="blue"
+                          class="mr-1"
+                        >
+                          mdi-pencil
+                        </v-icon>
+                        Edit
+                      </a>
+                    </div>
                   </div>
-                  <div class="d-flex flex-column">
-                    <v-chip
-                      color="transparent"
-                      small
-                      text
-                      @click="removeData(item)"
-                    >
-                      <v-icon
-                        color="red"
-                        small
-                        class="mr-1"
+                  <div>
+                    <div class="d-flex flex-column mt-2">
+                      <a
+                        class="font-a-delete d-flex flex-nowrap"
+                        @click="removeData(item)"
                       >
-                        mdi-delete
-                      </v-icon>
-                      delete
-                    </v-chip>
+                        <v-icon
+                          color="red"
+                          small
+                        >
+                          mdi-delete
+                        </v-icon>
+                        Delete
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-unHover">
+                <div class="d-flex flex-row flex-nowrap">
+                  <div class="d-flex flex-column mt-2">
+                    <a
+                      class="font-a d-flex flex-nowrap"
+                      @click="editItem(item)"
+                    />
+                  </div>
+                  <div class="d-flex flex-column mt-2">
+                    <a
+                      class="font-a d-flex flex-nowrap"
+                      @click="editItem(item)"
+                    />
                   </div>
                 </div>
               </div>
@@ -108,6 +120,7 @@
             <template v-slot:[`item.isVerified`]="{ item }">
               <v-chip
                 class="text-capitalize"
+                text-color="white"
                 :color="getColorVerified(item.isVerified)"
               >
                 {{ item.isVerified === 1 ? 'Verified' : 'UnVerified' }}
@@ -137,13 +150,13 @@
               </v-chip>
             </template>
             <template v-slot:[`item.teacher.firstName`]="{ item }">
-              <v-chip
+              <span
                 v-if="item.teacher"
                 color="transparent"
                 class="text-capitalize"
               >
                 {{ item.teacher.firstName + ' ' + item.teacher.lastName }}
-              </v-chip>
+              </span>
             </template>
             <template v-slot:[`item.posts.title_yt`]="{ item }">
               <v-tooltip
@@ -155,9 +168,10 @@
                   <span
                     v-bind="attrs"
                     color="transparent"
+                    style="cursor:pointer"
                     v-on="on"
                   >
-                    {{ item.posts.title_yt.substr(0, 15) + '....' }}
+                    {{ item.posts.title_yt.substr(0, 10) + '....' }}
                   </span>
                 </template>
                 <span>{{ item.posts.title_yt }}</span>
@@ -196,17 +210,21 @@
         type: Array,
         default: null,
       },
+      computedTitle: {
+        type: String,
+        default: '',
+      },
     },
     data: () => ({
       headers: [
         {
           text: '#',
           value: 'id',
-          align: 'start',
         },
         {
           text: 'Name',
           value: 'display_name',
+          align: 'start',
         },
         { text: 'Status', value: 'status' },
         { text: 'Type', value: 'type' },
@@ -234,7 +252,9 @@
         status: '',
       },
       search: '',
+      selected: [],
     }),
+    // mounted () {},
     methods: {
       getColorVerified (verified) {
         if (verified === 1) return 'primary'
@@ -266,29 +286,23 @@
         if (status === 'Live Class') return 'info'
       },
       setColorLevel (levels) {
-        if (levels === 'intermediate') return '#F606DD'
+        if (levels === 'intermediate') return 'primary'
         if (levels === 'beginner') return 'info'
         if (levels === 'advanced') return '#D0EF0B'
       },
-      mouseOver: function () {
-        this.active = !this.active
+      selectItems () {
+        const id = this.selected
+        if (id !== null) {
+          const array = []
+          id.forEach(e => array.push(e.id))
+          console.log(array)
+        }
       },
     },
   }
 </script>
 
 <style lang="sass">
-.bg-hover
-  display: none
-.theme--dark.v-data-table > .v-data-table__wrapper > table > tbody > tr:hover:not(.v-data-table__expanded__content):not(.v-data-table__empty-wrapper)
-  .bg-hover
-    display: inline
-  background: #616161 !important
-
-.theme--light.v-data-table > .v-data-table__wrapper > table > tbody > tr:hover:not(.v-data-table__expanded__content):not(.v-data-table__empty-wrapper)
-  .bg-hover
-    display: inline
-  background: #eeeeee !important
 
 ::-webkit-scrollbar
   height: 7px

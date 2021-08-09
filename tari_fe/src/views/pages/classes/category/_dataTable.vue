@@ -4,14 +4,9 @@
     color="pallet1"
   >
     <template v-slot:after-heading>
-      <v-chip
-        color="transparent"
-        :text-color="$vuetify.theme.dark ? 'white' : 'pallet1'"
-      >
-        <h1>
-          {{ computedTitle }}
-        </h1>
-      </v-chip>
+      <h2 :class="$vuetify.theme.dark ? 'text--white' : 'text--pallet1'">
+        {{ computedTitle }}
+      </h2>
     </template>
     <v-container>
       <v-row>
@@ -50,6 +45,7 @@
             :items-per-page="5"
             class="elevation-1"
             :search="search"
+            show-select
           >
             <template v-slot:[`item.id`]="{ item }">
               <v-chip color="primary">
@@ -63,33 +59,77 @@
               </v-chip>
             </template>
             <template v-slot:[`item.display_name`]="{ item }">
-              <v-chip
-                color="transparent"
-                class="chips-hover"
-              >
-                <div class="font-chips">
-                  {{ item.display_name }}
+              <div class="font-chips mt-9">
+                {{ item.display_name }}
+              </div>
+
+              <div class="bg-hover">
+                <div class="d-flex flex-row flex-nowrap">
+                  <div>
+                    <div class="d-flex flex-column flex-nowrap mt-2">
+                      <a
+                        class="font-a d-flex flex-nowrap"
+                        @click="editItem(item)"
+                      >
+                        <v-icon
+                          small
+                          color="blue"
+                          class="mr-1"
+                        >
+                          mdi-pencil
+                        </v-icon>
+                        Edit
+                      </a>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="d-flex flex-column mt-2">
+                      <a
+                        class="font-a-delete d-flex flex-nowrap"
+                        @click="removeData(item)"
+                      >
+                        <v-icon
+                          color="red"
+                          small
+                        >
+                          mdi-delete
+                        </v-icon>
+                        Delete
+                      </a>
+                    </div>
+                  </div>
                 </div>
-              </v-chip>
+              </div>
+              <div class="bg-unHover">
+                <div class="d-flex flex-row flex-nowrap">
+                  <div class="d-flex flex-column mt-2">
+                    <a
+                      class="font-a d-flex flex-nowrap"
+                      @click="editItem(item)"
+                    />
+                  </div>
+                  <div class="d-flex flex-column mt-2">
+                    <a
+                      class="font-a d-flex flex-nowrap"
+                      @click="editItem(item)"
+                    />
+                  </div>
+                </div>
+              </div>
             </template>
             <template v-slot:[`item.status`]="{ item }">
               <v-chip
+                class="text-capitalize"
                 :color="getColorStatus(item.status)"
-                outlined
               >
                 {{ item.status }}
               </v-chip>
             </template>
             <template v-slot:[`item.created_at`]="{ item }">
-              <v-chip color="transparent">
-                {{ item.created_at | moment('dddd D MMM YYYY') }}
-              </v-chip>
+              {{ item.created_at | moment('dddd D MMM YYYY') }}
             </template>
             <template v-slot:[`item.isVerified`]="{ item }">
-              <v-chip
-                :color="getColorVerified(item.isVerified)"
-                outlined
-              >
+              <v-chip :color="getColorVerified(item.isVerified)">
                 {{ item.isVerified === 1 ? 'Verified' : 'Non-Verified' }}
               </v-chip>
             </template>
@@ -131,26 +171,23 @@
     },
     data: () => ({
       headers: [
-        {
-          text: '#',
-          value: 'id',
-          align: 'start',
-        },
+        // {
+        //   text: '#',
+        //   value: 'id',
+        // },
         {
           text: 'Name',
           sortable: false,
           value: 'display_name',
-          align: 'start',
         },
-        { text: 'Status', value: 'status', align: 'start' },
+        { text: 'Status', value: 'status' },
         {
           text: 'Verification ',
           value: 'isVerified',
-          align: 'start',
         },
-        { text: 'Created At', value: 'created_at', align: 'start' },
+        { text: 'Created At', value: 'created_at' },
 
-        { text: 'Actions', value: 'actions', align: 'end' },
+      // { text: 'Actions', value: 'actions', align: 'end' },
       ],
       dialog: {
         open: false,

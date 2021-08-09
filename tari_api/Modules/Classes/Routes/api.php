@@ -29,4 +29,6 @@ Route::prefix('classes')->middleware(['auth:sanctum'])->group(function () {
     Route::get('schedule/me', [ScheduleController::class, 'haveSchedules']);
     Route::post('schedule', [ScheduleController::class, 'store']);
     Route::get('schedule/show', [ScheduleController::class, 'autoPlay']);
+
+    Route::get('summary', [ClassesController::class, 'summary']);
 });

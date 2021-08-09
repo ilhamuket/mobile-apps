@@ -11,125 +11,91 @@
         :page-login="true"
       />
 
-      <div class="d-flex flex-row justify-center mt-12">
-        <div class="d-flex flex-column">
-          <base-material-card
-            icon="mdi-login-variant"
-            color="pallet1"
-            class="mt-12"
-          >
-            <template v-slot:heading>
-              <div class="d-flex flex-row justify-center">
-                <div class="d-flex flex-column">
-                  <v-chip color="transparent">
-                    <h1 class="">
-                      Sign In
-                    </h1>
-                  </v-chip>
-                </div>
-              </div>
-            </template>
-            <div
-              v-if="isWrong == true"
-              class="d-flex flex-row justify-center"
-            >
-              <div class="d-flex flex-column">
-                <v-alert
-                  v-model="isWrong"
-                  dismissible
-                  dark
-                  dense
-                  class="text-nowrap"
-                  outlined
-                  type="error"
-                  close
-                  close-text="Close Alert"
-                >
-                  password atau email Anda salah
-                </v-alert>
-              </div>
-            </div>
-            <v-list class="mx-auto px-2">
-              <v-list-item>
-                <v-list-item-content>
-                  <v-form @submit.enter="login">
-                    <v-text-field
-                      v-model="email"
-                      outlined
-                      dense
-                      label="Input Your Emaill"
-                      placeholder="E-mail"
-                      prepend-icon="mdi-email"
-                    />
-
-                    <v-text-field
-                      v-model="password"
-                      outlined
-                      dense
-                      label="Input Your Password"
-                      placeholder="Password"
-                      prepend-icon="mdi-lock"
-                      append-icon="mdi-eye"
-                      :type="show ? 'text' : 'password'"
-                      @click:append="show = !show"
-                    />
-                  </v-form>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-content>
-                  <div class="d-flex flex-row justify-center ml-2">
-                    <div class="d-flex flex-column align-center">
-                      <v-chip
-                        class="mr-4"
-                        color="transparent"
-                      >
-                        <v-btn
-                          text
-                          color="primary"
-                        >
-                          {{ $t('categories.login.forget') }}
-                        </v-btn>
-                      </v-chip>
-                      <v-btn
-                        color="pallet1"
-                        width="100%"
-                        type="submit"
-                        @click.prevent="login"
-                      >
+      <v-container>
+        <v-row>
+          <v-col>
+            <v-container>
+              <v-row class="d-flex justify-center">
+                <v-col cols="4">
+                  <v-card>
+                    <v-card-title class="d-flex justify-center">
+                      <h3 class="d-flex justify-center mr-4">
                         Login
-                      </v-btn>
-                    </div>
-                  </div>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
+                      </h3>
+                    </v-card-title>
+                    <v-card-text class="mt-12">
+                      <v-form @submit.enter="login">
+                        <v-text-field
+                          v-model="email"
+                          outlined
+                          dense
+                          label="Input Your Emaill"
+                          placeholder="E-mail"
+                          prepend-icon="mdi-email"
+                        />
+                        <v-text-field
+                          v-model="password"
+                          outlined
+                          dense
+                          label="Input Your Password"
+                          placeholder="Password"
+                          prepend-icon="mdi-lock"
+                          append-icon="mdi-eye"
+                          :type="show ? 'text' : 'password'"
+                          @click:append="show = !show"
+                        />
+                        <div class="d-flex flex-row justify-center mr-2">
+                          <div class="d-flex flex-column">
+                            <v-chip
+                              class="transparent"
+                              text-color="primary"
+                              style="cursor:pointer"
+                            >
+                              {{ $t('categories.login.forget') }}
+                            </v-chip>
+                          </div>
+                        </div>
+                        <div class="d-flex flex-row justify-center mt-2">
+                          <div class="d-flex flex-column">
+                            <v-btn
+                              type="submit"
+                              color="#DD5B87"
+                              @click.prevent="login"
+                            >
+                              Login
+                            </v-btn>
+                          </div>
+                        </div>
 
-            <div class="d-flex flex-row justify-center mt-2">
-              <div class="d-flex flex-column">
-                <v-chip
-                  color="transparent"
-                  class="d-flex justify-center"
-                >
-                  <h3 class="text--primary">
-                    {{ $t('categories.login.haveAcc') }}
-                  </h3>
-                </v-chip>
-                <v-btn
-                  class="mt-2"
-                  height="40"
-                  outlined
-                  rounded
-                  color="info"
-                  width="200"
-                >
-                  SignUp
-                </v-btn>
-              </div>
-            </div>
-          </base-material-card>
-        </div>
-      </div>
+                        <div class="d-flex flex-row justify-center mt-6">
+                          <div class="d-flex flex-column">
+                            <h5 class="text--blue">
+                              {{ $t('categories.login.haveAcc') }}
+                            </h5>
+                          </div>
+                        </div>
+                        <div class="d-flex flex-row justify-center mt-2">
+                          <div class="d-flex flex-column">
+                            <v-btn
+                              outlined
+                              rounded
+                              color="info"
+                              width="200"
+                              to="sign-up"
+                            >
+                              Sign-Up
+                            </v-btn>
+                          </div>
+                        </div>
+                      </v-form>
+                    </v-card-text>
+                  </v-card>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-col>
+        </v-row>
+      </v-container>
     </v-img>
   </v-app>
 </template>
@@ -198,6 +164,8 @@
   font-size: $size
   color: $color
   font-family: $family
+.font-size-2
+  font-size: 14px
 .bg-dark
   background-color: #1D1C1C !important
 .bg-material
@@ -213,4 +181,6 @@
   @include font(330% , #1B35DD, 'Zen Loop')
 .width-row
   width: 100px
+.text--blue
+  color: blue !important
 </style>

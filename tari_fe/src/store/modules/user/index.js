@@ -4,11 +4,15 @@ export default {
   state: {
     me: {},
     data: [],
+    indexAll: [],
   },
   getters: {},
   mutations: {
     ME: (state, payload) => (state.me = payload),
     GET_DATA: (state, payload) => (state.data = payload),
+    GET_DATA_ALL: (state, payload) => {
+      state.indexAll = payload
+    },
   },
   actions: {
     me: ({ commit }, payload) => {
@@ -24,6 +28,25 @@ export default {
             commit('ME', data)
             localStorage.setItem('ME', JSON.stringify(data))
             resolve(response)
+          })
+          .catch(e => {
+            reject(e)
+          })
+      })
+    },
+    getIndexUser: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        'Bearer ' + localStorage.getItem('access_token')
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        const params = { ...payload }
+        axios
+          .get('user/indexAll', { params: params })
+          .then(res => {
+            const data = res.data.data
+            commit('GET_DATA_ALL', data)
+            resolve(res)
           })
           .catch(e => {
             reject(e)

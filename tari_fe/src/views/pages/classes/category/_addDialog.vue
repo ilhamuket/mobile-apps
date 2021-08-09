@@ -84,18 +84,18 @@
       <v-card-actions>
         <v-spacer />
         <v-btn
-          color="red"
-          outlined
-          @click="dialog.open = false"
-        >
-          Close
-        </v-btn>
-        <v-btn
           color="pallet1"
           outlined
           @click="insertData"
         >
           Save
+        </v-btn>
+        <v-btn
+          color="red"
+          outlined
+          @click="dialog.open = false"
+        >
+          Close
         </v-btn>
       </v-card-actions>
     </base-material-card>

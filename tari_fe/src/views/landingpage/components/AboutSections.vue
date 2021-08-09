@@ -42,7 +42,10 @@
                     max-width="60px"
                     class="mr-4"
                   />
-                  <p class="text-justify">
+                  <p
+                    class="text-justify"
+                    :class="$vuetify.theme.dark ? 'blue--text' : ''"
+                  >
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit.
@@ -57,7 +60,10 @@
                     max-width="60px"
                     class="mr-4"
                   />
-                  <p class="text-justify">
+                  <p
+                    class="text-justify"
+                    :class="$vuetify.theme.dark ? 'blue--text' : ''"
+                  >
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit.
@@ -72,7 +78,10 @@
                     max-width="60px"
                     class="mr-4"
                   />
-                  <p class="text-justify">
+                  <p
+                    class="text-justify"
+                    :class="$vuetify.theme.dark ? 'blue--text' : ''"
+                  >
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit.

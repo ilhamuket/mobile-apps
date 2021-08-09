@@ -10,10 +10,12 @@
           <base-material-stats-card
             color="info"
             icon="mdi-twitter"
-            title="Followers"
-            value="+245"
+            title="Total"
+            :value="String(summary.total)"
             sub-icon="mdi-clock"
             sub-text="Just Updated"
+            style="cursor:pointer"
+            @click.native="sortByType('')"
           />
         </v-col>
         <v-col
@@ -24,10 +26,12 @@
           <base-material-stats-card
             color="info"
             icon="mdi-twitter"
-            title="Followers"
-            value="+245"
+            title="Intermediate"
+            :value="String(summary.intermediate)"
             sub-icon="mdi-clock"
             sub-text="Just Updated"
+            style="cursor:pointer"
+            @click.native="sortByType('intermediate')"
           />
         </v-col>
         <v-col
@@ -38,10 +42,12 @@
           <base-material-stats-card
             color="info"
             icon="mdi-twitter"
-            title="Followers"
-            value="+245"
+            title="Beginner"
+            :value="String(summary.beginner)"
             sub-icon="mdi-clock"
             sub-text="Just Updated"
+            style="cursor:pointer"
+            @click.native="sortByType('beginner')"
           />
         </v-col>
         <v-col
@@ -52,18 +58,121 @@
           <base-material-stats-card
             color="info"
             icon="mdi-twitter"
-            title="Followers"
-            value="+245"
+            title="Advanced"
+            :value="String(summary.advanced)"
             sub-icon="mdi-clock"
             sub-text="Just Updated"
+            style="cursor:pointer"
+            @click.native="sortByType('advanced')"
           />
         </v-col>
+        <v-row
+          v-if="isCollapse"
+          class="d-flex justify-center"
+        >
+          <v-col
+            cols="12"
+            sm="6"
+            lg="3"
+          >
+            <base-material-stats-card
+              color="info"
+              icon="mdi-twitter"
+              title="Verified"
+              :value="String(summary.verified)"
+              sub-icon="mdi-clock"
+              sub-text="Just Updated"
+              style="cursor:pointer"
+              @click.native="sortByType('verified')"
+            />
+          </v-col>
+          <v-col
+            cols="12"
+            sm="6"
+            lg="3"
+          >
+            <base-material-stats-card
+              color="info"
+              icon="mdi-twitter"
+              title="UnVerified"
+              :value="String(summary.unverified)"
+              sub-icon="mdi-clock"
+              sub-text="Just Updated"
+              style="cursor:pointer"
+              @click.native="sortByType('unverified')"
+            />
+          </v-col>
+          <v-col
+            cols="12"
+            sm="6"
+            lg="3"
+          >
+            <base-material-stats-card
+              color="info"
+              icon="mdi-twitter"
+              title="Deleted"
+              :value="String(summary.deleted)"
+              sub-icon="mdi-clock"
+              sub-text="Just Updated"
+              style="cursor:pointer"
+              @click.native="sortByType('deleted')"
+            />
+          </v-col>
+        </v-row>
+
+        <div class="d-flex flex-row-reverse">
+          <div
+            v-if="isCollapse"
+            class="d-flex flex-column-reverse"
+            style="cursor: pointer"
+            @click="clickCollapse"
+          >
+            <v-tooltip
+              bottom
+              color="blue"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <!--  -->
+                <v-icon
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  mdi-arrow-collapse-up
+                </v-icon>
+              </template>
+              <span>Hide All Summary</span>
+            </v-tooltip>
+          </div>
+          <div
+            v-else
+            class="d-flex flex-column-reverse"
+            style="cursor: pointer"
+            @click="clickCollapse"
+          >
+            <v-tooltip
+              bottom
+              color="blue"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <!--  -->
+                <v-icon
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  mdi-arrow-collapse-down
+                </v-icon>
+              </template>
+              <span>See All Summary</span>
+            </v-tooltip>
+          </div>
+        </div>
         <v-col
           cols="12"
           md="12"
         >
           <app-data-table
             :data="list"
+            :computed-title="cumputedTitle"
             @remove="removeItem"
             @open="openDialogAddClass"
             @edit="editClass"
@@ -99,6 +208,8 @@
     data: () => ({
       dialogAdd: {},
       dialogEdit: {},
+      isCollapse: false,
+      sort: '',
     }),
     computed: {
       list () {
@@ -110,15 +221,40 @@
       category () {
         return this.$store.state.category.list
       },
+      summary () {
+        return this.$store.state.class.summary
+      },
+      cumputedTitle () {
+        if (this.sort === '') return 'Class - All'
+        if (this.sort === 'intermediate') return 'Class - Intermediate'
+        if (this.sort === 'beginner') return 'Class - Beginner'
+        if (this.sort === 'advanced') return 'Class - Advanced'
+        if (this.sort === 'verified') return 'Class - Verified'
+        if (this.sort === 'unverified') return 'Class - UnVerified'
+        if (this.sort === 'deleted') return 'Class - Deleted'
+
+        return 'Class - All'
+      },
+    },
+    watch: {
+      sort (newVal) {
+        this.$router.push({ query: { ...this.$route.query, sort: newVal } })
+      },
+      '$route.query.type': function (val) {
+        this.sort = val
+      },
     },
     mounted () {
       this.getClasses()
       this.getDataInstructor()
       this.getDataCategory()
+      this.getSummary()
     },
     methods: {
       getClasses () {
-        this.$store.dispatch('class/getClasses')
+        this.$store.dispatch('class/getClasses', {
+          summary: this.sort,
+        })
       },
       removeItem (event) {
         this.$swal
@@ -257,6 +393,17 @@
               this.getClasses()
             }
           })
+      },
+      getSummary () {
+        this.$store.dispatch('class/getSummary')
+      },
+      clickCollapse () {
+        this.isCollapse = !this.isCollapse
+      },
+      sortByType (val) {
+        this.sort = val
+        console.log(val)
+        this.getClasses()
       },
     },
   }

@@ -136,7 +136,7 @@
           text
           @click="$vuetify.goTo('#hero')"
         >
-          <span class="mr-2">{{ $t('landingPage.home') }}</span>
+          <span class="mr-2 font-roboto">{{ $t('landingPage.home') }}</span>
         </v-btn>
         <v-btn
           v-if="!pageLogin"
@@ -156,7 +156,7 @@
           text
           @click="$vuetify.goTo('#pricing')"
         >
-          <span class="mr-2">{{ $t('landingPage.pricing') }}</span>
+          <span class="mr-2 font-roboto">{{ $t('landingPage.pricing') }}</span>
         </v-btn>
         <v-btn
           v-if="!pageLogin"
@@ -258,9 +258,11 @@
   }
 </script>
 
-<style scoped>
-/* .v-application .secondary {
-  background-color: #4b2626 !important;
-  border-color: #9c27b0 !important;
-} */
+<style lang="sass">
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap')
+.font-roboto
+  font-family: 'Roboto', sans-serif !important
+.font-roboto-thin
+  font-family: 'Roboto', sans-serif !important
+  // background-color: red
 </style>

@@ -19,8 +19,8 @@
               md="6"
               xl="8"
             >
-              <h1 class=" font-weight-bold mb-4">
-                ENSKLOTARI
+              <h1 class=" font-roboto mb-4">
+                ENSIKLOTARI
               </h1>
               <h1 class="font-weight-light">
                 Lorem ipsum dolor sit amet consectetur <br>
@@ -141,10 +141,10 @@
                     class="d-block ml-auto mr-auto"
                     :class="{ 'zoom-efect': hover }"
                   />
-                  <h1 class="font-weight-regular">
+                  <h1 class="font-roboto">
                     {{ feature.title }}
                   </h1>
-                  <h4 class="font-weight-regular">
+                  <h4 class="font-roboto-thin-2">
                     {{ feature.text }}
                   </h4>
                 </v-card>
@@ -191,7 +191,7 @@
           },
           {
             img: require('@/assets/img/icon3.png'),
-            title: 'Código Aberto',
+            title: 'Codigo Aberto',
             text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
           },
         ],
@@ -229,6 +229,10 @@
 </script>
 
 <style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap');
+.font-roboto-thin-2 {
+  font-family: 'Roboto', sans-serif !important;
+}
 .circle {
   stroke: white;
   stroke-dasharray: 650;

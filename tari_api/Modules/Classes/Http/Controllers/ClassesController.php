@@ -13,15 +13,39 @@ use Modules\Media\Entities\Post;
 
 class ClassesController extends Controller
 {
+    public function summary(Request $request)
+    {
+        try {
+            $summary = Classes::selectRaw(
+                '
+                    count(id) as total,
+                    (select count(*) from classes INNER JOIN posts on classes.id = posts.class_id where posts.type = \'intermediate\') as intermediate,
+                    (select count(*) from classes INNER JOIN posts on classes.id = posts.class_id where posts.type = \'beginner\') as beginner,
+                    (select count(*) from classes INNER JOIN posts on classes.id = posts.class_id where posts.type = \'advanced\') as advanced,
+                    (select count(*) from classes where isVerified = \'1\') as verified,
+                    (select count(*) from classes where isVerified = \'0\') as unverified,
+                    (select count(*) from classes where deleted_at is not null) as deleted
+                '
+            )->first();
+
+            return Json::response($summary);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = nev('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
             $master = Classes::with('teacher', 'posts')
-
+                ->summary($request->summary)
                 ->get();
 
             return Json::response($master);
@@ -71,7 +95,7 @@ class ClassesController extends Controller
             $post->category_id = $request->category_id;
             $post->class_id = $master->id;
             $post->isVerified = false;
-            $post->type = $request->type;
+            $post->type = $request->typeLevelsPost;
             $yid = explode('v=', $request->url);
             if (isset($yid[1])) {
                 $content_id = $yid[1];
@@ -80,11 +104,14 @@ class ClassesController extends Controller
             } else {
                 $content_id = $url;
             }
+            $id_yt = $content_id;
             $full_Url = 'https://www.youtube.com/watch?v=' . $content_id;
             $url_embed = 'https://www.youtube.com/embed/' . $content_id;
             $client = new Client();
             $response = $client->get('https://www.youtube.com/oembed?url=' . $full_Url);
             $res = json_decode($response->getBody(), true);
+            $classes->responses = $res;
+            $classes->save();
             $post->url = $url_embed;
             $post->title_yt = $res['title'];
             $post->slug = \Str::slug($res['title']);
@@ -145,6 +172,7 @@ class ClassesController extends Controller
             $master->status = $request->input('status', $master->status);
             $master->type = $request->input('type', $master->type);
             $master->save();
+            $master->teacher;
 
             DB::commit();
             return Json::response($master);

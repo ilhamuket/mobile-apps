@@ -3,6 +3,7 @@ export default {
   namespaced: true,
   state: {
     classes: [],
+    summary: {},
   },
   getters: {},
   mutations: {
@@ -26,6 +27,10 @@ export default {
         state.classes[indexClass].status = payload.status
         state.classes[indexClass].type = payload.type
       }
+    },
+    // Summary
+    GET_SUMMARY: (state, payload) => {
+      state.summary = payload
     },
   },
   actions: {
@@ -94,6 +99,25 @@ export default {
           .then(res => {
             const data = res.data.data
             commit('EDIT_CLASS', data)
+            resolve(res)
+          })
+          .catch(e => {
+            reject(e)
+          })
+      })
+    },
+    //  Summary
+    getSummary: ({ commit }) => {
+      axios.defaults.headers.common.Authorization =
+        'Bearer ' + localStorage.getItem('access_token')
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        axios
+          .get('classes/summary')
+          .then(res => {
+            const data = res.data.data
+            commit('GET_SUMMARY', data)
             resolve(res)
           })
           .catch(e => {

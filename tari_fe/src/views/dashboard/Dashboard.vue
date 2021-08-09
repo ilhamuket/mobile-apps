@@ -2,7 +2,6 @@
   <v-app>
     <v-container
       id="dashboard"
-      fluid
       tag="section"
     >
       <v-row>
@@ -403,7 +402,7 @@
         dailySalesChart: {
           data: {
             labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-            series: [[12, 17, 7, 17, 23, 18, 38]],
+            series: [[12, 20, 7, 17, 23, 18, 38]],
           },
           options: {
             lineSmooth: this.$chartist.Interpolation.cardinal({
