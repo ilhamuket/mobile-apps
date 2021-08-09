@@ -9,15 +9,51 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\User\Entities\Role;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
+    public function boot()
+    {
+        $this->registerPolicies();
+
+        // Implicitly grant "Super Admin" role all permissions
+        // This works in the app by using gate-related functions like auth()->user->can() and @can()
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole('superadministrator') ? true : null;
+        });
+    }
+
+    public function summary(Request $request)
+    {
+        try {
+            $master = User::selectRaw(
+                '
+                    count(id) as total,
+                    (SELECT COUNT(*) from users inner join model_has_roles on users.id = model_has_roles.model_id where model_has_roles.role_id = 1) as superadmin,
+                    (SELECT COUNT(*) from users inner join model_has_roles on users.id = model_has_roles.model_id where model_has_roles.role_id = 2) as admin,
+                    (SELECT COUNT(*) from users inner join model_has_roles on users.id = model_has_roles.model_id where model_has_roles.role_id = 3) as instructor,
+                    (SELECT COUNT(*) from users inner join model_has_roles on users.id = model_has_roles.model_id where model_has_roles.role_id = 4) as student
+                '
+            )->first();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     public function indexAll(Request $request)
     {
         try {
-            $master = User::with('roles')->get();
+            $master = User::with('roles', 'saveTheories')->summary($request->type)->get();
 
             return Json::response($master);
+        } catch (\Spatie\Permission\Exceptions\UnauthorizedException $e) {
+            return Json::response($e);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         } catch (\Illuminate\Database\QueryException $e) {
@@ -32,7 +68,7 @@ class UserController extends Controller
             $me = $request->user();
             $user = User::join('model_has_roles', 'model_has_roles.model_id', "=", "users.id")
                 ->join('roles', 'model_has_roles.role_id', '=', 'roles.id')
-                ->with('role')
+                ->with('role', 'saveTheories', 'haveSchedules')
                 ->select('users.*', 'roles.name as role_name')
                 ->findOrFail($me->id);
 

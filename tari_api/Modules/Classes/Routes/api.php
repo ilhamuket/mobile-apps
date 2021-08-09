@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Modules\Classes\Http\Controllers\ClassesController;
 use Modules\Classes\Http\Controllers\ScheduleController;
+use Modules\Classes\Http\Controllers\TheoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,4 +32,9 @@ Route::prefix('classes')->middleware(['auth:sanctum'])->group(function () {
     Route::get('schedule/show', [ScheduleController::class, 'autoPlay']);
 
     Route::get('summary', [ClassesController::class, 'summary']);
+});
+
+Route::prefix('theories')->middleware(['auth:sanctum'])->group(function () {
+    Route::get('', [TheoryController::class, 'index']);
+    Route::post('', [TheoryController::class, 'store']);
 });

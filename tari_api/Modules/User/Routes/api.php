@@ -26,6 +26,8 @@ Route::prefix('user')->middleware(['auth:sanctum'])->group(function () {
 
     Route::get('', [UserController::class, 'index']);
     Route::get('me', [UserController::class, 'me']);
-    Route::get('indexAll', [UserController::class, 'indexAll'])->middleware('permission:see_users');
+    Route::get('indexAll', [UserController::class, 'indexAll'])->middleware('permission:see_users|free');
     Route::patch('changepassword', [AuthController::class, 'changePassword']);
+
+    Route::get('summary', [UserController::class, 'summary']);
 });
