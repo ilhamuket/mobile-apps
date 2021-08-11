@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Modules\Auth\Http\Controllers\AuthController;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,6 +18,7 @@ use Modules\Auth\Http\Controllers\AuthController;
 Route::middleware('auth:api')->get('/auth', function (Request $request) {
     return $request->user();
 });
+
 Route::prefix('auth')->group(function () {
     Route::post('register/superadmin', [AuthController::class, 'registerAsSuperAdmin']);
     Route::post('register/instructor', [AuthController::class, 'registerAsInstructor']);

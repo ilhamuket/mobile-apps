@@ -31,6 +31,11 @@ class Classes extends Model
         return $this->hasOne(Post::class, 'class_id');
     }
 
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class, 'class_id');
+    }
+
     public function scopeSummary($query, $sumaary)
     {
         if ($sumaary == 'intermediate') {

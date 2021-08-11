@@ -11,6 +11,9 @@
 |
 */
 
-Route::prefix('auth')->group(function() {
+use Auth\VerificationController;
+
+Route::prefix('auth')->group(function () {
     Route::get('/', 'AuthController@index');
 });
+Auth::routes(['verify' => true]);

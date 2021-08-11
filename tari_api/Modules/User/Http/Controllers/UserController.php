@@ -49,7 +49,7 @@ class UserController extends Controller
     public function indexAll(Request $request)
     {
         try {
-            $master = User::with('roles', 'saveTheories')->summary($request->type)->get();
+            $master = User::with('roles')->summary($request->type)->get();
 
             return Json::response($master);
         } catch (\Spatie\Permission\Exceptions\UnauthorizedException $e) {
@@ -68,7 +68,7 @@ class UserController extends Controller
             $me = $request->user();
             $user = User::join('model_has_roles', 'model_has_roles.model_id', "=", "users.id")
                 ->join('roles', 'model_has_roles.role_id', '=', 'roles.id')
-                ->with('role', 'saveTheories', 'haveSchedules')
+                ->with('role', 'schedules.classes')
                 ->select('users.*', 'roles.name as role_name')
                 ->findOrFail($me->id);
 
@@ -150,7 +150,17 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $master = User::findOrFail($id);
+
+            $master->firstName = $request->input('firstName', $master->firstName);
+            $master->lastName = $request->input('lastName', $master->lastName);
+            $master->email = $request->input('email', $master->email);
+            $master->homeAddress = $request->input('homeAddress', $master->homeAddress);
+            $master->dateOfBirt = $request->input('dateOfBirth', $master->dateOfBirt);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
     /**

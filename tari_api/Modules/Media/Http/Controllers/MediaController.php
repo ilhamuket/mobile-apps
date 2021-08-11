@@ -32,7 +32,7 @@ class MediaController extends Controller
     public function index(Request $request)
     {
         try {
-            $master = Category::with('posts')->verified($request->verified)->get();
+            $master = Category::verified($request->verified)->get();
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

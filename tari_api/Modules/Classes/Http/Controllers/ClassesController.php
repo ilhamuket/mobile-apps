@@ -44,7 +44,7 @@ class ClassesController extends Controller
     public function index(Request $request)
     {
         try {
-            $master = Classes::with('teacher', 'posts')
+            $master = Classes::with('teacher', 'posts', 'schedules')
                 ->summary($request->summary)
                 ->get();
 
@@ -82,6 +82,7 @@ class ClassesController extends Controller
             $classes->display_name = $request->display_name;
             $classes->author_id = $request->user()->id;
             $classes->teacher_id = $request->teacher_id;
+            $post->category_id = $request->category_id;
             $classes->status = $request->status;
             $classes->type = $request->type;
             $classes->save();
@@ -92,7 +93,6 @@ class ClassesController extends Controller
             $post->title = $master->name;
             $post->author_id = $request->user()->id;
             $post->status = $request->input('statusCategory', 'priview');
-            $post->category_id = $request->category_id;
             $post->class_id = $master->id;
             $post->isVerified = false;
             $post->type = $request->typeLevelsPost;
@@ -132,6 +132,16 @@ class ClassesController extends Controller
         } catch (\ErrorException $e) {
             DB::rollBack();
             return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+
+    public function storeV2(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            DB::rollBack();
+        } catch (\Throwable $th) {
+            //throw $th;
         }
     }
 

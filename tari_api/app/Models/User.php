@@ -13,8 +13,9 @@ use Modules\Classes\Entities\Theory;
 use Modules\User\Entities\Role;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Permission\Traits\HasPermissions;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable, HasApiTokens, HasRoles, HasPermissions;
 
@@ -53,12 +54,12 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class, 'model_has_roles', 'model_id', 'role_id');
     }
 
-    public function saveTheories()
-    {
-        return $this->hasMany(Theory::class, 'user_id');
-    }
+    // public function saveTheories()
+    // {
+    //     return $this->hasMany(Theory::class, 'user_id');
+    // }
 
-    public function haveSchedules()
+    public function schedules()
     {
         return $this->hasMany(Schedule::class, 'student_id');
     }
