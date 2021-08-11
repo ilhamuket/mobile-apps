@@ -9,6 +9,7 @@
   >
     <v-btn
       v-if="!drawer"
+      outlined
       :class="drawer ? 'mr-6' : 'ml-6'"
       elevation="1"
       color="#283046"

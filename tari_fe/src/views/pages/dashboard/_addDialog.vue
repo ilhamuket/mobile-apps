@@ -58,47 +58,51 @@
                 max-height="300"
                 class="overflow-y-auto"
               >
-                <v-list-item
-                  v-for="list in classes"
-                  :key="list.id"
-                  class="mb-2"
-                >
-                  <v-card>
-                    <div
-                      v-if="list.posts"
-                      class="d-flex flex-row flex-nowrap"
-                    >
-                      <div class="d-flex flex-column">
-                        <v-img
-                          :src="`${list.posts.thumbnail_url}`"
-                          width="242"
-                          height="100"
-                        />
+                <div>
+                  <v-list-item
+                    v-for="list in classes"
+                    :key="list.id"
+                    class="mb-2"
+                  >
+                    <v-card>
+                      <div
+                        v-if="list.posts"
+                        class="d-flex flex-row flex-nowrap"
+                      >
+                        <div class="d-flex flex-column">
+                          <v-img
+                            :src="`${list.posts.thumbnail_url}`"
+                            width="237"
+                            height="100"
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <div
-                      v-if="list.posts && list.teacher"
-                      class="d-flex flex-column ml-2"
-                    >
-                      <h6 class="text-nowrap">
-                        {{ list.posts.title_yt }} -
-                        {{
-                          list.teacher.firstName + ' ' + list.teacher.lastName
-                        }}
-                      </h6>
-                    </div>
-                    <div class="d-flex flex-row-reverse justify-center mb-2">
-                      <div class="d-flex flex-column">
-                        <v-btn
-                          outlined
-                          color="pallet1"
-                        >
-                          adden
-                        </v-btn>
+                      <div
+                        v-if="list.posts && list.teacher"
+                        class="d-flex flex-column ml-2"
+                      >
+                        <h6 class="text-nowrap">
+                          {{ list.posts.title_yt }} -
+                          {{
+                            list.teacher.firstName + ' ' + list.teacher.lastName
+                          }}
+                        </h6>
                       </div>
-                    </div>
-                  </v-card>
-                </v-list-item>
+                      <div class="d-flex flex-row-reverse justify-center mb-2">
+                        <div class="d-flex flex-column">
+                          <v-btn
+                            :outlined="list.isVerified !== 1"
+                            color="pallet1"
+                            @click="added(list)"
+                          >
+                            added
+                          </v-btn>
+                        </div>
+                      </div>
+                    </v-card>
+                  </v-list-item>
+                </div>
+
                 <!-- <v-list-item class="mb-2">
                   <v-card>
                     <div class="d-flex flex-row flex-nowrap">
@@ -197,16 +201,39 @@
         type: Array,
         default: null,
       },
+    // me: {
+    //   type: Array,
+    //   default: null,
+    // },
     },
     data () {
       return {
         picker: null,
+        data: [],
       }
     },
     mounted () {},
     methods: {
       log () {
         console.log(this.picker)
+      },
+      added (item) {
+        // if (item.isVerified === 1) {
+        //   item.isVerified = 0
+        //   const index = this.data.map(x => x === item.id)
+        //   console.log(index)
+        //   if (index !== -1) {
+        //     this.data.splice(index, 1)
+        //   }
+        //   // this.data.pop(item.id)
+        //   console.log(this.data)
+        // } else {
+        //   item.isVerified = 1
+        //   this.data.push(item.id)
+        //   console.log(this.data)
+        // }
+        // const data = []
+        console.log(item)
       },
       close () {
         this.dialog.open = false

@@ -58,15 +58,7 @@ const router = new Router({
             requiresAuth: true,
           },
         },
-        // Tables
-        {
-          name: 'Regular Tables',
-          path: 'tables/regular-tables',
-          component: () => import('@/views/dashboard/tables/RegularTables'),
-          meta: {
-            requiresAuth: true,
-          },
-        },
+
         // Maps
         {
           name: 'Google Maps',

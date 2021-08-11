@@ -2,7 +2,7 @@
   <base-material-card icon="mdi-account-group-outline">
     <template v-slot:after-heading>
       <h2 :class="$vuetify.theme.dark ? 'text--white' : 'text--pallet1'">
-        Users
+        {{ computedTitle }}
       </h2>
     </template>
 
@@ -13,6 +13,7 @@
           md="4"
         >
           <v-text-field
+            v-model="search"
             append-icon="mdi-magnify"
             outlined
             rounded
@@ -26,6 +27,7 @@
             :items="data"
             :headers="headers"
             show-select
+            :search="search"
             :sort-desc="false"
           >
             <template v-slot:[`item.id`]="{ item }">
@@ -69,13 +71,13 @@
                       @click="removeData(item)"
                     >
                       <v-icon
-                        color="red"
+                        color="primary"
                         small
                         class="ml-1"
                       >
-                        mdi-delete
+                        mdi-check-decagram
                       </v-icon>
-                      Delete
+                      Verification
                     </a>
                   </div>
                 </div>
@@ -169,6 +171,10 @@
         type: Array,
         default: null,
       },
+      computedTitle: {
+        type: String,
+        default: null,
+      },
     },
     data: () => ({
       headers: [
@@ -194,6 +200,7 @@
       dialogEdit: {
         id: 0,
       },
+      search: '',
     }),
     mounted () {},
     methods: {

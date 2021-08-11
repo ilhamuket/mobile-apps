@@ -217,10 +217,10 @@
     },
     data: () => ({
       headers: [
-        {
-          text: '#',
-          value: 'id',
-        },
+        // {
+        //   text: '#',
+        //   value: 'id',
+        // },
         {
           text: 'Name',
           value: 'display_name',

@@ -8,8 +8,8 @@
           lg="3"
         >
           <base-material-stats-card
-            color="info"
-            icon="mdi-twitter"
+            color="pallet1"
+            icon=" mdi-account-group-outline"
             title="Total"
             :value="String(summary.total)"
             sub-icon="mdi-clock"
@@ -24,8 +24,8 @@
           lg="3"
         >
           <base-material-stats-card
-            color="info"
-            icon="mdi-twitter"
+            color="#7CE909"
+            icon="mdi-account-tie"
             title="SuperAdministrator"
             :value="String(summary.superadmin)"
             sub-icon="mdi-clock"
@@ -40,8 +40,8 @@
           lg="3"
         >
           <base-material-stats-card
-            color="info"
-            icon="mdi-twitter"
+            color="#529A27"
+            icon="mdi-account-tie-outline"
             title="Admin"
             :value="String(summary.admin)"
             sub-icon="mdi-clock"
@@ -56,8 +56,8 @@
           lg="3"
         >
           <base-material-stats-card
-            color="info"
-            icon="mdi-twitter"
+            color="#DF0EE5"
+            icon="mdi-account-music-outline"
             title="Instructor"
             :value="String(summary.instructor)"
             sub-icon="mdi-clock"
@@ -68,7 +68,10 @@
         </v-col>
 
         <v-col cols="12">
-          <app-data-table :data="user" />
+          <app-data-table
+            :data="user"
+            :computed-title="cumputedTitle"
+          />
         </v-col>
       </v-row>
     </v-container>
@@ -100,6 +103,9 @@
         }
         if (this.type === 'administrator') {
           return 'User - Administrator'
+        }
+        if (this.type === 'instructor') {
+          return 'User - instructor'
         }
         return 'User - All'
       },

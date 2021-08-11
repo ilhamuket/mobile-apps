@@ -54,6 +54,12 @@
         const full = year + '-' + '08' + '-' + day
         return full
       },
+      me () {
+        const Me = localStorage.getItem('ME')
+        const users = JSON.parse(Me)
+
+        return users
+      },
     },
     mounted () {
       this.getVidios()
@@ -70,7 +76,7 @@
       // Playlist
       getPlayList () {
         this.$store.dispatch('vidios/getPlayList', {
-          start: this.currentDate,
+          start_at: '2021-08-03',
         })
       },
       getPlay (event) {
