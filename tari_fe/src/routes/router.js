@@ -27,11 +27,19 @@ const router = new Router({
         // Pages Null
         {
           name: 'User Profile',
-          path: 'pages/user',
-          component: () => import('@/views/dashboard/pages/UserProfile'),
+          path: 'user/settings',
+          component: () => import('@/views/dashboard/profile/UserProfile'),
           meta: {
             requiresAuth: true,
             requiresAdmin: true,
+          },
+        },
+        {
+          name: 'myaccount',
+          path: '/user/myaccount',
+          component: () => import('@/views/dashboard/profile/MyAccount'),
+          meta: {
+            requiresAuth: true,
           },
         },
         {
@@ -108,6 +116,15 @@ const router = new Router({
           name: 'user',
           path: '/user',
           component: () => import('@/views/pages/user/index'),
+          meta: {
+            requiresAuth: true,
+          },
+        },
+        // Studio
+        {
+          name: 'studio',
+          path: '/studio',
+          component: () => import('@/views/pages/studio/index'),
           meta: {
             requiresAuth: true,
           },

@@ -55,10 +55,9 @@
     >
       <v-toolbar-title>
         <v-img
-          v-if="!pageLogin"
           class="mt-4"
-          src="@/assets/img/a.png"
-          width="60px"
+          src="@/assets/img/ensiklotari.png"
+          width="90px"
           height="79px"
         />
       </v-toolbar-title>

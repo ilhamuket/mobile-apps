@@ -5,14 +5,37 @@
     class="v-card--material pa-3"
   >
     <div class="d-flex grow flex-wrap">
-      <v-avatar
+      <div
         v-if="avatar"
-        size="128"
         class="mx-auto v-card--material__avatar elevation-6"
-        color="grey"
       >
-        <v-img :src="avatar" />
-      </v-avatar>
+        <v-avatar
+          size="130"
+          color="grey"
+          tile
+        >
+          <v-img :src="avatar" />
+        </v-avatar>
+
+        <div class="d-flex flex-nowrap mt-2">
+          <v-icon
+            class="d-flex align-end justify-center mx-auto"
+            dark
+            color="primary"
+            @click="changePict"
+          >
+            mdi-pencil
+          </v-icon>
+          <v-icon
+            class="d-flex align-end justify-center mx-auto"
+            dark
+            color="primary"
+            @click="push"
+          >
+            mdi-camera-enhance-outline
+          </v-icon>
+        </div>
+      </div>
 
       <v-sheet
         v-else
@@ -114,6 +137,10 @@
         type: String,
         default: '',
       },
+      link: {
+        type: String,
+        default: '',
+      },
     },
 
     computed: {
@@ -122,11 +149,20 @@
           'v-card--material--has-heading': this.hasHeading,
         }
       },
+
       hasHeading () {
         return Boolean(this.$slots.heading || this.title || this.icon)
       },
       hasAltHeading () {
         return Boolean(this.$slots.heading || (this.title && this.icon))
+      },
+    },
+    methods: {
+      changePict () {
+        this.$emit('input')
+      },
+      push () {
+        this.$emit('push')
       },
     },
   }
@@ -137,7 +173,8 @@
   &__avatar
     position: relative
     top: -64px
-    margin-bottom: -32px
+    margin-bottom: -40px
+    background-color: #272F45 !important
 
   &__heading
     position: relative

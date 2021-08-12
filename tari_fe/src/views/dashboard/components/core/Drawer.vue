@@ -161,7 +161,7 @@
         {
           icon: 'mdi-account',
           title: 'user',
-          to: '/pages/user',
+          to: '/user/settings',
         },
 
         {
@@ -185,6 +185,11 @@
           title: 'class',
           icon: 'mdi-google-classroom',
           to: '/class',
+        },
+        {
+          icon: 'mdi-shopping-music',
+          title: 'studio',
+          to: '/studio',
         },
         {
           icon: 'mdi-shape-outline',

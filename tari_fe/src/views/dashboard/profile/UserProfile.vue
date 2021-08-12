@@ -66,7 +66,7 @@
                     <v-text-field
                       v-model="users.nickName"
                       prepend-icon="mdi-account-child "
-                      label="User name"
+                      label="Username"
                       class="purple-input"
                     />
                   </v-col>
@@ -77,13 +77,17 @@
                   >
                     <v-text-field
                       v-model="users.noHp"
+                      type="number"
                       prepend-icon="mdi-phone-hangup-outline"
                       label="Number Phone"
                       class="purple-input"
                     />
                   </v-col>
 
-                  <v-col cols="12">
+                  <v-col
+                    cols="12"
+                    md="6"
+                  >
                     <v-text-field
                       v-model="users.homeAddress"
                       prepend-icon="mdi-map-marker-outline "
@@ -92,12 +96,60 @@
                     />
                   </v-col>
 
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="6"
+                  >
+                    <v-menu
+                      ref="menu"
+                      v-model="menu"
+                      :close-on-content-click="false"
+                      :return-value.sync="users.dateOfBirth"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="auto"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                          v-model="users.dateOfBirth"
+                          label="Date Of Birth"
+                          prepend-icon="mdi-calendar"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                        />
+                      </template>
+                      <v-date-picker
+                        v-model="date"
+                        no-title
+                        scrollable
+                      >
+                        <v-spacer />
+                        <v-btn
+                          text
+                          color="primary"
+                          @click="menu = false"
+                        >
+                          Cancel
+                        </v-btn>
+                        <v-btn
+                          text
+                          color="primary"
+                          @click="$refs.menu.save(date)"
+                        >
+                          OK
+                        </v-btn>
+                      </v-date-picker>
+                    </v-menu>
+                  </v-col>
+
                   <v-col cols="12">
                     <v-textarea
+                      v-model="users.about"
                       prepend-icon="mdi-information-variant "
                       class="purple-input"
                       label="About Me"
-                      value="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum fugit molestias vero illum labore a dignissimos veritatis, dolore aperiam expedita dolorum aut esse odit alias soluta necessitatibus ullam eaque fuga fugiat perspiciatis amet exercitationem sequi. Nisi rerum iusto corporis at amet, perspiciatis provident blanditiis molestiae. Possimus sunt quod sequi repellendus sed dolorem? Necessitatibus pariatur vitae dicta eos excepturi laborum nesciunt corporis quo atque omnis dolores, deleniti ipsa? Dolores sunt iste similique hic, repellendus quam? Aliquid culpa harum repudiandae eius amet illum, totam quod, delectus alias tempore voluptatibus quidem. Repellat cum optio magni eligendi. Obcaecati vel necessitatibus amet optio pariatur sed."
                     />
                   </v-col>
 
@@ -108,6 +160,7 @@
                     <v-btn
                       color="success"
                       class="mr-0"
+                      @click="save"
                     >
                       Update Profile
                     </v-btn>
@@ -117,47 +170,6 @@
             </v-form>
           </base-material-card>
         </v-col>
-
-        <v-col
-          cols="12"
-          md="4"
-        >
-          <base-material-card
-            class="v-card-profile"
-            avatar="https://demos.creative-tim.com/vue-material-dashboard/img/marc.aba54d65.jpg"
-          >
-            <v-card-text class="text-center">
-              <h6 class=" mb-1 grey--text">
-                My Account
-              </h6>
-
-              <h4
-                :class="
-                  $vuetify.theme.dark
-                    ? 'font-weight-light mb-3 white--text'
-                    : 'font-weight-light mb-3 black--text'
-                "
-                class="text-capitalize"
-              >
-                {{ users.firstName + ' ' + users.lastName }}
-              </h4>
-
-              <p class="font-weight-light grey--text">
-                Don't be scared of the truth because we need to restart the
-                human foundation in truth And I love you like Kanye loves Kanye
-                I love Rick Owens’ bed design but the back is...
-              </p>
-
-              <v-btn
-                color="success"
-                rounded
-                class="mr-0"
-              >
-                Follow
-              </v-btn>
-            </v-card-text>
-          </base-material-card>
-        </v-col>
       </v-row>
     </v-container>
   </v-app>
@@ -165,6 +177,12 @@
 
 <script>
   export default {
+    data: () => ({
+      date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
+      menu: false,
+    }),
     computed: {
       users () {
         return this.$store.state.user.me
@@ -176,6 +194,45 @@
     methods: {
       me () {
         this.$store.dispatch('user/me')
+      },
+      save () {
+        this.$store
+          .dispatch('user/updateDataUser', {
+            id: this.users.id,
+            firstName: this.users.firstName,
+            lastName: this.users.lastName,
+            email: this.users.email,
+            nickname: this.users.nickName,
+            noHp: this.users.noHp,
+            homeAddress: this.users.homeAddress,
+            dateOfBirth: this.users.dateOfBirth,
+            about: this.users.about,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                },
+                popup: 'swal2-show',
+                backdrop: 'swal2-backdrop-show',
+                icon: 'swal2-icon-show',
+              })
+
+              Toast.fire({
+                icon: 'success',
+                title: 'Data has been successfully created',
+              })
+
+              this.$router.push('/user/myaccount')
+            }
+          })
       },
     },
   }

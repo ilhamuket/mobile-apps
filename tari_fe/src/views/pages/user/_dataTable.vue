@@ -29,6 +29,7 @@
             show-select
             :search="search"
             :sort-desc="false"
+            :items-per-page="5"
           >
             <template v-slot:[`item.id`]="{ item }">
               {{
@@ -136,7 +137,7 @@
                   :key="role.id"
                 >
                   <v-chip
-                    :text-color="$vuetify.theme.dark ? 'black' : ''"
+                    :text-color="$vuetify.theme.dark ? 'white' : 'white'"
                     :color="setColorRoleName(role.name)"
                     class="text-capitalize"
                     v-text="role.name"
@@ -213,7 +214,7 @@
         if (status === 0) return '#F44336'
       },
       setColorRoleName (name) {
-        if (name === 'superadministrator') return '#81F109'
+        if (name === 'superadministrator') return 'primary'
         if (name === 'administrator') return '#529A27'
         if (name === 'instructor') return '#DF0EE5'
       },

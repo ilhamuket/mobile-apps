@@ -24,7 +24,7 @@
           lg="3"
         >
           <base-material-stats-card
-            color="#7CE909"
+            color="primary"
             icon="mdi-account-tie"
             title="SuperAdministrator"
             :value="String(summary.superadmin)"

@@ -12,7 +12,7 @@
       outlined
       :class="drawer ? 'mr-6' : 'ml-6'"
       elevation="1"
-      color="#283046"
+      :color="$vuetify.theme.dark ? '' : '#283046'"
       fab
       small
       @click="setDrawer(!drawer)"
@@ -30,7 +30,18 @@
       class="hidden-sm-and-down font-weight-light"
       v-text="$t($route.name)"
     />
-
+    <v-spacer />
+    <v-toolbar-title
+      class="ml-12"
+      dark
+    >
+      <v-img
+        src="@/assets/img/ensiklotari.png"
+        width="90px"
+        height="79px"
+        class="bg-red"
+      />
+    </v-toolbar-title>
     <v-spacer />
 
     <v-col cols="2">
@@ -276,9 +287,14 @@
       ],
       items: [
         {
+          icon: 'mdi-account-outline',
+          text: 'myaccount',
+          to: '/user/myaccount',
+        },
+        {
           icon: 'mdi-account',
           text: 'user',
-          to: '/pages/user',
+          to: '/user/settings',
         },
         // {
         //   icon: 'mdi-bluetooth',
@@ -341,6 +357,6 @@
 </script>
 
 <style lang="sass" scoped>
-.bg-img
-  color: red !important
+.bg-red
+ color: red !important
 </style>
