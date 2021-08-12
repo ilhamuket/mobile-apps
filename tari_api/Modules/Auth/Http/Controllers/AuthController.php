@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\CreateUserRequest;
 use Illuminate\Support\Facades\DB;
 use Modules\Auth\Entities\ModelHasRoles;
+use Illuminate\Auth\Events\Registered;
 
 class AuthController extends Controller
 {
@@ -30,8 +31,11 @@ class AuthController extends Controller
             $master->noHp = $request->noHp;
             $master->save();
             $master->assignRole('instructor');
+
+            event(new Registered($master));
+            $accessToken = $master->createToken('auth')->plainTextToken;
             DB::commit();
-            return Json::response($master);
+            return Json::response($accessToken);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');

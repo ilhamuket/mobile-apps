@@ -23,5 +23,8 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
     Route::get('', [StudioController::class, 'index']);
     Route::post('', [StudioController::class, 'store']);
     Route::patch('{id}', [StudioController::class, 'update']);
-    Route::delete('', [StudioController::class, 'destroy']);
+    Route::patch('', [StudioController::class, 'destroy']);
+    Route::patch('{id}', [StudioController::class, 'approveStudio']);
+    Route::post('approve', [StudioController::class, 'studioApprove']);
+    Route::delete('{id}', [StudioController::class, 'destroyById']);
 });

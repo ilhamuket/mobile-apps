@@ -10,10 +10,3 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-use Auth\VerificationController;
-
-Route::prefix('auth')->group(function () {
-    Route::get('/', 'AuthController@index');
-});
-Auth::routes(['verify' => true]);

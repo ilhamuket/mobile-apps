@@ -8,11 +8,13 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use Modules\User\Entities\Role;
 use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
+
     public function boot()
     {
         $this->registerPolicies();
@@ -68,7 +70,7 @@ class UserController extends Controller
             $me = $request->user();
             $user = User::join('model_has_roles', 'model_has_roles.model_id', "=", "users.id")
                 ->join('roles', 'model_has_roles.role_id', '=', 'roles.id')
-                ->with('role', 'schedules.classes')
+                ->with('role', 'schedules.classes', 'studio')
                 ->select('users.*', 'roles.name as role_name')
                 ->findOrFail($me->id);
 
@@ -151,15 +153,30 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         try {
+            DB::beginTransaction();
             $master = User::findOrFail($id);
 
             $master->firstName = $request->input('firstName', $master->firstName);
             $master->lastName = $request->input('lastName', $master->lastName);
             $master->email = $request->input('email', $master->email);
             $master->homeAddress = $request->input('homeAddress', $master->homeAddress);
-            $master->dateOfBirt = $request->input('dateOfBirth', $master->dateOfBirt);
-        } catch (\Throwable $th) {
-            //throw $th;
+            $master->dateOfBirth = $request->input('dateOfBirth', $master->dateOfBirth);
+            $master->nickName = $request->input('nickname', $master->nickName);
+            $master->noHp = $request->input('noHp', $master->noHp);
+            $master->about = $request->input('about', $master->about);
+            $master->save();
+
+            DB::commit();
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            DB::rollBack();
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         }
     }
 

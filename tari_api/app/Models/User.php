@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Classes\Entities\Schedule;
 use Modules\Classes\Entities\Theory;
+use Modules\Studio\Entities\Studio;
 use Modules\User\Entities\Role;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Permission\Traits\HasPermissions;
@@ -58,6 +59,11 @@ class User extends Authenticatable implements MustVerifyEmail
     // {
     //     return $this->hasMany(Theory::class, 'user_id');
     // }
+
+    public function studio()
+    {
+        return $this->belongsTo(Studio::class, 'studio_id');
+    }
 
     public function schedules()
     {

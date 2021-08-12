@@ -11,6 +11,61 @@ use Modules\Studio\Entities\Studio;
 
 class StudioController extends Controller
 {
+    public function studioApprove(Request $request)
+    {
+        try {
+            // dd(is_array($request->id));
+            if (is_array($request->id)) {
+                foreach ($request->id as $id) {
+                    $master = Studio::find($id);
+                    $master->isVerified = true;
+                    $master->save();
+                }
+                return Json::response($master);
+            } else {
+                return Json::exception('asa');
+            }
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+
+    public function approveStudio(Request $request, $id)
+    {
+        try {
+            $master = Studio::findOrFail($id);
+            $master->isVerified = true;
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+
+    public function destroyById($id)
+    {
+        try {
+            $master = Studio::findOrFail($id);
+            $master->delete();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
@@ -140,7 +195,6 @@ class StudioController extends Controller
             if (is_array($request->id)) {
                 foreach ($request->id as $id) {
                     $master = Studio::findOrFail($id);
-
                     $master->delete();
                 }
                 return Json::response($master);

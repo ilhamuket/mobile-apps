@@ -25,6 +25,7 @@ Route::prefix('user')->middleware(['auth:sanctum', 'verified'])->group(function 
     Route::post('roles', [RoleController::class, "store"]);
 
     Route::get('', [UserController::class, 'index']);
+    Route::patch('{id}', [UserController::class, 'update']);
     Route::get('me', [UserController::class, 'me']);
     Route::get('indexAll', [UserController::class, 'indexAll'])->middleware('permission:see_users|free');
     Route::patch('changepassword', [AuthController::class, 'changePassword']);

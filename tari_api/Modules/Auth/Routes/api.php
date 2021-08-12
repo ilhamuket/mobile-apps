@@ -2,7 +2,8 @@
 
 use Illuminate\Http\Request;
 use Modules\Auth\Http\Controllers\AuthController;
-
+use Modules\User\Http\Controllers\UserController;
+use Modules\User\Http\Controllers\VerificationEmailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,4 +26,7 @@ Route::prefix('auth')->group(function () {
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
     Route::get('logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum']);
+
+    Route::get('verifications', [VerificationEmailController::class, 'verificationsEmail'])->middleware(['auth:sanctum']);
+    Route::get('verifications/resend', [VerificationEmailController::class, 'resend'])->middleware(['auth:sanctum']);
 });
