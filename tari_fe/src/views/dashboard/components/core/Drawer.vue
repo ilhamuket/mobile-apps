@@ -166,6 +166,11 @@
           icon: 'mdi-map-marker',
           to: '/maps/google-maps',
         },
+        {
+          icon: 'mdi-notebook',
+          title: 'journal_page',
+          to: '/u/journal',
+        },
       ],
       itemsAdmin: [
         {

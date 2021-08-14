@@ -17,7 +17,7 @@
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title class="">
-              Calango
+              EnsikloTari
             </v-list-item-title>
             <v-list-item-subtitle>WEB</v-list-item-subtitle>
           </v-list-item-content>
@@ -53,6 +53,12 @@
       class="px-15"
       :class="{ expand: flat }"
     >
+      <v-spacer />
+      <v-app-bar-nav-icon
+        v-if="isXs"
+        class="mr-4"
+        @click.stop="drawer = !drawer"
+      />
       <v-toolbar-title>
         <v-img
           class="mt-4"
@@ -62,12 +68,12 @@
         />
       </v-toolbar-title>
       <v-spacer class="ml-12" />
+      <!-- <v-spacer class="ml-12" />
       <v-spacer class="ml-12" />
       <v-spacer class="ml-12" />
       <v-spacer class="ml-12" />
       <v-spacer class="ml-12" />
-      <v-spacer class="ml-12" />
-      <v-spacer class="ml-12" />
+      <v-spacer class="ml-12" /> -->
       <v-spacer />
       <v-col
         class="ml-12"
@@ -125,14 +131,7 @@
         </v-toolbar-title>
       </v-col>
 
-      <v-spacer />
-      <v-app-bar-nav-icon
-        v-if="isXs"
-        class="mr-4"
-        @click.stop="drawer = !drawer"
-      />
-
-      <div v-else>
+      <div v-if="!isXs">
         <v-btn
           v-if="!pageLogin"
           text
