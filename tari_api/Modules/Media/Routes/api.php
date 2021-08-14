@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 // use Illuminate\Routing\Route;
 use Modules\Classes\Http\Controllers\ClassesController;
+use Modules\Media\Http\Controllers\ArticleController;
 use Modules\Media\Http\Controllers\MediaController;
 use Modules\Media\Http\Controllers\PostController;
 /*
@@ -29,6 +30,15 @@ Route::prefix('media')->middleware(['auth:sanctum'])->group(function () {
     Route::post('category', [MediaController::class, 'store']);
     Route::patch('category/{id}', [MediaController::class, 'update']);
     Route::delete('category/{id}', [MediaController::class, 'destroy']);
+
+    Route::get('article', [ArticleController::class, 'index']);
+    Route::post('article', [ArticleController::class, 'store']);
+    Route::get('article/{id}', [ArticleController::class, 'show']);
+    Route::patch('article/{id}', [ArticleController::class, 'update']);
+    Route::delete('article/{id}', [ArticleController::class, 'destroyById']);
+    Route::post('article/deletes', [ArticleController::class, 'destroy']);
+    Route::post('article/approves', [ArticleController::class, 'approves']);
+    Route::patch('article/approve/{id}', [ArticleController::class, 'approveById']);
 });
 
 Route::prefix('summary')->middleware(['auth:sanctum'])->group(function () {

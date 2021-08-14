@@ -11,6 +11,56 @@ use Modules\Media\Entities\Article;
 
 class ArticleController extends Controller
 {
+    public function approveById($id)
+    {
+        try {
+            $master = Article::findOrFail($id);
+            $master->isVerified = true;
+            $master->save();
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+    public function approves(Request $request)
+    {
+        try {
+            if (is_array($request->id)) {
+                foreach ($request->id as $id) {
+                    $master = Article::findOrFail($id);
+                    $master->isVerified = true;
+                    $master->save();
+                }
+                return Json::response($master);
+            }
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+    public function destroyById($id)
+    {
+        try {
+            $master = Article::findOrFail($id);
+
+            $master->delete();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     /**
      * Display a listing of the resource.
      * @return Renderable
@@ -18,7 +68,7 @@ class ArticleController extends Controller
     public function index()
     {
         try {
-            $master = Article::get();
+            $master = Article::with('author', 'studio')->get();
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
@@ -53,8 +103,10 @@ class ArticleController extends Controller
             $master->title = $request->title;
             $master->content = $request->content;
             $master->views = 0;
+            $master->author_id = $request->user()->id;
             $master->status = $request->status;
             $master->studio_id = $request->studio_id;
+            $master->thumbnail_url = $request->thumbnail_url;
             $master->save();
 
             DB::commit();
@@ -78,7 +130,17 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        return view('media::show');
+        try {
+            $master = Article::with('author', 'studio')->findOrFail($id);
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**
@@ -102,10 +164,10 @@ class ArticleController extends Controller
         try {
             DB::beginTransaction();
             $master = Article::findOrFail($id);
-            $master->name = $request->input('name', $master->name);
+            $master->title = $request->input('title', $master->title);
             $master->content = $request->input('content', $master->content);
             $master->status = $request->input('status', $master->status);
-            $master->studio_id = $request->input('status', $master->studio_id);
+            $master->studio_id = $request->input('studio_id', $master->studio_id);
             $master->save();
 
             DB::commit();
@@ -133,7 +195,6 @@ class ArticleController extends Controller
             if (is_array($request->id)) {
                 foreach ($request->id as $id) {
                     $master = Article::findOrFail($id);
-
                     $master->delete();
                 }
                 return Json::response($master);

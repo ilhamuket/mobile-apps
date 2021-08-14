@@ -39,6 +39,7 @@ class StudioController extends Controller
         try {
             $master = Studio::findOrFail($id);
             $master->isVerified = true;
+            $master->save();
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
