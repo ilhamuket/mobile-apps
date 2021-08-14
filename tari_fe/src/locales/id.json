@@ -81,5 +81,10 @@
         "contact": "Kontak"
     },
     "myaccount": "Profile Saya",
-    "studio": "Sanggar"
+    "studio": "Sanggar",
+    "journal": "Jurnal",
+    "journal.create": "Buat Jurnal",
+    "journal.show": "Halamanan Jurnal",
+    "journal.update": "Sunting Jurnal",
+    "journal_page": "Jurnal"
 }

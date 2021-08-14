@@ -2,6 +2,7 @@
   <v-navigation-drawer
     id="core-navigation-drawer"
     v-model="drawer"
+    color="#141C31"
     class="on-hover"
     :mini-variant="!drawer"
     :right="$vuetify.rtl"
@@ -23,7 +24,7 @@
     <v-list
       dense
       nav
-      :class="$vuetify.theme.dark ? 'bg--dark' : 'bg--light'"
+      :class="drawer ? '' : 'drawer--active'"
     >
       <v-list-item>
         <v-list-item-avatar
@@ -66,7 +67,6 @@
       v-if="users && filterAdmin"
       expand
       nav
-      :class="$vuetify.theme.dark ? 'bg--dark' : 'bg--light'"
     >
       <!-- Style cascading bug  -->
       <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
@@ -96,9 +96,6 @@
     <v-list
       expand
       nav
-      :class="
-        $vuetify.theme.dark ? 'bg--dark height-max ' : 'bg--light height-max'
-      "
     >
       <!-- Style cascading bug  -->
       <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
@@ -177,6 +174,16 @@
           to: '/',
         },
         {
+          icon: 'mdi-shopping-music',
+          title: 'studio',
+          to: '/studio',
+        },
+        {
+          icon: 'mdi-notebook-multiple',
+          title: 'journal',
+          to: '/journal',
+        },
+        {
           icon: 'mdi-account',
           title: 'users',
           to: '/user',
@@ -185,11 +192,6 @@
           title: 'class',
           icon: 'mdi-google-classroom',
           to: '/class',
-        },
-        {
-          icon: 'mdi-shopping-music',
-          title: 'studio',
-          to: '/studio',
         },
         {
           icon: 'mdi-shape-outline',

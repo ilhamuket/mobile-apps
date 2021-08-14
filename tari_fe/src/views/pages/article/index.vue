@@ -58,46 +58,37 @@
             sub-text="Tracked from Google Analytics"
           />
         </v-col>
-
-        <v-col
-          cols="12"
-          md="12"
-        >
+        <v-col cols="12">
           <app-data-table
-            :data="studio"
-            @delete="deletedDataStudio"
-            @approve="approvedDataStudio"
-            @add="addDialog"
-            @remove="removeStudioById"
-            @aproveById="popUpApprovedDataStudioById"
+            :data="article"
+            @delete="popUpDeletes"
+            @approve="popAppreves"
+            @deleteById="popUpDeleteDataArticleById"
+            @approveById="popApproveById"
           />
         </v-col>
       </v-row>
     </v-container>
     <app-data-dialog
-      :dialog="dialog"
-      icon="mdi-check-decagram"
-      title="Approve"
-      text-button1="Approve"
-      text="Are You Sure Want to Approve"
-      @input="approveData"
-    />
-    <app-data-dialog
       :dialog="dialogDelete"
       title="Delete"
       text="Are You Sure Want to Delete"
       text-button1="Delete"
-      icon="mdi-delete "
+      icon="mdi-delete"
       color-button1="red"
       color-button2="primary"
       @input="deletesData"
     />
-    <app-data-dialog-add
-      :dialog="dialogAdd"
-      @input="saveStudio"
+    <app-data-dialog
+      :dialog="dialogApproves"
+      title="Approve"
+      icon="mdi-check-decagram"
+      text="Are You Sure Want To Approve"
+      text-button1="Approve"
+      @input="approveDatas"
     />
     <app-data-dialog
-      :dialog="dialogEditById"
+      :dialog="dialogDeleteById"
       :by-id="true"
       title="Delete"
       text="Are You Sure Want to Delete"
@@ -105,43 +96,38 @@
       icon="mdi-delete "
       color-button1="red"
       color-button2="primary"
-      @input="deleteStudio"
+      @input="deletesArticleById"
     />
     <app-data-dialog
       :dialog="dialogApproveById"
       :by-id="true"
-      icon="mdi-check-decagram"
       title="Approve"
+      text="Are You Sure Want To Approve"
+      icon="mdi-check-decagram"
       text-button1="Approve"
-      text="Are You Sure Want to Approve"
-      @input="approveDataStudioById"
+      @input="approveDataArticleById"
     />
   </v-app>
 </template>
 
 <script>
-  import dialogApproved from './_dialogApproved.vue'
   import dataTable from './_dataTable.vue'
-  import dialogAddStudio from './_dialogAddStudio.vue'
+  import dialog from './_dialog.vue'
   export default {
     components: {
       'app-data-table': dataTable,
-      'app-data-dialog': dialogApproved,
-      'app-data-dialog-add': dialogAddStudio,
+      'app-data-dialog': dialog,
     },
     data: () => ({
-      dialog: {
-        open: false,
-        data: [],
-      },
       dialogDelete: {
         open: false,
         data: [],
       },
-      dialogAdd: {
+      dialogApproves: {
         open: false,
+        data: [],
       },
-      dialogEditById: {
+      dialogDeleteById: {
         id: 0,
         open: false,
         title: '',
@@ -153,25 +139,62 @@
       },
     }),
     computed: {
-      studio () {
-        return this.$store.state.studio.data
+      article () {
+        return this.$store.state.article.data
       },
     },
     mounted () {
-      this.getDataStudio()
+      this.getDataArticle()
     },
     methods: {
-      getDataStudio () {
-        this.$store.dispatch('studio/getData')
+      getDataArticle () {
+        this.$store.dispatch('article/getDataArticle')
       },
-      approvedDataStudio ({ item }) {
-        this.dialog.open = true
-        this.dialog.data = item
+      popAppreves ({ item }) {
+        this.dialogApproves.open = true
+        this.dialogApproves.data = item
       },
-      approveData ({ item }) {
+      popUpDeletes ({ item }) {
+        this.dialogDelete.open = true
+        this.dialogDelete.data = item
+      },
+      deletesData ({ item }) {
         const id = item.map(x => x.id)
         this.$store
-          .dispatch('studio/approvedData', {
+          .dispatch('article/deletesArticle', {
+            id: id,
+          })
+          .then(res => {
+            console.log(res)
+            if (res.data.meta.status) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                },
+                popup: 'swal2-show',
+                backdrop: 'swal2-backdrop-show',
+                icon: 'swal2-icon-show',
+              })
+
+              Toast.fire({
+                icon: 'success',
+                title: 'Data has been successfully Deleted',
+              })
+              this.dialogDelete.open = false
+              this.getDataArticle()
+            }
+          })
+      },
+      approveDatas ({ item }) {
+        const id = item.map(x => x.id)
+        this.$store
+          .dispatch('article/approveArticles', {
             id: id,
           })
           .then(res => {
@@ -195,131 +218,55 @@
                 icon: 'success',
                 title: 'Data has been successfully Approved',
               })
-              this.dialog.open = false
-              this.getDataStudio()
+              this.dialogApproves.open = false
+              this.getDataArticle()
             }
           })
       },
-      deletedDataStudio ({ item }) {
-        this.dialogDelete.open = true
-        this.dialogDelete.data = item
+      popUpDeleteDataArticleById ({ item }) {
+        this.dialogDeleteById.open = true
+        this.dialogDeleteById.id = item.id
+        this.dialogDeleteById.title = item.title
       },
-      deletesData ({ item }) {
-        const id = item.map(x => x.id)
-        // console.log(id)
+      deletesArticleById ({ item }) {
         this.$store
-          .dispatch('studio/DeleteDataStudios', {
-            id: id,
-          })
-          .then(res => {
-            if (res.data.meta.status) {
-              const Toast = this.$swal.mixin({
-                toast: true,
-                position: 'bottom-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
-                },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
-              })
-
-              Toast.fire({
-                icon: 'success',
-                title: 'Data has been successfully Deleted',
-              })
-              this.dialogDelete.open = false
-              this.getDataStudio()
-            }
-          })
-      },
-      addDialog () {
-        this.dialogAdd.open = true
-      },
-      saveStudio ({ item }) {
-        this.$store
-          .dispatch('studio/insertData', {
-            name: item.name,
-            prefix: item.prefix,
-            about: item.about,
-            contact: item.contact,
-            region: item.region,
-            email: item.email,
-            username: item.username,
-          })
-          .then(res => {
-            if (res.data.meta.status) {
-              const Toast = this.$swal.mixin({
-                toast: true,
-                position: 'bottom-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
-                },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
-              })
-
-              Toast.fire({
-                icon: 'success',
-                title: 'Data has been successfully Created',
-              })
-              this.dialogAdd.open = false
-            }
-          })
-      },
-      removeStudioById ({ item }) {
-        this.dialogEditById.open = true
-        this.dialogEditById.title = item.name
-        this.dialogEditById.id = item.id
-      },
-      deleteStudio ({ item }) {
-        // console.log(item)
-        this.$store
-          .dispatch('studio/deleteStudio', {
+          .dispatch('article/deleteArticleById', {
             id: item.id,
           })
           .then(res => {
             if (res.data.meta.status) {
-              const Toast = this.$swal.mixin({
-                toast: true,
-                position: 'bottom-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
-                },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
-              })
-
-              Toast.fire({
-                icon: 'success',
-                title: 'Data has been successfully Deleted',
-              })
-              this.dialogEditById.open = false
             }
+            const Toast = this.$swal.mixin({
+              toast: true,
+              position: 'bottom-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: toast => {
+                toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+              },
+              popup: 'swal2-show',
+              backdrop: 'swal2-backdrop-show',
+              icon: 'swal2-icon-show',
+            })
+
+            Toast.fire({
+              icon: 'success',
+              title: 'Data has been successfully Deleted',
+            })
+            this.dialogDeleteById.open = false
+            this.getDataArticle()
           })
       },
-      popUpApprovedDataStudioById ({ item }) {
+      popApproveById ({ item }) {
         this.dialogApproveById.open = true
         this.dialogApproveById.id = item.id
-        this.dialogApproveById.title = item.name
+        this.dialogApproveById.title = item.title
       },
-      approveDataStudioById ({ item }) {
+      approveDataArticleById ({ item }) {
         this.$store
-          .dispatch('studio/approvedDataById', {
+          .dispatch('article/approveArticle', {
             id: item.id,
           })
           .then(res => {
@@ -341,10 +288,10 @@
 
               Toast.fire({
                 icon: 'success',
-                title: 'Data has been successfully Created',
+                title: 'Data has been successfully Approved',
               })
               this.dialogApproveById.open = false
-              this.getDataStudio()
+              this.getDataArticle()
             }
           })
       },

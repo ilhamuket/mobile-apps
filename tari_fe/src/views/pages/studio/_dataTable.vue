@@ -116,7 +116,7 @@
                       color="transparent"
                       small
                       text
-                      @click="removeData(item)"
+                      @click="approveDataById(item)"
                     >
                       <v-icon
                         color="primary"
@@ -195,6 +195,9 @@
       },
       removeData (item) {
         this.$emit('remove', { item: item })
+      },
+      approveDataById (item) {
+        this.$emit('aproveById', { item: item })
       },
     },
   }

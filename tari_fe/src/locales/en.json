@@ -82,5 +82,10 @@
     "contact": "Contact"
   },
   "myaccount": "My Account",
-  "studio": "Studio"
+  "studio": "Studio",
+  "journal": "Journal",
+  "journal.create": "Create Journal",
+  "journal.show": "Journal Page",
+  "journal.update": "Edit Journal",
+  "journal_page": "Journal"
 }

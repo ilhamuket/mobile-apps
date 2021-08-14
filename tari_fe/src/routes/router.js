@@ -129,6 +129,49 @@ const router = new Router({
             requiresAuth: true,
           },
         },
+        // Article
+        {
+          name: 'journal',
+          path: '/journal',
+          component: () => import('@/views/pages/article/index'),
+          meta: {
+            requiresAuth: true,
+          },
+        },
+        {
+          name: 'journal.create',
+          path: '/journal/create',
+          component: () => import('@/views/pages/article/create'),
+          meta: {
+            requiresAuth: true,
+          },
+        },
+        {
+          name: 'journal.show',
+          path: '/journal/:id/show',
+          component: () => import('@/views/pages/article/showArticle'),
+          meta: {
+            requiresAuth: true,
+          },
+        },
+        {
+          name: 'journal.update',
+          path: '/journal/:id/edit',
+          component: () => import('@/views/pages/article/updateArticle'),
+          meta: {
+            requiresAuth: true,
+          },
+        },
+
+        // Point Of Views Users
+        {
+          name: 'journal_page',
+          path: '/u/journal',
+          component: () => import('@/views/pages/pagesUsers/article/index'),
+          meta: {
+            requiresAuth: true,
+          },
+        },
       ],
     },
     {
