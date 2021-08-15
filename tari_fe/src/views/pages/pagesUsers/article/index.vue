@@ -49,8 +49,11 @@
           cols="12"
           md="4"
         >
+          <div v-if="loading">
+            <v-card :loading="loading" />
+          </div>
           <v-card
-            :loading="loading"
+            v-else
             max-width="400"
             height="350"
           >
@@ -163,6 +166,14 @@
             </v-btn>
           </v-card>
         </v-col>
+        <v-row v-if="load">
+          <v-col>
+            <v-progress-circular
+              indeterminate
+              color="primary"
+            />
+          </v-col>
+        </v-row>
       </v-row>
     </v-container>
   </v-app>
@@ -173,6 +184,7 @@
     data: () => ({
       loading: false,
       selection: 1,
+      load: false,
     }),
     computed: {
       article () {
@@ -182,13 +194,18 @@
         return this.$store.state.studio.data
       },
     },
-    mounted () {
+    beforeMount () {
       this.getDataArticle()
       this.getDataStudio()
     },
+    mounted () {
+      this.getNextUser()
+    },
     methods: {
       getDataArticle () {
-        this.$store.dispatch('article/getDataArticle')
+        this.$store.dispatch('article/getDataArticle', {
+          limit: 3,
+        })
       },
       getDataStudio () {
         this.$store.dispatch('studio/getData')
@@ -248,6 +265,20 @@
           }
         }
         return time
+      },
+      getNextUser () {
+        window.onscroll = () => {
+          const bottomOfWindow =
+            document.documentElement.scrollTop + window.innerHeight ===
+            document.documentElement.offsetHeight
+          console.log(bottomOfWindow)
+
+          if (bottomOfWindow) {
+            this.$store.dispatch('article/getDataArticle')
+            this.load = false
+            this.loading = false
+          }
+        }
       },
       toSee (item) {
         this.$router.push(`/journal/${item.id}/show`)

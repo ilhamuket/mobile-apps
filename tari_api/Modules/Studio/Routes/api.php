@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Modules\Studio\Http\Controllers\ImagesStudioController;
 use Modules\Studio\Http\Controllers\StudioController;
 
 /*
@@ -27,4 +28,7 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
     Route::patch('{id}', [StudioController::class, 'approveStudio']);
     Route::post('approve', [StudioController::class, 'studioApprove']);
     Route::delete('{id}', [StudioController::class, 'destroyById']);
+
+    Route::post('files', [ImagesStudioController::class, 'store']);
+    Route::get('files', [ImagesStudioController::class, 'index']);
 });
