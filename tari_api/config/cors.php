@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'paths' => ['v1/*', 'sanctum/csrf-cookie'],
+    'paths' => ['v1/*', 'sanctum/csrf-cookie', 'http://ensiklotari.com/tari_api/v1/*'],
 
     'allowed_methods' => ['*'],
 

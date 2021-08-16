@@ -45,6 +45,7 @@ class ImagesStudioController extends Controller
         // $publicPath = \Storage::url($path);
         $master->url =  $path;
         $master->studio_id = $request->studio_id;
+        $master->type = $request->type;
         $master->save();
 
         return Json::response($master);

@@ -13,7 +13,10 @@ class AlterTableStudioImgTypeNullAbleInModuleStudio extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('img_studio', function (Blueprint $table) {
+            $table->string('type');
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -23,6 +26,9 @@ class AlterTableStudioImgTypeNullAbleInModuleStudio extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('img_studio', function (Blueprint $table) {
+            $table->dropColumn('type');
+            $table->dropSoftDeletes();
+        });
     }
 }

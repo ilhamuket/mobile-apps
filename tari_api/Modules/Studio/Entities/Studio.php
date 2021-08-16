@@ -27,4 +27,8 @@ class Studio extends Model
     {
         return $this->belongsTo(User::class, 'author_id');
     }
+    public function img()
+    {
+        return $this->hasMany(ImagesStudio::class, 'studio_id');
+    }
 }
