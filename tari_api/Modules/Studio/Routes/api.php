@@ -4,6 +4,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Modules\Studio\Http\Controllers\ImagesStudioController;
 use Modules\Studio\Http\Controllers\StudioController;
+use Modules\Studio\Http\Controllers\StudioVidioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,15 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
     Route::patch('{id}', [StudioController::class, 'approveStudio']);
     Route::post('approve', [StudioController::class, 'studioApprove']);
     Route::delete('{id}', [StudioController::class, 'destroyById']);
+    Route::get('{id}', [StudioController::class, 'show']);
+    // Users
+    Route::get('u/{slug}', [StudioController::class, 'bySlug']);
+
+    // Studio Vidio
+    Route::post('vidio', [StudioVidioController::class, 'store']);
+    Route::get('vidio/index', [StudioVidioController::class, 'index']);
+    Route::get('vidio/auto-play', [StudioVidioController::class, 'autoPlay']);
+    Route::get('vidio/list-vidio', [StudioVidioController::class, 'listVidio']);
 
     Route::post('files', [ImagesStudioController::class, 'store']);
     Route::get('files', [ImagesStudioController::class, 'index']);

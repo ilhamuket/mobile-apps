@@ -11,6 +11,21 @@ use Modules\Studio\Entities\Studio;
 
 class StudioController extends Controller
 {
+    public function bySlug($slug)
+    {
+        try {
+            $master = Studio::with('member', 'author', 'img')->where('slug', $slug)->first();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+
     public function studioApprove(Request $request)
     {
         try {
@@ -139,7 +154,17 @@ class StudioController extends Controller
      */
     public function show($id)
     {
-        return view('studio::show');
+        try {
+            $master = Studio::with('member', 'author', 'img')->findOrFail($id);
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**
