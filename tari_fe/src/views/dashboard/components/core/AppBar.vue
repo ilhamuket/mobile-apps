@@ -11,7 +11,7 @@
     <v-btn
       v-if="!drawer"
       outlined
-      class="'ml-6'"
+      class="ml-6"
       elevation="1"
       :color="$vuetify.theme.dark ? '' : '#283046'"
       fab
