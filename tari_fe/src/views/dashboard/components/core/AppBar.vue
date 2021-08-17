@@ -7,10 +7,11 @@
     flat
     height="75"
   >
+   <v-spacer />
     <v-btn
       v-if="!drawer"
       outlined
-      :class="drawer ? 'mr-6' : 'ml-6'"
+      :class="drawer ? 'ml-6' : 'ml-6'"
       elevation="1"
       :color="$vuetify.theme.dark ? '' : '#283046'"
       fab
@@ -30,7 +31,7 @@
       class="hidden-sm-and-down font-weight-light"
       v-text="$t($route.name)"
     />
-    <v-spacer />
+ 
     <v-toolbar-title
       class="ml-12"
       dark
