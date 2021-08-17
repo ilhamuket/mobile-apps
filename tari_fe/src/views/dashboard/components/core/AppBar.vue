@@ -7,7 +7,7 @@
     flat
     height="75"
   >
-   <v-spacer />
+    <div class="ml-2" />
     <v-btn
       v-if="!drawer"
       outlined
