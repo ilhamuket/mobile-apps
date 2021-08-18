@@ -7,29 +7,9 @@
     flat
     height="75"
   >
- <div class="ml-8" />
-    <v-btn
-      v-if="!drawer"
-      outlined
-      class="ml-6"
-      elevation="1"
-      :color="$vuetify.theme.dark ? '' : '#283046'"
-      fab
-      small
-      @click="setDrawer(!drawer)"
-    >
-      <v-icon v-if="value">
-        mdi-view-quilt
-      </v-icon>
-
-      <v-icon v-else>
-        mdi-dots-vertical
-      </v-icon>
-    </v-btn>
-    <div class="mr-2" />
-    <v-toolbar-title
-      class="hidden-sm-and-down font-weight-light"
-      v-text="$t($route.name)"
+   <v-toolbar-title
+      class="hidden-sm-and-down font-weight-light ml-6"
+      v-text="$route.name"
     />
  
     <v-toolbar-title
