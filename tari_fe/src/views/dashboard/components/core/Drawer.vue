@@ -122,24 +122,14 @@
       <div />
     </v-list>
 
-
-    <template #prepend>
-      <v-list nav>
-        <v-btn
-          v-if="!drawer"
-          icon
-          outlined
-          class="ml-3 mt-3"
-          small
-          color="pallet1"
-          @click.stop="drawerBtn"
-        >
-          <v-icon dark>
-            mdi-chevron-right
-          </v-icon>
-        </v-btn>
-      </v-list>
-    </template>
+    <!-- <template v-slot:append>
+      <base-item
+        :item="{
+          title: $t('logout'),
+          icon: 'mdi-logout',
+        }"
+      />
+    </template> -->
   </v-navigation-drawer>
 </template>
 
@@ -274,9 +264,6 @@
       },
       getMe () {
         this.$store.dispatch('user/me')
-      },
-       drawerBtn () {
-        this.$store.state.drawer = !this.$store.state.drawer
       },
     },
   }
