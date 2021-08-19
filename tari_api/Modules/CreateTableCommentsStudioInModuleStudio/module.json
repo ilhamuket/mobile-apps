@@ -1,0 +1,13 @@
+{
+    "name": "CreateTableCommentsStudioInModuleStudio",
+    "alias": "createtablecommentsstudioinmodulestudio",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\CreateTableCommentsStudioInModuleStudio\\Providers\\CreateTableCommentsStudioInModuleStudioServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

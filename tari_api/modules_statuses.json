@@ -5,5 +5,7 @@
     "Classes": true,
     "Media": true,
     "Plan": true,
-    "Studio": true
+    "Studio": true,
+    "Migration": true,
+    "CreateTableCommentsStudioInModuleStudio": true
 }

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Modules\Studio\Http\Controllers\CommentStudioVidioController;
 use Modules\Studio\Http\Controllers\ImagesStudioController;
 use Modules\Studio\Http\Controllers\StudioController;
 use Modules\Studio\Http\Controllers\StudioVidioController;
@@ -38,6 +39,12 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
     Route::get('vidio/index', [StudioVidioController::class, 'index']);
     Route::get('vidio/auto-play', [StudioVidioController::class, 'autoPlay']);
     Route::get('vidio/list-vidio', [StudioVidioController::class, 'listVidio']);
+
+    // Commnents Studio Vidio
+    Route::get('comments/index', [CommentStudioVidioController::class, 'index']);
+    Route::post('comments/post', [CommentStudioVidioController::class, 'store']);
+    // Child
+    Route::get('comments/index/child', [CommentStudioVidioController::class, 'chidlIndex']);
 
     Route::post('files', [ImagesStudioController::class, 'store']);
     Route::get('files', [ImagesStudioController::class, 'index']);
