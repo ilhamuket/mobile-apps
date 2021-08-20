@@ -68,7 +68,7 @@ class ArticleController extends Controller
     public function index(Request $request)
     {
         try {
-            $master = Article::with('author', 'studio')->limit($request->input('limit', 3))->get();
+            $master = Article::with('author', 'studio')->get();
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

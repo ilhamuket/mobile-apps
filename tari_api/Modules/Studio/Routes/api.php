@@ -4,6 +4,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Modules\Studio\Http\Controllers\CommentStudioVidioController;
 use Modules\Studio\Http\Controllers\ImagesStudioController;
+use Modules\Studio\Http\Controllers\StudioArticleController;
 use Modules\Studio\Http\Controllers\StudioController;
 use Modules\Studio\Http\Controllers\StudioVidioController;
 
@@ -18,11 +19,7 @@ use Modules\Studio\Http\Controllers\StudioVidioController;
 |
 */
 
-Route::middleware('auth:api')->get('/studio', function (Request $request) {
-    return $request->user();
-});
-
-Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
+Route::prefix('studio')->middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('', [StudioController::class, 'index']);
     Route::post('', [StudioController::class, 'store']);
     Route::patch('{id}', [StudioController::class, 'update']);
@@ -45,6 +42,11 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
     Route::post('comments/post', [CommentStudioVidioController::class, 'store']);
     // Child
     Route::get('comments/index/child', [CommentStudioVidioController::class, 'chidlIndex']);
+
+    // article
+    Route::prefix('u')->group(function () {
+        Route::get('article/{slug}', [StudioArticleController::class, 'index']);
+    });
 
     Route::post('files', [ImagesStudioController::class, 'store']);
     Route::get('files', [ImagesStudioController::class, 'index']);

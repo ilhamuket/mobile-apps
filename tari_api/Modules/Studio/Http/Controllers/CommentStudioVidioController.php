@@ -39,6 +39,7 @@ class CommentStudioVidioController extends Controller
 
             $master = CommentStudioVidio::with('user', 'vidio', 'child.user', 'child', 'parent')
                 ->where('studio_vidio_id', $request->vidio_id)
+                ->whereNull('parent_id')
                 ->get();
 
             return Json::response($master);
