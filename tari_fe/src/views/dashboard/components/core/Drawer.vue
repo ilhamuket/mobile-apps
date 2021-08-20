@@ -122,14 +122,23 @@
       <div />
     </v-list>
 
-    <!-- <template v-slot:append>
-      <base-item
-        :item="{
-          title: $t('logout'),
-          icon: 'mdi-logout',
-        }"
-      />
-    </template> -->
+    <template #prepend>
+      <v-list nav>
+        <v-btn
+          v-if="!drawer"
+          icon
+          outlined
+          class="ml-3 mt-3"
+          small
+          color="pallet1"
+          @click.stop="drawerBtn"
+        >
+          <v-icon dark>
+            mdi-chevron-right
+          </v-icon>
+        </v-btn>
+      </v-list>
+    </template>
   </v-navigation-drawer>
 </template>
 
