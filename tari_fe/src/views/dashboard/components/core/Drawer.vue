@@ -274,6 +274,9 @@
       getMe () {
         this.$store.dispatch('user/me')
       },
+      drawerBtn () {
+        this.$store.state.drawer = !this.$store.state.drawer
+      },
     },
   }
 </script>

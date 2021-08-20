@@ -334,9 +334,6 @@
       toogle_dark_theme () {
         localStorage.setItem('dark_theme', this.$vuetify.theme.dark.toString())
       },
-      drawerBtn () {
-        this.$store.state.drawer = !this.$store.state.drawer
-      },
     },
   }
 </script>
