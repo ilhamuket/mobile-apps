@@ -29,6 +29,6 @@ class Studio extends Model
     }
     public function img()
     {
-        return $this->hasMany(ImagesStudio::class, 'studio_id');
+        return $this->hasOne(ImagesStudio::class, 'studio_id');
     }
 }

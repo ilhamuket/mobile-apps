@@ -2,9 +2,11 @@
 
 namespace Modules\Studio\Http\Controllers;
 
+use Brryfrmnn\Transformers\Json;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Studio\Entities\StudioClass;
 
 class StudioClassController extends Controller
 {
@@ -14,7 +16,15 @@ class StudioClassController extends Controller
      */
     public function index()
     {
-        return view('studio::index');
+        try {
+            $master = StudioClass::with('studio', 'author')->get();
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**
@@ -33,7 +43,24 @@ class StudioClassController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $master = new StudioClass();
+            $master->name = $request->name;
+            $master->status = $request->status;
+            $master->levels = $request->levels;
+            $master->about = $request->about;
+            $master->author_id = $request->user()->id;
+            $master->studio_id = $request->studio_id;
+            $master->save();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**

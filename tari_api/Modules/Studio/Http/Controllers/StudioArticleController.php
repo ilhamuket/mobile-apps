@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Media\Entities\Article;
 use Modules\Studio\Entities\studioArticle;
 
 class StudioArticleController extends Controller
@@ -19,7 +20,7 @@ class StudioArticleController extends Controller
     {
         try {
             $studio_slug = $slug;
-            $master = studioArticle::whereHas('studio', function (Builder $query) use ($studio_slug) {
+            $master = Article::whereHas('studio', function (Builder $query) use ($studio_slug) {
                 $query->where('slug', $studio_slug);
             })->with('studio', 'author')->paginate(2);
 

@@ -48,6 +48,11 @@ Route::prefix('studio')->middleware(['auth:sanctum', 'verified'])->group(functio
         Route::get('article/{slug}', [StudioArticleController::class, 'index']);
     });
 
+    // describtion Classes
+
+
+    // files
+    Route::post('files/thumbnail', [ImagesStudioController::class, 'thumbnail']);
     Route::post('files', [ImagesStudioController::class, 'store']);
-    Route::get('files', [ImagesStudioController::class, 'index']);
+    Route::get('files/index', [ImagesStudioController::class, 'index']);
 });
