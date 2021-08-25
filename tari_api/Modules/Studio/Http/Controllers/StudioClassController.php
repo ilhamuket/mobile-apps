@@ -14,10 +14,16 @@ class StudioClassController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request, $slug)
     {
         try {
-            $master = StudioClass::with('studio', 'author')->get();
+            $studio_slug = $slug;
+            $master = StudioClass::entities($request->entities)
+                ->search($request->q)
+                ->findSLug($slug)
+                ->get();
+
+            return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         } catch (\Illuminate\Database\QueryException $e) {

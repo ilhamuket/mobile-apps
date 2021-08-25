@@ -14,7 +14,9 @@ class StudioController extends Controller
     public function bySlug($slug)
     {
         try {
-            $master = Studio::with('member', 'author', 'img')->where('slug', $slug)->first();
+            $master = Studio::with('member', 'author', 'img')
+                ->where('slug', $slug)
+                ->first();
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
@@ -38,7 +40,7 @@ class StudioController extends Controller
                 }
                 return Json::response($master);
             } else {
-                return Json::exception('asa');
+                return Json::exception('Data not found');
             }
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
@@ -86,10 +88,13 @@ class StudioController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $master = Studio::with('member', 'author', 'img')->get();
+            $master = Studio::with('member', 'author', 'img')
+                ->search($request->search)
+                ->sort($request->sort)
+                ->get();
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

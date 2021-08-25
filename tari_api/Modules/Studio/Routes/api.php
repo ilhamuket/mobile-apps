@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Modules\Studio\Http\Controllers\CommentStudioVidioController;
 use Modules\Studio\Http\Controllers\ImagesStudioController;
 use Modules\Studio\Http\Controllers\StudioArticleController;
+use Modules\Studio\Http\Controllers\StudioClassController;
 use Modules\Studio\Http\Controllers\StudioController;
 use Modules\Studio\Http\Controllers\StudioVidioController;
 
@@ -43,12 +44,14 @@ Route::prefix('studio')->middleware(['auth:sanctum', 'verified'])->group(functio
     // Child
     Route::get('comments/index/child', [CommentStudioVidioController::class, 'chidlIndex']);
 
-    // article
-    Route::prefix('u')->group(function () {
-        Route::get('article/{slug}', [StudioArticleController::class, 'index']);
-    });
 
-    // describtion Classes
+    Route::prefix('u')->group(function () {
+        // article
+        Route::get('article/{slug}', [StudioArticleController::class, 'index']);
+        // describtion Classes
+        Route::get('class/describe/{slug}', [StudioClassController::class, 'index']);
+        Route::post('class/describe/post', [StudioClassController::class, 'store']);
+    });
 
 
     // files

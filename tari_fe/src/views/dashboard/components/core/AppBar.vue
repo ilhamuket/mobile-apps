@@ -10,7 +10,7 @@
     <div class="mr-2" />
     <v-toolbar-title
       class="hidden-sm-and-down font-weight-light ml-6"
-      v-text="$route.name"
+      v-text="translet($route.name)"
     />
     <v-spacer />
     <v-toolbar-title
@@ -333,6 +333,9 @@
       },
       toogle_dark_theme () {
         localStorage.setItem('dark_theme', this.$vuetify.theme.dark.toString())
+      },
+      translet (item) {
+        return this.$t(item)
       },
     },
   }
