@@ -89,7 +89,7 @@ const router = new Router({
           },
         },
         {
-          name: 'Detail Studio',
+          name: 'DETAIL STUDIO',
           path: '/:slug/:folder',
           component: () =>
             import('@/views/dashboard/pages/studio/detailStudio'),

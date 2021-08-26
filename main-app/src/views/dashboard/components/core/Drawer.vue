@@ -132,7 +132,7 @@
         },
         {
           icon: 'mdi-shopping-music',
-          title: 'studio',
+          title: 'Studio',
           to: '/studio',
         },
         {

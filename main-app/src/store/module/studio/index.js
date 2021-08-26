@@ -40,9 +40,9 @@ export default {
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
-        // const params = { ...payload }
+        const params = { ...payload }
         axios
-          .get(`studio/u/${payload.slug}`)
+          .get(`studio/u/${payload.slug}`, { params: params })
           .then(res => {
             const data = res.data.data
             commit('GET_DATA_STUDIO_BY_SLUG', data)

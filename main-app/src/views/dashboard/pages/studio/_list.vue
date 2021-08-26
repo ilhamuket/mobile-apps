@@ -6,12 +6,16 @@
         :key="list.id"
         cols="6"
       >
-        <v-card max-width="344">
+        <v-card
+          max-height="1000"
+          max-width="344"
+        >
           <v-img
             v-if="list.img"
             class="d-flex justify-center"
             :src="list.img.url"
-            aspect-ratio="1"
+            width="344"
+            height="200"
           />
 
           <v-card-subtitle style="text-transform: capitalize">
@@ -119,7 +123,9 @@
             <div v-show="list.show">
               <v-divider />
 
-              <v-card-text> "{{ list.about }}" </v-card-text>
+              <v-card-text class="text-h5 font-size-ather-roboto-mono">
+                "{{ list.about }}"
+              </v-card-text>
             </div>
           </v-expand-transition>
         </v-card>

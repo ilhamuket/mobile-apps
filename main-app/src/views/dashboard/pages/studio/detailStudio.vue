@@ -103,9 +103,11 @@
         this.$store
           .dispatch('studio/getDataStudioBySlug', {
             slug: this.$route.params.slug,
+            entities: 'member,img',
           })
           .then(({ data }) => {
             this.studio = data.data
+            console.log(this.studio)
           })
       },
       getDataComments () {
