@@ -35,6 +35,11 @@ class StudioClass extends Model
         return $this->belongsToMany(User::class, 'class_instructor', 'class_id', 'instructor_id');
     }
 
+    public function schedules()
+    {
+        return $this->hasMany(ClassesScheduleStudio::class, 'class_id');
+    }
+
     // ==== Scope ==== //
 
     public function scopeEntities($query, $entities)

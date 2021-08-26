@@ -1,0 +1,219 @@
+<template>
+  <v-app>
+    <v-container fluid>
+      <v-row
+        dense
+        class="d-flex flex-row justify-space-around"
+      >
+        <v-col
+          cols="12"
+          md="8"
+          class="d-flex flex-column bg-img"
+        >
+          <v-row>
+            <v-col>
+              <v-img
+                width="700"
+                :src="imgUrl"
+              >
+                <!-- <v-app-bar
+                  absolute
+                  color="#F8F8F8"
+                  elevate-on-scroll
+                >
+                  <v-toolbar-title
+                    class="mr-12"
+                    dark
+                  >
+                    <v-img
+                      src="@/assets/logo-e-color (2).png"
+                      width="200"
+                      class="mr-12"
+                    />
+                  </v-toolbar-title>
+                </v-app-bar> -->
+                <!-- <v-container fluid /> -->
+              </v-img>
+            </v-col>
+          </v-row>
+        </v-col>
+        <v-col
+          cols="12"
+          md="4"
+          class="d-flex flex-column dense"
+        >
+          <v-col
+            cols="12"
+            class="bg-auth"
+          >
+            <v-card-title
+              class="font-title mt-6"
+              title-tag="h2"
+            >
+              Welcome to EnsikloTari! 👋
+            </v-card-title>
+            <v-card-text class="mb-2 font-subtitle">
+              Please sign-in to your account and start the adventure
+            </v-card-text>
+
+            <v-alert
+              dense
+              text
+              color="#2E4DA7"
+            >
+              <p class="font-title">
+                The Key To Happiness Is Login To Life, As a Guest And Not as An
+                Administartor
+              </p>
+              - Chintoo Agl
+            </v-alert>
+            <v-card-text
+              class=""
+              color="transparent"
+            >
+              <v-form @submit.prevent.enter="login">
+                <v-text-field
+                  v-model="email"
+                  label="Email Or Username"
+                  placeholder="E-mail Or Username"
+                  outlined
+                  dense
+                  prepend-icon="mdi-login-variant"
+                />
+                <v-text-field
+                  v-model="password"
+                  label="Password"
+                  placeholder="Password"
+                  outlined
+                  dense
+                  prepend-icon="mdi-lock"
+                  :append-icon="!show ? 'mdi-eye' : 'mdi-eye-off'"
+                  :type="show ? 'text' : 'password'"
+                  @click:append="show = !show"
+                />
+
+                <div class="d-flex flex-row justify-center ml-8">
+                  <div class="d-flex flex-coloumn">
+                    <v-btn
+                      color="pallet1"
+                      width="370"
+                      type="submit"
+                    >
+                      Sign-In
+                    </v-btn>
+                  </div>
+                </div>
+                <div class="d-flex flex-row justify-center">
+                  <div class="d-flex flex-column">
+                    <v-chip
+                      color="transparent"
+                      text-color="red"
+                    >
+                      <h4>
+                        Forgott Password ?
+                      </h4>
+                    </v-chip>
+                  </div>
+                </div>
+                <div class="text-center font-questions">
+                  <span class="color-black-2">New on our platform? </span>
+                  <a
+                    class="color-a"
+                    :to="{ name: 'auth-register' }"
+                  >
+                    <span>&nbsp;Create an account</span>
+                  </a>
+                </div>
+              </v-form>
+            </v-card-text>
+          </v-col>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-app>
+</template>
+
+<script>
+  export default {
+    data: () => ({
+      show: false,
+      email: '',
+      password: '',
+    }),
+    computed: {
+      imgUrl () {
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this.sideImg = require('@/assets/login-v2.svg')
+        return this.sideImg
+      },
+    },
+    methods: {
+      login () {
+        this.$store
+          .dispatch('auth/login', {
+            email: this.email,
+            password: this.password,
+          })
+          .then(response => {
+            if (response.data.meta.status === true) {
+              this.$router.push('/')
+            } else {
+              this.isWrong = true
+              this.alert = true
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                },
+                popup: 'swal2-show',
+                backdrop: 'swal2-backdrop-show',
+                icon: 'swal2-icon-show',
+              })
+
+              Toast.fire({
+                icon: 'error',
+                title: 'Password atau Email Anda salah',
+              })
+            }
+          })
+      },
+    },
+  }
+</script>
+
+<style lang="sass">
+@import url('https://fonts.googleapis.com/css2?family=Rampart+One&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Rampart+One&family=Roboto+Condensed:wght@300&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Roboto+Mono:wght@100&family=Shadows+Into+Light&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,700&display=swap')
+.bg-opocity
+   background: linear-gradient(to right, rgba(226,226,226,1) 0%, rgba(254,254,254,1) 100%)
+   border-color: white !important
+.bg-auth
+  background-color: #ffff
+.bg-img
+  background-color: #F8F8F8
+.tmp-opacity
+  opacity: 0
+.font-title
+  font-family: 'Rampart One', cursive !important
+  color: #6B75AA !important
+.font-subtitle
+  font-family: 'Rampart One', cursive
+  font-family: 'Roboto Condensed', sans-serif
+.cols
+  padding: 26px !important
+.font-questions
+  font-family: 'Roboto Mono', monospace
+.color-black-2
+  color: black !important
+  font-weight: bold !important
+.color-a
+  color: #6B75AA !important
+  font-weight: bold !important
+</style>

@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Roboto+Mono:ital,wght@1,100&family=Shadows+Into+Light&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Rampart+One&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Rampart+One&family=Roboto+Condensed:wght@300&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Roboto+Mono:wght@100&family=Shadows+Into+Light&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,700&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap')
+
+@mixin fontVariable ($family, $color, $size)
+    font-size: $size
+    font-family: $family !important
+    color: $color
+
+.theme--dark
+    .font-title-rampart-one
+        @include fontVariable ('Rampart One',#FFFFFF , 22px)
+    .font-title-rampart-one-black
+        @include fontVariable ('Rampart One',#0e0101 , 22px)
+    .font-size-ather-roboto-mono
+        @include fontVariable ('Roboto Mono' , #FFFFFF , 12px)
+    .font-indie-flower
+        @include fontVariable ('Indie Flower', #FFFFFF, 16px)
+    .font-title-rampart-one-small
+        @include fontVariable ('Rampart One',#D7480A , 12px)
+.theme--light
+    .font-title-rampart-one
+        @include fontVariable ('Rampart One',#D7480A , 22px)
+    .font-title-rampart-one-black
+        @include fontVariable ('Rampart One',#0e0101 , 22px)
+    .font-size-ather-roboto-mono
+        @include fontVariable ('Roboto Mono' , #2D170D , 12px)
+        font-weight: bold !important
+    .font-indie-flower
+        @include fontVariable ('Indie Flower', #0e0101, 16px)
+    .font-title-rampart-one-small
+        @include fontVariable ('Rampart One',#D7480A , 12px)
