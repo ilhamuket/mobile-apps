@@ -6,6 +6,7 @@
           <app-studio-card-detail
             :data="studio"
             class="d-none d-md-flex"
+            @inputFollow="followStudio"
           />
         </v-col>
       </v-row>
@@ -103,7 +104,7 @@
         this.$store
           .dispatch('studio/getDataStudioBySlug', {
             slug: this.$route.params.slug,
-            entities: 'member,img',
+            entities: 'member,author,img,followers',
           })
           .then(({ data }) => {
             this.studio = data.data
@@ -173,6 +174,9 @@
         this.dialogSeeMore.open = true
         this.dialogSeeMore.data = item
         this.getDataClassSchedules(this.dialogSeeMore.data.id)
+      },
+      followStudio ({ item }) {
+        console.log(item)
       },
     // loadComments (id) {
     //   this.$store.dispatch('commentStudioVidio/getDataComments', {

@@ -9,7 +9,6 @@
           <v-row>
             <v-col cols="3">
               <v-img
-                v-if="data.img"
                 :src="data.img.url"
                 width="120"
                 height="120"
@@ -49,8 +48,12 @@
                     <div class="d-flex flex-column ml-2">
                       |
                     </div>
-                    <div class="d-flex flex-column ml-2">
-                      20 {{ $t('studioPage.card_detail.folowers') }}
+                    <div
+                      v-if="data.followers"
+                      class="d-flex flex-column ml-2"
+                    >
+                      {{ data.followers.length }}
+                      {{ $t('studioPage.card_detail.folowers') }}
                     </div>
                     <div class="d-flex flex-column ml-2">
                       |
@@ -67,6 +70,7 @@
                       width="170"
                       small
                       class="mb-2"
+                      @click="folow(data)"
                     >
                       {{ $t('studioPage.card_detail.btn.folow') }}
                     </v-btn>
@@ -163,6 +167,11 @@
       data: {
         type: Object,
         default: null,
+      },
+    },
+    methods: {
+      folow (item) {
+        this.$emit('inputFollow', { item: item })
       },
     },
   }
