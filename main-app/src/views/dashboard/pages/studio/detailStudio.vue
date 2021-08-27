@@ -4,9 +4,12 @@
       <v-row class="d-flex justify-center">
         <v-col cols="12">
           <app-studio-card-detail
-            :data="studio"
+            :data="computedStudio"
+            :is-follow="isFollow"
+            :me="computedMe"
             class="d-none d-md-flex"
             @inputFollow="followStudio"
+            @inputUnfoll="unfollStudio"
           />
         </v-col>
       </v-row>
@@ -42,10 +45,10 @@
 </template>
 
 <script>
-  import topCardDetails from './_cardDetailStudio.vue'
-  import pageOne from './childPages/pageOne.vue'
-  import pageTwo from './childPages/pageTwo.vue'
-  import dialogLearnMore from './childPages/__dialogLearnMore.vue'
+  import topCardDetails from './component_core/_cardDetailStudio.vue'
+  import pageOne from './childPages/_pageOne.vue'
+  import pageTwo from './childPages/_pageTwo.vue'
+  import dialogLearnMore from './childPages/component/__dialogLearnMore.vue'
   export default {
     components: {
       'app-studio-card-detail': topCardDetails,
@@ -69,8 +72,16 @@
       listVidio: [],
       classes: [],
       timelines: [],
+      isFollow: false,
     }),
-    computed: {},
+    computed: {
+      computedStudio () {
+        return this.$store.state.studio.dataBySlug
+      },
+      computedMe () {
+        return this.$store.state.user.me
+      },
+    },
     watch: {
       tabs () {
         if (this.tabs === 0) {
@@ -97,6 +108,7 @@
       this.getDataListVidio()
       this.getDataStudioClasses()
       this.getDataClassSchedules()
+      this.getDataMe()
       this.firstLoad()
     },
     methods: {
@@ -164,6 +176,9 @@
           // console.log(this.dialogSeeMore.id)
           })
       },
+      getDataMe () {
+        this.$store.dispatch('user/me')
+      },
       // Emit
       letsPlay ({ item }) {
         this.id = item.id
@@ -176,7 +191,39 @@
         this.getDataClassSchedules(this.dialogSeeMore.data.id)
       },
       followStudio ({ item }) {
-        console.log(item)
+        this.$store
+          .dispatch('studio/followStudio', {
+            slug: item.slug,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              this.isFollow = true
+              this.getDataStudioBySlug()
+              this.$swal.fire({
+                title: 'Custom width, padding, background.',
+                width: 600,
+                padding: '3em',
+                background: '#fff url(@/assets/logo-e-color (2).png)',
+                backdrop: `
+    rgba(0,0,123,0.4)
+    url("/images/nyan-cat.gif")
+    left top
+    no-repeat
+  `,
+              })
+            }
+          })
+      },
+      unfollStudio ({ item }) {
+        this.$store
+          .dispatch('studio/unfollStudio', {
+            slug: item.slug,
+          })
+          .then(({ data }) => {
+            if (data.meta.status) {
+              this.getDataStudioBySlug()
+            }
+          })
       },
     // loadComments (id) {
     //   this.$store.dispatch('commentStudioVidio/getDataComments', {

@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Modules\Studio\Entities\ClassesScheduleStudio;
 use Modules\Studio\Http\Controllers\ClassesScheduleStudioController;
 use Modules\Studio\Http\Controllers\CommentStudioVidioController;
+use Modules\Studio\Http\Controllers\FollowStudioController;
 use Modules\Studio\Http\Controllers\ImagesStudioController;
 use Modules\Studio\Http\Controllers\StudioArticleController;
 use Modules\Studio\Http\Controllers\StudioClassController;
@@ -55,6 +56,11 @@ Route::prefix('studio')->middleware(['auth:sanctum', 'verified'])->group(functio
         Route::post('class/describe/post', [StudioClassController::class, 'store']);
         // Schedules Classes
         Route::get('class/schedules/{class_id}', [ClassesScheduleStudioController::class, 'index']);
+        // Following
+        Route::post('following/{slug}', [FollowStudioController::class, 'following']);
+        Route::post('unfollow/{slug}', [FollowStudioController::class, 'unFollow']);
+        // In One To Many
+        Route::post('following/{slug}/studio', [StudioController::class, 'following']);
     });
 
 

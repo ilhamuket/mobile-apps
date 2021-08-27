@@ -53,5 +53,42 @@ export default {
           })
       })
     },
+    followStudio: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        'Bearer ' + localStorage.getItem('access_token')
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        // const params = { ...payload }
+        axios
+          .post(`studio/u/following/${payload.slug}`)
+          .then(res => {
+            const data = res.data.data
+            commit('GET_DATA_STUDIO_BY_SLUG', data)
+            resolve(res)
+          })
+          .catch(e => {
+            reject(e)
+          })
+      })
+    },
+    unfollStudio: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        'Bearer ' + localStorage.getItem('access_token')
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        axios
+          .post(`studio/u/unfollow/${payload.slug}`)
+          .then(res => {
+            const data = res.data.data
+            commit('GET_DATA_STUDIO_BY_SLUG', data)
+            resolve(res)
+          })
+          .catch(e => {
+            reject(e)
+          })
+      })
+    },
   },
 }

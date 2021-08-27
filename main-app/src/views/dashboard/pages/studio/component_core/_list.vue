@@ -11,6 +11,7 @@
           max-width="344"
         >
           <v-img
+            v-if="list.img"
             class="d-flex justify-center"
             :src="list.img.url"
             width="344"
@@ -138,7 +139,13 @@
     props: {
       data: {
         type: Array,
-        default: null,
+        default: () => [
+          {
+            img: {
+              url: '',
+            },
+          },
+        ],
       },
     },
     data: () => ({

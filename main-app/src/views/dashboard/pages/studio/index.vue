@@ -71,7 +71,7 @@
 </template>
 
 <script>
-  import list from './_list.vue'
+  import list from './component_core/_list.vue'
   export default {
     components: {
       'app-data-list': list,

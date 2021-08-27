@@ -262,8 +262,8 @@
 </template>
 
 <script>
-  import comments from './_comments.vue'
-  import listArticle from './_listArticle.vue'
+  import comments from './component/__comments.vue'
+  import listArticle from './component/__listArticle.vue'
   export default {
     components: {
       'app-comments': comments,

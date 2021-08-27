@@ -2,6 +2,7 @@
 
 namespace Modules\Studio\Http\Controllers;
 
+use App\Models\User;
 use Brryfrmnn\Transformers\Json;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -11,10 +12,35 @@ use Modules\Studio\Entities\Studio;
 
 class StudioController extends Controller
 {
-    public function bySlug($slug)
+    // public function unFollow(Request $request, $slug)
+    // {
+    //     try {
+    //         $studio
+    //     } catch (\Throwable $th) {
+    //         //throw $th;
+    //     }
+    // }
+    public function following(Request $request, $slug)
     {
         try {
-            $master = Studio::with('member', 'author', 'img')
+            $studio = Studio::where('slug', $slug)->first();
+            $master = User::findOrFail($request->user()->id);
+            $master->follow_id = $studio->id;
+            $master->save();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+    public function bySlug(Request $request, $slug)
+    {
+        try {
+            $master = Studio::entities($request->entities)
                 ->where('slug', $slug)
                 ->first();
 
@@ -91,7 +117,7 @@ class StudioController extends Controller
     public function index(Request $request)
     {
         try {
-            $master = Studio::with('member', 'author', 'img')
+            $master = Studio::with('member', 'author', 'img', 'followers')
                 ->search($request->search)
                 ->sort($request->sort)
                 ->get();

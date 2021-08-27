@@ -9,6 +9,7 @@
           <v-row>
             <v-col cols="3">
               <v-img
+                v-if="data.img"
                 :src="data.img.url"
                 width="120"
                 height="120"
@@ -19,12 +20,12 @@
                 <v-col class="mt-1">
                   <div class="d-flex flex-row justify-start mr-12">
                     <div class="d-flex flex-column mr-12">
-                      <p class="text-nowrap">
+                      <p class="text-nowrap font-title-rampart-one text-colour">
                         {{ data.name }}
                       </p>
                     </div>
                   </div>
-                  <div class="d-flex flex-row mt-6">
+                  <div class="d-flex flex-row">
                     <div class="d-flex flex-column">
                       <v-chip
                         outlined
@@ -36,7 +37,7 @@
                         {{ data.type }}
                       </v-chip>
                     </div>
-                    <div class="d-flex flex-column flex-nowrap ml-2">
+                    <div class="d-flex flex-column flex-nowrap">
                       <v-icon>
                         mdi-map-marker
                       </v-icon>
@@ -59,13 +60,14 @@
                       |
                     </div>
                     <div class="d-flex flex-column ml-2">
-                      20 {{ $t('studioPage.card_detail.folowers') }}
+                      20 {{ $t('studioPage.card_detail.likes') }}
                     </div>
                   </div>
                 </v-col>
-                <div class="d-flex flex-row ml-2">
+                <div class="d-flex flex-row mt-1">
                   <div class="d-flex flex-column">
                     <v-btn
+                      v-if="!isFollowYou"
                       outlined
                       width="170"
                       small
@@ -73,6 +75,16 @@
                       @click="folow(data)"
                     >
                       {{ $t('studioPage.card_detail.btn.folow') }}
+                    </v-btn>
+                    <v-btn
+                      v-else
+                      width="170"
+                      small
+                      color="primary"
+                      class="mb-2"
+                      @click="unfoll(data)"
+                    >
+                      Following
                     </v-btn>
                   </div>
                   <div class="d-flex flex-column ml-2">
@@ -166,12 +178,40 @@
     props: {
       data: {
         type: Object,
+        default: () => ({
+          img: {
+            url: '',
+          },
+          followers: [],
+        }),
+      },
+      me: {
+        type: Object,
         default: null,
       },
+      isFollow: {
+        type: Boolean,
+        default: false,
+      },
     },
+    computed: {
+      isFollowYou () {
+        let data = false
+        if (this.data.followers !== undefined) {
+          data = this.data.followers.some(x => x.id === this.me.id)
+          console.log(data, 'hai')
+        }
+
+        return data
+      },
+    },
+    mounted () {},
     methods: {
       folow (item) {
         this.$emit('inputFollow', { item: item })
+      },
+      unfoll (item) {
+        this.$emit('inputUnfoll', { item: item })
       },
     },
   }
@@ -180,4 +220,10 @@
 <style lang="sass" scoped>
 .border-right
     border-right: 1px double #ECEFF5 !important
+.theme--light
+  .text-colour
+    color: #6B75AA
+.theme--dark
+  .text-colour
+    color: #FFFF !important
 </style>

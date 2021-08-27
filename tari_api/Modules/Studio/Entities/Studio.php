@@ -33,6 +33,12 @@ class Studio extends Model
         return $this->hasOne(ImagesStudio::class, 'studio_id');
     }
 
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follow_studio', 'studio_id', 'user_id');
+    }
+
+    // ==== Scope ==== //
 
     public function scopeSearch($query, $search)
     {
@@ -64,7 +70,7 @@ class Studio extends Model
 
     public function scopeEntities($query, $entities)
     {
-        if ($entities != mull || $entities != '') {
+        if ($entities != null || $entities != '') {
             $entities = str_replace(' ', '', $entities);
             $entities = explode(',', $entities);
 

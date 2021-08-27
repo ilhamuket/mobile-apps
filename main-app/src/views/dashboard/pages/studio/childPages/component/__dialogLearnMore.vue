@@ -21,9 +21,9 @@
 </template>
 
 <script>
-  import card from './___card.vue'
-  import instructor from './___instructor.vue'
-  import timelines from './___timelines.vue'
+  import card from './child/___card.vue'
+  import instructor from './child/___instructor.vue'
+  import timelines from './child/___timelines.vue'
   export default {
     components: {
       'app-card': card,
