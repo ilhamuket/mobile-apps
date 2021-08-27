@@ -27,4 +27,14 @@ class StudioVidio extends Model
     {
         return $this->belongsTo(Studio::class, 'studio_id');
     }
+
+    // ==== Scope === //
+    public function scopeSearch($query, $search)
+    {
+        if ($search != null && $search != '') {
+            $query->where('name', 'LIKE', '%' . $search . '%');
+        }
+
+        return $query;
+    }
 }

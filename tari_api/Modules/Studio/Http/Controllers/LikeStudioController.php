@@ -2,33 +2,24 @@
 
 namespace Modules\Studio\Http\Controllers;
 
-use App\Models\User;
 use Brryfrmnn\Transformers\Json;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
-use Modules\Studio\Entities\FollowStudio;
 use Modules\Studio\Entities\Studio;
 
-class FollowStudioController extends Controller
+class LikeStudioController extends Controller
 {
-    public function unFollow(Request $request, $slug)
+    public function unlike(Request $request, $slug)
     {
         try {
             DB::beginTransaction();
-            $studio = Studio::where('slug', $slug)->first();
-            $studio->followers()->detach($request->user()->id);
-            // foreach ($master as $user) {
-            //     dd($user['user_id'] == $request->user()->id);
-            // }
-            // $master->follow_status = false;
-            // $master->save();
-            // // dd($master);
-            // $master->delete();
+            $master = Studio::where('slug', $slug)->first();
+            $master->likes()->detach($request->user()->id);
 
             DB::commit();
-            return Json::response($studio);
+            return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
@@ -40,38 +31,15 @@ class FollowStudioController extends Controller
             return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         }
     }
-    public function following(Request $request, $slug)
+    public function likes(Request $request, $slug)
     {
         try {
             DB::beginTransaction();
-            // Studio
-            $studio = Studio::where('slug', $slug)->first();
-            $studio->followers()->attach($request->user()->id);
-            // // dd($studio)
-            // dd($studio->id == $request->user()->id);
-            // Users
-            // $user = User::findOrFail($request->user()->id);
-            // $check = FollowStudio::where("studio_id", $studio->id)->orWhere('user_id', $user->id)->get();
-            // foreach ($check as $x => $val) {
-            //     // dd($val['user_id']);
-            //     // dd();
-            //     if (strcmp(strval($val['user_id']), strval($request->user()->id)) === 0) {
-            //         $check->follow_status = true;
-            //         $check->save();
-            //     }
-            // }
-            // if ($check->user_id == $user->id) {
-            //     $check->folow_status = true;
-            // } else {
-            //     // Saves On Databases
-            //     $master = new FollowStudio();
-            //     $master->studio_id = $studio->id;
-            //     $master->user_id = $user->id;
-            //     $master->follow_status = true;
-            //     $master->save();
-            // }
+            $master = Studio::where('slug', $slug)->first();
+            $master->likes()->attach($request->user()->id);
+
             DB::commit();
-            return Json::response($studio);
+            return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');

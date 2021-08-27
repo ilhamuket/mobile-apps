@@ -38,6 +38,11 @@ class Studio extends Model
         return $this->belongsToMany(User::class, 'follow_studio', 'studio_id', 'user_id');
     }
 
+    public function likes()
+    {
+        return $this->belongsToMany(User::class, 'like_studio', 'studio_id', 'user_id');
+    }
+
     // ==== Scope ==== //
 
     public function scopeSearch($query, $search)

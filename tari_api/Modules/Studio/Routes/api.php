@@ -2,11 +2,13 @@
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+// use Illuminate\Routing\Route;
 use Modules\Studio\Entities\ClassesScheduleStudio;
 use Modules\Studio\Http\Controllers\ClassesScheduleStudioController;
 use Modules\Studio\Http\Controllers\CommentStudioVidioController;
 use Modules\Studio\Http\Controllers\FollowStudioController;
 use Modules\Studio\Http\Controllers\ImagesStudioController;
+use Modules\Studio\Http\Controllers\LikeStudioController;
 use Modules\Studio\Http\Controllers\StudioArticleController;
 use Modules\Studio\Http\Controllers\StudioClassController;
 use Modules\Studio\Http\Controllers\StudioController;
@@ -34,7 +36,6 @@ Route::prefix('studio')->middleware(['auth:sanctum', 'verified'])->group(functio
     Route::get('{id}', [StudioController::class, 'show']);
     // Users
     Route::get('u/{slug}', [StudioController::class, 'bySlug']);
-
     // Studio Vidio
     Route::post('vidio', [StudioVidioController::class, 'store']);
     Route::get('vidio/index', [StudioVidioController::class, 'index']);
@@ -59,8 +60,9 @@ Route::prefix('studio')->middleware(['auth:sanctum', 'verified'])->group(functio
         // Following
         Route::post('following/{slug}', [FollowStudioController::class, 'following']);
         Route::post('unfollow/{slug}', [FollowStudioController::class, 'unFollow']);
-        // In One To Many
-        Route::post('following/{slug}/studio', [StudioController::class, 'following']);
+        // Likes
+        Route::post('likes/{slug}', [LikeStudioController::class, 'likes']);
+        Route::post('unlike/{slug}', [LikeStudioController::class, 'unlike']);
     });
 
 

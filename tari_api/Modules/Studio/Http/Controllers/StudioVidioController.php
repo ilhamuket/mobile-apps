@@ -20,7 +20,8 @@ class StudioVidioController extends Controller
             if (is_object($studio)) {
                 $vidio = StudioVidio::where('studio_id', $studio->id)->first();
                 if (is_object($vidio)) {
-                    $master = StudioVidio::with('studio', 'author')->where('id', $request->input('vidio_id', $vidio->id))
+                    $master = StudioVidio::with('studio', 'author')
+                        ->where('id', $request->input('vidio_id', $vidio->id))
                         ->first();
                     return Json::response($master);
                 } else {
@@ -44,7 +45,10 @@ class StudioVidioController extends Controller
             $studio = Studio::where('slug', $request->slug)->first();
 
             if (is_object($studio)) {
-                $master = StudioVidio::with('studio', 'author')->where('studio_id', $studio->id)->get();
+                $master = StudioVidio::with('studio', 'author')
+                    ->search($request->search)
+                    ->where('studio_id', $studio->id)
+                    ->get();
                 return Json::response($master);
             } else {
                 return Json::exception('Error Studio Not Found');
