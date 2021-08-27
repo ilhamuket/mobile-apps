@@ -10,6 +10,8 @@
             class="d-none d-md-flex"
             @inputFollow="followStudio"
             @inputUnfoll="unfollStudio"
+            @inputLike="likeStudio"
+            @inputUnLike="unLikeStudio"
           />
         </v-col>
       </v-row>
@@ -73,6 +75,7 @@
       classes: [],
       timelines: [],
       isFollow: false,
+      search: '',
     }),
     computed: {
       computedStudio () {
@@ -116,7 +119,7 @@
         this.$store
           .dispatch('studio/getDataStudioBySlug', {
             slug: this.$route.params.slug,
-            entities: 'member,author,img,followers',
+            entities: 'member,author,img,followers,likes',
           })
           .then(({ data }) => {
             this.studio = data.data
@@ -144,6 +147,7 @@
         this.$store
           .dispatch('studioChild/getDataListVidio', {
             slug: this.$route.params.slug,
+            search: this.search,
           })
           .then(({ data }) => {
             this.listVidio = data.data
@@ -200,27 +204,138 @@
               this.isFollow = true
               this.getDataStudioBySlug()
               this.$swal.fire({
-                title: 'Custom width, padding, background.',
+                customClass: {
+                  container: 'theme--dark',
+                  title: 'font-title-rampart-one-small',
+                },
+                title: 'You have Followed this studio.',
                 width: 600,
                 padding: '3em',
-                background: '#fff url(@/assets/logo-e-color (2).png)',
+                background:
+                  '#fff url(https://sweetalert2.github.io/images/trees.png)',
                 backdrop: `
-    rgba(0,0,123,0.4)
-    url("/images/nyan-cat.gif")
-    left top
-    no-repeat
-  `,
+  rgba(0,0,123,0.4)
+  url("https://sweetalert2.github.io/images/nyan-cat.gif")
+  left top
+  no-repeat
+`,
               })
             }
           })
       },
       unfollStudio ({ item }) {
+        this.$swal
+          .fire({
+            title: `${item.name} !`,
+            text: 'Modal with a custom image.',
+            imageUrl: item.img.url,
+            imageWidth: 400,
+            imageHeight: 200,
+            imageAlt: 'Custom image',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+          })
+          .then(res => {
+            if (res.isConfirmed) {
+              this.$store
+                .dispatch('studio/unfollStudio', {
+                  slug: item.slug,
+                })
+                .then(({ data }) => {
+                  if (data.meta.status) {
+                    const Toast = this.$swal.mixin({
+                      toast: true,
+                      position: 'bottom-end',
+                      showConfirmButton: false,
+                      timer: 3000,
+                      timerProgressBar: true,
+                      didOpen: toast => {
+                        toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                        toast.addEventListener(
+                          'mouseleave',
+                          this.$swal.resumeTimer,
+                        )
+                      },
+                      popup: 'swal2-show',
+                      backdrop: 'swal2-backdrop-show',
+                      icon: 'swal2-icon-show',
+                    })
+                    Toast.fire({
+                      icon: 'success',
+                      title: 'You Unfollow this Studio',
+                    })
+                    this.getDataStudioBySlug()
+                  }
+                })
+            } else if (
+              /* Read more about handling dismissals below */
+              res.dismiss === this.$swal.DismissReason.cancel
+            ) {
+              this.$swal.fire(
+                'You Still Followed',
+                'Enjoy With My Content :)',
+                'error',
+              )
+            }
+          })
+      },
+      likeStudio ({ item }) {
         this.$store
-          .dispatch('studio/unfollStudio', {
+          .dispatch('studio/likeStudio', {
             slug: item.slug,
           })
           .then(({ data }) => {
             if (data.meta.status) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                },
+                popup: 'swal2-show',
+                backdrop: 'swal2-backdrop-show',
+                icon: 'swal2-icon-show',
+              })
+
+              Toast.fire({
+                icon: 'success',
+                title: 'You like this Studio',
+              })
+              this.getDataStudioBySlug()
+            }
+          })
+      },
+      unLikeStudio ({ item }) {
+        this.$store
+          .dispatch('studio/unLikeStudio', {
+            slug: item.slug,
+          })
+          .then(({ data }) => {
+            if (data.meta.status) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                },
+                popup: 'swal2-show',
+                backdrop: 'swal2-backdrop-show',
+                icon: 'swal2-icon-show',
+              })
+
+              Toast.fire({
+                icon: 'success',
+                title: 'You Unlike this Studio',
+              })
               this.getDataStudioBySlug()
             }
           })
@@ -234,4 +349,4 @@
   }
 </script>
 
-<style></style>
+<style lang="sass"></style>

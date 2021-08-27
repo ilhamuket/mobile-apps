@@ -39,12 +39,13 @@
                 </v-chip>
               </div>
 
-              <div class="d-flex flex-column flex-nowrap text-capitalize ml-2">
+              <div class="d-flex flex-column flex-nowrap text-capitalize ml-2 ">
                 <v-chip
                   color="primary"
                   small
                   label
                   outlined
+                  class="font-size-ather-roboto-mono"
                 >
                   <v-icon>
                     mdi-map-marker
@@ -53,25 +54,31 @@
                 </v-chip>
               </div>
 
-              <div class="d-flex flex-column ml-2">
+              <div
+                v-if="list.followers"
+                class="d-flex flex-column ml-2"
+              >
                 <v-chip
                   color="primary"
                   small
                   label
                   outlined
                 >
-                  20 Folowers
+                  {{ list.followers.length }} Folowers
                 </v-chip>
               </div>
 
-              <div class="d-flex flex-column ml-2">
+              <div
+                v-if="list.likes"
+                class="d-flex flex-column ml-2"
+              >
                 <v-chip
                   color="primary"
                   small
                   label
                   outlined
                 >
-                  20 likes
+                  {{ list.likes.length }} likes
                 </v-chip>
               </div>
             </div>

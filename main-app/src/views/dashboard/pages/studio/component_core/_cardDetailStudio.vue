@@ -32,42 +32,56 @@
                         label
                         small
                         color="primary"
-                        class="text-capitalize"
+                        text-color="primary"
+                        class="text-capitalize chip-color"
                       >
                         {{ data.type }}
                       </v-chip>
                     </div>
-                    <div class="d-flex flex-column flex-nowrap">
+                    <div class="d-flex flex-column flex-nowrap ">
                       <v-icon>
                         mdi-map-marker
                       </v-icon>
                     </div>
-                    <div class="d-flex flex-column flex-nowrap text-capitalize">
+                    <div
+                      class="d-flex flex-column flex-nowrap text-capitalize font-roboto-mono-small"
+                    >
                       {{ data.region }}
                     </div>
 
-                    <div class="d-flex flex-column ml-2">
-                      |
-                    </div>
                     <div
                       v-if="data.followers"
                       class="d-flex flex-column ml-2"
                     >
+                      |
+                    </div>
+                    <div
+                      v-if="data.followers"
+                      class="d-flex flex-column ml-2 font-roboto-mono-small"
+                    >
                       {{ data.followers.length }}
                       {{ $t('studioPage.card_detail.folowers') }}
                     </div>
-                    <div class="d-flex flex-column ml-2">
+                    <div
+                      v-if="data.likes"
+                      class="d-flex flex-column ml-2"
+                    >
                       |
                     </div>
-                    <div class="d-flex flex-column ml-2">
-                      20 {{ $t('studioPage.card_detail.likes') }}
+                    <div
+                      v-if="data.likes"
+                      class="d-flex flex-column ml-2 font-roboto-mono-small"
+                    >
+                      {{ data.likes.length }}
+                      {{ $t('studioPage.card_detail.likes') }}
                     </div>
                   </div>
                 </v-col>
-                <div class="d-flex flex-row mt-1">
+                <div class="d-flex flex-row mt-1 justify-between">
                   <div class="d-flex flex-column">
                     <v-btn
                       v-if="!isFollowYou"
+                      color="primary"
                       outlined
                       width="170"
                       small
@@ -80,27 +94,47 @@
                       v-else
                       width="170"
                       small
+                      outlined
                       color="primary"
                       class="mb-2"
                       @click="unfoll(data)"
                     >
-                      Following
-                    </v-btn>
-                  </div>
-                  <div class="d-flex flex-column ml-2">
-                    <v-btn
-                      outlined
-                      width="120"
-                      small
-                      class="mb-2"
-                    >
                       <v-icon>
-                        mdi-thumb-up-outline
+                        mdi-account-check
                       </v-icon>
                     </v-btn>
                   </div>
 
-                  <div class="d-flex flex-column ml-2">
+                  <div class="d-flex flex-column ml-1">
+                    <v-btn
+                      v-if="!isLikesYou"
+                      outlined
+                      width="120"
+                      small
+                      color="primary"
+                      class="mb-2"
+                      @click="likes(data)"
+                    >
+                      <v-icon>
+                        mdi-heart-outline
+                      </v-icon>
+                    </v-btn>
+                    <v-btn
+                      v-else
+                      width="120"
+                      small
+                      outlined
+                      color="primary"
+                      class="mb-2"
+                      @click="unLike(data)"
+                    >
+                      <v-icon color="red">
+                        mdi-heart
+                      </v-icon>
+                    </v-btn>
+                  </div>
+
+                  <div class="d-flex flex-column ml-1">
                     <v-btn
                       outlined
                       width="80"
@@ -196,13 +230,20 @@
     },
     computed: {
       isFollowYou () {
-        let data = false
+        let boolean = false
         if (this.data.followers !== undefined) {
-          data = this.data.followers.some(x => x.id === this.me.id)
-          console.log(data, 'hai')
+          boolean = this.data.followers.some(x => x.id === this.me.id)
         }
 
-        return data
+        return boolean
+      },
+      isLikesYou () {
+        let boolean = false
+        if (this.data.likes !== undefined) {
+          boolean = this.data.likes.some(x => x.id === this.me.id)
+        }
+
+        return boolean
       },
     },
     mounted () {},
@@ -212,6 +253,12 @@
       },
       unfoll (item) {
         this.$emit('inputUnfoll', { item: item })
+      },
+      likes (item) {
+        this.$emit('inputLike', { item: item })
+      },
+      unLike (item) {
+        this.$emit('inputUnLike', { item: item })
       },
     },
   }

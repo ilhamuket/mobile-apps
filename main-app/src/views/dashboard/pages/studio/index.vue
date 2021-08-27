@@ -92,6 +92,7 @@
       getDataStudio () {
         this.$store.dispatch('studio/getDataStudio', {
           search: this.search,
+          entities: 'member,author,img,followers,likes',
         })
       },
       searchMethods () {
