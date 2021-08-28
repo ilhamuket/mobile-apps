@@ -51,7 +51,8 @@
             "likes": "Suka",
             "btn": {
                 "folow": "Ikut"
-            }
+            },
+            "review": "Ulasan"
         }
     }
 }

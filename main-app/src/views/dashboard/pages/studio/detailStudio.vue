@@ -9,7 +9,7 @@
             :me="computedMe"
             class="d-none d-md-flex"
             @inputFollow="followStudio"
-            @inputUnfoll="unfollStudio"
+            @inputUnfoll="popUpUnfollowNotice"
             @inputLike="likeStudio"
             @inputUnLike="unLikeStudio"
           />
@@ -43,6 +43,10 @@
       </v-tabs-items>
     </v-container>
     <app-dialog-page-two :dialog="dialogSeeMore" />
+    <app-dialog-notice
+      :dialog="dialogUnFollow"
+      @input="executeUnfollowStudio"
+    />
   </v-app>
 </template>
 
@@ -51,12 +55,14 @@
   import pageOne from './childPages/_pageOne.vue'
   import pageTwo from './childPages/_pageTwo.vue'
   import dialogLearnMore from './childPages/component/__dialogLearnMore.vue'
+  import dialogNotice from './childPages/component/__dialogNotice.vue'
   export default {
     components: {
       'app-studio-card-detail': topCardDetails,
       'app-page-one': pageOne,
       'app-page-two': pageTwo,
       'app-dialog-page-two': dialogLearnMore,
+      'app-dialog-notice': dialogNotice,
     },
     data: () => ({
       tabs: null,
@@ -68,6 +74,12 @@
         open: false,
         data: {},
         instructor: [],
+      },
+      dialogUnFollow: {
+        open: false,
+        slug: '',
+        img: '',
+        name: '',
       },
       studio: {},
       autoPlay: {},
@@ -204,10 +216,7 @@
               this.isFollow = true
               this.getDataStudioBySlug()
               this.$swal.fire({
-                customClass: {
-                  container: 'theme--dark',
-                  title: 'font-title-rampart-one-small',
-                },
+                customClass: {},
                 title: 'You have Followed this studio.',
                 width: 600,
                 padding: '3em',
@@ -223,7 +232,44 @@
             }
           })
       },
-      unfollStudio ({ item }) {
+      popUpUnfollowNotice ({ item }) {
+        this.dialogUnFollow.open = true
+        this.dialogUnFollow.name = item.name
+        this.dialogUnFollow.slug = item.slug
+        this.dialogUnFollow.img = item.img.url
+      },
+      executeUnfollowStudio ({ item }) {
+        this.$store
+          .dispatch('studio/unfollStudio', {
+            slug: item.slug,
+          })
+          .then(({ data }) => {
+            if (data.meta.status) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                },
+                popup: 'swal2-show',
+                backdrop: 'swal2-backdrop-show',
+                icon: 'swal2-icon-show',
+              })
+              Toast.fire({
+                icon: 'success',
+                title: 'You Unfollow this Studio',
+              })
+              this.getDataStudioBySlug()
+              this.dialogUnFollow.open = false
+            }
+          })
+      },
+      unfollStudio_old ({ item }) {
+        // Version Old
         this.$swal
           .fire({
             title: `${item.name} !`,

@@ -39,7 +39,7 @@
                       </v-chip>
                     </div>
                     <div class="d-flex flex-column flex-nowrap ">
-                      <v-icon>
+                      <v-icon color="blue">
                         mdi-map-marker
                       </v-icon>
                     </div>
@@ -111,7 +111,7 @@
                       outlined
                       width="120"
                       small
-                      color="primary"
+                      color="red"
                       class="mb-2"
                       @click="likes(data)"
                     >
@@ -124,7 +124,7 @@
                       width="120"
                       small
                       outlined
-                      color="primary"
+                      color="red"
                       class="mb-2"
                       @click="unLike(data)"
                     >
@@ -139,9 +139,13 @@
                       outlined
                       width="80"
                       small
-                      class="mb-2"
+                      rounded
+                      color="pallet1"
+                      class="mb-2 font-roboto-mono-small"
                     >
-                      Info Studio
+                      <v-icon>
+                        mdi-information-variant
+                      </v-icon>
                     </v-btn>
                   </div>
                 </div>
@@ -170,8 +174,8 @@
                 size="35"
               />
               <div class="d-flex flex-column mt-1 text-align-center mr-2">
-                <P class="mt-1">
-                  (200 Review)
+                <P class="mt-1 font-roboto-mono-small">
+                  (200 {{ $t('studioPage.card_detail.review') }})
                 </P>
               </div>
             </v-col>

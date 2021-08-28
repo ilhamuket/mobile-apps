@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Modules\Auth\Http\Controllers\AuthController;
+use Modules\User\Http\Controllers\PasswordResetController;
 use Modules\User\Http\Controllers\UserController;
 use Modules\User\Http\Controllers\VerificationEmailController;
 
@@ -22,6 +23,7 @@ Route::middleware('auth:api')->get('/auth', function (Request $request) {
 
 Route::prefix('auth')->group(function () {
     Route::post('register/superadmin', [AuthController::class, 'registerAsSuperAdmin']);
+    Route::post('register/user', [AuthController::class, 'registerForUser']);
     Route::post('register/instructor', [AuthController::class, 'registerAsInstructor']);
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
@@ -29,4 +31,10 @@ Route::prefix('auth')->group(function () {
 
     Route::get('verifications', [VerificationEmailController::class, 'verificationsEmail'])->middleware(['auth:sanctum']);
     Route::get('verifications/resend', [VerificationEmailController::class, 'resend'])->middleware(['auth:sanctum']);
+
+    Route::prefix('password')->group(function () {
+        Route::post('forgot', [PasswordResetController::class, 'create']);
+        Route::post('reset', [PasswordResetController::class, 'reset']);
+        Route::get('find/{token}', [PasswordResetController::class, 'find']);
+    });
 });

@@ -25,7 +25,7 @@ use Modules\Studio\Http\Controllers\StudioVidioController;
 |
 */
 
-Route::prefix('studio')->middleware(['auth:sanctum', 'verified'])->group(function () {
+Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
     Route::get('', [StudioController::class, 'index']);
     Route::post('', [StudioController::class, 'store']);
     Route::patch('{id}', [StudioController::class, 'update']);

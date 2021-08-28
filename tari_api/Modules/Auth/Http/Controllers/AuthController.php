@@ -13,9 +13,37 @@ use App\Http\Requests\CreateUserRequest;
 use Illuminate\Support\Facades\DB;
 use Modules\Auth\Entities\ModelHasRoles;
 use Illuminate\Auth\Events\Registered;
+use Modules\User\Http\Controllers\VerificationEmailController;
+use Modules\User\Notifications\VerifiedAccount;
 
 class AuthController extends Controller
 {
+    public function registerForUser(Request $request)
+    {
+        try {
+            $master = new User();
+            $master->email = $request->email;
+            $master->firstName = $request->firstName;
+            $master->lastName = $request->lastName;
+            $master->password = Hash::make($request->password);
+            $master->nickName = $request->nickName;
+            $master->noHp = $request->noHp;
+            $master->save();
+            $master->assignRole('user');
+
+            $verification = new VerificationEmailController();
+            $verification->verificationsEmail();
+            $accessToken = $master->createToken('auth')->plainTextToken;
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? e : '');
+        }
+    }
     public function registerAsInstructor(Request $request)
     {
         try {
@@ -153,7 +181,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         try {
-            $check = User::where('email', $request->email)->first();
+            $check = User::where('email', $request->email)->orWhere('nickName', $request->email)->first();
 
             if (!$check || !Hash::check($request->password, $check->password)) {
                 return Json::exception('Password Anda salah');

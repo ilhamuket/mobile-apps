@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Modules\Auth\Http\Controllers\AuthController;
+use Modules\User\Http\Controllers\PasswordResetController;
 use Modules\User\Http\Controllers\RoleController;
 use Modules\User\Http\Controllers\UserController;
 
@@ -20,7 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('user')->middleware(['auth:sanctum', 'verified'])->group(function () {
+Route::prefix('user')->middleware(['auth:sanctum'])->group(function () {
     Route::get('roles', [RoleController::class, 'index']);
     Route::post('roles', [RoleController::class, "store"]);
 

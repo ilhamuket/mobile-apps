@@ -3,11 +3,13 @@
 namespace Modules\User\Http\Controllers;
 
 use App\Models\User;
+use App\Modules\User\Notifications\PasswordResetSuccess;
 use Brryfrmnn\Transformers\Json;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Modules\User\Notifications\VerifiedAccount;
 
 class VerificationEmailController extends Controller
 {
@@ -22,7 +24,7 @@ class VerificationEmailController extends Controller
                 $master->isVerified = true;
                 $master->save();
                 DB::commit();
-                return Json::response($master, 'Your Accaoun has been Verified And Enjoy Ensiklotari Website :)');
+                return Json::response($master, 'Your Accaount has been Verified And Enjoy Ensiklotari Website :)');
             }
             return Json::exception('err');
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
@@ -39,7 +41,8 @@ class VerificationEmailController extends Controller
 
     public function resend(Request $request)
     {
-        $request->user()->sendEmailVerificationNotification();
+        // $request->user()->sendEmailVerificationNotification();
+        $request->user()->notify(new VerifiedAccount($request->user()));
         return Json::response('resend Token');
     }
 }

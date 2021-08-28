@@ -51,7 +51,8 @@
       "likes": "Likes",
       "btn": {
         "folow": "Follow"
-      }
+      },
+      "review": "Reviews"
     }
   }
 }

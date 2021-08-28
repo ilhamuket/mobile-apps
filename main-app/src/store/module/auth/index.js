@@ -10,6 +10,7 @@ export default {
   },
   mutations: {
     GET_TOKEN: (state, payload) => (state.token = payload),
+    REMOVE_TOKEN: state => (state.token = null),
   },
   actions: {
     login: ({ commit }, payload) => {
@@ -19,9 +20,28 @@ export default {
           .post('auth/login', { ...payload })
           .then(response => {
             const token = response.data.data
-            commit('TOKEN', token)
+            commit('GET_TOKEN', token)
             localStorage.setItem('access_token', token)
             resolve(response)
+          })
+          .catch(e => {
+            reject(e)
+          })
+      })
+    },
+    register: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        'Bearer ' + localStorage.getItem('access_token')
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        axios
+          .post('auth/register/user', { ...payload })
+          .then(res => {
+            const token = res.data.data
+            commit('GET_TOKEN', token)
+            localStorage.setItem('access_token', token)
+            resolve(res)
           })
           .catch(e => {
             reject(e)

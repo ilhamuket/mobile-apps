@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import auth from '../store/module/auth'
-// import t from '../i18n'
+import user from '../store/module/user/index'
 
 Vue.use(Router)
 
@@ -113,6 +113,33 @@ const router = new Router({
       },
     },
     {
+      name: 'auth-register',
+      path: '/register',
+      component: () => import('@/auth/register'),
+      meta: {
+        requiresVisitor: true,
+      },
+    },
+    {
+      name: 'WaitingEmail',
+      path: '/waiting-email',
+      component: () => import('@/auth/waitingEmail'),
+      meta: {
+        requiresAuth: true,
+        requiresVerifications: true,
+      },
+    },
+    {
+      name: 'Verifications',
+      path: '/verification',
+      component: () => import('@/auth/verifyEmail'),
+      meta: {
+        requiresAuth: true,
+        requiresVerifications: true,
+      },
+    },
+
+    {
       name: 'Logout',
       path: '/logout',
       component: () => import('@/auth/logout'),
@@ -137,7 +164,17 @@ router.beforeEach((to, from, next) => {
         query: { redirect: to.fullPath },
       })
     } else {
-      next({})
+      next()
+      // const Me = localStorage.getItem('ME')
+      // const users = JSON.parse(Me)
+      // if (users !== null) {
+      //   console.log(users.email_verified_at)
+      //   if (users.email_verified_at !== null) {
+      //     next()
+      //   } else {
+      //     next('')
+      //   }
+      // }
     }
 
     // console.log(to.fullPath, 'normal')
@@ -158,39 +195,50 @@ router.beforeEach((to, from, next) => {
           }
         }
       }
+    } else if (to.matched.some(record => record.meta.requiresVerifications)) {
+      // const Me = localStorage.getItem('ME')
+      // const users = JSON.parse(Me)
+      if (user.state.me !== null) {
+        console.log(user.state.me.isVerified)
+        if (user.state.me.isVerified === 0) {
+          next()
+        } else {
+          next({ path: '/' })
+        }
+      }
+
+      // if (to.matched.some(record => record.meta.requiresTeachers)) {
+      //   if (auth.state.token) {
+      //     const Me = localStorage.getItem('ME')
+      //     const users = JSON.parse(Me)
+      //     if (users !== null) {
+      //       if (users.roles.some(x => x.name === 'teacher')) {
+      //         next()
+      //       } else {
+      //         next({
+      //           path: '/',
+      //         })
+      //       }
+      //     }
+      //   }
+      // }
+
+      // if (to.matched.some(record => record.meta.requiresStudent)) {
+      //   if (auth.state.token) {
+      //     const Me = localStorage.getItem('ME')
+      //     const users = JSON.parse(Me)
+      //     if (users !== null) {
+      //       if (users.roles.some(x => x.name === 'student')) {
+      //         next()
+      //       } else {
+      //         next({
+      //           path: '/',
+      //         })
+      //       }
+      //     }
+      //   }
+      // }
     }
-
-    // if (to.matched.some(record => record.meta.requiresTeachers)) {
-    //   if (auth.state.token) {
-    //     const Me = localStorage.getItem('ME')
-    //     const users = JSON.parse(Me)
-    //     if (users !== null) {
-    //       if (users.roles.some(x => x.name === 'teacher')) {
-    //         next()
-    //       } else {
-    //         next({
-    //           path: '/',
-    //         })
-    //       }
-    //     }
-    //   }
-    // }
-
-    // if (to.matched.some(record => record.meta.requiresStudent)) {
-    //   if (auth.state.token) {
-    //     const Me = localStorage.getItem('ME')
-    //     const users = JSON.parse(Me)
-    //     if (users !== null) {
-    //       if (users.roles.some(x => x.name === 'student')) {
-    //         next()
-    //       } else {
-    //         next({
-    //           path: '/',
-    //         })
-    //       }
-    //     }
-    //   }
-    // }
   } else if (to.matched.some(record => record.meta.requiresVisitor)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
