@@ -439,7 +439,7 @@
               if (bottomOfWindow) {
                 setTimeout(() => {
                   this.moreArticle()
-                  this.resize()
+                // this.resize()
                 }, 3000)
               }
             }, 3000)

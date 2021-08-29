@@ -21,7 +21,7 @@
                   src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
                 /> -->
                 <span class="text-capitalize">{{
-                  comment.user.firstName.charAt(0)
+                  comment.user.nickName.charAt(0)
                 }}</span>
               </v-avatar>
             </div>
@@ -29,9 +29,9 @@
               <div>
                 <h4
                   v-if="comment.user"
-                  class="font-weight-bold"
+                  class="font-customize text-capitalize"
                 >
-                  {{ comment.user.firstName + ' ' + comment.user.lastName }}
+                  {{ comment.user.nickName }}
                   -
                   <span>
                     {{ comment.created_at | moment('dddd D MMM YYYY') }}
@@ -71,7 +71,7 @@
                       src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
                     /> -->
                     <span class="text-capitalize">{{
-                      comment.user.firstName.charAt(0)
+                      comment.user.nickName.charAt(0)
                     }}</span>
                   </v-avatar>
                 </div>
@@ -391,4 +391,8 @@
   padding-bottom: 5px !important
 .display-none
   display: none !important
+.theme--dark
+  .font-customize
+    color: white
+    font-weight: bold !important
 </style>

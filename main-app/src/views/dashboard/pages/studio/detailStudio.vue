@@ -1,21 +1,41 @@
 <template>
   <v-app>
     <v-container v-if="isLoad">
-      <v-skeleton-loader
-        v-bind="attrs"
-        type="card-avatar, article, actions"
-      >
-        <!-- <template #default>
-        <v-card>
-          v-card-title
-        </v-card>
-      </template> -->
-      </v-skeleton-loader>
+      <loader
+        object="#ff9633"
+        color1="#ffffff"
+        color2="#24e544"
+        size="5"
+        speed="2"
+        bg="#343a40"
+        objectbg="#e79b04"
+        opacity="52"
+        disable-scrolling="false"
+        name="dots"
+      />
+      <v-row>
+        <v-col
+          cols="12"
+          md="12"
+        >
+          <v-skeleton-loader
+            v-bind="attrs"
+            type="date-picker"
+          />
+        </v-col>
 
-      <!-- <v-skeleton-loader
-        v-bind="attrs"
-        type="list-item-avatar-three-line, image, article"
-      /> -->
+        <v-col cols="12">
+          <v-skeleton-loader
+            v-bind="attrs"
+            type="list-item-avatar, divider, list-item-three-line, card-heading, image, actions"
+          />
+
+          <v-skeleton-loader
+            v-bind="attrs"
+            type="list-item-avatar-three-line, image, article"
+          />
+        </v-col>
+      </v-row>
     </v-container>
     <v-container v-else>
       <v-row class="d-flex justify-center">
@@ -419,4 +439,17 @@
   }
 </script>
 
-<style lang="sass"></style>
+<style lang="sass">
+.theme--dark.v-skeleton-loader .v-skeleton-loader__actions, .theme--dark.v-skeleton-loader .v-skeleton-loader__article, .theme--dark.v-skeleton-loader .v-skeleton-loader__card-heading, .theme--dark.v-skeleton-loader .v-skeleton-loader__card-text, .theme--dark.v-skeleton-loader .v-skeleton-loader__date-picker, .theme--dark.v-skeleton-loader .v-skeleton-loader__list-item, .theme--dark.v-skeleton-loader .v-skeleton-loader__list-item-avatar, .theme--dark.v-skeleton-loader .v-skeleton-loader__list-item-text, .theme--dark.v-skeleton-loader .v-skeleton-loader__list-item-two-line, .theme--dark.v-skeleton-loader .v-skeleton-loader__list-item-avatar-two-line, .theme--dark.v-skeleton-loader .v-skeleton-loader__list-item-three-line, .theme--dark.v-skeleton-loader .v-skeleton-loader__list-item-avatar-three-line, .theme--dark.v-skeleton-loader .v-skeleton-loader__table-heading, .theme--dark.v-skeleton-loader .v-skeleton-loader__table-thead, .theme--dark.v-skeleton-loader .v-skeleton-loader__table-tbody, .theme--dark.v-skeleton-loader .v-skeleton-loader__table-tfoot
+    background: #283046 !important
+    background-image: initial
+    background-position-x: initial
+    background-position-y: initial
+    background-size: initial
+    background-repeat-x: initial
+    background-repeat-y: initial
+    background-attachment: initial
+    background-origin: initial
+    background-clip: initial
+    background-color: rgb(87, 38, 38)
+</style>

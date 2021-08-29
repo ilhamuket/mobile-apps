@@ -25,7 +25,7 @@
         mdi-dots-vertical
       </v-icon>
     </v-btn> -->
-    <!-- <div class="mr-2" /> -->
+    <div class="mr-2" />
 
     <v-toolbar-title
       class="hidden-sm-and-down font-weight-light font-size-ather-roboto-mono-name-page"

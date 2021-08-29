@@ -172,7 +172,7 @@ router.beforeEach((to, from, next) => {
         query: { redirect: to.fullPath },
       })
     } else {
-      console.log(from.name)
+      console.log('Dari ', from.name, 'Ke ', to.name)
       // if (user.state.me !== null) {
       //   // console.log(user.state.me.isVerified)
       //   if (user.state.me.isVerified === 0) {

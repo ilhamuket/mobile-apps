@@ -1,14 +1,25 @@
 <template>
   <v-app class="height">
-    <v-container>
+    <v-container v-if="$store.state.studio.isLoad">
+      <loader
+        object="#ff9633"
+        color1="#ffffff"
+        color2="#17fd3d"
+        size="5"
+        speed="2"
+        bg="#343a40"
+        objectbg="#999793"
+        opacity="80"
+        disable-scrolling="false"
+        name="spinning"
+      />
       <v-skeleton-loader
-        v-if="$store.state.studio.isLoad"
         v-bind="attrs"
         type="card-avatar, article, actions"
       />
-
+    </v-container>
+    <v-container v-else>
       <v-row
-        v-else
         class="relative"
         :class="
           $vuetify.theme.dark
