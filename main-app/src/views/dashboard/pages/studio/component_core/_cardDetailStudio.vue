@@ -20,7 +20,7 @@
                 <v-col class="mt-1">
                   <div class="d-flex flex-row justify-start mr-12">
                     <div class="d-flex flex-column mr-12">
-                      <p class="text-nowrap font-title-rampart-one text-colour">
+                      <p class="text-nowrap font-roboto-mono-small text-colour">
                         {{ data.name }}
                       </p>
                     </div>
@@ -274,7 +274,9 @@
 .theme--light
   .text-colour
     color: #6B75AA
+    font-size: 20px
 .theme--dark
   .text-colour
     color: #FFFF !important
+    font-size: 20px
 </style>

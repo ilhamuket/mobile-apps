@@ -71,94 +71,134 @@
               class=""
               color="transparent"
             >
-              <v-form @submit.prevent.enter="">
-                <v-text-field
-                  label="UserName"
-                  placeholder="UserName"
-                  outlined
-                  dense
-                  prepend-icon="mdi-account-box"
-                />
-                <v-text-field
-                  label="Phone Number"
-                  placeholder="Phone Number"
-                  outlined
-                  type="text"
-                  dense
-                  prepend-icon="mdi-cellphone-settings"
-                />
-                <v-text-field
-                  label="E-mail"
-                  placeholder="E-mail"
-                  outlined
-                  dense
-                  prepend-icon="mdi-at"
-                />
-                <!-- <v-text-field
-                  v-model="email"
-                  label="Email"
-                  placeholder="E-mail"
-                  outlined
-                  dense
-                  prepend-icon="mdi-login-variant"
-                /> -->
-                <v-text-field
-                  label="Password"
-                  placeholder="Password"
-                  outlined
-                  dense
-                  prepend-icon="mdi-lock"
-                  :append-icon="!show ? 'mdi-eye' : 'mdi-eye-off'"
-                  :type="show ? 'text' : 'password'"
-                  @click:append="show = !show"
-                />
-
-                <v-text-field
-                  label="Confirm Password"
-                  placeholder="Confirm Password"
-                  outlined
-                  :rules="notMatch"
-                  dense
-                  required
-                  prepend-icon="mdi-lock"
-                  :append-icon="!show ? 'mdi-eye' : 'mdi-eye-off'"
-                  :type="show ? 'text' : 'password'"
-                  @click:append="show = !show"
-                />
-
-                <div class="d-flex flex-row justify-center ml-8 mt-4">
-                  <div class="d-flex flex-coloumn">
-                    <v-btn
-                      color="pallet1"
-                      width="370"
-                      type="submit"
-                    >
-                      Sign-Up
-                    </v-btn>
-                  </div>
-                </div>
-                <div class="d-flex flex-row justify-center">
-                  <div class="d-flex flex-column">
-                    <v-chip
-                      color="transparent"
-                      text-color="red"
-                    >
-                      <h4>
-                        Forgott Password ?
-                      </h4>
-                    </v-chip>
-                  </div>
-                </div>
-                <div class="text-center font-questions">
-                  <span class="color-black-2">Already Have Account ? </span>
-                  <a
-                    class="color-a"
-                    @click="signIn"
+              <validation-observer
+                ref="observer"
+                v-slot="{ invalid }"
+              >
+                <v-form @submit.prevent.enter="register">
+                  <validation-provider
+                    v-slot="{ errors }"
+                    name="UserName"
+                    rules="required|max:20"
                   >
-                    <span>&nbsp;SignIn</span>
-                  </a>
-                </div>
-              </v-form>
+                    <v-text-field
+                      v-model="username"
+                      label="UserName"
+                      placeholder="UserName"
+                      outlined
+                      :error-messages="errors"
+                      dense
+                      prepend-icon="mdi-account-box"
+                    />
+                  </validation-provider>
+                  <validation-provider
+                    v-slot="{ errors }"
+                    name="phoneNumber"
+                    :rules="{
+                      required: true,
+                      digits: 12,
+                    }"
+                  >
+                    <v-text-field
+                      v-model="phoneNumber"
+                      label="Phone Number"
+                      placeholder="Phone Number"
+                      outlined
+                      :error-messages="errors"
+                      type="text"
+                      dense
+                      prepend-icon="mdi-cellphone-settings"
+                    />
+                  </validation-provider>
+                  <validation-provider
+                    v-slot="{ errors }"
+                    name="email"
+                    rules="required|email"
+                  >
+                    <v-text-field
+                      v-model="email"
+                      label="E-mail"
+                      placeholder="E-mail"
+                      :error-messages="errors"
+                      outlined
+                      dense
+                      prepend-icon="mdi-at"
+                    />
+                  </validation-provider>
+                  <validation-provider
+                    v-slot="{ errors }"
+                    name="Password"
+                    rules="required"
+                  >
+                    <v-text-field
+                      v-model="password"
+                      label="Password"
+                      placeholder="Password"
+                      outlined
+                      :error-messages="errors"
+                      dense
+                      prepend-icon="mdi-lock"
+                      :append-icon="!show ? 'mdi-eye' : 'mdi-eye-off'"
+                      :type="show ? 'text' : 'password'"
+                      @click:append="show = !show"
+                    />
+                  </validation-provider>
+                  <validation-provider
+                    v-slot="{ errors }"
+                    name="Password"
+                    rules="required"
+                  >
+                    <v-text-field
+                      v-model="confirmPassword"
+                      label="Confirm Password"
+                      placeholder="Confirm Password"
+                      outlined
+                      :rules="[rules.required, passwordMatch]"
+                      dense
+                      :error-messages="errors"
+                      required
+                      prepend-icon="mdi-lock"
+                      :append-icon="!show ? 'mdi-eye' : 'mdi-eye-off'"
+                      :type="show ? 'text' : 'password'"
+                      @click:append="show = !show"
+                    />
+                  </validation-provider>
+
+                  <div class="d-flex flex-row justify-center ml-8 mt-4">
+                    <div class="d-flex flex-coloumn">
+                      <v-btn
+                        color="pallet1"
+                        width="370"
+                        type="submit"
+                        :disabled="invalid"
+                      >
+                        Sign-Up
+                      </v-btn>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-row justify-center">
+                    <div class="d-flex flex-column">
+                      <v-chip
+                        color="transparent"
+                        text-color="red"
+                      >
+                        <h4>
+                          Forgott Password ?
+                        </h4>
+                      </v-chip>
+                    </div>
+                  </div>
+                  <div class="text-center font-questions">
+                    <span class="color-black-2">Already Have Account ? </span>
+                    <a
+                      class="color-a"
+                      @click="signIn"
+                    >
+                      <span>&nbsp;SignIn</span>
+                    </a>
+                  </div>
+                </v-form>
+              </validation-observer>
             </v-card-text>
           </v-col>
         </v-col>
@@ -168,17 +208,57 @@
 </template>
 
 <script>
+  import { required, digits, email, max, regex } from 'vee-validate/dist/rules'
+  import {
+    extend,
+    ValidationObserver,
+    ValidationProvider,
+    setInteractionMode,
+  } from 'vee-validate'
+
+  setInteractionMode('eager')
+
+  extend('digits', {
+    ...digits,
+    message: '{_field_} needs to be {length} digits. ({_value_})',
+  })
+
+  extend('required', {
+    ...required,
+    message: '{_field_} can not be empty',
+  })
+
+  extend('max', {
+    ...max,
+    message: '{_field_} may not be greater than {length} characters',
+  })
+
+  extend('regex', {
+    ...regex,
+    message: '{_field_} {_value_} does not match {regex}',
+  })
+
+  extend('email', {
+    ...email,
+    message: 'Email must be valid',
+  })
+
   export default {
+    components: {
+      ValidationProvider,
+      ValidationObserver,
+    },
     data: () => ({
       show: false,
+      username: '',
+      phoneNumber: '',
       email: '',
       password: '',
-      username: '',
-      noHp: '',
       confirmPassword: '',
-      result: '',
-      state_disable: false,
-      notMatch: [this.password === this.confirmPassword],
+      rules: {
+        required: value => !!value || 'Required.',
+        min: v => (v && v.length >= 8) || 'Min 8 characters',
+      },
     }),
     computed: {
       imgUrl () {
@@ -196,17 +276,58 @@
         }
         return result
       },
+      passwordMatch () {
+        return () =>
+          this.password === this.confirmPassword || 'Password must match'
+      },
     },
     mounted () {
     //   this.randomString(7)
     },
     methods: {
       register () {
-        this.$store.dispatch('user/register', {
-          email: this.email,
-          firstName: this.username,
-          lastName: this.username + '_',
-        })
+        this.$store
+          .dispatch('auth/register', {
+            email: this.email,
+            firstName: this.username + '_',
+            lastName: '##USERSENSIKLO_',
+            password: this.password,
+            nickName: this.username,
+            noHp: this.phoneNumber,
+          })
+          .then(res => {
+            if (res.data.meta.status === true) {
+              this.$store.dispatch('user/me').then(res => {
+                if (res.data.data.isVerified === 0) {
+                  this.$router.push('/waiting-email')
+                } else {
+                  this.$router.push('/')
+                }
+              })
+            } else {
+              this.isWrong = true
+              this.alert = true
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                },
+                popup: 'swal2-show',
+                backdrop: 'swal2-backdrop-show',
+                icon: 'swal2-icon-show',
+              })
+
+              Toast.fire({
+                icon: 'error',
+                title: 'Password atau Email Anda salah',
+              })
+            }
+          })
       },
       signIn () {
         this.$router.push('/login')

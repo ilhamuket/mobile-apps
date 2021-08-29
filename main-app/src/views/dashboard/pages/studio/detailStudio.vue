@@ -1,6 +1,23 @@
 <template>
   <v-app>
-    <v-container>
+    <v-container v-if="isLoad">
+      <v-skeleton-loader
+        v-bind="attrs"
+        type="card-avatar, article, actions"
+      >
+        <!-- <template #default>
+        <v-card>
+          v-card-title
+        </v-card>
+      </template> -->
+      </v-skeleton-loader>
+
+      <!-- <v-skeleton-loader
+        v-bind="attrs"
+        type="list-item-avatar-three-line, image, article"
+      /> -->
+    </v-container>
+    <v-container v-else>
       <v-row class="d-flex justify-center">
         <v-col cols="12">
           <app-studio-card-detail
@@ -88,6 +105,12 @@
       timelines: [],
       isFollow: false,
       search: '',
+      isLoad: true,
+      attrs: {
+        class: 'mb-6',
+        boilerplate: true,
+        elevation: 2,
+      },
     }),
     computed: {
       computedStudio () {
@@ -135,7 +158,8 @@
           })
           .then(({ data }) => {
             this.studio = data.data
-            console.log(this.studio)
+            this.isLoad = false
+          // console.log(this.studio)
           })
       },
       getDataComments () {

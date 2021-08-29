@@ -36,6 +36,26 @@
               title: res.data.meta.message,
             })
             this.$router.push('/')
+          } else {
+            this.$router.push('/error')
+            const Toast = this.$swal.mixin({
+              toast: true,
+              position: 'bottom-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: toast => {
+                toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+              },
+              popup: 'swal2-show',
+              backdrop: 'swal2-backdrop-show',
+              icon: 'swal2-icon-show',
+            })
+            Toast.fire({
+              icon: 'success',
+              title: 'Diem',
+            })
           }
         })
       },

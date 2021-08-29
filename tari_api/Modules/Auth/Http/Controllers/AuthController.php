@@ -31,11 +31,13 @@ class AuthController extends Controller
             $master->save();
             $master->assignRole('user');
 
-            $verification = new VerificationEmailController();
-            $verification->verificationsEmail();
+            $master->notify(new VerifiedAccount($master));
+
+            // $verification = new VerificationEmailController();
+            // $verification->verificationsEmail();
             $accessToken = $master->createToken('auth')->plainTextToken;
 
-            return Json::response($master);
+            return Json::response($accessToken);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         } catch (\Illuminate\Database\QueryException $e) {

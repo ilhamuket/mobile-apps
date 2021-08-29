@@ -26,30 +26,37 @@
 
     <!-- <v-divider class="mb-1" /> -->
 
-    <v-list
-      dense
-      nav
-    >
+    <v-list nav>
       <v-list-item>
         <v-list-item-avatar
           class="align-self-center"
-          color="white"
+          color="#795548"
           contain
         >
-          <v-img
-            src="https://demos.creative-tim.com/vuetify-material-dashboard/favicon.ico"
+          <!-- <v-img
+            src="@/assets/logo-e-color (1).png"
             max-height="30"
-          />
+          /> -->
+          <span class="text-capitalize">{{ users.nickName.charAt(0) }}</span>
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title v-text="profile.title" />
+          <v-list-item-title class="font-roboto-mono-small custome-title-name">
+            <h3>
+              {{ users.nickName }}
+            </h3>
+          </v-list-item-title>
+          <v-list-item-subtitle
+            class="font-roboto-mono-small custome-title-name-email"
+            v-text="users.email"
+          />
         </v-list-item-content>
 
         <v-btn
           dark
           color="pallet1"
           icon
+          class="ml-1"
           outlined
           small
           @click.stop="drawer = !drawer"
@@ -181,10 +188,16 @@
       computedItems () {
         return this.items.map(this.mapItem)
       },
+      users () {
+        const Me = localStorage.getItem('ME')
+        const users = JSON.parse(Me)
+
+        return users
+      },
       profile () {
         return {
           avatar: true,
-          title: this.$t('avatar'),
+          title: 'EnsikloTari',
         }
       },
     },
@@ -276,6 +289,24 @@
 .custumize-dark
   font-weight: bold
   font-family: 'Roboto', sans-serif !important
+.custome-brad
+  font-size: 20px !important
+  color: #6B75AA !important
+
+.theme--light
+  .custome-title-name-email
+    font-size: 9px !important
+    color: #6B75AA !important
+  .custome-title-name
+    font-size: 10px !important
+    color: #6B75AA !important
+.theme--dark
+  .custome-title-name-email
+    font-size: 9px !important
+    color: #ffff !important
+  .custome-title-name
+    font-size: 10px !important
+    color: #ffff !important
 </style>
 
 <style>

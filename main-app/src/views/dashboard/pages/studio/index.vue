@@ -1,7 +1,14 @@
 <template>
   <v-app class="height">
     <v-container>
+      <v-skeleton-loader
+        v-if="$store.state.studio.isLoad"
+        v-bind="attrs"
+        type="card-avatar, article, actions"
+      />
+
       <v-row
+        v-else
         class="relative"
         :class="
           $vuetify.theme.dark
@@ -79,6 +86,12 @@
     data: () => ({
       search: '',
       timer: null,
+      isLoad: true,
+      attrs: {
+        class: 'mb-6',
+        boilerplate: true,
+        elevation: 2,
+      },
     }),
     computed: {
       studio () {
@@ -94,6 +107,12 @@
           search: this.search,
           entities: 'member,author,img,followers,likes',
         })
+      // .then(res => {
+      //   if (res.data.meta.status) {
+      //     this.isLoad = false
+      //   }
+      // })
+      // this.$store.commit('studio/GET_OFF')
       },
       searchMethods () {
         if (this.timer) {

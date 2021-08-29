@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app v-if="imgUrl">
     <v-container fluid>
       <v-row
         dense

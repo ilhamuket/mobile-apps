@@ -26,7 +26,7 @@ const router = new Router({
         {
           name: 'User Profile',
           path: 'pages/user',
-          component: () => import('@/views/dashboard/pages/UserProfile'),
+          component: () => import('@/views/dashboard/pages/users/UserProfile'),
           meta: {
             requiresAuth: true,
           },
@@ -102,6 +102,14 @@ const router = new Router({
             } else next({ name: 'studio' })
           },
         },
+        {
+          name: 'Error',
+          path: '/error',
+          component: () => import('@/views/dashboard/ensikloerrors/error'),
+          meta: {
+            requiresAuth: true,
+          },
+        },
       ],
     },
     {
@@ -126,7 +134,7 @@ const router = new Router({
       component: () => import('@/auth/waitingEmail'),
       meta: {
         requiresAuth: true,
-        requiresVerifications: true,
+        // requiresVerifications: true,
       },
     },
     {
@@ -135,7 +143,7 @@ const router = new Router({
       component: () => import('@/auth/verifyEmail'),
       meta: {
         requiresAuth: true,
-        requiresVerifications: true,
+        // requiresVerifications: true,
       },
     },
 
@@ -164,6 +172,17 @@ router.beforeEach((to, from, next) => {
         query: { redirect: to.fullPath },
       })
     } else {
+      console.log(from.name)
+      // if (user.state.me !== null) {
+      //   // console.log(user.state.me.isVerified)
+      //   if (user.state.me.isVerified === 0) {
+      //     next()
+      //   } else if (user.state.me.isVerified === 1) {
+      //     next({ path: '/' })
+      //   } else {
+      //     next({})
+      //   }
+      // }
       next()
       // const Me = localStorage.getItem('ME')
       // const users = JSON.parse(Me)
@@ -195,49 +214,6 @@ router.beforeEach((to, from, next) => {
           }
         }
       }
-    } else if (to.matched.some(record => record.meta.requiresVerifications)) {
-      // const Me = localStorage.getItem('ME')
-      // const users = JSON.parse(Me)
-      if (user.state.me !== null) {
-        console.log(user.state.me.isVerified)
-        if (user.state.me.isVerified === 0) {
-          next()
-        } else {
-          next({ path: '/' })
-        }
-      }
-
-      // if (to.matched.some(record => record.meta.requiresTeachers)) {
-      //   if (auth.state.token) {
-      //     const Me = localStorage.getItem('ME')
-      //     const users = JSON.parse(Me)
-      //     if (users !== null) {
-      //       if (users.roles.some(x => x.name === 'teacher')) {
-      //         next()
-      //       } else {
-      //         next({
-      //           path: '/',
-      //         })
-      //       }
-      //     }
-      //   }
-      // }
-
-      // if (to.matched.some(record => record.meta.requiresStudent)) {
-      //   if (auth.state.token) {
-      //     const Me = localStorage.getItem('ME')
-      //     const users = JSON.parse(Me)
-      //     if (users !== null) {
-      //       if (users.roles.some(x => x.name === 'student')) {
-      //         next()
-      //       } else {
-      //         next({
-      //           path: '/',
-      //         })
-      //       }
-      //     }
-      //   }
-      // }
     }
   } else if (to.matched.some(record => record.meta.requiresVisitor)) {
     // this route requires auth, check if logged in
@@ -251,8 +227,54 @@ router.beforeEach((to, from, next) => {
     } else {
       next()
     }
-  } else {
-    next() // make sure to always call next()!
+  }
+  // else {
+  //   next() // make sure to always call next()!
+  // }
+
+  if (to.matched.some(record => record.meta.requiresVerifications)) {
+    // const Me = localStorage.getItem('ME')
+    // const users = JSON.parse(Me)
+    if (user.state.me !== null) {
+      // console.log(user.state.me.isVerified)
+      if (user.state.me.isVerified === 0) {
+        next()
+      } else {
+        next({ path: '/' })
+      }
+    }
+
+    // if (to.matched.some(record => record.meta.requiresTeachers)) {
+    //   if (auth.state.token) {
+    //     const Me = localStorage.getItem('ME')
+    //     const users = JSON.parse(Me)
+    //     if (users !== null) {
+    //       if (users.roles.some(x => x.name === 'teacher')) {
+    //         next()
+    //       } else {
+    //         next({
+    //           path: '/',
+    //         })
+    //       }
+    //     }
+    //   }
+    // }
+
+    // if (to.matched.some(record => record.meta.requiresStudent)) {
+    //   if (auth.state.token) {
+    //     const Me = localStorage.getItem('ME')
+    //     const users = JSON.parse(Me)
+    //     if (users !== null) {
+    //       if (users.roles.some(x => x.name === 'student')) {
+    //         next()
+    //       } else {
+    //         next({
+    //           path: '/',
+    //         })
+    //       }
+    //     }
+    //   }
+    // }
   }
 })
 

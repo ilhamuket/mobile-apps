@@ -5,6 +5,7 @@ export default {
   state: {
     data: [],
     dataBySlug: {},
+    isLoad: true,
   },
   getters: {
     data: state => state.data,
@@ -13,6 +14,7 @@ export default {
   mutations: {
     GET_DATA_STUDIO: (state, payload) => (state.data = payload),
     GET_DATA_STUDIO_BY_SLUG: (state, payload) => (state.dataBySlug = payload),
+    GET_OFF: state => (state.isLoad = false),
   },
   actions: {
     getDataStudio: ({ commit }, payload) => {
@@ -27,6 +29,7 @@ export default {
           .then(res => {
             const data = res.data.data
             commit('GET_DATA_STUDIO', data)
+            commit('GET_OFF')
             resolve(res)
           })
           .catch(e => {
