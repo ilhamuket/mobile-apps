@@ -23,7 +23,9 @@
       expandOnHover: false,
     }),
     mounted () {
-      this.$store.dispatch('user/me')
+      this.$store.dispatch('user/me', {
+        entities: 'followingStudio',
+      })
     },
   }
 </script>

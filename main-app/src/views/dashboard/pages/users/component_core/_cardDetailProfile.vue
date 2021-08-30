@@ -9,7 +9,7 @@
         </v-card-title>
       </div>
       <div class="d-flex flex-column mt-2 i-left">
-        <v-icon>
+        <v-icon color="blue">
           mdi-pencil
         </v-icon>
       </div>

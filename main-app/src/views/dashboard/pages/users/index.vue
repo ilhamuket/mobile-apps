@@ -28,7 +28,7 @@
         cols="12"
         md="4"
       >
-        <app-list-following />
+        <app-list-following :me="cumputedMe" />
       </v-col>
 
       <v-col cols="12">
@@ -94,7 +94,9 @@
     },
     methods: {
       getMe () {
-        this.$store.dispatch('user/me')
+        this.$store.dispatch('user/me', {
+          entities: 'followingStudio.followers,followingStudio.likes',
+        })
       },
     },
   }

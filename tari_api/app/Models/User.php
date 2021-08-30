@@ -97,4 +97,23 @@ class User extends Authenticatable implements MustVerifyEmail
 
         return $query;
     }
+
+    public function scopeEntities($query, $entities)
+    {
+        if ($entities != null || $entities != '') {
+            $entities = str_replace(' ', '', $entities);
+            $entities = explode(',', $entities);
+
+            try {
+                return $query = $query->with($entities);
+            } catch (\Throwable $th) {
+                return Json::exception(null, validator()->errors());
+            }
+        }
+    }
+
+    public function followingStudio()
+    {
+        return $this->belongsToMany(Studio::class, 'follow_studio', 'user_id', 'studio_id');
+    }
 }
