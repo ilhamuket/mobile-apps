@@ -3,7 +3,7 @@
     <v-row>
       <v-col class="d-flex justify-center">
         <h3 class="text-center font-title-rampart-one">
-          TimeLines
+          List Class
         </h3>
       </v-col>
     </v-row>

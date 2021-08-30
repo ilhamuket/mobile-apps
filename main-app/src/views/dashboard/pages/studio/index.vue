@@ -73,10 +73,7 @@
           md="9"
           class="overflow"
         >
-          <v-list
-            max-height="490"
-            class="overflow-y-auto"
-          >
+          <v-list class="overflow-y-auto">
             <app-data-list
               class="d-none d-md-flex"
               :data="studio"

@@ -26,7 +26,7 @@ const router = new Router({
         {
           name: 'User Profile',
           path: 'pages/user',
-          component: () => import('@/views/dashboard/pages/users/UserProfile'),
+          component: () => import('@/views/dashboard/pages/users/index'),
           meta: {
             requiresAuth: true,
           },
@@ -172,28 +172,17 @@ router.beforeEach((to, from, next) => {
         query: { redirect: to.fullPath },
       })
     } else {
-      console.log('Dari ', from.name, 'Ke ', to.name)
-      // if (user.state.me !== null) {
-      //   // console.log(user.state.me.isVerified)
-      //   if (user.state.me.isVerified === 0) {
-      //     next()
-      //   } else if (user.state.me.isVerified === 1) {
-      //     next({ path: '/' })
-      //   } else {
-      //     next({})
-      //   }
-      // }
+      // console.log('Dari ', from.name, 'Ke ', to.name)
       next()
-      // const Me = localStorage.getItem('ME')
-      // const users = JSON.parse(Me)
-      // if (users !== null) {
-      //   console.log(users.email_verified_at)
-      //   if (users.email_verified_at !== null) {
-      //     next()
-      //   } else {
-      //     next('')
-      //   }
-      // }
+      const Me = localStorage.getItem('ME')
+      const users = JSON.parse(Me)
+      if (users.isVerified === 1) {
+        if (to.name === 'WaitingEmail') {
+          next({ path: '/' })
+        } else if (to.name === 'Verifications') {
+          next({ path: '/' })
+        }
+      }
     }
 
     // console.log(to.fullPath, 'normal')

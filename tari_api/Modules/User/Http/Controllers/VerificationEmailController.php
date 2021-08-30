@@ -43,6 +43,6 @@ class VerificationEmailController extends Controller
     {
         // $request->user()->sendEmailVerificationNotification();
         $request->user()->notify(new VerifiedAccount($request->user()));
-        return Json::response('resend Token');
+        return Json::response('Send Notifications Successfull');
     }
 }

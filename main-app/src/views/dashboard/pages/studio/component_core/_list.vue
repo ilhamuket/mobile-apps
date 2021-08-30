@@ -6,16 +6,15 @@
         :key="list.id"
         cols="6"
       >
-        <v-card
-          max-height="1000"
-          max-width="344"
-        >
+        <v-card>
           <v-img
             v-if="list.img"
             class="d-flex justify-center"
             :src="list.img.url"
-            width="344"
+            width="400"
             height="200"
+            style="cursor:pointer"
+            @click="clickPush(list.slug)"
           />
 
           <v-card-subtitle style="text-transform: capitalize">
@@ -64,7 +63,13 @@
                   label
                   outlined
                 >
-                  {{ list.followers.length }} Folowers
+                  <v-icon
+                    :color="$vuetify.theme.dark ? 'white' : 'black'"
+                    class="mr-1"
+                  >
+                    mdi-account-check
+                  </v-icon>
+                  {{ list.followers.length }}
                 </v-chip>
               </div>
 
@@ -78,7 +83,13 @@
                   label
                   outlined
                 >
-                  {{ list.likes.length }} likes
+                  <v-icon
+                    color="red"
+                    class="mr-1"
+                  >
+                    mdi-heart
+                  </v-icon>
+                  {{ list.likes.length }}
                 </v-chip>
               </div>
             </div>
@@ -174,4 +185,7 @@
   font-size: 11px !important
 .col-12
   padding: 1px !important
+.v-card
+    margin-top: 0px
+    margin-bottom: 0px
 </style>

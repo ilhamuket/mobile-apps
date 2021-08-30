@@ -170,6 +170,7 @@
       this.firstLoad()
     },
     methods: {
+      fecthAllMethods () {},
       getDataStudioBySlug () {
         this.$store
           .dispatch('studio/getDataStudioBySlug', {

@@ -1,7 +1,6 @@
 <template>
   <v-container
     id="icons"
-    fluid
     tag="section"
   >
     <base-v-component
