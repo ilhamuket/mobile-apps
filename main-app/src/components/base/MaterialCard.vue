@@ -7,7 +7,7 @@
     <div class="d-flex grow flex-wrap">
       <v-avatar
         v-if="avatar"
-        size="128"
+        :size="sizeAvatar"
         class="mx-auto v-card--material__avatar elevation-6"
         color="grey"
       >
@@ -113,6 +113,10 @@
       title: {
         type: String,
         default: '',
+      },
+      sizeAvatar: {
+        type: Number,
+        default: 126,
       },
     },
 

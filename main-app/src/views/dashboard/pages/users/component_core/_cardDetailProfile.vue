@@ -9,9 +9,23 @@
         </v-card-title>
       </div>
       <div class="d-flex flex-column mt-2 i-left">
-        <v-icon color="blue">
-          mdi-pencil
-        </v-icon>
+        <v-tooltip
+          bottom
+          color="blue"
+        >
+          <template #activator="{on, attrs}">
+            <v-icon
+              v-bind="attrs"
+              color="blue"
+              style="cursor:pointer"
+              v-on="on"
+              @click="popUpEdit(me)"
+            >
+              mdi-pencil
+            </v-icon>
+          </template>
+          <span>Edit Profile</span>
+        </v-tooltip>
       </div>
     </div>
     <div class="d-flex flex-row">
@@ -102,6 +116,11 @@
             tempora totam consequatur, assumenda aperiam! Magni et officia nemo.
             Cum voluptas deleniti quae fugit accusamus aliquid.`,
     }),
+    methods: {
+      popUpEdit (item) {
+        this.$emit('popUpDialog', { item: item })
+      },
+    },
   }
 </script>
 
