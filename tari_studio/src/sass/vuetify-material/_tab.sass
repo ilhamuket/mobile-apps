@@ -1,0 +1,22 @@
+.v-card--wizard
+  .v-tabs-bar
+    .v-slide-group__wrapper
+      overflow: visible
+      display: -webkit-inline-box
+      contain: inherit
+
+      .v-slide-group__content
+        z-index: 2
+
+    .v-tab:not(:first-child)
+      margin-left: 5px
+.theme--dark.v-tabs > .v-tabs-bar
+  background-color: #141C31 !important
+  border-bottom: 2px double grey
+.theme--light.v-tabs > .v-tabs-bar
+  background-color: #F0F2F5 !important
+  margin-bottom: 2px
+  border-bottom: 2px double grey
+
+.theme--dark.v-tabs-items
+  background-color: #141C31 !important
