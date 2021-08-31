@@ -10,7 +10,7 @@
             <v-col cols="3">
               <v-img
                 v-if="data.img"
-                class="rounded-xl"
+                class="rounded-lg"
                 :src="data.img.url"
                 width="120"
                 height="120"

@@ -7,7 +7,10 @@
         </v-card-title>
       </div>
       <div class="d-flex flex-column mt-2 i-left">
-        <v-icon color="blue">
+        <v-icon
+          color="blue"
+          @click="toStudio"
+        >
           mdi-arrow-right
         </v-icon>
       </div>
@@ -89,6 +92,9 @@
     methods: {
       pushToStudio (slug) {
         this.$router.push(`/${slug}/home`)
+      },
+      toStudio () {
+        this.$router.push('/studio')
       },
     },
   }
