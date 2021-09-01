@@ -7,5 +7,5 @@
     "Plan": true,
     "Studio": true,
     "Migration": true,
-    "CreateTableCommentsStudioInModuleStudio": true
+    "StudioOwners": true
 }

@@ -6,12 +6,15 @@
         :key="list.id"
         cols="6"
       >
-        <v-card max-width="344">
+        <v-card>
           <v-img
             v-if="list.img"
             class="d-flex justify-center"
             :src="list.img.url"
-            aspect-ratio="1"
+            width="400"
+            height="200"
+            style="cursor:pointer"
+            @click="clickPush(list.slug)"
           />
 
           <v-card-subtitle style="text-transform: capitalize">
@@ -35,39 +38,58 @@
                 </v-chip>
               </div>
 
-              <div class="d-flex flex-column flex-nowrap text-capitalize ml-2">
+              <div class="d-flex flex-column flex-nowrap text-capitalize ml-2 ">
                 <v-chip
                   color="primary"
                   small
                   label
                   outlined
+                  class="font-size-ather-roboto-mono"
                 >
                   <v-icon>
                     mdi-map-marker
                   </v-icon>
-                  {{ list.region }}
+                  {{ list.address }}
                 </v-chip>
               </div>
 
-              <div class="d-flex flex-column ml-2">
+              <div
+                v-if="list.followers"
+                class="d-flex flex-column ml-2"
+              >
                 <v-chip
                   color="primary"
                   small
                   label
                   outlined
                 >
-                  20 Folowers
+                  <v-icon
+                    :color="$vuetify.theme.dark ? 'white' : 'black'"
+                    class="mr-1"
+                  >
+                    mdi-account-check
+                  </v-icon>
+                  {{ list.followers.length }}
                 </v-chip>
               </div>
 
-              <div class="d-flex flex-column ml-2">
+              <div
+                v-if="list.likes"
+                class="d-flex flex-column ml-2"
+              >
                 <v-chip
                   color="primary"
                   small
                   label
                   outlined
                 >
-                  20 likes
+                  <v-icon
+                    color="red"
+                    class="mr-1"
+                  >
+                    mdi-heart
+                  </v-icon>
+                  {{ list.likes.length }}
                 </v-chip>
               </div>
             </div>
@@ -119,7 +141,9 @@
             <div v-show="list.show">
               <v-divider />
 
-              <v-card-text> "{{ list.about }}" </v-card-text>
+              <v-card-text class="text-h5 font-size-ather-roboto-mono">
+                "{{ list.about }}"
+              </v-card-text>
             </div>
           </v-expand-transition>
         </v-card>
@@ -133,7 +157,13 @@
     props: {
       data: {
         type: Array,
-        default: null,
+        default: () => [
+          {
+            img: {
+              url: '',
+            },
+          },
+        ],
       },
     },
     data: () => ({
@@ -155,4 +185,7 @@
   font-size: 11px !important
 .col-12
   padding: 1px !important
+.v-card
+  margin-top: 0px
+  margin-bottom: 0px
 </style>

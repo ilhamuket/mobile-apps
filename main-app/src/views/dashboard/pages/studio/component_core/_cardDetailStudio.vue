@@ -47,7 +47,7 @@
                     <div
                       class="d-flex flex-column flex-nowrap text-capitalize font-roboto-mono-small"
                     >
-                      {{ data.region }}
+                      {{ data.address }}
                     </div>
 
                     <div

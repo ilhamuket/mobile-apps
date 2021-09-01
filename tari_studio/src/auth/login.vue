@@ -7,13 +7,15 @@
       >
         <v-col
           cols="12"
-          md="8"
+          md="7"
           class="d-flex flex-column bg-img"
         >
           <v-row>
             <v-col>
               <v-img
+                class="ml-2"
                 width="700"
+                height="600"
                 :src="imgUrl"
               >
                 <!-- <v-app-bar
@@ -39,7 +41,7 @@
         </v-col>
         <v-col
           cols="12"
-          md="4"
+          md="5"
           class="d-flex flex-column dense"
         >
           <v-col
@@ -119,7 +121,7 @@
                   <span class="color-black-2">New on our platform? </span>
                   <a
                     class="color-a"
-                    :to="{ name: 'auth-register' }"
+                    @click="signUp"
                   >
                     <span>&nbsp;Create an account</span>
                   </a>
@@ -143,7 +145,7 @@
     computed: {
       imgUrl () {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        this.sideImg = require('@/assets/login-v2.svg')
+        this.sideImg = require('@/assets/img/Secure login-bro.svg')
         return this.sideImg
       },
     },
@@ -181,6 +183,9 @@
               })
             }
           })
+      },
+      signUp () {
+        this.$router.push('/register')
       },
     },
   }

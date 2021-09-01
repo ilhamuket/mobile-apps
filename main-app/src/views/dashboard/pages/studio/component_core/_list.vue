@@ -49,7 +49,7 @@
                   <v-icon>
                     mdi-map-marker
                   </v-icon>
-                  {{ list.region }}
+                  {{ list.address }}
                 </v-chip>
               </div>
 

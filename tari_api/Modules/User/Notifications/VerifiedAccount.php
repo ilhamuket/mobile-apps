@@ -16,9 +16,9 @@ class VerifiedAccount extends Notification
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct()
     {
-        $this->user = $user;
+        // $this->user = $user;
     }
 
     /**
@@ -40,7 +40,7 @@ class VerifiedAccount extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = env('FRONTEND_URL', 'http://localhost:8080/')  . 'verification';
+        $url = 'http://localhost:8081/'  . 'verification';
         return (new MailMessage)
             ->subject('Verify Your Account')
             ->line('Click Button Verify Email Address To Verification Your Account ..')

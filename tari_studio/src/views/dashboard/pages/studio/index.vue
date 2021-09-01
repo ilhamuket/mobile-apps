@@ -1,6 +1,24 @@
 <template>
   <v-app class="height">
-    <v-container>
+    <v-container v-if="$store.state.studio.isLoad">
+      <loader
+        object="#ff9633"
+        color1="#ffffff"
+        color2="#17fd3d"
+        size="5"
+        speed="2"
+        bg="#343a40"
+        objectbg="#999793"
+        opacity="80"
+        disable-scrolling="false"
+        name="spinning"
+      />
+      <v-skeleton-loader
+        v-bind="attrs"
+        type="card-avatar, article, actions"
+      />
+    </v-container>
+    <v-container v-else>
       <v-row
         class="relative"
         :class="
@@ -55,10 +73,7 @@
           md="9"
           class="overflow"
         >
-          <v-list
-            max-height="490"
-            class="overflow-y-auto"
-          >
+          <v-list class="overflow-y-auto">
             <app-data-list
               class="d-none d-md-flex"
               :data="studio"
@@ -79,6 +94,12 @@
     data: () => ({
       search: '',
       timer: null,
+      isLoad: true,
+      attrs: {
+        class: 'mb-6',
+        boilerplate: true,
+        elevation: 2,
+      },
     }),
     computed: {
       studio () {
@@ -92,7 +113,14 @@
       getDataStudio () {
         this.$store.dispatch('studio/getDataStudio', {
           search: this.search,
+          entities: 'member,author,img,followers,likes',
         })
+      // .then(res => {
+      //   if (res.data.meta.status) {
+      //     this.isLoad = false
+      //   }
+      // })
+      // this.$store.commit('studio/GET_OFF')
       },
       searchMethods () {
         if (this.timer) {

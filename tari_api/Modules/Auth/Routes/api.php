@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Modules\Auth\Http\Controllers\AuthController;
+use Modules\Auth\Http\Controllers\AuthStudioController;
 use Modules\User\Http\Controllers\PasswordResetController;
 use Modules\User\Http\Controllers\UserController;
 use Modules\User\Http\Controllers\VerificationEmailController;
@@ -37,4 +38,8 @@ Route::prefix('auth')->group(function () {
         Route::post('reset', [PasswordResetController::class, 'reset']);
         Route::get('find/{token}', [PasswordResetController::class, 'find']);
     });
+
+    // Owners
+
+    Route::post('register/studio', [AuthStudioController::class, 'registerAsStudio']);
 });

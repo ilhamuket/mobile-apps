@@ -1,6 +1,43 @@
 <template>
   <v-app>
-    <v-container>
+    <v-container v-if="isLoad">
+      <loader
+        object="#ff9633"
+        color1="#ffffff"
+        color2="#24e544"
+        size="5"
+        speed="2"
+        bg="#343a40"
+        objectbg="#e79b04"
+        opacity="52"
+        disable-scrolling="false"
+        name="dots"
+      />
+      <v-row>
+        <v-col
+          cols="12"
+          md="12"
+        >
+          <v-skeleton-loader
+            v-bind="attrs"
+            type="date-picker"
+          />
+        </v-col>
+
+        <v-col cols="12">
+          <v-skeleton-loader
+            v-bind="attrs"
+            type="list-item-avatar, divider, list-item-three-line, card-heading, image, actions"
+          />
+
+          <v-skeleton-loader
+            v-bind="attrs"
+            type="list-item-avatar-three-line, image, article"
+          />
+        </v-col>
+      </v-row>
+    </v-container>
+    <v-container v-else>
       <v-row class="d-flex justify-center">
         <v-col cols="12">
           <app-studio-card-detail
@@ -68,6 +105,12 @@
       listVidio: [],
       classes: [],
       timelines: [],
+      isLoad: true,
+      attrs: {
+        class: 'mb-6',
+        boilerplate: true,
+        elevation: 2,
+      },
     }),
     computed: {},
     watch: {
@@ -103,9 +146,12 @@
         this.$store
           .dispatch('studio/getDataStudioBySlug', {
             slug: this.$route.params.slug,
+            entities: 'img',
           })
           .then(({ data }) => {
             this.studio = data.data
+            console.log(this.studio)
+            this.isLoad = false
           })
       },
       getDataComments () {
@@ -120,15 +166,18 @@
             studio_slug: this.$route.params.slug,
           })
           .then(res => {
-            this.autoPlay = res.data.data
-            localStorage.setItem('vidio_id', res.data.data.id)
-            this.getDataComments()
+            if (res.data.meta.status) {
+              this.autoPlay = res.data.data
+              localStorage.setItem('vidio_id', res.data.data.id)
+              this.getDataComments()
+            }
           })
       },
       getDataListVidio () {
         this.$store
           .dispatch('studioChild/getDataListVidio', {
             slug: this.$route.params.slug,
+            search: this.search,
           })
           .then(({ data }) => {
             this.listVidio = data.data

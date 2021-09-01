@@ -1,0 +1,13 @@
+{
+    "name": "StudioOwners",
+    "alias": "studioowners",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\StudioOwners\\Providers\\StudioOwnersServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

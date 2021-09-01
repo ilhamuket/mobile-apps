@@ -5,6 +5,7 @@ export default {
   state: {
     data: [],
     dataBySlug: {},
+    isLoad: true,
   },
   getters: {
     data: state => state.data,
@@ -13,6 +14,7 @@ export default {
   mutations: {
     GET_DATA_STUDIO: (state, payload) => (state.data = payload),
     GET_DATA_STUDIO_BY_SLUG: (state, payload) => (state.dataBySlug = payload),
+    GET_OFF: state => (state.isLoad = false),
   },
   actions: {
     getDataStudio: ({ commit }, payload) => {
@@ -27,6 +29,7 @@ export default {
           .then(res => {
             const data = res.data.data
             commit('GET_DATA_STUDIO', data)
+            commit('GET_OFF')
             resolve(res)
           })
           .catch(e => {
@@ -40,9 +43,9 @@ export default {
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
-        // const params = { ...payload }
+        const params = { ...payload }
         axios
-          .get(`studio/u/${payload.slug}`)
+          .get(`studio/u/${payload.slug}`, { params: params })
           .then(res => {
             const data = res.data.data
             commit('GET_DATA_STUDIO_BY_SLUG', data)
