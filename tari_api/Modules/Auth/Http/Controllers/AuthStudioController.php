@@ -142,14 +142,7 @@ class AuthStudioController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function login(Request $request)
-    {
-        try {
-            //code...
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
-    }
+
 
     /**
      * Show the specified resource.

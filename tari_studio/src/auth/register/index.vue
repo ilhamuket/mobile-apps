@@ -160,7 +160,7 @@
               url: this.studio.data.item1.data.options,
             })
             .then(({ data }) => {
-              if (data.meta.status) {
+              if (data.status) {
                 this.isYet = true
                 localStorage.setItem('yet', this.isYet)
                 const Toast = this.$swal.mixin({

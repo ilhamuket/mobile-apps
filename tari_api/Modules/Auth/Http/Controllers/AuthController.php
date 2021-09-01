@@ -188,9 +188,41 @@ class AuthController extends Controller
             if (!$check || !Hash::check($request->password, $check->password)) {
                 return Json::exception('Password Anda salah');
             }
+            $check->last_login = now();
+            $check->save();
 
             $master = $check->createToken('auth')->plainTextToken;
             return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+
+    public function studioLogin(Request $request)
+    {
+        try {
+            $user = User::where('email', $request->email)->orWhere('nickName', $request->email)->first();
+
+
+            if ($user) {
+                if ($user->hasRole('studio')) {
+                    if (!$user || !Hash::check($request->password, $user->password)) {
+                        return Json::exception('Password Anda salah');
+                    }
+                    $user->last_login = now();
+                    $user->save();
+                    $master = $user->createToken('auth')->plainTextToken;
+                    return Json::response($master);
+                } else {
+                    return Json::exception('Password atau email anda salah');
+                }
+            } else {
+                return Json::exception('Akun Anda tidak terdaftar');
+            }
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         } catch (\Illuminate\Database\QueryException $e) {

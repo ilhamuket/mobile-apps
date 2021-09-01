@@ -9,7 +9,24 @@ export default {
     GET_TOKEN: (state, payload) => (state.token = payload),
   },
   actions: {
+    studioLogin: ({ commit }, payload) => {
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+      return new Promise((resolve, reject) => {
+        axios
+          .post('auth/login/studio', { ...payload })
+          .then(({ data }) => {
+            const token = data.data
+            commit('GET_TOKEN', token)
+            localStorage.setItem('access_token', token)
+            resolve(data)
+          })
+          .catch(e => {
+            reject(e)
+          })
+      })
+    },
     registerAsStudio: ({ commit }, payload) => {
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
       return new Promise((resolve, reject) => {
         axios
           .post('auth/register/studio', { ...payload })

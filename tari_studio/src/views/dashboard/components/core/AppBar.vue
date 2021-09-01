@@ -28,7 +28,8 @@
     <div class="mr-2" />
 
     <v-toolbar-title
-      class="hidden-sm-and-down font-weight-light ml-6"
+      class="hidden-sm-and-down font-weight-light font-size-ather-roboto-mono-name-page"
+      :class="!drawer ? 'ml-6' : ''"
       v-text="$t($route.name)"
     />
 
@@ -37,12 +38,17 @@
       class="ml-12"
       dark
     >
-      <v-img
+      <!-- <v-img
         src="@/assets/logo-e-color (2).png"
         width="200"
         height="79"
         class="bg-red"
-      />
+      /> -->
+      <v-list-item-title class="font-title-rampart-one custome-brad">
+        <h3>
+          ENSIKLOTARI
+        </h3>
+      </v-list-item-title>
     </v-toolbar-title>
     <v-spacer />
 
@@ -226,7 +232,7 @@
               src="https://image.shutterstock.com/image-vector/user-login-authenticate-icon-human-260nw-1365533969.jpg"
             />
           </v-list-item-avatar>
-          Hi, {{ fullName }}
+          Hi, {{ users.nickName }}
         </v-chip>
       </template>
 

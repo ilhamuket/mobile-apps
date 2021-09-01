@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use Modules\StudioOwners\Entities\ClassesOwnerStudio;
+use Modules\StudioOwners\Http\Controllers\ClassesOwnerStudioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,14 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/studioowners', function (Request $request) {
-    return $request->user();
+Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
+    // Classes
+    Route::prefix('classes')->group(function () {
+        Route::get('myClass', [ClassesOwnerStudioController::class, 'index']);
+        Route::post('create', [ClassesOwnerStudioController::class, 'store']);
+        Route::post('delBroadcast', [ClassesOwnerStudioController::class, 'delBroadcast']);
+        Route::post('approveBroadcast', [ClassesOwnerStudioController::class, 'approvedBroadcast']);
+        Route::patch('update/{id}', [ClassesOwnerStudioController::class, 'update']);
+        Route::delete('destroy/{id}', [ClassesOwnerStudioController::class, 'destroy']);
+    });
 });

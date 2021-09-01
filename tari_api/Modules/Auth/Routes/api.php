@@ -42,4 +42,5 @@ Route::prefix('auth')->group(function () {
     // Owners
 
     Route::post('register/studio', [AuthStudioController::class, 'registerAsStudio']);
+    Route::post('login/studio', [AuthController::class, 'studioLogin']);
 });

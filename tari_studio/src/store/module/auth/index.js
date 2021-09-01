@@ -10,6 +10,7 @@ export default {
   },
   mutations: {
     GET_TOKEN: (state, payload) => (state.token = payload),
+    REMOVE_TOKEN: state => (state.token = null),
   },
   actions: {
     login: ({ commit }, payload) => {

@@ -52,5 +52,7 @@
         "folow": "Follow"
       }
     }
-  }
+  },
+  "index_class": "Index Class",
+  "classes": "Classes"
 }

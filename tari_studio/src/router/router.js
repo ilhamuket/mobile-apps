@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import auth from '../store/module/auth'
 // import t from '../i18n'
+import i18n from '@/i18n'
 
 Vue.use(Router)
 
@@ -15,7 +16,7 @@ const router = new Router({
       children: [
         // Dashboard
         {
-          name: 'Dashboard',
+          name: 'dashboard',
           path: '',
           component: () => import('@/views/dashboard/Dashboard'),
           meta: {
@@ -79,6 +80,13 @@ const router = new Router({
           path: 'upgrade',
           component: () => import('@/views/dashboard/Upgrade'),
         },
+        // Tablle Clas
+        {
+          name: 'index_class',
+          path: '/class',
+          component: () =>
+            import('@/views/dashboard/admin/studio/classes/index'),
+        },
         // Studio
         {
           name: 'Studio',
@@ -129,7 +137,7 @@ const router = new Router({
       path: '/verification',
       component: () => import('@/auth/verifikasi/verification'),
       meta: {
-        requiresVisitor: true,
+        requiresAuth: true,
       },
     },
     {
@@ -144,7 +152,7 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  document.title = `${process.env.VUE_APP_TITLE} - ${to.name}`
+  document.title = `${i18n.t(to.name)} - ${process.env.VUE_APP_TITLE}`
 
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
@@ -160,6 +168,7 @@ router.beforeEach((to, from, next) => {
       next()
       const Me = localStorage.getItem('ME')
       const users = JSON.parse(Me)
+
       if (users.isVerified === 1) {
         if (to.name === 'WaitingEmail') {
           next({ path: '/' })
@@ -224,7 +233,6 @@ router.beforeEach((to, from, next) => {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     if (localStorage.getItem('access_token')) {
-      console.log(localStorage.getItem('access_item'))
       next({
         path: '/',
         query: { redirect: to.fullPath },

@@ -152,13 +152,19 @@
     methods: {
       login () {
         this.$store
-          .dispatch('auth/login', {
+          .dispatch('studioAuth/studioLogin', {
             email: this.email,
             password: this.password,
           })
-          .then(response => {
-            if (response.data.meta.status === true) {
-              this.$router.push('/')
+          .then(res => {
+            if (res.meta.status) {
+              this.$store.dispatch('user/me').then(res => {
+                if (res.data.data.isVerified === 0) {
+                  this.$router.push('/verification')
+                } else {
+                  this.$router.push('/')
+                }
+              })
             } else {
               this.isWrong = true
               this.alert = true
@@ -179,7 +185,7 @@
 
               Toast.fire({
                 icon: 'error',
-                title: 'Password atau Email Anda salah',
+                title: res.meta.message,
               })
             }
           })

@@ -131,6 +131,11 @@
           to: '/',
         },
         {
+          icon: 'mdi-book-variant',
+          title: 'classes',
+          to: '/class',
+        },
+        {
           icon: 'mdi-shopping-music',
           title: 'studio',
           to: '/studio',
