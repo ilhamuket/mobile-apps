@@ -131,9 +131,14 @@
           to: '/',
         },
         {
-          icon: 'mdi-book-variant',
+          icon: 'mdi-alpha-c-box',
           title: 'classes',
           to: '/class',
+        },
+        {
+          icon: 'mdi-alpha-s-box',
+          title: 'sub_class',
+          to: '/sub-class',
         },
         {
           icon: 'mdi-shopping-music',

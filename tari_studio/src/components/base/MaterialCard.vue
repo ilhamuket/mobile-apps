@@ -2,7 +2,7 @@
   <v-card
     v-bind="$attrs"
     :class="classes"
-    class="v-card--material pa-3"
+    class="v-card--material pa-3 rounded-xl"
   >
     <div class="d-flex grow flex-wrap">
       <v-avatar

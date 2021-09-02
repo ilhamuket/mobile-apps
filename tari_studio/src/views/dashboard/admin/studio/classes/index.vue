@@ -10,10 +10,12 @@
           <base-material-stats-card
             color="primary"
             icon="mdi-poll"
-            title="Website Visits"
-            value="75.521"
+            title="Total"
+            :value="String(computedSummary.all)"
             sub-icon="mdi-tag"
             sub-text="Tracked from Google Analytics"
+            style="cursor:pointer"
+            @click.native="orderBy('all')"
           />
         </v-col>
         <v-col
@@ -24,10 +26,12 @@
           <base-material-stats-card
             color="primary"
             icon="mdi-poll"
-            title="Website Visits"
-            value="75.521"
+            title="Approved"
+            :value="String(computedSummary.approved)"
             sub-icon="mdi-tag"
             sub-text="Tracked from Google Analytics"
+            style="cursor:pointer"
+            @click.native="orderBy('approved')"
           />
         </v-col>
         <v-col
@@ -38,10 +42,12 @@
           <base-material-stats-card
             color="primary"
             icon="mdi-poll"
-            title="Website Visits"
-            value="75.521"
+            title="Non Approved"
+            :value="String(computedSummary.non_approved)"
             sub-icon="mdi-tag"
             sub-text="Tracked from Google Analytics"
+            style="cursor:pointer"
+            @click.native="orderBy('non-approved')"
           />
         </v-col>
         <v-col
@@ -52,16 +58,17 @@
           <base-material-stats-card
             color="primary"
             icon="mdi-poll"
-            title="Website Visits"
-            value="75.521"
+            title="New"
+            :value="String(computedSummary.new)"
             sub-icon="mdi-tag"
             sub-text="Tracked from Google Analytics"
+            style="cursor:pointer"
+            @click.native="orderBy('new')"
           />
         </v-col>
         <v-col>
           <app-data-table
             :data="computedClasses"
-            @close="addForm.open = false"
             @add="popDialog"
             @deletes="popDeletes"
             @approves="popApproves"
@@ -73,7 +80,6 @@
     </v-container>
     <app-data-form
       :dialog="addForm"
-      @close="addForm.open = false"
       @input="createClasses"
     />
     <app-dialog-notice
@@ -108,7 +114,6 @@
     <app-data-edit
       :dialog="update"
       @input="updateDataClassesStudio"
-      @close="addForm.open = false"
     />
   </v-app>
 </template>
@@ -126,7 +131,9 @@
       'app-data-edit': dialogEdit,
     },
     data: () => ({
-      addForm: {},
+      addForm: {
+        open: false,
+      },
       deletes: {
         open: false,
         id: 0,
@@ -149,23 +156,36 @@
         open: false,
         title: '',
       },
+      summary: '',
     }),
     computed: {
       computedClasses () {
         return this.$store.state.ownerStudioClasses.data
       },
+      computedSummary () {
+        return this.$store.state.studioSummary.data
+      },
+    },
+    watch: {
+      summary (newVal) {
+        this.$router.push({ query: { ...this.$route.query, summary: newVal } })
+      },
+      '$route.query.summary': function (val) {
+        this.summary = val
+      },
     },
     mounted () {
       this.getDataClassesStudio()
+      this.getDataSummary()
     },
     methods: {
       getDataClassesStudio () {
         this.$store.dispatch('ownerStudioClasses/getDataClassesStudio', {
           entities: 'studio, author',
+          summary: this.summary,
         })
       },
-      popDialog ({ item }) {
-        this.addForm = item
+      popDialog () {
         this.addForm.open = true
       },
       closeDialogForm () {
@@ -365,6 +385,13 @@
               })
             }
           })
+      },
+      getDataSummary () {
+        this.$store.dispatch('studioSummary/getDataSummary')
+      },
+      orderBy (val) {
+        this.summary = val
+        this.getDataClassesStudio()
       },
     },
   }

@@ -54,5 +54,18 @@
         }
     },
     "index_class": "Index Kelas",
-    "classes": "Kelas"
+    "classes": "Kelas",
+    "sub_class": "Sub Kelas",
+    "table": {
+        "class": {
+            "th": {
+                "name": "Nama",
+                "levels": "Level",
+                "studio": "Sanggar",
+                "created_at": "Di Buat Pada",
+                "author": "Pembuat",
+                "status": "Status"
+            }
+        }
+    }
 }

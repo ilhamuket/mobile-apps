@@ -6,7 +6,7 @@
         :key="list.id"
         cols="6"
       >
-        <v-card>
+        <v-card class="rounded-xl">
           <v-img
             v-if="list.img"
             class="d-flex justify-center"

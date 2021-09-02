@@ -4,7 +4,7 @@
       v-model="dialog.open"
       width="90%"
     >
-      <v-card>
+      <v-card class="rounded-xl">
         <v-card-title class="text-h2 pallet1--text font-title-rampart-one">
           Add Class
 
@@ -59,7 +59,7 @@
                 color="primary"
                 @click="createClass"
               >
-                Send
+                Create
               </v-btn>
             </div>
           </div>
@@ -87,7 +87,7 @@
     }),
     methods: {
       closeDialog () {
-        this.$emit('close')
+        this.dialog.open = false
         const Toast = this.$swal.mixin({
           toast: true,
           position: 'bottom-end',
@@ -104,7 +104,7 @@
         })
         Toast.fire({
           icon: 'success',
-          title: 'Dialog Di tutup',
+          title: 'Dialog Closed',
         })
       },
       createClass () {

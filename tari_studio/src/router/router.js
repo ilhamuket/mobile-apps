@@ -87,6 +87,12 @@ const router = new Router({
           component: () =>
             import('@/views/dashboard/admin/studio/classes/index'),
         },
+        {
+          name: 'sub_class',
+          path: '/sub-class',
+          component: () =>
+            import('@/views/dashboard/admin/studio/sub_class/index'),
+        },
         // Studio
         {
           name: 'Studio',

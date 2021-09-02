@@ -26,6 +26,12 @@
         <v-img
           src="https://demos.creative-tim.com/vuetify-material-dashboard/favicon.ico"
         />
+        <p
+          v-if="!drawer"
+          class="font-weight-light fs-12"
+        >
+          {{ item.title }}
+        </p>
       </v-list-item-avatar>
 
       <v-list-item-content>

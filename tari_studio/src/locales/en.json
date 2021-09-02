@@ -54,5 +54,18 @@
     }
   },
   "index_class": "Index Class",
-  "classes": "Classes"
+  "classes": "Classes",
+  "sub_class": "Sub Classes",
+  "table": {
+    "class": {
+      "th": {
+        "name": "Nama",
+        "levels": "Levels",
+        "studio": "Studio",
+        "created_at": "Created_at",
+        "author": "Author",
+        "status": "Status"
+      }
+    }
+  }
 }

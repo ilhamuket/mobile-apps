@@ -1,10 +1,14 @@
 <template>
-  <base-material-card icon="mdi-book-variant">
+  <base-material-card icon="mdi-alpha-c-box">
     <template #after-heading>
       <span
-        class="text-h3 pallet1--text font-customize font-size-ather-roboto-mono-name-page"
+        :class="
+          $vuetify.theme.dark
+            ? 'text-h3 white--text font-customize font-size-ather-roboto-mono-name-page'
+            : 'text-h3 pallet1--text font-customize font-size-ather-roboto-mono-name-page'
+        "
       >
-        Index Class
+        {{ computudTitle }}
       </span>
     </template>
     <v-container>
@@ -12,12 +16,11 @@
         <v-col
           cols="12"
           md="4"
+          class="mt-2"
         >
           <v-text-field
             v-model="search"
             append-icon="mdi-magnify"
-            outlined
-            rounded
             color="pallet1"
             dense
           />
@@ -37,7 +40,7 @@
             <v-icon>
               mdi-plus
             </v-icon>
-            Make Schedules
+            Make Sub-Class
           </v-btn>
           <v-btn
             outlined
@@ -83,8 +86,29 @@
             :headers="headers"
             :items="data"
           >
+            <!-- Header -->
+            <template #[`header.name`]="{ header }">
+              {{ $t(header.text) }}
+            </template>
+            <template #[`header.levels`]="{ header }">
+              {{ $t(header.text) }}
+            </template>
+            <template #[`header.studio.name`]="{ header }">
+              {{ $t(header.text) }}
+            </template>
+            <template #[`header.created_at`]="{ header }">
+              {{ $t(header.text) }}
+            </template>
+            <template #[`header.author.nickName`]="{ header }">
+              {{ $t(header.text) }}
+            </template>
+            <template #[`header.status`]="{ header }">
+              {{ $t(header.text) }}
+            </template>
+
+            <!-- Item -->
             <template #[`item.name`]="{item}">
-              <div class="pallet1--text mt-6">
+              <div class="mt-6">
                 {{ item.name }}
               </div>
               <div class="bg-hover">
@@ -128,8 +152,9 @@
             <template #[`item.levels`]="{item}">
               <v-chip
                 label
+                outlined
                 :color="setColorLevels(item.levels)"
-                class="text-capitalize"
+                class="text-capitalize chips--weight"
               >
                 {{ item.levels }}
               </v-chip>
@@ -138,6 +163,8 @@
               <v-chip
                 :color="setColorStatus(item.status)"
                 label
+                outlined
+                class="chips--weight"
               >
                 {{ item.status === 1 ? 'Approved' : 'Non-Approved' }}
               </v-chip>
@@ -163,21 +190,39 @@
     data: () => ({
       headers: [
         {
-          text: 'Name',
+          text: 'table.class.th.name',
           align: 'start',
           sortable: false,
           value: 'name',
         },
-        { text: 'Levels', value: 'levels' },
-        { text: 'Studio', value: 'studio.name' },
-        { text: 'Created_at', value: 'created_at' },
-        { text: 'Author', value: 'author.nickName' },
-        { text: 'Status', value: 'status' },
+        { text: 'table.class.th.levels', value: 'levels' },
+        { text: 'table.class.th.studio', value: 'studio.name' },
+        { text: 'table.class.th.created_at', value: 'created_at' },
+        { text: 'table.class.th.author', value: 'author.nickName' },
+        { text: 'table.class.th.status', value: 'status' },
       ],
       selected: [],
       search: '',
       dialogAdd: {},
     }),
+    computed: {
+      computudTitle () {
+        let name = 'Index Class - All'
+        if (this.$route.query.summary === 'all') {
+          name = 'Index Class - All'
+        }
+        if (this.$route.query.summary === 'approved') {
+          name = 'Index Class - Approved'
+        }
+        if (this.$route.query.summary === 'non-approved') {
+          name = 'Index Class - Non Approved'
+        }
+        if (this.$route.query.summary === 'new') {
+          name = 'Index Class - New'
+        }
+        return name
+      },
+    },
     methods: {
       setColorLevels (levels) {
         if (levels === 'Beginner' || levels === 'beginner') return 'red'
