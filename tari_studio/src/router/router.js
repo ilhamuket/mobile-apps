@@ -93,6 +93,12 @@ const router = new Router({
           component: () =>
             import('@/views/dashboard/admin/studio/sub_class/index'),
         },
+        {
+          name: 'sub_class_create',
+          path: '/create/sub-class',
+          component: () =>
+            import('@/views/dashboard/admin/studio/sub_class/create.vue'),
+        },
         // Studio
         {
           name: 'Studio',

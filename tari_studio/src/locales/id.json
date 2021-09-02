@@ -56,6 +56,8 @@
     "index_class": "Index Kelas",
     "classes": "Kelas",
     "sub_class": "Sub Kelas",
+    "sub_class_create": "Buat SubKelas",
+    "studio": "Sanggar",
     "table": {
         "class": {
             "th": {

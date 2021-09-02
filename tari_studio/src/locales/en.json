@@ -56,6 +56,8 @@
   "index_class": "Index Class",
   "classes": "Classes",
   "sub_class": "Sub Classes",
+  "sub_class_create": "Create SubClass",
+  "studio": "Studio",
   "table": {
     "class": {
       "th": {

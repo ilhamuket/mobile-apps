@@ -53,6 +53,7 @@
             outlined
             color="primary"
             class="ml-2"
+            to="create/sub-class"
           >
             <v-icon>
               mdi-plus
@@ -130,7 +131,6 @@
               <v-chip
                 :color="setColorStatus(item.status)"
                 label
-                outlined
                 class="text-capitalize chips--weight"
               >
                 {{ item.status }}
@@ -193,6 +193,9 @@
         if (status === 'publish') return 'primary'
         if (status === 'concept') return 'secondary'
         if (status === 'review') return 'red'
+      },
+      popUpDialog () {
+        this.$emit('popUpForm')
       },
     },
   }

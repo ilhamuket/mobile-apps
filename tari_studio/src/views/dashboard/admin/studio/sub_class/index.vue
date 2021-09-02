@@ -59,11 +59,14 @@
           />
         </v-col>
         <v-col>
-          <app-data-table :items="cumputedSubClass" />
+          <app-data-table
+            :items="cumputedSubClass"
+            @popUpForm="popUpDialog"
+          />
         </v-col>
       </v-row>
     </v-container>
-    <app-dialog-form />
+    <app-dialog-form :dialog="form" />
   </v-app>
 </template>
 
@@ -75,7 +78,11 @@
       'app-data-table': dataTable,
       'app-dialog-form': dialogForm,
     },
-    data: () => ({}),
+    data: () => ({
+      form: {
+        open: false,
+      },
+    }),
     computed: {
       cumputedSubClass () {
         return this.$store.state.subClassStudio.data
@@ -89,6 +96,9 @@
         this.$store.dispatch('subClassStudio/getDataSubClass', {
           entities: 'classes',
         })
+      },
+      popUpDialog () {
+        this.form.open = true
       },
     },
   }
