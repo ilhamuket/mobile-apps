@@ -3,6 +3,7 @@
 namespace Modules\StudioOwners\Entities;
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -30,6 +31,11 @@ class ClassesOwnerStudio extends Model
         return $this->belongsTo(User::class, 'author_id');
     }
 
+    public function subClasses()
+    {
+        return $this->hasMany(SubClassOwnerStudio::class, 'class_id');
+    }
+
     // ==== Scope === //
     public function scopeEntities($query, $entities)
     {
@@ -43,5 +49,34 @@ class ClassesOwnerStudio extends Model
                 return Json::exception(null, validator()->errors());
             }
         }
+    }
+
+    public function scopeSummary($query, $summary, $studio_id)
+    {
+        $studio = $studio_id;
+
+        // dd($studio);
+        if ($summary == 'all') {
+            $query->whereHas('studio', function (Builder $query) use ($studio) {
+                $query->where('id', $studio);
+            });
+        }
+        if ($summary == 'approved') {
+            $query->whereHas('studio', function (Builder $query) use ($studio) {
+                $query->where('id', $studio);
+            })->where('status', 1);
+        }
+        if ($summary == 'non-approved') {
+            $query->whereHas('studio', function (Builder $query) use ($studio) {
+                $query->where('id', $studio);
+            })->where('status', 0);
+        }
+        if ($summary == 'new') {
+            $query->whereHas('studio', function (Builder $query) use ($studio) {
+                $query->where('id', $studio);
+            })->whereDate('created_at', now());
+        }
+
+        return $query;
     }
 }

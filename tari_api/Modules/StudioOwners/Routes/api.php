@@ -2,7 +2,9 @@
 
 use Illuminate\Http\Request;
 use Modules\StudioOwners\Entities\ClassesOwnerStudio;
+use Modules\StudioOwners\Entities\SubClassOwnerStudio;
 use Modules\StudioOwners\Http\Controllers\ClassesOwnerStudioController;
+use Modules\StudioOwners\Http\Controllers\SubClassOwnerStudioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,5 +26,10 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
         Route::post('approveBroadcast', [ClassesOwnerStudioController::class, 'approvedBroadcast']);
         Route::patch('update/{id}', [ClassesOwnerStudioController::class, 'update']);
         Route::delete('destroy/{id}', [ClassesOwnerStudioController::class, 'destroy']);
+        Route::get('summary', [ClassesOwnerStudioController::class, 'summary']);
+    });
+    Route::prefix('sub-classes')->group(function () {
+        Route::get('my-sub', [SubClassOwnerStudioController::class, 'index']);
+        Route::post('my-sub', [SubClassOwnerStudioController::class, 'store']);
     });
 });

@@ -14,6 +14,41 @@ use PhpParser\Node\Stmt\Foreach_;
 
 class ClassesOwnerStudioController extends Controller
 {
+    public function summary(Request $request)
+    {
+        try {
+            $data = [
+                'all' => 0,
+                'approved' => 0,
+                'non_approved' => 0,
+                'new' => 0
+            ];
+            $me = $request->user();
+            $studio = OwnerStudio::where('author_id', $me->id)->first();
+            $data['all'] = ClassesOwnerStudio::whereHas('studio', function (Builder $query) use ($studio) {
+                $query->where('id', $studio->id);
+            })->count();
+            $data['approved'] = ClassesOwnerStudio::whereHas('studio', function (Builder $query) use ($studio) {
+                $query->where('id', $studio->id);
+            })->where('status', 1)
+                ->count();
+            $data['non_approved'] = ClassesOwnerStudio::whereHas('studio', function (Builder $query) use ($studio) {
+                $query->where('id', $studio->id);
+            })->where('status', 0)
+                ->count();
+            $data['new'] = ClassesOwnerStudio::whereHas('studio', function (Builder $query) use ($studio) {
+                $query->where('id', $studio->id);
+            })->whereDate('created_at', now())
+                ->count();
+            return Json::response($data);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     public function approvedBroadcast(Request $request)
     {
         try {
@@ -68,7 +103,10 @@ class ClassesOwnerStudioController extends Controller
         try {
             $me = $request->user();
             $studio = OwnerStudio::where('author_id', $me->id)->first();
-            $studioClasses = ClassesOwnerStudio::where('studio_id', $studio->id)->entities($request->entities)->get();
+            $studioClasses = ClassesOwnerStudio::where('studio_id', $studio->id)
+                ->entities($request->entities)
+                ->summary($request->summary, $studio->id)
+                ->get();
 
             return Json::response($studioClasses);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
@@ -110,6 +148,8 @@ class ClassesOwnerStudioController extends Controller
             $studioClasses->author_id = $request->user()->id;
             $studioClasses->studio_id = $studio->id;
             $studioClasses->save();
+            $studioClasses->studio;
+            $studioClasses->author;
 
             DB::commit();
             return Json::response($studioClasses);
