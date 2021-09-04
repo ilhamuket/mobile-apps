@@ -57,8 +57,16 @@
     "classes": "Kelas",
     "sub_class": "Sub Kelas",
     "sub_class_create": "Buat SubKelas",
+    "instrucktur": "Instruktur",
     "studio": "Sanggar",
+    "card_notice": {
+        "text": "Apakah kamu yakin ingin menghapus dan semua yang berkaitan akan terhapus juga",
+        "textById": "Apakah Kamu yakin Ingin Menghapus Yang Judul",
+        "approved": "Apakah Kamu Yakin Ingin Menyetujui"
+    },
     "table": {
+        "approved": "Disetujui",
+        "non_approved": "Tidak Disetujui",
         "class": {
             "th": {
                 "name": "Nama",
@@ -67,6 +75,17 @@
                 "created_at": "Di Buat Pada",
                 "author": "Pembuat",
                 "status": "Status"
+            }
+        },
+        "sub-class": {
+            "th": {
+                "title": "Judul",
+                "levels": "Level",
+                "class": "Nama Kelas",
+                "status": "Status",
+                "started": "Mulai",
+                "approved": "Disetujui",
+                "Ended": "Berakhir"
             }
         }
     }

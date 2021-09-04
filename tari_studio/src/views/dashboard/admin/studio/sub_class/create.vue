@@ -8,7 +8,7 @@
               <span
                 class="text-h2 pallet1--text text-center font-title-rampart-one"
               >
-                Add Sub-Class
+                Create Sub-Class
               </span>
             </v-card-title>
             <v-container>
@@ -18,6 +18,18 @@
                     v-model="title"
                     label="Title"
                     prepend-icon="mdi-format-title"
+                    clearable
+                  />
+                </v-col>
+                <v-col cols="12">
+                  <v-select
+                    v-model="class_id"
+                    :items="computedClasses"
+                    label="Class Name"
+                    clearable
+                    prepend-icon="mdi-format-title"
+                    item-text="name"
+                    item-value="id"
                   />
                 </v-col>
                 <v-col cols="12">
@@ -25,6 +37,7 @@
                     v-model="status"
                     :items="itemStatus"
                     label="Status"
+                    clearable
                     prepend-icon="mdi-format-title"
                   />
                 </v-col>
@@ -33,6 +46,7 @@
                     v-model="about"
                     label="About"
                     prepend-icon="mdi-format-title"
+                    clearable
                   />
                 </v-col>
                 <v-col cols="6">
@@ -54,6 +68,7 @@
                         prepend-icon="mdi-clock-time-four-outline"
                         readonly
                         v-bind="attrs"
+                        clearable
                         v-on="on"
                       />
                     </template>
@@ -84,6 +99,7 @@
                         prepend-icon="mdi-clock-time-four-outline"
                         readonly
                         v-bind="attrs"
+                        clearable
                         v-on="on"
                       />
                     </template>
@@ -101,6 +117,7 @@
                     v-model="icon"
                     prepend-icon="mdi-star-face"
                     :items="icons"
+                    clearable
                   >
                     <template
                       slot="selection"
@@ -126,17 +143,36 @@
                         name="item"
                         v-bind="data"
                       >
-                        <v-col>
-                          <v-icon>
-                            {{ data.item }}
-                          </v-icon>
-                          {{ data.item }}
-                        </v-col>
+                        <v-row
+                          align="center"
+                          justify="center"
+                        >
+                          <v-col class="ma-2">
+                            <v-tooltip
+                              content-class="top"
+                              top
+                            >
+                              <template v-slot:activator="{ attrs, on }">
+                                <v-icon
+                                  v-bind="attrs"
+                                  v-on="on"
+                                >
+                                  {{ data.item }}
+                                </v-icon>
+                              </template>
+                              <span>{{ data.item }}</span>
+                            </v-tooltip>
+                            <span>{{ data.item }}</span>
+                          </v-col>
+                        </v-row>
                       </slot>
                     </template>
                   </v-autocomplete>
                 </v-col>
-                <v-col cols="4">
+                <v-col
+                  cols="12"
+                  md="4"
+                >
                   <v-color-picker
                     v-model="color"
                     :swatches="swatches"
@@ -146,7 +182,8 @@
                 </v-col>
                 <v-col
                   v-if="color"
-                  cols="6"
+                  cols="12"
+                  md="6"
                 >
                   <span
                     class="font-title-rampart-one-small text-h2 text-center pallet1--text d-flex justify-center"
@@ -194,51 +231,36 @@
                       v-text="about"
                     />
 
-                    <!-- <template v-if="timeline.action">
-                              <v-divider class="mb-3" />
-
-                              <v-menu
-                                v-model="menu"
-                                bottom
-                                offset-y
-                                origin="top left"
-                                right
-                                transition="scale-transition"
-                              >
-                                <template v-slot:activator="{ attrs, on }">
-                                  <v-btn
-                                    v-bind="attrs"
-                                    :color="timeline.action"
-                                    large
-                                    rounded
-                                    v-on="on"
-                                  >
-                                    <v-icon
-                                      left
-                                      v-text="timeline.actionIcon"
-                                    />
-                                    <v-icon right>
-                                      {{
-                                        menu ? 'mdi-menu-up' : 'mdi-menu-down'
-                                      }}
-                                    </v-icon>
-                                  </v-btn>
-                                </template>
-
-                                <v-sheet>
-                                  <v-list>
-                                    <v-list-item
-                                      v-for="a in timeline.actions"
-                                      :key="a"
-                                      link
-                                    >
-                                      <v-list-item-title v-text="a" />
-                                    </v-list-item>
-                                  </v-list>
-                                </v-sheet>
-                              </v-menu>
-                            </template> -->
+                    <div class="d-flex flex-row justify-center mt-6">
+                      <div class="d-flex flex-row">
+                        <div class="d-flex flex-column">
+                          <v-btn
+                            :color="color.hex"
+                            class="ml-9"
+                            outlined
+                            small
+                            width="200"
+                          >
+                            Register
+                          </v-btn>
+                        </div>
+                      </div>
+                    </div>
                   </base-material-card>
+                </v-col>
+                <v-col
+                  cols="12"
+                  class="d-flex flex-row-reverse"
+                >
+                  <div class="d-flex flex-column mr-4">
+                    <v-btn
+                      color="primary"
+                      outlined
+                      @click="createDataSubClass"
+                    >
+                      Create
+                    </v-btn>
+                  </div>
                 </v-col>
               </v-row>
             </v-container>
@@ -254,10 +276,11 @@
     data: () => ({
       title: 'Dummy Title',
       about:
-        ' Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex impedit molestias, suscipit quibusdam exercitationem, rem quasi minus totam quae placeat doloremque. Quisquam non, officiis nam laborum ratione at ad rem.',
-      status: 'Concept',
+        ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum deleniti ad magnam deserunt veritatis tempora necessitatibus, maiores velit commodi nesciunt est maxime consequuntur facere laudantium autem voluptate dignissimos blanditiis non ut possimus harum suscipit officiis sint nostrum. Cupiditate quod ipsam, dolor sapiente, veniam libero error, praesentium ex expedita repellat reiciendis.',
       itemStatus: ['Publish', 'Concept', 'Review'],
       time_start: '12:00',
+      status: 'Concept',
+      class_id: 1,
       time_end: '14:00',
       menuTimeStart: false,
       menuTimeEnd: false,
@@ -503,12 +526,59 @@
       computedColor () {
         return this.color.hex
       },
+      computedClasses () {
+        return this.$store.state.ownerStudioClasses.data
+      },
+    },
+    mounted () {
+      this.getDataClassesStudio()
     },
     methods: {
       setColorStatus (status) {
         if (status === 'Publish') return 'primary'
         if (status === 'Concept') return 'secondary'
         if (status === 'Review') return 'red'
+      },
+      getDataClassesStudio () {
+        this.$store.dispatch('ownerStudioClasses/getDataClassesStudio', {
+          entities: 'studio, author',
+        })
+      },
+      createDataSubClass () {
+        this.$store
+          .dispatch('subClassStudio/insertDataSubClass', {
+            title: this.title,
+            about: this.about,
+            status: this.status,
+            time_start: this.time_start,
+            time_end: this.time_end,
+            icon: this.icon,
+            color: this.color.hex,
+            class_id: this.class_id,
+          })
+          .then(({ data }) => {
+            if (data.meta.status) {
+              this.$router.push('/sub-class')
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                },
+                popup: 'swal2-show',
+                backdrop: 'swal2-backdrop-show',
+                icon: 'swal2-icon-show',
+              })
+              Toast.fire({
+                icon: 'success',
+                title: 'Sub Class Created Successfully',
+              })
+            }
+          })
       },
     },
   }

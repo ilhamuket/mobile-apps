@@ -57,8 +57,16 @@
   "classes": "Classes",
   "sub_class": "Sub Classes",
   "sub_class_create": "Create SubClass",
+  "instrucktur": "Instructur",
   "studio": "Studio",
+  "card_notice": {
+    "text": "Are you sure you want to delete and everything related will be deleted too",
+    "textById": "Are you sure you want to delete the title",
+    "approved": "Are You Sure Want to Approve"
+  },
   "table": {
+    "approved": "Approved",
+    "non_approved": "Non Approved",
     "class": {
       "th": {
         "name": "Nama",
@@ -67,6 +75,17 @@
         "created_at": "Created_at",
         "author": "Author",
         "status": "Status"
+      }
+    },
+    "sub-class": {
+      "th": {
+        "title": "Title",
+        "levels": "Levels",
+        "class": "Class Name",
+        "status": "Status",
+        "approved": "Approved",
+        "started": "Started",
+        "Ended": "Ended"
       }
     }
   }

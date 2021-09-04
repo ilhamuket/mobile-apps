@@ -8,7 +8,7 @@
             : 'text-h3 pallet1--text font-customize font-size-ather-roboto-mono-name-page'
         "
       >
-        Index Sub-Class
+        {{ computudTitle }}
       </span>
     </template>
     <v-container>
@@ -39,11 +39,10 @@
               </template>
               <v-list>
                 <v-list-item-group>
-                  <v-list-item
-                    v-for="(item, index) in data"
-                    :key="index"
-                  >
-                    <v-list-item-title>{{ item.title }}</v-list-item-title>
+                  <v-list-item>
+                    <v-list-item-title>
+                      Export
+                    </v-list-item-title>
                   </v-list-item>
                 </v-list-item-group>
               </v-list>
@@ -58,7 +57,7 @@
             <v-icon>
               mdi-plus
             </v-icon>
-            Add Studio
+            Create Sub-Class
           </v-btn>
 
           <v-btn
@@ -66,6 +65,7 @@
             class="ml-2"
             outlined
             color="blue"
+            @click="approvePopUp(selected)"
           >
             <v-icon>
               mdi-check-decagram
@@ -76,6 +76,7 @@
             :disabled="selected.length === 0"
             outlined
             color="red"
+            @click="deletesPopUp(selected)"
           >
             <v-icon>
               mdi-delete-empty-outline
@@ -91,6 +92,33 @@
             show-select
             :search="search"
           >
+            <!-- Header -->
+            <template #[`header.title`]="{ header }">
+              {{ $t(header.text) }}
+            </template>
+            <template #[`header.levels`]="{ header }">
+              {{ $t(header.text) }}
+            </template>
+            <template #[`header.classes.levels`]="{ header }">
+              {{ $t(header.text) }}
+            </template>
+            <template #[`header.start_at`]="{ header }">
+              {{ $t(header.text) }}
+            </template>
+            <template #[`header.end_at`]="{ header }">
+              {{ $t(header.text) }}
+            </template>
+            <template #[`header.classes.name`]="{ header }">
+              {{ $t(header.text) }}
+            </template>
+            <template #[`header.status`]="{ header }">
+              {{ $t(header.text) }}
+            </template>
+            <template #[`header.is_verified`]="{ header }">
+              {{ $t(header.text) }}
+            </template>
+
+            <!-- Item -->
             <template #[`item.title`]="{item}">
               <div class="mt-6">
                 {{ item.title }}
@@ -99,7 +127,10 @@
                 <div class="d-flex flex-row flex-nowrap">
                   <div>
                     <div class="d-flex flex-column flex-nowrap mt-2">
-                      <a class="font-a d-flex flex-nowrap">
+                      <a
+                        class="font-a d-flex flex-nowrap"
+                        @click="editPopUp(item)"
+                      >
                         <v-icon
                           small
                           color="blue"
@@ -113,7 +144,10 @@
                   </div>
                   <div>
                     <div class="d-flex flex-column mt-2">
-                      <a class="font-a-delete d-flex flex-nowrap">
+                      <a
+                        class="font-a-delete d-flex flex-nowrap"
+                        @click="deleteByIdPopUp(item)"
+                      >
                         <v-icon
                           color="red"
                           small
@@ -146,7 +180,17 @@
               {{ item.created_at | moment('MMMM Do YYYY') }}
             </template>
             <template #[`item.is_verified`]="{item}">
-              {{ item.isVerified === 1 ? 'Approved' : 'Non-Approved' }}
+              <v-chip
+                :color="setColorApproved(item.is_verified)"
+                label
+                class="chips--weight"
+              >
+                {{
+                  item.is_verified === 1
+                    ? $t('table.approved')
+                    : $t('table.non_approved')
+                }}
+              </v-chip>
             </template>
           </v-data-table>
         </v-col>
@@ -168,18 +212,18 @@
       search: '',
       headers: [
         {
-          text: 'Name',
+          text: 'table.sub-class.th.title',
           align: 'start',
           sortable: false,
           value: 'title',
         },
-        { text: 'Status', value: 'status' },
-        { text: 'Levels', value: 'classes.levels' },
-        { text: 'Class Name', value: 'classes.name' },
+        { text: 'table.sub-class.th.status', value: 'status' },
+        { text: 'table.sub-class.th.levels', value: 'classes.levels' },
+        { text: 'table.sub-class.th.class', value: 'classes.name' },
 
-        { text: 'Started', value: 'start_at' },
-        { text: 'Ended', value: 'end_at' },
-        { text: 'Approved', value: 'is_verified' },
+        { text: 'table.sub-class.th.started', value: 'start_at' },
+        { text: 'table.sub-class.th.Ended', value: 'end_at' },
+        { text: 'table.sub-class.th.approved', value: 'is_verified' },
       ],
       data: [
         { title: 'Click Me' },
@@ -188,14 +232,48 @@
         { title: 'Click Me 2' },
       ],
     }),
+    computed: {
+      computudTitle () {
+        let name = 'Index SubClass - All'
+        if (this.$route.query.summary === 'all') {
+          name = 'Index SubClass - All'
+        }
+        if (this.$route.query.summary === 'approved') {
+          name = 'Index SubClass - Approved'
+        }
+        if (this.$route.query.summary === 'non_approved') {
+          name = 'Index SubClass - Non Approved'
+        }
+        if (this.$route.query.summary === 'new') {
+          name = 'Index SubClass - New'
+        }
+        return name
+      },
+    },
     methods: {
       setColorStatus (status) {
-        if (status === 'publish') return 'primary'
-        if (status === 'concept') return 'secondary'
-        if (status === 'review') return 'red'
+        if (status === 'Publish') return 'primary'
+        if (status === 'Concept') return 'secondary'
+        if (status === 'Review') return 'red'
       },
-      popUpDialog () {
-        this.$emit('popUpForm')
+      setColorApproved (status) {
+        if (status === 1) return 'primary'
+        else return 'red'
+      },
+      // popUpDialog () {
+      //   this.$emit('popUpForm')
+      // },
+      approvePopUp (item) {
+        this.$emit('appPopUp', { item: item })
+      },
+      deletesPopUp (item) {
+        this.$emit('delPopUp', { item: item })
+      },
+      editPopUp (item) {
+        this.$emit('edit', { item: item })
+      },
+      deleteByIdPopUp (item) {
+        this.$emit('delById', { item: item })
       },
     },
   }

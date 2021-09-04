@@ -152,7 +152,6 @@
             <template #[`item.levels`]="{item}">
               <v-chip
                 label
-                outlined
                 :color="setColorLevels(item.levels)"
                 class="text-capitalize chips--weight"
               >
@@ -163,10 +162,13 @@
               <v-chip
                 :color="setColorStatus(item.status)"
                 label
-                outlined
                 class="chips--weight"
               >
-                {{ item.status === 1 ? 'Approved' : 'Non-Approved' }}
+                {{
+                  item.status === 1
+                    ? $t('table.approved')
+                    : $t('table.non_approved')
+                }}
               </v-chip>
             </template>
             <template #[`item.created_at`]="{item}">

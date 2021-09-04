@@ -86,18 +86,28 @@ const router = new Router({
           path: '/class',
           component: () =>
             import('@/views/dashboard/admin/studio/classes/index'),
+          meta: {
+            requiresAuth: true,
+          },
         },
+        // SuvClass
         {
           name: 'sub_class',
           path: '/sub-class',
           component: () =>
             import('@/views/dashboard/admin/studio/sub_class/index'),
+          meta: {
+            requiresAuth: true,
+          },
         },
         {
           name: 'sub_class_create',
           path: '/create/sub-class',
           component: () =>
             import('@/views/dashboard/admin/studio/sub_class/create.vue'),
+          meta: {
+            requiresAuth: true,
+          },
         },
         // Studio
         {
@@ -124,6 +134,16 @@ const router = new Router({
             ) {
               next()
             } else next({ name: 'studio' })
+          },
+        },
+        // Teacher Studio
+        {
+          name: 'instrucktur',
+          path: '/instructor',
+          component: () =>
+            import('@/views/dashboard/admin/studio/teachers/index'),
+          meta: {
+            requiresAuth: true,
           },
         },
       ],

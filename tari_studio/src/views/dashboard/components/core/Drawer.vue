@@ -14,8 +14,7 @@
     width="260"
     v-bind="$attrs"
     permanent
-    hide-overlay
-    bottom
+    :bottom="true"
   >
     <template v-slot:img="props">
       <v-img
@@ -139,6 +138,11 @@
           icon: 'mdi-alpha-s-box',
           title: 'sub_class',
           to: '/sub-class',
+        },
+        {
+          icon: 'mdi-alpha-t-box',
+          title: 'instrucktur',
+          to: '/instructor',
         },
         {
           icon: 'mdi-shopping-music',

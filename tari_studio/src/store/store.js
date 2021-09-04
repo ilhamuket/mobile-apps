@@ -9,13 +9,19 @@ import commentsStudioVidio from './module/studio/vidio_studio/comments/comments'
 import studioArticle from './module/studio/studio_article/studio_article'
 import studioClasses from './module/studio/studio_classes/studio_classes'
 import schedulesStudioClasses from './module/studio/studio_classes/class_schedule/class_schedules'
+// ===  Owners ===
+
 // StudioAuth
 import studioAuth from './module/auth/studio/index'
-// Owners
+
+// StudioClasses
 import ownerStudioClasses from './module/studioOwner/classes/index'
 import studioSummary from './module/studioOwner/classes/class_summary/summary'
-import studioSubclass from './module/studioOwner/sub_class/index'
 
+// Studio Sub-class
+import studioSubclass from './module/studioOwner/sub_class/index'
+import studioSummarySubclass from './module/studioOwner/sub_class/summary/index'
+import studioInstructor from './module/studioOwner/instructor/index'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -32,6 +38,8 @@ export default new Vuex.Store({
     ownerStudioClasses: ownerStudioClasses,
     studioSummary: studioSummary,
     subClassStudio: studioSubclass,
+    subClassStudioSummary: studioSummarySubclass,
+    studioInstructor: studioInstructor,
   },
   state: {
     barColor: 'rgba(0, 0, 0, .8), rgba(0, 0, 0, .8)',

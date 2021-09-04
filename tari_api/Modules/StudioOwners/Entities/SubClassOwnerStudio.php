@@ -5,10 +5,11 @@ namespace Modules\StudioOwners\Entities;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SubClassOwnerStudio extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [];
     protected $table = 'classes_schedule_studio';
@@ -42,5 +43,28 @@ class SubClassOwnerStudio extends Model
         $endTime = Carbon::parse('2020-02-11 04:36:56');
 
         $duration =  $startTime->diff($endTime)->format('%H:%I:%S') . " Minutes";
+    }
+
+    public function scopeSummary($query, $summary, $studio_id)
+    {
+        if ($summary == 'all') {
+            $query
+                ->where('studioclasses.studio_id', $studio_id);
+        }
+        if ($summary == 'approved') {
+            $query
+                ->where('studioclasses.studio_id', $studio_id)
+                ->where('classes_schedule_studio.is_verified', 1);
+        }
+        if ($summary == 'non_approved') {
+            $query
+                ->where('studioclasses.studio_id', $studio_id)
+                ->where('classes_schedule_studio.is_verified', 0);
+        }
+        if ($summary == 'new') {
+            $query
+                ->where('studioclasses.studio_id', $studio_id)
+                ->whereDate('classes_schedule_studio.created_at', now());
+        }
     }
 }

@@ -13,6 +13,96 @@ use Modules\StudioOwners\Entities\SubClassOwnerStudio;
 
 class SubClassOwnerStudioController extends Controller
 {
+    public function approvedBroadcast(Request $request)
+    {
+        try {
+            if (is_array($request->id)) {
+                $id = [];
+                $id = $request->id;
+                foreach ($id as $class_id) {
+                    $master = SubClassOwnerStudio::findOrFail($class_id);
+                    $master->is_verified = true;
+                    $master->save();
+                }
+            } else {
+                return Json::exception('Not Found');
+            }
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+    public function delBroadcast(Request $request)
+    {
+        try {
+            if (is_array($request->id)) {
+                $id = [];
+                $id = $request->id;
+                foreach ($id as $studio_id) {
+                    $master = SubClassOwnerStudio::findOrFail($studio_id);
+                    $master->delete();
+                }
+            } else {
+                return Json::exception('Not Found');
+            }
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+    public function summary(Request $request)
+    {
+        try {
+            $data = [
+                "all" => 0,
+                'approved' => 0,
+                'non_approved' => 0,
+                "new" => 0,
+            ];
+            $me = $request->user();
+            $studio = OwnerStudio::where('author_id', $me->id)->first();
+
+            $data['all'] = SubClassOwnerStudio::join('studioclasses', 'studioclasses.id', '=', 'classes_schedule_studio.class_id')
+                ->join('users', 'users.id', '=', 'studioclasses.author_id')
+                ->select('classes_schedule_studio.*')
+                ->where('studioclasses.studio_id', $studio->id)
+                ->count();
+            $data['approved'] = SubClassOwnerStudio::join('studioclasses', 'studioclasses.id', '=', 'classes_schedule_studio.class_id')
+                ->join('users', 'users.id', '=', 'studioclasses.author_id')
+                ->select('classes_schedule_studio.*')
+                ->where('studioclasses.studio_id', $studio->id)
+                ->where('classes_schedule_studio.is_verified', 1)
+                ->count();
+            $data['non_approved'] = SubClassOwnerStudio::join('studioclasses', 'studioclasses.id', '=', 'classes_schedule_studio.class_id')
+                ->join('users', 'users.id', '=', 'studioclasses.author_id')
+                ->select('classes_schedule_studio.*')
+                ->where('studioclasses.studio_id', $studio->id)
+                ->where('classes_schedule_studio.is_verified', 0)
+                ->count();
+            $data['new'] = SubClassOwnerStudio::join('studioclasses', 'studioclasses.id', '=', 'classes_schedule_studio.class_id')
+                ->join('users', 'users.id', '=', 'studioclasses.author_id')
+                ->select('classes_schedule_studio.*')
+                ->where('studioclasses.studio_id', $studio->id)
+                ->whereDate('classes_schedule_studio.created_at', now())
+                ->count();
+
+            return Json::response($data);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     /**
      * Display a listing of the resource.
      * @return Renderable
@@ -22,12 +112,13 @@ class SubClassOwnerStudioController extends Controller
         try {
             $me = $request->user();
             $studio = OwnerStudio::where('author_id', $me->id)->first();
-            $class = ClassesOwnerStudio::where('studio_id', $studio->id)->first();
-
-            $master = SubClassOwnerStudio::whereHas('classes', function (Builder $query) use ($class) {
-                $query->where('id', $class->id);
-            })->entities($request->entities)->get();
-
+            $master = SubClassOwnerStudio::join('studioclasses', 'studioclasses.id', '=', 'classes_schedule_studio.class_id')
+                ->join('users', 'users.id', '=', 'studioclasses.author_id')
+                ->select('classes_schedule_studio.*')
+                ->where('studioclasses.studio_id', $studio->id)
+                ->entities($request->entities)
+                ->summary($request->summary, $studio->id)
+                ->get();
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
@@ -68,6 +159,7 @@ class SubClassOwnerStudioController extends Controller
             $master->icon = $request->icon;
             $master->color = $request->color;
             $master->duration = $request->duration;
+            $master->class_id = $request->class_id;
             $master->save();
 
             return Json::response($master);
@@ -108,7 +200,25 @@ class SubClassOwnerStudioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $master = SubClassOwnerStudio::findOrFail($id);
+            $master->title = $request->input('title', $master->title);
+            $master->status = $request->input('status', $master->status);
+            $master->about = $request->input('about', $master->about);
+            $master->time_start = $request->input('time_start', $master->time_start);
+            $master->time_end = $request->input('time_end', $master->time_end);
+            $master->color = $request->input('color', $master->color);
+            $master->save();
+            $master->classes();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**
@@ -118,6 +228,17 @@ class SubClassOwnerStudioController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $master = SubClassOwnerStudio::findOrFail($id);
+            $master->delete();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 }
