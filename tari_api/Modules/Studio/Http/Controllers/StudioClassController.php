@@ -59,6 +59,7 @@ class StudioClassController extends Controller
             $master->author_id = $request->user()->id;
             $master->studio_id = $request->studio_id;
             $master->save();
+            $master->instructor_v2()->attach($request->instructur_id);
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

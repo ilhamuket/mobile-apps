@@ -83,9 +83,19 @@
         "levels": "Levels",
         "class": "Class Name",
         "status": "Status",
-        "approved": "Approved",
+        "approved": "Approval",
         "started": "Started",
         "Ended": "Ended"
+      }
+    },
+    "teachers": {
+      "th": {
+        "fullName": "FullName",
+        "email": "E-mail",
+        "region": "Region",
+        "contact": "Contact",
+        "profession": "Profesion",
+        "approved": "Approval"
       }
     }
   }

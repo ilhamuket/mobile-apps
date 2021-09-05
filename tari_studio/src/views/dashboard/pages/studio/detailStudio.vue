@@ -187,7 +187,7 @@
         this.$store
           .dispatch('studioClasses/getDataStudioClasses', {
             slug: this.$route.params.slug,
-            entities: 'studio.img,author,instructor.role,schedules',
+            entities: 'studio.img,author,instructor_v2,schedules',
           })
           .then(({ data }) => {
             this.classes = data.data
@@ -207,6 +207,7 @@
           })
           .then(({ data }) => {
             this.timelines = data.data
+            console.log(this.timelines)
           // console.log(this.dialogSeeMore.id)
           })
       },

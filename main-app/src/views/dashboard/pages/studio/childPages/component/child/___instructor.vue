@@ -33,7 +33,7 @@
               <v-list-item-content class="">
                 <v-list-item-title>
                   <span class="font-size-ather-roboto-mono">
-                    {{ item.firstName + ' ' + item.lastName }}
+                    {{ item.name }}
                   </span>
                 </v-list-item-title>
                 <v-list-item-subtitle>
@@ -42,7 +42,7 @@
                     </v-icon> -->
 
                   <span class="mr-2 font-size-ather-roboto-mono">
-                    Profesional Dancer
+                    {{ item.profession }}
                   </span>
                 </v-list-item-subtitle>
               </v-list-item-content>
@@ -57,7 +57,7 @@
                 <v-list-item-subtitle>
                   <span
                     class="font-size-ather-roboto-mono text-capitalize"
-                  >{{ item.homeAddress }} - {{ item.noHp }}</span>
+                  >{{ item.region }} - {{ item.contact }}</span>
                 </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
@@ -70,7 +70,24 @@
                   #About
                 </v-list-item-title>
 
-                <p>"{{ item.about }}"</p>
+                <v-tooltip
+                  v-if="item.about.length > 150"
+                  bottom
+                  color="blue"
+                >
+                  <template #activator="{on, attrs}">
+                    <span
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                      "{{ item.about.substr(0, 150) + ' ... ' }}"
+                    </span>
+                  </template>
+                  <span>{{ item.about }}</span>
+                </v-tooltip>
+                <p v-else>
+                  "{{ item.about }}"
+                </p>
               </v-list-item-content>
             </v-list-item>
           </v-card-text>
@@ -97,6 +114,9 @@
         }
         return this.data.role
       },
+    },
+    mounted () {
+      console.log(this.data)
     },
   }
 </script>

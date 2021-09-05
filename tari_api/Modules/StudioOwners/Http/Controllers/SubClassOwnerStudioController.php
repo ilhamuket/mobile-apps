@@ -22,6 +22,7 @@ class SubClassOwnerStudioController extends Controller
                 foreach ($id as $class_id) {
                     $master = SubClassOwnerStudio::findOrFail($class_id);
                     $master->is_verified = true;
+                    $master->status = "Publish";
                     $master->save();
                 }
             } else {

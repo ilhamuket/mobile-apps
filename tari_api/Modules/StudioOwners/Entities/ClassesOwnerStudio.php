@@ -36,6 +36,11 @@ class ClassesOwnerStudio extends Model
         return $this->hasMany(SubClassOwnerStudio::class, 'class_id');
     }
 
+    public function instructor()
+    {
+        return $this->belongsToMany(StudioTeacher::class, 'class_instructor_v2', 'class_id', 'instructor_id');
+    }
+
     // ==== Scope === //
     public function scopeEntities($query, $entities)
     {

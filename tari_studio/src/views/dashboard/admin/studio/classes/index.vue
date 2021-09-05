@@ -150,6 +150,7 @@
         name: '',
         levels: '',
         about: '',
+        instructor_id: 0,
       },
       dialogDeleteById: {
         id: 0,
@@ -181,7 +182,7 @@
     methods: {
       getDataClassesStudio () {
         this.$store.dispatch('ownerStudioClasses/getDataClassesStudio', {
-          entities: 'studio, author',
+          entities: 'studio, author, instructor',
           summary: this.summary,
         })
       },
@@ -197,6 +198,7 @@
             name: item.name,
             levels: item.levels,
             about: item.about,
+            instructor_id: item.instructor_id,
           })
           .then(({ data }) => {
             if (data.meta.status) {
@@ -257,11 +259,13 @@
         this.approves.data = item
       },
       popUpdate ({ item }) {
+        const instructorId = item.instructor.map(x => x.id)
         this.update.open = true
         this.update.name = item.name
         this.update.id = item.id
         this.update.about = item.about
         this.update.levels = item.levels
+        this.update.instructor_id = instructorId
       },
       removeStudioById ({ item }) {
         this.dialogDeleteById.open = true
@@ -332,6 +336,7 @@
             name: item.name,
             levels: item.levels,
             about: item.about,
+            instructor_id: item.instructor_id,
           })
           .then(res => {
             if (res.data.meta.status) {
@@ -354,6 +359,7 @@
                 icon: 'success',
                 title: 'Class Edited Successfully',
               })
+              this.getDataClassesStudio()
             }
           })
       },

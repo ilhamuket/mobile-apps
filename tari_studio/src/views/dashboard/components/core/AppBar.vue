@@ -44,7 +44,7 @@
         height="79"
         class="bg-red"
       /> -->
-      <v-list-item-title class="font-title-rampart-one custome-brad">
+      <v-list-item-title class="font-title-rampart-one-black custome-brad">
         <h3>
           ENSIKLOTARI
         </h3>

@@ -4,8 +4,8 @@
     v-model="drawer"
     :class="
       $vuetify.theme.dark
-        ? 'custumize-dark height-max'
-        : 'custumize-light height-max'
+        ? 'custumize-dark height-max font-size-ather-roboto-mono-name-page'
+        : 'custumize-light height-max font-size-ather-roboto-mono-name-page'
     "
     :mini-variant="!drawer"
     :right="$vuetify.rtl"
@@ -275,8 +275,7 @@
           margin-left: 8px
 .custumize-light
   background-color: #fff !important
-  font-family: 'Roboto', sans-serif !important
-  font-weight: bold
+  color: #0000 !important
   font-size: 20px
   height: 100% !important
 .bg--light

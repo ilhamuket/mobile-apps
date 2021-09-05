@@ -9,8 +9,8 @@
     >
       <app-card :data="dialog.data" />
       <app-instructor
-        v-if="dialog.data.instructor"
-        :data="dialog.data.instructor"
+        v-if="dialog.data.instructor_v2"
+        :data="dialog.data.instructor_v2"
       />
       <app-time-lines
         v-if="dialog.data.schedules"
@@ -37,6 +37,9 @@
           open: false,
         }),
       },
+    },
+    mounted () {
+      console.log(this.dialog)
     },
   }
 </script>

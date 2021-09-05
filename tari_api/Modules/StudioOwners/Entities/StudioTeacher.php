@@ -36,4 +36,31 @@ class StudioTeacher extends Model
             }
         }
     }
+
+    public function scopeSummary($query, $summary, $studio)
+    {
+        // dd($studio->id);
+        if ($summary == 'all') {
+            $query->where('studio_id', $studio->id);
+        }
+        if ($summary == 'approved') {
+            $query->where([
+                ['studio_id', $studio->id],
+                ['is_verified', 1]
+            ]);
+        }
+        if ($summary == 'non_approved') {
+            $query->where([
+                ['studio_id', $studio->id],
+                ['is_verified', 0]
+            ]);
+        }
+        if ($summary == 'new') {
+            $query->where([
+                ['studio_id', $studio->id],
+            ])->whereDate('created_at', now());
+        }
+
+        return $query;
+    }
 }

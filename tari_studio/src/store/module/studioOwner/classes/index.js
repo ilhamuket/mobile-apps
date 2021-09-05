@@ -43,6 +43,7 @@ export default {
         state.data[indexClasses].name = payload.name
         state.data[indexClasses].levels = payload.levels
         state.data[indexClasses].about = payload.about
+        state.data[indexClasses].instructor_id = payload.instructor_id
       }
     },
     DEL_DATA: (state, id) => {

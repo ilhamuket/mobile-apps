@@ -7,6 +7,7 @@ use Brryfrmnn\Transformers\Json;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\StudioOwners\Entities\StudioTeacher;
 
 class StudioClass extends Model
 {
@@ -30,9 +31,14 @@ class StudioClass extends Model
         return $this->belongsTo(User::class, 'author_id');
     }
 
-    public function instructor()
+    // public function instructor()
+    // {
+    //     return $this->belongsToMany(User::class, 'class_instructor', 'class_id', 'instructor_id');
+    // }
+
+    public function instructor_v2()
     {
-        return $this->belongsToMany(User::class, 'class_instructor', 'class_id', 'instructor_id');
+        return $this->belongsToMany(StudioTeacher::class, 'class_instructor_v2', 'class_id', 'instructor_id');
     }
 
     public function schedules()

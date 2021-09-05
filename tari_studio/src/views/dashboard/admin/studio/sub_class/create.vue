@@ -33,6 +33,9 @@
                   />
                 </v-col>
                 <v-col cols="12">
+                  <!--  -->
+                </v-col>
+                <v-col cols="12">
                   <v-select
                     v-model="status"
                     :items="itemStatus"
@@ -281,6 +284,7 @@
       time_start: '12:00',
       status: 'Concept',
       class_id: 1,
+      instructor_id: '',
       time_end: '14:00',
       menuTimeStart: false,
       menuTimeEnd: false,
@@ -529,9 +533,13 @@
       computedClasses () {
         return this.$store.state.ownerStudioClasses.data
       },
+      computedInstructor () {
+        return this.$store.state.studioInstructor.data
+      },
     },
     mounted () {
       this.getDataClassesStudio()
+      this.getDataTeacherStudio()
     },
     methods: {
       setColorStatus (status) {
@@ -555,6 +563,7 @@
             icon: this.icon,
             color: this.color.hex,
             class_id: this.class_id,
+            instructor_id: this.instructor_id,
           })
           .then(({ data }) => {
             if (data.meta.status) {

@@ -16,8 +16,8 @@ class CreateTableClassInstructorTeacherV2ModuleStudioowners extends Migration
         Schema::create('class_instructor_v2', function (Blueprint $table) {
             $table->unsignedBigInteger('instructor_id');
             $table->foreign('instructor_id')->references('id')->on('studios_teachers');
-            $table->unsignedBigInteger('type_class_id');
-            $table->foreign('type_class_id')->references('id')->on('classes_schedule_studio');
+            $table->unsignedBigInteger('class_id');
+            $table->foreign('class_id')->references('id')->on('studioclasses');
         });
     }
 

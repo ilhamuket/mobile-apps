@@ -150,6 +150,7 @@ class ClassesOwnerStudioController extends Controller
             $studioClasses->save();
             $studioClasses->studio;
             $studioClasses->author;
+            $studioClasses->instructor()->attach($request->instructor_id);
 
             DB::commit();
             return Json::response($studioClasses);
@@ -199,8 +200,10 @@ class ClassesOwnerStudioController extends Controller
             $master->levels = $request->input('levels', $master->levels);
             $master->about = $request->input('about', $master->about);
             $master->save();
+            $master->instructor()->sync($request->input('instructor_id', $master->instructor));
             $master->studio;
             $master->author;
+            $master->instructor;
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

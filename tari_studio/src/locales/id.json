@@ -85,7 +85,17 @@
                 "status": "Status",
                 "started": "Mulai",
                 "approved": "Disetujui",
-                "Ended": "Berakhir"
+                "Ended": "persetujuan"
+            }
+        },
+        "teachers": {
+            "th": {
+                "fullName": "Nama Lengkap",
+                "email": "E-mail",
+                "region": "Regional",
+                "contact": "Contact",
+                "profession": "Professi",
+                "approved": "persetujuan"
             }
         }
     }

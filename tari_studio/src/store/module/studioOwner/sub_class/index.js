@@ -49,6 +49,7 @@ export default {
           const index = state.data.findIndex(x => x.id === subClasses.id)
           if (index !== -1) {
             state.data[index].is_verified = 1
+            state.data[index].status = 'Publish'
           }
         }
       }

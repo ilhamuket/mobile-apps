@@ -11,6 +11,41 @@ use Modules\StudioOwners\Entities\StudioTeacher;
 
 class StudioTeacherController extends Controller
 {
+    public function summary(Request $request)
+    {
+        try {
+            $data = [
+                "all" => 0,
+                'approved' => 0,
+                "non_approved" => 0,
+                "new" => 0,
+            ];
+            $me = $request->user();
+            $studio = OwnerStudio::where('author_id', $me->id)->first();
+
+            $data['all'] = StudioTeacher::where('studio_id', $studio->id)->count();
+            $data['approved'] = StudioTeacher::where([
+                ['studio_id', $studio->id],
+                ['is_verified', 1]
+            ])->count();
+            $data['non_approved'] = StudioTeacher::where([
+                ['studio_id', $studio->id],
+                ['is_verified', 0]
+            ])->count();
+            $data["new"] = StudioTeacher::where([
+                ['studio_id', $studio->id],
+            ])->whereDate('created_at', now())
+                ->count();
+
+            return Json::response($data);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     /**
      * Display a listing of the resource.
      * @return Renderable
@@ -20,7 +55,10 @@ class StudioTeacherController extends Controller
         try {
             $me = $request->user();
             $studio = OwnerStudio::where('author_id', $me->id)->first();
-            $master = StudioTeacher::entities($request->entities)->where('studio_id', $studio->id)->get();
+            $master = StudioTeacher::entities($request->entities)
+                ->where('studio_id', $studio->id)
+                ->summary($request->summary, $studio)
+                ->get();
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');

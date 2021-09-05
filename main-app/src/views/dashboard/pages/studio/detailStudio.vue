@@ -110,7 +110,6 @@
       dialogSeeMore: {
         open: false,
         data: {},
-        instructor: [],
       },
       dialogUnFollow: {
         open: false,
@@ -214,7 +213,7 @@
         this.$store
           .dispatch('studioClasses/getDataStudioClasses', {
             slug: this.$route.params.slug,
-            entities: 'studio.img,author,instructor.role,schedules',
+            entities: 'studio.img,author,schedules,instructor_v2',
           })
           .then(({ data }) => {
             this.classes = data.data
@@ -247,6 +246,7 @@
         this.getDataAutoplay()
       },
       fetchDataFromChild ({ item }) {
+        console.log(item)
         this.dialogSeeMore.open = true
         this.dialogSeeMore.data = item
         this.getDataClassSchedules(this.dialogSeeMore.data.id)

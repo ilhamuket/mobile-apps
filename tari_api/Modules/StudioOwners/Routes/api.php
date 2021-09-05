@@ -45,5 +45,8 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
     Route::prefix('instructor')->group(function () {
         Route::get('', [StudioTeacherController::class, 'index']);
         Route::post('', [StudioTeacherController::class, 'store']);
+        Route::prefix('summary')->group(function () {
+            Route::get('', [StudioTeacherController::class, 'summary']);
+        });
     });
 });

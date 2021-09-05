@@ -17,7 +17,7 @@
         <v-icon v-text="item.icon" />
         <p
           v-if="!drawer"
-          class="font-weight-light fs-12"
+          class="font-weight-light fs-12 font-size-ather-roboto-mono-name-page"
         >
           {{ item.title }}
         </p>
@@ -84,5 +84,5 @@
 </script>
 <style lang="sass" scoped>
 .fs-12
-  font-size: 12px
+  font-size: 12px !important
 </style>

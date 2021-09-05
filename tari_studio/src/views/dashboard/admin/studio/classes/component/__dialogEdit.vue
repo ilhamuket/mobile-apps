@@ -36,6 +36,61 @@
                 prepend-icon="mdi-alpha-a-circle-outline"
                 clearable
               />
+              <v-autocomplete
+                v-model="dialog.instructor_id"
+                :items="computedInstructor"
+                label="Class Name"
+                clearable
+                prepend-icon="mdi-format-title"
+                multiple
+                item-text="name"
+                item-value="id"
+              >
+                <template
+                  slot="selection"
+                  slot-scope="data"
+                >
+                  <slot
+                    name="item"
+                    v-bind="data"
+                  >
+                    <v-list-item-avatar
+                      color="primary"
+                      size="20"
+                    >
+                      <span>{{ data.item.name.charAt(0) }}</span>
+                    </v-list-item-avatar>
+
+                    <v-chip
+                      label
+                      color="transparent"
+                      close
+                      @click:close="remove(data.item)"
+                    >
+                      {{ data.item.name }}
+                    </v-chip>
+                  </slot>
+                </template>
+
+                <template
+                  slot="item"
+                  slot-scope="data"
+                >
+                  <slot
+                    name="item"
+                    v-bind="data"
+                  >
+                    <v-list-item-avatar
+                      color="brown"
+                      size="20"
+                    >
+                      <span>{{ data.item.name.charAt(0) }}</span>
+                    </v-list-item-avatar>
+
+                    {{ data.item.name }}
+                  </slot>
+                </template>
+              </v-autocomplete>
               <v-textarea
                 v-model="dialog.about"
                 label="About Class"
@@ -85,6 +140,14 @@
         about: '',
       },
     }),
+    computed: {
+      computedInstructor () {
+        return this.$store.state.studioInstructor.data
+      },
+    },
+    mounted () {
+      this.getDataTeacherStudio()
+    },
     methods: {
       closeDialog () {
         this.dialog.open = false
@@ -109,6 +172,18 @@
       },
       updateClass () {
         this.$emit('input', { item: this.dialog })
+      },
+      getDataTeacherStudio () {
+        this.$store.dispatch('studioInstructor/getDataTeacherStudio', {
+          entities: 'studio',
+        })
+      },
+      remove (item) {
+        this.dialog.instructor_id.splice(
+          this.dialog.instructor_id.indexOf(item),
+          1,
+        )
+        this.dialog.instructor_id = [...this.dialog.instructor_id]
       },
     },
   }
