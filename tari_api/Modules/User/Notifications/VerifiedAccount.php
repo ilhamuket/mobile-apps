@@ -40,7 +40,7 @@ class VerifiedAccount extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = 'http://localhost:8081/'  . 'verification';
+        $url = env("FRONTEND_URL_PRODUCTION_MAIN_APP", "https://app.ensiklotari.com/") . 'verification';
         return (new MailMessage)
             ->subject('Verify Your Account')
             ->line('Click Button Verify Email Address To Verification Your Account ..')
