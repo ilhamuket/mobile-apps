@@ -102,51 +102,71 @@
         cols="12"
         md="4"
       >
-        <span
-          class="text-h3 ml-6 font-size-ather-roboto-mono-name-page pallet1--text"
+        <base-material-chart-card
+          :data="dataCompletedTasksChart.data"
+          :options="dataCompletedTasksChart.options"
+          hover-reveal
+          color="info"
+          type="Line"
         >
-          Student
-        </span>
-        <v-card
-          class="mx-auto text-center"
-          color="white"
-          dark
-          max-width="600"
-        >
-          <v-card-text>
-            <v-sheet color="rgba(0, 0, 0, .12)">
-              <base-chart
-                :chart-data="arrPositive"
-                :options="chartOptions"
-                label="positive"
-              >
-                <!--  -->
-              </base-chart>
-            </v-sheet>
-          </v-card-text>
+          <template v-slot:reveal-actions>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ attrs, on }">
+                <v-btn
+                  v-bind="attrs"
+                  color="info"
+                  icon
+                  v-on="on"
+                >
+                  <v-icon color="info">
+                    mdi-refresh
+                  </v-icon>
+                </v-btn>
+              </template>
 
-          <!-- <v-card-text>
-            <div class="text-h4 font-weight-thin">
-              Sales Last 24h
-            </div>
-          </v-card-text>
+              <span>Refresh</span>
+            </v-tooltip>
 
-          <v-divider />
+            <v-tooltip bottom>
+              <template v-slot:activator="{ attrs, on }">
+                <v-btn
+                  v-bind="attrs"
+                  light
+                  icon
+                  v-on="on"
+                >
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+              </template>
 
-          <v-card-actions class="justify-center">
-            <v-btn
-              block
-              text
+              <span>Change Date</span>
+            </v-tooltip>
+          </template>
+
+          <h3 class="card-title font-weight-light mt-2 ml-2">
+            Completed Tasks
+          </h3>
+
+          <p class="d-inline-flex font-weight-light ml-2 mt-1">
+            Last Last Campaign Performance
+          </p>
+
+          <template v-slot:actions>
+            <v-icon
+              class="mr-1"
+              small
             >
-              Go to Report
-            </v-btn>
-          </v-card-actions> -->
-        </v-card>
+              mdi-clock-outline
+            </v-icon>
+            <span
+              class=" grey--text font-weight-light"
+            >campaign sent 26 minutes ago</span>
+          </template>
+        </base-material-chart-card>
       </v-col>
       <v-col
         cols="12"
         md="8"
-        class="mt-9"
       >
         <v-row>
           <v-col
@@ -262,9 +282,12 @@
 <script>
   import database from './database/daily.json'
   import moment from 'moment'
+  // import chart from './component/Chart'
   export default {
     name: 'DashboardDashboard',
-
+    components: {
+    // 'app-chart': chart,
+    },
     data () {
       return {
         chartOptions: {
@@ -294,18 +317,35 @@
         },
         dataCompletedTasksChart: {
           data: {
-            labels: ['12am', '3pm', '6pm', '9pm', '12pm', '3am', '6am', '9am'],
-            series: [[230, 750, 450, 300, 280, 240, 200, 190]],
+            labels: [
+              'Ja',
+              'Fe',
+              'Ma',
+              'Ap',
+              'Mai',
+              'Ju',
+              'Jul',
+              'Au',
+              'Se',
+              'Oc',
+              'No',
+              'De',
+            ],
+            series: [
+              [230, 1500, 450, 300, 280, 240, 200, 190, 250, 560, 450, 54],
+              [230, 400, 300, 700, 5, 10, 3, 4, 8, 1000, 600, 800],
+              [3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 700, 400],
+            ],
           },
           options: {
             lineSmooth: this.$chartist.Interpolation.cardinal({
               tension: 0,
             }),
             low: 0,
-            high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+            high: 2000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
             chartPadding: {
               top: 0,
-              right: 0,
+              right: 2,
               bottom: 0,
               left: 0,
             },
@@ -328,7 +368,8 @@
               'De',
             ],
             series: [
-              [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895],
+              [5, 4, 3, 7, 5, 10, 3, 4, 8, 10, 6, 8],
+              [3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 7, 4],
             ],
           },
           options: {
@@ -517,8 +558,6 @@
           this.arrOnVentilators.push({ date, total: onVentilatorCurrently })
           this.arrRecorvered.push({ date, total: recovered })
           this.arrDeaths.push({ date, total: death })
-
-          console.log(this.arrPositive)
         })
       },
     },

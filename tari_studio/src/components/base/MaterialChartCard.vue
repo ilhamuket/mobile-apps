@@ -72,13 +72,13 @@
     color: #999
 
   .v-card--material__heading
-    max-height: 185px
+    height: 185px
 
     .ct-label
       color: inherit
       opacity: .7
       font-size: 0.975rem
-      font-weight: 100
+      font-weight: 1000
 
     .ct-grid
       stroke: rgba(255, 255, 255, 0.2)
