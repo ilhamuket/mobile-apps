@@ -4,218 +4,208 @@
     tag="section"
   >
     <v-row>
-      <v-col
-        cols="12"
-        lg="4"
-      >
-        <base-material-chart-card
-          :data="emailsSubscriptionChart.data"
-          :options="emailsSubscriptionChart.options"
-          :responsive-options="emailsSubscriptionChart.responsiveOptions"
-          color="#E91E63"
-          hover-reveal
-          type="Bar"
-        >
-          <template v-slot:reveal-actions>
-            <v-tooltip bottom>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  v-bind="attrs"
-                  color="info"
-                  icon
-                  v-on="on"
-                >
-                  <v-icon color="info">
-                    mdi-refresh
-                  </v-icon>
-                </v-btn>
-              </template>
-
-              <span>Refresh</span>
-            </v-tooltip>
-
-            <v-tooltip bottom>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  v-bind="attrs"
-                  light
-                  icon
-                  v-on="on"
-                >
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-              </template>
-
-              <span>Change Date</span>
-            </v-tooltip>
-          </template>
-
-          <h4 class="card-title font-weight-light mt-2 ml-2">
-            Website Views
-          </h4>
-
-          <p class="d-inline-flex font-weight-light ml-2 mt-1">
-            Last Campaign Performance
-          </p>
-
-          <template v-slot:actions>
-            <v-icon
-              class="mr-1"
-              small
-            >
-              mdi-clock-outline
-            </v-icon>
-            <span
-              class=" grey--text font-weight-light"
-            >updated 10 minutes ago</span>
-          </template>
-        </base-material-chart-card>
+      <v-col cols="12">
+        <v-card class="rounded-xl">
+          <v-img
+            height="140"
+            class="img-oppa"
+            src="@/assets/5833439.jpg"
+          >
+            <div class="d-flex flex-row justify-center">
+              <div class="d-flex flex-column">
+                <span
+                  class="text-h1 font-title-rampart-one custome-font"
+                >EnsikloTari</span>
+              </div>
+            </div>
+          </v-img>
+        </v-card>
       </v-col>
-
-      <v-col
-        cols="12"
-        lg="4"
-      >
-        <base-material-chart-card
-          :data="dailySalesChart.data"
-          :options="dailySalesChart.options"
-          color="success"
-          hover-reveal
-          type="Line"
+      <v-col cols="12">
+        <v-card
+          width="97%"
+          class="rounded-xl card"
         >
-          <template v-slot:reveal-actions>
-            <v-tooltip bottom>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  v-bind="attrs"
-                  color="info"
-                  icon
-                  v-on="on"
-                >
-                  <v-icon color="info">
-                    mdi-refresh
-                  </v-icon>
-                </v-btn>
-              </template>
+          <v-container>
+            <v-row>
+              <v-col cols="6">
+                <v-row>
+                  <v-col
+                    class="natural--card"
+                    cols="3"
+                  >
+                    <v-img
+                      class="rounded-xl"
+                      width="60"
+                      src="https://demos.creative-tim.com/muse-vue-ant-design-dashboard/images/face-1.jpg"
+                    />
+                  </v-col>
+                  <v-col cols="9">
+                    <div class="d-flex flex-row mr-2 mt-2">
+                      <div class="d-flex flex-column">
+                        <span
+                          class="text-h4 font-size-ather-roboto-mono font-weight-bold"
+                        >
+                          Hai, Studio Hurip
+                        </span>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-row">
+                      <div class="d-flex flex-column">
+                        <span class="text-h4 font-size-ather-roboto-mono s-16">
+                          HuripStudio@tari.id -
+                        </span>
+                      </div>
 
-              <span>Refresh</span>
-            </v-tooltip>
-
-            <v-tooltip bottom>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  v-bind="attrs"
-                  light
-                  icon
-                  v-on="on"
-                >
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-              </template>
-
-              <span>Change Date</span>
-            </v-tooltip>
-          </template>
-
-          <h4 class="card-title font-weight-light mt-2 ml-2">
-            Daily Sales
-          </h4>
-
-          <p class="d-inline-flex font-weight-light ml-2 mt-1">
-            <v-icon
-              color="green"
-              small
-            >
-              mdi-arrow-up
-            </v-icon>
-            <span class="green--text">55%</span>&nbsp; increase in today's sales
-          </p>
-
-          <template v-slot:actions>
-            <v-icon
-              class="mr-1"
-              small
-            >
-              mdi-clock-outline
-            </v-icon>
-            <span
-              class=" grey--text font-weight-light"
-            >updated 4 minutes ago</span>
-          </template>
-        </base-material-chart-card>
+                      <div class="d-flex flex-column ml-2">
+                        <span class="text-h4 font-size-ather-roboto-mono s-16">
+                          0897524236451
+                        </span>
+                      </div>
+                    </div>
+                  </v-col>
+                </v-row>
+              </v-col>
+              <v-col cols="6">
+                <v-row>
+                  <v-col>
+                    <div class="d-flex flex-row mt-5 ml-6">
+                      <div class="d-flex flex-column">
+                        <v-btn
+                          outlined
+                          color="primary"
+                          width="200"
+                          small
+                        >
+                          Info
+                        </v-btn>
+                      </div>
+                      <div class="d-flex flex-column ml-2">
+                        <v-btn
+                          outlined
+                          color="primary"
+                          width="200"
+                          small
+                        >
+                          Info
+                        </v-btn>
+                      </div>
+                    </div>
+                  </v-col>
+                </v-row>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card>
       </v-col>
-
       <v-col
         cols="12"
-        lg="4"
+        md="4"
       >
-        <base-material-chart-card
-          :data="dataCompletedTasksChart.data"
-          :options="dataCompletedTasksChart.options"
-          hover-reveal
-          color="info"
-          type="Line"
+        <span
+          class="text-h3 ml-6 font-size-ather-roboto-mono-name-page pallet1--text"
         >
-          <template v-slot:reveal-actions>
-            <v-tooltip bottom>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  v-bind="attrs"
-                  color="info"
-                  icon
-                  v-on="on"
-                >
-                  <v-icon color="info">
-                    mdi-refresh
-                  </v-icon>
-                </v-btn>
-              </template>
+          Student
+        </span>
+        <v-card
+          class="mx-auto text-center"
+          color="white"
+          dark
+          max-width="600"
+        >
+          <v-card-text>
+            <v-sheet color="rgba(0, 0, 0, .12)">
+              <base-chart
+                :chart-data="arrPositive"
+                :options="chartOptions"
+                label="positive"
+              >
+                <!--  -->
+              </base-chart>
+            </v-sheet>
+          </v-card-text>
 
-              <span>Refresh</span>
-            </v-tooltip>
+          <!-- <v-card-text>
+            <div class="text-h4 font-weight-thin">
+              Sales Last 24h
+            </div>
+          </v-card-text>
 
-            <v-tooltip bottom>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  v-bind="attrs"
-                  light
-                  icon
-                  v-on="on"
-                >
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-              </template>
+          <v-divider />
 
-              <span>Change Date</span>
-            </v-tooltip>
-          </template>
-
-          <h3 class="card-title font-weight-light mt-2 ml-2">
-            Completed Tasks
-          </h3>
-
-          <p class="d-inline-flex font-weight-light ml-2 mt-1">
-            Last Last Campaign Performance
-          </p>
-
-          <template v-slot:actions>
-            <v-icon
-              class="mr-1"
-              small
+          <v-card-actions class="justify-center">
+            <v-btn
+              block
+              text
             >
-              mdi-clock-outline
-            </v-icon>
-            <span
-              class=" grey--text font-weight-light"
-            >campaign sent 26 minutes ago</span>
-          </template>
-        </base-material-chart-card>
+              Go to Report
+            </v-btn>
+          </v-card-actions> -->
+        </v-card>
       </v-col>
-
       <v-col
         cols="12"
-        sm="6"
-        lg="3"
+        md="8"
+        class="mt-9"
+      >
+        <v-row>
+          <v-col
+            cols="12"
+            md="6"
+          >
+            <base-material-stats-card
+              color="info"
+              icon="mdi-twitter"
+              title="Followers"
+              value="+245"
+              sub-icon="mdi-clock"
+              sub-text="Just Updated"
+            />
+          </v-col>
+          <v-col
+            cols="12"
+            md="6"
+          >
+            <base-material-stats-card
+              color="info"
+              icon="mdi-twitter"
+              title="Followers"
+              value="+245"
+              sub-icon="mdi-clock"
+              sub-text="Just Updated"
+            />
+          </v-col>
+          <v-col
+            cols="12"
+            md="6"
+          >
+            <base-material-stats-card
+              color="info"
+              icon="mdi-twitter"
+              title="Followers"
+              value="+245"
+              sub-icon="mdi-clock"
+              sub-text="Just Updated"
+            />
+          </v-col>
+          <v-col
+            cols="12"
+            md="6"
+          >
+            <base-material-stats-card
+              color="info"
+              icon="mdi-twitter"
+              title="Followers"
+              value="+245"
+              sub-icon="mdi-clock"
+              sub-text="Just Updated"
+            />
+          </v-col>
+        </v-row>
+      </v-col>
+      <v-col
+        cols="12"
+        md="3"
       >
         <base-material-stats-card
           color="info"
@@ -226,176 +216,63 @@
           sub-text="Just Updated"
         />
       </v-col>
-
       <v-col
         cols="12"
-        sm="6"
-        lg="3"
+        md="3"
       >
         <base-material-stats-card
-          color="primary"
-          icon="mdi-poll"
-          title="Website Visits"
-          value="75.521"
-          sub-icon="mdi-tag"
-          sub-text="Tracked from Google Analytics"
+          color="info"
+          icon="mdi-twitter"
+          title="Followers"
+          value="+245"
+          sub-icon="mdi-clock"
+          sub-text="Just Updated"
         />
       </v-col>
-
       <v-col
         cols="12"
-        sm="6"
-        lg="3"
+        md="3"
       >
         <base-material-stats-card
-          color="success"
-          icon="mdi-store"
-          title="Revenue"
-          value="$ 34,245"
-          sub-icon="mdi-calendar"
-          sub-text="Last 24 Hours"
+          color="info"
+          icon="mdi-twitter"
+          title="Followers"
+          value="+245"
+          sub-icon="mdi-clock"
+          sub-text="Just Updated"
         />
       </v-col>
-
       <v-col
         cols="12"
-        sm="6"
-        lg="3"
+        md="3"
       >
         <base-material-stats-card
-          color="orange"
-          icon="mdi-sofa"
-          title="Bookings"
-          value="184"
-          sub-icon="mdi-alert"
-          sub-icon-color="red"
-          sub-text="Get More Space..."
+          color="info"
+          icon="mdi-twitter"
+          title="Followers"
+          value="+245"
+          sub-icon="mdi-clock"
+          sub-text="Just Updated"
         />
-      </v-col>
-
-      <v-col
-        cols="12"
-        md="6"
-      >
-        <base-material-card
-          color="warning"
-          class="px-5 py-3"
-        >
-          <template v-slot:heading>
-            <div class="font-weight-light">
-              Employees Stats
-            </div>
-
-            <div class=" font-weight-light">
-              New employees on 15th September, 2016
-            </div>
-          </template>
-          <v-card-text>
-            <v-data-table
-              :headers="headers"
-              :items="items"
-            />
-          </v-card-text>
-        </base-material-card>
-      </v-col>
-
-      <v-col
-        cols="12"
-        md="6"
-      >
-        <base-material-card class="px-5 py-3">
-          <template v-slot:heading>
-            <v-tabs
-              v-model="tabs"
-              background-color="transparent"
-              slider-color="white"
-            >
-              <span
-                class="subheading font-weight-light mx-3"
-                style="align-self: center"
-              >Tasks:</span>
-              <v-tab class="mr-3">
-                <v-icon class="mr-2">
-                  mdi-bug
-                </v-icon>
-                Bugs
-              </v-tab>
-              <v-tab class="mr-3">
-                <v-icon class="mr-2">
-                  mdi-code-tags
-                </v-icon>
-                Website
-              </v-tab>
-              <v-tab>
-                <v-icon class="mr-2">
-                  mdi-cloud
-                </v-icon>
-                Server
-              </v-tab>
-            </v-tabs>
-          </template>
-
-          <v-tabs-items
-            v-model="tabs"
-            class="transparent"
-          >
-            <v-tab-item
-              v-for="n in 3"
-              :key="n"
-            >
-              <v-card-text>
-                <template v-for="(task, i) in tasks[tabs]">
-                  <v-row
-                    :key="i"
-                    align="center"
-                  >
-                    <v-col cols="1">
-                      <v-list-item-action>
-                        <v-checkbox
-                          v-model="task.value"
-                          color="secondary"
-                        />
-                      </v-list-item-action>
-                    </v-col>
-
-                    <v-col cols="9">
-                      <div
-                        class="font-weight-light"
-                        v-text="task.text"
-                      />
-                    </v-col>
-
-                    <v-col
-                      cols="2"
-                      class="text-right"
-                    >
-                      <v-icon class="mx-1">
-                        mdi-pencil
-                      </v-icon>
-                      <v-icon
-                        color="error"
-                        class="mx-1"
-                      >
-                        mdi-close
-                      </v-icon>
-                    </v-col>
-                  </v-row>
-                </template>
-              </v-card-text>
-            </v-tab-item>
-          </v-tabs-items>
-        </base-material-card>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+  import database from './database/daily.json'
+  import moment from 'moment'
   export default {
     name: 'DashboardDashboard',
 
     data () {
       return {
+        chartOptions: {
+          responsive: true,
+          maintainAspectRatio: false,
+        },
+        database: database,
+        value: [423, 446, 675, 510, 590, 610, 760],
         dailySalesChart: {
           data: {
             labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
@@ -606,13 +483,60 @@
           1: false,
           2: false,
         },
+        arrPositive: [],
+        arrHospitalize: [],
+        arrInIcu: [],
+        arrOnVentilators: [],
+        arrRecorvered: [],
+        arrDeaths: [],
       }
     },
-
+    mounted () {
+      this.covid()
+    },
     methods: {
       complete (index) {
         this.list[index] = !this.list[index]
       },
+      covid () {
+        const data = this.database
+        data.forEach(d => {
+          const date = moment(d.date, 'YYYYMMDD').format('MM/DD')
+          const {
+            positive,
+            hospiitalizedCurrently,
+            inIcuCurrently,
+            onVentilatorCurrently,
+            recovered,
+            death,
+          } = d
+
+          this.arrPositive.push({ date, total: positive })
+          this.arrHospitalize.push({ date, total: hospiitalizedCurrently })
+          this.arrInIcu.push({ date, total: inIcuCurrently })
+          this.arrOnVentilators.push({ date, total: onVentilatorCurrently })
+          this.arrRecorvered.push({ date, total: recovered })
+          this.arrDeaths.push({ date, total: death })
+
+          console.log(this.arrPositive)
+        })
+      },
     },
   }
 </script>
+<style lang="sass" scoped>
+.v-card
+  border-radius: 6px
+  margin-top: 30px
+  margin-bottom: -18px
+  border-radius: 30px !important
+.card
+  margin-top: -75px !important
+  margin-left: 20px
+.custome-font
+  color: #384064 !important
+  font-weight: bold
+  font-size: 59px !important
+.natural--card
+  margin-right: -65px !important
+</style>

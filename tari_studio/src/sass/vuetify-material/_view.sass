@@ -25,7 +25,7 @@
     background-color: #283046 !important
   .v-list-item--active
     .v-list-item__icon
-      color: #6B75AA !important
+      color: #5566b7 !important
     .v-list-item__title
       color: #6B75AA !important
     // background-color: #283046 !important
@@ -38,15 +38,16 @@
       color: #6B75AA !important
     .v-list-item__title
       color: #6B75AA !important
-    // background-color: #ffff !important
-    // color: red !important
 .theme--light.v-list-item:hover::before
-  opacity: 0
+  opacity: 0.1
 .theme--dark.v-list-item:hover::before
-  opacity: 0
+  opacity: .1
 .v-navigation-drawer--mini-variant
   width: 100px !important
-
+.drawer--off
+  .theme--dark
+    .v-list-item--active
+      background-color: red !important
 .customize-dark-scroll
   /* width */
   ::-webkit-scrollbar

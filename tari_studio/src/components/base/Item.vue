@@ -4,7 +4,9 @@
     :rel="href && href !== '#' ? 'noopener' : undefined"
     :target="href && href !== '#' ? '_blank' : undefined"
     :to="item.to"
-    :active-class="`${!isDark ? 'white' : 'white'}--text`"
+    :active-class="
+      drawer ? 'drawer--off' : `${!isDark ? 'white' : 'pallet1'}--text`
+    "
   >
     <v-list-item-icon
       v-if="text"
@@ -25,7 +27,10 @@
     </v-list-item-icon>
 
     <v-list-item-content v-if="item.title || item.subtitle">
-      <v-list-item-title v-text="item.title" />
+      <v-list-item-title
+        class="font-weight-light fs-12 font-size-ather-roboto-mono-name-page"
+        v-text="item.title"
+      />
 
       <v-list-item-subtitle v-text="item.subtitle" />
     </v-list-item-content>
