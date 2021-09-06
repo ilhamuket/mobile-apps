@@ -143,11 +143,15 @@
             </v-tooltip>
           </template>
 
-          <h3 class="card-title font-weight-light mt-2 ml-2">
-            Completed Tasks
+          <h3
+            class="card-title font-weight-light font-size-ather-roboto-mono-name-page mt-2 ml-2"
+          >
+            Student
           </h3>
 
-          <p class="d-inline-flex font-weight-light ml-2 mt-1">
+          <p
+            class="d-inline-flex font-weight-light ml-2 mt-1 font-size-ather-roboto-mono"
+          >
             Last Last Campaign Performance
           </p>
 
@@ -281,7 +285,7 @@
 
 <script>
   import database from './database/daily.json'
-  import moment from 'moment'
+  // import moment from 'moment'
   // import chart from './component/Chart'
   export default {
     name: 'DashboardDashboard',
@@ -317,38 +321,18 @@
         },
         dataCompletedTasksChart: {
           data: {
-            labels: [
-              'Ja',
-              'Fe',
-              'Ma',
-              'Ap',
-              'Mai',
-              'Ju',
-              'Jul',
-              'Au',
-              'Se',
-              'Oc',
-              'No',
-              'De',
-            ],
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
             series: [
-              [230, 1500, 450, 300, 280, 240, 200, 190, 250, 560, 450, 54],
-              [230, 400, 300, 700, 5, 10, 3, 4, 8, 1000, 600, 800],
-              [3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 700, 400],
+              [1, 5, 2, 5, 4, 3],
+              [2, 3, 4, 8, 1, 2],
+              [5, 4, 3, 2, 1, 0.5],
             ],
           },
           options: {
-            lineSmooth: this.$chartist.Interpolation.cardinal({
-              tension: 0,
-            }),
             low: 0,
-            high: 2000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-            chartPadding: {
-              top: 0,
-              right: 2,
-              bottom: 0,
-              left: 0,
-            },
+            showArea: true,
+            showPoint: false,
+            fullWidth: true,
           },
         },
         emailsSubscriptionChart: {
@@ -532,34 +516,34 @@
         arrDeaths: [],
       }
     },
-    mounted () {
-      this.covid()
-    },
+    computed: {},
+    mounted () {},
     methods: {
       complete (index) {
         this.list[index] = !this.list[index]
       },
-      covid () {
-        const data = this.database
-        data.forEach(d => {
-          const date = moment(d.date, 'YYYYMMDD').format('MM/DD')
-          const {
-            positive,
-            hospiitalizedCurrently,
-            inIcuCurrently,
-            onVentilatorCurrently,
-            recovered,
-            death,
-          } = d
+      chartON (data) {},
+    // covid () {
+    //   const data = this.database
+    //   data.forEach(d => {
+    //     const date = moment(d.date, 'YYYYMMDD').format('MM/DD')
+    //     const {
+    //       positive,
+    //       hospiitalizedCurrently,
+    //       inIcuCurrently,
+    //       onVentilatorCurrently,
+    //       recovered,
+    //       death,
+    //     } = d
 
-          this.arrPositive.push({ date, total: positive })
-          this.arrHospitalize.push({ date, total: hospiitalizedCurrently })
-          this.arrInIcu.push({ date, total: inIcuCurrently })
-          this.arrOnVentilators.push({ date, total: onVentilatorCurrently })
-          this.arrRecorvered.push({ date, total: recovered })
-          this.arrDeaths.push({ date, total: death })
-        })
-      },
+    //     this.arrPositive.push({ date, total: positive })
+    //     this.arrHospitalize.push({ date, total: hospiitalizedCurrently })
+    //     this.arrInIcu.push({ date, total: inIcuCurrently })
+    //     this.arrOnVentilators.push({ date, total: onVentilatorCurrently })
+    //     this.arrRecorvered.push({ date, total: recovered })
+    //     this.arrDeaths.push({ date, total: death })
+    //   })
+    // },
     },
   }
 </script>

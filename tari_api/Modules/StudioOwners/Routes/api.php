@@ -2,7 +2,9 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
+// use Illuminate\Routing\Route;
 use Modules\StudioOwners\Entities\ClassesOwnerStudio;
+use Modules\StudioOwners\Entities\StudioTeacher;
 use Modules\StudioOwners\Entities\SubClassOwnerStudio;
 use Modules\StudioOwners\Http\Controllers\ClassesOwnerStudioController;
 use Modules\StudioOwners\Http\Controllers\StudioTeacherController;
@@ -45,6 +47,10 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
     Route::prefix('instructor')->group(function () {
         Route::get('', [StudioTeacherController::class, 'index']);
         Route::post('', [StudioTeacherController::class, 'store']);
+        Route::post('deletes', [StudioTeacherController::class, 'deletedBroadCast']);
+        Route::post('approved', [StudioTeacherController::class, 'approvedBroadcast']);
+        Route::patch('edit/{id}', [StudioTeacherController::class, 'update']);
+        Route::delete('delete/{id}', [StudioTeacherController::class, 'destroy']);
         Route::prefix('summary')->group(function () {
             Route::get('', [StudioTeacherController::class, 'summary']);
         });

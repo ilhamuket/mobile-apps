@@ -1,44 +1,53 @@
 <template>
-  <base-material-card
-    :icon="icon"
-    class="v-card--material-stats"
-    v-bind="$attrs"
-    v-on="$listeners"
+  <v-hover
+    v-slot="{ hover }"
+    open-delay="200"
   >
-    <template v-slot:after-heading>
-      <div class="ml-auto text-right">
-        <div
-          class="body-3 grey--text font-weight-light"
-          v-text="title"
-        />
-
-        <h3 class="font-weight-light text--primary">
-          {{ value }} <small>{{ smallValue }}</small>
-        </h3>
-      </div>
-    </template>
-
-    <v-col
-      cols="12"
-      class="px-0"
+    <base-material-card
+      :elevation="hover ? 16 : 2"
+      :class="{ 'on-hover': hover }"
+      :icon="icon"
+      class="v-card--material-stats"
+      v-bind="$attrs"
+      v-on="$listeners"
     >
-      <v-divider />
-    </v-col>
+      <template v-slot:after-heading>
+        <div class="ml-auto text-right ">
+          <div
+            class="body-3 grey--text font-weight-light font-size-ather-roboto-mono-name-page"
+            v-text="title"
+          />
 
-    <v-icon
-      :color="subIconColor"
-      size="16"
-      class="ml-2 mr-1"
-    >
-      {{ subIcon }}
-    </v-icon>
+          <h3
+            class="font-weight-light text--primary font-size-ather-roboto-mono"
+          >
+            {{ value }} <small>{{ smallValue }}</small>
+          </h3>
+        </div>
+      </template>
 
-    <span
-      :class="subTextColor"
-      class="grey--text font-weight-light"
-      v-text="subText"
-    />
-  </base-material-card>
+      <v-col
+        cols="12"
+        class="px-0"
+      >
+        <v-divider />
+      </v-col>
+
+      <v-icon
+        :color="subIconColor"
+        size="16"
+        class="ml-2 mr-1"
+      >
+        {{ subIcon }}
+      </v-icon>
+
+      <span
+        :class="subTextColor"
+        class="grey--text font-weight-light"
+        v-text="subText"
+      />
+    </base-material-card>
+  </v-hover>
 </template>
 
 <script>
@@ -110,4 +119,8 @@
 
   .v-card__actions
     flex: 1 0 100%
+
+.v-card .v-card--material__heading
+  &:hover
+    top: -8px
 </style>

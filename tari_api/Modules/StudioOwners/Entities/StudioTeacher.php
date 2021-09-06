@@ -4,11 +4,12 @@ namespace Modules\StudioOwners\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Studio\Entities\Studio;
 
 class StudioTeacher extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [];
     protected $table = 'studios_teachers';

@@ -533,13 +533,9 @@
       computedClasses () {
         return this.$store.state.ownerStudioClasses.data
       },
-      computedInstructor () {
-        return this.$store.state.studioInstructor.data
-      },
     },
     mounted () {
       this.getDataClassesStudio()
-      this.getDataTeacherStudio()
     },
     methods: {
       setColorStatus (status) {

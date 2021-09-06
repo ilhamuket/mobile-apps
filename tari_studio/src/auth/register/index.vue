@@ -26,7 +26,8 @@
               <v-divider />
 
               <v-stepper-step
-                editable
+                :editable="e1 > 3 || disable_state_three ? true : false"
+                :complete="e1 > 3"
                 step="3"
               >
                 Tahap Akhir
@@ -45,11 +46,7 @@
                 />
               </v-stepper-content>
 
-              <v-stepper-content
-                :editable="e1 > 3 || disable_state_three ? true : false"
-                :complete="e1 > 3"
-                step="3"
-              >
+              <v-stepper-content step="3">
                 <app-card-final
                   :data="studio"
                   @register="registerAsStudio"

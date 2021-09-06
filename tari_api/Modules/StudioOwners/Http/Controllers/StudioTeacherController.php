@@ -11,6 +11,59 @@ use Modules\StudioOwners\Entities\StudioTeacher;
 
 class StudioTeacherController extends Controller
 {
+    public function deletedBroadCast(Request $request)
+    {
+        if (is_array($request->id)) {
+            $id = [];
+            $id = $request->id;
+            foreach ($id as $teacher_id) {
+                $master = StudioTeacher::findOrFail($teacher_id);
+                $master->delete();
+            }
+            return Json::response($master);
+        } else {
+            return Json::exception("Not Found");
+        }
+    }
+    public function approvedBroadcast(Request $request)
+    {
+        try {
+            if (is_array($request->id)) {
+                $id = [];
+                $id = $request->id;
+                foreach ($id as $teacher_id) {
+                    $master = StudioTeacher::findOrFail($teacher_id);
+                    $master->is_verified = true;
+                    $master->save();
+                }
+                return Json::response($master);
+            } else {
+                return Json::exception("Not Found");
+            }
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+    public function approved(Request $request)
+    {
+        try {
+            $master = StudioTeacher::findOrFail($id);
+            $master->is_verified = true;
+            $master->save();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     public function summary(Request $request)
     {
         try {
@@ -137,7 +190,24 @@ class StudioTeacherController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $teacher = StudioTeacher::findOrFail($id);
+            $teacher->name = $request->input('name', $teacher->name);
+            $teacher->email = $request->input('email', $teacher->email);
+            $teacher->region = $request->input('region', $teacher->region);
+            $teacher->contact = $request->input('contact', $teacher->contact);
+            $teacher->profession = $request->input('profession', $teacher->profession);
+            $teacher->about = $request->input('about', $teacher->about);
+            $teacher->save();
+
+            return Json::response($teacher);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**
@@ -147,6 +217,16 @@ class StudioTeacherController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $studio = StudioTeacher::findOrFail($id);
+            $studio->delete();
+            return Json::response($studio);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 }

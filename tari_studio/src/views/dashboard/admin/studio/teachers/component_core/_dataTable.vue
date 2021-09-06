@@ -69,6 +69,7 @@
             class="ml-2"
             outlined
             color="blue"
+            @click="popUpApprove(selected)"
           >
             <v-icon>
               mdi-check-decagram
@@ -79,6 +80,7 @@
             :disabled="selected.length === 0"
             outlined
             color="red"
+            @click="popDelete(selected)"
           >
             <v-icon>
               mdi-delete-empty-outline
@@ -143,7 +145,7 @@
                       v-bind="attrs"
                       v-on="on"
                     >
-                      {{ item.name.substr(0, 9) }}
+                      {{ item.name.substr(0, 9) + '..' }}
                     </span>
                   </template>
                   <span>{{ item.name }}</span>
@@ -156,7 +158,7 @@
                     <div class="d-flex flex-column flex-nowrap mt-2">
                       <a
                         class="font-a d-flex flex-nowrap"
-                        @click="editPopUp(item)"
+                        @click="popEditForm(item)"
                       >
                         <v-icon
                           small
@@ -189,11 +191,16 @@
               </div>
             </template>
             <template #[`item.is_verified`]="{item}">
-              {{
-                item.is_verified === 1
-                  ? $t('table.approved')
-                  : $t('table.non_approved')
-              }}
+              <v-chip
+                :color="setColorVerified(item.is_verified)"
+                class="text-capitalize chips--weight"
+              >
+                {{
+                  item.is_verified === 1
+                    ? $t('table.approved')
+                    : $t('table.non_approved')
+                }}
+              </v-chip>
             </template>
           </v-data-table>
         </v-col>
@@ -248,6 +255,22 @@
     methods: {
       createTeachers () {
         this.$emit('create')
+      },
+      popEditForm (item) {
+        this.$emit('edit', { item: item })
+      },
+      popUpApprove (item) {
+        this.$emit('approve', { item: item })
+      },
+      popDelete (item) {
+        this.$emit('deletes', { item: item })
+      },
+      deleteByIdPopUp (item) {
+        this.$emit('deleteById', { item: item })
+      },
+      setColorVerified (status) {
+        if (status === 1) return 'primary'
+        else return 'red'
       },
     },
   }
