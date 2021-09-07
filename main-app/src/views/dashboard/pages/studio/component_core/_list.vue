@@ -16,6 +16,18 @@
             style="cursor:pointer"
             @click="clickPush(list.slug)"
           />
+          <v-list-item-avatar
+            v-else
+            tile
+            color="primary"
+            width="400"
+            height="200"
+          >
+            <span
+              v-if="list.name"
+              class="text-h1 font-title-rampart-one custome-brad custumize-class"
+            >ET</span>
+          </v-list-item-avatar>
 
           <v-card-subtitle style="text-transform: capitalize">
             <div class="d-flex flex-row mb-2">
@@ -169,6 +181,21 @@
     data: () => ({
       show: false,
     }),
+    computed: {
+      initials () {
+        let result = ''
+        for (const name in this.data) {
+          if (Object.hasOwnProperty.call(this.data, name)) {
+            const initials = this.data[name]
+            const fullName = initials.name.split(' ')
+            const initial = fullName.shift().chart(0) + fullName.pop().chart(0)
+            result = initial.toUpperCase()
+          }
+        }
+
+        return result
+      },
+    },
     methods: {
       clickPush (slug) {
         this.$router.push(`/${slug}/home`)
@@ -188,4 +215,6 @@
 .v-card
     margin-top: 0px
     margin-bottom: 0px
+.custumize-class
+  color: white !important
 </style>

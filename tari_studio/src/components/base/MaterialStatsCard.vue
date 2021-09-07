@@ -12,15 +12,13 @@
       v-on="$listeners"
     >
       <template v-slot:after-heading>
-        <div class="ml-auto text-right ">
+        <div class="ml-auto text-right font-size-ather-roboto-mono">
           <div
             class="body-3 grey--text font-weight-light font-size-ather-roboto-mono-name-page"
             v-text="title"
           />
 
-          <h3
-            class="font-weight-light text--primary font-size-ather-roboto-mono"
-          >
+          <h3 class="">
             {{ value }} <small>{{ smallValue }}</small>
           </h3>
         </div>

@@ -182,6 +182,8 @@ router.beforeEach((to, from, next) => {
         } else if (to.name === 'Verifications') {
           next({ path: '/' })
         }
+      } else {
+        next({})
       }
     }
 

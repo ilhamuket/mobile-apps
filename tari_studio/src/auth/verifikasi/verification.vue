@@ -15,7 +15,6 @@
         axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
         axios.get('auth/verifications').then(res => {
-          console.log(res)
           if (res.data.meta.status) {
             const Toast = this.$swal.mixin({
               toast: true,

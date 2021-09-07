@@ -158,11 +158,30 @@
           })
           .then(res => {
             if (res.meta.status) {
-              this.$store.dispatch('user/me').then(res => {
-                if (res.data.data.isVerified === 0) {
+              this.$store.dispatch('user/me').then(response => {
+                if (response.data.data.isVerified === 0) {
                   this.$router.push('/verification')
                 } else {
                   this.$router.push('/')
+                  const Toast = this.$swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: toast => {
+                      toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                      toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                    },
+                    popup: 'swal2-show',
+                    backdrop: 'swal2-backdrop-show',
+                    icon: 'swal2-icon-show',
+                  })
+
+                  Toast.fire({
+                    icon: 'success',
+                    title: `Succes Login As ${response.data.data.nickName}`,
+                  })
                 }
               })
             } else {

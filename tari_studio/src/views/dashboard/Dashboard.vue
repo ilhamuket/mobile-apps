@@ -180,7 +180,7 @@
             <base-material-stats-card
               color="info"
               icon="mdi-twitter"
-              title="Followers"
+              title="All"
               value="+245"
               sub-icon="mdi-clock"
               sub-text="Just Updated"

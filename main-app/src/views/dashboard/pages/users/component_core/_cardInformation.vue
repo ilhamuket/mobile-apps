@@ -25,7 +25,7 @@
 
     <v-list
       v-if="me.following_studio"
-      max-height="386"
+      max-height="290"
       class="overflow-y-auto"
     >
       <v-list-item
