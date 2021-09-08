@@ -53,32 +53,6 @@ class AuthStudioController extends Controller
 
             // dd($users->id);
 
-            if ($request->hasfile('img')) {
-                //getting the file from view
-                $image = $request->file('img');
-                $image_size = $image->getSize();
-
-                //getting the extension of the file
-                $image_ext = $image->getClientOriginalExtension();
-
-                //changing the name of the file
-                $new_image_name = rand(123456, 999999) . "." . $image_ext;
-
-                $destination_path = public_path('images');
-                $image->move($destination_path, $new_image_name);
-
-                // save to database
-                $thumbnail = new ImagesStudio();
-                $thumbnail->name_thumbnail = $new_image_name;
-                // $path = $request->photo->store('images');
-                // $publicPath = \Storage::url($path);
-                $thumbnail->url =  'images/' . $new_image_name;
-                $thumbnail->studio_id = $request->studio_id;
-                $thumbnail->type = 'thumbnail';
-                $thumbnail->save();
-            }
-
-
             if (is_array($request->url)) {
                 foreach ($request->url as $url) {
                     if ($url['option'] != null) {

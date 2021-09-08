@@ -1,0 +1,35 @@
+/* Working Space */
+.workingspace {
+    margin-top: 120px;
+    text-align: center;
+}
+
+.workingspace h3 {
+    font-size: 52px;
+    font-weight: 200;
+    text-transform: uppercase;
+    margin-top: 9px;
+    font-family: "Roboto";
+}
+
+.workingspace img {
+    height: 300px;
+    width: 400px;
+    /* /* margin-left: 60px; */
+    border-radius: 20px;
+}
+
+.workingspace .overlay {
+    overflow-y: auto;
+    max-height: 150px;
+}
+
+.workingspace h3 span {
+    font-weight: 400;
+}
+.workingspace p {
+    font-size: 18px;
+    color: #acacac;
+    font-weight: 200;
+    margin: 25px 0;
+}

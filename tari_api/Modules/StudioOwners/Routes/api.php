@@ -7,6 +7,7 @@ use Modules\StudioOwners\Entities\ClassesOwnerStudio;
 use Modules\StudioOwners\Entities\StudioTeacher;
 use Modules\StudioOwners\Entities\SubClassOwnerStudio;
 use Modules\StudioOwners\Http\Controllers\ClassesOwnerStudioController;
+use Modules\StudioOwners\Http\Controllers\StudioOwnerVidioController;
 use Modules\StudioOwners\Http\Controllers\StudioTeacherController;
 use Modules\StudioOwners\Http\Controllers\SubClassOwnerStudioController;
 
@@ -53,6 +54,17 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
         Route::delete('delete/{id}', [StudioTeacherController::class, 'destroy']);
         Route::prefix('summary')->group(function () {
             Route::get('', [StudioTeacherController::class, 'summary']);
+        });
+    });
+
+    Route::prefix('vidio')->group(function () {
+        Route::get('', [StudioOwnerVidioController::class, 'index']);
+        Route::post('', [StudioOwnerVidioController::class, 'store']);
+        Route::delete('{id}', [StudioOwnerVidioController::class, 'destroy']);
+        Route::post('go-publish', [StudioOwnerVidioController::class, 'goPublish']);
+        Route::post('deletes', [StudioOwnerVidioController::class, 'delBroadcast']);
+        Route::prefix('summary')->group(function () {
+            Route::get('', [StudioOwnerVidioController::class, 'summary']);
         });
     });
 });

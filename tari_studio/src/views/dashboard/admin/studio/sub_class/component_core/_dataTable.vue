@@ -91,6 +91,7 @@
             :items="items"
             show-select
             :search="search"
+            mobile-breakpoint="0"
           >
             <!-- Header -->
             <template #[`header.title`]="{ header }">

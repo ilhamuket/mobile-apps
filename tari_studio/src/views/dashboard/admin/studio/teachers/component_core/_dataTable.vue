@@ -88,14 +88,18 @@
             Delete {{ selected.length }} item
           </v-btn>
         </v-col>
-        <v-col>
+        <v-col v-resize="onResize">
           <v-data-table
             v-model="selected"
             :headers="headers"
             :items="data"
             show-select
             :search="search"
+            :class="{ mobile: isMobile }"
+            mobile-breakpoint="0"
           >
+            <!-- Mobile -->
+
             <!-- Header -->
             <template #[`header.name`]="{ header }">
               {{ $t(header.text) }}
@@ -218,6 +222,7 @@
       },
     },
     data: () => ({
+      isMobile: false,
       headers: [
         {
           text: 'table.teachers.th.fullName',
@@ -226,7 +231,7 @@
           value: 'name',
         },
         { text: 'table.teachers.th.email', value: 'email' },
-        { text: 'table.teachers.th.region', value: 'region' },
+        { text: 'table.teachers.th.region', value: 'region', sortable: false },
         { text: 'table.teachers.th.contact', value: 'contact' },
         { text: 'table.teachers.th.profession', value: 'profession' },
         { text: 'table.teachers.th.approved', value: 'is_verified' },
@@ -252,7 +257,14 @@
         return title
       },
     },
+    mounted () {
+      console.log(this.isMobile)
+    },
     methods: {
+      onResize () {
+        if (window.innerWidth < 769) this.isMobile = true
+        else this.isMobile = false
+      },
       createTeachers () {
         this.$emit('create')
       },

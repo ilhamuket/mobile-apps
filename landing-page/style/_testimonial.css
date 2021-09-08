@@ -1,0 +1,60 @@
+/* Testimonial */
+.testimonial {
+    margin-top: 100px;
+}
+
+.testimonial .quote h5 {
+    font-family: "Roboto";
+    text-align: center;
+    font-weight: 20;
+    font-size: 54px;
+    margin-bottom: 60px;
+}
+
+.testimonial .card .card-title {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 32px;
+    font-weight: 900;
+    color: #7BB6BF;
+}
+
+.testimonial .card img {
+    width: 100px;
+    margin-left: 173px;
+    margin-top: -35px;
+}
+
+.testimonial .card {
+    border-radius: 20px;
+    margin-top: 35px;
+    width: 180rem;
+}
+.testimonial .card .card-title-price {
+    font-weight: 500;
+    margin-top: 20px;
+    color: #61CE70;
+}
+.b, strong {
+    font-weight: 700;
+}
+.testimonial .card .card-body p {
+    font-family: "Roboto Consedered";
+}
+
+.testimonial figure figcaption span {
+    margin-top: -30px;
+}
+
+.testimonial .card .card-body .btn-register {
+    margin: 20px 0;
+    border-radius: 40px;
+    width: 200px;
+    margin-left: 93px;
+}
+
+.testimonial .card .customize {
+    margin-top: -20px;
+}
+
+

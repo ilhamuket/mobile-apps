@@ -92,11 +92,21 @@
       "th": {
         "fullName": "FullName",
         "email": "E-mail",
-        "region": "Region",
+        "region": "Regional",
         "contact": "Contact",
         "profession": "Profesion",
         "approved": "Approval"
       }
+    },
+    "vidio": {
+      "th": {
+        "title": "Judul Vidio",
+        "status": "Status",
+        "studio": "Studio Name",
+        "author": "Author"
+      }
     }
-  }
+  },
+  "vidio_name": "Index Vidio",
+  "vidio_name_page": "Vidio"
 }

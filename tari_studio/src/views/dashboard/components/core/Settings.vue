@@ -32,9 +32,9 @@
         width="300"
       >
         <v-card-text>
-          <strong class="mb-3 d-inline-block">SIDEBAR FILTERS</strong>
+          <strong class="mb-3 d-inline-block">Mobile Settings</strong>
 
-          <v-item-group v-model="color">
+          <!-- <v-item-group v-model="color">
             <v-item
               v-for="color in colors"
               :key="color"
@@ -50,7 +50,7 @@
                 />
               </template>
             </v-item>
-          </v-item-group>
+          </v-item-group> -->
 
           <v-divider class="my-4 secondary" />
 
@@ -76,7 +76,58 @@
 
           <v-divider class="my-4 secondary" />
 
-          <v-row
+          <v-row>
+            <v-col cols="12">
+              <v-select
+                v-model="$i18n.locale"
+                outlined
+                dense
+                :items="lenguage"
+                item-text="name"
+                item-value="name"
+              >
+                <template
+                  slot="selection"
+                  slot-scope="data"
+                >
+                  <slot
+                    name="item"
+                    v-bind="data"
+                  >
+                    <v-chip
+                      color="transparent"
+                      style="text-transform: uppercase"
+                    >
+                      <v-avatar left>
+                        <v-img :src="data.item.img" />
+                      </v-avatar>
+                      {{ data.item.name }}
+                    </v-chip>
+                  </slot>
+                </template>
+                <template
+                  slot="item"
+                  slot-scope="data"
+                >
+                  <slot
+                    name="item"
+                    v-bind="data"
+                  >
+                    <v-chip
+                      color="transparent"
+                      class="text-uppercase"
+                    >
+                      <v-avatar left>
+                        <v-img :src="data.item.img" />
+                      </v-avatar>
+                      {{ data.item.name }}
+                    </v-chip>
+                  </slot>
+                </template>
+              </v-select>
+            </v-col>
+          </v-row>
+          <!-- <v-row
             align="center"
             no-gutters
           >
@@ -94,7 +145,7 @@
                 hide-details
               />
             </v-col>
-          </v-row>
+          </v-row> -->
 
           <v-divider class="my-4 secondary" />
 
@@ -208,6 +259,18 @@
       menu: false,
       saveImage: '',
       showImg: true,
+      lenguage: [
+        {
+          name: 'en',
+          img:
+            'https://media.istockphoto.com/vectors/flag-of-great-britain-vector-id497118178?s=612x612',
+        },
+        {
+          name: 'id',
+          img:
+            'https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg',
+        },
+      ],
     }),
 
     computed: {

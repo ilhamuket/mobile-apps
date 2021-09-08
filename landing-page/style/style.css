@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Rampart+One&display=swap');
+@import url("_navbar.css");
+@import url("_jumbotron.css");
+@import url("_info-pannel.css");
+@import url("_working-space.css");
+@import url("_testimonial.css");
+@import url("_footer.css");
+@import url("_join.css");
+
+
+body {
+    background-color: #f0f2f5;
+}
+.icon {
+    color: #79C17D !important;
+}
+.icon-lock {
+    color: red;
+}
+.most {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+.most:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.opacity {
+    opacity: 0;
+}
+
+/* Desktop Version */
+@media (min-width: 992px) {
+    .navbar-brand {
+        margin-left: -61px;
+        font-size: 40px;
+           color: #9BA1C4 !important;
+    }
+    .nav-link {
+        color: #D2E7EA !important;
+        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7);
+        font-family: "Roboto Condensed", Open Sans;;
+        font: 20px;
+    }
+    .nav-link {
+        text-transform: uppercase;
+        margin-right: 20px;
+    }
+
+    /* Utility */
+    .tombol {
+        text-transform: uppercase;
+        border-radius: 40px;
+        width: 200px;
+    }
+    .tombol-regis {
+        border-radius: 20px;
+    }
+    .w-100 {
+        width: 100%!important;
+        margin-left: 20px;
+    }
+
+    .nav-link:hover::after {
+        content: '';
+        display: block;
+        border-bottom: 3px solid #0b63dc;
+        width: 50%;
+        margin: auto;
+        padding-bottom: 5px;
+        margin-bottom: -8px;
+    }
+
+    .jumbotron {
+        margin-top: -89px;
+    }
+    .jumbotron .display-4  {
+        font-size: 62px;
+    }
+    .workingspace {
+        text-align: left;
+    }
+    .testimonial h5 {
+        font-size: 32px;
+    }
+    .testimonial .card {
+        border-radius: 20px;
+        margin-top: -15px;
+    }
+
+    .testimonial .card img {
+        width: 100px;
+        margin-left: 127px;
+        margin-top: -35px;
+    }
+
+    .testimonial .card .card-body .btn-register {
+        margin: 20px 0;
+        margin-left: 44px;
+    }
+}

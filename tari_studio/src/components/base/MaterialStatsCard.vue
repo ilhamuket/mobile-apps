@@ -1,51 +1,44 @@
 <template>
-  <v-hover
-    v-slot="{ hover }"
-    open-delay="200"
+  <base-material-card
+    :icon="icon"
+    class="v-card--material-stats"
+    v-bind="$attrs"
+    v-on="$listeners"
   >
-    <base-material-card
-      :elevation="hover ? 16 : 2"
-      :class="{ 'on-hover': hover }"
-      :icon="icon"
-      class="v-card--material-stats"
-      v-bind="$attrs"
-      v-on="$listeners"
+    <template v-slot:after-heading>
+      <div class="ml-auto text-right font-size-ather-roboto-mono">
+        <div
+          class="body-3 grey--text font-weight-light font-size-ather-roboto-mono-name-page"
+          v-text="title"
+        />
+
+        <h3 class="">
+          {{ value }} <small>{{ smallValue }}</small>
+        </h3>
+      </div>
+    </template>
+
+    <v-col
+      cols="12"
+      class="px-0"
     >
-      <template v-slot:after-heading>
-        <div class="ml-auto text-right font-size-ather-roboto-mono">
-          <div
-            class="body-3 grey--text font-weight-light font-size-ather-roboto-mono-name-page"
-            v-text="title"
-          />
+      <v-divider />
+    </v-col>
 
-          <h3 class="">
-            {{ value }} <small>{{ smallValue }}</small>
-          </h3>
-        </div>
-      </template>
+    <v-icon
+      :color="subIconColor"
+      size="16"
+      class="ml-2 mr-1"
+    >
+      {{ subIcon }}
+    </v-icon>
 
-      <v-col
-        cols="12"
-        class="px-0"
-      >
-        <v-divider />
-      </v-col>
-
-      <v-icon
-        :color="subIconColor"
-        size="16"
-        class="ml-2 mr-1"
-      >
-        {{ subIcon }}
-      </v-icon>
-
-      <span
-        :class="subTextColor"
-        class="grey--text font-weight-light"
-        v-text="subText"
-      />
-    </base-material-card>
-  </v-hover>
+    <span
+      :class="subTextColor"
+      class="grey--text font-weight-light"
+      v-text="subText"
+    />
+  </base-material-card>
 </template>
 
 <script>
@@ -118,7 +111,7 @@
   .v-card__actions
     flex: 1 0 100%
 
-.v-card .v-card--material__heading
+.v-card .icon--head
   &:hover
     top: -8px
 </style>

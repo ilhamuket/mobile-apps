@@ -1,0 +1,29 @@
+.joinWithUs {
+    margin-top: 74px;
+}
+
+.joinWithUs .card .card-header {
+    font-family: 'Rampart One','Viga', sans-serif;
+    font-weight: 900;
+    color: #6F78AC;
+}
+
+.joinWithUs .card .card-body {
+    margin-top: 101px;
+}
+
+.joinWithUs .card .img-to-top {
+    width: 300px;
+    margin-right: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.joinWithUs .card .card-body .svg-1 {
+    width: 60px;
+    margin-right: 385px;
+}
+.joinWithUs .card .card-body ul li .text-1 {
+    margin-right: 185px;
+    margin-bottom: 200px;
+}

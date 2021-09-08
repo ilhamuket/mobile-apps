@@ -2,18 +2,19 @@
   <v-navigation-drawer
     id="core-navigation-drawer"
     v-model="drawer"
+    :expand-on-hover="expandOnHover"
+    :right="$vuetify.rtl"
     :class="
       $vuetify.theme.dark
         ? 'custumize-dark height-max font-size-ather-roboto-mono-name-page'
         : 'custumize-light height-max font-size-ather-roboto-mono-name-page'
     "
-    :mini-variant="!drawer"
-    :right="$vuetify.rtl"
+    :src="barImage"
     mobile-breakpoint="960"
     app
     width="260"
+    bottom
     v-bind="$attrs"
-    permanent
   >
     <template v-slot:img="props">
       <v-img
@@ -52,7 +53,7 @@
           small
           @click.stop="drawer = !drawer"
         >
-          <v-icon>mdi-chevron-left</v-icon>
+          <v-icon>mdi-chevron-down</v-icon>
         </v-btn>
       </v-list-item>
     </v-list>
@@ -117,7 +118,7 @@
     props: {
       expandOnHover: {
         type: Boolean,
-        default: true,
+        default: false,
       },
     },
 
@@ -145,8 +146,8 @@
         },
         {
           icon: 'mdi-shopping-music',
-          title: 'vidio_name_page',
-          to: '/vidio',
+          title: 'studio',
+          to: '/studio',
         },
         {
           icon: 'mdi-account',
@@ -188,7 +189,7 @@
           return this.$store.state.drawer
         },
         set (val) {
-          this.$store.commit('SET_DRAWER', (val = false))
+          this.$store.commit('SET_DRAWER', val)
         },
       },
       computedItems () {
@@ -200,9 +201,6 @@
           title: this.$t('avatar'),
         }
       },
-    },
-    mounted () {
-      console.log(this.$vuetify.breakpoint.mdAndDown)
     },
 
     methods: {

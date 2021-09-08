@@ -4,7 +4,11 @@
     tag="section"
   >
     <v-row>
-      <v-col cols="12">
+      <!-- Card Detail -->
+      <v-col
+        class="d-none d-md-flex"
+        cols="12"
+      >
         <v-card class="rounded-xl">
           <v-img
             height="140"
@@ -21,7 +25,10 @@
           </v-img>
         </v-card>
       </v-col>
-      <v-col cols="12">
+      <v-col
+        class="d-none d-md-flex"
+        cols="12"
+      >
         <v-card
           width="97%"
           class="rounded-xl card"
@@ -52,13 +59,17 @@
                     </div>
                     <div class="d-flex flex-row">
                       <div class="d-flex flex-column">
-                        <span class="text-h4 font-size-ather-roboto-mono s-16">
+                        <span
+                          class="text-h4 font-size-ather-roboto-mono s-16 weight-200"
+                        >
                           HuripStudio@tari.id -
                         </span>
                       </div>
 
                       <div class="d-flex flex-column ml-2">
-                        <span class="text-h4 font-size-ather-roboto-mono s-16">
+                        <span
+                          class="text-h4 font-size-ather-roboto-mono s-16 weight-200"
+                        >
                           0897524236451
                         </span>
                       </div>
@@ -98,6 +109,88 @@
           </v-container>
         </v-card>
       </v-col>
+      <!-- End Card Detail -->
+      <!-- Card Detail Mobile -->
+      <v-col
+        v-if="$vuetify.breakpoint.mdAndDown"
+        cols="12"
+      >
+        <v-card>
+          <v-container>
+            <v-row>
+              <v-col>
+                <v-row>
+                  <v-col
+                    class="natural--card"
+                    cols="3"
+                  >
+                    <v-img
+                      class="rounded-xl"
+                      width="60"
+                      src="https://demos.creative-tim.com/muse-vue-ant-design-dashboard/images/face-1.jpg"
+                    />
+                  </v-col>
+                  <v-col
+                    cols="9"
+                    class="text--responsive"
+                  >
+                    <div class="d-flex flex-row ">
+                      <div class="d-flex flex-column">
+                        <span
+                          class="text-h4 font-size-ather-roboto-mono font-weight-bold"
+                        >
+                          Hai, Studio Hurip
+                        </span>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-row">
+                      <div class="d-flex flex-column">
+                        <span
+                          class="text-h4 font-size-ather-roboto-mono s-16 weight-200"
+                        >
+                          HuripStudio@tari.id -
+                        </span>
+                      </div>
+
+                      <div class="d-flex flex-column ml-2">
+                        <span
+                          class="text-h4 font-size-ather-roboto-mono s-16 weight-200"
+                        >
+                          0897524236451
+                        </span>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-row">
+                      <div class="d-flex flex-column">
+                        <v-btn
+                          small
+                          width="100"
+                          outlined
+                          color="primary"
+                        >
+                          Info
+                        </v-btn>
+                      </div>
+                      <div class="d-flex flex-column">
+                        <v-btn
+                          small
+                          width="100"
+                          class="ml-2"
+                          outlined
+                          color="primary"
+                        >
+                          Info
+                        </v-btn>
+                      </div>
+                    </div>
+                  </v-col>
+                </v-row>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card>
+      </v-col>
+      <!-- EndCard Detail Mobile -->
       <v-col
         cols="12"
         md="4"
@@ -284,9 +377,9 @@
 </template>
 
 <script>
-  import database from './database/daily.json'
-  // import moment from 'moment'
-  // import chart from './component/Chart'
+// import database from './database/daily.json'
+// import moment from 'moment'
+// import chart from './component/Chart'
   export default {
     name: 'DashboardDashboard',
     components: {
@@ -298,7 +391,7 @@
           responsive: true,
           maintainAspectRatio: false,
         },
-        database: database,
+        // database: database,
         value: [423, 446, 675, 510, 590, 610, 760],
         dailySalesChart: {
           data: {
@@ -562,4 +655,13 @@
   font-size: 59px !important
 .natural--card
   margin-right: -65px !important
+.weight-200
+  font-weight: 200 !important
+</style>
+<style scoped>
+@media (max-width: 576px) {
+  .text--responsive {
+    margin-left: 20px;
+  }
+}
 </style>

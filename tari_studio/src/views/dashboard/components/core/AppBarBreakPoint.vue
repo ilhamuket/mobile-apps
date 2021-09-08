@@ -51,7 +51,7 @@
     </v-toolbar-title>
     <v-spacer />
 
-    <v-col cols="2">
+    <!-- <v-col cols="2">
       <div class="d-flex flex-row mt-6 mr-2">
         <div class="d-flex flex-column justify-start ml-6">
           <v-select
@@ -104,7 +104,7 @@
           </v-select>
         </div>
       </div>
-    </v-col>
+    </v-col> -->
     <!--
     <v-text-field
       :label="$t('search')"
@@ -190,7 +190,7 @@
     >
       <v-icon>mdi-account</v-icon>
     </v-btn> -->
-    <v-switch
+    <!-- <v-switch
       v-model="$vuetify.theme.dark"
       :prepend-icon="
         $vuetify.theme.dark ? 'mdi-theme-light-dark' : 'mdi-white-balance-sunny'
@@ -199,7 +199,7 @@
       color="success"
       hide-details
       @click="toogle_dark_theme"
-    />
+    /> -->
 
     <v-menu
       bottom

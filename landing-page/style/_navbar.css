@@ -1,0 +1,20 @@
+/* Navbar All*/
+.navbar {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    /* background-color: #fff; */
+    /* position: fixed;
+    top: 0;
+    width: 100%; */
+}
+.navbar img {
+    width: 200px;
+    height: 30px;
+}
+.navbar-brand {
+    font-family: 'Rampart One','Viga', sans-serif;
+    font-size: 20px;
+    /* background-image: url(../img/200x30px.png); */
+    /* margin-top: 20px; */
+}

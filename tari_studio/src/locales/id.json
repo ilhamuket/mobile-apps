@@ -97,6 +97,16 @@
                 "profession": "Professi",
                 "approved": "persetujuan"
             }
+        },
+        "vidio": {
+            "th": {
+                "title": "Judul Vidio",
+                "status": "Status",
+                "studio": "Nama Studio",
+                "author": "Pembuat"
+            }
         }
-    }
+    },
+    "vidio_name": "Index Vidio",
+    "vidio_name_page": "Vidio"
 }

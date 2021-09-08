@@ -23,7 +23,7 @@
         :max-height="icon ? 90 : undefined"
         :width="icon ? 'auto' : '100%'"
         elevation="6"
-        class="text-start v-card--material__heading mb-n6"
+        class="text-start v-card--material__heading icon--head mb-n6"
         dark
       >
         <slot
@@ -45,6 +45,7 @@
         <v-icon
           v-else-if="icon"
           size="32"
+          class=""
           v-text="icon"
         />
 

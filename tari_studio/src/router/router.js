@@ -18,7 +18,7 @@ const router = new Router({
         {
           name: 'dashboard',
           path: '',
-          component: () => import('@/views/dashboard/Dashboard'),
+          component: () => import('@/views/dashboard/main/Dashboard'),
           meta: {
             requiresAuth: true,
           },
@@ -96,6 +96,15 @@ const router = new Router({
           path: '/sub-class',
           component: () =>
             import('@/views/dashboard/admin/studio/sub_class/index'),
+          meta: {
+            requiresAuth: true,
+          },
+        },
+        // Vidio
+        {
+          name: 'vidio_name',
+          path: '/vidio',
+          component: () => import('@/views/dashboard/admin/studio/vidio/index'),
           meta: {
             requiresAuth: true,
           },

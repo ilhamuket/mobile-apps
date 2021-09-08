@@ -83,7 +83,10 @@
           Continue
         </v-btn>
 
-        <v-btn text>
+        <v-btn
+          text
+          @click="cancel"
+        >
           Cancel
         </v-btn>
       </v-form>
@@ -121,6 +124,9 @@
       },
     },
     methods: {
+      cancel () {
+        this.$router.push('/login')
+      },
       nextStep () {
         this.$emit('next', { item: this.data })
       },
