@@ -32,7 +32,7 @@
             <v-menu offset-y>
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
-                  color="primary"
+                  color="btn_primary"
                   dark
                   v-bind="attrs"
                   outlined
@@ -54,7 +54,7 @@
           </div>
           <v-btn
             outlined
-            color="primary"
+            color="btn_primary"
             class="ml-2"
             @click="createTeachers"
           >
@@ -134,7 +134,7 @@
               <div class="mt-6">
                 <v-list-item-avatar
                   size="23"
-                  color="primary"
+                  color="btn_primary"
                 >
                   <!-- <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg" /> -->
                   <span>{{ item.name.charAt(0) }}</span>

@@ -4,6 +4,11 @@ export default {
   namespaced: true,
   state: {
     data: [],
+    summary: {
+      all: 5,
+      publish: 1,
+      new: 1,
+    },
   },
   getters: {},
   mutations: {
@@ -41,6 +46,7 @@ export default {
         state.data.splice(index, 1)
       }
     },
+    GET_DATA_SUMMARY: (state, payload) => (state.summary = payload),
   },
   actions: {
     getDataVidio: ({ commit }, payload) => {
@@ -72,6 +78,7 @@ export default {
           .then(res => {
             const data = res.data.data
             commit('INSERT_DATA', data)
+            resolve(res)
           })
           .catch(e => {
             reject(e)
@@ -124,6 +131,25 @@ export default {
           .delete(`owner/vidio/${payload.id}`)
           .then(res => {
             commit('DELETES_DATA_BY_ID', payload.id)
+            resolve(res)
+          })
+          .catch(e => {
+            reject(e)
+          })
+      })
+    },
+
+    // Summary
+    getDataSummary: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        'Bearer ' + localStorage.getItem('access_token')
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        axios
+          .get('owner/vidio/summary')
+          .then(res => {
+            commit('GET_DATA_SUMMARY', res.data.data)
             resolve(res)
           })
           .catch(e => {

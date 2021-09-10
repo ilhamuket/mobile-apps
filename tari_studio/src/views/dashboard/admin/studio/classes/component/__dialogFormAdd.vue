@@ -71,7 +71,7 @@
                       <span>{{ data.item.name.charAt(0) }}</span>
                     </v-list-item-avatar>
 
-                    {{ data.item.name }}
+                    <span class="black--text">{{ data.item.name }}</span>
                   </slot>
                 </template>
               </v-autocomplete>

@@ -28,7 +28,7 @@
     }),
     mounted () {
       this.$store.dispatch('user/me', {
-        entities: 'followingStudio',
+        entities: 'followingStudio, studio',
       })
     },
   }

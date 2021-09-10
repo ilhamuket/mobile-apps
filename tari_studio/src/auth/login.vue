@@ -149,6 +149,9 @@
         return this.sideImg
       },
     },
+    mounted () {
+      this.$vuetify.theme.dark = false
+    },
     methods: {
       login () {
         this.$store

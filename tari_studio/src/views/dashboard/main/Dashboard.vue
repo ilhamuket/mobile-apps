@@ -3,7 +3,45 @@
     id="dashboard"
     tag="section"
   >
-    <v-row>
+    <v-row v-if="is_load">
+      <loader
+        object="#ff9633"
+        color1="#ffffff"
+        color2="#24e544"
+        size="5"
+        speed="2"
+        bg="#343a40"
+        objectbg="#e79b04"
+        opacity="52"
+        disable-scrolling="false"
+        name="dots"
+      />
+      <v-row>
+        <v-col
+          cols="12"
+          md="12"
+        >
+          <v-skeleton-loader
+            class="bg-"
+            v-bind="attrsLoad"
+            type="date-picker"
+          />
+        </v-col>
+
+        <v-col cols="12">
+          <v-skeleton-loader
+            v-bind="attrsLoad"
+            type="list-item-avatar, divider, list-item-three-line, card-heading, image, actions"
+          />
+
+          <v-skeleton-loader
+            v-bind="attrsLoad"
+            type="list-item-avatar-three-line, image, article"
+          />
+        </v-col>
+      </v-row>
+    </v-row>
+    <v-row v-else>
       <!-- Card Detail -->
       <v-col
         class="d-none d-md-flex"
@@ -13,7 +51,7 @@
           <v-img
             height="140"
             class="img-oppa"
-            src="@/assets/5833439.jpg"
+            src="@/assets/ee.jpg"
           >
             <div class="d-flex flex-row justify-center">
               <div class="d-flex flex-column">
@@ -36,24 +74,24 @@
           <v-container>
             <v-row>
               <v-col cols="6">
-                <v-row>
+                <v-row v-if="users.studio">
                   <v-col
-                    class="natural--card"
                     cols="3"
+                    class="spsied"
                   >
-                    <v-img
-                      class="rounded-xl"
-                      width="60"
-                      src="https://demos.creative-tim.com/muse-vue-ant-design-dashboard/images/face-1.jpg"
-                    />
+                    <v-list-item-avatar
+                      size="50"
+                      color="primary"
+                      class="ml-2"
+                    >
+                      <span>{{ users.studio.name.charAt(0) }}</span>
+                    </v-list-item-avatar>
                   </v-col>
                   <v-col cols="9">
-                    <div class="d-flex flex-row mr-2 mt-2">
+                    <div class="d-flex flex-row mr-2 mt-3">
                       <div class="d-flex flex-column">
-                        <span
-                          class="text-h4 font-size-ather-roboto-mono font-weight-bold"
-                        >
-                          Hai, Studio Hurip
+                        <span class="text-h4 font-size-ather-roboto-mono">
+                          Hai, {{ users.studio.name }}
                         </span>
                       </div>
                     </div>
@@ -62,7 +100,7 @@
                         <span
                           class="text-h4 font-size-ather-roboto-mono s-16 weight-200"
                         >
-                          HuripStudio@tari.id -
+                          {{ users.studio.email }} -
                         </span>
                       </div>
 
@@ -70,7 +108,7 @@
                         <span
                           class="text-h4 font-size-ather-roboto-mono s-16 weight-200"
                         >
-                          0897524236451
+                          {{ users.studio.contact }}
                         </span>
                       </div>
                     </div>
@@ -199,7 +237,7 @@
           :data="dataCompletedTasksChart.data"
           :options="dataCompletedTasksChart.options"
           hover-reveal
-          color="info"
+          color="#843839"
           type="Line"
         >
           <template v-slot:reveal-actions>
@@ -387,6 +425,7 @@
     },
     data () {
       return {
+        is_load: true,
         chartOptions: {
           responsive: true,
           maintainAspectRatio: false,
@@ -596,6 +635,11 @@
             },
           ],
         },
+        attrsLoad: {
+          class: 'mb-6',
+          boilerplate: true,
+          elevation: 2,
+        },
         list: {
           0: false,
           1: false,
@@ -607,11 +651,28 @@
         arrOnVentilators: [],
         arrRecorvered: [],
         arrDeaths: [],
+        users: {},
       }
     },
-    computed: {},
-    mounted () {},
+    computed: {
+    // users () {
+    //   return this.$store.state.user.me
+    // },
+    },
+    mounted () {
+      this.me()
+    },
     methods: {
+      me () {
+        this.$store
+          .dispatch('user/me', {
+            entities: 'studio',
+          })
+          .then(res => {
+            this.users = res.data.data
+            this.is_load = false
+          })
+      },
       complete (index) {
         this.list[index] = !this.list[index]
       },
@@ -641,6 +702,24 @@
   }
 </script>
 <style lang="sass" scoped>
+.spsied
+  -webkit-box-flex: 0
+  -ms-flex: 0 0 25%
+  lex: 0 0 25%
+  max-width: 13%
+
+.theme--dark.v-skeleton-loader .v-skeleton-loader__actions, .theme--dark.v-skeleton-loader .v-skeleton-loader__article, .theme--dark.v-skeleton-loader .v-skeleton-loader__card-heading, .theme--dark.v-skeleton-loader .v-skeleton-loader__card-text, .theme--dark.v-skeleton-loader .v-skeleton-loader__date-picker, .theme--dark.v-skeleton-loader .v-skeleton-loader__list-item, .theme--dark.v-skeleton-loader .v-skeleton-loader__list-item-avatar, .theme--dark.v-skeleton-loader .v-skeleton-loader__list-item-text, .theme--dark.v-skeleton-loader .v-skeleton-loader__list-item-two-line, .theme--dark.v-skeleton-loader .v-skeleton-loader__list-item-avatar-two-line, .theme--dark.v-skeleton-loader .v-skeleton-loader__list-item-three-line, .theme--dark.v-skeleton-loader .v-skeleton-loader__list-item-avatar-three-line, .theme--dark.v-skeleton-loader .v-skeleton-loader__table-heading, .theme--dark.v-skeleton-loader .v-skeleton-loader__table-thead, .theme--dark.v-skeleton-loader .v-skeleton-loader__table-tbody, .theme--dark.v-skeleton-loader .v-skeleton-loader__table-tfoot
+    background: #283046 !important
+    background-image: initial
+    background-position-x: initial
+    background-position-y: initial
+    background-size: initial
+    background-repeat-x: initial
+    background-repeat-y: initial
+    background-attachment: initial
+    background-origin: initial
+    background-clip: initial
+    background-color: rgb(87, 38, 38)
 .v-card
   border-radius: 6px
   margin-top: 30px
@@ -650,14 +729,23 @@
   margin-top: -75px !important
   margin-left: 20px
 .custome-font
-  color: #384064 !important
+  color: #843839 !important
   font-weight: bold
   font-size: 59px !important
 .natural--card
   margin-right: -65px !important
 .weight-200
   font-weight: 200 !important
+.img--card
+  background-image: red !important
+// .theme--dark .v-skeleton-loader
+//   background-color: red !important
+// .theme--dark
+//   .v-expansion-panels .v-expansion-panel
+//     background-color: #283046 !important
+//     color: #FFFFFF
 </style>
+
 <style scoped>
 @media (max-width: 576px) {
   .text--responsive {

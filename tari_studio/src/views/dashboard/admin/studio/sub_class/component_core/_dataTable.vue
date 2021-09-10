@@ -28,7 +28,7 @@
             <v-menu offset-y>
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
-                  color="primary"
+                  color="btn_primary"
                   dark
                   v-bind="attrs"
                   outlined
@@ -50,7 +50,7 @@
           </div>
           <v-btn
             outlined
-            color="primary"
+            color="btn_primary"
             class="ml-2"
             to="create/sub-class"
           >
@@ -177,6 +177,15 @@
             <template #[`item.end_at`]="{item}">
               {{ item.time_end }}
             </template>
+            <template #[`item.classes.name`]=" {item}">
+              <v-chip
+                label
+                color="primary"
+                text-color="black"
+              >
+                {{ item.classes.name }}
+              </v-chip>
+            </template>
             <template #[`item.created_at`]="{item}">
               {{ item.created_at | moment('MMMM Do YYYY') }}
             </template>
@@ -219,9 +228,8 @@
           value: 'title',
         },
         { text: 'table.sub-class.th.status', value: 'status' },
-        { text: 'table.sub-class.th.levels', value: 'classes.levels' },
         { text: 'table.sub-class.th.class', value: 'classes.name' },
-
+        { text: 'table.sub-class.th.levels', value: 'classes.levels' },
         { text: 'table.sub-class.th.started', value: 'start_at' },
         { text: 'table.sub-class.th.Ended', value: 'end_at' },
         { text: 'table.sub-class.th.approved', value: 'is_verified' },
@@ -253,12 +261,12 @@
     },
     methods: {
       setColorStatus (status) {
-        if (status === 'Publish') return 'primary'
+        if (status === 'Publish') return 'btn_primary'
         if (status === 'Concept') return 'secondary'
         if (status === 'Review') return 'red'
       },
       setColorApproved (status) {
-        if (status === 1) return 'primary'
+        if (status === 1) return 'btn_primary'
         else return 'red'
       },
       // popUpDialog () {

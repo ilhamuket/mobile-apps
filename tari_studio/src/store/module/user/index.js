@@ -18,8 +18,9 @@ export default {
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
+        const params = { ...payload }
         axios
-          .get('user/me')
+          .get('user/me', { params: params })
           .then(response => {
             const data = response.data.data
             commit('GET_ME', data)

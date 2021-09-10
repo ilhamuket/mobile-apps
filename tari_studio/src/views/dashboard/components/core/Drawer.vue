@@ -4,8 +4,8 @@
     v-model="drawer"
     :class="
       $vuetify.theme.dark
-        ? 'custumize-dark height-max font-size-ather-roboto-mono-name-page'
-        : 'custumize-light height-max font-size-ather-roboto-mono-name-page'
+        ? 'custumize-dark height-max'
+        : 'custumize-light height-max'
     "
     :mini-variant="!drawer"
     :right="$vuetify.rtl"
@@ -46,7 +46,7 @@
 
         <v-btn
           dark
-          color="pallet1"
+          :color="$vuetify.theme.dark ? 'primary' : 'third'"
           icon
           outlined
           small
@@ -95,7 +95,7 @@
           outlined
           class="ml-3 mt-3"
           small
-          color="pallet1"
+          :color="$vuetify.theme.dark ? 'primary' : 'third'"
           @click.stop="drawerBtn"
         >
           <v-icon dark>

@@ -8,7 +8,8 @@
             : 'text-h3 pallet1--text font-customize font-size-ather-roboto-mono-name-page'
         "
       >
-        {{ computudTitle }}
+        <!-- {{ computudTitle }} -->
+        {{ $t('index_class_data_table') }}
       </span>
     </template>
     <v-container>
@@ -33,7 +34,7 @@
         >
           <v-btn
             outlined
-            color="primary"
+            color="btn_primary"
             class="ml-2"
             @click="upDialog"
           >
@@ -44,7 +45,7 @@
           </v-btn>
           <v-btn
             outlined
-            color="primary"
+            color="btn_primary"
             class="ml-2"
             @click="upDialog"
           >
@@ -85,6 +86,7 @@
             :search="search"
             :headers="headers"
             :items="data"
+            mobile-breakpoint="0"
           >
             <!-- Header -->
             <template #[`header.name`]="{ header }">
@@ -209,18 +211,18 @@
     }),
     computed: {
       computudTitle () {
-        let name = 'Index Class - All'
+        let name = 'Class - All'
         if (this.$route.query.summary === 'all') {
-          name = 'Index Class - All'
+          name = 'Class - All'
         }
         if (this.$route.query.summary === 'approved') {
-          name = 'Index Class - Approved'
+          name = 'Class - Approved'
         }
         if (this.$route.query.summary === 'non-approved') {
-          name = 'Index Class - Non Approved'
+          name = 'Class - Non Approved'
         }
         if (this.$route.query.summary === 'new') {
-          name = 'Index Class - New'
+          name = 'Class - New'
         }
         return name
       },
@@ -229,10 +231,10 @@
       setColorLevels (levels) {
         if (levels === 'Beginner' || levels === 'beginner') return 'red'
         if (levels === 'Advance') return 'secondary'
-        if (levels === 'Intermediate') return 'pallet1'
+        if (levels === 'Intermediate') return 'btn_primary'
       },
       setColorStatus (status) {
-        if (status === 1) return 'primary'
+        if (status === 1) return 'btn_primary'
         else return 'red'
       },
       upDialog () {

@@ -19,7 +19,7 @@
         <v-icon v-text="item.icon" />
         <p
           v-if="!drawer"
-          class="font-weight-light fs-12 font-size-ather-roboto-mono-name-page"
+          class="font-weight-light fs-12 font-spartan"
         >
           {{ item.title }}
         </p>
@@ -28,7 +28,7 @@
 
     <v-list-item-content v-if="item.title || item.subtitle">
       <v-list-item-title
-        class="font-weight-light fs-12 font-size-ather-roboto-mono-name-page"
+        class="font-weight-light fs-12 font-spartan"
         v-text="item.title"
       />
 

@@ -1,83 +1,80 @@
 <template>
-  <v-app>
-    <v-container>
-      <v-row>
-        <v-col
-          cols="12"
-          sm="6"
-          lg="3"
-        >
-          <base-material-stats-card
-            color="primary"
-            icon="mdi-poll"
-            title="All"
-            :value="String(cumputedSummary.all)"
-            sub-icon="mdi-tag"
-            sub-text="Tracked from Google Analytics"
-            style="cursor:pointer"
-            @click.native="orderBySummary('all')"
-          />
-        </v-col>
-        <v-col
-          cols="12"
-          sm="6"
-          lg="3"
-        >
-          <base-material-stats-card
-            color="primary"
-            icon="mdi-poll"
-            title="Approved"
-            :value="String(cumputedSummary.approved)"
-            sub-icon="mdi-tag"
-            sub-text="Tracked from Google Analytics"
-            style="cursor:pointer"
-            @click.native="orderBySummary('approved')"
-          />
-        </v-col>
-        <v-col
-          cols="12"
-          sm="6"
-          lg="3"
-        >
-          <base-material-stats-card
-            color="primary"
-            icon="mdi-poll"
-            title="Non Approved"
-            :value="String(cumputedSummary.non_approved)"
-            sub-icon="mdi-tag"
-            sub-text="Tracked from Google Analytics"
-            style="cursor:pointer"
-            @click.native="orderBySummary('non_approved')"
-          />
-        </v-col>
-        <v-col
-          cols="12"
-          sm="6"
-          lg="3"
-        >
-          <base-material-stats-card
-            color="primary"
-            icon="mdi-poll"
-            title="New"
-            :value="String(cumputedSummary.new)"
-            sub-icon="mdi-tag"
-            sub-text="Tracked from Google Analytics"
-            style="cursor:pointer"
-            @click.native="orderBySummary('new')"
-          />
-        </v-col>
-        <v-col>
-          <app-data-table
-            :items="cumputedSubClass"
-            @appPopUp="popUpDialogApproves"
-            @delPopUp="popUpDialogDeletes"
-            @edit="popDialogEdit"
-            @delById="popUpDialogEditById"
-          />
-        </v-col>
-      </v-row>
-    </v-container>
-
+  <v-container>
+    <v-row>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="3"
+      >
+        <base-material-stats-card
+          color="primary"
+          icon="mdi-poll"
+          title="All"
+          :value="String(cumputedSummary.all)"
+          sub-icon="mdi-tag"
+          sub-text="Tracked from Google Analytics"
+          style="cursor:pointer"
+          @click.native="orderBySummary('all')"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="3"
+      >
+        <base-material-stats-card
+          color="primary"
+          icon="mdi-poll"
+          title="Approved"
+          :value="String(cumputedSummary.approved)"
+          sub-icon="mdi-tag"
+          sub-text="Tracked from Google Analytics"
+          style="cursor:pointer"
+          @click.native="orderBySummary('approved')"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="3"
+      >
+        <base-material-stats-card
+          color="primary"
+          icon="mdi-poll"
+          title="Non Approved"
+          :value="String(cumputedSummary.non_approved)"
+          sub-icon="mdi-tag"
+          sub-text="Tracked from Google Analytics"
+          style="cursor:pointer"
+          @click.native="orderBySummary('non_approved')"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="3"
+      >
+        <base-material-stats-card
+          color="primary"
+          icon="mdi-poll"
+          title="New"
+          :value="String(cumputedSummary.new)"
+          sub-icon="mdi-tag"
+          sub-text="Tracked from Google Analytics"
+          style="cursor:pointer"
+          @click.native="orderBySummary('new')"
+        />
+      </v-col>
+      <v-col>
+        <app-data-table
+          :items="cumputedSubClass"
+          @appPopUp="popUpDialogApproves"
+          @delPopUp="popUpDialogDeletes"
+          @edit="popDialogEdit"
+          @delById="popUpDialogEditById"
+        />
+      </v-col>
+    </v-row>
     <app-dialog-form
       :dialog="form"
       @input="editDataSubClass"
@@ -111,7 +108,7 @@
       color-button2="primary"
       @input="deletesDialogById"
     />
-  </v-app>
+  </v-container>
 </template>
 
 <script>

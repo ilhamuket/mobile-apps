@@ -1,83 +1,81 @@
 <template>
-  <v-app>
-    <v-container>
-      <v-row>
-        <v-col
-          cols="12"
-          sm="6"
-          lg="3"
-        >
-          <base-material-stats-card
-            color="primary"
-            icon="mdi-account-tie"
-            title="All"
-            :value="String(cumputedSummary.all)"
-            sub-icon="mdi-tag"
-            sub-text="Tracked from Google Analytics"
-            style="cursor:pointer"
-            @click.native="orderBySummary('all')"
-          />
-        </v-col>
-        <v-col
-          cols="12"
-          sm="6"
-          lg="3"
-        >
-          <base-material-stats-card
-            color="secondary"
-            icon="mdi-account-check-outline"
-            title="Approved"
-            :value="String(cumputedSummary.approved)"
-            sub-icon="mdi-tag"
-            sub-text="Tracked from Google Analytics"
-            style="cursor:pointer"
-            @click.native="orderBySummary('approved')"
-          />
-        </v-col>
-        <v-col
-          cols="12"
-          sm="6"
-          lg="3"
-        >
-          <base-material-stats-card
-            color="red"
-            icon="mdi-account-cancel"
-            title="Non Approved"
-            :value="String(cumputedSummary.non_approved)"
-            sub-icon="mdi-tag"
-            sub-text="Tracked from Google Analytics"
-            style="cursor:pointer"
-            @click.native="orderBySummary('non_approved')"
-          />
-        </v-col>
-        <v-col
-          cols="12"
-          sm="6"
-          lg="3"
-        >
-          <base-material-stats-card
-            color="pallet1"
-            icon="mdi-account-reactivate-outline"
-            title="New"
-            :value="String(cumputedSummary.new)"
-            sub-icon="mdi-tag"
-            sub-text="Tracked from Google Analytics"
-            style="cursor:pointer"
-            @click.native="orderBySummary('new')"
-          />
-        </v-col>
-        <v-col cols="12">
-          <app-data-table
-            :data="computedInstructor"
-            @create="popDialogForm"
-            @edit="popEdit"
-            @approve="popUpApprove"
-            @deletes="popUpDeleted"
-            @deleteById="popUpDeletedById"
-          />
-        </v-col>
-      </v-row>
-    </v-container>
+  <v-container>
+    <v-row>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="3"
+      >
+        <base-material-stats-card
+          color="primary"
+          icon="mdi-account-tie"
+          title="All"
+          :value="String(cumputedSummary.all)"
+          sub-icon="mdi-tag"
+          sub-text="Tracked from Google Analytics"
+          style="cursor:pointer"
+          @click.native="orderBySummary('all')"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="3"
+      >
+        <base-material-stats-card
+          color="secondary"
+          icon="mdi-account-check-outline"
+          title="Approved"
+          :value="String(cumputedSummary.approved)"
+          sub-icon="mdi-tag"
+          sub-text="Tracked from Google Analytics"
+          style="cursor:pointer"
+          @click.native="orderBySummary('approved')"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="3"
+      >
+        <base-material-stats-card
+          color="red"
+          icon="mdi-account-cancel"
+          title="Non Approved"
+          :value="String(cumputedSummary.non_approved)"
+          sub-icon="mdi-tag"
+          sub-text="Tracked from Google Analytics"
+          style="cursor:pointer"
+          @click.native="orderBySummary('non_approved')"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="3"
+      >
+        <base-material-stats-card
+          color="pallet1"
+          icon="mdi-account-reactivate-outline"
+          title="New"
+          :value="String(cumputedSummary.new)"
+          sub-icon="mdi-tag"
+          sub-text="Tracked from Google Analytics"
+          style="cursor:pointer"
+          @click.native="orderBySummary('new')"
+        />
+      </v-col>
+      <v-col cols="12">
+        <app-data-table
+          :data="computedInstructor"
+          @create="popDialogForm"
+          @edit="popEdit"
+          @approve="popUpApprove"
+          @deletes="popUpDeleted"
+          @deleteById="popUpDeletedById"
+        />
+      </v-col>
+    </v-row>
     <app-dialog-form
       :dialog="dialogForm"
       @input="insertDataTeacherStudio"
@@ -115,7 +113,7 @@
       color-button2="primary"
       @input="deleteDataTeacherStudioById"
     />
-  </v-app>
+  </v-container>
 </template>
 
 <script>

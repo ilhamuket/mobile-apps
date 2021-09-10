@@ -1,83 +1,81 @@
 <template>
-  <v-app>
-    <v-container>
-      <v-row>
-        <v-col
-          cols="12"
-          sm="6"
-          lg="3"
-        >
-          <base-material-stats-card
-            color="primary"
-            icon="mdi-poll"
-            title="Total"
-            :value="String(computedSummary.all)"
-            sub-icon="mdi-tag"
-            sub-text="Tracked from Google Analytics"
-            style="cursor:pointer"
-            @click.native="orderBy('all')"
-          />
-        </v-col>
-        <v-col
-          cols="12"
-          sm="6"
-          lg="3"
-        >
-          <base-material-stats-card
-            color="primary"
-            icon="mdi-poll"
-            title="Approved"
-            :value="String(computedSummary.approved)"
-            sub-icon="mdi-tag"
-            sub-text="Tracked from Google Analytics"
-            style="cursor:pointer"
-            @click.native="orderBy('approved')"
-          />
-        </v-col>
-        <v-col
-          cols="12"
-          sm="6"
-          lg="3"
-        >
-          <base-material-stats-card
-            color="primary"
-            icon="mdi-poll"
-            title="Non Approved"
-            :value="String(computedSummary.non_approved)"
-            sub-icon="mdi-tag"
-            sub-text="Tracked from Google Analytics"
-            style="cursor:pointer"
-            @click.native="orderBy('non-approved')"
-          />
-        </v-col>
-        <v-col
-          cols="12"
-          sm="6"
-          lg="3"
-        >
-          <base-material-stats-card
-            color="primary"
-            icon="mdi-poll"
-            title="New"
-            :value="String(computedSummary.new)"
-            sub-icon="mdi-tag"
-            sub-text="Tracked from Google Analytics"
-            style="cursor:pointer"
-            @click.native="orderBy('new')"
-          />
-        </v-col>
-        <v-col>
-          <app-data-table
-            :data="computedClasses"
-            @add="popDialog"
-            @deletes="popDeletes"
-            @approves="popApproves"
-            @update="popUpdate"
-            @del="removeStudioById"
-          />
-        </v-col>
-      </v-row>
-    </v-container>
+  <v-container>
+    <v-row>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="3"
+      >
+        <base-material-stats-card
+          color="primary"
+          icon="mdi-poll"
+          title="Total"
+          :value="String(computedSummary.all)"
+          sub-icon="mdi-tag"
+          sub-text="Tracked from Google Analytics"
+          style="cursor:pointer"
+          @click.native="orderBy('all')"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="3"
+      >
+        <base-material-stats-card
+          color="primary"
+          icon="mdi-poll"
+          title="Approved"
+          :value="String(computedSummary.approved)"
+          sub-icon="mdi-tag"
+          sub-text="Tracked from Google Analytics"
+          style="cursor:pointer"
+          @click.native="orderBy('approved')"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="3"
+      >
+        <base-material-stats-card
+          color="primary"
+          icon="mdi-poll"
+          title="Non Approved"
+          :value="String(computedSummary.non_approved)"
+          sub-icon="mdi-tag"
+          sub-text="Tracked from Google Analytics"
+          style="cursor:pointer"
+          @click.native="orderBy('non-approved')"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="3"
+      >
+        <base-material-stats-card
+          color="primary"
+          icon="mdi-poll"
+          title="New"
+          :value="String(computedSummary.new)"
+          sub-icon="mdi-tag"
+          sub-text="Tracked from Google Analytics"
+          style="cursor:pointer"
+          @click.native="orderBy('new')"
+        />
+      </v-col>
+      <v-col>
+        <app-data-table
+          :data="computedClasses"
+          @add="popDialog"
+          @deletes="popDeletes"
+          @approves="popApproves"
+          @update="popUpdate"
+          @del="removeStudioById"
+        />
+      </v-col>
+    </v-row>
     <app-data-form
       :dialog="addForm"
       @input="createClasses"
@@ -115,7 +113,7 @@
       :dialog="update"
       @input="updateDataClassesStudio"
     />
-  </v-app>
+  </v-container>
 </template>
 
 <script>

@@ -121,8 +121,9 @@
                 </div> -->
           </v-card-subtitle>
 
-          <v-card-actions>
+          <div class="d-flex justify-content-center">
             <v-btn
+              class="d-flex justify-center"
               color="pallet1"
               outlined
               @click="clickPush(list.slug)"
@@ -135,7 +136,7 @@
             <v-icon @click="clickSHow(list)">
               {{ list.show === 1 ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
             </v-icon>
-          </v-card-actions>
+          </div>
 
           <v-expand-transition>
             <div v-show="list.show">
