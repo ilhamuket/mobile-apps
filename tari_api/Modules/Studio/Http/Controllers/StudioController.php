@@ -15,7 +15,9 @@ class StudioController extends Controller
     public function mostPopuler(Request $request)
     {
         try {
-            $master = Studio::orderBy('views', 'desc')->orderBy('id')->paginate(3);
+            $master = Studio::orderBy('views', 'desc')
+                ->entities($request->entities)
+                ->orderBy('id')->paginate(3);
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

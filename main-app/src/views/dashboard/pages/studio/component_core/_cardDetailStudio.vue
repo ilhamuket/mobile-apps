@@ -134,34 +134,19 @@
                       </v-icon>
                     </v-btn>
                   </div>
-
-                  <div class="d-flex flex-column ml-1">
-                    <v-btn
-                      outlined
-                      width="80"
-                      small
-                      rounded
-                      color="pallet1"
-                      class="mb-2 font-roboto-mono-small"
-                    >
-                      <v-icon>
-                        mdi-information-variant
-                      </v-icon>
-                    </v-btn>
-                  </div>
                 </div>
               </v-row>
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="4">
+        <v-col cols="6">
           <v-row>
             <v-col class="mr-6 d-flex justify-center">
               <div class="d-flex flex-row-reverse">
                 <div class="d-flex flex-column mt-2 mr-2">
-                  <h2 class="mt-1">
+                  <span class="mt-1 font-spartan font-italic">
                     4.5
-                  </h2>
+                  </span>
                 </div>
               </div>
 
@@ -184,8 +169,8 @@
           <v-row>
             <v-col class="">
               <div class="d-flex flex-row">
-                <div class="d-flex flex-column">
-                  <!-- <v-btn
+                <!-- <div class="d-flex flex-column"> -->
+                <!-- <v-btn
                     color="primary"
                     rounded
                     width="100%"
@@ -193,15 +178,22 @@
                   >
                     See Statictic
                   </v-btn> -->
-                </div>
-                <div class="d-flex flex-column ml-2 mb-2">
-                  <!-- <v-btn
-                    color="pallet1"
+                <!-- </div> -->
+                <div
+                  class="d-flex flex-column justify-center text-center m-l-201 mt-2"
+                >
+                  <v-btn
+                    outlined
+                    width="280"
+                    small
                     rounded
-                    width="300"
+                    color="pallet1"
+                    class="mb-2 font-roboto-mono-small"
                   >
-                    Subcribe
-                  </v-btn> -->
+                    <v-icon>
+                      mdi-information-variant
+                    </v-icon>
+                  </v-btn>
                 </div>
               </div>
             </v-col>
@@ -280,4 +272,6 @@
   .text-colour
     color: #FFFF !important
     font-size: 20px
+.m-l-201
+  margin-left: 91px
 </style>

@@ -2,8 +2,8 @@
   <v-container v-if="data">
     <v-row>
       <v-col class="d-flex justify-center">
-        <h3 class="text-center font-title-rampart-one">
-          List Class
+        <h3 class="text-center font-spartan primary--text font-italic">
+          Subject
         </h3>
       </v-col>
     </v-row>

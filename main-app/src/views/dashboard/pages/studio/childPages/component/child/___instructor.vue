@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col cols="12">
-        <v-card-title class="font-title-rampart-one">
+        <v-card-title class="font-spartan text-h3 font-italic">
           Instructor
         </v-card-title>
       </v-col>
@@ -12,21 +12,23 @@
       <v-col
         v-for="item in data"
         :key="item.id"
-        :cols="data.length % 2 === 0 ? '6' : '4'"
+        cols="12"
+        :md="data.length % 2 === 0 ? '6' : '4'"
+        sm="12"
       >
         <v-card
-          width="340"
+          width="600"
           height="380"
           class="d-flex grow flex-wrap mt-4"
-          :class="data.length % 2 === 0 ? 'ml-6' : ''"
         >
           <v-card-text>
             <v-avatar
-              size="85"
-              class="d-flex justify-center mx-auto elevation-6 mt-2"
-              color="grey"
+              size="55"
+              class="d-flex justify-center mx-auto elevation-6"
+              color="primary"
             >
-              <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
+              <!-- <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" /> -->
+              <span>{{ item.name.charAt(0) }}</span>
             </v-avatar>
 
             <v-list-item two-line>

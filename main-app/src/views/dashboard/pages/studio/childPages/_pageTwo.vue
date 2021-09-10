@@ -10,22 +10,28 @@
           Describe Class
         </h2>
       </v-col>
+    </v-row>
+
+    <v-row>
       <v-col
         cols="12"
-        md="8"
-        class="d-flex flex-row-reverse"
+        md="12"
       >
-        <div class="d-flex flex-column ml-12">
-          <v-text-field
-            :label="`${$t('search')}`"
-            dense
-            outlined
-            append-icon="mdi-magnify"
-          />
-        </div>
+        <v-row>
+          <v-col
+            cols="12"
+            md="4"
+            sm="12"
+          >
+            <v-text-field
+              :label="`${$t('search')}`"
+              dense
+              outlined
+              append-icon="mdi-magnify"
+            />
+          </v-col>
+        </v-row>
       </v-col>
-    </v-row>
-    <v-row>
       <v-col
         v-for="(item, i) in classes"
         :key="i"

@@ -1,10 +1,10 @@
 <template>
   <v-main>
-    <v-breadcrumbs
+    <!-- <v-breadcrumbs
       class="ml-12"
-      :items="items"
-      divider="."
-    />
+      :items="$route.meta.breadcumbs"
+      divider="-"
+    /> -->
     <router-view />
 
     <!-- <dashboard-core-footer /> -->
@@ -33,6 +33,9 @@
         },
       ],
     }),
+    mounted () {
+      console.log(this.$route.meta.breadcumbs)
+    },
   // components: {
   //   DashboardCoreFooter: () => import('./Footer'),
   // },

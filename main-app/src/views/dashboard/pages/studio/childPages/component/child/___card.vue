@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row class="d-flex justify-center">
-      <v-col>
+      <v-col cols="12">
         <v-card
           class="mx-auto"
           max-width="400"
@@ -13,23 +13,34 @@
             >
               mdi-twitter
             </v-icon>
-            <span class="font-title-rampart-one">{{ data.name }}</span>
+            <span class="font-spartan primary--text font-italic">{{
+              data.name
+            }}</span>
           </v-card-title>
 
-          <v-card-text class="text-h5 font-size-ather-roboto-mono">
+          <v-card-text class="text-h5 font-spartan">
             "{{ data.about }}"
           </v-card-text>
 
           <v-card-actions>
-            <v-list-item
-              v-if="data.studio"
-              class="grow"
-            >
+            <v-list-item v-if="data.studio">
               <v-list-item-content>
                 <v-list-item-title>
-                  <span class="font-indie-flower">
-                    Studio : {{ data.studio.name }}
-                  </span>
+                  <v-tooltip
+                    bottom
+                    color="primary"
+                  >
+                    <template #activator="{on,attrs}">
+                      <span
+                        v-bind="attrs"
+                        class="font-italic"
+                        v-on="on"
+                      >
+                        Studio : {{ data.studio.name }}
+                      </span>
+                    </template>
+                    <span>{{ data.studio.name }}</span>
+                  </v-tooltip>
                 </v-list-item-title>
               </v-list-item-content>
 

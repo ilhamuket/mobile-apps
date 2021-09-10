@@ -157,7 +157,7 @@
 
           <v-card-actions class="d-flex justify-center">
             <v-btn
-              color="primary"
+              color="orange"
               class="d-flex justify-end"
               text
               @click="clickPush(list.slug)"

@@ -1,12 +1,22 @@
 <template>
   <v-dialog
     v-model="dialog.open"
-    width="60%"
+    :width="$vuetify.breakpoint.mdAndDown ? '100%' : '60%'"
   >
     <v-card
       class="overflow-x-hidden"
       :color="$vuetify.theme.dark ? '#141C31' : '#F0F2F5'"
     >
+      <v-card-title class="text-h2 pallet1--text font-title-rampart-one">
+        <v-spacer />
+
+        <v-icon
+          aria-label="Close"
+          @click="dialog.open = false"
+        >
+          mdi-close
+        </v-icon>
+      </v-card-title>
       <app-card :data="dialog.data" />
       <app-instructor
         v-if="dialog.data.instructor_v2"
@@ -16,6 +26,17 @@
         v-if="dialog.data.schedules"
         :data="dialog.data.schedules"
       />
+
+      <div class="d-flex flex-row-reverse mb-2">
+        <div class="d-flex flex-column">
+          <v-btn
+            color="primary"
+            @click="dialog.open = false"
+          >
+            Close
+          </v-btn>
+        </div>
+      </div>
     </v-card>
   </v-dialog>
 </template>

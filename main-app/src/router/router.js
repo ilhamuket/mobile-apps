@@ -19,6 +19,12 @@ const router = new Router({
           path: '',
           component: () => import('@/views/dashboard/Dashboard'),
           meta: {
+            breadcumbs: [
+              {
+                text: 'Dashboard',
+                disabled: false,
+              },
+            ],
             requiresAuth: true,
           },
         },
