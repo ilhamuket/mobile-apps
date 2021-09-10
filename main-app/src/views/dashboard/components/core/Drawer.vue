@@ -30,7 +30,7 @@
       <v-list-item>
         <v-list-item-avatar
           class="align-self-center"
-          color="#795548"
+          :color="$vuetify.theme.dark ? 'primary' : 'third'"
           contain
         >
           <!-- <v-img
@@ -41,20 +41,20 @@
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title class="font-roboto-mono-small custome-title-name">
+          <v-list-item-title class="font-spartan-small">
             <h3>
               {{ users.nickName }}
             </h3>
           </v-list-item-title>
           <v-list-item-subtitle
-            class="font-roboto-mono-small custome-title-name-email"
+            class="font-spartan-small custome-font"
             v-text="users.email"
           />
         </v-list-item-content>
 
         <v-btn
           dark
-          color="pallet1"
+          :color="$vuetify.theme.dark ? 'primary' : 'third'"
           icon
           class="ml-1"
           outlined
@@ -104,7 +104,7 @@
           outlined
           class="ml-3 mt-3"
           small
-          color="pallet1"
+          :color="$vuetify.theme.dark ? 'primary' : 'third'"
           @click.stop="drawerBtn"
         >
           <v-icon dark>
@@ -307,6 +307,9 @@
   .custome-title-name
     font-size: 10px !important
     color: #ffff !important
+.custome-font
+  font-size: 8px
+  color: black
 </style>
 
 <style>

@@ -24,13 +24,14 @@
           <v-img
             height="140"
             class="img-oppa"
-            src="@/assets/5833439.jpg"
+            src=""
           >
             <div class="d-flex flex-row justify-center">
               <div class="d-flex flex-column">
-                <span
-                  class="text-h1 font-title-rampart-one custome-font"
-                >EnsikloTari</span>
+                <v-img
+                  width="570"
+                  src="@/assets/logo.svg"
+                />
               </div>
             </div>
           </v-img>
@@ -120,5 +121,5 @@
   font-weight: bold
   font-size: 59px !important
 .img-oppa
-  opacity: .9
+  background-color: #843839 !important
 </style>

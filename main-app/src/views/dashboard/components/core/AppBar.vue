@@ -38,17 +38,17 @@
       class="ml-12"
       dark
     >
-      <!-- <v-img
-        src="@/assets/logo-e-color (2).png"
-        width="200"
-        height="79"
+      <v-img
+        v-if="$route.fullPath !== '/pages/user'"
+        src="@/assets/logo.svg"
+        width="500"
         class="bg-red"
-      /> -->
-      <v-list-item-title class="font-title-rampart-one custome-brad">
+      />
+      <!-- <v-list-item-title class="font-title-rampart-one custome-brad">
         <h3>
           ENSIKLOTARI
         </h3>
-      </v-list-item-title>
+      </v-list-item-title> -->
     </v-toolbar-title>
     <v-spacer />
 

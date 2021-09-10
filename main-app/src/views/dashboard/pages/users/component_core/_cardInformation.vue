@@ -25,15 +25,16 @@
 
     <v-list
       v-if="me.following_studio"
-      max-height="280"
-      class="overflow-y-auto"
+      max-height="339"
+      class="overflow-y-auto list--customize"
     >
       <v-list-item
         v-for="list in me.following_studio"
         :key="list.id"
       >
-        <v-list-item-avatar>
-          <v-img src="https://cdn.vuetifyjs.com/images/lists/4.jpg" />
+        <v-list-item-avatar color="pallet1">
+          <!-- <v-img src="https://cdn.vuetifyjs.com/images/lists/4.jpg" /> -->
+          <span>{{ list.name.charAt(0) }}</span>
         </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title
@@ -107,4 +108,6 @@
   margin-top: -5px
 .rounded
   border-radius: 20px !important
+.list--customize
+  background-color: #F0F2F5 !important
 </style>

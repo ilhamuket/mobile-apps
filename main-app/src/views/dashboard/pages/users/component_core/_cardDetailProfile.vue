@@ -31,7 +31,7 @@
     <div class="d-flex flex-row">
       <div class="d-flex flex-column">
         <v-card-text>
-          <p class="font-size-ather-roboto-mono">
+          <p class="font-spartan-small">
             "{{ me.about !== null ? me.about : dummy }}"
           </p>
         </v-card-text>
@@ -45,54 +45,65 @@
         <v-card-text>
           <div class="d-flex flex-row">
             <div class="d-flex flex-column">
-              <span class="font-size-ather-roboto-mono">
+              <span class="font-spartan-small">
                 <span> {{ me.nickName }}</span></span>
             </div>
           </div>
-          <div class="d-flex flex-row">
+          <div class="d-flex flex-row mt-2">
             <div class="d-flex flex-column">
               <span
-                class="font-size-ather-roboto-mono"
+                class="font-spartan-small"
               >Name :
-                <span> {{ me.firstName + ' ' + me.lastName }}</span></span>
+                <span class="">
+                  {{ me.firstName + ' ' + me.lastName }}</span></span>
             </div>
           </div>
-          <div class="d-flex flex-row">
+          <div class="d-flex flex-row mt-2">
             <div class="d-flex flex-column">
               <span
-                class="font-size-ather-roboto-mono"
-              >Phone Number : <span> {{ me.noHp }}</span></span>
+                class="font-spartan-small"
+              >Phone Number :
+                <span> {{ me.noHp ? me.noHp : '-' }}</span></span>
             </div>
           </div>
-          <div class="d-flex flex-row">
+          <div class="d-flex flex-row mt-2">
             <div class="d-flex flex-column">
               <span
-                class="font-size-ather-roboto-mono"
-              >Email : <span> {{ me.email }}</span></span>
+                class="font-spartan-small"
+              >Email :
+
+                <span> {{ me.email }}</span>
+              </span>
             </div>
           </div>
-          <div class="d-flex flex-row">
+          <div class="d-flex flex-row mt-2">
             <div class="d-flex flex-column">
               <span
-                class="font-size-ather-roboto-mono"
+                class="font-spartan-small"
               >Location :
                 <span>
-                  {{ me.homeAddress !== null ? me.homeAddress : '-' }}</span></span>
+                  {{
+                    me.homeAddress !== null ? me.homeAddress : 'Bandung'
+                  }}</span></span>
             </div>
           </div>
-          <div class="d-flex flex-row">
+          <div class="d-flex flex-row mt-2">
             <div class="d-flex flex-column">
               <span
-                class="font-size-ather-roboto-mono"
-              >Social : <v-icon color="blue">mdi-twitter</v-icon>
-                <v-icon
-                  class="ml-1"
-                  color="#E1306C"
-                > mdi-instagram</v-icon>
-                <v-icon
-                  class="ml-1"
-                  color="blue"
-                > mdi-facebook</v-icon></span>
+                class="font-spartan-small text-center m-114 mt-4"
+              >Social :
+                <div class="">
+                  <v-icon color="blue">mdi-twitter</v-icon>
+                  <v-icon
+                    class="ml-1"
+                    color="#E1306C"
+                  > mdi-instagram</v-icon>
+                  <v-icon
+                    class="ml-1"
+                    color="blue"
+                  > mdi-facebook</v-icon>
+                </div>
+              </span>
             </div>
           </div>
         </v-card-text>
@@ -126,9 +137,13 @@
 
 <style lang="sass" scoped>
 .i-left
-    margin-left: 110px !important
+    margin-left: 180px !important
 .rounded
   border-radius: 20px !important
 .stadarlize
   margin-top: -5px
+.m-100
+  margin-left: 204px
+.m-114
+  margin-left: 114px
 </style>

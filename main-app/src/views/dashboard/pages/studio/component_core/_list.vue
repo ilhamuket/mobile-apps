@@ -133,9 +133,11 @@
                 </div> -->
           </v-card-subtitle>
 
-          <v-card-actions>
+          <v-card-actions class="d-flex justify-center">
             <v-btn
-              color="pallet1"
+              class="btn-12"
+              color="btn_primary"
+              width="190"
               outlined
               @click="clickPush(list.slug)"
             >
@@ -213,8 +215,11 @@
 .col-12
   padding: 1px !important
 .v-card
-    margin-top: 0px
-    margin-bottom: 0px
+  margin-top: 0px
+  margin-bottom: 0px
+  border-radius: 10px !important
 .custumize-class
   color: white !important
+.btn-12
+  margin-left: 100px
 </style>

@@ -1,7 +1,7 @@
 <template>
   <v-card
     width="97%"
-    class="rounded-xl"
+    class="rounded-xl card__margin"
   >
     <v-container>
       <v-row>
@@ -105,4 +105,6 @@
     width: 200px
 .s-16
     font-size: 11px !important
+.card__margin
+  margin-top: -100px !important
 </style>

@@ -1,60 +1,57 @@
 <template>
-  <v-app class="height">
-    <v-container v-if="$store.state.studio.isLoad">
-      <loader
-        object="#ff9633"
-        color1="#ffffff"
-        color2="#17fd3d"
-        size="5"
-        speed="2"
-        bg="#343a40"
-        objectbg="#999793"
-        opacity="80"
-        disable-scrolling="false"
-        name="spinning"
-      />
-      <v-skeleton-loader
-        v-bind="attrs"
-        type="card-avatar, article, actions"
-      />
-    </v-container>
-    <v-container v-else>
-      <v-row
-        class="relative"
-        :class="
-          $vuetify.theme.dark
-            ? 'customize-dark-scroll'
-            : 'custumize-light-scroll'
-        "
+  <v-container v-if="$store.state.studio.isLoad">
+    <loader
+      object="#ff9633"
+      color1="#ffffff"
+      color2="#17fd3d"
+      size="5"
+      speed="2"
+      bg="#343a40"
+      objectbg="#999793"
+      opacity="80"
+      disable-scrolling="false"
+      name="spinning"
+    />
+    <v-skeleton-loader
+      v-bind="attrs"
+      type="card-avatar, article, actions"
+    />
+  </v-container>
+  <v-container v-else>
+    <v-row
+      class="relative"
+      :class="
+        $vuetify.theme.dark ? 'customize-dark-scroll' : 'custumize-light-scroll'
+      "
+    >
+      <v-col
+        cols="12"
+        md="3"
+        class="mt-4"
       >
-        <v-col
-          cols="12"
-          md="3"
-          class="mt-4"
-        >
-          <v-card>
-            <v-card-title>
-              <h4>
-                {{ $t('search') }}
-              </h4>
-            </v-card-title>
-            <v-card-text class="mt-6">
-              <v-text-field
-                v-model="search"
-                :label="$t('search')"
-                outlined
-                dense
-                @input="searchMethods"
-              />
-              <!-- <v-autocomplete
+        <v-card>
+          <v-card-title>
+            <h4>
+              {{ $t('search') }}
+            </h4>
+          </v-card-title>
+          <v-card-text class="mt-6">
+            <v-text-field
+              v-model="search"
+              :label="$t('search')"
+              outlined
+              dense
+              @input="searchMethods"
+            />
+            <!-- <v-autocomplete
                 label="Search By Category"
                 outlined
                 dense
                 item-text="name"
                 item-value="name"
               /> -->
-            </v-card-text>
-            <!-- <v-card-actions class="d-flex flex-row-reverse">
+          </v-card-text>
+          <!-- <v-card-actions class="d-flex flex-row-reverse">
               <div class="d-flex flex-row-reverse">
                 <div class="d-flex flex-column">
                   <v-btn
@@ -66,23 +63,22 @@
                 </div>
               </div>
             </v-card-actions> -->
-          </v-card>
-        </v-col>
-        <v-col
-          cols="12"
-          md="9"
-          class="overflow"
-        >
-          <v-list class="overflow-y-auto">
-            <app-data-list
-              class="d-none d-md-flex"
-              :data="studio"
-            />
-          </v-list>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-app>
+        </v-card>
+      </v-col>
+      <v-col
+        cols="12"
+        md="9"
+        class="overflow"
+      >
+        <v-list class="overflow-y-auto list--customize">
+          <app-data-list
+            class="d-none d-md-flex"
+            :data="studio"
+          />
+        </v-list>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -144,4 +140,12 @@
 .relative
   overflow-y: hidden !important
   position: relative !important
+</style>
+<style lang="sass" scoped>
+.theme--dark
+  .list--customize
+    background-color: #141C31 !important
+.theme--light
+  .list--customize
+    background-color: #f0f2f5 !important
 </style>

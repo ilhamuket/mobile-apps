@@ -3,7 +3,7 @@
     <v-container fluid>
       <v-row
         dense
-        class="d-flex flex-row justify-space-around"
+        class="d-flex flex-row-reverse justify-space-around"
       >
         <v-col
           cols="12"
@@ -13,89 +13,69 @@
           <v-row>
             <v-col>
               <v-img
-                width="700"
+                width="1000"
+                class="mr-2"
                 :src="imgUrl"
-              >
-                <!-- <v-app-bar
-                  absolute
-                  color="#F8F8F8"
-                  elevate-on-scroll
-                >
-                  <v-toolbar-title
-                    class="mr-12"
-                    dark
-                  >
-                    <v-img
-                      src="@/assets/logo-e-color (2).png"
-                      width="200"
-                      class="mr-12"
-                    />
-                  </v-toolbar-title>
-                </v-app-bar> -->
-                <!-- <v-container fluid /> -->
-              </v-img>
+              />
             </v-col>
           </v-row>
         </v-col>
         <v-col
           cols="12"
           md="4"
-          class="d-flex flex-column dense"
+          class="d-flex flex-column"
         >
           <v-col
             cols="12"
             class="bg-auth"
           >
             <v-card-title
-              class="font-size-ather-roboto-mono text-custome mt-6"
+              class="font-size-ather-roboto-mono primary--text text-custome mt-6"
               title-tag="h2"
             >
-              Welcome to EnsikloTari! 👋
+              Selamat Datang Di EnsikloTari 👋
             </v-card-title>
-            <v-card-text class="mb-2 font-subtitle">
-              Please sign-in to your account and start the adventure
+            <v-card-text class="mb-2 secondary--text font-subtitle">
+              Masuk Dengan Akun Mu Dan Mulai Pertualangan Mu
             </v-card-text>
 
             <v-alert
               dense
               text
-              color="#2E4DA7"
+              color="secondary"
             >
-              <p class="font-size-ather-roboto-mono text-custome-2">
+              <p class="font-size-ather-roboto-mono black--text text-custome-2">
                 The Key To Happiness Is Login To Life, As a Guest And Not as An
                 Administartor
               </p>
               - Chintoo Agl
             </v-alert>
-            <v-card-text
-              class=""
-              color="transparent"
-            >
+            <v-card-text class="">
               <v-form @submit.prevent.enter="login">
                 <v-text-field
                   v-model="email"
-                  label="Email Or Username"
+                  label="Email Or Username *"
+                  color="btn_primary"
                   placeholder="E-mail Or Username"
                   outlined
                   dense
-                  prepend-icon="mdi-login-variant"
                 />
                 <v-text-field
                   v-model="password"
-                  label="Password"
+                  label="Password *"
                   placeholder="Password"
                   outlined
+                  color="btn_primary"
                   dense
-                  prepend-icon="mdi-lock"
                   :append-icon="!show ? 'mdi-eye' : 'mdi-eye-off'"
                   :type="show ? 'text' : 'password'"
                   @click:append="show = !show"
                 />
 
-                <div class="d-flex flex-row justify-center ml-8">
+                <div class="d-flex flex-row justify-center ml-8 mt-7">
                   <div class="d-flex flex-coloumn">
                     <v-btn
-                      color="pallet1"
+                      color="primary"
                       width="370"
                       type="submit"
                     >
@@ -116,8 +96,9 @@
                     </v-chip>
                   </div>
                 </div>
-                <div class="text-center font-questions">
-                  <span class="color-black-2">New on our platform? </span>
+                <div class="text-center font-questions mt-8">
+                  <span class="color-black-2">Baru Di Platform Kami? </span>
+                  <br>
                   <a
                     class="color-a"
                     @click="pushToRegister"
@@ -127,7 +108,7 @@
                 </div>
               </v-form>
             </v-card-text>
-            <div class="d-flex flex-row mt-2 justify-center">
+            <!-- <div class="d-flex flex-row mt-2 justify-center">
               <div class="d-flex flex-column">
                 <p class="font-title-rampart-one-small">
                   Or
@@ -158,7 +139,7 @@
                   </v-icon>
                 </v-btn>
               </div>
-            </div>
+            </div> -->
           </v-col>
         </v-col>
       </v-row>
@@ -176,7 +157,7 @@
     computed: {
       imgUrl () {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        this.sideImg = require('@/assets/login-v2.svg')
+        this.sideImg = require('@/assets/asset-web-sp-6.png')
         return this.sideImg
       },
     },
@@ -230,29 +211,26 @@
 </script>
 
 <style lang="sass">
-@import url('https://fonts.googleapis.com/css2?family=Rampart+One&display=swap')
-@import url('https://fonts.googleapis.com/css2?family=Rampart+One&family=Roboto+Condensed:wght@300&display=swap')
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Roboto+Mono:wght@100&family=Shadows+Into+Light&display=swap')
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,700&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Spartan&display=swap')
 .bg-opocity
    background: linear-gradient(to right, rgba(226,226,226,1) 0%, rgba(254,254,254,1) 100%)
    border-color: white !important
 .bg-auth
-  background-color: #ffff
-.bg-img
-  background-color: #F8F8F8
+  background-color: #fff
+// .bg-img
+//   background-color: #E1F3F9
 .tmp-opacity
   opacity: 0
 .font-title
-  font-family: 'Rampart One', cursive !important
+  font-family: 'Spartan', sans-serif
   color: #6B75AA !important
 .font-subtitle
-  font-family: 'Rampart One', cursive
-  font-family: 'Roboto Condensed', sans-serif
-.cols
-  padding: 26px !important
+  font-family: 'Spartan', sans-serif
+  font-size: 15px
+// .cols
+//   padding: 26px !important
 .font-questions
-  font-family: 'Roboto Mono', monospace
+  font-family: 'Spartan', sans-serif
 .color-black-2
   color: black !important
   font-weight: bold !important
@@ -260,7 +238,8 @@
   color: #6B75AA !important
   font-weight: bold !important
 .text-custome
-  font-size: 23px !important
+  font-size: 26px !important
+  font-weight: 200 !important
   color: #2E4DA7 !important
 .text-custome-2
   color: #2E4DA7 !important
