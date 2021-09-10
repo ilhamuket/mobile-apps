@@ -16,6 +16,7 @@
 .navbar-brand {
     font-family: 'Rampart One','Viga', sans-serif;
     font-size: 20px;
+    margin-left: -100px;
     /* background-image: url(../img/200x30px.png); */
     /* margin-top: 20px; */
 }

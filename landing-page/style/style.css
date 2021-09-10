@@ -14,6 +14,9 @@ body {
 .icon {
     color: #79C17D !important;
 }
+.icon-color {
+    color: #9DC5D1 !important;
+}
 .icon-lock {
     color: red;
 }
@@ -38,6 +41,9 @@ body {
 .btn-maroon-ensiklotari:hover {
     color: white;
 }
+.navbar-toggler {
+    color: red !important;
+}
 
 .font-spartan {
     font-family: 'Spartan', sans-serif !important;
@@ -45,8 +51,11 @@ body {
 
 /* Desktop Version */
 @media (min-width: 992px) {
+    .icon-color {
+        color: blue !important;
+    }
     .navbar-brand {
-        margin-left: -61px;
+        margin-left: -159px;
         font-size: 40px;
         color: #9BA1C4 !important;
     }

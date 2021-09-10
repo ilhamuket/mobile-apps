@@ -28,10 +28,11 @@ use Modules\Studio\Http\Controllers\StudioVidioController;
 Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
     Route::get('', [StudioController::class, 'index']);
     Route::post('', [StudioController::class, 'store']);
-    Route::patch('{id}', [StudioController::class, 'update']);
     Route::patch('', [StudioController::class, 'destroy']);
-    Route::patch('{id}', [StudioController::class, 'approveStudio']);
+    Route::get('populer', [StudioController::class, 'mostPopuler']);
     Route::post('approve', [StudioController::class, 'studioApprove']);
+    Route::patch('{id}', [StudioController::class, 'update']);
+    Route::patch('{id}', [StudioController::class, 'approveStudio']);
     Route::delete('{id}', [StudioController::class, 'destroyById']);
     Route::get('{id}', [StudioController::class, 'show']);
     // Users

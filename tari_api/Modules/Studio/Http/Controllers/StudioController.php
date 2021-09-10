@@ -12,6 +12,21 @@ use Modules\Studio\Entities\Studio;
 
 class StudioController extends Controller
 {
+    public function mostPopuler(Request $request)
+    {
+        try {
+            $master = Studio::orderBy('views', 'desc')->orderBy('id')->paginate(3);
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+
     public function bySlug(Request $request, $slug)
     {
         try {
