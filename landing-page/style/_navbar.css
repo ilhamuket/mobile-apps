@@ -9,8 +9,9 @@
     width: 100%; */
 }
 .navbar img {
-    width: 200px;
-    height: 30px;
+    width: 330px;
+    color: #843839;
+    height: 51px;
 }
 .navbar-brand {
     font-family: 'Rampart One','Viga', sans-serif;

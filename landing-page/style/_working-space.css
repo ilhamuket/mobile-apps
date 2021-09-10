@@ -1,31 +1,34 @@
 /* Working Space */
+@import url('https://fonts.googleapis.com/css2?family=Spartan:wght@100&display=swap');
 .workingspace {
     margin-top: 120px;
     text-align: center;
 }
 
 .workingspace h3 {
-    font-size: 52px;
+    font-size: 22px;
     font-weight: 200;
-    text-transform: uppercase;
+    text-transform: capitalize;
     margin-top: 9px;
-    font-family: "Roboto";
+    font-family: 'Spartan', sans-serif !important;
 }
 
 .workingspace img {
-    height: 300px;
-    width: 400px;
+    height: 350px;
+    width: 350px;
     /* /* margin-left: 60px; */
     border-radius: 20px;
 }
 
 .workingspace .overlay {
     overflow-y: auto;
-    max-height: 150px;
+    max-height: 250px;
 }
 
 .workingspace h3 span {
     font-weight: 400;
+    font-size: 40px;
+    font-family: 'Spartan', sans-serif !important;
 }
 .workingspace p {
     font-size: 18px;

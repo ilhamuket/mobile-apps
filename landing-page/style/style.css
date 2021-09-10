@@ -27,23 +27,45 @@ body {
 .opacity {
     opacity: 0;
 }
+.btn-maroon-ensiklotari {
+    background-color: #843839;
+    color: white;
+    width: 237px !important;
+}
+.btn-maroon-ensiklotari:hover {
+    color: white; 
+}
+.btn-maroon-ensiklotari:hover {
+    color: white;
+}
+
+.font-spartan {
+    font-family: 'Spartan', sans-serif !important;
+}
 
 /* Desktop Version */
 @media (min-width: 992px) {
     .navbar-brand {
         margin-left: -61px;
         font-size: 40px;
-           color: #9BA1C4 !important;
+        color: #9BA1C4 !important;
     }
     .nav-link {
         color: #D2E7EA !important;
         text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7);
-        font-family: "Roboto Condensed", Open Sans;;
+        font-family: 'Spartan', sans-serif !important;
         font: 20px;
     }
     .nav-link {
         text-transform: uppercase;
         margin-right: 20px;
+    }
+    .btn-maroon-ensiklotari-outline {
+        color: white;
+        margin-right: 20px;
+    }
+    .btn-maroon-ensiklotari-outline:hover {
+        color: white;
     }
 
     /* Utility */
@@ -69,7 +91,6 @@ body {
         padding-bottom: 5px;
         margin-bottom: -8px;
     }
-
     .jumbotron {
         margin-top: -89px;
     }
@@ -89,7 +110,7 @@ body {
 
     .testimonial .card img {
         width: 100px;
-        margin-left: 127px;
+        margin-left: 126px;
         margin-top: -35px;
     }
 

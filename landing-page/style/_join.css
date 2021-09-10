@@ -8,6 +8,15 @@
     color: #6F78AC;
 }
 
+.joinWithUs .card .card-title {
+    font-family: 'Spartan', sans-serif !important;
+    font-weight: 1000;
+}
+.joinWithUs .card .card-text {
+    font-family: 'Spartan', sans-serif !important;
+    font-weight: 600;
+}
+
 .joinWithUs .card .card-body {
     margin-top: 101px;
 }

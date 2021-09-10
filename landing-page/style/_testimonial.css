@@ -4,7 +4,7 @@
 }
 
 .testimonial .quote h5 {
-    font-family: "Roboto";
+    font-family: 'Spartan', sans-serif !important;
     text-align: center;
     font-weight: 20;
     font-size: 54px;
@@ -16,6 +16,7 @@
     margin-bottom: 10px;
     font-size: 32px;
     font-weight: 900;
+    font-family: 'Spartan', sans-serif !important;
     color: #7BB6BF;
 }
 
@@ -33,13 +34,14 @@
 .testimonial .card .card-title-price {
     font-weight: 500;
     margin-top: 20px;
+    font-family: 'Spartan', sans-serif !important;
     color: #61CE70;
 }
 .b, strong {
     font-weight: 700;
 }
 .testimonial .card .card-body p {
-    font-family: "Roboto Consedered";
+    font-family: 'Spartan', sans-serif !important;
 }
 
 .testimonial figure figcaption span {
