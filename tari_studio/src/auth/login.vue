@@ -3,7 +3,7 @@
     <v-container fluid>
       <v-row
         dense
-        class="d-flex flex-row justify-space-around"
+        class="d-flex flex-row-reverse justify-space-around"
       >
         <v-col
           cols="12"
@@ -14,8 +14,7 @@
             <v-col>
               <v-img
                 class="ml-2"
-                width="700"
-                height="600"
+                width="800"
                 :src="imgUrl"
               >
                 <!-- <v-app-bar
@@ -41,7 +40,7 @@
         </v-col>
         <v-col
           cols="12"
-          md="5"
+          md="4"
           class="d-flex flex-column dense"
         >
           <v-col
@@ -49,25 +48,25 @@
             class="bg-auth"
           >
             <v-card-title
-              class="font-title mt-6"
+              class="font-spartan primary--text mt-6"
               title-tag="h2"
             >
               Welcome to EnsikloTari! 👋
             </v-card-title>
-            <v-card-text class="mb-2 font-subtitle">
+            <v-card-text class="mb-2 font-spartan customize--subtitle">
               Please sign-in to your account and start the adventure
             </v-card-text>
 
             <v-alert
               dense
               text
-              color="#2E4DA7"
+              color="primary"
+              class=""
             >
-              <p class="font-title">
+              <p class="font-spartan customize--subtitle force--opacity">
                 The Key To Happiness Is Login To Life, As a Guest And Not as An
                 Administartor
               </p>
-              - Chintoo Agl
             </v-alert>
             <v-card-text
               class=""
@@ -145,7 +144,7 @@
     computed: {
       imgUrl () {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        this.sideImg = require('@/assets/img/Secure login-bro.svg')
+        this.sideImg = require('@/assets/asetlogin.png')
         return this.sideImg
       },
     },
@@ -249,4 +248,10 @@
 .color-a
   color: #6B75AA !important
   font-weight: bold !important
+.customize--subtitle
+  font-size: 12px !important
+a
+  text-decoration: underline
+.force--opacity
+  opacity: 0
 </style>

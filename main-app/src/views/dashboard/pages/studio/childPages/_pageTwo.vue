@@ -6,13 +6,7 @@
         md="4"
         class="d-flex justify-start"
       >
-        <h2
-          :class="
-            $vuetify.theme.dark
-              ? 'font-title-rampart-one'
-              : 'font-title-rampart-one-black'
-          "
-        >
+        <h2 :class="$vuetify.theme.dark ? 'font-spartan' : 'font-spartan'">
           Describe Class
         </h2>
       </v-col>

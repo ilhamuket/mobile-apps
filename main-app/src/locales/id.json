@@ -54,5 +54,8 @@
             },
             "review": "Ulasan"
         }
+    },
+    "dahsboard": {
+        "cds": "Sanggar Terpopuler"
     }
 }

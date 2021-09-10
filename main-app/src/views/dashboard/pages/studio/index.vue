@@ -24,58 +24,96 @@
         $vuetify.theme.dark ? 'customize-dark-scroll' : 'custumize-light-scroll'
       "
     >
-      <v-col
+      <!-- <v-col
         cols="12"
         md="3"
         class="mt-4"
-      >
-        <v-card>
-          <v-card-title>
+      > -->
+      <!-- <v-card> -->
+      <!-- <v-card-title>
             <h4>
               {{ $t('search') }}
             </h4>
-          </v-card-title>
-          <v-card-text class="mt-6">
-            <v-text-field
+          </v-card-title> -->
+      <!-- <v-card-text class="mt-6"> -->
+      <!-- <v-text-field
               v-model="search"
               :label="$t('search')"
               outlined
               dense
               @input="searchMethods"
-            />
-            <!-- <v-autocomplete
+            /> -->
+      <!-- <v-autocomplete
                 label="Search By Category"
                 outlined
                 dense
                 item-text="name"
                 item-value="name"
               /> -->
-          </v-card-text>
-          <!-- <v-card-actions class="d-flex flex-row-reverse">
-              <div class="d-flex flex-row-reverse">
-                <div class="d-flex flex-column">
-                  <v-btn
-                    outlined
-                    color="primary"
-                  >
-                    {{ $t('search') }}
-                  </v-btn>
-                </div>
+      <!-- </v-card-text> -->
+      <!-- <v-card-actions class="d-flex flex-row-reverse">
+            <div class="d-flex flex-row-reverse">
+              <div class="d-flex flex-column">
+                <v-btn
+                  outlined
+                  color="primary"
+                >
+                  {{ $t('search') }}
+                </v-btn>
               </div>
-            </v-card-actions> -->
-        </v-card>
-      </v-col>
+            </div>
+          </v-card-actions> -->
+      <!-- </v-card> -->
+      <!-- </v-col> -->
       <v-col
         cols="12"
-        md="9"
+        md="12"
         class="overflow"
       >
-        <v-list class="overflow-y-auto list--customize">
+        <v-card
+          max-height="500"
+          class="overflow-y-auto list--customize"
+        >
+          <v-card-title class="d-flex justify-center">
+            Studio
+          </v-card-title>
+          <v-row>
+            <v-col
+              cols="4"
+              class="ml-2"
+            >
+              <v-text-field
+                v-model="search"
+                outlined
+                dense
+                :label="$t('search')"
+                placeholder="Search"
+                append-icon="mdi-magnify"
+                @input="searchMethods"
+              />
+            </v-col>
+          </v-row>
+          <div
+            v-if="is_loading"
+            class="d-flex justify-center"
+          >
+            <v-progress-circular
+              class="d-flex justify-center"
+              indeterminate
+              color="red"
+            />
+          </div>
+          <span
+            v-if="studio.length === 0"
+            class="d-flex justify-center"
+          >
+            No Data Avalaible
+          </span>
           <app-data-list
-            class="d-none d-md-flex"
+            v-else
             :data="studio"
           />
-        </v-list>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
@@ -96,6 +134,7 @@
         boilerplate: true,
         elevation: 2,
       },
+      is_loading: false,
     }),
     computed: {
       studio () {
@@ -107,10 +146,34 @@
     },
     methods: {
       getDataStudio () {
-        this.$store.dispatch('studio/getDataStudio', {
-          search: this.search,
-          entities: 'member,author,img,followers,likes',
-        })
+        this.$store
+          .dispatch('studio/getDataStudio', {
+            search: this.search,
+            entities: 'member,author,img,followers,likes',
+          })
+          .then(res => {
+            this.is_loading = false
+            if (this.studio.length === 0) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                },
+                popup: 'swal2-show',
+                backdrop: 'swal2-backdrop-show',
+                icon: 'swal2-icon-show',
+              })
+              Toast.fire({
+                icon: 'success',
+                title: 'Data Not Found',
+              })
+            }
+          })
       // .then(res => {
       //   if (res.data.meta.status) {
       //     this.isLoad = false
@@ -125,6 +188,7 @@
         }
         this.timer = setTimeout(() => {
           this.getDataStudio()
+          this.is_loading = true
         }, 700)
       },
     },

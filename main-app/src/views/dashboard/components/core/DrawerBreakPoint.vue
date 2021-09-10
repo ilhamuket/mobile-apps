@@ -2,18 +2,12 @@
   <v-navigation-drawer
     id="core-navigation-drawer"
     v-model="drawer"
-    :class="
-      $vuetify.theme.dark
-        ? 'custumize-dark height-max'
-        : 'custumize-light height-max'
-    "
-    :mini-variant="!drawer"
     :right="$vuetify.rtl"
     mobile-breakpoint="960"
     app
     width="260"
+    bottom
     v-bind="$attrs"
-    permanent
   >
     <template v-slot:img="props">
       <v-img
@@ -24,30 +18,37 @@
 
     <!-- <v-divider class="mb-1" /> -->
 
-    <v-list
-      dense
-      nav
-    >
+    <v-list nav>
       <v-list-item>
         <v-list-item-avatar
           class="align-self-center"
-          color="white"
+          :color="$vuetify.theme.dark ? 'primary' : 'third'"
           contain
         >
-          <v-img
-            src="https://demos.creative-tim.com/vuetify-material-dashboard/favicon.ico"
+          <!-- <v-img
+            src="@/assets/logo-e-color (1).png"
             max-height="30"
-          />
+          /> -->
+          <span class="text-capitalize">{{ users.nickName.charAt(0) }}</span>
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title v-text="profile.title" />
+          <v-list-item-title class="font-spartan-small">
+            <h3>
+              {{ users.nickName }}
+            </h3>
+          </v-list-item-title>
+          <v-list-item-subtitle
+            class="font-spartan-small custome-font"
+            v-text="users.email"
+          />
         </v-list-item-content>
 
         <v-btn
           dark
           :color="$vuetify.theme.dark ? 'primary' : 'third'"
           icon
+          class="ml-1"
           outlined
           small
           @click.stop="drawer = !drawer"
@@ -60,7 +61,6 @@
     <v-list
       expand
       nav
-      :class="$vuetify.theme.dark ? 'height-max' : 'height-max'"
     >
       <!-- Style cascading bug  -->
       <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
@@ -129,24 +129,9 @@
           to: '/',
         },
         {
-          icon: 'mdi-alpha-c-box',
-          title: 'classes',
-          to: '/class',
-        },
-        {
-          icon: 'mdi-alpha-s-box',
-          title: 'subject',
-          to: '/sub-class',
-        },
-        {
-          icon: 'mdi-alpha-t-box',
-          title: 'instrucktur',
-          to: '/instructor',
-        },
-        {
           icon: 'mdi-shopping-music',
-          title: 'vidio_name_page',
-          to: '/vidio',
+          title: 'Studio',
+          to: '/studio',
         },
         {
           icon: 'mdi-account',
@@ -188,21 +173,24 @@
           return this.$store.state.drawer
         },
         set (val) {
-          this.$store.commit('SET_DRAWER', (val = false))
+          this.$store.commit('SET_DRAWER', val)
         },
       },
       computedItems () {
         return this.items.map(this.mapItem)
       },
+      users () {
+        const Me = localStorage.getItem('ME')
+        const users = JSON.parse(Me)
+
+        return users
+      },
       profile () {
         return {
           avatar: true,
-          title: this.$t('avatar'),
+          title: 'EnsikloTari',
         }
       },
-    },
-    mounted () {
-      console.log(this.$vuetify.breakpoint.mdAndDown)
     },
 
     methods: {
@@ -277,7 +265,8 @@
           margin-left: 8px
 .custumize-light
   background-color: #fff !important
-  color: #0000 !important
+  font-family: 'Roboto', sans-serif !important
+  font-weight: bold
   font-size: 20px
   height: 100% !important
 .bg--light
@@ -291,6 +280,27 @@
 .custumize-dark
   font-weight: bold
   font-family: 'Roboto', sans-serif !important
+.custome-brad
+  font-size: 20px !important
+  color: #6B75AA !important
+
+.theme--light
+  .custome-title-name-email
+    font-size: 9px !important
+    color: #6B75AA !important
+  .custome-title-name
+    font-size: 10px !important
+    color: #6B75AA !important
+.theme--dark
+  .custome-title-name-email
+    font-size: 9px !important
+    color: #ffff !important
+  .custome-title-name
+    font-size: 10px !important
+    color: #ffff !important
+.custome-font
+  font-size: 8px
+  color: black
 </style>
 
 <style>

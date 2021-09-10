@@ -108,6 +108,10 @@
   margin-top: -5px
 .rounded
   border-radius: 20px !important
-.list--customize
-  background-color: #F0F2F5 !important
+.theme--light
+  .list--customize
+    background-color: #F0F2F5 !important
+.theme--dark
+  .list--customize
+    background-color: #141C31 !important
 </style>

@@ -37,19 +37,18 @@
       class="ml-12"
       dark
     >
-      <!-- <v-img
-        src="@/assets/logo-e-color (2).png"
-        width="200"
-        height="79"
-        class="bg-red"
-      /> -->
-      <v-list-item-title
+      <v-img
+        src="@/assets/img/logo.svg"
+        width="500"
+        class="bg-red mt-6"
+      />
+      <!-- <v-list-item-title
         class="font-title-rampart-one-black custome-brad-pallet1"
       >
         <h3>
           ENSIKLOTARI
         </h3>
-      </v-list-item-title>
+      </v-list-item-title> -->
     </v-toolbar-title>
     <v-spacer />
 

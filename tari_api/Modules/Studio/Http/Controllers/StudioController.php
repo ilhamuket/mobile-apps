@@ -19,6 +19,8 @@ class StudioController extends Controller
                 ->where('slug', $slug)
                 ->first();
 
+            $master->increment('views');
+
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');

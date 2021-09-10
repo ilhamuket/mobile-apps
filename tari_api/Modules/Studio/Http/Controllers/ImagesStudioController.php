@@ -72,7 +72,7 @@ class ImagesStudioController extends Controller
                 $master->name_thumbnail = $new_image_name;
                 // $path = $request->photo->store('images');
                 // $publicPath = \Storage::url($path);
-                $master->url =  'images/thumbnail_studio' . $new_image_name;
+                $master->url =  'images/' . $new_image_name;
                 $master->studio_id = $request->studio_id;
                 $master->type = 'thumbnail';
                 $master->save();

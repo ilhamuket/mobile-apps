@@ -27,9 +27,9 @@
     <div class="mr-2" />
 
     <v-toolbar-title
-      class="hidden-sm-and-down font-spartan"
+      class="hidden-sm-and-down font-weight-light font-size-ather-roboto-mono-name-page"
       :class="!drawer ? 'ml-6' : ''"
-      v-text="$t($route.name)"
+      v-text="$route.name"
     />
 
     <v-spacer />
@@ -50,7 +50,7 @@
       </v-list-item-title> -->
     </v-toolbar-title>
     <v-spacer />
-
+    <!--
     <v-col cols="2">
       <div class="d-flex flex-row mt-6 mr-2">
         <div class="d-flex flex-column justify-start ml-6">
@@ -104,7 +104,7 @@
           </v-select>
         </div>
       </div>
-    </v-col>
+    </v-col> -->
     <!--
     <v-text-field
       :label="$t('search')"

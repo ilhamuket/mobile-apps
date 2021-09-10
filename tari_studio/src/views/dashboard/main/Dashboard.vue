@@ -43,33 +43,14 @@
     </v-row>
     <v-row v-else>
       <!-- Card Detail -->
-      <v-col
-        class="d-none d-md-flex"
-        cols="12"
-      >
-        <v-card class="rounded-xl">
-          <v-img
-            height="140"
-            class="img-oppa"
-            src="@/assets/ee.jpg"
-          >
-            <div class="d-flex flex-row justify-center">
-              <div class="d-flex flex-column">
-                <span
-                  class="text-h1 font-title-rampart-one custome-font"
-                >EnsikloTari</span>
-              </div>
-            </div>
-          </v-img>
-        </v-card>
-      </v-col>
+
       <v-col
         class="d-none d-md-flex"
         cols="12"
       >
         <v-card
           width="97%"
-          class="rounded-xl card"
+          class="rounded-xl mx-auto"
         >
           <v-container>
             <v-row>
@@ -229,13 +210,12 @@
         </v-card>
       </v-col>
       <!-- EndCard Detail Mobile -->
-      <v-col
+      <!-- <v-col
         cols="12"
-        md="4"
+        md=""
       >
         <base-material-chart-card
-          :data="dataCompletedTasksChart.data"
-          :options="dataCompletedTasksChart.options"
+          icon="mdi-account"
           hover-reveal
           color="#843839"
           type="Line"
@@ -298,10 +278,10 @@
             >campaign sent 26 minutes ago</span>
           </template>
         </base-material-chart-card>
-      </v-col>
+      </v-col> -->
       <v-col
         cols="12"
-        md="8"
+        md="12"
       >
         <v-row>
           <v-col
@@ -309,12 +289,14 @@
             md="6"
           >
             <base-material-stats-card
-              color="info"
-              icon="mdi-twitter"
-              title="All"
+              color="primary"
+              icon="mdi-account-group-outline"
+              :title="$t('classes')"
               value="+245"
               sub-icon="mdi-clock"
               sub-text="Just Updated"
+              style="cursor:pointer"
+              @click.native="toClass"
             />
           </v-col>
           <v-col
@@ -322,12 +304,14 @@
             md="6"
           >
             <base-material-stats-card
-              color="info"
-              icon="mdi-twitter"
-              title="Followers"
+              color="secondary"
+              icon="mdi-account-cowboy-hat-outline"
+              :title="$t('instrucktur')"
               value="+245"
               sub-icon="mdi-clock"
               sub-text="Just Updated"
+              style="cursor:pointer"
+              @click.native="toNavigate('/instructor')"
             />
           </v-col>
           <v-col
@@ -335,12 +319,14 @@
             md="6"
           >
             <base-material-stats-card
-              color="info"
-              icon="mdi-twitter"
-              title="Followers"
+              color="pallet1"
+              icon="mdi-playlist-check"
+              :title="$t('subject')"
               value="+245"
               sub-icon="mdi-clock"
               sub-text="Just Updated"
+              style="cursor:pointer"
+              @click.native="toNavigate('/sub-class')"
             />
           </v-col>
           <v-col
@@ -348,17 +334,19 @@
             md="6"
           >
             <base-material-stats-card
-              color="info"
-              icon="mdi-twitter"
-              title="Followers"
+              color="third"
+              icon="mdi-alpha-v-box"
+              :title="$t('vidio_name_page')"
               value="+245"
               sub-icon="mdi-clock"
               sub-text="Just Updated"
+              style="cursor:pointer"
+              @click.native="toNavigate('/vidio')"
             />
           </v-col>
         </v-row>
       </v-col>
-      <v-col
+      <!-- <v-col
         cols="12"
         md="3"
       >
@@ -409,7 +397,7 @@
           sub-icon="mdi-clock"
           sub-text="Just Updated"
         />
-      </v-col>
+      </v-col> -->
     </v-row>
   </v-container>
 </template>
@@ -676,6 +664,12 @@
       complete (index) {
         this.list[index] = !this.list[index]
       },
+      toClass () {
+        this.$router.push('/class')
+      },
+      toNavigate (link) {
+        this.$router.push(link)
+      },
       chartON (data) {},
     // covid () {
     //   const data = this.database
@@ -744,6 +738,8 @@
 //   .v-expansion-panels .v-expansion-panel
 //     background-color: #283046 !important
 //     color: #FFFFFF
+.img-oppa
+  background-color: #843839 !important
 </style>
 
 <style scoped>

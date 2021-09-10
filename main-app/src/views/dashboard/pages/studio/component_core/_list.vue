@@ -4,7 +4,8 @@
       <v-col
         v-for="list in data"
         :key="list.id"
-        cols="6"
+        cols="12"
+        md="4"
       >
         <v-card>
           <v-img
@@ -24,14 +25,35 @@
             height="200"
           >
             <span
-              v-if="list.name"
               class="text-h1 font-title-rampart-one custome-brad custumize-class"
             >ET</span>
           </v-list-item-avatar>
 
           <v-card-subtitle style="text-transform: capitalize">
             <div class="d-flex flex-row mb-2">
-              <div class="d-flex flex-column">
+              <div
+                v-if="list.name.length > 26"
+                class="d-flex flex-column"
+              >
+                <v-tooltip
+                  bottom
+                  color="primary"
+                >
+                  <template #activator="{on,attrs}">
+                    <h3
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                      {{ list.name.substr(0, 26) + ' .. ' }}
+                    </h3>
+                  </template>
+                  <span>{{ list.name }}</span>
+                </v-tooltip>
+              </div>
+              <div
+                v-else
+                class="d-flex flex-column"
+              >
                 <h3>
                   {{ list.name }}
                 </h3>
@@ -135,10 +157,9 @@
 
           <v-card-actions class="d-flex justify-center">
             <v-btn
-              class="btn-12"
-              color="btn_primary"
-              width="190"
-              outlined
+              color="primary"
+              class="d-flex justify-end"
+              text
               @click="clickPush(list.slug)"
             >
               Explore
@@ -155,7 +176,7 @@
             <div v-show="list.show">
               <v-divider />
 
-              <v-card-text class="text-h5 font-size-ather-roboto-mono">
+              <v-card-text class="text-h5 font-spartan">
                 "{{ list.about }}"
               </v-card-text>
             </div>
@@ -212,8 +233,6 @@
 <style lang="sass" scoped>
 .font-size-small
   font-size: 11px !important
-.col-12
-  padding: 1px !important
 .v-card
   margin-top: 0px
   margin-bottom: 0px

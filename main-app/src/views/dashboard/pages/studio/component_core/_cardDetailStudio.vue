@@ -185,23 +185,23 @@
             <v-col class="">
               <div class="d-flex flex-row">
                 <div class="d-flex flex-column">
-                  <v-btn
+                  <!-- <v-btn
                     color="primary"
                     rounded
-                    width="150"
+                    width="100%"
                     outlined
                   >
                     See Statictic
-                  </v-btn>
+                  </v-btn> -->
                 </div>
                 <div class="d-flex flex-column ml-2 mb-2">
-                  <v-btn
+                  <!-- <v-btn
                     color="pallet1"
                     rounded
                     width="300"
                   >
                     Subcribe
-                  </v-btn>
+                  </v-btn> -->
                 </div>
               </div>
             </v-col>

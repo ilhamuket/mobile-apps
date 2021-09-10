@@ -17,7 +17,7 @@
         <v-icon v-text="item.icon" />
         <p
           v-if="!drawer"
-          class="font-weight-light fs-12"
+          class="font-weight-light fs-12  font-spartan"
         >
           {{ item.title }}
         </p>
@@ -25,7 +25,10 @@
     </v-list-item-icon>
 
     <v-list-item-content v-if="item.title || item.subtitle">
-      <v-list-item-title v-text="item.title" />
+      <v-list-item-title
+        class="font-weight-light fs-12 font-spartan"
+        v-text="item.title"
+      />
 
       <v-list-item-subtitle v-text="item.subtitle" />
     </v-list-item-content>
@@ -84,5 +87,5 @@
 </script>
 <style lang="sass" scoped>
 .fs-12
-  font-size: 12px
+  font-size: 12px !important
 </style>

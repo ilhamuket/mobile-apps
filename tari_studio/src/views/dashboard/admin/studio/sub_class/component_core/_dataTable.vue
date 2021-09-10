@@ -243,18 +243,18 @@
     }),
     computed: {
       computudTitle () {
-        let name = 'Index SubClass - All'
+        let name = 'Subject - All'
         if (this.$route.query.summary === 'all') {
-          name = 'Index SubClass - All'
+          name = 'Subject - All'
         }
         if (this.$route.query.summary === 'approved') {
-          name = 'Index SubClass - Approved'
+          name = 'Subject - Approved'
         }
         if (this.$route.query.summary === 'non_approved') {
-          name = 'Index SubClass - Non Approved'
+          name = 'Subject - Non Approved'
         }
         if (this.$route.query.summary === 'new') {
-          name = 'Index SubClass - New'
+          name = 'Subject - New'
         }
         return name
       },

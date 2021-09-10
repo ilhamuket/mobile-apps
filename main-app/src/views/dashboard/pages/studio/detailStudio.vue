@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <div>
     <v-container v-if="isLoad">
       <loader
         object="#ff9633"
@@ -56,11 +56,17 @@
       <v-tabs
         v-model="tabs"
         color="primary"
-        class="font-title-rampart-one-small"
+        class="font-spartan font-cutomize"
       >
-        <v-tab>Home</v-tab>
-        <v-tab>Class</v-tab>
-        <v-tab>Review</v-tab>
+        <v-tab class="font-cutomize">
+          Home
+        </v-tab>
+        <v-tab class="font-cutomize">
+          Class
+        </v-tab>
+        <v-tab class="font-cutomize">
+          Review
+        </v-tab>
       </v-tabs>
       <v-tabs-items v-model="tabs">
         <v-tab-item>
@@ -84,7 +90,7 @@
       :dialog="dialogUnFollow"
       @input="executeUnfollowStudio"
     />
-  </v-app>
+  </div>
 </template>
 
 <script>
@@ -453,4 +459,10 @@
     background-origin: initial
     background-clip: initial
     background-color: rgb(87, 38, 38)
+.theme--dark
+  .font-cutomize
+    color: white !important
+.theme--light
+  .font-cutomize
+    color: black !important
 </style>

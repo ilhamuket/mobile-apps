@@ -2,9 +2,10 @@
   <base-material-card
     class="v-card--material-chart"
     v-bind="$attrs"
+    :icon="icon"
     v-on="$listeners"
   >
-    <template v-slot:heading>
+    <!-- <template v-slot:heading>
       <chartist
         :data="data"
         :event-handlers="eventHandlers"
@@ -14,7 +15,7 @@
         :type="type"
         style="max-height: 150px;"
       />
-    </template>
+    </template> -->
 
     <slot
       slot="reveal-actions"
@@ -37,6 +38,10 @@
     inheritAttrs: false,
 
     props: {
+      icon: {
+        type: String,
+        default: null,
+      },
       data: {
         type: Object,
         default: () => ({}),

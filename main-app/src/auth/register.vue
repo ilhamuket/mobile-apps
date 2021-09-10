@@ -3,7 +3,7 @@
     <v-container fluid>
       <v-row
         dense
-        class="d-flex flex-row justify-space-around"
+        class="d-flex flex-row-reverse justify-space-around"
       >
         <v-col
           cols="12"
@@ -13,7 +13,8 @@
           <v-row>
             <v-col>
               <v-img
-                width="700"
+                width="1000"
+                class="mr-2"
                 :src="imgUrl"
               >
                 <!-- <v-app-bar
@@ -263,7 +264,7 @@
     computed: {
       imgUrl () {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        this.sideImg = require('@/assets/login-v2.svg')
+        this.sideImg = require('@/assets/asset-web-sp-6.png')
         return this.sideImg
       },
       randomString (id) {
