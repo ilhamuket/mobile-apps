@@ -190,20 +190,10 @@
     >
       <v-icon>mdi-account</v-icon>
     </v-btn> -->
-    <v-switch
-      v-model="$vuetify.theme.dark"
-      :prepend-icon="
-        $vuetify.theme.dark ? 'mdi-theme-light-dark' : 'mdi-white-balance-sunny'
-      "
-      class="ma-0 pa-0 ml-5"
-      color="success"
-      hide-details
-      @click="toogle_dark_theme"
-    />
 
     <v-menu
       bottom
-      class="mr-3 rounded-pill"
+      class="mr-12 rounded-pill"
       left
       offset-y
       origin="top right"
