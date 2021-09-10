@@ -136,7 +136,7 @@
         },
         {
           icon: 'mdi-alpha-s-box',
-          title: 'sub_class',
+          title: 'subject',
           to: '/sub-class',
         },
         {
@@ -146,8 +146,8 @@
         },
         {
           icon: 'mdi-shopping-music',
-          title: 'studio',
-          to: '/studio',
+          title: 'vidio_name_page',
+          to: '/vidio',
         },
         {
           icon: 'mdi-account',
