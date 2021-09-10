@@ -48,13 +48,13 @@
             class="bg-auth"
           >
             <v-card-title
-              class="font-spartan primary--text mt-6"
+              class="font-spartan primary--text mt-6 text-nowrap"
               title-tag="h2"
             >
-              Welcome to EnsikloTari! 👋
+              Selamat datang di Studio EnsikloTari! 👋
             </v-card-title>
             <v-card-text class="mb-2 font-spartan customize--subtitle">
-              Please sign-in to your account and start the adventure
+              Masuk Dan Jelajahi Bersama Kami
             </v-card-text>
 
             <v-alert

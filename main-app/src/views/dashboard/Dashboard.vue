@@ -161,6 +161,7 @@
                     <v-btn
                       color="orange"
                       text
+                      to="hurip-studio/home"
                     >
                       Explore
                     </v-btn>
@@ -306,6 +307,7 @@
                     <v-btn
                       color="orange"
                       text
+                      to="rahsa/home"
                     >
                       Explore
                     </v-btn>
@@ -451,6 +453,7 @@
                     <v-btn
                       color="orange"
                       text
+                      to="classic-studio/home"
                     >
                       Explore
                     </v-btn>
