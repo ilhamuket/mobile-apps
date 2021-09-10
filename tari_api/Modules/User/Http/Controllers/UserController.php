@@ -70,7 +70,6 @@ class UserController extends Controller
             $me = $request->user();
             $user = User::join('model_has_roles', 'model_has_roles.model_id', "=", "users.id")
                 ->join('roles', 'model_has_roles.role_id', '=', 'roles.id')
-                ->with('role', 'schedules.classes', 'studio')
                 ->entities($request->entities)
                 ->select('users.*', 'roles.name as role_name')
                 ->findOrFail($me->id);

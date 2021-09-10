@@ -57,7 +57,7 @@ class StudioOwnerVidioController extends Controller
                 "all" => 0,
                 "publish" => 0,
                 "new" => 0,
-                "deleted" => 0,
+                // "deleted" => 0,
             ];
             $me = $request->user();
             $studio = OwnerStudio::where('author_id', $me->id)->first();
@@ -67,7 +67,7 @@ class StudioOwnerVidioController extends Controller
                 ['status', "publish"]
             ])->count();
             $data['new'] = StudioOwnerVidio::where('studio_id', $studio->id)->whereDate('created_at', now())->count();
-            $data["deleted"] = StudioOwnerVidio::where('studio_id', $studio->id)->where('deleted_at', '!=', null)->count();
+            // $data["deleted"] = StudioOwnerVidio::where('studio_id', $studio->id)->where('deleted_at', '!=', null)->count();
 
             return Json::response($data);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
@@ -87,7 +87,10 @@ class StudioOwnerVidioController extends Controller
         try {
             $me = $request->user();
             $studio = OwnerStudio::where('author_id', $me->id)->first();
-            $master = StudioOwnerVidio::entities($request->entities)->where('studio_id', $studio->id)->get();
+            $master = StudioOwnerVidio::entities($request->entities)
+                ->where('studio_id', $studio->id)
+                ->summary($request->summary, $studio->id)
+                ->get();
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
@@ -144,10 +147,12 @@ class StudioOwnerVidioController extends Controller
                         $studiosVidios->url = $url_embed;
                         $studiosVidios->url_thumbnail_youtube = $res['thumbnail_url'];
                         $studiosVidios->slug = \Str::slug($res['title']);
-                        $studiosVidios->status = 'publish';
+                        $studiosVidios->status = $request->status;
                         $studiosVidios->author_id = $request->user()->id;
                         $studiosVidios->studio_id = $studio->id;
                         $studiosVidios->save();
+                        $studiosVidios->studio;
+                        $studiosVidios->author;
                     }
                 }
             }

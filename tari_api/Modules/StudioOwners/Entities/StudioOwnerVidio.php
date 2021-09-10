@@ -43,4 +43,18 @@ class StudioOwnerVidio extends Model
             }
         }
     }
+
+    public function scopeSummary($query, $summary, $studio_id)
+    {
+        if ($summary === 'all') {
+            $query->where('studio_id', $studio_id);
+        }
+        if ($summary === 'publish') return $query->where([
+            ['studio_id', $studio_id],
+            ['status', 'publish']
+        ]);
+        if ($summary === 'new') return $query->where('studio_id', $studio_id)->whereDate('created_at', now());
+
+        return $query;
+    }
 }
