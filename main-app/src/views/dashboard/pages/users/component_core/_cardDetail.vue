@@ -9,9 +9,11 @@
           <v-row>
             <v-col cols="3">
               <v-img
+                v-if="me.img"
                 class="rounded-xl"
                 width="60"
-                src="https://demos.creative-tim.com/muse-vue-ant-design-dashboard/images/face-1.jpg"
+                height="60"
+                :src="me.img.url"
               />
             </v-col>
             <v-col cols="9">

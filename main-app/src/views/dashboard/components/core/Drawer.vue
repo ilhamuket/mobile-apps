@@ -28,7 +28,11 @@
 
     <v-list nav>
       <v-list-item>
+        <v-list-item-avatar v-if="users.img">
+          <v-img :src="users.img.url" />
+        </v-list-item-avatar>
         <v-list-item-avatar
+          v-else
           class="align-self-center"
           :color="$vuetify.theme.dark ? 'primary' : 'third'"
           contain

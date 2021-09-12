@@ -93,15 +93,33 @@
                 class="font-spartan-small text-center m-114 mt-4"
               >Social :
                 <div class="">
-                  <v-icon color="blue">mdi-twitter</v-icon>
-                  <v-icon
-                    class="ml-1"
-                    color="#E1306C"
-                  > mdi-instagram</v-icon>
-                  <v-icon
-                    class="ml-1"
-                    color="blue"
-                  > mdi-facebook</v-icon>
+                  <a
+                    :href="me.username_tw"
+                    target="__blank"
+                  >
+                    <v-icon
+                      :href="me.username_tw"
+                      color="blue"
+                    >mdi-twitter</v-icon>
+                  </a>
+                  <a
+                    :href="me.username_ig"
+                    target="__blank"
+                  >
+                    <v-icon
+                      class="ml-1"
+                      color="#E1306C"
+                    > mdi-instagram</v-icon>
+                  </a>
+                  <a
+                    :href="me.username_fb"
+                    target="__blank"
+                  >
+                    <v-icon
+                      class="ml-1"
+                      color="blue"
+                    > mdi-facebook</v-icon>
+                  </a>
                 </div>
               </span>
             </div>
@@ -146,4 +164,6 @@
   margin-left: 204px
 .m-114
   margin-left: 114px
+a
+  text-decoration: none
 </style>

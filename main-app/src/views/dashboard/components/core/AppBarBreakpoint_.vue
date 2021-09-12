@@ -3,7 +3,7 @@
     id="app-bar"
     absolute
     app
-    color="transparent"
+    :color="$vuetify.theme.dark ? 'secondary' : 'pallet1'"
     flat
     height="75"
   >
@@ -11,7 +11,7 @@
       v-if="$vuetify.breakpoint.mdAndDown && !drawer"
       outlined
       elevation="1"
-      :color="$vuetify.theme.dark ? '' : 'pallet1'"
+      :color="$vuetify.theme.dark ? 'pallet1' : 'primary'"
       fab
       small
       @click="setDrawer(!drawer)"
@@ -38,9 +38,8 @@
       dark
     >
       <v-img
-        v-if="$route.fullPath !== '/pages/user'"
-        src="@/assets/logo.svg"
-        width="500"
+        src="@/assets/img/LOGO.svg"
+        width="100"
         class="bg-red"
       />
       <!-- <v-list-item-title class="font-title-rampart-one custome-brad">
@@ -50,147 +49,6 @@
       </v-list-item-title> -->
     </v-toolbar-title>
     <v-spacer />
-    <!--
-    <v-col cols="2">
-      <div class="d-flex flex-row mt-6 mr-2">
-        <div class="d-flex flex-column justify-start ml-6">
-          <v-select
-            v-model="$i18n.locale"
-            outlined
-            dense
-            class="ml-9"
-            :items="lenguage"
-            item-text="name"
-            item-value="name"
-          >
-            <template
-              slot="selection"
-              slot-scope="data"
-            >
-              <slot
-                name="item"
-                v-bind="data"
-              >
-                <v-chip
-                  color="transparent"
-                  style="text-transform: uppercase"
-                >
-                  <v-avatar left>
-                    <v-img :src="data.item.img" />
-                  </v-avatar>
-                  {{ data.item.name }}
-                </v-chip>
-              </slot>
-            </template>
-            <template
-              slot="item"
-              slot-scope="data"
-            >
-              <slot
-                name="item"
-                v-bind="data"
-              >
-                <v-chip
-                  color="transparent"
-                  class="text-uppercase"
-                >
-                  <v-avatar left>
-                    <v-img :src="data.item.img" />
-                  </v-avatar>
-                  {{ data.item.name }}
-                </v-chip>
-              </slot>
-            </template>
-          </v-select>
-        </div>
-      </div>
-    </v-col> -->
-    <!--
-    <v-text-field
-      :label="$t('search')"
-      color="secondary"
-      hide-details
-      style="max-width: 165px;"
-    >
-      <template
-        v-if="$vuetify.breakpoint.mdAndUp"
-        v-slot:append-outer
-      >
-        <v-btn
-          class="mt-n2"
-          elevation="1"
-          fab
-          small
-        >
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
-      </template>
-    </v-text-field>
-
-    <div class="mx-3" />
-
-    <v-btn
-      class="ml-2"
-      min-width="0"
-      text
-      to="/"
-    >
-      <v-icon>mdi-view-dashboard</v-icon>
-    </v-btn> -->
-
-    <!-- <v-menu
-      bottom
-      left
-      offset-y
-      origin="top right"
-      transition="scale-transition"
-    >
-      <template v-slot:activator="{ attrs, on }">
-        <v-btn
-          class="ml-2"
-          min-width="0"
-          text
-          v-bind="attrs"
-          v-on="on"
-        >
-          <v-badge
-            color="red"
-            overlap
-            bordered
-          >
-            <template v-slot:badge>
-              <span>5</span>
-            </template>
-
-            <v-icon>mdi-bell</v-icon>
-          </v-badge>
-        </v-btn>
-      </template>
-
-      <v-list
-        :tile="false"
-        nav
-      >
-        <div>
-          <app-bar-item
-            v-for="(n, i) in notifications"
-            :key="`item-${i}`"
-          >
-            <v-list-item-title v-text="n" />
-          </app-bar-item>
-        </div>
-      </v-list>
-    </v-menu>
-
-    <v-btn
-      class="ml-2"
-      min-width="0"
-      text
-      to="/pages/user"
-    >
-      <v-icon>mdi-account</v-icon>
-    </v-btn> -->
-
     <v-menu
       bottom
       class="mr-12 rounded-pill"
@@ -226,6 +84,25 @@
       </template>
 
       <v-list>
+        <v-list-item class="d-flex justify-center">
+          <v-list-item-avatar>
+            <v-img src="https://cdn.vuetifyjs.com/images/john.png" />
+          </v-list-item-avatar>
+        </v-list-item>
+        <v-list-item
+          class="d-flex justify-center"
+          link
+        >
+          <v-list-item-content>
+            <v-list-item-title class="text-h5 font-spartan text-center">
+              John Leider
+            </v-list-item-title>
+            <v-list-item-subtitle class="text-h6 font-spartan text-center">
+              john@vuetifyjs.com
+            </v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+        <v-divider />
         <v-list-item-group
           v-model="model"
           active-class="border"
@@ -245,7 +122,7 @@
             </v-list-item-icon>
 
             <v-list-item-content>
-              <v-list-item-title v-text="item.text" />
+              <v-list-item-title v-text="$t(item.text)" />
             </v-list-item-content>
           </v-list-item>
         </v-list-item-group>

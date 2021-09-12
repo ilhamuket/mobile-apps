@@ -71,6 +71,7 @@ class UserController extends Controller
             $user = User::join('model_has_roles', 'model_has_roles.model_id', "=", "users.id")
                 ->join('roles', 'model_has_roles.role_id', '=', 'roles.id')
                 ->entities($request->entities)
+                ->with('followingStudio.followers', 'followingStudio.likes', 'img')
                 ->select('users.*', 'roles.name as role_name')
                 ->findOrFail($me->id);
 
@@ -153,7 +154,6 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            DB::beginTransaction();
             $master = User::findOrFail($id);
 
             $master->firstName = $request->input('firstName', $master->firstName);
@@ -164,18 +164,17 @@ class UserController extends Controller
             $master->nickName = $request->input('nickname', $master->nickName);
             $master->noHp = $request->input('noHp', $master->noHp);
             $master->about = $request->input('about', $master->about);
+            $master->username_ig = $request->input('ig', $master->username_ig);
+            $master->username_fb = $request->input('fb', $master->username_fb);
+            $master->username_tw = $request->input('tw', $master->username_tw);
             $master->save();
 
-            DB::commit();
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            DB::rollBack();
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         } catch (\Illuminate\Database\QueryException $e) {
-            DB::rollBack();
             return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         } catch (\ErrorException $e) {
-            DB::rollBack();
             return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         }
     }

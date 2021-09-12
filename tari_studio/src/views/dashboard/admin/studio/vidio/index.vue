@@ -296,6 +296,7 @@
                 icon: 'success',
                 title: 'Data Added Successfully',
               })
+              this.studioOwnerVidio()
             }
           })
       },

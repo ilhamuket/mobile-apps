@@ -10,8 +10,11 @@
       min-width="100"
       style="position: fixed; top: 115px; right: -35px; border-radius: 8px;"
     >
-      <v-icon large>
-        mdi-settings
+      <v-icon
+        color="red"
+        large
+      >
+        mdi-account-settings
       </v-icon>
     </v-card>
 
@@ -101,7 +104,7 @@
                       <v-avatar left>
                         <v-img :src="data.item.img" />
                       </v-avatar>
-                      {{ data.item.name }}
+                      {{ data.item.display_name }}
                     </v-chip>
                   </slot>
                 </template>
@@ -120,7 +123,7 @@
                       <v-avatar left>
                         <v-img :src="data.item.img" />
                       </v-avatar>
-                      {{ data.item.name }}
+                      {{ data.item.display_name }}
                     </v-chip>
                   </slot>
                 </template>
@@ -178,11 +181,13 @@
       showImg: true,
       lenguage: [
         {
+          display_name: 'English',
           name: 'en',
           img:
             'https://media.istockphoto.com/vectors/flag-of-great-britain-vector-id497118178?s=612x612',
         },
         {
+          display_name: 'Indonesia',
           name: 'id',
           img:
             'https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg',

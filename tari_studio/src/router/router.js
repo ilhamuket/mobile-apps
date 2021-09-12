@@ -92,7 +92,7 @@ const router = new Router({
         },
         // SuvClass
         {
-          name: 'sub_class',
+          name: 'subject',
           path: '/sub-class',
           component: () =>
             import('@/views/dashboard/admin/studio/sub_class/index'),

@@ -32,6 +32,7 @@
         v-for="list in me.following_studio"
         :key="list.id"
       >
+        <!-- v-list-avatar -->
         <v-list-item-avatar color="pallet1">
           <!-- <v-img src="https://cdn.vuetifyjs.com/images/lists/4.jpg" /> -->
           <span>{{ list.name.charAt(0) }}</span>

@@ -63,7 +63,12 @@
         <timelines id="timeLines" />
       </v-col>
     </v-row>
-    <app-dialog-edit :dialog="dialogEdit" />
+    <app-dialog-edit
+      :data="cumputedMe"
+      :dialog="dialogEdit"
+      @input="updateProfile"
+      @refresh="getMe"
+    />
   </v-container>
 </template>
 
@@ -85,7 +90,7 @@
       isLoader: true,
       dialogEdit: {
         open: false,
-        id: 0,
+        data: {},
       },
     }),
     computed: {
@@ -110,7 +115,48 @@
       },
       popUpDialog ({ item }) {
         this.dialogEdit.open = true
-        this.dialogEdit.id = item.id
+        this.dialogEdit.data = item
+      },
+      updateProfile ({ item }) {
+        this.$store
+          .dispatch('user/updateProfile', {
+            id: item.id,
+            firstName: item.firstName,
+            lastName: item.lastName,
+            email: item.email,
+            homeAddress: item.homeAddress,
+            dateOfBirth: item.dateOfBirth,
+            nickname: item.nickName,
+            noHp: item.noHp,
+            about: item.about,
+            ig: item.username_ig,
+            fb: item.username_fb,
+            tw: item.username_tw,
+          })
+          .then(res => {
+            this.dialogEdit.open = false
+            if (res.data.meta.status) {
+              this.dialogEdit.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                },
+                popup: 'swal2-show',
+                backdrop: 'swal2-backdrop-show',
+                icon: 'swal2-icon-show',
+              })
+              Toast.fire({
+                icon: 'success',
+                title: 'User Profile Edited Successfully',
+              })
+            }
+          })
       },
     },
   }

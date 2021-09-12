@@ -12,6 +12,7 @@ use Modules\Classes\Entities\Schedule;
 use Modules\Classes\Entities\Theory;
 use Modules\Studio\Entities\Studio;
 use Modules\StudioOwners\Entities\OwnerStudio;
+use Modules\User\Entities\imageUser;
 use Modules\User\Entities\Role;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Permission\Traits\HasPermissions;
@@ -65,6 +66,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(Studio::class, 'author_id');
     }
+    public function img()
+    {
+        return $this->hasOne(imageUser::class, 'user_id');
+    }
 
     // public function ownerStudio()
     // {
@@ -74,6 +79,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function schedules()
     {
         return $this->hasMany(Schedule::class, 'student_id');
+    }
+
+    public function followingStudio()
+    {
+        return $this->belongsToMany(Studio::class, 'follow_studio', 'user_id', 'studio_id');
     }
 
     public function scopeByRole($query, $role_id)
@@ -118,8 +128,29 @@ class User extends Authenticatable implements MustVerifyEmail
         }
     }
 
-    public function followingStudio()
+
+    public function getUsernameIgAttribute()
     {
-        return $this->belongsToMany(Studio::class, 'follow_studio', 'user_id', 'studio_id');
+        if ($this->attributes['username_ig'] != null) {
+            return  'https://www.instagram.com/' . $this->attributes['username_ig'];
+        } else {
+            return $this->attributes['username_ig'];
+        }
+    }
+    public function getUsernameFbAttribute()
+    {
+        if ($this->attributes['username_fb'] != null) {
+            return  'https://www.facebook.com/' . $this->attributes['username_fb'];
+        } else {
+            return $this->attributes['username_fb'];
+        }
+    }
+    public function getUsernameTwAttribute()
+    {
+        if ($this->attributes['username_tw'] != null) {
+            return  'https://www.twitter.com/' . $this->attributes['username_tw'];
+        } else {
+            return $this->attributes['username_tw'];
+        }
     }
 }

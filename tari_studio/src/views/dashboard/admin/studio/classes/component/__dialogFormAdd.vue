@@ -30,7 +30,7 @@
               <v-autocomplete
                 v-model="form.instructor_id"
                 :items="computedInstructor"
-                label="Class Name"
+                label="Instructor"
                 clearable
                 prepend-icon="mdi-format-title"
                 multiple

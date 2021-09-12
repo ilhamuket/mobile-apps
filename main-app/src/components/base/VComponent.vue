@@ -1,11 +1,10 @@
 <template>
   <section class="mb-12 text-center">
-    <h1
-      class="font-weight-light mb-2 "
-      v-text="`Vuetify ${heading}`"
-    />
+    <h1 class="font-spartan font-italic primary--text">
+      History Class
+    </h1>
 
-    <span class="font-weight-light ">
+    <!-- <span class="font-weight-light ">
       Please checkout the
       <a
         :href="`https://vuetifyjs.com/${link}`"
@@ -16,7 +15,7 @@
       >
         full documentation
       </a>
-    </span>
+    </span> -->
   </section>
 </template>
 

@@ -24,6 +24,11 @@ const router = new Router({
                 text: 'Dashboard',
                 disabled: false,
               },
+              {
+                text: 'Studio',
+                disabled: false,
+                to: '/studio',
+              },
             ],
             requiresAuth: true,
           },
@@ -34,6 +39,17 @@ const router = new Router({
           path: 'pages/user',
           component: () => import('@/views/dashboard/pages/users/index'),
           meta: {
+            breadcumbs: [
+              {
+                text: 'Dashboard',
+                disabled: false,
+                to: '/',
+              },
+              {
+                text: 'Profile',
+                disabled: false,
+              },
+            ],
             requiresAuth: true,
           },
         },
@@ -91,6 +107,17 @@ const router = new Router({
           path: '/studio',
           component: () => import('@/views/dashboard/pages/studio'),
           meta: {
+            breadcumbs: [
+              {
+                text: 'Studio',
+                disabled: false,
+              },
+              {
+                text: 'Dashboard',
+                disabled: false,
+                to: '/',
+              },
+            ],
             requiresAuth: true,
           },
         },
@@ -100,6 +127,17 @@ const router = new Router({
           component: () =>
             import('@/views/dashboard/pages/studio/detailStudio'),
           meta: {
+            breadcumbs: [
+              {
+                text: 'Profile Studio',
+                disabled: false,
+              },
+              {
+                text: 'Studio',
+                disabled: false,
+                to: '/studio',
+              },
+            ],
             requiresAuth: true,
           },
           beforeEnter (to, _, next) {

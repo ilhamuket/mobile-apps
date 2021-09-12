@@ -1,13 +1,32 @@
 <template>
   <v-container>
-    <v-row>
+    <v-row v-if="is_load">
+      <loader
+        object="#ff9633"
+        color1="#ffffff"
+        color2="#17fd3d"
+        size="5"
+        speed="2"
+        bg="#343a40"
+        objectbg="#999793"
+        opacity="80"
+        disable-scrolling="false"
+        name="dots"
+      />
+      <v-col>
+        <v-skeleton-loader type="card-avatar, article, actions" />
+      </v-col>
+    </v-row>
+    <v-row v-else>
       <v-col
         cols="12"
         md="8"
         class="mx-auto"
       >
         <v-card>
-          <v-card-text class="text-center text-capitalize">
+          <v-card-text
+            class="text-center text-capitalize font-spartan font-italic"
+          >
             Hi, {{ users.nickName }}
           </v-card-text>
         </v-card>
@@ -15,7 +34,9 @@
       <v-col cols="12">
         <v-card>
           <v-card-title class="">
-            <span class="text-capitalize text-center mx-auto">
+            <span
+              class="text-capitalize text-center mx-auto font-spartan font-italic"
+            >
               {{ $t('dahsboard.cds') }}
             </span>
           </v-card-title>
@@ -37,8 +58,23 @@
                     class="white--text align-end"
                     height="200px"
                     :src="item.img.url"
+                    style="cursor:pointer"
+                    @click="toPush(`${item.slug}/home`)"
                   >
-                    <v-card-title>{{ item.name }}</v-card-title>
+                    <v-row class="fill-height mt-g text-right">
+                      <v-col cols="12">
+                        <v-chip
+                          label
+                          class="font-spartan mr-1 text-uppercase"
+                          color="primary"
+                          text-color="white"
+                          small
+                          @click.stop=""
+                        >
+                          {{ item.views ? item.views : '0' }} Visited
+                        </v-chip>
+                      </v-col>
+                    </v-row>
                   </v-img>
 
                   <v-card-subtitle style="text-transform: capitalize">
@@ -181,6 +217,9 @@
 
 <script>
   export default {
+    data: () => ({
+      is_load: true,
+    }),
     computed: {
       users () {
         const Me = localStorage.getItem('ME')
@@ -197,9 +236,15 @@
     },
     methods: {
       getDataMostPopuler () {
-        this.$store.dispatch('studioPopuler/getDataMostPopuler', {
-          entities: 'img, followers, likes',
-        })
+        this.$store
+          .dispatch('studioPopuler/getDataMostPopuler', {
+            entities: 'img, followers, likes',
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              this.is_load = false
+            }
+          })
       },
       toPush (link) {
         this.$router.push(link)
@@ -214,4 +259,6 @@ a
 .theme--dark
   .divider--opacity
     opacity: .2
+.mt-g
+  margin-top: -200px
 </style>

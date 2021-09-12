@@ -223,6 +223,7 @@
         this.$store
           .dispatch('subClassStudio/deletesDataSubclass', item)
           .then(res => {
+            this.deletes.open = false
             if (res.data.meta.status) {
               this.deletes.open = false
               const Toast = this.$swal.mixin({

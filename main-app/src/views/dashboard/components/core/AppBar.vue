@@ -1,13 +1,15 @@
 <template>
   <v-app-bar
     id="app-bar"
+    class="modified"
     absolute
     app
-    color="transparent"
+    :color="$vuetify.theme.dark ? '#283046' : '#ffff'"
     flat
     height="75"
   >
-    <v-btn
+    <!-- :color="$vuetify.theme.dark ? 'secondary' : 'pallet1'" -->
+    <!-- <v-btn
       v-if="$vuetify.breakpoint.mdAndDown && !drawer"
       outlined
       elevation="1"
@@ -32,15 +34,14 @@
       v-text="$t($route.name)"
     />
 
-    <v-spacer />
+    <v-spacer /> -->
     <v-toolbar-title
       class="ml-12"
       dark
     >
       <v-img
-        v-if="$route.fullPath !== '/pages/user'"
-        src="@/assets/logo.svg"
-        width="320"
+        src="@/assets/img/LOGO.svg"
+        width="120"
         class="bg-red mr-12"
       />
       <!-- <v-list-item-title class="font-title-rampart-one custome-brad">
@@ -215,20 +216,20 @@
         <v-chip
           class="ma-2"
           :color="$vuetify.theme.dark ? '#121212' : '#eeeeee'"
-          text-color="primary"
+          :text-color="$vuetify.theme.dark ? 'btn_primary' : 'black'"
           outlined
           v-bind="attrs"
           style="text-transform: capitalize"
           v-on="on"
         >
           <v-list-item-avatar
-            color="primary"
+            v-if="users.img"
             size="36"
           >
             <!-- <span class="white--text text-h5">{{ profile.initials }}</span> -->
             <v-img
               class="bg-img"
-              src="https://image.shutterstock.com/image-vector/user-login-authenticate-icon-human-260nw-1365533969.jpg"
+              :src="users.img.url"
             />
           </v-list-item-avatar>
           Hi, {{ users.nickName }}
@@ -236,6 +237,26 @@
       </template>
 
       <v-list>
+        <v-list-item class="d-flex justify-center">
+          <v-list-item-avatar v-if="users.img">
+            <v-img :src="users.img.url" />
+          </v-list-item-avatar>
+        </v-list-item>
+        <v-list-item
+          class="d-flex justify-center"
+          link
+          to="pages/user"
+        >
+          <v-list-item-content>
+            <v-list-item-title class="text-h5 font-spartan text-center">
+              {{ users.nickName }}
+            </v-list-item-title>
+            <v-list-item-subtitle class="text-h6 font-spartan text-center">
+              {{ users.email }}
+            </v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+        <v-divider />
         <v-list-item-group
           v-model="model"
           active-class="border"
@@ -255,7 +276,7 @@
             </v-list-item-icon>
 
             <v-list-item-content>
-              <v-list-item-title v-text="item.text" />
+              <v-list-item-title v-text="$t(item.text)" />
             </v-list-item-content>
           </v-list-item>
         </v-list-item-group>
@@ -307,12 +328,7 @@
         {
           icon: 'mdi-account-outline',
           text: 'myaccount',
-          to: '/user/myaccount',
-        },
-        {
-          icon: 'mdi-account',
-          text: 'user',
-          to: '/user/settings',
+          to: '/pages/user',
         },
         // {
         //   icon: 'mdi-bluetooth',
@@ -378,4 +394,9 @@
   margin-right: 200px
 .font-customize
   font-style: italic
+.modified
+  border-radius: 10px !important
+  margin-left: 57px !important
+  margin-right: 27px !important
+  margin-top: 21px !important
 </style>

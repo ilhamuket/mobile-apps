@@ -250,8 +250,8 @@
   font-weight: bold !important
 .customize--subtitle
   font-size: 12px !important
-a
-  text-decoration: underline
 .force--opacity
   opacity: 0
+.v-label
+  font-family: 'Spartan', sans-serif !important
 </style>

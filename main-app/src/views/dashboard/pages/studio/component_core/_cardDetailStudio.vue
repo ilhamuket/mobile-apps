@@ -106,7 +106,7 @@
                     </v-btn>
                   </div>
 
-                  <div class="d-flex flex-column ml-1">
+                  <div class="d-flex flex-column ml-2">
                     <v-btn
                       v-if="!isLikesYou"
                       outlined
@@ -134,6 +134,19 @@
                       </v-icon>
                     </v-btn>
                   </div>
+                  <div class="d-flex flex-column ml-3">
+                    <v-btn
+                      color="primary"
+                      rounded
+                      width="120"
+                      outlined
+                      small
+                    >
+                      <v-icon>
+                        mdi-information-variant
+                      </v-icon>
+                    </v-btn>
+                  </div>
                 </div>
               </v-row>
             </v-col>
@@ -141,7 +154,7 @@
         </v-col>
         <v-col cols="6">
           <v-row>
-            <v-col class="mr-6 d-flex justify-center">
+            <v-col class="mr-6 d-flex align-center justify-center m-21">
               <div class="d-flex flex-row-reverse">
                 <div class="d-flex flex-column mt-2 mr-2">
                   <span class="mt-1 font-spartan font-italic">
@@ -167,10 +180,10 @@
             </v-col>
           </v-row>
           <v-row>
-            <v-col class="">
-              <div class="d-flex flex-row">
-                <!-- <div class="d-flex flex-column"> -->
-                <!-- <v-btn
+            <!-- <v-col class="">
+              <div class="d-flex flex-row"> -->
+            <!-- <div class="d-flex flex-column"> -->
+            <!-- <v-btn
                     color="primary"
                     rounded
                     width="100%"
@@ -178,25 +191,25 @@
                   >
                     See Statictic
                   </v-btn> -->
-                <!-- </div> -->
-                <div
+            <!-- </div> -->
+            <!-- <div
                   class="d-flex flex-column justify-center text-center m-l-201 mt-2"
-                >
-                  <v-btn
+                > -->
+            <!-- <v-btn
                     outlined
                     width="280"
                     small
                     rounded
-                    color="pallet1"
+                    color="primary"
                     class="mb-2 font-roboto-mono-small"
                   >
                     <v-icon>
                       mdi-information-variant
                     </v-icon>
-                  </v-btn>
-                </div>
-              </div>
-            </v-col>
+                  </v-btn> -->
+            <!-- </div> -->
+            <!-- </div>
+            </v-col> -->
           </v-row>
         </v-col>
       </v-row>
@@ -274,4 +287,6 @@
     font-size: 20px
 .m-l-201
   margin-left: 91px
+.m-21
+  margin-top: 30px
 </style>

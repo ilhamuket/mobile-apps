@@ -10,7 +10,7 @@
       objectbg="#999793"
       opacity="80"
       disable-scrolling="false"
-      name="spinning"
+      name="dots"
     />
     <v-skeleton-loader
       v-bind="attrs"
@@ -74,12 +74,15 @@
           max-height="500"
           class="overflow-y-auto list--customize"
         >
-          <v-card-title class="d-flex justify-center">
+          <v-card-title
+            class="d-flex justify-center font-spartan primary--text font-italic text-h2"
+          >
             Studio
           </v-card-title>
           <v-row>
             <v-col
-              cols="4"
+              cols="12"
+              md="4"
               class="ml-2"
             >
               <v-text-field

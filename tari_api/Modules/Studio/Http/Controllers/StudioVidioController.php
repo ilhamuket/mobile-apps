@@ -18,7 +18,7 @@ class StudioVidioController extends Controller
         try {
             $studio = Studio::where('slug', $request->studio_slug)->first();
             if (is_object($studio)) {
-                $vidio = StudioVidio::where('studio_id', $studio->id)->first();
+                $vidio = StudioVidio::where('studio_id', $studio->id)->whereNull('deleted_at')->first();
                 if (is_object($vidio)) {
                     $master = StudioVidio::with('studio', 'author')
                         ->where('id', $request->input('vidio_id', $vidio->id))
@@ -48,6 +48,7 @@ class StudioVidioController extends Controller
                 $master = StudioVidio::with('studio', 'author')
                     ->search($request->search)
                     ->where('studio_id', $studio->id)
+                    ->whereNull('deleted_at')
                     ->get();
                 return Json::response($master);
             } else {

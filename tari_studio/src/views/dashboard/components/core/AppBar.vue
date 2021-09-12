@@ -39,8 +39,8 @@
     >
       <v-img
         src="@/assets/img/logo.svg"
-        width="500"
-        class="bg-red mt-6"
+        width="300"
+        class="bg-red"
       />
       <!-- <v-list-item-title
         class="font-title-rampart-one-black custome-brad-pallet1"
