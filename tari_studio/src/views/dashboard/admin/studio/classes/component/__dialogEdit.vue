@@ -19,7 +19,7 @@
         </v-card-title>
         <v-container>
           <v-row>
-            <v-col>
+            <v-col cols="12">
               <v-text-field
                 v-model="dialog.name"
                 label="Name Class"
@@ -27,7 +27,8 @@
                 prepend-icon="mdi-alpha-n-circle-outline"
                 clearable
               />
-
+            </v-col>
+            <v-col cols="12">
               <v-select
                 v-model="dialog.levels"
                 label="Levels Class"
@@ -36,6 +37,8 @@
                 prepend-icon="mdi-alpha-a-circle-outline"
                 clearable
               />
+            </v-col>
+            <v-col cols="12">
               <v-autocomplete
                 v-model="dialog.instructor_id"
                 :items="computedInstructor"
@@ -91,6 +94,55 @@
                   </slot>
                 </template>
               </v-autocomplete>
+            </v-col>
+            <v-col cols="12">
+              <v-text-field
+                v-model="dialog.url"
+                dense
+                label="Url"
+                placeholder="Input Url Class"
+                prepend-icon="mdi-google-analytics"
+              />
+            </v-col>
+            <v-col cols="12">
+              <v-text-field
+                v-model="dialog.duration"
+                dense
+                label="Duration (Minutes)"
+                type="number"
+                placeholder="Input Duration Class (Minutes)"
+                prepend-icon="mdi-metronome"
+              />
+            </v-col>
+            <v-col cols="12">
+              <v-text-field
+                v-model="dialog.keyword"
+                dense
+                label="KeyWord / Prefix"
+                placeholder="Input KeyWord Class"
+                prepend-icon="mdi-alpha-p-circle-outline"
+              />
+            </v-col>
+            <v-col cols="12">
+              <v-text-field
+                v-model="dialog.price"
+                dense
+                label="Price"
+                placeholder="Input Price Class"
+                prepend-icon="mdi-progress-check"
+              />
+            </v-col>
+            <v-col cols="12">
+              <v-text-field
+                v-model="dialog.capacity"
+                dense
+                label="Capacity"
+                type="number"
+                placeholder="Input Capacity Class"
+                prepend-icon="mdi-human-capacity-increase"
+              />
+            </v-col>
+            <v-col cols="12">
               <v-textarea
                 v-model="dialog.about"
                 label="About Class"

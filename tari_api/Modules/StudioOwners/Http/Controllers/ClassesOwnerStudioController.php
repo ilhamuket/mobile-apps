@@ -21,7 +21,8 @@ class ClassesOwnerStudioController extends Controller
                 'all' => 0,
                 'approved' => 0,
                 'non_approved' => 0,
-                'new' => 0
+                'new' => 0,
+                'hided' => 0
             ];
             $me = $request->user();
             $studio = OwnerStudio::where('author_id', $me->id)->first();
@@ -39,6 +40,10 @@ class ClassesOwnerStudioController extends Controller
             $data['new'] = ClassesOwnerStudio::whereHas('studio', function (Builder $query) use ($studio) {
                 $query->where('id', $studio->id);
             })->whereDate('created_at', now())
+                ->count();
+            $data['hided'] = ClassesOwnerStudio::whereHas('studio', function (Builder $query) use ($studio) {
+                $query->where('id', $studio->id);
+            })->where('status', 'Hide')
                 ->count();
             return Json::response($data);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
@@ -141,16 +146,23 @@ class ClassesOwnerStudioController extends Controller
 
             $studioClasses = new ClassesOwnerStudio();
             $studioClasses->name = $request->name;
-            $studioClasses->status = false;
+            $studioClasses->status = 'Draft';
             $studioClasses->levels = $request->levels;
             $studioClasses->about = $request->about;
-            $studioClasses->isVerified = false;
+            $studioClasses->isVerified = true;
+            $studioClasses->url_meets = $request->url_meets;
+            $studioClasses->keyword = $request->keyword;
+            $studioClasses->durasi = $request->duration;
+            $studioClasses->harga = $request->harga;
+            $studioClasses->time_start = $request->time_start;
+            $studioClasses->kapasitas = $request->kapasitas;
+            $studioClasses->time_end = $request->time_end;
             $studioClasses->author_id = $request->user()->id;
             $studioClasses->studio_id = $studio->id;
             $studioClasses->save();
             $studioClasses->studio;
             $studioClasses->author;
-            $studioClasses->instructor()->attach($request->instructor_id);
+            $studioClasses->instructor()->sync($request->instructor_id);
 
             DB::commit();
             return Json::response($studioClasses);
@@ -199,6 +211,14 @@ class ClassesOwnerStudioController extends Controller
             $master->name = $request->input('name', $master->name);
             $master->levels = $request->input('levels', $master->levels);
             $master->about = $request->input('about', $master->about);
+            $master->url_meets = $request->input('meets', $master->url_meets);
+            $master->keyword = $request->input('keyword', $master->keyword);
+            $master->durasi = $request->input('durasi', $master->durasi);
+            $master->harga = $request->input('harga', $master->harga);
+            $master->time_start = $request->input('time_start', $master->time_start);
+            $master->kapasitas = $request->input('kapasitas', $master->kapasitas);
+            $master->time_end = $request->input('time_end', $master->time_end);
+            $master->category_id = $request->input('category_id', $master->category_id);
             $master->save();
             $master->instructor()->sync($request->input('instructor_id', $master->instructor));
             $master->studio;

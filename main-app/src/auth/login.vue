@@ -174,7 +174,8 @@
                 if (res.data.data.isVerified === 0) {
                   this.$router.push('/waiting-email')
                 } else {
-                  this.$router.push('/')
+                  const redirecturl = this.$route.query.redirect || '/'
+                  this.$router.push(redirecturl)
                 }
               })
             } else {

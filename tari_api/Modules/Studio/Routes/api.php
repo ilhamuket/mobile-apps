@@ -9,6 +9,7 @@ use Modules\Studio\Http\Controllers\CommentStudioVidioController;
 use Modules\Studio\Http\Controllers\FollowStudioController;
 use Modules\Studio\Http\Controllers\ImagesStudioController;
 use Modules\Studio\Http\Controllers\LikeStudioController;
+use Modules\Studio\Http\Controllers\RoomController;
 use Modules\Studio\Http\Controllers\StudioArticleController;
 use Modules\Studio\Http\Controllers\StudioClassController;
 use Modules\Studio\Http\Controllers\StudioController;
@@ -31,26 +32,10 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
     Route::patch('', [StudioController::class, 'destroy']);
     Route::get('populer', [StudioController::class, 'mostPopuler']);
     Route::post('approve', [StudioController::class, 'studioApprove']);
-    Route::patch('{id}', [StudioController::class, 'update']);
-    Route::patch('{id}', [StudioController::class, 'approveStudio']);
-    Route::delete('{id}', [StudioController::class, 'destroyById']);
-    Route::get('{id}', [StudioController::class, 'show']);
-    // Users
-    Route::get('u/{slug}', [StudioController::class, 'bySlug']);
-    // Studio Vidio
-    Route::post('vidio', [StudioVidioController::class, 'store']);
-    Route::get('vidio/index', [StudioVidioController::class, 'index']);
-    Route::get('vidio/auto-play', [StudioVidioController::class, 'autoPlay']);
-    Route::get('vidio/list-vidio', [StudioVidioController::class, 'listVidio']);
-
-    // Commnents Studio Vidio
-    Route::get('comments/index', [CommentStudioVidioController::class, 'index']);
-    Route::post('comments/post', [CommentStudioVidioController::class, 'store']);
-    // Child
-    Route::get('comments/index/child', [CommentStudioVidioController::class, 'chidlIndex']);
-
-
+    // u
     Route::prefix('u')->group(function () {
+        // classes 
+        Route::get('classes', [StudioClassController::class, 'indexClasses']);
         // article
         Route::get('article/{slug}', [StudioArticleController::class, 'index']);
         // describtion Classes
@@ -65,10 +50,30 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
         Route::post('likes/{slug}', [LikeStudioController::class, 'likes']);
         Route::post('unlike/{slug}', [LikeStudioController::class, 'unlike']);
     });
-
-
+    // Rooms
+    Route::prefix('rooms')->group(function () {
+        Route::get('', [RoomController::class, 'index']);
+        Route::post('', [RoomController::class, 'store']);
+    });
     // files
     Route::post('files/thumbnail', [ImagesStudioController::class, 'thumbnail']);
     Route::post('files', [ImagesStudioController::class, 'store']);
     Route::get('files/index', [ImagesStudioController::class, 'index']);
+    // Studio Vidio
+    Route::post('vidio', [StudioVidioController::class, 'store']);
+    Route::get('vidio/index', [StudioVidioController::class, 'index']);
+    Route::get('vidio/auto-play', [StudioVidioController::class, 'autoPlay']);
+    Route::get('vidio/list-vidio', [StudioVidioController::class, 'listVidio']);
+
+    // Commnents Studio Vidio
+    Route::get('comments/index', [CommentStudioVidioController::class, 'index']);
+    Route::post('comments/post', [CommentStudioVidioController::class, 'store']);
+    // Child
+    Route::get('comments/index/child', [CommentStudioVidioController::class, 'chidlIndex']);
+    Route::patch('{id}', [StudioController::class, 'update']);
+    Route::patch('{id}', [StudioController::class, 'approveStudio']);
+    Route::delete('{id}', [StudioController::class, 'destroyById']);
+    Route::get('{id}', [StudioController::class, 'show']);
+    // Users
+    Route::get('u/{slug}', [StudioController::class, 'bySlug']);
 });

@@ -3,11 +3,37 @@
 namespace Modules\StudioOwners\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\StudioOwners\Entities\ClassesOwnerStudio;
+use Modules\StudioOwners\Entities\OwnerStudio;
+use Modules\StudioOwners\Entities\StudioTeacher;
 
 class StudioOwnersController extends Controller
 {
+    public function summary(Request $request)
+    {
+        try {
+            $me = $request->user();
+            $studio = OwnerStudio::where('author_id', $studio->id)->first();
+            $data = [
+                'classes' => 0,
+                'instructor' => 0,
+                'vidio_classes' => 0,
+                'vidio_profile' => 0,
+            ];
+
+            $data['classes'] = ClassesOwnerStudio::whereHas('studio', function (Blueprint $query) use ($studio) {
+                $query->where('id', $studio->id);
+            })->count();
+            $data['instructor'] = StudioTeacher::whereHas('studio', function (Blueprint $query) use ($studio) {
+                $query->where('id', $studio);
+            })->count();
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
     /**
      * Display a listing of the resource.
      * @return Renderable

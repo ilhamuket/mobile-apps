@@ -36,13 +36,23 @@
         v-for="(item, i) in classes"
         :key="i"
         cols="12"
-        md="3"
+        md="4"
       >
         <v-card
           class="mx-auto"
-          width="344"
-          height="350"
+          max-height="500"
         >
+          <v-img
+            v-if="item.img"
+            :src="item.img.url"
+            width="400"
+            height="200"
+          />
+          <v-img
+            v-else
+            height="200px"
+            src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+          />
           <v-card-text>
             <div class="text-h6">
               <v-chip
@@ -50,7 +60,7 @@
                 small
                 label
               >
-                {{ item.status === 1 ? 'Publish' : 'Concept' }}
+                {{ item.status }}
               </v-chip>
             </div>
             <div class="d-flex flex-row mt-1">
@@ -87,11 +97,57 @@
                 </v-chip>
               </div>
             </div>
-            <div class="text--primary font-size-ather-roboto-mono">
-              {{ item.about }}
+            <div class="d-flex flex-row mt-1">
+              <div class="d-flex flex-column font-size-ather-roboto-mono">
+                Price :
+              </div>
+              <div class="d-flex flex-column float-right">
+                <v-chip
+                  color="transparent"
+                  label
+                  small
+                  class="text-h4 ml-1"
+                >
+                  {{ item.harga === null ? '-' : item.harga }}
+                </v-chip>
+              </div>
             </div>
+            <div class="d-flex flex-row mt-1">
+              <div class="d-flex flex-column font-size-ather-roboto-mono">
+                Duration :
+              </div>
+              <div class="d-flex flex-column float-right">
+                <v-chip
+                  color="transparent"
+                  label
+                  small
+                  class="text-h4 ml-1"
+                >
+                  {{ item.durasi === null ? '-' : item.durasi }}
+                </v-chip>
+              </div>
+            </div>
+            <div class="d-flex flex-row mt-1">
+              <div class="d-flex flex-column font-size-ather-roboto-mono">
+                Capacity :
+              </div>
+              <div class="d-flex flex-column float-right">
+                <v-chip
+                  color="transparent"
+                  label
+                  small
+                  class="text-h4 ml-1"
+                >
+                  0 / {{ item.kapasitas === null ? '-' : item.kapasitas }}
+                </v-chip>
+              </div>
+            </div>
+
+            <!-- <div class="text--primary font-size-ather-roboto-mono">
+              {{ item.about }}
+            </div> -->
           </v-card-text>
-          <v-card-actions class="d-flex justify-center mb-2">
+          <!-- <v-card-actions class="d-flex justify-center mb-2">
             <v-btn
               class=""
               outlined
@@ -102,7 +158,43 @@
             >
               See More
             </v-btn>
+          </v-card-actions> -->
+          <v-card-actions>
+            <v-btn
+              class=""
+              text
+              color="primary"
+              width="200"
+              small
+              @click="clickSeeMore(item)"
+            >
+              See More
+            </v-btn>
+
+            <v-spacer />
+
+            <v-btn
+              icon
+              dark
+              @click="show = !show"
+            >
+              <v-icon color="primary">
+                {{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
+              </v-icon>
+            </v-btn>
           </v-card-actions>
+
+          <v-expand-transition>
+            <div v-show="show">
+              <v-divider />
+
+              <v-card-text>
+                <div class="text--primary font-size-ather-roboto-mono">
+                  {{ item.about }}
+                </div>
+              </v-card-text>
+            </div>
+          </v-expand-transition>
         </v-card>
       </v-col>
     </v-row>
@@ -119,6 +211,7 @@
     },
     data: () => ({
       items: ['tahu', 'ayam'],
+      show: false,
     }),
     methods: {
       setColorStatus (status) {

@@ -1,0 +1,18 @@
+.zoom .zoom-row img{
+   border-radius: 20px;
+}
+.zoom {
+    border-radius: 20px;
+}
+
+.zoom .zoom__corusel {
+    margin-right: 22px;
+    margin-top: 29px;
+}
+.m-t-200 {
+    margin-top: 23px !important;
+    width: 200px;
+    margin-left: 80px;
+}
+
+  

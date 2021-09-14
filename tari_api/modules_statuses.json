@@ -7,5 +7,6 @@
     "Plan": true,
     "Studio": true,
     "Migration": true,
-    "StudioOwners": true
+    "StudioOwners": true,
+    "Room": true
 }

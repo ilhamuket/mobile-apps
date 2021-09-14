@@ -4,10 +4,11 @@
     :rel="href && href !== '#' ? 'noopener' : undefined"
     :target="href && href !== '#' ? '_blank' : undefined"
     :to="item.to"
-    :active-class="
-      drawer ? 'drawer--off' : `${!isDark ? 'white' : 'pallet1'}--text`
-    "
+    :active-class="drawer && $vuetify.theme.dark ? 'primary' : 'pallet1--text'"
   >
+    <!-- :active-class="
+      drawer ? 'drawer--off' : `${!isDark ? 'green' : 'red'}--text`
+    " -->
     <v-list-item-icon
       v-if="text"
       class="v-list-item__icon--text"

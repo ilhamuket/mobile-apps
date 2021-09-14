@@ -219,7 +219,8 @@
         this.$store
           .dispatch('studioClasses/getDataStudioClasses', {
             slug: this.$route.params.slug,
-            entities: 'studio.img,author,schedules,instructor_v2',
+            entities: 'studio.img,author,schedules,instructor_v2, img',
+            filter: 'Publish',
           })
           .then(({ data }) => {
             this.classes = data.data

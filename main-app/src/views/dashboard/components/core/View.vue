@@ -5,7 +5,9 @@
       :class="!drawer ? 'ml-4' : 'mr-2'"
     >
       <div class="d-flex flex-column mt">
-        <span class="ml-7 font-spartan text-h3">{{ $t($route.name) }} |</span>
+        <span
+          class="ml-7 font-spartan text-h3"
+        >{{ $t($route.name) }} <v-icon> mdi-chevron-right</v-icon></span>
       </div>
 
       <div class="d-flex flex-column">

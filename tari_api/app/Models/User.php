@@ -10,7 +10,10 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Classes\Entities\Schedule;
 use Modules\Classes\Entities\Theory;
+use Modules\Room\Entities\Room;
+use Modules\Studio\Entities\ClassesScheduleStudio;
 use Modules\Studio\Entities\Studio;
+use Modules\StudioOwners\Entities\ClassesOwnerStudio;
 use Modules\StudioOwners\Entities\OwnerStudio;
 use Modules\User\Entities\imageUser;
 use Modules\User\Entities\Role;
@@ -55,6 +58,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function role()
     {
         return $this->belongsToMany(Role::class, 'model_has_roles', 'model_id', 'role_id');
+    }
+
+    public function myClass()
+    {
+        return $this->belongsToMany(ClassesScheduleStudio::class, 'room_student', 'user_id', 'sub_class_id');
     }
 
     // public function saveTheories()

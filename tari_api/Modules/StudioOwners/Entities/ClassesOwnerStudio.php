@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Media\Entities\Category;
 use Modules\Studio\Entities\Studio;
 
 class ClassesOwnerStudio extends Model
@@ -39,6 +40,16 @@ class ClassesOwnerStudio extends Model
     public function instructor()
     {
         return $this->belongsToMany(StudioTeacher::class, 'class_instructor_v2', 'class_id', 'instructor_id');
+    }
+
+    public function img()
+    {
+        return $this->hasOne(imgClasses::class, 'class_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(StudioOwnerCategory::class, 'category_id');
     }
 
     // ==== Scope === //

@@ -7,6 +7,8 @@ use Modules\StudioOwners\Entities\ClassesOwnerStudio;
 use Modules\StudioOwners\Entities\StudioTeacher;
 use Modules\StudioOwners\Entities\SubClassOwnerStudio;
 use Modules\StudioOwners\Http\Controllers\ClassesOwnerStudioController;
+use Modules\StudioOwners\Http\Controllers\ImgClassesController;
+use Modules\StudioOwners\Http\Controllers\StudioOwnerCategoryController;
 use Modules\StudioOwners\Http\Controllers\StudioOwnerVidioController;
 use Modules\StudioOwners\Http\Controllers\StudioTeacherController;
 use Modules\StudioOwners\Http\Controllers\SubClassOwnerStudioController;
@@ -29,6 +31,8 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
         Route::post('create', [ClassesOwnerStudioController::class, 'store']);
         Route::post('delBroadcast', [ClassesOwnerStudioController::class, 'delBroadcast']);
         Route::post('approveBroadcast', [ClassesOwnerStudioController::class, 'approvedBroadcast']);
+        Route::post('thumbnail', [ImgClassesController::class, 'thumbnail']);
+        Route::post('change-thumbnail', [ImgClassesController::class, 'changeThumbnail']);
         Route::patch('update/{id}', [ClassesOwnerStudioController::class, 'update']);
         Route::delete('destroy/{id}', [ClassesOwnerStudioController::class, 'destroy']);
         Route::get('summary', [ClassesOwnerStudioController::class, 'summary']);
@@ -66,5 +70,10 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
         Route::prefix('summary')->group(function () {
             Route::get('', [StudioOwnerVidioController::class, 'summary']);
         });
+    });
+
+    Route::prefix('categories')->group(function () {
+        Route::get('', [StudioOwnerCategoryController::class, 'index']);
+        Route::post('', [StudioOwnerCategoryController::class, 'store']);
     });
 });

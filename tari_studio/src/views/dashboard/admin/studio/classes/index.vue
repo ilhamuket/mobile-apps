@@ -73,6 +73,7 @@
           @approves="popApproves"
           @update="popUpdate"
           @del="removeStudioById"
+          @info="popUpInfo"
         />
       </v-col>
     </v-row>
@@ -113,6 +114,11 @@
       :dialog="update"
       @input="updateDataClassesStudio"
     />
+    <app-data-info
+      :dialog="info"
+      @input="inputPicture"
+      @change="changePicture"
+    />
   </v-container>
 </template>
 
@@ -121,12 +127,15 @@
   import dialogForm from './component/__dialogFormAdd.vue'
   import dialogNotice from './component/__dialogNotice.vue'
   import dialogEdit from './component/__dialogEdit.vue'
+  import dialogInfo from './component/__dialogInfo.vue'
+  import axios from 'axios'
   export default {
     components: {
       'app-data-table': table,
       'app-data-form': dialogForm,
       'app-dialog-notice': dialogNotice,
       'app-data-edit': dialogEdit,
+      'app-data-info': dialogInfo,
     },
     data: () => ({
       addForm: {
@@ -142,12 +151,22 @@
         id: 0,
         data: [],
       },
+      info: {
+        open: false,
+        data: {},
+      },
       update: {
         open: false,
         id: 0,
         name: '',
         levels: '',
         about: '',
+        url: '',
+        duration: null,
+        keyword: null,
+        price: null,
+        capacity: null,
+        category_id: 0,
         instructor_id: 0,
       },
       dialogDeleteById: {
@@ -180,7 +199,7 @@
     methods: {
       getDataClassesStudio () {
         this.$store.dispatch('ownerStudioClasses/getDataClassesStudio', {
-          entities: 'studio, author, instructor',
+          entities: 'studio, author, instructor, img, category',
           summary: this.summary,
         })
       },
@@ -196,6 +215,13 @@
             name: item.name,
             levels: item.levels,
             about: item.about,
+            url_meets: item.url,
+            keyword: item.keyword,
+            duration: item.duration,
+            harga: item.price,
+            kapasitas: item.capacity,
+            time_start: item.time_start,
+            time_end: item.time_end,
             instructor_id: item.instructor_id,
           })
           .then(({ data }) => {
@@ -203,6 +229,7 @@
               item.name = ''
               item.levels = ''
               item.about = ''
+              item = null
               this.addForm.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
@@ -263,7 +290,100 @@
         this.update.id = item.id
         this.update.about = item.about
         this.update.levels = item.levels
+        this.update.url = item.url_meets
+        this.update.keyword = item.keyword
+        this.update.duration = item.durasi
+        this.update.price = item.harga
+        this.update.capacity = item.kapasitas
+        this.update.category_id = item.category_id
         this.update.instructor_id = instructorId
+      },
+      popUpInfo ({ item }) {
+        console.log(item)
+        this.info.open = true
+        this.info.data = item
+      },
+      inputPicture ({ item }) {
+        console.log(item)
+        axios.defaults.headers.common.Authorization =
+          'Bearer ' + localStorage.getItem('access_token')
+        axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+        const URL = 'owner/classes/thumbnail'
+        const data = new FormData()
+        data.append('img', item.files)
+        data.append('class_id', item.id)
+        const config = {
+          header: {
+            'Content-Type': 'image/png',
+          },
+        }
+        axios.post(URL, data, config).then(res => {
+          if (res.data.meta.status) {
+            item = null
+            const Toast = this.$swal.mixin({
+              toast: true,
+              position: 'bottom-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: toast => {
+                toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+              },
+              popup: 'swal2-show',
+              backdrop: 'swal2-backdrop-show',
+              icon: 'swal2-icon-show',
+            })
+            Toast.fire({
+              icon: 'success',
+              title: 'Profile Editted Successfully',
+            })
+            this.info.open = false
+            this.getDataClassesStudio()
+          }
+        })
+      },
+      changePicture ({ item }) {
+        axios.defaults.headers.common.Authorization =
+          'Bearer ' + localStorage.getItem('access_token')
+        axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+        const URL = 'owner/classes/change-thumbnail'
+        const data = new FormData()
+        data.append('img', item.files)
+        data.append('class_id', item.id)
+        const config = {
+          header: {
+            'Content-Type': 'image/png',
+          },
+        }
+
+        axios.post(URL, data, config).then(res => {
+          if (res.data.meta.status) {
+            item = null
+            const Toast = this.$swal.mixin({
+              toast: true,
+              position: 'bottom-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: toast => {
+                toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+              },
+              popup: 'swal2-show',
+              backdrop: 'swal2-backdrop-show',
+              icon: 'swal2-icon-show',
+            })
+            Toast.fire({
+              icon: 'success',
+              title: 'Profile Editted Successfully',
+            })
+            this.info.open = false
+            this.getDataClassesStudio()
+          }
+        })
       },
       removeStudioById ({ item }) {
         this.dialogDeleteById.open = true
@@ -334,6 +454,12 @@
             name: item.name,
             levels: item.levels,
             about: item.about,
+            durasi: item.duration,
+            meets: item.url,
+            keyword: item.keyword,
+            harga: item.price,
+            kapasitas: item.capacity,
+            category_id: item.category_id,
             instructor_id: item.instructor_id,
           })
           .then(res => {

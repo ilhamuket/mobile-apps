@@ -74,7 +74,13 @@
                 "studio": "Sanggar",
                 "created_at": "Di Buat Pada",
                 "author": "Pembuat",
-                "status": "Status"
+                "status": "Status",
+                "capacity": "Kapsitas",
+                "price": "Harga",
+                "duration": "Durasi (Menit)",
+                "keyword": "Keyword",
+                "category": "Kategory",
+                "prefix": "prefix"
             }
         },
         "sub-class": {
@@ -85,7 +91,7 @@
                 "status": "Status",
                 "started": "Mulai",
                 "approved": "Disetujui",
-                "Ended": "persetujuan"
+                "Ended": "Selesai"
             }
         },
         "teachers": {

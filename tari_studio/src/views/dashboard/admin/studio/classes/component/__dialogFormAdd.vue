@@ -5,7 +5,7 @@
       width="90%"
     >
       <v-card class="rounded-xl">
-        <v-card-title class="text-h2 pallet1--text font-title-rampart-one">
+        <v-card-title class="text-h2 primary--text font-spartan">
           Add Class
 
           <v-spacer />
@@ -75,7 +75,6 @@
                   </slot>
                 </template>
               </v-autocomplete>
-
               <v-select
                 v-model="form.levels"
                 label="Levels Class"
@@ -83,6 +82,101 @@
                 :items="items"
                 prepend-icon="mdi-alpha-a-circle-outline"
                 clearable
+              />
+              <v-text-field
+                v-model="form.url"
+                dense
+                label="Url"
+                placeholder="Input Url Class"
+                prepend-icon="mdi-google-analytics"
+              />
+              <v-text-field
+                v-model="form.keyword"
+                dense
+                label="KeyWord / Prefix"
+                placeholder="Input KeyWord Class"
+                prepend-icon="mdi-alpha-p-circle-outline"
+              />
+              <v-text-field
+                v-model="form.price"
+                dense
+                label="Price"
+                placeholder="Input Price Class"
+                prepend-icon="mdi-progress-check"
+              />
+              <v-text-field
+                v-model="form.capacity"
+                dense
+                label="Capacity"
+                type="number"
+                placeholder="Input Capacity Class"
+                prepend-icon="mdi-human-capacity-increase"
+              />
+              <v-menu
+                ref="menu1"
+                v-model="menuTimeStart"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                :return-value.sync="form.time_start"
+                transition="scale-transition"
+                offset-y
+                max-width="290px"
+                min-width="290px"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="form.time_start"
+                    label="Time Started"
+                    prepend-icon="mdi-clock-time-four-outline"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                  />
+                </template>
+                <v-time-picker
+                  v-if="menuTimeStart"
+                  v-model="form.time_start"
+                  format="24hr"
+                  full-width
+                  @click:minute="$refs.menu1.save(form.time_start)"
+                />
+              </v-menu>
+              <v-menu
+                ref="menu2"
+                v-model="menuTimeEnd"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                :return-value.sync="form.time_end"
+                transition="scale-transition"
+                offset-y
+                max-width="290px"
+                min-width="290px"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="form.time_end"
+                    label="Time Ended"
+                    prepend-icon="mdi-clock-time-four-outline"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                  />
+                </template>
+                <v-time-picker
+                  v-if="menuTimeEnd"
+                  v-model="form.time_end"
+                  format="24hr"
+                  full-width
+                  @click:minute="$refs.menu2.save(form.time_end)"
+                />
+              </v-menu>
+              <v-text-field
+                v-model="form.duration"
+                dense
+                label="Duration (Minutes)"
+                type="number"
+                placeholder="Input Duration Class (Minutes)"
+                prepend-icon="mdi-metronome"
               />
               <v-textarea
                 v-model="form.about"
@@ -131,8 +225,18 @@
         name: '',
         levels: '',
         about: '',
+        url: '',
+        keyword: '',
+        durasi: '',
+        harga: '',
+        capacity: '',
+        time_start: null,
+        time_end: null,
         instructor_id: 0,
       },
+      menuTimeStart: false,
+      menuTimeEnd: false,
+      modal2: false,
     }),
     computed: {
       computedInstructor () {

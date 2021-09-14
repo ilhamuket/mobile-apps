@@ -57,7 +57,6 @@
         <div class="d-flex flex-column justify-start ml-6">
           <v-select
             v-model="$i18n.locale"
-            outlined
             dense
             class="ml-9"
             :items="lenguage"
@@ -226,11 +225,19 @@
             v-if="users.img"
             size="36"
           >
-            <!-- <span class="white--text text-h5">{{ profile.initials }}</span> -->
             <v-img
               class="bg-img"
               :src="users.img.url"
             />
+          </v-list-item-avatar>
+          <v-list-item-avatar
+            v-else
+            color="primary"
+            size="36"
+          >
+            <span class="pallet1--text text-h5">{{
+              users.nickName.charAt(0)
+            }}</span>
           </v-list-item-avatar>
           Hi, {{ users.nickName }}
         </v-chip>
@@ -240,6 +247,15 @@
         <v-list-item class="d-flex justify-center">
           <v-list-item-avatar v-if="users.img">
             <v-img :src="users.img.url" />
+          </v-list-item-avatar>
+          <v-list-item-avatar
+            v-else
+            color="secondary"
+            size="36"
+          >
+            <span class="pallet1--text text-h5">{{
+              users.nickName.charAt(0)
+            }}</span>
           </v-list-item-avatar>
         </v-list-item>
         <v-list-item

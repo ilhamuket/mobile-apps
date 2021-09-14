@@ -3,11 +3,12 @@
     id="app-bar"
     absolute
     app
-    color="transparent"
+    class="modified"
+    :color="$vuetify.theme.dark ? '#283046' : '#ffff'"
     flat
     height="75"
   >
-    <v-btn
+    <!-- <v-btn
       v-if="$vuetify.breakpoint.mdAndDown && !drawer"
       outlined
       elevation="1"
@@ -32,15 +33,15 @@
       v-text="$t($route.name)"
     />
 
-    <v-spacer />
+    <v-spacer /> -->
     <v-toolbar-title
       class="ml-12"
       dark
     >
       <v-img
-        src="@/assets/img/logo.svg"
-        width="300"
-        class="bg-red"
+        src="@/assets/img/LOGO.svg"
+        width="120"
+        class="bg-red mr-12"
       />
       <!-- <v-list-item-title
         class="font-title-rampart-one-black custome-brad-pallet1"
@@ -57,7 +58,6 @@
         <div class="d-flex flex-column justify-start ml-6">
           <v-select
             v-model="$i18n.locale"
-            outlined
             dense
             class="ml-9"
             :items="lenguage"
@@ -374,3 +374,15 @@
     },
   }
 </script>
+
+<style lang="sass" scoped>
+.card--margin
+  margin-right: 200px
+.font-customize
+  font-style: italic
+.modified
+  border-radius: 10px !important
+  margin-left: 57px !important
+  margin-right: 27px !important
+  margin-top: 21px !important
+</style>

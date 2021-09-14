@@ -70,10 +70,7 @@
         md="12"
         class="overflow"
       >
-        <v-card
-          max-height="500"
-          class="overflow-y-auto list--customize"
-        >
+        <v-card>
           <v-card-title
             class="d-flex justify-center font-spartan primary--text font-italic text-h2"
           >

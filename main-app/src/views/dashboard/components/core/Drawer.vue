@@ -147,6 +147,11 @@
           to: '/studio',
         },
         {
+          icon: 'mdi-alpha-c-circle-outline',
+          title: 'classes',
+          to: '/classes',
+        },
+        {
           icon: 'mdi-account',
           title: 'user',
           to: '/pages/user',

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import auth from '../store/module/auth'
 import user from '../store/module/user/index'
+import i18n from '@/i18n'
 
 Vue.use(Router)
 
@@ -21,13 +22,14 @@ const router = new Router({
           meta: {
             breadcumbs: [
               {
-                text: 'Dashboard',
-                disabled: false,
-              },
-              {
                 text: 'Studio',
                 disabled: false,
                 to: '/studio',
+              },
+              {
+                text: 'Classes',
+                disabled: false,
+                to: '/classes',
               },
             ],
             requiresAuth: true,
@@ -143,7 +145,28 @@ const router = new Router({
           beforeEnter (to, _, next) {
             if (['home', 'class', 'reviews'].includes(to.params.folder)) {
               next()
-            } else next({ name: 'studio' })
+            } else next({ name: 'Error' })
+          },
+        },
+        // Classes
+        {
+          name: 'classes',
+          path: '/classes',
+          component: () => import('@/views/dashboard/pages/classes/index'),
+          meta: {
+            breadcumbs: [
+              {
+                text: 'DashBoard',
+                disabled: false,
+                to: '/',
+              },
+              {
+                text: 'Studio',
+                disabled: false,
+                to: '/',
+              },
+            ],
+            requiresAuth: true,
           },
         },
         {
@@ -154,6 +177,14 @@ const router = new Router({
             requiresAuth: true,
           },
         },
+        // {
+        //   name: 'Page Not Found',
+        //   path: '*',
+        //   component: () => import('@/views/dashboard/ensikloerrors/error'),
+        //   meta: {
+        //     requiresAuth: true,
+        //   },
+        // },
       ],
     },
     {
@@ -203,7 +234,7 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  document.title = `${process.env.VUE_APP_TITLE} - ${to.name}`
+  document.title = `${i18n.t(to.name)}  - ${process.env.VUE_APP_TITLE}`
 
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
@@ -212,8 +243,8 @@ router.beforeEach((to, from, next) => {
       // console.log(, 'from')
 
       next({
-        path: '/login',
         query: { redirect: to.fullPath },
+        path: '/login',
       })
     } else {
       // console.log('Dari ', from.name, 'Ke ', to.name)
@@ -222,12 +253,14 @@ router.beforeEach((to, from, next) => {
       const users = JSON.parse(Me)
       if (users.isVerified === 1) {
         if (to.name === 'WaitingEmail') {
-          next({ path: '/' })
+          next({ path: '/error' })
         } else if (to.name === 'Verifications') {
-          next({ path: '/' })
+          next({ path: '/error' })
         }
       } else {
-        next({})
+        next({
+          query: { redirect: to.fullPath },
+        })
       }
     }
 
@@ -254,7 +287,6 @@ router.beforeEach((to, from, next) => {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     if (localStorage.getItem('access_token')) {
-      console.log(localStorage.getItem('access_item'))
       next({
         path: '/',
         query: { redirect: to.fullPath },
@@ -275,7 +307,7 @@ router.beforeEach((to, from, next) => {
       if (user.state.me.isVerified === 0) {
         next()
       } else {
-        next({ path: '/' })
+        next({ path: '/', query: { redirect: to.fullPath } })
       }
     }
 

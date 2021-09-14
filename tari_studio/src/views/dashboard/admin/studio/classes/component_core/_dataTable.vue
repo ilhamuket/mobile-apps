@@ -32,17 +32,36 @@
           md="8"
           class="d-flex flex-row-reverse"
         >
-          <v-btn
-            outlined
-            color="btn_primary"
-            class="ml-2"
-            @click="upDialog"
-          >
-            <v-icon>
-              mdi-plus
-            </v-icon>
-            Make Sub-Class
-          </v-btn>
+          <div class="ml-2">
+            <v-menu offset-y>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  color="btn_primary"
+                  dark
+                  v-bind="attrs"
+                  outlined
+                  v-on="on"
+                >
+                  <v-icon>mdi-chevron-down</v-icon>
+                </v-btn>
+              </template>
+              <v-list>
+                <v-list-item-group>
+                  <v-list-item>
+                    <v-list-item-action>
+                      <v-btn
+                        width="400"
+                        outlined
+                        color="btn_primary"
+                      >
+                        Export
+                      </v-btn>
+                    </v-list-item-action>
+                  </v-list-item>
+                </v-list-item-group>
+              </v-list>
+            </v-menu>
+          </div>
           <v-btn
             outlined
             color="btn_primary"
@@ -95,20 +114,37 @@
             <template #[`header.levels`]="{ header }">
               {{ $t(header.text) }}
             </template>
-            <template #[`header.studio.name`]="{ header }">
+            <template #[`header.harga`]="{ header }">
               {{ $t(header.text) }}
             </template>
             <template #[`header.created_at`]="{ header }">
               {{ $t(header.text) }}
             </template>
-            <template #[`header.author.nickName`]="{ header }">
+            <template #[`header.kapasitas`]="{ header }">
               {{ $t(header.text) }}
             </template>
             <template #[`header.status`]="{ header }">
               {{ $t(header.text) }}
             </template>
+            <template #[`header.category.name`]="{ header }">
+              {{ $t(header.text) }}
+            </template>
+            <template #[`header.durasi`]="{ header }">
+              {{ $t(header.text) }}
+            </template>
+            <template #[`header.keyword`]="{ header }">
+              {{ $t(header.text) }}
+            </template>
 
             <!-- Item -->
+            <template #[`item.img.url`]="{item}">
+              <v-img
+                v-if="item.img"
+                :src="item.img.url"
+                width="100"
+                height="100"
+              />
+            </template>
             <template #[`item.name`]="{item}">
               <div class="mt-6">
                 {{ item.name }}
@@ -129,6 +165,22 @@
                           mdi-pencil
                         </v-icon>
                         Edit
+                      </a>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="d-flex flex-column mt-2 ml-1 mr-1">
+                      <a
+                        class="d-flex blue--text flex-nowrap"
+                        @click="upInfoClass(item)"
+                      >
+                        <v-icon
+                          color="blue"
+                          small
+                        >
+                          mdi-eye
+                        </v-icon>
+                        Info
                       </a>
                     </div>
                   </div>
@@ -154,23 +206,32 @@
             <template #[`item.levels`]="{item}">
               <v-chip
                 label
+                text-color="white"
                 :color="setColorLevels(item.levels)"
                 class="text-capitalize chips--weight"
               >
                 {{ item.levels }}
               </v-chip>
             </template>
+            <template #[`item.keyword`]="{item}">
+              <span>{{ item.keyword ? item.keyword : '-' }}</span>
+            </template>
             <template #[`item.status`]="{item}">
               <v-chip
                 :color="setColorStatus(item.status)"
                 label
+                text-color="white"
                 class="chips--weight"
               >
-                {{
-                  item.status === 1
-                    ? $t('table.approved')
-                    : $t('table.non_approved')
-                }}
+                {{ item.status }}
+              </v-chip>
+            </template>
+            <template #[`item.kapasitas`]="{item}">
+              <v-chip
+                label
+                color="primary"
+              >
+                0 / {{ item.kapasitas }}
               </v-chip>
             </template>
             <template #[`item.created_at`]="{item}">
@@ -194,15 +255,22 @@
     data: () => ({
       headers: [
         {
+          text: '#',
+          value: 'img.url',
+        },
+        {
           text: 'table.class.th.name',
           align: 'start',
           sortable: false,
           value: 'name',
         },
         { text: 'table.class.th.levels', value: 'levels' },
-        { text: 'table.class.th.studio', value: 'studio.name' },
-        { text: 'table.class.th.created_at', value: 'created_at' },
-        { text: 'table.class.th.author', value: 'author.nickName' },
+        { text: 'table.class.th.price', value: 'harga' },
+        { text: 'table.class.th.category', value: 'category.name' },
+        // { text: 'table.class.th.created_at', value: 'created_at' },
+        { text: 'table.class.th.prefix', value: 'keyword' },
+        { text: 'table.class.th.capacity', value: 'kapasitas' },
+        { text: 'table.class.th.duration', value: 'durasi' },
         { text: 'table.class.th.status', value: 'status' },
       ],
       selected: [],
@@ -229,12 +297,13 @@
     },
     methods: {
       setColorLevels (levels) {
-        if (levels === 'Beginner' || levels === 'beginner') return 'red'
+        if (levels === 'Beginner' || levels === 'beginner') return 'pallet1'
         if (levels === 'Advance') return 'secondary'
         if (levels === 'Intermediate') return 'btn_primary'
       },
       setColorStatus (status) {
-        if (status === 1) return 'btn_primary'
+        if (status === 'Publish') return 'btn_primary'
+        if (status === 'Draft') return 'blue'
         else return 'red'
       },
       upDialog () {
@@ -251,6 +320,9 @@
       },
       upDeleteClass (item) {
         this.$emit('del', { item: item })
+      },
+      upInfoClass (item) {
+        this.$emit('info', { item: item })
       },
     },
   }

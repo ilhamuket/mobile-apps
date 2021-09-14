@@ -69,12 +69,18 @@
     "non_approved": "Non Approved",
     "class": {
       "th": {
-        "name": "Nama",
-        "levels": "Levels",
+        "name": "Name",
+        "levels": "Level",
         "studio": "Studio",
-        "created_at": "Created_at",
+        "created_at": "Created At",
         "author": "Author",
-        "status": "Status"
+        "status": "Status",
+        "capacity": "Capacity",
+        "price": "Price",
+        "duration": "Duration (Minutes)",
+        "keyword": "Keyword",
+        "category": "Category",
+        "prefix": "prefix"
       }
     },
     "sub-class": {

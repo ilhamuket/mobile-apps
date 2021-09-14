@@ -7,6 +7,8 @@ use Brryfrmnn\Transformers\Json;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Media\Entities\Category;
+use Modules\StudioOwners\Entities\imgClasses;
 use Modules\StudioOwners\Entities\StudioTeacher;
 
 class StudioClass extends Model
@@ -46,6 +48,16 @@ class StudioClass extends Model
         return $this->hasMany(ClassesScheduleStudio::class, 'class_id');
     }
 
+    public function img()
+    {
+        return $this->hasOne(imgClasses::class, 'class_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
     // ==== Scope ==== //
 
     public function scopeEntities($query, $entities)
@@ -79,5 +91,14 @@ class StudioClass extends Model
                 $query->where('slug', $studio_slug);
             });
         }
+    }
+
+    public function scopeFilterBy($query, $filter)
+    {
+        if ($filter !== null) {
+            $query->where('status', $filter);
+        }
+
+        return $query;
     }
 }
