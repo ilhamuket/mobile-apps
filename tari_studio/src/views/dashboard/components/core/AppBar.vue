@@ -39,7 +39,7 @@
       dark
     >
       <v-img
-        src="@/assets/img/LOGO.svg"
+        src="@/assets/img/logo.svg"
         width="120"
         class="bg-red mr-12"
       />
