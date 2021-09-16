@@ -8,6 +8,7 @@ use Modules\StudioOwners\Entities\StudioTeacher;
 use Modules\StudioOwners\Entities\SubClassOwnerStudio;
 use Modules\StudioOwners\Http\Controllers\ClassesOwnerStudioController;
 use Modules\StudioOwners\Http\Controllers\ImgClassesController;
+use Modules\StudioOwners\Http\Controllers\ImgListClassController;
 use Modules\StudioOwners\Http\Controllers\StudioOwnerCategoryController;
 use Modules\StudioOwners\Http\Controllers\StudioOwnersController;
 use Modules\StudioOwners\Http\Controllers\StudioOwnerVidioController;
@@ -35,6 +36,7 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
     // Classes
     Route::prefix('classes')->group(function () {
         Route::get('myClass', [ClassesOwnerStudioController::class, 'index']);
+        Route::post('thumbnail-list', [ImgListClassController::class, 'thumbnail']);
         Route::post('create', [ClassesOwnerStudioController::class, 'store']);
         Route::post('delBroadcast', [ClassesOwnerStudioController::class, 'delBroadcast']);
         Route::post('approveBroadcast', [ClassesOwnerStudioController::class, 'approvedBroadcast']);

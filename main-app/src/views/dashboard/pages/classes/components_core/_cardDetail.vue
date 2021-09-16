@@ -14,7 +14,7 @@
       {{ data.name }}
     </v-card-title>
     <v-card-subtitle class="text-subtitle font-spartan size--customize mt-1">
-      {{ data.views }} Orang Melihat Class Ini
+      {{ data.views }} People View This Class
     </v-card-subtitle>
     <v-card-text>
       <span class="text-subtitle-2 font-spartan font__customize__price">
@@ -32,7 +32,7 @@
         <v-tab
           v-for="item in items"
           :key="item"
-          class="font-spartan btn_primary--text font-cutomize"
+          class="font-spartan-small btn_primary--text"
         >
           {{ item }}
         </v-tab>
@@ -50,13 +50,13 @@
     <v-card-text class="">
       <v-avatar
         size="48"
-        color="red"
+        color="btn_primary"
       >
         <span>SJ</span>
       </v-avatar>
       <p
         v-if="data.studio"
-        class="ml-2 font__studio__title"
+        class="ml-2 font-spartan font__studio__title"
         style="cursor:pointer"
         @click="toPush(data.studio)"
       >
@@ -82,7 +82,7 @@
             </v-icon>
           </template>
         </v-rating>
-        <span class="font__studio__ratings primary--text">
+        <span class="font__studio__ratings orange--text">
           ({{ rating }} ,200 Reviews)
         </span>
       </v-card-actions>
@@ -114,7 +114,7 @@
       tab: null,
       items: ['Detail', 'Info'],
 
-      colors: ['green', 'purple', 'orange', 'indigo', 'red'],
+      colors: ['orange'],
       rating: 4.5,
     }),
     watch: {},

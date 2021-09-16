@@ -1,37 +1,33 @@
 <template>
-  <v-row>
+  <v-row v-if="data.length !== 0">
     <v-col
-      cols="6"
+      v-for="(item, i) in data"
+      :key="i"
+      cols="12"
       sm="4"
+      md="4"
     >
       <v-img
-        src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
+        height="100"
+        :src="item.url"
         gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
       />
-    </v-col>
-
-    <v-col
-      cols="6"
-      sm="4"
-    >
-      <v-img src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg">
-        <div class="fill-height bottom-gradient" />
-      </v-img>
-    </v-col>
-
-    <v-col
-      cols="6"
-      sm="4"
-    >
-      <v-img src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg">
-        <div class="fill-height repeating-gradient" />
-      </v-img>
     </v-col>
   </v-row>
 </template>
 
 <script>
-  export default {}
+  export default {
+    props: {
+      data: {
+        type: Array,
+        default: null,
+      },
+    },
+    mounted () {
+      console.log(this.data)
+    },
+  }
 </script>
 
 <style></style>

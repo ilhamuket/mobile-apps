@@ -11,6 +11,25 @@ use Modules\Studio\Entities\StudioClass;
 
 class StudioClassController extends Controller
 {
+    public function populer(Request $request)
+    {
+        try {
+            $master = StudioClass::entities($request->entities)
+                ->filterBy($request->filter)
+                ->search($request->q)
+                ->orderBy('views', 'desc')
+                ->orderBy('id')
+                ->paginate(3);
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     public function indexBySlug(Request $request, $studio_slug, $slug)
     {
         try {
@@ -19,6 +38,8 @@ class StudioClassController extends Controller
             })->where('slug', $slug)
                 ->entities($request->entities)
                 ->first();
+
+            $master->increment('views');
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');

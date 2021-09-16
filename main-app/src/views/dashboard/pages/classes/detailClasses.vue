@@ -11,7 +11,10 @@
             v-if="classes.img"
             :data="classes.img"
           />
-          <app-list-img />
+          <app-list-img
+            v-if="classes.list_img"
+            :data="classes.list_img"
+          />
           <app-buying />
         </v-col>
         <v-col
@@ -60,6 +63,7 @@
     },
     mounted () {
       this.getDataClassesBySlug()
+      console.log(this.classes)
     },
     methods: {
       getBreadcumbs () {
@@ -72,7 +76,7 @@
       },
       getDataClassesBySlug () {
         this.$store.dispatch('classes/getDataClassesBySlug', {
-          entities: 'listImg,img,studio,category',
+          entities: 'listImg,img,studio,category, listImg',
           slug: this.$route.params.slug,
           studio_slug: this.$route.params.studio_slug,
         })

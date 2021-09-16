@@ -21,4 +21,13 @@ class imgListClass extends Model
     {
         return $this->belongsTo(StudioClass::class, 'class_id');
     }
+
+    public function getUrlAttribute()
+    {
+        if ($this->attributes['url'] != null) {
+            return  env('IMAGE_URL', ' http://127.0.0.1:8000/') . $this->attributes['url'];
+        } else {
+            return $this->attributes['url'];
+        }
+    }
 }

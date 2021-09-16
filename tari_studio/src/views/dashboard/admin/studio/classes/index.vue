@@ -156,6 +156,7 @@
           @update="popUpdate"
           @del="removeStudioById"
           @info="popUpInfo"
+          @upload="uploadMatery"
         />
       </v-col>
     </v-row>
@@ -203,6 +204,10 @@
       @input="inputPicture"
       @change="changePicture"
     />
+    <app-data-upload
+      :dialog="list"
+      @input="inputListMatery"
+    />
   </v-container>
 </template>
 
@@ -212,6 +217,7 @@
   import dialogNotice from './component/__dialogNotice.vue'
   import dialogEdit from './component/__dialogEdit.vue'
   import dialogInfo from './component/__dialogInfo.vue'
+  import upload from './component/___dialogUploadImage.vue'
   import axios from 'axios'
   export default {
     components: {
@@ -220,6 +226,7 @@
       'app-dialog-notice': dialogNotice,
       'app-data-edit': dialogEdit,
       'app-data-info': dialogInfo,
+      'app-data-upload': upload,
     },
     data: () => ({
       show: false,
@@ -238,6 +245,10 @@
         data: [],
       },
       info: {
+        open: false,
+        data: {},
+      },
+      list: {
         open: false,
         data: {},
       },
@@ -289,7 +300,7 @@
     methods: {
       getDataClassesStudio () {
         this.$store.dispatch('ownerStudioClasses/getDataClassesStudio', {
-          entities: 'studio, author, instructor, img, category',
+          entities: 'studio, author, instructor, img, category,listImg',
           summary: this.summary,
         })
       },
@@ -301,6 +312,11 @@
       },
       closeDialogForm () {
         this.addForm.open = false
+      },
+      uploadMatery ({ item }) {
+        console.log(item)
+        this.list.open = true
+        this.list.data = item
       },
       createClasses ({ item }) {
         this.$store
@@ -399,8 +415,46 @@
         this.info.open = true
         this.info.data = item
       },
+      inputListMatery ({ item }) {
+        axios.defaults.headers.common.Authorization =
+          'Bearer ' + localStorage.getItem('access_token')
+        axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+        const URL = 'owner/classes/thumbnail-list'
+        const data = new FormData()
+        data.append('img', item.files)
+        data.append('class_id', item.id)
+        const config = {
+          header: {
+            'Content-Type': 'image/png',
+          },
+        }
+
+        axios.post(URL, data, config).then(res => {
+          item = null
+          const Toast = this.$swal.mixin({
+            toast: true,
+            position: 'bottom-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: toast => {
+              toast.addEventListener('mouseenter', this.$swal.stopTimer)
+              toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+            },
+            popup: 'swal2-show',
+            backdrop: 'swal2-backdrop-show',
+            icon: 'swal2-icon-show',
+          })
+          Toast.fire({
+            icon: 'success',
+            title: 'Matery Added Successfully',
+          })
+          this.list.open = false
+          this.getDataClassesStudio()
+        })
+      },
       inputPicture ({ item }) {
-        console.log(item)
         axios.defaults.headers.common.Authorization =
           'Bearer ' + localStorage.getItem('access_token')
         axios.defaults.baseURL = process.env.VUE_APP_API_URL

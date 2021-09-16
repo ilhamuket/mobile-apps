@@ -188,15 +188,15 @@
                     <div class="d-flex flex-column mt-2">
                       <a
                         class="font-a-delete d-flex flex-nowrap"
-                        @click="upDeleteClass(item)"
+                        @click="uploadMatery(item)"
                       >
                         <v-icon
-                          color="red"
+                          color="btn_primary"
                           small
                         >
-                          mdi-delete
+                          mdi-camera
                         </v-icon>
-                        Delete
+                        Upload
                       </a>
                     </div>
                   </div>
@@ -324,6 +324,9 @@
       upInfoClass (item) {
         this.$emit('info', { item: item })
       },
+      uploadMatery (item) {
+        this.$emit('upload', { item: item })
+      },
     },
   }
 </script>
@@ -331,4 +334,6 @@
 <style lang="sass" scoped>
 // .font-customize
 //   color:
+.font-a-delete
+  color: #4CAF50 !important
 </style>

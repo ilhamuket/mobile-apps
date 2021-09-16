@@ -10,9 +10,24 @@ class imgListClass extends Model
     use HasFactory;
 
     protected $fillable = [];
-    
+    protected $table = 'img_list_classes';
+
     protected static function newFactory()
     {
         return \Modules\StudioOwners\Database\factories\ImgListClassFactory::new();
+    }
+
+    public function class()
+    {
+        return $this->belongsTo(ClassesOwnerStudio::class, 'class_id');
+    }
+
+    public function getUrlAttribute()
+    {
+        if ($this->attributes['url'] != null) {
+            return  env('IMAGE_URL', ' http://127.0.0.1:8000/') . $this->attributes['url'];
+        } else {
+            return $this->attributes['url'];
+        }
     }
 }

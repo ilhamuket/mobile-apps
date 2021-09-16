@@ -4,6 +4,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 // use Illuminate\Routing\Route;
 use Modules\Studio\Entities\ClassesScheduleStudio;
+use Modules\Studio\Entities\StudioClass;
 use Modules\Studio\Http\Controllers\ClassesScheduleStudioController;
 use Modules\Studio\Http\Controllers\CommentStudioVidioController;
 use Modules\Studio\Http\Controllers\FollowStudioController;
@@ -37,6 +38,7 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
         // classes 
         Route::get('classes', [StudioClassController::class, 'indexClasses']);
         // describtion Classes
+        Route::get('classes/populer', [StudioClassController::class, 'populer']);
         Route::post('class/describe/post', [StudioClassController::class, 'store']);
         Route::get('class/describe/{slug}', [StudioClassController::class, 'index']);
         // Schedules Classes
