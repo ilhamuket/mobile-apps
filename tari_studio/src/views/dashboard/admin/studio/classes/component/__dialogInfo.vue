@@ -27,7 +27,7 @@
               color="primary"
               class="mr-1"
             >mdi-camera</v-icon>Upload
-            profile picture
+            profile picture & Publish Classes
           </button>
           <input
             ref="fileUpload"

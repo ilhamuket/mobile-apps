@@ -11,12 +11,29 @@ use Modules\Studio\Entities\StudioClass;
 
 class StudioClassController extends Controller
 {
+    public function indexBySlug(Request $request, $studio_slug, $slug)
+    {
+        try {
+            $master = StudioClass::whereHas('studio', function (Builder $query) use ($studio_slug) {
+                $query->where('slug', $studio_slug);
+            })->where('slug', $slug)
+                ->entities($request->entities)
+                ->first();
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     public function indexClasses(Request $request)
     {
         try {
             $master = StudioClass::entities($request->entities)
-                ->search($request->q)
                 ->filterBy($request->filter)
+                ->search($request->q)
                 ->get();
 
             return Json::response($master);
@@ -74,6 +91,7 @@ class StudioClassController extends Controller
             $master->status = $request->status;
             $master->levels = $request->levels;
             $master->about = $request->about;
+            $master->slug = \Str::slug($master->name);
             $master->author_id = $request->user()->id;
             $master->studio_id = $request->studio_id;
             $master->save();

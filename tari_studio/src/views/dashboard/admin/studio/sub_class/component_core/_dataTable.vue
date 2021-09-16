@@ -179,6 +179,7 @@
             </template>
             <template #[`item.classes.name`]=" {item}">
               <v-chip
+                v-if="item.classes"
                 label
                 color="primary"
                 text-color="black"

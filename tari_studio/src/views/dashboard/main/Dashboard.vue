@@ -292,7 +292,7 @@
               color="primary"
               icon="mdi-account-group-outline"
               :title="$t('classes')"
-              value="+245"
+              :value="String(cumputedSummary.classes)"
               sub-icon="mdi-clock"
               sub-text="Just Updated"
               style="cursor:pointer"
@@ -307,7 +307,7 @@
               color="secondary"
               icon="mdi-account-cowboy-hat-outline"
               :title="$t('instrucktur')"
-              value="+245"
+              :value="String(cumputedSummary.instructor)"
               sub-icon="mdi-clock"
               sub-text="Just Updated"
               style="cursor:pointer"
@@ -321,8 +321,8 @@
             <base-material-stats-card
               color="pallet1"
               icon="mdi-playlist-check"
-              :title="$t('subject')"
-              value="+245"
+              :title="$t('category')"
+              :value="String(cumputedSummary.category)"
               sub-icon="mdi-clock"
               sub-text="Just Updated"
               style="cursor:pointer"
@@ -334,10 +334,10 @@
             md="6"
           >
             <base-material-stats-card
-              color="third"
+              color="red"
               icon="mdi-alpha-v-box"
               :title="$t('vidio_name_page')"
-              value="+245"
+              :value="String(cumputedSummary.vidio_profile)"
               sub-icon="mdi-clock"
               sub-text="Just Updated"
               style="cursor:pointer"
@@ -643,12 +643,16 @@
       }
     },
     computed: {
-    // users () {
-    //   return this.$store.state.user.me
-    // },
+      // users () {
+      //   return this.$store.state.user.me
+      // },
+      cumputedSummary () {
+        return this.$store.state.dashboardSummary.data
+      },
     },
     mounted () {
       this.me()
+      this.getDataSummary()
     },
     methods: {
       me () {
@@ -666,6 +670,9 @@
       },
       toClass () {
         this.$router.push('/class')
+      },
+      getDataSummary () {
+        this.$store.dispatch('dashboardSummary/getDataSummary')
       },
       toNavigate (link) {
         this.$router.push(link)

@@ -33,6 +33,7 @@
           @click.native="orderBy('approved')"
         />
       </v-col>
+
       <v-col
         cols="12"
         sm="6"
@@ -65,7 +66,88 @@
           @click.native="orderBy('new')"
         />
       </v-col>
-      <v-col>
+
+      <v-row
+        v-if="isCollapse"
+        class="d-flex justify-center"
+      >
+        <v-col
+          cols="12"
+          sm="6"
+          lg="3"
+        >
+          <base-material-stats-card
+            color="info"
+            icon="mdi-twitter"
+            title="Verified"
+            value="1"
+            sub-icon="mdi-clock"
+            sub-text="Just Updated"
+            style="cursor:pointer"
+            @click.native="sortByType('verified')"
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          sm="6"
+          lg="3"
+        >
+          <base-material-stats-card
+            color="info"
+            icon="mdi-twitter"
+            title="UnVerified"
+            value="1"
+            sub-icon="mdi-clock"
+            sub-text="Just Updated"
+            style="cursor:pointer"
+            @click.native="sortByType('unverified')"
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          sm="6"
+          lg="3"
+        >
+          <base-material-stats-card
+            color="info"
+            icon="mdi-twitter"
+            title="Deleted"
+            value="1"
+            sub-icon="mdi-clock"
+            sub-text="Just Updated"
+            style="cursor:pointer"
+            @click.native="sortByType('deleted')"
+          />
+        </v-col>
+      </v-row>
+
+      <div class="d-flex flex-row-reverse">
+        <div class="d-flex flex-column">
+          <v-tooltip
+            color="primary"
+            bottom
+          >
+            <template #activator="{on ,attrs}">
+              <v-btn
+                v-bind="attrs"
+                dark
+                icon
+                v-on="on"
+                @click="isCollapse = !isCollapse"
+              >
+                <v-icon
+                  color="primary"
+                  large
+                >
+                  {{ isCollapse ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
+                </v-icon>
+              </v-btn>
+            </template>
+            {{ isCollapse ? 'Hide Summary' : 'See Summary' }}
+          </v-tooltip>
+        </div>
+      </div>
+      <v-col cols="12">
         <app-data-table
           :data="computedClasses"
           @add="popDialog"
@@ -79,6 +161,7 @@
     </v-row>
     <app-data-form
       :dialog="addForm"
+      :categories="computedCategories"
       @input="createClasses"
     />
     <app-dialog-notice
@@ -112,6 +195,7 @@
     />
     <app-data-edit
       :dialog="update"
+      :categories="computedCategories"
       @input="updateDataClassesStudio"
     />
     <app-data-info
@@ -138,6 +222,8 @@
       'app-data-info': dialogInfo,
     },
     data: () => ({
+      show: false,
+      isCollapse: false,
       addForm: {
         open: false,
       },
@@ -183,6 +269,9 @@
       computedSummary () {
         return this.$store.state.studioSummary.data
       },
+      computedCategories () {
+        return this.$store.state.studioCategories.data
+      },
     },
     watch: {
       summary (newVal) {
@@ -195,6 +284,7 @@
     mounted () {
       this.getDataClassesStudio()
       this.getDataSummary()
+      this.getDataStudioCategories()
     },
     methods: {
       getDataClassesStudio () {
@@ -202,6 +292,9 @@
           entities: 'studio, author, instructor, img, category',
           summary: this.summary,
         })
+      },
+      getDataStudioCategories () {
+        this.$store.dispatch('studioCategories/getDataStudioCategories', {})
       },
       popDialog () {
         this.addForm.open = true
@@ -223,6 +316,9 @@
             time_start: item.time_start,
             time_end: item.time_end,
             instructor_id: item.instructor_id,
+            category_id: item.category_id,
+            start_at: item.start_at,
+            end_at: item.end_at,
           })
           .then(({ data }) => {
             if (data.meta.status) {
@@ -522,6 +618,9 @@
       orderBy (val) {
         this.summary = val
         this.getDataClassesStudio()
+      },
+      clickCollapse () {
+        this.isCollapse = !this.isCollapse
       },
     },
   }

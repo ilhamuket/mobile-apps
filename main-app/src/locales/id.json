@@ -60,5 +60,6 @@
     "dahsboard": {
         "cds": "Sanggar Terpopuler"
     },
-    "classes": "Kelas"
+    "classes": "Kelas",
+    "detail": "Detail Kelas"
 }

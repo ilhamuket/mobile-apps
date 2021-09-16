@@ -98,6 +98,18 @@ const router = new Router({
           component: () =>
             import('@/views/dashboard/admin/studio/classes/index'),
           meta: {
+            breadcumbs: [
+              {
+                text: 'Dashboard',
+                disabled: false,
+                to: '/',
+              },
+              {
+                text: 'Instructor',
+                disabled: false,
+                to: '/instructor',
+              },
+            ],
             requiresAuth: true,
           },
         },
@@ -163,6 +175,22 @@ const router = new Router({
           component: () =>
             import('@/views/dashboard/admin/studio/teachers/index'),
           meta: {
+            requiresAuth: true,
+          },
+        },
+        // Categoories
+        {
+          name: 'category',
+          path: 'category',
+          component: () =>
+            import('@/views/dashboard/admin/studio/categories/index'),
+          meta: {
+            breadcumbs: [
+              {
+                text: 'Dashboard',
+                to: '/',
+              },
+            ],
             requiresAuth: true,
           },
         },

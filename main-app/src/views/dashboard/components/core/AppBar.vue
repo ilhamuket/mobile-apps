@@ -40,7 +40,7 @@
       dark
     >
       <v-img
-        src="@/assets/img/LOGO.svg"
+        src="@/assets/img/ensiklotariLogo.svg"
         width="120"
         class="bg-red mr-12"
       />
@@ -56,7 +56,7 @@
       <div class="d-flex flex-row mt-6 mr-2">
         <div class="d-flex flex-column justify-start ml-6">
           <v-select
-            v-model="$i18n.locale"
+            v-model="len"
             dense
             class="ml-9"
             :items="lenguage"
@@ -304,8 +304,11 @@
 <script>
 // Components
 // import { VHover, VListItem } from 'vuetify/lib'
-
 // Utilities
+// import idL from 'moment/locale/id'
+// import esL from 'moment/locale/es'
+// import 'moment/locale/fr'
+// import 'moment/locale/en-gb'
   import { mapState, mapMutations } from 'vuex'
 
   export default {
@@ -328,6 +331,7 @@
       ],
       notify: false,
       model: null,
+      len: 'en',
       lenguage: [
         {
           name: 'en',
@@ -382,6 +386,21 @@
         }
       },
     },
+    watch: {
+      len (newVal) {
+        this.$i18n.locale = newVal
+        if (newVal === 'en') {
+          this.setLanguage('fr')
+          require('moment/locale/es')
+        } else if (newVal === 'id') {
+          this.setLanguage('fr')
+        }
+
+      //   console.log(this.$moment.locale())
+      // // this.$moment.locale('en-gb')
+      // // console.log(this.$moment.locale())
+      },
+    },
 
     mounted () {
       this.getMe()
@@ -392,7 +411,20 @@
         this.$vuetify.theme.dark = false
       }
     },
+    created () {
+      if (this.$i18n.locale === 'en') {
+        this.setLanguage('fr')
+      } else if (this.$i18n.locale === 'id') {
+        this.setLanguage('en-gb')
+      }
+    },
     methods: {
+      setLanguage (lang) {
+        console.log(lang)
+        this.$moment().locale(lang)
+        console.log(this.$moment().locale(lang), 'hai')
+      },
+
       ...mapMutations({
         setDrawer: 'SET_DRAWER',
       }),

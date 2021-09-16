@@ -9,6 +9,7 @@ use Modules\StudioOwners\Entities\SubClassOwnerStudio;
 use Modules\StudioOwners\Http\Controllers\ClassesOwnerStudioController;
 use Modules\StudioOwners\Http\Controllers\ImgClassesController;
 use Modules\StudioOwners\Http\Controllers\StudioOwnerCategoryController;
+use Modules\StudioOwners\Http\Controllers\StudioOwnersController;
 use Modules\StudioOwners\Http\Controllers\StudioOwnerVidioController;
 use Modules\StudioOwners\Http\Controllers\StudioTeacherController;
 use Modules\StudioOwners\Http\Controllers\SubClassOwnerStudioController;
@@ -25,6 +26,12 @@ use Modules\StudioOwners\Http\Controllers\SubClassOwnerStudioController;
 */
 
 Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
+    // Studio
+    Route::prefix('studio')->group(function () {
+        Route::prefix('summary')->group(function () {
+            Route::get('', [StudioOwnersController::class, 'summary']);
+        });
+    });
     // Classes
     Route::prefix('classes')->group(function () {
         Route::get('myClass', [ClassesOwnerStudioController::class, 'index']);

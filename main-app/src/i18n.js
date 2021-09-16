@@ -9,10 +9,12 @@ Vue.use(VueI18n)
 const messages = {
   en: {
     ...require('@/locales/en.json'),
+    // ...require('moment/locale/es'),
     $vuetify: en,
   },
   id: {
     ...require('@/locales/id.json'),
+    // ...require('moment/locale/id'),
     $vuetify: id,
   },
 }

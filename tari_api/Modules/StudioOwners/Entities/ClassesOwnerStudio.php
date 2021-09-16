@@ -52,6 +52,11 @@ class ClassesOwnerStudio extends Model
         return $this->belongsTo(StudioOwnerCategory::class, 'category_id');
     }
 
+    public function listImg()
+    {
+        return $this->hasMany(imgListClass::class, 'class_id');
+    }
+
     // ==== Scope === //
     public function scopeEntities($query, $entities)
     {
@@ -94,5 +99,20 @@ class ClassesOwnerStudio extends Model
         }
 
         return $query;
+    }
+
+    public function getStatusKelasAttribute()
+    {
+        $status = '';
+
+        if ($this->start_at  <= now()->toDateString() && $this->end_at >= now()->toDateString()) {
+            $status = 'ongoing';
+        } else if ($this->start_at > now()->toDateString()) {
+            $status = 'upcoming';
+        } else if ($this->start_at < now()->toDateString()) {
+            $status = 'missed';
+        }
+
+        return $status;
     }
 }

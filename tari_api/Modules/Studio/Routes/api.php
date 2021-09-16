@@ -36,11 +36,9 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
     Route::prefix('u')->group(function () {
         // classes 
         Route::get('classes', [StudioClassController::class, 'indexClasses']);
-        // article
-        Route::get('article/{slug}', [StudioArticleController::class, 'index']);
         // describtion Classes
-        Route::get('class/describe/{slug}', [StudioClassController::class, 'index']);
         Route::post('class/describe/post', [StudioClassController::class, 'store']);
+        Route::get('class/describe/{slug}', [StudioClassController::class, 'index']);
         // Schedules Classes
         Route::get('class/schedules/{class_id}', [ClassesScheduleStudioController::class, 'index']);
         // Following
@@ -49,6 +47,9 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
         // Likes
         Route::post('likes/{slug}', [LikeStudioController::class, 'likes']);
         Route::post('unlike/{slug}', [LikeStudioController::class, 'unlike']);
+        // article
+        Route::get('article/{slug}', [StudioArticleController::class, 'index']);
+        Route::get('class/{studio_slug}/{slug}', [StudioClassController::class, 'indexBySlug']);
     });
     // Rooms
     Route::prefix('rooms')->group(function () {

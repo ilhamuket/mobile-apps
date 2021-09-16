@@ -111,9 +111,18 @@
         "studio": "Studio Name",
         "author": "Author"
       }
+    },
+    "category": {
+      "th": {
+        "name": "Name",
+        "display_name": "Display Name",
+        "status": "Status",
+        "created_at": "Created_at"
+      }
     }
   },
   "vidio_name": "Index Vidio",
-  "vidio_name_page": "Vidio",
-  "index_class_data_table": "Class"
+  "vidio_name_page": "Vidio Profile",
+  "index_class_data_table": "Class",
+  "category": "Category"
 }

@@ -58,7 +58,27 @@ class StudioClass extends Model
         return $this->belongsTo(Category::class, 'category_id');
     }
 
+    public function listImg()
+    {
+        return $this->hasMany(imgListClass::class, 'class_id');
+    }
+
     // ==== Scope ==== //
+
+    public function getStatusKelasAttribute()
+    {
+        $status = '';
+
+        if ($this->start_at  <= now()->toDateString() && $this->end_at >= now()->toDateString()) {
+            $status = 'ongoing';
+        } else if ($this->start_at > now()->toDateString()) {
+            $status = 'upcoming';
+        } else if ($this->start_at < now()->toDateString()) {
+            $status = 'missed';
+        }
+
+        return $status;
+    }
 
     public function scopeEntities($query, $entities)
     {
@@ -80,7 +100,7 @@ class StudioClass extends Model
             $query->where('name', 'like', '%' . $search . '%');
         }
 
-        return $search;
+        return $query;
     }
 
     public function scopeFindSlug($query, $slug)

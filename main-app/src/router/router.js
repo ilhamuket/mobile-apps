@@ -170,6 +170,27 @@ const router = new Router({
           },
         },
         {
+          name: 'detail',
+          path: '/classes/detail/:studio_slug/:slug',
+          component: () =>
+            import('@/views/dashboard/pages/classes/detailClasses.vue'),
+          meta: {
+            breadcumbs: [
+              {
+                text: 'DashBoard',
+                disabled: false,
+                to: '/',
+              },
+              {
+                text: 'Studio',
+                disabled: false,
+                to: '/',
+              },
+            ],
+            requiresAuth: true,
+          },
+        },
+        {
           name: 'Error',
           path: '/error',
           component: () => import('@/views/dashboard/ensikloerrors/error'),

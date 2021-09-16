@@ -57,7 +57,7 @@
       ...mapState(['drawer']),
     },
     mounted () {
-      console.log(this.$route.meta.breadcumbs)
+    // console.log(this.$route.meta.breadcumbs)
     },
   // components: {
   //   DashboardCoreFooter: () => import('./Footer'),

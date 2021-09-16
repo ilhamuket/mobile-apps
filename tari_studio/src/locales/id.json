@@ -111,9 +111,18 @@
                 "studio": "Nama Studio",
                 "author": "Pembuat"
             }
+        },
+        "category": {
+            "th": {
+                "name": "Nama",
+                "display_name": "Nama Tampilan",
+                "status": "Status",
+                "created_at": "Dibuat Pada"
+            }
         }
     },
     "vidio_name": "Index Vidio",
-    "vidio_name_page": "Vidio",
-    "index_class_data_table": "Kelas"
+    "vidio_name_page": "Vidio Profil",
+    "index_class_data_table": "Kelas",
+    "category": "Kategori"
 }

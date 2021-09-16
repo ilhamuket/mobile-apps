@@ -31,11 +31,11 @@ class ClassesOwnerStudioController extends Controller
             })->count();
             $data['approved'] = ClassesOwnerStudio::whereHas('studio', function (Builder $query) use ($studio) {
                 $query->where('id', $studio->id);
-            })->where('status', 1)
+            })->where('status', 'Publish')
                 ->count();
             $data['non_approved'] = ClassesOwnerStudio::whereHas('studio', function (Builder $query) use ($studio) {
                 $query->where('id', $studio->id);
-            })->where('status', 0)
+            })->where('status', 'Draft')
                 ->count();
             $data['new'] = ClassesOwnerStudio::whereHas('studio', function (Builder $query) use ($studio) {
                 $query->where('id', $studio->id);
@@ -157,11 +157,16 @@ class ClassesOwnerStudioController extends Controller
             $studioClasses->time_start = $request->time_start;
             $studioClasses->kapasitas = $request->kapasitas;
             $studioClasses->time_end = $request->time_end;
+            $studioClasses->start_at = $request->input('start_at', now());
+            $studioClasses->end_at = $request->input('end_at', now());
+            $studioClasses->slug = \Str::slug($studioClasses->name);
+            $studioClasses->category_id = $request->category_id;
             $studioClasses->author_id = $request->user()->id;
             $studioClasses->studio_id = $studio->id;
             $studioClasses->save();
             $studioClasses->studio;
             $studioClasses->author;
+            $studioClasses->category;
             $studioClasses->instructor()->sync($request->instructor_id);
 
             DB::commit();
@@ -219,6 +224,8 @@ class ClassesOwnerStudioController extends Controller
             $master->kapasitas = $request->input('kapasitas', $master->kapasitas);
             $master->time_end = $request->input('time_end', $master->time_end);
             $master->category_id = $request->input('category_id', $master->category_id);
+            $master->start_at = $request->input('start_at', $master->start_at);
+            $master->end_at = $request->input('end_at', $master->end_at);
             $master->save();
             $master->instructor()->sync($request->input('instructor_id', $master->instructor));
             $master->studio;
@@ -245,6 +252,7 @@ class ClassesOwnerStudioController extends Controller
         try {
             $master = ClassesOwnerStudio::findOrFail($id);
             $master->delete();
+            // $master->subClasses()->deletes();
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');

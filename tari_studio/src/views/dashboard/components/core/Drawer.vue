@@ -129,6 +129,11 @@
           to: '/',
         },
         {
+          icon: 'mdi-playlist-check',
+          title: 'category',
+          to: '/category',
+        },
+        {
           icon: 'mdi-alpha-c-box',
           title: 'classes',
           to: '/class',

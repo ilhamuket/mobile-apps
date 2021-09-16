@@ -19,7 +19,7 @@
         </v-card-title>
         <v-container>
           <v-row>
-            <v-col>
+            <v-col cols="12">
               <v-text-field
                 v-model="form.name"
                 label="Name Class"
@@ -27,6 +27,8 @@
                 prepend-icon="mdi-alpha-n-circle-outline"
                 clearable
               />
+            </v-col>
+            <v-col cols="12">
               <v-autocomplete
                 v-model="form.instructor_id"
                 :items="computedInstructor"
@@ -75,6 +77,8 @@
                   </slot>
                 </template>
               </v-autocomplete>
+            </v-col>
+            <v-col cols="12">
               <v-select
                 v-model="form.levels"
                 label="Levels Class"
@@ -83,6 +87,19 @@
                 prepend-icon="mdi-alpha-a-circle-outline"
                 clearable
               />
+            </v-col>
+            <v-col cols="12">
+              <v-select
+                v-model="form.category_id"
+                label="Categories Class"
+                dense
+                :items="categories"
+                prepend-icon="mdi-alpha-c-circle-outline"
+                item-text="name"
+                item-value="id"
+              />
+            </v-col>
+            <v-col cols="12">
               <v-text-field
                 v-model="form.url"
                 dense
@@ -90,6 +107,8 @@
                 placeholder="Input Url Class"
                 prepend-icon="mdi-google-analytics"
               />
+            </v-col>
+            <v-col cols="12">
               <v-text-field
                 v-model="form.keyword"
                 dense
@@ -97,6 +116,8 @@
                 placeholder="Input KeyWord Class"
                 prepend-icon="mdi-alpha-p-circle-outline"
               />
+            </v-col>
+            <v-col cols="12">
               <v-text-field
                 v-model="form.price"
                 dense
@@ -104,6 +125,8 @@
                 placeholder="Input Price Class"
                 prepend-icon="mdi-progress-check"
               />
+            </v-col>
+            <v-col cols="12">
               <v-text-field
                 v-model="form.capacity"
                 dense
@@ -112,6 +135,94 @@
                 placeholder="Input Capacity Class"
                 prepend-icon="mdi-human-capacity-increase"
               />
+            </v-col>
+            <v-col cols="12">
+              <v-menu
+                ref="menuStart_at"
+                v-model="menuStart_at"
+                :close-on-content-click="false"
+                :return-value.sync="form.start_at"
+                transition="scale-transition"
+                offset-y
+                min-width="auto"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="form.start_at"
+                    label="Started At *"
+                    prepend-icon="mdi-calendar"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                  />
+                </template>
+                <v-date-picker
+                  v-model="form.start_at"
+                  no-title
+                  scrollable
+                >
+                  <v-spacer />
+                  <v-btn
+                    text
+                    color="primary"
+                    @click="menuStart_at = false"
+                  >
+                    Cancel
+                  </v-btn>
+                  <v-btn
+                    text
+                    color="primary"
+                    @click="$refs.menuStart_at.save(form.start_at)"
+                  >
+                    OK
+                  </v-btn>
+                </v-date-picker>
+              </v-menu>
+            </v-col>
+            <v-col cols="12">
+              <v-menu
+                ref="menuEnd_at"
+                v-model="menuEnd_at"
+                :close-on-content-click="false"
+                :return-value.sync="form.end_at"
+                transition="scale-transition"
+                offset-y
+                min-width="auto"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="form.end_at"
+                    label="Ended At"
+                    prepend-icon="mdi-calendar"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                  />
+                </template>
+                <v-date-picker
+                  v-model="form.end_at"
+                  no-title
+                  scrollable
+                >
+                  <v-spacer />
+                  <v-btn
+                    text
+                    color="primary"
+                    @click="menuEnd_at = false"
+                  >
+                    Cancel
+                  </v-btn>
+                  <v-btn
+                    text
+                    color="primary"
+                    @click="$refs.menuEnd_at.save(form.end_at)"
+                  >
+                    OK
+                  </v-btn>
+                </v-date-picker>
+              </v-menu>
+            </v-col>
+            <v-col cols="12">
               <v-menu
                 ref="menu1"
                 v-model="menuTimeStart"
@@ -141,6 +252,8 @@
                   @click:minute="$refs.menu1.save(form.time_start)"
                 />
               </v-menu>
+            </v-col>
+            <v-col cols="12">
               <v-menu
                 ref="menu2"
                 v-model="menuTimeEnd"
@@ -170,6 +283,8 @@
                   @click:minute="$refs.menu2.save(form.time_end)"
                 />
               </v-menu>
+            </v-col>
+            <v-col cols="12">
               <v-text-field
                 v-model="form.duration"
                 dense
@@ -178,6 +293,8 @@
                 placeholder="Input Duration Class (Minutes)"
                 prepend-icon="mdi-metronome"
               />
+            </v-col>
+            <v-col cols="12">
               <v-textarea
                 v-model="form.about"
                 label="About Class"
@@ -218,6 +335,10 @@
         type: Object,
         default: null,
       },
+      categories: {
+        type: Array,
+        default: null,
+      },
     },
     data: () => ({
       items: ['Intermediate', 'Advance', 'Beginner'],
@@ -230,10 +351,15 @@
         durasi: '',
         harga: '',
         capacity: '',
+        start_at: '',
+        end_at: '',
+        category_id: 0,
         time_start: null,
         time_end: null,
         instructor_id: 0,
       },
+      menuStart_at: false,
+      menuEnd_at: false,
       menuTimeStart: false,
       menuTimeEnd: false,
       modal2: false,

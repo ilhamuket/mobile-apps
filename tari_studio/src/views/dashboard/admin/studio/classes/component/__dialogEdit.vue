@@ -96,6 +96,17 @@
               </v-autocomplete>
             </v-col>
             <v-col cols="12">
+              <v-select
+                v-model="dialog.category_id"
+                label="Categories Class"
+                dense
+                :items="categories"
+                prepend-icon="mdi-alpha-c-circle-outline"
+                item-text="name"
+                item-value="id"
+              />
+            </v-col>
+            <v-col cols="12">
               <v-text-field
                 v-model="dialog.url"
                 dense
@@ -181,6 +192,10 @@
     props: {
       dialog: {
         type: Object,
+        default: null,
+      },
+      categories: {
+        type: Array,
         default: null,
       },
     },

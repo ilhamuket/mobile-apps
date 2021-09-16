@@ -60,5 +60,6 @@
   "dahsboard": {
     "cds": "Most Populer Studio"
   },
-  "classes": "Class"
+  "classes": "Class",
+  "detail": "Class Detail"
 }

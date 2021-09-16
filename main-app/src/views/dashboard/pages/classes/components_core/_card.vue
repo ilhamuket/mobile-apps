@@ -14,16 +14,72 @@
           v-if="item.img"
           :src="item.img.url"
           height="200px"
-        />
+          style="cursor:pointer"
+          @click="toPush(item)"
+        >
+          <v-row class="fill-height mt-g text-right">
+            <v-col cols="12">
+              <v-chip
+                label
+                class="font-spartan mr-1 mt-2 text-uppercase"
+                :color="setColorLabel(item.status_kelas)"
+                text-color="white"
+                small
+                @click.stop=""
+              >
+                {{ item.status_kelas }}
+              </v-chip>
+            </v-col>
+          </v-row>
+        </v-img>
         <v-img
           v-else
           class="white--text align-end"
           height="200px"
           src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-        />
+        >
+          <v-row class="fill-height mt-g text-right">
+            <v-col cols="12">
+              <v-chip
+                label
+                class="font-spartan mr-1 text-uppercase"
+                :color="setColorLabel(item.status_kelas)"
+                text-color="white"
+                small
+                @click.stop=""
+              >
+                {{ item.status_kelas }}
+              </v-chip>
+            </v-col>
+          </v-row>
+        </v-img>
 
-        <v-card-actions class="font-spartan primary--text">
-          {{ item.name }}
+        <v-card-actions class="font-spartan customize--font primary--text">
+          <v-tooltip
+            v-if="item.name.length > 13"
+            bottom
+            color="primary"
+            style="cursor:pointer"
+          >
+            <template #activator="{on, attrs}">
+              <span
+                v-bind="attrs"
+                style="cursor:pointer"
+                @click="toPush(item)"
+                v-on="on"
+              >
+                {{ item.name.substr(0, 10) + '...' }}
+              </span>
+            </template>
+            {{ item.name }}
+          </v-tooltip>
+          <span
+            v-else
+            style="cursor:pointer"
+            @click="toPush(item)"
+          >
+            {{ item.name }}
+          </span>
           <span class="orange--text text-caption ml-2"> (200 Reviews) </span>
           <v-spacer />
           <span class="orange--text text-caption"> ({{ rating }}) </span>
@@ -45,10 +101,11 @@
             label
             outlined
             color="btn_primary"
-            class=" text-h4 font-spartan"
+            class="text-h4 font-spartan-small"
           >
             Studio : {{ item.studio.name }}
           </v-chip>
+
           <v-divider
             class="mt-1 mb-1 divider--opacity"
             dark
@@ -56,16 +113,24 @@
           <v-chip
             label
             color="primary"
-            class="text-subtitle-1 font-spartan font-italic font-weight-thin"
+            class="font-spartan-small font-italic font-weight-thin"
           >
             Capacity : 0 / {{ item.kapasitas }}
           </v-chip>
           <br>
-          <span class="text-subtitle-1 font-spartan font-italic">
+          <span class="font-spartan-small">
+            Started Class : {{ item.start_at | moment('MMMM Do YYYY') }}
+          </span>
+          <br>
+          <span class="font-spartan-small font-italic">
+            {{ item.time_start }} s/d {{ item.time_end }}
+          </span>
+          <br>
+          <span class="font-spartan-small font-italic">
             Duration : {{ item.durasi }} Minutes
           </span>
           <br>
-          <span class="text-subtitle-1 font-spartan font-italic">
+          <span class="font-spartan-small font-italic">
             Rp.20000
           </span>
         </v-card-text>
@@ -74,6 +139,7 @@
           <v-btn
             color="primary"
             text
+            @click="toPush(item)"
           >
             See Class Online
           </v-btn>
@@ -115,6 +181,33 @@
       show: false,
       rating: 4.5,
     }),
+    computed: {
+      momentConver (val) {
+        return val.moment('dddd, MMMM Do YYYY')
+      },
+    },
+    mounted () {},
+
+    methods: {
+      setColorLabel (item) {
+        if (item === 'ongoing') return 'btn_primary'
+        if (item === 'upcoming') return 'primary'
+        else return 'red'
+      },
+      toPush (link) {
+        console.log(link)
+        this.$router.push(`classes/detail/${link.studio.slug}/${link.slug}`)
+      },
+      moment () {
+        if (!this.$page.prop.locale) {
+          this.locale = this.$page.prop.app_locale
+          this.$i18n.locale = this.$page.prop.app_locale
+        } else {
+          this.locale = this.$page.prop.locale
+          this.$i18n.locale = this.$page.prop.locale
+        }
+      },
+    },
   }
 </script>
 
@@ -122,4 +215,10 @@
 .theme--dark
   .divider--opacity
     opacity: .2
+.customize--font
+  font-size: 14px
+.font__classes
+  font-size: 12px !important
+.margin__chips
+  margin-left: 10px
 </style>

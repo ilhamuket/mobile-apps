@@ -194,7 +194,6 @@
     },
   }
 </script>
-
 <style lang="sass">
 .bg-dark
     background-color: #283046 !important
