@@ -11,6 +11,25 @@ use Modules\Studio\Entities\StudioClass;
 
 class StudioClassController extends Controller
 {
+    public function recomendation(Request $request, $studio_slug)
+    {
+        try {
+            $master = StudioClass::whereHas('studio', function (Builder $query) use ($studio_slug) {
+                $query->where('slug', $studio_slug);
+            })->entities($request->entities)
+                ->orderBy('views', 'asc')
+                ->orderBy('id')
+                ->paginate(3);
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     public function populer(Request $request)
     {
         try {
@@ -50,6 +69,25 @@ class StudioClassController extends Controller
         }
     }
     public function indexClasses(Request $request)
+    {
+        try {
+            $master = StudioClass::entities($request->entities)
+                ->filterBy($request->filter)
+                ->search($request->q)
+                ->orderBy('views', 'desc')
+                ->paginate(3);
+            // $master->appends(['search' => $search]);
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+    public function indexSearch(Request $request)
     {
         try {
             $master = StudioClass::entities($request->entities)

@@ -7,8 +7,8 @@
         lg="3"
       >
         <base-material-stats-card
-          color="primary"
-          icon="mdi-poll"
+          color="secondary"
+          icon="mdi-billiards"
           title="Total"
           :value="String(computedSummary.all)"
           sub-icon="mdi-tag"
@@ -23,8 +23,8 @@
         lg="3"
       >
         <base-material-stats-card
-          color="primary"
-          icon="mdi-poll"
+          color="btn_primary"
+          icon="mdi-check-decagram-outline"
           title="Approved"
           :value="String(computedSummary.approved)"
           sub-icon="mdi-tag"
@@ -40,9 +40,9 @@
         lg="3"
       >
         <base-material-stats-card
-          color="primary"
-          icon="mdi-poll"
-          title="Non Approved"
+          color="red"
+          icon="mdi-close"
+          title="Not Approved"
           :value="String(computedSummary.non_approved)"
           sub-icon="mdi-tag"
           sub-text="Tracked from Google Analytics"
@@ -57,7 +57,7 @@
       >
         <base-material-stats-card
           color="primary"
-          icon="mdi-poll"
+          icon="mdi-newspaper-plus"
           title="New"
           :value="String(computedSummary.new)"
           sub-icon="mdi-tag"

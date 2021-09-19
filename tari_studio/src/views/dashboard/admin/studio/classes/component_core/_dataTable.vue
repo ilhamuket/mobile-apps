@@ -1,5 +1,5 @@
 <template>
-  <base-material-card icon="mdi-alpha-c-box">
+  <base-material-card icon="mdi-clipboard-outline">
     <template #after-heading>
       <span
         :class="
@@ -71,7 +71,7 @@
             <v-icon>
               mdi-plus
             </v-icon>
-            Add Studio
+            Add Class
           </v-btn>
 
           <v-btn

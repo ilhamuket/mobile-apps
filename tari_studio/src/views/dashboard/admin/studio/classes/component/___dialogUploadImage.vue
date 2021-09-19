@@ -6,7 +6,7 @@
     >
       <v-card>
         <v-card-title class="text-h2 primary--text font-spartan">
-          Add Matery
+          Add Some Picture
 
           <v-spacer />
 
@@ -49,8 +49,14 @@
               md="12"
               class="row__list d-flex justify-center"
             >
+              <span
+                v-if="dialog.data.list_img.length === 3"
+                class="font-spartan"
+              >
+                change the image by clicking on the image
+              </span>
               <label
-                v-if="dialog.data.list_img.length <= 0"
+                v-else
                 class="custom-file-upload v-btn__info"
               >
                 <button
@@ -71,12 +77,6 @@
                   @change="onFilePickedInput"
                 >
               </label>
-              <span
-                v-else
-                class="font-spartan"
-              >
-                change the image by clicking on the image
-              </span>
             </v-col>
           </v-row>
         </v-container>

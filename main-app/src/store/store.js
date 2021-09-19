@@ -12,6 +12,8 @@ import schedulesStudioClasses from './module/studio/studio_classes/class_schedul
 import studioPopuler from './module/studio/studio_populer/index'
 // clsases
 import classes from './module/classes/index'
+import classesPopuler from './module/classes/class_populer/index'
+import classesReviews from './module/classes/class_reviews/index'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -26,6 +28,8 @@ export default new Vuex.Store({
     schedulesStudioClass: schedulesStudioClasses,
     studioPopuler: studioPopuler,
     classes: classes,
+    classesPopuler: classesPopuler,
+    classesReviews: classesReviews,
   },
   state: {
     barColor: 'rgba(0, 0, 0, .8), rgba(0, 0, 0, .8)',

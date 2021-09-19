@@ -1,0 +1,30 @@
+.class__zoom {
+    margin-top: 20px;
+}
+.class__zoom .card {
+    width: 350px !important;
+}
+/* .class__zoom .card {
+    height: 600px;
+} */
+
+.class__zoom .card .card__modify_location {
+    margin-top: -20px;
+    margin-left: 0px;
+}
+.class__zoom .card .card__modify_ratings {
+    margin-top: -10px;
+}
+.class__zoom .card .card__modify_price {
+    margin-top: -8px;
+}
+.class__zoom .card .font__price {
+    font-weight: bold !important;
+    font-family: 'Spartan', sans-serif !important;
+}
+.class__zoom .card .font__locations {
+    font-size: 12px;
+}
+.orange--color {
+    color: orange !important;
+}

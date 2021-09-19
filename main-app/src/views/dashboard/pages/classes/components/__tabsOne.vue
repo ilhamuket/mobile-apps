@@ -27,9 +27,30 @@
       Capacity: <span class="ml-2">0 / {{ data.kapasitas }} </span>
     </v-chip>
     <br>
-    #About :
+    #About Class:
     <br>
-    <span class="mt-2"> "{{ data.about }}" </span>
+    <span
+      v-if="!isMore && data.about"
+      class="mt-2"
+    >
+      "{{ data.about.substr(0, 100) + '...' }}"
+      <span
+        class="font-spartan-small ml-1 font-weight-bold"
+        style="cursor:pointer"
+        @click="isMore = true"
+      >More</span>
+    </span>
+    <span
+      v-else
+      class="mt-2"
+    >
+      "{{ data.about }}"
+      <span
+        class="font-spartan-small ml-1 font-weight-bold"
+        style="cursor:pointer"
+        @click="isMore = false"
+      >Less</span>
+    </span>
   </div>
 </template>
 
@@ -41,6 +62,9 @@
         default: null,
       },
     },
+    data: () => ({
+      isMore: false,
+    }),
   }
 </script>
 

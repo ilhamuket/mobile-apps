@@ -7,6 +7,8 @@
 @import url("_footer.css");
 @import url("_join.css");
 @import url("_zoom.css");
+@import url('studio.css');
+@import url('class-zoom.css');
 
 
 body {
@@ -54,7 +56,8 @@ body {
 
 .font-spartan-body {
     font-family: 'Spartan', sans-serif !important;
-    font-weight: 2000;
+    font-weight: 900 !important;
+    color: black !important;
 }
 .m-r-text-center {
     margin-left: 70px;

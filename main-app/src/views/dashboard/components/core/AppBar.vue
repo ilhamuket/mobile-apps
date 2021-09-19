@@ -264,7 +264,9 @@
           to="pages/user"
         >
           <v-list-item-content>
-            <v-list-item-title class="text-h5 font-spartan text-center">
+            <v-list-item-title
+              class="text-h5 font-spartan text-center text-capitalize"
+            >
               {{ users.nickName }}
             </v-list-item-title>
             <v-list-item-subtitle class="text-h6 font-spartan text-center">
@@ -287,8 +289,19 @@
               v-if="!item"
               :key="`divider-${i}`"
             />
+
             <v-list-item-icon>
-              <v-icon v-text="item.icon" />
+              <v-badge
+                v-if="item.badge"
+                color="pink"
+                content="6"
+              >
+                <v-icon v-text="item.icon" />
+              </v-badge>
+              <v-icon
+                v-else
+                v-text="item.icon"
+              />
             </v-list-item-icon>
 
             <v-list-item-content>
@@ -349,16 +362,25 @@
           icon: 'mdi-account-outline',
           text: 'myaccount',
           to: '/pages/user',
+          badge: false,
         },
-        // {
-        //   icon: 'mdi-bluetooth',
-        //   text: 'Bluetooth',
-        //   to: '/index/announcement',
-        // },
+        {
+          icon: 'mdi-cart',
+          text: 'cart',
+          // to: '/index/announcement',
+          badge: true,
+        },
+        {
+          icon: 'mdi-account-group-outline',
+          text: 'history_class',
+          // to: '/index/announcement',
+          badge: false,
+        },
         {
           icon: 'mdi-logout',
           text: 'logout',
           to: '/logout',
+          badge: false,
         },
       ],
     }),
@@ -420,9 +442,9 @@
     },
     methods: {
       setLanguage (lang) {
-        console.log(lang)
+        // console.log(lang)
         this.$moment().locale(lang)
-        console.log(this.$moment().locale(lang), 'hai')
+      // console.log(this.$moment().locale(lang), 'hai')
       },
 
       ...mapMutations({

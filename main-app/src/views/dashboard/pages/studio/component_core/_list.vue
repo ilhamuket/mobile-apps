@@ -20,13 +20,15 @@
           <v-list-item-avatar
             v-else
             tile
-            color="primary"
-            width="400"
+            width="360"
             height="200"
+            style="cursor:pointer"
+            @click="clickPush(list.slug)"
           >
-            <span
+            <!-- <span
               class="text-h1 font-title-rampart-one custome-brad custumize-class"
-            >ET</span>
+            >ET</span> -->
+            <v-img src="@/assets/img/et.png" />
           </v-list-item-avatar>
 
           <v-card-subtitle style="text-transform: capitalize">
@@ -42,7 +44,9 @@
                   <template #activator="{on,attrs}">
                     <h3
                       v-bind="attrs"
+                      style="cursor:pointer"
                       v-on="on"
+                      @click="clickPush(list.slug)"
                     >
                       {{ list.name.substr(0, 26) + ' .. ' }}
                     </h3>
@@ -54,7 +58,10 @@
                 v-else
                 class="d-flex flex-column"
               >
-                <h3>
+                <h3
+                  style="cursor:pointer"
+                  @click="clickPush(list.slug)"
+                >
                   {{ list.name }}
                 </h3>
               </div>

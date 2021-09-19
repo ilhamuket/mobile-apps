@@ -27,3 +27,7 @@
     margin-top: -5px;
     font-weight: 200;
 }
+
+.strong {
+    font-weight: bold !important;
+}

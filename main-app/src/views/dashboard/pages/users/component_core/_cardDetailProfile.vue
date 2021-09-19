@@ -94,16 +94,16 @@
               >Social :
                 <div class="">
                   <a
-                    :href="me.username_tw"
+                    :href="me.url_tw"
                     target="__blank"
                   >
                     <v-icon
-                      :href="me.username_tw"
+                      :href="me.url_tw"
                       color="blue"
                     >mdi-twitter</v-icon>
                   </a>
                   <a
-                    :href="me.username_ig"
+                    :href="me.url_ig"
                     target="__blank"
                   >
                     <v-icon
@@ -112,7 +112,7 @@
                     > mdi-instagram</v-icon>
                   </a>
                   <a
-                    :href="me.username_fb"
+                    :href="me.url_fb"
                     target="__blank"
                   >
                     <v-icon

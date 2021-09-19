@@ -58,8 +58,14 @@
     }
   },
   "dahsboard": {
-    "cds": "Most Populer Studio"
+    "cds": "Most Populer Studio",
+    "cls": "Class Best Seller",
+    "sxp": "View Studio",
+    "cxp": "View Class",
+    "see": "View More"
   },
   "classes": "Class",
-  "detail": "Class Detail"
+  "detail": "Class Detail",
+  "history_class": "History Class",
+  "cart": "Cart"
 }

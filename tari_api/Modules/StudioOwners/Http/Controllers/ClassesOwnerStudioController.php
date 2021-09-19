@@ -200,7 +200,7 @@ class ClassesOwnerStudioController extends Controller
      */
     public function edit($id)
     {
-        return view('studioowners::edit');
+        //
     }
 
     /**

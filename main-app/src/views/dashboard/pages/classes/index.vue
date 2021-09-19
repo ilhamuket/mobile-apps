@@ -43,9 +43,21 @@
               </span>
               <app-card
                 v-else
-                :classes="classes"
+                :classes="classes.data"
               />
             </v-col>
+          </v-row>
+          <v-row
+            v-if="is_load"
+            class="d-flex justify-center"
+          >
+            <div>
+              <v-progress-circular
+                class="d-flex justify-center"
+                indeterminate
+                color="red"
+              />
+            </div>
           </v-row>
         </v-card>
       </v-col>
@@ -60,30 +72,54 @@
       'app-card': card,
     },
     data: () => ({
+      inputHeight: '0',
       search: '',
       isLoading: false,
+      is_load: false,
+      page: 1,
+      classes: {
+        meta: null,
+        data: null,
+        links: {
+          next: null,
+        },
+      },
     }),
     computed: {
-      classes () {
-        return this.$store.state.classes.data
-      },
+    // classes () {
+    //   return this.$store.state.classes.data
+    // },
     },
     mounted () {
-      this.getDataClasses()
+      if (this.search === '' || this.search === null) {
+        this.getDataClasses(this.page)
+      } else {
+        this.getDataClassesSearch(this.page)
+      }
+      this.scroll()
     },
     methods: {
-      getDataClasses () {
+      getDataClasses (page) {
         this.$store
           .dispatch('classes/getDataClasses', {
             entities: 'img,studio',
             filter: 'Publish',
             q: this.search,
+            page: page,
           })
           .then(res => {
             if (res.data.meta.status) {
               this.isLoading = false
+              this.classes.meta = res.data.meta
+              this.classes.links = res.data.links
+              if (page === 1) {
+                this.classes.data = res.data.data
+              } else {
+                this.classes.data.push(...res.data.data)
+                this.is_load = false
+              }
             }
-            if (this.classes.length === 0) {
+            if (this.classes.data.length === 0) {
               const Toast = this.$swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -105,13 +141,63 @@
             }
           })
       },
+      scroll () {
+        window.onscroll = () => {
+          const bottomOfWindow =
+            document.documentElement.scrollTop + window.innerHeight >=
+            document.documentElement.offsetHeight
+          console.log(bottomOfWindow)
+          // console.log('heightOfsset : ', document.documentElement.offsetHeight)
+          // console.log(
+          //   'scroll : ',
+          //   document.documentElement.scrollTop + window.innerHeight,
+          // )
+
+          // setTimeout(() => {
+          if (bottomOfWindow) {
+            // setTimeout(() => {
+            this.moreClass()
+          // this.resize()
+          // }, 3000)
+          }
+        // }, 3000)
+        }
+      },
+      moreClass () {
+        if (this.classes.links.next) {
+          this.page++
+          // console.log(this.page)
+          this.is_load = true
+          this.getDataClasses(this.page)
+        }
+      },
+      getDataClassesSearch () {
+        this.$store
+          .dispatch('classes/getDataClassesSearch', {
+            q: this.search,
+            filter: 'Publish',
+            entities: 'img,studio',
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              this.classes.data = res.data.data
+              // const index =  this.classes.data.findIndex(x => x.id === res.data.data.id)
+              // this.classes.data
+              this.isLoading = false
+            }
+          })
+      },
       searchMethods () {
         if (this.timer) {
           clearTimeout(this.timer)
           this.timer = null
         }
         this.timer = setTimeout(() => {
-          this.getDataClasses()
+          if (this.search) {
+            this.getDataClassesSearch(null)
+          } else {
+            this.getDataClasses((this.page = 1))
+          }
           this.isLoading = true
         }, 700)
       },

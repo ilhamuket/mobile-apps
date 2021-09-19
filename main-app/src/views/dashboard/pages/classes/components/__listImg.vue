@@ -24,9 +24,7 @@
         default: null,
       },
     },
-    mounted () {
-      console.log(this.data)
-    },
+    mounted () {},
   }
 </script>
 

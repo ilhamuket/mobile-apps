@@ -5,11 +5,13 @@ use Illuminate\Http\Request;
 // use Illuminate\Routing\Route;
 use Modules\Studio\Entities\ClassesScheduleStudio;
 use Modules\Studio\Entities\StudioClass;
+use Modules\Studio\Http\Controllers\CartClassController;
 use Modules\Studio\Http\Controllers\ClassesScheduleStudioController;
 use Modules\Studio\Http\Controllers\CommentStudioVidioController;
 use Modules\Studio\Http\Controllers\FollowStudioController;
 use Modules\Studio\Http\Controllers\ImagesStudioController;
 use Modules\Studio\Http\Controllers\LikeStudioController;
+use Modules\Studio\Http\Controllers\ReviewController;
 use Modules\Studio\Http\Controllers\RoomController;
 use Modules\Studio\Http\Controllers\StudioArticleController;
 use Modules\Studio\Http\Controllers\StudioClassController;
@@ -37,8 +39,10 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
     Route::prefix('u')->group(function () {
         // classes 
         Route::get('classes', [StudioClassController::class, 'indexClasses']);
+        Route::get('c/search', [StudioClassController::class, 'indexSearch']);
         // describtion Classes
         Route::get('classes/populer', [StudioClassController::class, 'populer']);
+        Route::get('classes/recomendation/{studio_slug}', [StudioClassController::class, 'recomendation']);
         Route::post('class/describe/post', [StudioClassController::class, 'store']);
         Route::get('class/describe/{slug}', [StudioClassController::class, 'index']);
         // Schedules Classes
@@ -52,6 +56,14 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
         // article
         Route::get('article/{slug}', [StudioArticleController::class, 'index']);
         Route::get('class/{studio_slug}/{slug}', [StudioClassController::class, 'indexBySlug']);
+    });
+    Route::prefix('cart')->group(function () {
+        Route::post('', [CartClassController::class, 'storeWistlist']);
+        Route::get('', [CartClassController::class, 'index']);
+    });
+    Route::prefix('reviews')->group(function () {
+        Route::post('class', [ReviewController::class, 'store']);
+        Route::get('class/{slug}', [ReviewController::class, 'byClass']);
     });
     // Rooms
     Route::prefix('rooms')->group(function () {

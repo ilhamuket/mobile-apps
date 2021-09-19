@@ -30,6 +30,24 @@ export default {
           })
       })
     },
+    getDataClassesSearch: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        'Bearer ' + localStorage.getItem('access_token')
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+      return new Promise((resolve, reject) => {
+        const params = { ...payload }
+        axios
+          .get('studio/u/c/search', { params: params })
+          .then(res => {
+            const data = res.data.data
+            commit('GET_DATA', data)
+            resolve(res)
+          })
+          .catch(e => {
+            reject(e)
+          })
+      })
+    },
     getDataClassesBySlug: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
         'Bearer ' + localStorage.getItem('access_token')

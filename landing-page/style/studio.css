@@ -1,0 +1,18 @@
+.studio .card {
+    width: 350px !important;
+}
+
+.studio {
+    margin-bottom: 40px;
+}
+
+.studio .card .card__modify_location {
+    margin-top: -20px;
+    margin-left: 0px;
+}
+.studio .card .card__modify_ratings {
+    margin-top: -10px;
+}
+.orange--color {
+    color: orange !important;
+}

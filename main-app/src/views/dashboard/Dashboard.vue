@@ -202,10 +202,164 @@
                       text
                       @click="toPush(`${item.slug}/home`)"
                     >
-                      Explore
+                      {{ $t('dahsboard.sxp') }}
                     </v-btn>
                   </v-card-actions>
                 </v-card>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col
+                cols="12"
+                class="d-flex justify-end"
+              >
+                <span
+                  style="cursor:pointer"
+                  class="font-spartan-small hover--text font-weight-bold"
+                  @click="toPush('/studio')"
+                >
+                  {{ $t('dahsboard.see') }} <v-icon>mdi-chevron-right</v-icon>
+                </span>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col
+        cols="12"
+        md="12"
+        sm="12"
+        lg="12"
+      >
+        <v-card>
+          <v-card-title>
+            <span
+              class="text-capitalize text-center mx-auto font-spartan font-italic"
+            >
+              {{ $t('dahsboard.cls') }}
+            </span>
+          </v-card-title>
+          <v-divider class="divider--opacity" />
+          <v-card-text>
+            <v-row>
+              <v-col
+                v-for="(item, i) in classes"
+                :key="i"
+                cols="12"
+                md="4"
+              >
+                <v-card>
+                  <v-img
+                    v-if="item.img"
+                    class="white--text align-end"
+                    height="200px"
+                    :src="item.img.url"
+                    style="cursor:pointer"
+                  >
+                    <v-row
+                      v-if="item.category"
+                      class="fill-height mt-g text-right"
+                    >
+                      <v-col cols="12">
+                        <v-chip
+                          label
+                          class="font-spartan mr-1 text-uppercase"
+                          color="btn_primary"
+                          text-color="white"
+                          small
+                          @click.stop=""
+                        >
+                          Class Zoom
+                        </v-chip>
+                      </v-col>
+                      <v-col
+                        class="col__"
+                        cols="12"
+                      >
+                        <v-chip
+                          label
+                          class="font-spartan mr-1 text-uppercase"
+                          color="btn_primary"
+                          text-color="white"
+                          small
+                          @click.stop=""
+                        >
+                          {{ item.category.name }}
+                        </v-chip>
+                      </v-col>
+                    </v-row>
+                  </v-img>
+                  <v-card-subtitle style="text-transform: capitalize">
+                    <div class="d-flex flex-row mb-2">
+                      <div class="d-flex flex-column">
+                        <h3 class="">
+                          {{ item.name }}
+                        </h3>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-row">
+                      <div class="d-flex flex-column">
+                        <span class="font-spartan font-italic font__price">
+                          Rp2000
+                        </span>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-row mt-2">
+                      <div class="d-flex flex-column">
+                        <v-rating
+                          :value="4.5"
+                          color="amber"
+                          dense
+                          half-increments
+                          readonly
+                          size="20"
+                        />
+                      </div>
+                      <div class="d-flex flex-column font-size-small mr-4">
+                        <v-chip
+                          color="amber"
+                          small
+                          label
+                          outlined
+                        >
+                          (200 Review)
+                        </v-chip>
+                      </div>
+                    </div>
+
+                    <!-- <div class="grey--text ms-4">
+                  4.5 (413)
+                </div> -->
+                  </v-card-subtitle>
+
+                  <v-card-actions v-if="item.studio">
+                    <v-btn
+                      color="orange"
+                      text
+                      @click="
+                        toPush(
+                          `classes/detail/${item.studio.slug}/${item.slug}`
+                        )
+                      "
+                    >
+                      {{ $t('dahsboard.cxp') }}
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col
+                cols="12"
+                class="d-flex justify-end"
+              >
+                <span
+                  class="font-spartan-small hover--text font-weight-bold"
+                  style="cursor:pointer"
+                  @click="toPush('/classes')"
+                >
+                  {{ $t('dahsboard.see') }} <v-icon>mdi-chevron-right</v-icon>
+                </span>
               </v-col>
             </v-row>
           </v-card-text>
@@ -230,9 +384,13 @@
       studio () {
         return this.$store.state.studioPopuler.data
       },
+      classes () {
+        return this.$store.state.classesPopuler.data
+      },
     },
     mounted () {
       this.getDataMostPopuler()
+      this.getDataPopulerClasses()
     },
     methods: {
       getDataMostPopuler () {
@@ -246,6 +404,11 @@
             }
           })
       },
+      getDataPopulerClasses () {
+        this.$store.dispatch('classesPopuler/getDataPopulerClasses', {
+          entities: 'category, img,studio',
+        })
+      },
       toPush (link) {
         this.$router.push(link)
       },
@@ -253,7 +416,7 @@
   }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 a
   text-decoration: underline
 .theme--dark
@@ -261,4 +424,20 @@ a
     opacity: .2
 .mt-g
   margin-top: -200px
+.col__
+  margin-top: -20px
+.card__titleImg
+  margin-top: 100px
+  // width: 90px !important
+  .v-chip__content
+    margin-left: 8px !important
+    font-size: 20px
+    font-weight: 900 !important
+.font__price
+  font-weight: 900
+  font-size: 1.6rem
+  color: orange !important
+.hover--text
+  &:hover
+    color: #4CAF50 !important
 </style>

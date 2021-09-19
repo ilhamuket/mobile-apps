@@ -48,6 +48,7 @@ class AuthStudioController extends Controller
             $studios->about = $request->about;
             $studios->author_id = $users->id;
             $studios->type = 'studio';
+            $studios->views = 0;
 
             $studios->save();
 

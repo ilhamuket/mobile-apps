@@ -129,27 +129,22 @@
           to: '/',
         },
         {
+          icon: 'mdi-account-group-outline',
+          title: 'classes',
+          to: '/class',
+        },
+        {
           icon: 'mdi-playlist-check',
           title: 'category',
           to: '/category',
         },
         {
-          icon: 'mdi-alpha-c-box',
-          title: 'classes',
-          to: '/class',
-        },
-        {
-          icon: 'mdi-alpha-s-box',
-          title: 'subject',
-          to: '/sub-class',
-        },
-        {
-          icon: 'mdi-alpha-t-box',
+          icon: 'mdi-account-cowboy-hat-outline',
           title: 'instrucktur',
           to: '/instructor',
         },
         {
-          icon: 'mdi-shopping-music',
+          icon: 'mdi-alpha-v-box',
           title: 'vidio_name_page',
           to: '/vidio',
         },
@@ -159,7 +154,7 @@
           to: '/pages/user',
         },
         {
-          title: 'rtables',
+          title: 'history_class',
           icon: 'mdi-clipboard-outline',
           to: '/tables/regular-tables',
         },

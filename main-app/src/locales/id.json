@@ -58,8 +58,14 @@
         }
     },
     "dahsboard": {
-        "cds": "Sanggar Terpopuler"
+        "cds": "Sanggar Terpopuler",
+        "cls": "Kelas Best Seller",
+        "sxp": "Lihat Sanggar",
+        "cxp": "Lihat Kelas",
+        "see": "Lihat Selengkapnya"
     },
     "classes": "Kelas",
-    "detail": "Detail Kelas"
+    "detail": "Detail Kelas",
+    "history_class": "Riwayat Kelas",
+    "cart": "Keranjang"
 }

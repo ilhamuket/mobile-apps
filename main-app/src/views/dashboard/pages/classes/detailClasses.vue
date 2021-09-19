@@ -22,7 +22,17 @@
           md="8"
           sm="6"
         >
-          <app-card-detail :data="classes" />
+          <app-card-detail
+            :data="classes"
+            :me="me"
+          />
+        </v-col>
+      </v-row>
+    </v-card>
+    <v-card>
+      <v-row>
+        <v-col>
+          <app-card-reviews :reviews="reviews" />
         </v-col>
       </v-row>
     </v-card>
@@ -34,12 +44,14 @@
   import detail from './components_core/_cardDetail.vue'
   import list from './components/__listImg.vue'
   import buying from './components/__buying.vue'
+  import cardReviews from './components_core/_cardReviews.vue'
   export default {
     components: {
       'app-card-img': cardImg,
       'app-card-detail': detail,
       'app-list-img': list,
       'app-buying': buying,
+      'app-card-reviews': cardReviews,
     },
     data: () => ({
       breadcumbs: {
@@ -52,6 +64,12 @@
       classes () {
         return this.$store.state.classes.dataBySlug
       },
+      reviews () {
+        return this.$store.state.classesReviews.data
+      },
+      me () {
+        return this.$store.state.user.me
+      },
     },
     watch: {
       breadcumbs (newVal) {
@@ -63,7 +81,10 @@
     },
     mounted () {
       this.getDataClassesBySlug()
-      console.log(this.classes)
+      this.getDataReviews()
+      this.getMe()
+
+    // console.log(this.$route.params)
     },
     methods: {
       getBreadcumbs () {
@@ -74,11 +95,20 @@
         })
       // this.breadcumbs =
       },
+      getMe () {
+        this.$store.dispatch('user/me')
+      },
       getDataClassesBySlug () {
         this.$store.dispatch('classes/getDataClassesBySlug', {
-          entities: 'listImg,img,studio,category, listImg',
+          entities: 'listImg,img,studio.followers,category, listImg',
           slug: this.$route.params.slug,
           studio_slug: this.$route.params.studio_slug,
+        })
+      },
+      getDataReviews () {
+        this.$store.dispatch('classesReviews/getDataReviews', {
+          class_slug: this.$route.params.slug,
+          entities: 'user.img,studio,class,likes,report',
         })
       },
     },

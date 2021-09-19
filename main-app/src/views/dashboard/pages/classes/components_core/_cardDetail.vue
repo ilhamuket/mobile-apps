@@ -87,6 +87,16 @@
         </span>
       </v-card-actions>
       <v-btn
+        v-if="isFollowYou"
+        class="btn__studio"
+        small
+        color="btn_primary"
+        outlined
+      >
+        Following
+      </v-btn>
+      <v-btn
+        v-else
         class="btn__studio"
         small
         color="btn_primary"
@@ -109,6 +119,10 @@
         type: Object,
         default: null,
       },
+      me: {
+        type: Object,
+        default: null,
+      },
     },
     data: () => ({
       tab: null,
@@ -117,12 +131,39 @@
       colors: ['orange'],
       rating: 4.5,
     }),
+
+    computed: {
+      isFollowYou () {
+        let boolean = false
+        if (this.data.studio.followers !== undefined) {
+          boolean = this.data.studio.followers.some(x => x.id === this.me.id)
+        }
+
+        return boolean
+      },
+      isLikesYou () {
+        let boolean = false
+        if (this.data.likes !== undefined) {
+          boolean = this.data.studio.likes.some(x => x.id === this.me.id)
+        }
+
+        return boolean
+      },
+    },
+
     watch: {},
-    created () {
+    mounted () {
+    // console.log(this.data.studio.followers.some(x => x.id === this.me.id))
     // this.breadcumbsPush()
     //   console.log(this.$route)
     },
     methods: {
+      folow (item) {
+        this.$emit('inputFollow', { item: item })
+      },
+      unfoll (item) {
+        this.$emit('inputUnfoll', { item: item })
+      },
       setColorLabel (item) {
         if (item === 'ongoing') return 'btn_primary'
         if (item === 'upcoming') return 'primary'

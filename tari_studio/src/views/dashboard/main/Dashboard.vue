@@ -304,21 +304,6 @@
             md="6"
           >
             <base-material-stats-card
-              color="secondary"
-              icon="mdi-account-cowboy-hat-outline"
-              :title="$t('instrucktur')"
-              :value="String(cumputedSummary.instructor)"
-              sub-icon="mdi-clock"
-              sub-text="Just Updated"
-              style="cursor:pointer"
-              @click.native="toNavigate('/instructor')"
-            />
-          </v-col>
-          <v-col
-            cols="12"
-            md="6"
-          >
-            <base-material-stats-card
               color="pallet1"
               icon="mdi-playlist-check"
               :title="$t('category')"
@@ -329,6 +314,7 @@
               @click.native="toNavigate('/sub-class')"
             />
           </v-col>
+
           <v-col
             cols="12"
             md="6"
@@ -342,6 +328,21 @@
               sub-text="Just Updated"
               style="cursor:pointer"
               @click.native="toNavigate('/vidio')"
+            />
+          </v-col>
+          <v-col
+            cols="12"
+            md="6"
+          >
+            <base-material-stats-card
+              color="secondary"
+              icon="mdi-account-cowboy-hat-outline"
+              :title="$t('instrucktur')"
+              :value="String(cumputedSummary.instructor)"
+              sub-icon="mdi-clock"
+              sub-text="Just Updated"
+              style="cursor:pointer"
+              @click.native="toNavigate('/instructor')"
             />
           </v-col>
         </v-row>

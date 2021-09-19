@@ -1,26 +1,30 @@
 <template>
   <v-card class="mb-12">
     <v-container>
-      <v-form>
+      <v-form v-model="invalid">
         <v-row>
           <v-col>
             <v-text-field
               v-model="fullNameStudio"
+              :rules="[rules.required]"
               label="Name Studio"
               prepend-icon="mdi-alpha-n-circle-outline"
             />
             <v-text-field
               v-model="data.email"
+              :rules="[rules.required]"
               label="Email Studio"
               prepend-icon="mdi-at"
             />
             <v-text-field
               v-model="data.phoneNumber"
+              :rules="[rules.required]"
               label="Contact Studio"
               prepend-icon="mdi-alpha-p-circle-outline"
             />
             <v-textarea
               v-model="step2.data.about"
+              :rules="[rules.required]"
               label="About Studio"
               prepend-icon="mdi-alpha-p-circle-outline"
             />
@@ -40,6 +44,7 @@
             >
               <v-text-field
                 v-model="item.option"
+                :rules="[rules.required]"
                 label="Url"
                 :placeholder="'Url ke-' + (i + 1)"
                 type="text"
@@ -53,6 +58,7 @@
         </v-row>
         <v-btn
           color="primary"
+          :disabled="!invalid"
           @click="nextStep"
         >
           Continue
@@ -89,6 +95,14 @@
           ],
         },
       },
+      rules: {
+        required: value => !!value || 'Required.',
+        min: v => (v && v.length >= 8) || 'Min 8 characters',
+        emailRules: v =>
+          /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+          'E-mail must be valid',
+      },
+      invalid: true,
       upload_state: false,
       disable_state: false,
       files: null,

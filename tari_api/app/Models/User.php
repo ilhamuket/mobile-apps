@@ -11,6 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Modules\Classes\Entities\Schedule;
 use Modules\Classes\Entities\Theory;
 use Modules\Room\Entities\Room;
+use Modules\Studio\Entities\CartClass;
 use Modules\Studio\Entities\ClassesScheduleStudio;
 use Modules\Studio\Entities\Studio;
 use Modules\StudioOwners\Entities\ClassesOwnerStudio;
@@ -63,6 +64,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function myClass()
     {
         return $this->belongsToMany(ClassesScheduleStudio::class, 'room_student', 'user_id', 'sub_class_id');
+    }
+
+    public function wistlist()
+    {
+        return $this->hasMany(CartClass::class, 'user_id');
     }
 
     // public function saveTheories()
@@ -137,7 +143,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-    public function getUsernameIgAttribute()
+    public function geturlIgAttribute()
     {
         if ($this->attributes['username_ig'] != null) {
             return  'https://www.instagram.com/' . $this->attributes['username_ig'];
@@ -145,7 +151,7 @@ class User extends Authenticatable implements MustVerifyEmail
             return $this->attributes['username_ig'];
         }
     }
-    public function getUsernameFbAttribute()
+    public function getUrlFbAttribute()
     {
         if ($this->attributes['username_fb'] != null) {
             return  'https://www.facebook.com/' . $this->attributes['username_fb'];
@@ -153,7 +159,7 @@ class User extends Authenticatable implements MustVerifyEmail
             return $this->attributes['username_fb'];
         }
     }
-    public function getUsernameTwAttribute()
+    public function getUrlTwAttribute()
     {
         if ($this->attributes['username_tw'] != null) {
             return  'https://www.twitter.com/' . $this->attributes['username_tw'];

@@ -180,11 +180,22 @@
     data: () => ({
       show: false,
       rating: 4.5,
+      card: {
+        meta: null,
+        data: [],
+        links: {
+          next: null,
+        },
+      },
+      page: 1,
     }),
     computed: {
       momentConver (val) {
         return val.moment('dddd, MMMM Do YYYY')
       },
+    },
+    watch: {
+      page () {},
     },
     mounted () {},
 
@@ -194,9 +205,33 @@
         if (item === 'upcoming') return 'primary'
         else return 'red'
       },
+      scroll () {
+        if (this.tabs === 0) {
+          window.onscroll = () => {
+            const bottomOfWindow =
+              document.documentElement.scrollTop + window.innerHeight ===
+              document.documentElement.offsetHeight
+            console.log(bottomOfWindow)
+            setTimeout(() => {
+              if (bottomOfWindow) {
+                setTimeout(() => {
+                  this.moreClass()
+                // this.resize()
+                }, 3000)
+              }
+            }, 3000)
+          }
+        }
+      },
       toPush (link) {
         console.log(link)
         this.$router.push(`classes/detail/${link.studio.slug}/${link.slug}`)
+      },
+      moreClass () {
+        if (this.card.links.next) {
+          this.page++
+          this.getDataClasses()
+        }
       },
       moment () {
         if (!this.$page.prop.locale) {

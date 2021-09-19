@@ -83,6 +83,9 @@
             @open="fetchDataFromChild"
           />
         </v-tab-item>
+        <v-tab-item>
+          <app-page-three />
+        </v-tab-item>
       </v-tabs-items>
     </v-container>
     <app-dialog-page-two :dialog="dialogSeeMore" />
@@ -97,6 +100,7 @@
   import topCardDetails from './component_core/_cardDetailStudio.vue'
   import pageOne from './childPages/_pageOne.vue'
   import pageTwo from './childPages/_pageTwo.vue'
+  import pageThree from './childPages/_pageThree.vue'
   import dialogLearnMore from './childPages/component/__dialogLearnMore.vue'
   import dialogNotice from './childPages/component/__dialogNotice.vue'
   export default {
@@ -104,6 +108,7 @@
       'app-studio-card-detail': topCardDetails,
       'app-page-one': pageOne,
       'app-page-two': pageTwo,
+      'app-page-three': pageThree,
       'app-dialog-page-two': dialogLearnMore,
       'app-dialog-notice': dialogNotice,
     },

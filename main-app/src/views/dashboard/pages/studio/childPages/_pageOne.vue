@@ -142,7 +142,7 @@
 
             <v-app-bar-title v-if="is_field === false">
               <h3>
-                My Vidio
+                Studio Vidio
               </h3>
             </v-app-bar-title>
 

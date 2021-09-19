@@ -157,7 +157,7 @@
           to: '/pages/user',
         },
         {
-          title: 'rtables',
+          title: 'history_class',
           icon: 'mdi-clipboard-outline',
           to: '/tables/regular-tables',
         },

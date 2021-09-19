@@ -38,7 +38,7 @@
       dark
     >
       <v-img
-        src="@/assets/img/LOGO.svg"
+        src="@/assets/img/ensiklotariLogo.svg"
         width="100"
         class="bg-red"
       />
