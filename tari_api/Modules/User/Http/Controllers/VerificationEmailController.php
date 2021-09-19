@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Modules\User\Notifications\VerifiedAccount;
+use Modules\User\Notifications\VerifiedStudio;
 
 class VerificationEmailController extends Controller
 {
@@ -44,5 +45,11 @@ class VerificationEmailController extends Controller
         // $request->user()->sendEmailVerificationNotification();
         $request->user()->notify(new VerifiedAccount($request->user()));
         return Json::response('Send Notifications Successfull');
+    }
+
+    public function resendStudio(Request $request)
+    {
+        $request->user()->notify(new VerifiedStudio());
+        return Json::response('Send Notification Successfull');
     }
 }

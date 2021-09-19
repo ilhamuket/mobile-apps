@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Media\Entities\Category;
-use Modules\StudioOwners\Entities\imgClasses;
+use Modules\StudioOwners\Entities\ImgClasses;
+use Modules\StudioOwners\Entities\ImgListClass;
 use Modules\StudioOwners\Entities\StudioTeacher;
 
 class StudioClass extends Model
@@ -50,7 +51,7 @@ class StudioClass extends Model
 
     public function img()
     {
-        return $this->hasOne(imgClasses::class, 'class_id');
+        return $this->hasOne(ImgClasses::class, 'class_id');
     }
 
     public function category()
@@ -60,7 +61,7 @@ class StudioClass extends Model
 
     public function listImg()
     {
-        return $this->hasMany(imgListClass::class, 'class_id');
+        return $this->hasMany(ImgListClass::class, 'class_id');
     }
 
     // ==== Scope ==== //

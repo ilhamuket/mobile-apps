@@ -93,33 +93,64 @@
                 class="font-spartan-small text-center m-114 mt-4"
               >Social :
                 <div class="">
-                  <a
-                    :href="me.url_tw"
-                    target="__blank"
+                  <v-tooltip
+                    color="primary"
+                    bottom
                   >
-                    <v-icon
-                      :href="me.url_tw"
-                      color="blue"
-                    >mdi-twitter</v-icon>
-                  </a>
-                  <a
-                    :href="me.url_ig"
-                    target="__blank"
+                    <template #activator="{on, attrs}">
+                      <a
+                        v-bind="attrs"
+                        :href="me.url_tw"
+                        target="__blank"
+                        v-on="on"
+                      >
+                        <v-icon
+                          :href="me.url_tw"
+                          color="blue"
+                        >mdi-twitter</v-icon>
+                      </a>
+                    </template>
+                    <span>{{ me.username_tw }}</span>
+                  </v-tooltip>
+                  <v-tooltip
+                    color="primary"
+                    bottom
                   >
-                    <v-icon
-                      class="ml-1"
-                      color="#E1306C"
-                    > mdi-instagram</v-icon>
-                  </a>
-                  <a
-                    :href="me.url_fb"
-                    target="__blank"
+                    <template #activator="{on, attrs}">
+                      <a
+                        v-bind="attrs"
+                        :href="me.url_ig"
+                        target="__blank"
+                        v-on="on"
+                      >
+                        <v-icon
+                          class="ml-1"
+                          color="#E1306C"
+                        >
+                          mdi-instagram</v-icon>
+                      </a>
+                    </template>
+                    <span>{{ me.username_ig }}</span>
+                  </v-tooltip>
+                  <v-tooltip
+                    bottom
+                    color="primary"
                   >
-                    <v-icon
-                      class="ml-1"
-                      color="blue"
-                    > mdi-facebook</v-icon>
-                  </a>
+                    <template #activator="{on, attrs}">
+                      <a
+                        v-bind="attrs"
+                        :href="me.url_fb"
+                        target="__blank"
+                        v-on="on"
+                      >
+                        <v-icon
+                          class="ml-1"
+                          color="blue"
+                        > mdi-facebook</v-icon>
+                      </a>
+                    </template>
+                    <span>{{ me.username_fb }}</span>
+                  </v-tooltip>
                 </div>
               </span>
             </div>

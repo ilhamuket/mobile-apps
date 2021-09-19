@@ -14,7 +14,9 @@
 body {
     background-color: #f0f2f5;
 }
-
+.margin--payment {
+    margin-left: 100px;
+}
 .icon {
     color: #79C17D !important;
 }

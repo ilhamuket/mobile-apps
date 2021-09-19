@@ -3,10 +3,15 @@
     position: relative;
     z-index: 1;
     overflow: hidden;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .7);
     /* background-color: #fff; */
     /* position: fixed;
     top: 0;
     width: 100%; */
+}
+.navbar .navbar-nav .nav-item {
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .7);
+    font-weight: 900;
 }
 .navbar img {
     width: 330px;

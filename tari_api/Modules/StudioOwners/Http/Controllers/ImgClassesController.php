@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Modules\StudioOwners\Entities\ClassesOwnerStudio;
-use Modules\StudioOwners\Entities\imgClasses;
+use Modules\StudioOwners\Entities\ImgClasses;
 
 class ImgClassesController extends Controller
 {
@@ -17,7 +17,7 @@ class ImgClassesController extends Controller
         try {
             DB::beginTransaction();
 
-            $vidio = imgClasses::where('class_id', $request->class_id)->first();
+            $vidio = ImgClasses::where('class_id', $request->class_id)->first();
             $vidio->delete();
             if ($request->hasfile('img')) {
                 //getting the file from view
@@ -34,7 +34,7 @@ class ImgClassesController extends Controller
                 $image->move($destination_path, $new_image_name);
 
                 // save to database
-                $master = new imgClasses();
+                $master = new ImgClasses();
                 $master->url =  'images/' . $new_image_name;
                 $master->class_id = $request->class_id;
                 $master->save();
@@ -72,7 +72,7 @@ class ImgClassesController extends Controller
                 $image->move($destination_path, $new_image_name);
 
                 // save to database
-                $master = new imgClasses();
+                $master = new ImgClasses();
                 // $master->name_thumbnail = $new_image_name;
                 $master->url =  'images/' . $new_image_name;
                 $master->class_id = $request->class_id;

@@ -16,7 +16,7 @@ use Modules\Studio\Entities\ClassesScheduleStudio;
 use Modules\Studio\Entities\Studio;
 use Modules\StudioOwners\Entities\ClassesOwnerStudio;
 use Modules\StudioOwners\Entities\OwnerStudio;
-use Modules\User\Entities\imageUser;
+use Modules\User\Entities\ImageUser;
 use Modules\User\Entities\Role;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Permission\Traits\HasPermissions;
@@ -82,7 +82,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function img()
     {
-        return $this->hasOne(imageUser::class, 'user_id');
+        return $this->hasOne(ImageUser::class, 'user_id');
     }
 
     // public function ownerStudio()

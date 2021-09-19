@@ -330,7 +330,7 @@
           .dispatch('studioOwnerVidio/deletesDataVidio', item)
           .then(res => {
             if (res.data.meta.status) {
-              this.goPublish.open = false
+              this.deleted.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
                 position: 'top-end',

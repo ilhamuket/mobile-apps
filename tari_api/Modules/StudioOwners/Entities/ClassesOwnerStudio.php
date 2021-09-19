@@ -54,7 +54,7 @@ class ClassesOwnerStudio extends Model
 
     public function listImg()
     {
-        return $this->hasMany(imgListClass::class, 'class_id');
+        return $this->hasMany(ImgListClass::class, 'class_id');
     }
 
     // ==== Scope === //

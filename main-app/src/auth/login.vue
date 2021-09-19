@@ -136,7 +136,7 @@
           <v-row>
             <v-col cols="12">
               <v-img
-                width="1000"
+                width="1200"
                 class="mr-2"
                 :src="imgUrl"
               />
@@ -158,9 +158,12 @@
     computed: {
       imgUrl () {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        this.sideImg = require('@/assets/asset-web-sp-6.png')
+        this.sideImg = require('@/assets/img/login2.jpg')
         return this.sideImg
       },
+    },
+    mounted () {
+      this.$vuetify.theme.dark = false
     },
     methods: {
       login () {

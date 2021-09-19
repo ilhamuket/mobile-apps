@@ -37,3 +37,12 @@
     margin-right: 185px;
     margin-bottom: 200px;
 }
+
+.joinWithUs .card .navbar-brand {
+    margin-left: auto;
+}
+
+.joinWithUs .card .img--ilustration {
+    /* margin: 86px; */
+    width: 500px;
+}

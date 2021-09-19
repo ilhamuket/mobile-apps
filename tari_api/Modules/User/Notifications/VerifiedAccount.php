@@ -41,6 +41,7 @@ class VerifiedAccount extends Notification
     public function toMail($notifiable)
     {
         $url = env("FRONTEND_URL_PRODUCTION_MAIN_APP", "https://main-app-ensiklotari.vercel.app/") . 'verification';
+        // $url = 'http://8080/verification';
         return (new MailMessage)
             ->subject('Verify Your Account')
             ->line('Click Button Verify Email Address To Verification Your Account ..')

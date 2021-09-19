@@ -32,6 +32,7 @@ Route::prefix('auth')->group(function () {
 
     Route::get('verifications', [VerificationEmailController::class, 'verificationsEmail'])->middleware(['auth:sanctum']);
     Route::get('verifications/resend', [VerificationEmailController::class, 'resend'])->middleware(['auth:sanctum']);
+    Route::get('verifications/resend/studio', [VerificationEmailController::class, 'resendStudio'])->middleware(['auth:sanctum']);
 
     Route::prefix('password')->group(function () {
         Route::post('forgot', [PasswordResetController::class, 'create']);

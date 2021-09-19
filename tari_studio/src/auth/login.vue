@@ -1,43 +1,7 @@
 <template>
   <v-app>
     <v-container fluid>
-      <v-row
-        dense
-        class="d-flex flex-row-reverse justify-space-around"
-      >
-        <v-col
-          cols="12"
-          md="7"
-          class="d-flex flex-column bg-img"
-        >
-          <v-row>
-            <v-col>
-              <v-img
-                class="ml-2"
-                width="800"
-                :src="imgUrl"
-              >
-                <!-- <v-app-bar
-                  absolute
-                  color="#F8F8F8"
-                  elevate-on-scroll
-                >
-                  <v-toolbar-title
-                    class="mr-12"
-                    dark
-                  >
-                    <v-img
-                      src="@/assets/logo-e-color (2).png"
-                      width="200"
-                      class="mr-12"
-                    />
-                  </v-toolbar-title>
-                </v-app-bar> -->
-                <!-- <v-container fluid /> -->
-              </v-img>
-            </v-col>
-          </v-row>
-        </v-col>
+      <v-row dense>
         <v-col
           cols="12"
           md="4"
@@ -129,6 +93,39 @@
             </v-card-text>
           </v-col>
         </v-col>
+        <v-col
+          cols="12"
+          md="8"
+          class="d-flex flex-column bg-img"
+        >
+          <v-row>
+            <v-col>
+              <v-img
+                class="ml-2"
+                width="1200"
+                :src="imgUrl"
+              >
+                <!-- <v-app-bar
+                  absolute
+                  color="#F8F8F8"
+                  elevate-on-scroll
+                >
+                  <v-toolbar-title
+                    class="mr-12"
+                    dark
+                  >
+                    <v-img
+                      src="@/assets/logo-e-color (2).png"
+                      width="200"
+                      class="mr-12"
+                    />
+                  </v-toolbar-title>
+                </v-app-bar> -->
+                <!-- <v-container fluid /> -->
+              </v-img>
+            </v-col>
+          </v-row>
+        </v-col>
       </v-row>
     </v-container>
   </v-app>
@@ -144,7 +141,7 @@
     computed: {
       imgUrl () {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        this.sideImg = require('@/assets/asetlogin.png')
+        this.sideImg = require('@/assets/img/login1.jpg')
         return this.sideImg
       },
     },

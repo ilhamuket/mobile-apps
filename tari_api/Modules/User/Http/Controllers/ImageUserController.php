@@ -7,7 +7,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
-use Modules\User\Entities\imageUser;
+use Modules\User\Entities\ImageUser;
 
 class ImageUserController extends Controller
 {
@@ -16,7 +16,7 @@ class ImageUserController extends Controller
         try {
             DB::beginTransaction();
             $me = $request->user();
-            $vidio = imageUser::where('user_id', $me->id)->first();
+            $vidio = ImageUser::where('user_id', $me->id)->first();
             $vidio->delete();
             if ($request->hasfile('img')) {
                 //getting the file from view
@@ -33,7 +33,7 @@ class ImageUserController extends Controller
                 $image->move($destination_path, $new_image_name);
 
                 // save to database
-                $master = new imageUser();
+                $master = new ImageUser();
                 $master->name_thumbnail = $new_image_name;
                 $master->url =  'images/' . $new_image_name;
                 $master->user_id = $request->user()->id;
@@ -110,7 +110,7 @@ class ImageUserController extends Controller
                 $image->move($destination_path, $new_image_name);
 
                 // save to database
-                $master = new imageUser();
+                $master = new ImageUser();
                 $master->name_thumbnail = $new_image_name;
                 $master->url =  'images/' . $new_image_name;
                 $master->user_id = $request->user()->id;
