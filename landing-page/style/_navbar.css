@@ -4,6 +4,7 @@
     z-index: 1;
     overflow: hidden;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, .7);
+    background-color: #843839;
     /* background-color: #fff; */
     /* position: fixed;
     top: 0;
@@ -14,9 +15,10 @@
     font-weight: 900;
 }
 .navbar img {
-    width: 330px;
+    width: 318px;
     color: #843839;
-    height: 51px;
+    height: 67px;
+    margin-top: 2px;
 }
 .navbar-brand {
     font-family: 'Rampart One','Viga', sans-serif;

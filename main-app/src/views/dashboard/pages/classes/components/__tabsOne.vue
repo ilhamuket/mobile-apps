@@ -1,6 +1,6 @@
 <template>
   <div>
-    Started Class :
+    Date :
     {{ data.start_at | moment('MMMM Do YYYY') }}
     <br>
     {{ data.time_start }} s/d {{ data.time_end }}

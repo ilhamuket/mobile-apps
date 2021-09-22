@@ -159,9 +159,10 @@
             if (res.meta.status) {
               this.$store.dispatch('user/me').then(response => {
                 if (response.data.data.isVerified === 0) {
-                  this.$router.push('/verification')
+                  this.$router.push('/waiting-email')
                 } else {
-                  this.$router.push('/')
+                  const redirecturl = this.$route.query.redirect || '/'
+                  this.$router.push(redirecturl)
                   const Toast = this.$swal.mixin({
                     toast: true,
                     position: 'top-end',

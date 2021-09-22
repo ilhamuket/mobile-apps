@@ -191,6 +191,20 @@ const router = new Router({
           },
         },
         {
+          name: 'cart',
+          path: 'cart',
+          component: () => import('@/views/dashboard/pages/cart/index'),
+          meta: {
+            breadcumbs: [
+              {
+                text: 'Dashboard',
+                to: '/',
+              },
+            ],
+            requiresAuth: true,
+          },
+        },
+        {
           name: 'Error',
           path: '/error',
           component: () => import('@/views/dashboard/ensikloerrors/error'),

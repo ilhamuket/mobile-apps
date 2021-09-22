@@ -64,6 +64,16 @@ class StudioClass extends Model
         return $this->hasMany(ImgListClass::class, 'class_id');
     }
 
+    public function review()
+    {
+        return $this->hasMany(Reviews::class, 'class_id');
+    }
+
+    public function lastSee()
+    {
+        return $this->belongsToMany(User::class, 'classes_user_activity', 'class_id', 'user_activity_id');
+    }
+
     // ==== Scope ==== //
 
     public function getStatusKelasAttribute()
@@ -118,6 +128,49 @@ class StudioClass extends Model
     {
         if ($filter !== null) {
             $query->where('status', $filter);
+        }
+
+        return $query;
+    }
+
+    public function scopeSort($query, $sorts)
+    {
+        if ($sorts != null || $sorts != '') {
+            $sorts = explode(',', str_replace(' ', '', $sorts));
+            foreach ($sorts as $sort) {
+                $field = preg_replace('/[-]/', '', $sort);
+                if (substr($sort, 0, 1) == '-') {
+                    $query = $query->orderBy($field, 'desc');
+                } else {
+                    $query = $query->orderBy($field, 'asc');
+                }
+            }
+        } else {
+            $query = $query->orderBy('id', 'asc');
+        }
+
+        return $query;
+    }
+
+    public function scopeStatusClass($query, $status)
+    {
+        if ($status == 'upcoming') {
+            $query->whereDate('start_at', '>', now());
+        }
+        if ($status == 'ongoing') {
+            $query->whereDate('start_at', '<=', now())->whereDate('end_at', '>=', now());
+        }
+        if ($status == 'missed') {
+            $query->whereDate('start_at', '<', now());
+        }
+
+        return $query;
+    }
+
+    public function scopeFilterByDate($query, $date)
+    {
+        if ($date != null && $date != '') {
+            $query->whereDate('start_at', $date);
         }
 
         return $query;

@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row>
+    <!-- <v-row>
       <v-col
         cols="12"
         md="4"
@@ -10,10 +10,10 @@
           Describe Class
         </h2>
       </v-col>
-    </v-row>
+    </v-row> -->
 
     <v-row>
-      <v-col
+      <!-- <v-col
         cols="12"
         md="12"
       >
@@ -31,172 +31,147 @@
             />
           </v-col>
         </v-row>
-      </v-col>
+      </v-col> -->
       <v-col
-        v-for="(item, i) in classes"
-        :key="i"
         cols="12"
-        md="4"
+        class="my-2 px-1"
       >
-        <v-card
-          class="mx-auto"
-          max-height="500"
-        >
-          <v-img
-            v-if="item.img"
-            :src="item.img.url"
-            width="400"
-            height="200"
+        <v-card>
+          <v-date-picker
+            ref="picker"
+            v-model="date"
+            :min="min"
+            :picker-date.sync="pickerDate"
+            full-width
+            show-week
+            @input="fetchTime"
           />
-          <v-img
-            v-else
-            height="200px"
-            src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-          />
-          <v-card-text>
-            <div class="text-h6">
-              <v-chip
-                :color="setColorStatus(item.status)"
-                small
-                label
-              >
-                {{ item.status }}
-              </v-chip>
-            </div>
-            <div class="d-flex flex-row mt-1">
-              <div class="d-flex flex-column font-size-ather-roboto-mono">
-                Name :
-              </div>
-              <div class="d-flex flex-column float-right">
-                <v-chip
-                  color="pallet1"
-                  label
-                  outlined
-                  small
-                  class="text-h4 ml-1"
-                >
-                  {{ item.name }}
-                </v-chip>
-              </div>
-            </div>
-            <div class="d-flex flex-row mt-1">
-              <div class="d-flex flex-column font-size-ather-roboto-mono">
-                <p>
-                  Level :
-                </p>
-              </div>
-              <div class="d-flex flex-column ml-2">
-                <v-chip
-                  color="red"
-                  small
-                  label
-                  outlined
-                  class="mb-2 text-capitalize"
-                >
-                  {{ item.levels }}
-                </v-chip>
-              </div>
-            </div>
-            <div class="d-flex flex-row mt-1">
-              <div class="d-flex flex-column font-size-ather-roboto-mono">
-                Price :
-              </div>
-              <div class="d-flex flex-column float-right">
-                <v-chip
-                  color="transparent"
-                  label
-                  small
-                  class="text-h4 ml-1"
-                >
-                  {{ item.harga === null ? '-' : item.harga }}
-                </v-chip>
-              </div>
-            </div>
-            <div class="d-flex flex-row mt-1">
-              <div class="d-flex flex-column font-size-ather-roboto-mono">
-                Duration :
-              </div>
-              <div class="d-flex flex-column float-right">
-                <v-chip
-                  color="transparent"
-                  label
-                  small
-                  class="text-h4 ml-1"
-                >
-                  {{ item.durasi === null ? '-' : item.durasi }}
-                </v-chip>
-              </div>
-            </div>
-            <div class="d-flex flex-row mt-1">
-              <div class="d-flex flex-column font-size-ather-roboto-mono">
-                Capacity :
-              </div>
-              <div class="d-flex flex-column float-right">
-                <v-chip
-                  color="transparent"
-                  label
-                  small
-                  class="text-h4 ml-1"
-                >
-                  0 / {{ item.kapasitas === null ? '-' : item.kapasitas }}
-                </v-chip>
-              </div>
-            </div>
-
-            <!-- <div class="text--primary font-size-ather-roboto-mono">
-              {{ item.about }}
-            </div> -->
-          </v-card-text>
-          <!-- <v-card-actions class="d-flex justify-center mb-2">
-            <v-btn
-              class=""
-              outlined
-              color="primary"
-              width="200"
-              small
-              @click="clickSeeMore(item)"
-            >
-              See More
-            </v-btn>
-          </v-card-actions> -->
-          <v-card-actions>
-            <v-btn
-              class=""
-              text
-              color="primary"
-              width="200"
-              small
-              @click="clickSeeMore(item)"
-            >
-              See More
-            </v-btn>
-
-            <v-spacer />
-
-            <v-btn
-              icon
-              dark
-              @click="show = !show"
-            >
-              <v-icon color="primary">
-                {{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
-              </v-icon>
-            </v-btn>
-          </v-card-actions>
-
-          <v-expand-transition>
-            <div v-show="show">
-              <v-divider />
-
-              <v-card-text>
-                <div class="text--primary font-size-ather-roboto-mono">
-                  {{ item.about }}
-                </div>
-              </v-card-text>
-            </div>
-          </v-expand-transition>
         </v-card>
       </v-col>
+      <v-row v-if="classes.length !== 0">
+        <v-col
+          v-for="(item, i) in classes"
+          :key="i"
+          cols="12"
+          md="4"
+        >
+          <v-card
+            v-if="item.length !== 0"
+            class="mx-auto"
+          >
+            <v-img
+              v-if="item.img"
+              :src="item.img.url"
+              width="400"
+              height="200"
+            />
+            <v-img
+              v-else
+              height="200px"
+              src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+            />
+            <v-card-text>
+              <div class="text-h6">
+                <v-chip
+                  :color="setColorStatus(item.status_kelas)"
+                  small
+                  label
+                >
+                  {{ item.status_kelas }}
+                </v-chip>
+              </div>
+
+              <v-card-text class="text--primary">
+                <span class="text-h3 font-spartan pallet1--text">
+                  {{ item.name }}
+                </span>
+
+                <v-divider
+                  class="mt-2 mb-2 divider--opacity"
+                  dark
+                />
+                <v-chip
+                  label
+                  color="primary"
+                  class="font-spartan-small font-italic font-weight-thin"
+                >
+                  Capacity : 0 / {{ item.kapasitas }}
+                </v-chip>
+                <br>
+
+                <br>
+                <span
+                  class="font-spartan btn_primary--text text-h4 font-italic"
+                >
+                  {{ item.time_start }} s/d {{ item.time_end }}
+                </span>
+                <br>
+                <span class="font-spartan-small font-italic">
+                  Duration : {{ item.durasi }} Minutes
+                </span>
+                <br>
+                <span class="font-spartan-small">
+                  Rp.20000
+                </span>
+              </v-card-text>
+              <!-- <div class="text--primary font-size-ather-roboto-mono">
+              {{ item.about }}
+            </div> -->
+            </v-card-text>
+
+            <v-card-actions>
+              <v-btn
+                class="ml-5"
+                text
+                color="secondary"
+                small
+                @click="toPush(item)"
+              >
+                See Detail
+              </v-btn>
+
+              <v-spacer />
+
+              <v-btn
+                icon
+                dark
+                @click="show = !show"
+              >
+                <v-icon color="secondary">
+                  {{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
+                </v-icon>
+              </v-btn>
+            </v-card-actions>
+
+            <v-expand-transition>
+              <div v-show="show">
+                <v-divider />
+
+                <v-card-text>
+                  <div class="text--primary font-spartan-small">
+                    {{ item.about }}
+                  </div>
+                </v-card-text>
+              </div>
+            </v-expand-transition>
+          </v-card>
+        </v-col>
+      </v-row>
+      <v-row
+        v-else
+        class="d-flex justify-center ml-12"
+      >
+        <v-col
+          cols="12"
+          md="8"
+          class="margin__img"
+        >
+          <v-img
+            width="600"
+            src="@/assets/img/noclass.svg"
+          />
+        </v-col>
+      </v-row>
     </v-row>
   </v-container>
 </template>
@@ -211,15 +186,65 @@
     },
     data: () => ({
       items: ['tahu', 'ayam'],
+      rating: 3,
       show: false,
+      picker: '2021-09-21',
+      date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
+      min: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
+      pickerDate: null,
+      notes: [],
+      allNotes: [
+        'President met with prime minister',
+        'New power plant opened',
+        'Rocket launch announced',
+        'Global warming discussion cancelled',
+        'Company changed its location',
+      ],
     }),
+    watch: {
+      pickerDate (val) {},
+    },
+    mounted () {},
     methods: {
       setColorStatus (status) {
-        if (status === 1) return 'primary'
+        if (status === 'upcoming') return 'primary'
+        if (status === 'ongoing') return 'btn_primary'
         else return 'red'
       },
       clickSeeMore (item) {
         this.$emit('open', { item: item })
+      },
+      fetchTime (i) {
+        this.$emit('fetchDate', { item: i })
+      },
+      toPush (item) {
+        this.$router.push('/classes/detail/' + item.studio.slug + '/' + item.slug)
+      // console.log(item.studio.slug)
+      },
+      getDate () {
+        // var months = [
+        //   'January',
+        //   'February',
+        //   'March',
+        //   'April',
+        //   'May',
+        //   'June',
+        //   'July',
+        //   'August',
+        //   'September',
+        //   'October',
+        //   'November',
+        //   'December',
+        // ]
+        const date = new Date()
+        console.log(
+          date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate(),
+        )
+        console.log(date.toISOString())
       },
     },
   }
@@ -239,4 +264,21 @@
 //   font-size: 14px !important
 //   font-family: 'Roboto Mono', monospace
 //   font-weight: bold
+// .date__class
+//   width: 600px
+//   .v-picker__body
+//     width: 500px !important
+.margin__img
+  margin-top: -100px
+.theme--dark
+  .divider--opacity
+    opacity: .2
+.customize--font
+  font-size: 14px
+.font__classes
+  font-size: 12px !important
+.margin__chips
+  margin-left: 10px
+.card__class
+  margin-top: -10px !important
 </style>

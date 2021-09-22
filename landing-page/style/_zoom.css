@@ -3,6 +3,7 @@
 }
 .zoom {
     border-radius: 20px;
+    margin-bottom: 20px !important;
 }
 
 .zoom .zoom__corusel {

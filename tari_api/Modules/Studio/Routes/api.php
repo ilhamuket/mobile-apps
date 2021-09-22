@@ -64,6 +64,7 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
     Route::prefix('reviews')->group(function () {
         Route::post('class', [ReviewController::class, 'store']);
         Route::get('class/{slug}', [ReviewController::class, 'byClass']);
+        Route::get('studio/{slug}', [ReviewController::class, 'reviewsStudio']);
     });
     // Rooms
     Route::prefix('rooms')->group(function () {

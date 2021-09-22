@@ -9,6 +9,7 @@
 @import url("_zoom.css");
 @import url('studio.css');
 @import url('class-zoom.css');
+@import url('summary.css');
 
 
 body {
@@ -37,16 +38,16 @@ body {
     opacity: 0;
 }
 .btn-maroon-ensiklotari {
-    background-color: #843839;
+    background-color: #4b1414;
     color: white;
     width: 237px !important;
 }
 .btn-maroon-ensiklotari:hover {
     color: white; 
 }
-.btn-maroon-ensiklotari:hover {
+/* .btn-maroon-ensiklotari:hover {
     color: white;
-}
+} */
 .navbar-toggler {
     color: red !important;
 }
@@ -60,6 +61,7 @@ body {
     font-family: 'Spartan', sans-serif !important;
     font-weight: 900 !important;
     color: black !important;
+    text-align: justify;
 }
 .m-r-text-center {
     margin-left: 70px;
@@ -111,7 +113,14 @@ body {
     .tombol {
         text-transform: uppercase;
         border-radius: 40px;
-        width: 200px;
+        width: 100px;
+        margin-top: 22px;
+    }
+    .tombol-teachers {
+        text-transform: uppercase;
+        border-radius: 40px;
+        width: 306px !important;
+        margin-top: 40px;
     }
     .tombol-regis {
         border-radius: 20px;

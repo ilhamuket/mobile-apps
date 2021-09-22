@@ -44,7 +44,7 @@ class ClassesOwnerStudio extends Model
 
     public function img()
     {
-        return $this->hasOne(imgClasses::class, 'class_id');
+        return $this->hasOne(ImgClasses::class, 'class_id');
     }
 
     public function category()

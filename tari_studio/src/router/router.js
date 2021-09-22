@@ -221,6 +221,14 @@ const router = new Router({
       },
     },
     {
+      name: 'WaitingEmail',
+      path: '/waiting-email',
+      component: () => import('@/auth/verifikasi/waitingEmail.vue'),
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
       name: 'Logout',
       path: '/logout',
       component: () => import('@/auth/logout'),
@@ -245,18 +253,20 @@ router.beforeEach((to, from, next) => {
         query: { redirect: to.fullPath },
       })
     } else {
+      // console.log('Dari ', from.name, 'Ke ', to.name)
       next()
       const Me = localStorage.getItem('ME')
       const users = JSON.parse(Me)
-
       if (users.isVerified === 1) {
         if (to.name === 'WaitingEmail') {
-          next({ path: '/' })
+          next({ path: '/error' })
         } else if (to.name === 'Verifications') {
-          next({ path: '/' })
+          next({ path: '/error' })
         }
       } else {
-        next({})
+        next({
+          query: { redirect: to.fullPath },
+        })
       }
     }
 

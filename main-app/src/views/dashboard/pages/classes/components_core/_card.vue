@@ -1,15 +1,12 @@
 <template>
-  <v-row>
+  <v-row class="ml-2">
     <v-col
       v-for="(item, i) in classes"
       :key="i"
       cols="12"
       md="4"
     >
-      <v-card
-        class="mx-auto"
-        max-width="344"
-      >
+      <v-card class="card__class">
         <v-img
           v-if="item.img"
           :src="item.img.url"
@@ -54,7 +51,9 @@
           </v-row>
         </v-img>
 
-        <v-card-actions class="font-spartan customize--font primary--text">
+        <v-card-actions
+          class="font-spartan-small customize--font primary--text"
+        >
           <v-tooltip
             v-if="item.name.length > 13"
             bottom
@@ -68,7 +67,7 @@
                 @click="toPush(item)"
                 v-on="on"
               >
-                {{ item.name.substr(0, 10) + '...' }}
+                {{ item.name.substr(0, 9) + '...' }}
               </span>
             </template>
             {{ item.name }}
@@ -118,6 +117,7 @@
             Capacity : 0 / {{ item.kapasitas }}
           </v-chip>
           <br>
+          <br>
           <span class="font-spartan-small">
             Started Class : {{ item.start_at | moment('MMMM Do YYYY') }}
           </span>
@@ -146,7 +146,7 @@
 
           <v-spacer />
 
-          <v-btn
+          <!-- <v-btn
             icon
             dark
             @click="item.show = !item.show"
@@ -154,16 +154,16 @@
             <v-icon color="primary">
               {{ item.show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
             </v-icon>
-          </v-btn>
+          </v-btn> -->
         </v-card-actions>
 
-        <v-expand-transition>
+        <!-- <v-expand-transition>
           <div v-show="item.show">
             <v-divider class="divider--opacity" />
 
             <v-card-text> " {{ item.about }} " </v-card-text>
           </div>
-        </v-expand-transition>
+        </v-expand-transition> -->
       </v-card>
     </v-col>
   </v-row>
@@ -224,7 +224,6 @@
         }
       },
       toPush (link) {
-        console.log(link)
         this.$router.push(`classes/detail/${link.studio.slug}/${link.slug}`)
       },
       moreClass () {
@@ -246,7 +245,7 @@
   }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 .theme--dark
   .divider--opacity
     opacity: .2
@@ -256,4 +255,6 @@
   font-size: 12px !important
 .margin__chips
   margin-left: 10px
+.card__class
+  margin-top: -10px !important
 </style>

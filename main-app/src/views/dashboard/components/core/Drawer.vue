@@ -147,15 +147,15 @@
           to: '/studio',
         },
         {
-          icon: 'mdi-alpha-c-circle-outline',
+          icon: 'mdi-account-group-outline',
           title: 'classes',
           to: '/classes',
         },
-        {
-          icon: 'mdi-account',
-          title: 'user',
-          to: '/pages/user',
-        },
+        // {
+        //   icon: 'mdi-account',
+        //   title: 'user',
+        //   to: '/pages/user',
+        // },
         {
           title: 'history_class',
           icon: 'mdi-clipboard-outline',

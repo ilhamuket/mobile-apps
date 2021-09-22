@@ -19,7 +19,7 @@
   </v-container>
   <v-container v-else>
     <v-row
-      class="relative"
+      class="relative ml-6"
       :class="
         $vuetify.theme.dark ? 'customize-dark-scroll' : 'custumize-light-scroll'
       "
@@ -70,50 +70,48 @@
         md="12"
         class="overflow"
       >
-        <v-card>
-          <v-card-title
-            class="d-flex justify-center font-spartan primary--text font-italic text-h2"
+        <!-- <v-card-title
+          class="d-flex justify-center font-spartan primary--text font-italic text-h2"
+        >
+          Studio
+        </v-card-title> -->
+        <v-row>
+          <v-col
+            cols="12"
+            md="4"
+            class="ml-5"
           >
-            Studio
-          </v-card-title>
-          <v-row>
-            <v-col
-              cols="12"
-              md="4"
-              class="ml-2"
-            >
-              <v-text-field
-                v-model="search"
-                outlined
-                dense
-                :label="$t('search')"
-                placeholder="Search"
-                append-icon="mdi-magnify"
-                @input="searchMethods"
-              />
-            </v-col>
-          </v-row>
-          <div
-            v-if="is_loading"
-            class="d-flex justify-center"
-          >
-            <v-progress-circular
-              class="d-flex justify-center"
-              indeterminate
-              color="red"
+            <v-text-field
+              v-model="search"
+              outlined
+              dense
+              :label="$t('search')"
+              placeholder="Search"
+              append-icon="mdi-magnify"
+              @input="searchMethods"
             />
-          </div>
-          <span
-            v-if="studio.length === 0"
+          </v-col>
+        </v-row>
+        <div
+          v-if="is_loading"
+          class="d-flex justify-center"
+        >
+          <v-progress-circular
             class="d-flex justify-center"
-          >
-            No Data Avalaible
-          </span>
-          <app-data-list
-            v-else
-            :data="studio"
+            indeterminate
+            color="red"
           />
-        </v-card>
+        </div>
+        <span
+          v-if="studio.length === 0"
+          class="d-flex justify-center"
+        >
+          No Data Avalaible
+        </span>
+        <app-data-list
+          v-else
+          :data="studio"
+        />
       </v-col>
     </v-row>
   </v-container>

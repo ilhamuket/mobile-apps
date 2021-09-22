@@ -8,7 +8,7 @@
             : 'text-h3 pallet1--text font-customize font-size-ather-roboto-mono-name-page'
         "
       >
-        Index Vidio
+        Index Video
       </span>
     </template>
     <v-container>

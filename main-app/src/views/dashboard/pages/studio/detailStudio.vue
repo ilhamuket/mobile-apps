@@ -44,6 +44,7 @@
             :data="computedStudio"
             :is-follow="isFollow"
             :me="computedMe"
+            :ratings="ratings"
             class="d-none d-md-flex"
             @inputFollow="followStudio"
             @inputUnfoll="popUpUnfollowNotice"
@@ -80,11 +81,11 @@
         <v-tab-item>
           <app-page-two
             :classes="classes"
-            @open="fetchDataFromChild"
+            @fetchDate="fetchDate"
           />
         </v-tab-item>
         <v-tab-item>
-          <app-page-three />
+          <app-page-three :data="computedReviews" />
         </v-tab-item>
       </v-tabs-items>
     </v-container>
@@ -131,16 +132,24 @@
       studio: {},
       autoPlay: {},
       listVidio: [],
+      reviews: [],
       classes: [],
       timelines: [],
       isFollow: false,
       search: '',
       isLoad: true,
+      date: '',
       attrs: {
         class: 'mb-6',
         boilerplate: true,
         elevation: 2,
       },
+      sum: 0,
+      ratings: {
+        value: 0,
+        people: 0,
+      },
+      mean: 0,
     }),
     computed: {
       computedStudio () {
@@ -148,6 +157,9 @@
       },
       computedMe () {
         return this.$store.state.user.me
+      },
+      computedReviews () {
+        return this.$store.state.studioReviews.data
       },
     },
     watch: {
@@ -178,9 +190,30 @@
       this.getDataClassSchedules()
       this.getDataMe()
       this.firstLoad()
+      this.getDataReviewsStudio()
+      this.ratingsStudio()
     },
     methods: {
-      fecthAllMethods () {},
+      ratingsStudio () {
+        if (this.computedReviews) {
+          const ratings = this.computedReviews.map(x => x.ratings)
+          if (ratings.length > 0) {
+            this.sum = ratings.filter(x => x > 0).reduce((x, y) => x + y)
+            console.log('Jumlah : ', this.sum)
+            this.mean = this.sum / this.computedReviews.length
+            console.log('Rata-rata : ', this.mean)
+            this.ratings.value = this.mean
+            this.ratings.people = this.computedReviews.length
+          }
+        }
+      },
+      getDataReviewsStudio () {
+        this.$store
+          .dispatch('studioReviews/getDataReviewsStudio', {
+            slug: this.$route.params.slug,
+          })
+          .then(res => {})
+      },
       getDataStudioBySlug () {
         this.$store
           .dispatch('studio/getDataStudioBySlug', {
@@ -220,15 +253,19 @@
             this.listVidio = data.data
           })
       },
-      getDataStudioClasses () {
+      getDataStudioClasses (date) {
         this.$store
           .dispatch('studioClasses/getDataStudioClasses', {
             slug: this.$route.params.slug,
             entities: 'studio.img,author,schedules,instructor_v2, img',
             filter: 'Publish',
+            date: date,
           })
           .then(({ data }) => {
             this.classes = data.data
+            if (this.classes.length !== 0) {
+            } else {
+            }
           })
       },
       firstLoad () {
@@ -256,6 +293,10 @@
         this.id = item.id
         localStorage.setItem('vidio_id', this.id)
         this.getDataAutoplay()
+      },
+      fetchDate ({ item }) {
+        this.date = item
+        this.getDataStudioClasses(this.date)
       },
       fetchDataFromChild ({ item }) {
         console.log(item)

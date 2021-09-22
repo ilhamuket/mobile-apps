@@ -10,10 +10,13 @@ import studioArticle from './module/studio/studio_article/studio_article'
 import studioClasses from './module/studio/studio_classes/studio_classes'
 import schedulesStudioClasses from './module/studio/studio_classes/class_schedule/class_schedules'
 import studioPopuler from './module/studio/studio_populer/index'
+import studioReviews from './module/studio/studio_reviews/index'
 // clsases
 import classes from './module/classes/index'
 import classesPopuler from './module/classes/class_populer/index'
 import classesReviews from './module/classes/class_reviews/index'
+// Cart
+import cart from './module/cart/index'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -30,6 +33,8 @@ export default new Vuex.Store({
     classes: classes,
     classesPopuler: classesPopuler,
     classesReviews: classesReviews,
+    cart: cart,
+    studioReviews: studioReviews,
   },
   state: {
     barColor: 'rgba(0, 0, 0, .8), rgba(0, 0, 0, .8)',

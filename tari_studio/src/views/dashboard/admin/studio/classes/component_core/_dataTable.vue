@@ -135,6 +135,9 @@
             <template #[`header.keyword`]="{ header }">
               {{ $t(header.text) }}
             </template>
+            <template #[`header.status_kelas`]="{header}">
+              {{ $t(header.text) }}
+            </template>
 
             <!-- Item -->
             <template #[`item.img.url`]="{item}">
@@ -257,6 +260,7 @@
         {
           text: '#',
           value: 'img.url',
+          sortable: false,
         },
         {
           text: 'table.class.th.name',
@@ -264,14 +268,23 @@
           sortable: false,
           value: 'name',
         },
-        { text: 'table.class.th.levels', value: 'levels' },
-        { text: 'table.class.th.price', value: 'harga' },
-        { text: 'table.class.th.category', value: 'category.name' },
+        { text: 'table.class.th.levels', value: 'levels', sortable: false },
+        { text: 'table.class.th.price', value: 'harga', sortable: false },
+        {
+          text: 'table.class.th.category',
+          value: 'category.name',
+          sortable: false,
+        },
         // { text: 'table.class.th.created_at', value: 'created_at' },
-        { text: 'table.class.th.prefix', value: 'keyword' },
-        { text: 'table.class.th.capacity', value: 'kapasitas' },
-        { text: 'table.class.th.duration', value: 'durasi' },
-        { text: 'table.class.th.status', value: 'status' },
+        { text: 'table.class.th.prefix', value: 'keyword', sortable: false },
+        { text: 'table.class.th.capacity', value: 'kapasitas', sortable: false },
+        { text: 'table.class.th.duration', value: 'durasi', sortable: false },
+        { text: 'table.class.th.status', value: 'status', sortable: false },
+        {
+          text: 'table.class.th.status_time',
+          value: 'status_kelas',
+          sortable: false,
+        },
       ],
       selected: [],
       search: '',

@@ -66,7 +66,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(ClassesScheduleStudio::class, 'room_student', 'user_id', 'sub_class_id');
     }
 
-    public function wistlist()
+    public function cart()
     {
         return $this->hasMany(CartClass::class, 'user_id');
     }

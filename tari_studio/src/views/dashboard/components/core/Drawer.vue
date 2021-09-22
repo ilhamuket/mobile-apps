@@ -148,11 +148,11 @@
           title: 'vidio_name_page',
           to: '/vidio',
         },
-        {
-          icon: 'mdi-account',
-          title: 'user',
-          to: '/pages/user',
-        },
+        // {
+        //   icon: 'mdi-account',
+        //   title: 'user',
+        //   to: '/pages/user',
+        // },
         {
           title: 'history_class',
           icon: 'mdi-clipboard-outline',

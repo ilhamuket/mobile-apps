@@ -3,6 +3,7 @@
 namespace Modules\Studio\Http\Controllers;
 
 use Brryfrmnn\Transformers\Json;
+use Carbon\Carbon;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -49,16 +50,64 @@ class StudioClassController extends Controller
             return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         }
     }
+    public function getClientIps()
+    {
+        $clientIps = array();
+        $ip = $this->server->get('REMOTE_ADDR');
+        if (!$this->isFromTrustedProxy()) {
+            return array($ip);
+        }
+        if (self::$trustedHeaders[self::HEADER_FORWARDED] && $this->headers->has(self::$trustedHeaders[self::HEADER_FORWARDED])) {
+            $forwardedHeader = $this->headers->get(self::$trustedHeaders[self::HEADER_FORWARDED]);
+            preg_match_all('{(for)=("?\[?)([a-z0-9\.:_\-/]*)}', $forwardedHeader, $matches);
+            $clientIps = $matches[3];
+        } elseif (self::$trustedHeaders[self::HEADER_CLIENT_IP] && $this->headers->has(self::$trustedHeaders[self::HEADER_CLIENT_IP])) {
+            $clientIps = array_map('trim', explode(',', $this->headers->get(self::$trustedHeaders[self::HEADER_CLIENT_IP])));
+        }
+        $clientIps[] = $ip; // Complete the IP chain with the IP the request actually came from
+        $ip = $clientIps[0]; // Fallback to this when the client IP falls into the range of trusted proxies
+        foreach ($clientIps as $key => $clientIp) {
+            // Remove port (unfortunately, it does happen)
+            if (preg_match('{((?:\d+\.){3}\d+)\:\d+}', $clientIp, $match)) {
+                $clientIps[$key] = $clientIp = $match[1];
+            }
+            if (IpUtils::checkIp($clientIp, self::$trustedProxies)) {
+                unset($clientIps[$key]);
+            }
+        }
+        // Now the IP chain contains only untrusted proxies and the client IP
+        return $clientIps ? array_reverse($clientIps) : array($ip);
+    }
     public function indexBySlug(Request $request, $studio_slug, $slug)
     {
         try {
+            $me = $request->user();
             $master = StudioClass::whereHas('studio', function (Builder $query) use ($studio_slug) {
                 $query->where('slug', $studio_slug);
             })->where('slug', $slug)
                 ->entities($request->entities)
                 ->first();
 
-            $master->increment('views');
+            // dd(Carbon::now()->isoFormat('dddd, MMMM Do YYYY, h:mm'));
+            $bool = false;
+            // dd(Carbon::now()->addMinutes(1)->toDateTimeString() === Carbon::now()->toDateTimeString());
+            // dd(Carbon::now()->subMinutes(1)->toDateTimeString());
+
+            $master->lastSee()->sync($request->user()->id);
+            if (Carbon::now()->toDateTimeString() && $bool == false) {
+                $master->increment('views');
+                $bool = true;
+            }
+
+            // $new = new StudioClassController();
+            // dd($new);
+
+            if (Carbon::now()->isWeekend()) {
+                $master->views = 0;
+                $master->lastSee()->update(['user_activity_id' => null]);
+            }
+
+            // $user = User::findOrFail($me->id)->whereDate('last_login', '<=', now());
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
@@ -74,7 +123,9 @@ class StudioClassController extends Controller
             $master = StudioClass::entities($request->entities)
                 ->filterBy($request->filter)
                 ->search($request->q)
-                ->orderBy('views', 'desc')
+                ->statusClass($request->status_kelas)
+                ->sort($request->sort)
+                ->filterByDate($request->date)
                 ->paginate(3);
             // $master->appends(['search' => $search]);
 
@@ -116,6 +167,7 @@ class StudioClassController extends Controller
                 ->search($request->q)
                 ->findSLug($slug)
                 ->filterBy($request->filter)
+                ->filterByDate($request->date)
                 ->get();
 
             return Json::response($master);

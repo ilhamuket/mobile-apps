@@ -59,9 +59,7 @@
         }),
       },
     },
-    mounted () {
-      console.log(this.dialog)
-    },
+    mounted () {},
   }
 </script>
 

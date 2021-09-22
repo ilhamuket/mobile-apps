@@ -158,13 +158,13 @@
               <div class="d-flex flex-row-reverse">
                 <div class="d-flex flex-column mt-2 mr-2">
                   <span class="mt-1 font-spartan font-italic">
-                    4.5
+                    {{ ratings.value }}
                   </span>
                 </div>
               </div>
 
               <v-rating
-                :value="4.5"
+                :value="ratings.value"
                 color="amber"
                 dense
                 half-increments
@@ -174,7 +174,8 @@
               />
               <div class="d-flex flex-column mt-1 text-align-center mr-2">
                 <P class="mt-1 font-roboto-mono-small">
-                  (200 {{ $t('studioPage.card_detail.review') }})
+                  ({{ ratings.people }}
+                  {{ $t('studioPage.card_detail.review') }})
                 </P>
               </div>
             </v-col>
@@ -228,6 +229,10 @@
           },
           followers: [],
         }),
+      },
+      ratings: {
+        type: Object,
+        default: null,
       },
       me: {
         type: Object,

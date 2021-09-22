@@ -57,7 +57,7 @@
     "classes": "Kelas",
     "subject": "Materi",
     "sub_class_create": "Buat SubKelas",
-    "instrucktur": "Instruktur",
+    "instrucktur": "Pengajar",
     "studio": "Sanggar",
     "card_notice": {
         "text": "Apakah kamu yakin ingin menghapus dan semua yang berkaitan akan terhapus juga",
@@ -80,7 +80,8 @@
                 "duration": "Durasi (Menit)",
                 "keyword": "Keyword",
                 "category": "Kategory",
-                "prefix": "prefix"
+                "prefix": "prefix",
+                "status_time": "Status Waktu"
             }
         },
         "sub-class": {

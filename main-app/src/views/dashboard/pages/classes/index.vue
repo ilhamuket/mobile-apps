@@ -2,64 +2,113 @@
   <v-container>
     <v-row>
       <v-col>
-        <v-card>
-          <v-card-title
+        <!-- <v-card-title
             class="d-flex justify-center text-h2 font-italic font-spartan"
           >
             {{ $t('classes') }}
-          </v-card-title>
-          <v-row>
-            <v-col
-              cols="12"
-              md="4"
-              class="ml-2"
-            >
-              <v-text-field
-                v-model="search"
-                :label="$t('search')"
-                :placeholder="$t('search')"
-                append-icon="mdi-magnify"
-                outlined
-                dense
-                @input="searchMethods"
-              />
-            </v-col>
-            <v-col cols="12">
-              <div
-                v-if="isLoading"
-                class="d-flex justify-center"
-              >
-                <v-progress-circular
-                  class="d-flex justify-center"
-                  indeterminate
-                  color="red"
-                />
-              </div>
-              <span
-                v-if="classes.length === 0"
-                class="d-flex justify-center"
-              >
-                No Data Avalaible
-              </span>
-              <app-card
-                v-else
-                :classes="classes.data"
-              />
-            </v-col>
-          </v-row>
-          <v-row
-            v-if="is_load"
-            class="d-flex justify-center"
+          </v-card-title> -->
+        <v-row>
+          <v-col
+            cols="12"
+            md="4"
+            class="ml-6"
           >
-            <div>
+            <v-text-field
+              v-model="search"
+              :label="$t('search')"
+              :placeholder="$t('search')"
+              append-icon="mdi-magnify"
+              outlined
+              dense
+              @input="searchMethods"
+            />
+          </v-col>
+          <v-col
+            class="col__filter"
+            cols="2"
+          >
+            <span class="text__filter">Urutkan</span>
+            <v-select
+              v-model="filter"
+              outlined
+              dense
+              :items="itemFilter"
+            >
+              <template
+                slot="selection"
+                slot-scope="data"
+              >
+                <slot
+                  name="item"
+                  v-bind="data"
+                >
+                  <span class="text-capitalize font-spartan-small">
+                    {{ data.item }}
+                  </span>
+                </slot>
+              </template>
+              <template
+                slot="item"
+                slot-scope="data"
+              >
+                <slot
+                  name="item"
+                  v-bind="data"
+                >
+                  <span class="text-capitalize font-spartan-small">
+                    {{ data.item }}
+                  </span>
+                </slot>
+              </template>
+            </v-select>
+          </v-col>
+          <v-col cols="12">
+            <div
+              v-if="isLoading"
+              class="d-flex justify-center"
+            >
               <v-progress-circular
                 class="d-flex justify-center"
                 indeterminate
                 color="red"
               />
             </div>
-          </v-row>
-        </v-card>
+            <span
+              v-if="classes.length === 0"
+              class="d-flex justify-center"
+            >
+              No Data Avalaible
+            </span>
+            <app-card
+              v-else
+              :classes="classes.data"
+            />
+          </v-col>
+        </v-row>
+        <v-row
+          v-if="is_load"
+          class="d-flex justify-center"
+        >
+          <div>
+            <v-progress-circular
+              class="d-flex justify-center"
+              indeterminate
+              color="red"
+            />
+          </div>
+        </v-row>
+        <v-row
+          v-if="first_load"
+          class="d-flex justify-center"
+        >
+          <div>
+            <v-progress-circular
+              class="d-flex justify-center"
+              indeterminate
+              color="red"
+            />
+          </div>
+        </v-row>
       </v-col>
     </v-row>
   </v-container>
@@ -73,8 +122,11 @@
     },
     data: () => ({
       inputHeight: '0',
+      filter: 'all',
+      itemFilter: ['all', 'ongoing', 'upcoming', 'missed'],
       search: '',
       isLoading: false,
+      first_load: true,
       is_load: false,
       page: 1,
       classes: {
@@ -90,6 +142,12 @@
     //   return this.$store.state.classes.data
     // },
     },
+    watch: {
+      filter () {
+        this.page = 1
+        this.getDataClasses(this.page)
+      },
+    },
     mounted () {
       if (this.search === '' || this.search === null) {
         this.getDataClasses(this.page)
@@ -102,13 +160,16 @@
       getDataClasses (page) {
         this.$store
           .dispatch('classes/getDataClasses', {
-            entities: 'img,studio',
+            entities: 'img,studio, lastSee',
             filter: 'Publish',
+            sort: '-views, id',
+            status_kelas: this.filter,
             q: this.search,
             page: page,
           })
           .then(res => {
             if (res.data.meta.status) {
+              this.first_load = false
               this.isLoading = false
               this.classes.meta = res.data.meta
               this.classes.links = res.data.links
@@ -205,4 +266,12 @@
   }
 </script>
 
-<style></style>
+<style lang="sass">
+.col__filter
+  margin-left: 541px !important
+  .text__filter
+    margin-left: -67px !important
+    margin-top: -2px !important
+  .v-input
+    margin-top: -29px
+</style>

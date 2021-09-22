@@ -1,20 +1,18 @@
 <template>
   <v-app-bar
     id="app-bar"
-    class="modified"
     absolute
     app
-    color="pallet1"
+    class="modified"
+    :color="$vuetify.theme.dark ? '#283046' : 'primary'"
     flat
     height="75"
   >
-    <!-- :color="$vuetify.theme.dark ? '#283046' : '#ffff'" -->
-    <!-- :color="$vuetify.theme.dark ? 'secondary' : 'pallet1'" -->
     <!-- <v-btn
       v-if="$vuetify.breakpoint.mdAndDown && !drawer"
       outlined
       elevation="1"
-      :color="$vuetify.theme.dark ? '' : 'primary'"
+      :color="$vuetify.theme.dark ? '' : 'pallet1'"
       fab
       small
       @click="setDrawer(!drawer)"
@@ -30,22 +28,24 @@
     <div class="mr-2" />
 
     <v-toolbar-title
-      class="hidden-sm-and-down font-spartan font-customize primary--text"
+      class="hidden-sm-and-down font-weight-light font-size-ather-roboto-mono-name-page"
       :class="!drawer ? 'ml-6' : ''"
       v-text="$t($route.name)"
     />
 
     <v-spacer /> -->
     <v-toolbar-title
-      class="mr-12"
+      class="ml-12"
       dark
     >
       <v-img
-        src="@/assets/img/ensiklotariLogo.svg"
+        src="@/assets/img/logo.svg"
         width="120"
         class="bg-red mr-12"
       />
-      <!-- <v-list-item-title class="font-title-rampart-one custome-brad">
+      <!-- <v-list-item-title
+        class="font-title-rampart-one-black custome-brad-pallet1"
+      >
         <h3>
           ENSIKLOTARI
         </h3>
@@ -59,7 +59,7 @@
           <v-select
             v-model="$i18n.locale"
             dense
-            class="ml-9 icon__len"
+            class="ml-9"
             :items="lenguage"
             item-text="name"
             item-value="name"
@@ -74,7 +74,6 @@
               >
                 <v-chip
                   color="transparent"
-                  text-color="white"
                   style="text-transform: uppercase"
                 >
                   <v-avatar left>
@@ -94,7 +93,6 @@
               >
                 <v-chip
                   color="transparent"
-                  text-color="white"
                   class="text-uppercase"
                 >
                   <v-avatar left>
@@ -198,7 +196,7 @@
       :prepend-icon="
         $vuetify.theme.dark ? 'mdi-theme-light-dark' : 'mdi-white-balance-sunny'
       "
-      class="ma-0 pa-0 ml-5 icon__swicth"
+      class="ma-0 pa-0 ml-5"
       color="success"
       hide-details
       @click="toogle_dark_theme"
@@ -218,66 +216,27 @@
         <v-chip
           class="ma-2"
           :color="$vuetify.theme.dark ? '#121212' : '#eeeeee'"
-          :text-color="$vuetify.theme.dark ? 'white' : 'white'"
+          text-color="primary"
           outlined
           v-bind="attrs"
           style="text-transform: capitalize"
           v-on="on"
         >
           <v-list-item-avatar
-            v-if="users.img"
-            size="36"
-          >
-            <v-img
-              class="bg-img"
-              :src="users.img.url"
-            />
-          </v-list-item-avatar>
-          <v-list-item-avatar
-            v-else
             color="primary"
             size="36"
           >
-            <span class="pallet1--text text-h5">{{
-              users.nickName.charAt(0)
-            }}</span>
+            <!-- <span class="white--text text-h5">{{ profile.initials }}</span> -->
+            <v-img
+              class="bg-img"
+              src="https://image.shutterstock.com/image-vector/user-login-authenticate-icon-human-260nw-1365533969.jpg"
+            />
           </v-list-item-avatar>
           Hi, {{ users.nickName }}
         </v-chip>
       </template>
 
       <v-list>
-        <v-list-item class="d-flex justify-center">
-          <v-list-item-avatar v-if="users.img">
-            <v-img :src="users.img.url" />
-          </v-list-item-avatar>
-          <v-list-item-avatar
-            v-else
-            color="secondary"
-            size="36"
-          >
-            <span class="pallet1--text text-h5">{{
-              users.nickName.charAt(0)
-            }}</span>
-          </v-list-item-avatar>
-        </v-list-item>
-        <v-list-item
-          class="d-flex justify-center"
-          link
-          to="pages/user"
-        >
-          <v-list-item-content>
-            <v-list-item-title
-              class="text-h5 font-spartan text-center text-capitalize"
-            >
-              {{ users.nickName }}
-            </v-list-item-title>
-            <v-list-item-subtitle class="text-h6 font-spartan text-center">
-              {{ users.email }}
-            </v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-        <v-divider />
         <v-list-item-group
           v-model="model"
           active-class="border"
@@ -292,23 +251,12 @@
               v-if="!item"
               :key="`divider-${i}`"
             />
-
             <v-list-item-icon>
-              <v-badge
-                v-if="item.badge"
-                color="pink"
-                :content="String(item.content)"
-              >
-                <v-icon v-text="item.icon" />
-              </v-badge>
-              <v-icon
-                v-else
-                v-text="item.icon"
-              />
+              <v-icon v-text="item.icon" />
             </v-list-item-icon>
 
             <v-list-item-content>
-              <v-list-item-title v-text="$t(item.text)" />
+              <v-list-item-title v-text="item.text" />
             </v-list-item-content>
           </v-list-item>
         </v-list-item-group>
@@ -320,11 +268,8 @@
 <script>
 // Components
 // import { VHover, VListItem } from 'vuetify/lib'
+
 // Utilities
-// import idL from 'moment/locale/id'
-// import esL from 'moment/locale/es'
-// import 'moment/locale/fr'
-// import 'moment/locale/en-gb'
   import { mapState, mapMutations } from 'vuex'
 
   export default {
@@ -345,12 +290,8 @@
         'Another Notification',
         'Another one',
       ],
-      dataUser: {
-        cart: [],
-      },
       notify: false,
       model: null,
-      len: 'en',
       lenguage: [
         {
           name: 'en',
@@ -367,37 +308,28 @@
         {
           icon: 'mdi-account-outline',
           text: 'myaccount',
-          to: '/pages/user',
-          badge: false,
+          to: '/user/myaccount',
         },
         {
-          icon: 'mdi-cart',
-          text: 'cart',
-          to: '/cart',
-          badge: true,
-          content: '0',
+          icon: 'mdi-account',
+          text: 'user',
+          to: '/user/settings',
         },
-        {
-          icon: 'mdi-account-group-outline',
-          text: 'history_class',
-
-          badge: false,
-        },
+        // {
+        //   icon: 'mdi-bluetooth',
+        //   text: 'Bluetooth',
+        //   to: '/index/announcement',
+        // },
         {
           icon: 'mdi-logout',
           text: 'logout',
           to: '/logout',
-          badge: false,
         },
       ],
     }),
 
     computed: {
       ...mapState(['drawer']),
-      user () {
-        return this.$store.state.user.me
-      },
-
       users () {
         const me = localStorage.getItem('ME')
         const users = JSON.parse(me)
@@ -418,11 +350,7 @@
             this.$store.state.user.lastName.charAt(0),
         }
       },
-      cart () {
-        return this.$store.state.cart.data
-      },
     },
-    watch: {},
 
     mounted () {
       this.getMe()
@@ -432,29 +360,8 @@
       } else {
         this.$vuetify.theme.dark = false
       }
-      this.getDataCart()
     },
-
     methods: {
-      setLanguage (lang) {
-        // console.log(lang)
-        this.$moment().locale(lang)
-      // console.log(this.$moment().locale(lang), 'hai')
-      },
-      getDataCart () {
-        this.$store
-          .dispatch('cart/getDataCart', {
-            entities: 'user,class.studio, class.category, class.img',
-            type: 'cart',
-          })
-          .then(res => {
-            if (res.data.meta.status) {
-              const index = this.items.findIndex(x => x.text === 'cart')
-              this.items[index].content = res.data.data.length
-            }
-          })
-      },
-
       ...mapMutations({
         setDrawer: 'SET_DRAWER',
       }),
@@ -462,21 +369,12 @@
         localStorage.setItem('dark_theme', this.$vuetify.theme.dark.toString())
       },
       getMe () {
-        this.$store
-          .dispatch('user/me', {
-            entities: 'cart',
-          })
-          .then(res => {
-            if (res.data.meta.status) {
-              this.dataUser = res.data.data
-              const index = this.items.findIndex(x => x.text === 'cart')
-              this.items[index].content = this.dataUser.cart.length
-            }
-          })
+        this.$store.dispatch('user/me')
       },
     },
   }
 </script>
+
 <style lang="sass">
 .card--margin
   margin-right: 200px
@@ -487,18 +385,4 @@
   margin-left: 57px !important
   margin-right: 27px !important
   margin-top: 21px !important
-.theme--light
-  .icon__swicth
-    .v-input__prepend-outer
-      .v-icon
-        color: white !important
-
-.icon__len
-  .v-input__control
-    .v-input__slot
-      .v-select__slot
-        .v-input__append-inner
-          .v-input__icon
-            .v-icon .mdi
-              color: white !important
 </style>

@@ -135,20 +135,20 @@
     computed: {
       isFollowYou () {
         let boolean = false
-        if (this.data.studio.followers !== undefined) {
+        if (this.data.studio) {
           boolean = this.data.studio.followers.some(x => x.id === this.me.id)
         }
 
         return boolean
       },
-      isLikesYou () {
-        let boolean = false
-        if (this.data.likes !== undefined) {
-          boolean = this.data.studio.likes.some(x => x.id === this.me.id)
-        }
+    // isLikesYou () {
+    //   let boolean = false
+    //   if (this.data.likes !== undefined) {
+    //     boolean = this.data.studio.likes.some(x => x.id === this.me.id)
+    //   }
 
-        return boolean
-      },
+    //   return boolean
+    // },
     },
 
     watch: {},

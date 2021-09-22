@@ -57,7 +57,7 @@
   "classes": "Classes",
   "subject": "Subject",
   "sub_class_create": "Create SubClass",
-  "instrucktur": "Instructur",
+  "instrucktur": "Instructor",
   "studio": "Studio",
   "card_notice": {
     "text": "Are you sure you want to delete and everything related will be deleted too",
@@ -80,7 +80,8 @@
         "duration": "Duration (Minutes)",
         "keyword": "Keyword",
         "category": "Category",
-        "prefix": "prefix"
+        "prefix": "prefix",
+        "status_time": "Time Status"
       }
     },
     "sub-class": {
@@ -106,7 +107,7 @@
     },
     "vidio": {
       "th": {
-        "title": "Judul Vidio",
+        "title": "Judul Video",
         "status": "Status",
         "studio": "Studio Name",
         "author": "Author"
@@ -121,8 +122,8 @@
       }
     }
   },
-  "vidio_name": "Index Vidio",
-  "vidio_name_page": "Vidio Profile",
+  "vidio_name": "Index Video",
+  "vidio_name_page": "Video Profile",
   "index_class_data_table": "Class",
   "category": "Category",
   "history_class": "History Class"
