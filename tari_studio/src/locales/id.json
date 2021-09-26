@@ -126,5 +126,7 @@
     "vidio_name_page": "Vidio Profil",
     "index_class_data_table": "Kelas",
     "category": "Kategori",
-    "history_class": "Riwayat Kelas"
+    "history_class": "Riwayat Kelas",
+    "myaccount": "Akun Ku",
+    "logout": "Logout"
 }

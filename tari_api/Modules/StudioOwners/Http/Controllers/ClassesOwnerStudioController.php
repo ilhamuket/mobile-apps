@@ -154,6 +154,7 @@ class ClassesOwnerStudioController extends Controller
             $studioClasses->keyword = $request->keyword;
             $studioClasses->durasi = $request->duration;
             $studioClasses->harga = $request->harga;
+            $studioClasses->note = $request->note;
             $studioClasses->time_start = $request->time_start;
             $studioClasses->kapasitas = $request->kapasitas;
             $studioClasses->time_end = $request->time_end;

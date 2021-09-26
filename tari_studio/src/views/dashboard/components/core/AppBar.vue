@@ -4,7 +4,7 @@
     absolute
     app
     class="modified"
-    :color="$vuetify.theme.dark ? '#283046' : '#ffff'"
+    color="pallet1"
     flat
     height="75"
   >
@@ -34,10 +34,7 @@
     />
 
     <v-spacer /> -->
-    <v-toolbar-title
-      class="ml-12"
-      dark
-    >
+    <v-toolbar-title dark>
       <v-img
         src="@/assets/img/logo.svg"
         width="120"
@@ -191,16 +188,16 @@
     >
       <v-icon>mdi-account</v-icon>
     </v-btn> -->
-    <v-switch
+    <!-- <v-switch
       v-model="$vuetify.theme.dark"
       :prepend-icon="
         $vuetify.theme.dark ? 'mdi-theme-light-dark' : 'mdi-white-balance-sunny'
       "
-      class="ma-0 pa-0 ml-5"
+      class="ma-0 pa-0 ml-5 icon__swicth"
       color="success"
       hide-details
       @click="toogle_dark_theme"
-    />
+    /> -->
 
     <v-menu
       bottom
@@ -237,6 +234,37 @@
       </template>
 
       <v-list>
+        <v-list-item class="d-flex justify-center">
+          <v-list-item-avatar v-if="users.img">
+            <v-img :src="users.img.url" />
+          </v-list-item-avatar>
+          <v-list-item-avatar
+            v-else
+            color="primary"
+            size="36"
+          >
+            <span class="pallet1--text text-h5 ml-3 text-capitalize">{{
+              users.nickName.charAt(0)
+            }}</span>
+          </v-list-item-avatar>
+        </v-list-item>
+        <v-list-item
+          class="d-flex justify-center"
+          link
+          to="pages/profile"
+        >
+          <v-list-item-content>
+            <v-list-item-title
+              class="text-h5 font-spartan text-center text-capitalize"
+            >
+              {{ users.nickName }}
+            </v-list-item-title>
+            <v-list-item-subtitle class="text-h6 font-spartan text-center">
+              {{ users.email }}
+            </v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+        <v-divider />
         <v-list-item-group
           v-model="model"
           active-class="border"
@@ -256,7 +284,7 @@
             </v-list-item-icon>
 
             <v-list-item-content>
-              <v-list-item-title v-text="item.text" />
+              <v-list-item-title v-text="$t(item.text)" />
             </v-list-item-content>
           </v-list-item>
         </v-list-item-group>
@@ -308,7 +336,7 @@
         {
           icon: 'mdi-account-outline',
           text: 'myaccount',
-          to: '/user/myaccount',
+          to: 'pages/profile',
         },
         {
           icon: 'mdi-account',
@@ -385,4 +413,18 @@
   margin-left: 57px !important
   margin-right: 27px !important
   margin-top: 21px !important
+.theme--light
+  .icon__swicth
+    .v-input__prepend-outer
+      .v-icon
+        color: white !important
+
+.icon__len
+  .v-input__control
+    .v-input__slot
+      .v-select__slot
+        .v-input__append-inner
+          .v-input__icon
+            .v-icon .mdi
+              color: white !important
 </style>

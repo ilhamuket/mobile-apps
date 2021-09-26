@@ -32,6 +32,9 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
         Route::prefix('summary')->group(function () {
             Route::get('', [StudioOwnersController::class, 'summary']);
         });
+        Route::get('me', [StudioOwnersController::class, 'meStudio']);
+        Route::post('update', [StudioOwnersController::class, 'update']);
+        Route::get('responses', [StudioOwnersController::class, 'response']);
     });
     // Classes
     Route::prefix('classes')->group(function () {

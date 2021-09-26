@@ -18,7 +18,7 @@ const router = new Router({
         {
           name: 'dashboard',
           path: '',
-          component: () => import('@/views/dashboard/main/Dashboard'),
+          component: () => import('@/views/dashboard/pages/profile/index'),
           meta: {
             breadcumbs: [
               {
@@ -35,14 +35,14 @@ const router = new Router({
           },
         },
         // Pages
-        {
-          name: 'User Profile',
-          path: 'pages/user',
-          component: () => import('@/views/dashboard/pages/UserProfile'),
-          meta: {
-            requiresAuth: true,
-          },
-        },
+        // {
+        //   name: 'User Profile',
+        //   path: 'pages/profile',
+        //   component: () => import('@/views/dashboard/pages/profile/index'),
+        //   meta: {
+        //     requiresAuth: true,
+        //   },
+        // },
         {
           name: 'Notifications',
           path: 'components/notifications',
@@ -204,14 +204,14 @@ const router = new Router({
         requiresVisitor: true,
       },
     },
-    {
-      name: 'Register',
-      path: '/register',
-      component: () => import('@/auth/register/index'),
-      meta: {
-        requiresVisitor: true,
-      },
-    },
+    // {
+    //   name: 'Register',
+    //   path: '/register',
+    //   component: () => import('@/auth/register/index'),
+    //   meta: {
+    //     requiresVisitor: true,
+    //   },
+    // },
     {
       name: 'Verifications',
       path: '/verification',
@@ -236,6 +236,14 @@ const router = new Router({
         requiresAuth: true,
       },
     },
+    {
+      name: 'Register',
+      path: '/register',
+      component: () => import('@/auth/register/index'),
+      meta: {
+        requiresVisitor: true,
+      },
+    },
   ],
 })
 
@@ -255,19 +263,19 @@ router.beforeEach((to, from, next) => {
     } else {
       // console.log('Dari ', from.name, 'Ke ', to.name)
       next()
-      const Me = localStorage.getItem('ME')
-      const users = JSON.parse(Me)
-      if (users.isVerified === 1) {
-        if (to.name === 'WaitingEmail') {
-          next({ path: '/error' })
-        } else if (to.name === 'Verifications') {
-          next({ path: '/error' })
-        }
-      } else {
-        next({
-          query: { redirect: to.fullPath },
-        })
-      }
+      // const Me = localStorage.getItem('ME')
+      // const users = JSON.parse(Me)
+      // if (users.isVerified === 1) {
+      //   if (to.name === 'WaitingEmail') {
+      //     next({ path: '/error' })
+      //   } else if (to.name === 'Verifications') {
+      //     next({ path: '/error' })
+      //   }
+      // } else {
+      //   next({
+      //     query: { redirect: to.fullPath },
+      //   })
+      // }
     }
 
     // console.log(to.fullPath, 'normal')

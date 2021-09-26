@@ -65,7 +65,9 @@
                       color="primary"
                       class="ml-2"
                     >
-                      <span>{{ users.studio.name.charAt(0) }}</span>
+                      <span class="text-center ml-5">{{
+                        users.studio.name.charAt(0)
+                      }}</span>
                     </v-list-item-avatar>
                   </v-col>
                   <v-col cols="9">

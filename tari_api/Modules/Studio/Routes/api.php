@@ -8,6 +8,7 @@ use Modules\Studio\Entities\StudioClass;
 use Modules\Studio\Http\Controllers\CartClassController;
 use Modules\Studio\Http\Controllers\ClassesScheduleStudioController;
 use Modules\Studio\Http\Controllers\CommentStudioVidioController;
+use Modules\Studio\Http\Controllers\DiscussController;
 use Modules\Studio\Http\Controllers\FollowStudioController;
 use Modules\Studio\Http\Controllers\ImagesStudioController;
 use Modules\Studio\Http\Controllers\LikeStudioController;
@@ -15,6 +16,7 @@ use Modules\Studio\Http\Controllers\ReviewController;
 use Modules\Studio\Http\Controllers\RoomController;
 use Modules\Studio\Http\Controllers\StudioArticleController;
 use Modules\Studio\Http\Controllers\StudioClassController;
+use Modules\Studio\Http\Controllers\StudioClassVidiosController;
 use Modules\Studio\Http\Controllers\StudioController;
 use Modules\Studio\Http\Controllers\StudioVidioController;
 
@@ -37,22 +39,43 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
     Route::post('approve', [StudioController::class, 'studioApprove']);
     // u
     Route::prefix('u')->group(function () {
+
+
         // classes 
         Route::get('classes', [StudioClassController::class, 'indexClasses']);
         Route::get('c/search', [StudioClassController::class, 'indexSearch']);
+        Route::get('classes/vidio', [StudioClassVidiosController::class, 'index']);
+        Route::post('classes/vidio', [StudioClassVidiosController::class, 'store']);
+
+
         // describtion Classes
         Route::get('classes/populer', [StudioClassController::class, 'populer']);
-        Route::get('classes/recomendation/{studio_slug}', [StudioClassController::class, 'recomendation']);
         Route::post('class/describe/post', [StudioClassController::class, 'store']);
+        Route::get('class/date', [StudioClassController::class, 'date']);
+        Route::get('classes/recomendation/{studio_slug}', [StudioClassController::class, 'recomendation']);
         Route::get('class/describe/{slug}', [StudioClassController::class, 'index']);
+
+
         // Schedules Classes
         Route::get('class/schedules/{class_id}', [ClassesScheduleStudioController::class, 'index']);
+
+
+
         // Following
         Route::post('following/{slug}', [FollowStudioController::class, 'following']);
         Route::post('unfollow/{slug}', [FollowStudioController::class, 'unFollow']);
+
+
         // Likes
         Route::post('likes/{slug}', [LikeStudioController::class, 'likes']);
         Route::post('unlike/{slug}', [LikeStudioController::class, 'unlike']);
+
+        // Discueess
+        Route::prefix('discuss')->group(function () {
+            Route::post('/', [DiscussController::class, 'store']);
+            Route::get('/{slug}', [DiscussController::class, 'index']);
+        });
+
         // article
         Route::get('article/{slug}', [StudioArticleController::class, 'index']);
         Route::get('class/{studio_slug}/{slug}', [StudioClassController::class, 'indexBySlug']);

@@ -4,6 +4,7 @@ namespace Modules\Studio\Http\Controllers;
 
 use App\Models\User;
 use Brryfrmnn\Transformers\Json;
+use Carbon\Carbon;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -37,6 +38,10 @@ class StudioController extends Controller
                 ->first();
 
             $master->increment('views');
+            if (Carbon::now()->isWeekend()) {
+                $master->views = 0;
+            }
+
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

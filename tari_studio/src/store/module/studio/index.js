@@ -5,6 +5,7 @@ export default {
   state: {
     data: [],
     dataBySlug: {},
+    me: {},
     isLoad: true,
   },
   getters: {
@@ -15,6 +16,7 @@ export default {
     GET_DATA_STUDIO: (state, payload) => (state.data = payload),
     GET_DATA_STUDIO_BY_SLUG: (state, payload) => (state.dataBySlug = payload),
     GET_OFF: state => (state.isLoad = false),
+    GET_ME: (state, payload) => (state.me = payload),
   },
   actions: {
     getDataStudio: ({ commit }, payload) => {
@@ -49,6 +51,24 @@ export default {
           .then(res => {
             const data = res.data.data
             commit('GET_DATA_STUDIO_BY_SLUG', data)
+            resolve(res)
+          })
+          .catch(e => {
+            reject(e)
+          })
+      })
+    },
+    getDataMeStudio: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        'Bearer ' + localStorage.getItem('access_token')
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        const params = { ...payload }
+        axios
+          .get('owner/studio/me', { params: params })
+          .then(res => {
+            commit('GET_ME', res.data.data)
             resolve(res)
           })
           .catch(e => {

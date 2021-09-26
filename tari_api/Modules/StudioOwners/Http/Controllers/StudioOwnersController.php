@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Studio\Entities\Reviews;
 use Modules\StudioOwners\Entities\ClassesOwnerStudio;
 use Modules\StudioOwners\Entities\OwnerStudio;
 use Modules\StudioOwners\Entities\StudioOwnerCategory;
@@ -16,6 +17,21 @@ use Modules\StudioOwners\Entities\StudioTeacher;
 
 class StudioOwnersController extends Controller
 {
+    public function response(Request $request)
+    {
+        try {
+            $studio = OwnerStudio::where('author_id', $request->user()->id)->first();
+            $master = Reviews::where('studio_id', $studio->id)->get();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     public function summary(Request $request)
     {
         try {
@@ -54,9 +70,21 @@ class StudioOwnersController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function meStudio(Request $request)
     {
-        return view('studioowners::index');
+        try {
+            $me = $request->user();
+            $studios = OwnerStudio::where('author_id', $me->id)
+                ->entities($request->entities)
+                ->first();
+            return Json::response($studios);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**
@@ -95,7 +123,7 @@ class StudioOwnersController extends Controller
      */
     public function edit($id)
     {
-        return view('studioowners::edit');
+        //
     }
 
     /**
@@ -104,9 +132,31 @@ class StudioOwnersController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        try {
+            $me = $request->user();
+            $master = OwnerStudio::where('author_id', $me->id)->first();
+            $master->name = $request->input('name', $master->name);
+            $master->isVerified = $request->input('isVerified', $master->isVerified);
+            $master->prefix = $request->input('prefix', $master->prefix);
+            $master->email = $request->input('email', $master->email);
+            $master->contact = $request->input('contact', $master->contact);
+            $master->about = $request->input('about', $master->about);
+            $master->address = $request->input('address', $master->address);
+            $master->username_ig = $request->input('ig', $master->username_ig);
+            $master->username_fb = $request->input('fb', $master->username_fb);
+            $master->username_tw = $request->input('tw', $master->username_tw);
+            $master->save();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**

@@ -52,8 +52,7 @@
           <div class="d-flex flex-row justify-center mt-2">
             <div class="d-flex flex-column">
               <p class="text-center font-size-ather-roboto-mono">
-                Hai, Silahkan Periksa Email Anda Untuk Mengverifikasi Akun Anda
-                Terimakasih
+                Hai, Akun Anda EnsikloStudio Anda Sudah Dibuat
               </p>
             </div>
           </div>
@@ -88,7 +87,7 @@
           text
           @click="getRegister"
         >
-          SendVerifikasi
+          Masuk
         </v-btn>
       </v-card-actions>
     </v-card-text>
@@ -136,4 +135,45 @@
   }
 </script>
 
-<style></style>
+<style lang="sass">
+@import url('https://fonts.googleapis.com/css2?family=Rampart+One&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Rampart+One&family=Roboto+Condensed:wght@300&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Roboto+Mono:wght@100&family=Shadows+Into+Light&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,700&display=swap')
+.bg-opocity
+   background: linear-gradient(to right, rgba(226,226,226,1) 0%, rgba(254,254,254,1) 100%)
+   border-color: white !important
+.bg-auth
+  background-color: #ffff
+.bg-img
+  background-color: #F8F8F8
+.tmp-opacity
+  opacity: 0
+.font-title
+  font-family: 'Rampart One', cursive !important
+  color: #6B75AA !important
+.font-subtitle
+  font-family: 'Rampart One', cursive
+  font-family: 'Roboto Condensed', sans-serif
+.cols
+  padding: 26px !important
+.font-questions
+  font-family: 'Roboto Mono', monospace
+.color-black-2
+  color: black !important
+  font-weight: bold !important
+.color-a
+  color: #6B75AA !important
+  font-weight: bold !important
+.row__margin
+  margin-left: 200px
+  margin-top: 20px
+.theme--light.v-banner.v-sheet
+    background-color: #8f2929
+    width: 1300px
+    margin-left: -80px
+    border-radius: 10px
+.btn__account
+  .v-btn__content
+    color: #9dc5d1
+</style>

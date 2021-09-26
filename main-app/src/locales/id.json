@@ -55,7 +55,9 @@
                 "folow": "Ikut"
             },
             "review": "Ulasan"
-        }
+        },
+        "review": "Ulasan",
+        "class": "Kelas"
     },
     "dahsboard": {
         "cds": "Sanggar Populer",
@@ -67,5 +69,6 @@
     "classes": "Kelas",
     "detail": "Detail Kelas",
     "history_class": "Riwayat Kelas",
-    "cart": "Keranjang"
+    "cart": "Keranjang",
+    "detail_classes": "Detail Kelas"
 }

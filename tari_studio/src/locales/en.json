@@ -126,5 +126,7 @@
   "vidio_name_page": "Video Profile",
   "index_class_data_table": "Class",
   "category": "Category",
-  "history_class": "History Class"
+  "history_class": "History Class",
+  "myaccount": "My Account",
+  "logout": "Logout"
 }

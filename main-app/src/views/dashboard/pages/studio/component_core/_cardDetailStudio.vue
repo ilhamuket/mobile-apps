@@ -153,18 +153,26 @@
           </v-row>
         </v-col>
         <v-col cols="6">
-          <v-row>
-            <v-col class="mr-6 d-flex align-center justify-center m-21">
+          <v-row class="ml-12">
+            <!-- <v-col cols="12">
+              <span class="font-spartan">
+                Ratings
+              </span>
+            </v-col> -->
+            <v-col
+              cols="12"
+              class="mr-6 d-flex align-center justify-center m-21"
+            >
               <div class="d-flex flex-row-reverse">
                 <div class="d-flex flex-column mt-2 mr-2">
-                  <span class="mt-1 font-spartan font-italic">
-                    {{ ratings.value }}
+                  <span class="font-spartan text-h3 font-weight-bold">
+                    ({{ count }})
                   </span>
                 </div>
               </div>
 
               <v-rating
-                :value="ratings.value"
+                :value="count"
                 color="amber"
                 dense
                 half-increments
@@ -174,7 +182,7 @@
               />
               <div class="d-flex flex-column mt-1 text-align-center mr-2">
                 <P class="mt-1 font-roboto-mono-small">
-                  ({{ ratings.people }}
+                  ({{ dataReviews.length }}
                   {{ $t('studioPage.card_detail.review') }})
                 </P>
               </div>
@@ -234,6 +242,10 @@
         type: Object,
         default: null,
       },
+      dataReviews: {
+        type: Array,
+        default: null,
+      },
       me: {
         type: Object,
         default: null,
@@ -260,8 +272,25 @@
 
         return boolean
       },
+      count () {
+        let value = 0
+        if (this.dataReviews) {
+          const a = this.dataReviews.map(x => x.ratings)
+
+          if (a.length > 0) {
+            const sum = a.filter(x => x > 0).reduce((x, y) => x + y)
+            value = sum / this.dataReviews.length
+          }
+        }
+        const x = parseFloat(value.toFixed(2))
+        console.log(x)
+
+        return x
+      },
     },
-    mounted () {},
+    mounted () {
+      console.log(this.count)
+    },
     methods: {
       folow (item) {
         this.$emit('inputFollow', { item: item })

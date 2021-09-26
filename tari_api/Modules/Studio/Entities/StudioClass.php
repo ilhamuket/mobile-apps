@@ -164,7 +164,7 @@ class StudioClass extends Model
             $query->whereDate('start_at', '<', now());
         }
 
-        return $query;
+        return $query->orderBy('start_at', 'desc');
     }
 
     public function scopeFilterByDate($query, $date)

@@ -1,63 +1,87 @@
 <template>
-  <v-app style="margin-left: 200px;">
-    <v-container class="mt-12 ml-12">
-      <v-row>
-        <v-col cols="8">
-          <v-stepper v-model="e1">
-            <v-stepper-header>
-              <v-stepper-step
-                :editable="e1 > 1 || e1 < 1 ? true : false"
-                :complete="e1 > 1"
-                step="1"
-              >
-                Buat Akun
-              </v-stepper-step>
+  <v-container class="">
+    <v-banner
+      single-line
+      color="red"
+      @click:icon="alert"
+    >
+      <v-img
+        width="140"
+        class="ml-12"
+        src="@/assets/img/logo.svg"
+      />
 
-              <v-divider />
+      <template v-slot:actions>
+        <v-btn
+          color="red"
+          text
+          class="btn__account"
+          @click="toPush('/login')"
+        >
+          Sudah Punya Akun
+        </v-btn>
+      </template>
+    </v-banner>
+    <v-row class="row__margin">
+      <v-col
+        cols="12"
+        md="8"
+        class="d-flex justify-center"
+      >
+        <v-stepper v-model="e1">
+          <v-stepper-header>
+            <v-stepper-step
+              :editable="e1 > 1 || e1 < 1 ? true : false"
+              :complete="e1 > 1"
+              step="1"
+            >
+              Buat Akun
+            </v-stepper-step>
 
-              <v-stepper-step
-                :editable="e1 > 2 || disable_state ? true : false"
-                :complete="e1 > 2"
-                step="2"
-              >
-                Buat Studio
-              </v-stepper-step>
+            <v-divider />
 
-              <v-divider />
+            <v-stepper-step
+              :editable="e1 > 2 || disable_state ? true : false"
+              :complete="e1 > 2"
+              step="2"
+            >
+              Buat Studio
+            </v-stepper-step>
 
-              <v-stepper-step
-                :editable="e1 > 3 || disable_state_three ? true : false"
-                :complete="e1 > 3"
-                step="3"
-              >
-                Tahap Akhir
-              </v-stepper-step>
-            </v-stepper-header>
+            <v-divider />
 
-            <v-stepper-items>
-              <v-stepper-content step="1">
-                <app-card-creating-acc @next="nextToStepTwo" />
-              </v-stepper-content>
+            <v-stepper-step
+              :editable="e1 > 3 || disable_state_three ? true : false"
+              :complete="e1 > 3"
+              step="3"
+            >
+              Tahap Akhir
+            </v-stepper-step>
+          </v-stepper-header>
 
-              <v-stepper-content step="2">
-                <app-card-creating-studio
-                  :data="users"
-                  @next="nextToStepThree"
-                />
-              </v-stepper-content>
+          <v-stepper-items>
+            <v-stepper-content step="1">
+              <app-card-creating-acc @next="nextToStepTwo" />
+            </v-stepper-content>
 
-              <v-stepper-content step="3">
-                <app-card-final
-                  :data="studio"
-                  @register="registerAsStudio"
-                />
-              </v-stepper-content>
-            </v-stepper-items>
-          </v-stepper>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-app>
+            <v-stepper-content step="2">
+              <app-card-creating-studio
+                :data="users"
+                @next="nextToStepThree"
+              />
+            </v-stepper-content>
+
+            <v-stepper-content step="3">
+              <app-card-final
+                :data="studio"
+                @register="registerAsStudio"
+              />
+            </v-stepper-content>
+          </v-stepper-items>
+        </v-stepper>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -108,11 +132,17 @@
       localStorage.setItem('yet', this.isYet)
     },
     methods: {
+      toPush (link) {
+        this.$router.push(link)
+      },
       nextToStepTwo ({ item }) {
         this.e1 = 2
         this.disable_state = true
         this.users = item
         console.log(this.users)
+      },
+      alert () {
+        alert('Hello, World!')
       },
       nextToStepThree ({ item }) {
         this.studio = item
@@ -156,8 +186,9 @@
               about: this.studio.data.item1.data.about,
               url: this.studio.data.item1.data.options,
             })
-            .then(({ data }) => {
-              if (data.status) {
+            .then(res => {
+              this.$router.push('/')
+              if (res.data.meta.status) {
                 this.isYet = true
                 localStorage.setItem('yet', this.isYet)
                 const Toast = this.$swal.mixin({
@@ -179,7 +210,9 @@
                   title: 'Send Verifications',
                 })
                 console.log('diverifikasi')
+                this.$router.push('/')
               } else {
+                this.$router.push('/')
                 const Toast = this.$swal.mixin({
                   toast: true,
                   position: 'bottom-end',
@@ -242,4 +275,15 @@
 .color-a
   color: #6B75AA !important
   font-weight: bold !important
+.row__margin
+  margin-left: 200px
+  margin-top: 20px
+.theme--light.v-banner.v-sheet
+    background-color: #8f2929
+    width: 1300px
+    margin-left: -80px
+    border-radius: 10px
+.btn__account
+  .v-btn__content
+    color: #9dc5d1
 </style>

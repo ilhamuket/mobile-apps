@@ -224,7 +224,7 @@
         }
       },
       toPush (link) {
-        this.$router.push(`classes/detail/${link.studio.slug}/${link.slug}`)
+        this.$router.push(`detail/class/live/${link.studio.slug}/${link.slug}`)
       },
       moreClass () {
         if (this.card.links.next) {

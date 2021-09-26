@@ -41,10 +41,11 @@
             ref="picker"
             v-model="date"
             :min="min"
+            :allowed-dates="allowedDates"
             :picker-date.sync="pickerDate"
             full-width
             show-week
-            @input="fetchTime"
+            @input="fetchTime(date)"
           />
         </v-card>
       </v-col>
@@ -55,10 +56,7 @@
           cols="12"
           md="4"
         >
-          <v-card
-            v-if="item.length !== 0"
-            class="mx-auto"
-          >
+          <v-card class="mx-auto">
             <v-img
               v-if="item.img"
               :src="item.img.url"
@@ -74,8 +72,9 @@
               <div class="text-h6">
                 <v-chip
                   :color="setColorStatus(item.status_kelas)"
-                  small
                   label
+                  text-color="white"
+                  class="text-capitalize"
                 >
                   {{ item.status_kelas }}
                 </v-chip>
@@ -92,8 +91,8 @@
                 />
                 <v-chip
                   label
-                  color="primary"
-                  class="font-spartan-small font-italic font-weight-thin"
+                  color="btn_primary"
+                  class="font-spartan-small font-weight-thin"
                 >
                   Capacity : 0 / {{ item.kapasitas }}
                 </v-chip>
@@ -101,16 +100,17 @@
 
                 <br>
                 <span
-                  class="font-spartan btn_primary--text text-h4 font-italic"
+                  class="font-spartan-small btn_primary--text text-h4 font-italic"
                 >
                   {{ item.time_start }} s/d {{ item.time_end }}
                 </span>
                 <br>
-                <span class="font-spartan-small font-italic">
+                <span class="font-spartan-small">
                   Duration : {{ item.durasi }} Minutes
                 </span>
                 <br>
-                <span class="font-spartan-small">
+                <br>
+                <span class="font-spartan mt-1">
                   Rp.20000
                 </span>
               </v-card-text>
@@ -155,10 +155,24 @@
               </div>
             </v-expand-transition>
           </v-card>
+          <v-col
+            v-if="stateLoad"
+            cols="12"
+            class="d-flex justify-center"
+          >
+            <div>
+              <v-progress-circular
+                class="d-flex justify-center"
+                indeterminate
+                color="red"
+              />
+            </div>
+          </v-col>
         </v-col>
       </v-row>
+
       <v-row
-        v-else
+        v-if="classes.length === 0"
         class="d-flex justify-center ml-12"
       >
         <v-col
@@ -182,6 +196,14 @@
       classes: {
         type: Array,
         default: null,
+      },
+      stateLoad: {
+        type: Boolean,
+        default: false,
+      },
+      studioDates: {
+        type: Array,
+        default: () => [],
       },
     },
     data: () => ({
@@ -208,8 +230,21 @@
     watch: {
       pickerDate (val) {},
     },
-    mounted () {},
+    mounted () {
+      console.log(this.allowedDates(), 'Ini FUnction')
+    },
     methods: {
+      allowedDates (val) {
+        console.log(val)
+        const dates = this.studioDates.map(x => x.start_at)
+        const isTrue = dates.some(x => x === val)
+        // console.log(isTrue, 'ini date')
+        if (isTrue) {
+          return true
+        } else {
+          return false
+        }
+      },
       setColorStatus (status) {
         if (status === 'upcoming') return 'primary'
         if (status === 'ongoing') return 'btn_primary'
@@ -222,7 +257,9 @@
         this.$emit('fetchDate', { item: i })
       },
       toPush (item) {
-        this.$router.push('/classes/detail/' + item.studio.slug + '/' + item.slug)
+        this.$router.push(
+          '/detail/class/live/' + item.studio.slug + '/' + item.slug,
+        )
       // console.log(item.studio.slug)
       },
       getDate () {

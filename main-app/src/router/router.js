@@ -191,6 +191,27 @@ const router = new Router({
           },
         },
         {
+          name: 'detail_classes',
+          path: '/detail/class/live/:studio_slug/:class_slug',
+          component: () =>
+            import('@/views/dashboard/pages/classes/detailClassZoom.vue'),
+          meta: {
+            breadcumbs: [
+              {
+                text: 'DashBoard',
+                disabled: false,
+                to: '/',
+              },
+
+              {
+                text: 'Classes',
+                to: '/classes',
+              },
+            ],
+            requiresAuth: true,
+          },
+        },
+        {
           name: 'cart',
           path: 'cart',
           component: () => import('@/views/dashboard/pages/cart/index'),

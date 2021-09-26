@@ -18,7 +18,7 @@
   "icons": "Icons",
   "lock": "Lock Screen Page",
   "login": "Login Page",
-  "logout": "LogOut",
+  "logout": "Logout",
   "maps": "Maps",
   "multi": "Multi Level Collapse",
   "notifications": "Notifications",
@@ -54,8 +54,11 @@
       "btn": {
         "folow": "Follow"
       },
-      "review": "Reviews"
-    }
+      "review": "Ulasan",
+      "class": "Kelas"
+    },
+    "review": "Reviews",
+    "class": "Class"
   },
   "dahsboard": {
     "cds": "Most Popular Studio",
@@ -67,5 +70,6 @@
   "classes": "Class",
   "detail": "Class Detail",
   "history_class": "History Class",
-  "cart": "Cart"
+  "cart": "Cart",
+  "detail_classes": "Detail Class"
 }

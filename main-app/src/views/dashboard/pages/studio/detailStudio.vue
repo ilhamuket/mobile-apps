@@ -45,6 +45,7 @@
             :is-follow="isFollow"
             :me="computedMe"
             :ratings="ratings"
+            :data-reviews="computedReviews"
             class="d-none d-md-flex"
             @inputFollow="followStudio"
             @inputUnfoll="popUpUnfollowNotice"
@@ -63,10 +64,10 @@
           Home
         </v-tab>
         <v-tab class="font-cutomize">
-          Class
+          {{ $t('studioPage.class') }}
         </v-tab>
         <v-tab class="font-cutomize">
-          Review
+          {{ $t('studioPage.review') }}
         </v-tab>
       </v-tabs>
       <v-tabs-items v-model="tabs">
@@ -80,12 +81,14 @@
         </v-tab-item>
         <v-tab-item>
           <app-page-two
-            :classes="classes"
+            :classes="classes.data"
+            :state-load="state_load"
+            :studio-dates="studioDates"
             @fetchDate="fetchDate"
           />
         </v-tab-item>
         <v-tab-item>
-          <app-page-three :data="computedReviews" />
+          <app-page-three :reviews="computedReviews" />
         </v-tab-item>
       </v-tabs-items>
     </v-container>
@@ -119,6 +122,9 @@
       colors: ['primary', 'secondary', 'yellow darken-2', 'red', 'orange'],
       id: null,
       folder: null,
+      currentDate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
       dialogSeeMore: {
         open: false,
         data: {},
@@ -133,7 +139,14 @@
       autoPlay: {},
       listVidio: [],
       reviews: [],
-      classes: [],
+      classes: {
+        meta: null,
+        data: [],
+        links: {
+          next: null,
+        },
+      },
+      state_load: false,
       timelines: [],
       isFollow: false,
       search: '',
@@ -150,6 +163,7 @@
         people: 0,
       },
       mean: 0,
+      page: 1,
     }),
     computed: {
       computedStudio () {
@@ -160,6 +174,9 @@
       },
       computedReviews () {
         return this.$store.state.studioReviews.data
+      },
+      studioDates () {
+        return this.$store.state.studioClasses.date
       },
     },
     watch: {
@@ -192,6 +209,8 @@
       this.firstLoad()
       this.getDataReviewsStudio()
       this.ratingsStudio()
+      this.scroll()
+      this.getDataStudioDate()
     },
     methods: {
       ratingsStudio () {
@@ -211,6 +230,7 @@
         this.$store
           .dispatch('studioReviews/getDataReviewsStudio', {
             slug: this.$route.params.slug,
+            entities: 'user.img,studio,class,likes,report',
           })
           .then(res => {})
       },
@@ -225,6 +245,11 @@
             this.isLoad = false
           // console.log(this.studio)
           })
+      },
+      getDataStudioDate () {
+        this.$store.dispatch('studioClasses/getDataStudioDate', {
+          slug: this.$route.params.slug,
+        })
       },
       getDataComments () {
         this.$store.dispatch('commentStudioVidio/getDataComments', {
@@ -253,18 +278,29 @@
             this.listVidio = data.data
           })
       },
-      getDataStudioClasses (date) {
+      getDataStudioClasses (date, page) {
         this.$store
           .dispatch('studioClasses/getDataStudioClasses', {
             slug: this.$route.params.slug,
             entities: 'studio.img,author,schedules,instructor_v2, img',
             filter: 'Publish',
-            date: date,
+            date: date || this.currentDate,
+            page: page,
           })
-          .then(({ data }) => {
-            this.classes = data.data
-            if (this.classes.length !== 0) {
-            } else {
+          .then(res => {
+            if (res.data.meta.status) {
+              this.state_load = true
+              this.classes.meta = res.data.meta
+              this.classes.links = res.data.links
+              if (page === 1) {
+                this.classes.data = res.data.data
+                this.state_load = false
+              } else {
+                this.classes.data.push(...res.data.data)
+                this.state_load = false
+              }
+              console.log(this.classes.data.length)
+            // console.log(this.classes.data)
             }
           })
       },
@@ -288,6 +324,28 @@
       getDataMe () {
         this.$store.dispatch('user/me')
       },
+      scroll () {
+        window.onscroll = () => {
+          const bottomOfWindow =
+            document.documentElement.scrollTop + window.innerHeight >=
+            document.documentElement.offsetHeight
+          console.log(bottomOfWindow)
+          // console.log('heightOfsset : ', document.documentElement.offsetHeight)
+          // console.log(
+          //   'scroll : ',
+          //   document.documentElement.scrollTop + window.innerHeight,
+          // )
+
+          // setTimeout(() => {
+          if (bottomOfWindow) {
+            // setTimeout(() => {
+            this.moreClass()
+          // this.resize()
+          // }, 3000)
+          }
+        // }, 3000)
+        }
+      },
       // Emit
       letsPlay ({ item }) {
         this.id = item.id
@@ -296,7 +354,17 @@
       },
       fetchDate ({ item }) {
         this.date = item
-        this.getDataStudioClasses(this.date)
+        this.page = 1
+        this.getDataStudioClasses(this.date, this.page)
+      },
+      moreClass () {
+        if (this.classes.links.next) {
+          this.page++
+          console.log(this.date, 'ini moreclass')
+          // console.log(this.page)
+          // this.is_load = true
+          this.getDataStudioClasses(this.date, this.page)
+        }
       },
       fetchDataFromChild ({ item }) {
         console.log(item)

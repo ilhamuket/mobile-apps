@@ -94,6 +94,8 @@ class StudioClassController extends Controller
             // dd(Carbon::now()->subMinutes(1)->toDateTimeString());
 
             $master->lastSee()->sync($request->user()->id);
+
+
             if (Carbon::now()->toDateTimeString() && $bool == false) {
                 $master->increment('views');
                 $bool = true;
@@ -104,7 +106,7 @@ class StudioClassController extends Controller
 
             if (Carbon::now()->isWeekend()) {
                 $master->views = 0;
-                $master->lastSee()->update(['user_activity_id' => null]);
+                // $master->lastSee()->update(['user_activity_id' => null]);
             }
 
             // $user = User::findOrFail($me->id)->whereDate('last_login', '<=', now());
@@ -168,7 +170,25 @@ class StudioClassController extends Controller
                 ->findSLug($slug)
                 ->filterBy($request->filter)
                 ->filterByDate($request->date)
-                ->get();
+                ->paginate(3);
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+
+    public function date(Request $request)
+    {
+        try {
+            $slug_studio = $request->slug;
+            $master = StudioClass::whereHas('studio', function (Builder $query) use ($slug_studio) {
+                $query->where('slug', $slug_studio);
+            })->get();
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
