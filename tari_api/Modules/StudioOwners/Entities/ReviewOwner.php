@@ -1,12 +1,12 @@
 <?php
 
-namespace Modules\Studio\Entities;
+namespace Modules\StudioOwners\Entities;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Reviews extends Model
+class ReviewOwner extends Model
 {
     use HasFactory;
 
@@ -15,16 +15,15 @@ class Reviews extends Model
 
     protected static function newFactory()
     {
-        return \Modules\Studio\Database\factories\ReviewsFactory::new();
+        return \Modules\StudioOwners\Database\factories\ReviewOwnerFactory::new();
     }
-
     public function class()
     {
-        return $this->belongsTo(StudioClass::class, 'class_id');
+        return $this->belongsTo(ClassesOwnerStudio::class, 'class_id');
     }
     public function studio()
     {
-        return $this->belongsTo(Studio::class, 'studio_id');
+        return $this->belongsTo(OwnerStudio::class, 'studio_id');
     }
 
     public function user()

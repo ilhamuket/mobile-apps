@@ -163,6 +163,7 @@
                 } else {
                   const redirecturl = this.$route.query.redirect || '/'
                   this.$router.push(redirecturl)
+                  // location.reload()
                   const Toast = this.$swal.mixin({
                     toast: true,
                     position: 'top-end',

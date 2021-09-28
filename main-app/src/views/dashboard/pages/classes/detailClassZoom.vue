@@ -7,7 +7,7 @@
           cols="12"
         >
           <v-carousel
-            v-if="classes.list_img.length !== 0"
+            v-if="classes.list_img"
             class="rounded-xl width--carousel ml-5"
           >
             <v-carousel-item
@@ -25,7 +25,7 @@
             v-else
             class="rounded-xl width--carousel ml-5"
           >
-            <v-carousel-item
+            <!-- <v-carousel-item
               v-for="(item, i) in items"
               :key="i"
               :src="item.src"
@@ -33,7 +33,7 @@
               :show-arrows="true"
               hide-delimiter-background
               delimiter-icon="mdi-minus"
-            />
+            /> -->
           </v-carousel>
         </v-col>
       </v-row>
@@ -229,7 +229,11 @@
       </v-row>
     </v-container>
     <v-divider class="mt-2 mb-2" />
-    <app-discuss />
+    <app-discuss
+      :data="discuss.data"
+      :me="users"
+      @send="replyDataDiscusses"
+    />
   </div>
 </template>
 
@@ -241,20 +245,12 @@
     },
     data () {
       return {
-        items: [
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
-          },
-        ],
+        discuss: {
+          meta: null,
+          data: [],
+          links: {},
+        },
+        page: 1,
         picker: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
           .toISOString()
           .substr(0, 10),
@@ -264,10 +260,21 @@
       classes () {
         return this.$store.state.classes.dataBySlug
       },
+      computedDiscuss () {
+        return this.$store.state.studioDiscuses.data
+      },
+      users () {
+        const Me = localStorage.getItem('ME')
+        const users = JSON.parse(Me)
+        return users
+      },
     },
     mounted () {
       this.getDataClassesBySlug()
-      console.log(this.classes.list_img)
+      this.getDataDiscuss()
+      this.scroll()
+    // this.getMe()
+    // console.log(this.classes.list_img)
     },
     methods: {
       time (val) {
@@ -278,6 +285,35 @@
           return newName
         }
       },
+      scroll () {
+        window.onscroll = () => {
+          const bottomOfWindow =
+            document.documentElement.scrollTop + window.innerHeight >=
+            document.documentElement.offsetHeight
+          console.log(bottomOfWindow)
+          // console.log('heightOfsset : ', document.documentElement.offsetHeight)
+          // console.log(
+          //   'scroll : ',
+          //   document.documentElement.scrollTop + window.innerHeight,
+          // )
+
+          // setTimeout(() => {
+          if (bottomOfWindow) {
+            // setTimeout(() => {
+            this.moreDiscuss()
+          // this.resize()
+          // }, 3000)
+          }
+        // }, 3000)
+        }
+      },
+
+      moreDiscuss () {
+        if (this.discuss.links.next) {
+          this.page++
+          this.getDataDiscuss(this.page)
+        }
+      },
 
       getDataClassesBySlug () {
         this.$store.dispatch('classes/getDataClassesBySlug', {
@@ -286,6 +322,46 @@
           studio_slug: this.$route.params.studio_slug,
         })
       },
+      getDataDiscuss (page) {
+        this.$store
+          .dispatch('studioDiscuses/getDataDiscusses', {
+            class_slug: this.$route.params.class_slug,
+            entities: 'class,user.img,child.user.img, child.class',
+            page: page,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              this.discuss.meta = res.data.meta
+              this.discuss.links = res.data.links
+              if (
+                page === 1 &&
+                this.computedDiscuss.id !== this.discuss.data.id
+              ) {
+                this.discuss.data = res.data.data
+              } else {
+                this.discuss.data.push(...res.data.data)
+              // this.is_load = false
+              }
+            }
+          })
+      },
+      replyDataDiscusses ({ item }) {
+        this.$store
+          .dispatch('studioDiscuses/replyDataDiscusses', {
+            body: item,
+            slug: this.$route.params.class_slug,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              item = ''
+              this.discuss.data.unshift(res.data.data)
+            // this.getDataDiscuss()
+            }
+          })
+      },
+    // getMe () {
+    //   this.$store.dispatch('user/me')
+    // },
     },
   }
 </script>

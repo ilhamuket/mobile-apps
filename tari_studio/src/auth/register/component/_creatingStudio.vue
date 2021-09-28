@@ -3,57 +3,54 @@
     <v-container>
       <v-form v-model="invalid">
         <v-row>
-          <v-col>
+          <!-- <v-col cols="12">
             <v-text-field
               v-model="fullNameStudio"
               :rules="[rules.required]"
               label="Name Studio"
               prepend-icon="mdi-alpha-n-circle-outline"
             />
+          </v-col> -->
+          <!-- <v-col cols="12">
             <v-text-field
               v-model="data.email"
               :rules="[rules.required]"
               label="Email Studio"
               prepend-icon="mdi-at"
             />
+          </v-col>
+          <v-col cols="12">
             <v-text-field
               v-model="data.phoneNumber"
               :rules="[rules.required]"
               label="Contact Studio"
               prepend-icon="mdi-alpha-p-circle-outline"
             />
+          </v-col> -->
+          <v-col cols="12">
             <v-textarea
               v-model="step2.data.about"
               :rules="[rules.required]"
               label="About Studio"
               prepend-icon="mdi-alpha-p-circle-outline"
             />
-            <!-- <v-file-input
-              v-model="files"
-              show-size
-              :loading="upload_state"
-              :disabled="disable_state"
-              accept="image/png, image/jpeg, image/bmp"
-              prepend-icon="mdi-camera"
-              placeholder="Upload Thumbnail"
-              @change="change(files)"
-            /> -->
-            <div
-              v-for="(item, i) in step2.data.options"
-              :key="i"
-            >
-              <v-text-field
-                v-model="item.option"
-                :rules="[rules.required]"
-                label="Url"
-                :placeholder="'Url ke-' + (i + 1)"
-                type="text"
-                prepend-icon="mdi-youtube"
-                append-icon="mdi-close"
-                @keyup="createNewInput(i)"
-                @click:append="deleteInput(i)"
-              />
-            </div>
+          </v-col>
+          <v-col
+            v-for="(item, i) in step2.data.options"
+            :key="i"
+            cols="12"
+          >
+            <v-text-field
+              v-model="item.option"
+              :rules="[rules.required]"
+              label="Url"
+              :placeholder="'Url ke-' + (i + 1)"
+              type="text"
+              prepend-icon="mdi-youtube"
+              append-icon="mdi-close"
+              @keyup="createNewInput(i)"
+              @click:append="deleteInput(i)"
+            />
           </v-col>
         </v-row>
         <v-btn

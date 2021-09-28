@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Studio\Http\Controllers;
+namespace Modules\StudioOwners\Http\Controllers;
 
 use Brryfrmnn\Transformers\Json;
 use Illuminate\Contracts\Support\Renderable;
@@ -9,7 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Modules\Studio\Entities\Discuss;
-use Modules\Studio\Entities\StudioClass;
+use Modules\StudioOwners\Entities\ClassesOwnerStudio;
+use Modules\StudioOwners\Entities\DiscussOwner;
+use Modules\StudioOwners\Entities\OwnerStudio;
 
 class DiscussController extends Controller
 {
@@ -17,20 +19,22 @@ class DiscussController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index(Request $request, $slug)
+    public function index(Request $request)
     {
         try {
-            $master = Discuss::whereHas('class', function (Builder $query) use ($slug) {
-                $query->where('slug', $slug);
+            $studio = OwnerStudio::where('author_id', $request->user()->id)->first();
+            $master = Discuss::whereHas('class', function (Builder $query) use ($studio) {
+                $query->where('studio_id', $studio->id);
             })
-                ->whereNull('parent_id')
                 ->entities($request->entities)
-                ->paginate(2);
+                ->where('user_id', '!=', $request->user()->id)
+                ->get();
+
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         } catch (\Illuminate\Database\QueryException $e) {
-            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         } catch (\ErrorException $e) {
             return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         }
@@ -42,7 +46,7 @@ class DiscussController extends Controller
      */
     public function create()
     {
-        return view('studio::create');
+        return view('studioowners::create');
     }
 
     /**
@@ -52,40 +56,19 @@ class DiscussController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            $class = StudioClass::where('slug', $request->slug)->first();
-            $master = new Discuss();
-            $master->body = $request->body;
-            $master->parent_id = $request->parent_id;
-            $master->status = 'belum ditanggapi';
-            $master->user_id = $request->user()->id;
-            $master->class_id = $class->id;
-            $master->save();
-            $master->user;
-            $master->class;
-            $master->parent;
-            $master->child;
-            $master->user->img;
-
-            return Json::response($master);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
-        } catch (\Illuminate\Database\QueryException $e) {
-            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
-        } catch (\ErrorException $e) {
-            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
-        }
+        //
     }
 
-    public function replies()
+    public function replies(Request $request)
     {
         try {
             DB::beginTransaction();
-            $class = StudioClass::where('author_id', $request->user()->id)->first();
-            $master = new Discuss();
+            $class = ClassesOwnerStudio::find($request->id);
+            $master = new DiscussOwner();
             $master->body = $request->body;
             $master->parent_id = $request->parent_id;
             $master->user_id = $request->user()->id;
+            $master->status = 'ditanggapi';
             $master->class_id = $class->id;
             $master->save();
             $master->user;
@@ -93,8 +76,12 @@ class DiscussController extends Controller
             $master->parent;
             $master->child;
 
-            $class->status = 'ditanggapi';
-            $class->save();
+            $discusses = DiscussOwner::findOrFail($request->parent_id);
+            $discusses->status = 'ditanggapi';
+            $discusses->save();
+
+            // $class->status = 'ditanggapi';
+            // $class->save();
             DB::commit();
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
@@ -116,7 +103,7 @@ class DiscussController extends Controller
      */
     public function show($id)
     {
-        return view('studio::show');
+        return view('studioowners::show');
     }
 
     /**
@@ -126,7 +113,7 @@ class DiscussController extends Controller
      */
     public function edit($id)
     {
-        return view('studio::edit');
+        return view('studioowners::edit');
     }
 
     /**
@@ -147,6 +134,18 @@ class DiscussController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $master = DiscussOwner::findOrFail($id);
+
+            $master->delete();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 }

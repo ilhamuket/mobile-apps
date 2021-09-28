@@ -1,87 +1,91 @@
 <template>
-  <v-container class="">
-    <v-banner
-      single-line
-      color="red"
-      @click:icon="alert"
-    >
-      <v-img
-        width="140"
-        class="ml-12"
-        src="@/assets/img/logo.svg"
-      />
-
-      <template v-slot:actions>
-        <v-btn
-          color="red"
-          text
-          class="btn__account"
-          @click="toPush('/login')"
-        >
-          Sudah Punya Akun
-        </v-btn>
-      </template>
-    </v-banner>
-    <v-row class="row__margin">
-      <v-col
-        cols="12"
-        md="8"
-        class="d-flex justify-center"
+  <v-app>
+    <v-container class="">
+      <v-banner
+        single-line
+        color="red"
+        @click:icon="alert"
       >
-        <v-stepper v-model="e1">
-          <v-stepper-header>
-            <v-stepper-step
-              :editable="e1 > 1 || e1 < 1 ? true : false"
-              :complete="e1 > 1"
-              step="1"
-            >
-              Buat Akun
-            </v-stepper-step>
+        <v-img
+          width="140"
+          class="ml-12 navbar-brand"
+          src="@/assets/img/logo.svg"
+        />
 
-            <v-divider />
+        <template v-slot:actions>
+          <v-btn
+            color="red"
+            text
+            class="btn__account"
+            @click="toPush('/login')"
+          >
+            Sudah Punya Akun
+          </v-btn>
+        </template>
+      </v-banner>
+      <v-row class="row__margin">
+        <v-col
+          cols="12"
+          md="8"
+          class="d-flex justify-center"
+        >
+          <v-stepper v-model="e1">
+            <v-stepper-header>
+              <v-stepper-step
+                :editable="e1 > 1 || e1 < 1 ? true : false"
+                :complete="e1 > 1"
+                step="1"
+              >
+                Buat Akun
+              </v-stepper-step>
 
-            <v-stepper-step
-              :editable="e1 > 2 || disable_state ? true : false"
-              :complete="e1 > 2"
-              step="2"
-            >
-              Buat Studio
-            </v-stepper-step>
+              <v-divider />
 
-            <v-divider />
+              <v-stepper-step
+                editable
+                :complete="e1 > 2"
+                step="2"
+              >
+                Buat Studio
+                <!-- :editable="e1 > 2 || disable_state ? true : false" -->
+              </v-stepper-step>
 
-            <v-stepper-step
-              :editable="e1 > 3 || disable_state_three ? true : false"
-              :complete="e1 > 3"
-              step="3"
-            >
-              Tahap Akhir
-            </v-stepper-step>
-          </v-stepper-header>
+              <v-divider />
 
-          <v-stepper-items>
-            <v-stepper-content step="1">
-              <app-card-creating-acc @next="nextToStepTwo" />
-            </v-stepper-content>
+              <v-stepper-step
+                editable
+                :complete="e1 > 3"
+                step="3"
+              >
+                Tahap Akhir
+                <!-- :editable="e1 > 3 || disable_state_three ? true : false"  -->
+              </v-stepper-step>
+            </v-stepper-header>
 
-            <v-stepper-content step="2">
-              <app-card-creating-studio
-                :data="users"
-                @next="nextToStepThree"
-              />
-            </v-stepper-content>
+            <v-stepper-items>
+              <v-stepper-content step="1">
+                <app-card-creating-acc @next="nextToStepTwo" />
+              </v-stepper-content>
 
-            <v-stepper-content step="3">
-              <app-card-final
-                :data="studio"
-                @register="registerAsStudio"
-              />
-            </v-stepper-content>
-          </v-stepper-items>
-        </v-stepper>
-      </v-col>
-    </v-row>
-  </v-container>
+              <v-stepper-content step="2">
+                <app-card-creating-studio
+                  :data="users"
+                  @next="nextToStepThree"
+                />
+              </v-stepper-content>
+
+              <v-stepper-content step="3">
+                <app-card-final
+                  :data="studio"
+                  @register="registerAsStudio"
+                />
+              </v-stepper-content>
+            </v-stepper-items>
+          </v-stepper>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-app>
 </template>
 
 <script>
@@ -286,4 +290,6 @@
 .btn__account
   .v-btn__content
     color: #9dc5d1
+.navbar-brand
+  margin-left: 20px
 </style>

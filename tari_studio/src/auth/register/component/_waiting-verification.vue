@@ -11,30 +11,46 @@
                 >
                   Verification Email
                 </div> -->
-          <div
-            class="text-overline mb-4 text-center font-size-ather-roboto-mono text-custome-brand"
-          >
+          <span class="font-spartan-small text-center">
             ENSIKLOTARI
-          </div>
-          <div class="d-flex flex-row justify-center">
+          </span>
+          <!-- <div class="d-flex flex-row justify-center">
             <div
               v-if="data.data.item2"
               class="d-flex flex-column"
             >
-              <v-list-item-title
-                class="text-h5 mb-1 text-center font-size-ather-roboto-mono"
-              >
+              <v-list-item-title class="mt-2 font-spartan-small">
                 Username : {{ data.data.item2.userName }}
               </v-list-item-title>
-              <v-list-item-subtitle>
+              <v-list-item-title class="font-spartan-small">
                 Email : {{ data.data.item2.email }}
-              </v-list-item-subtitle>
+              </v-list-item-title>
+            </div>
+          </div> -->
+          <div class="d-flex flex-row mt-2 justify-center">
+            <div class="d-flex flex-column">
+              <span
+                v-if="data.data.item2"
+                class="font-spartan text-h5"
+              >
+                Username Studio : {{ data.data.item2.userName }}
+              </span>
+            </div>
+          </div>
+          <div class="d-flex flex-row justify-center">
+            <div class="d-flex flex-column">
+              <span
+                v-if="data.data.item2"
+                class="font-spartan text-h5"
+              >
+                Email Studio : {{ data.data.item2.email }}
+              </span>
             </div>
           </div>
           <div class="d-flex flex-row justify-center">
             <div class="d-flex flex-column">
               <v-list-item-title
-                class="text-h5 mb-1 text-center font-size-ather-roboto-mono"
+                class="text-h5 mb-1 text-center font-spartan-small"
               >
                 Nama Studio : {{ data.data.fullnameStudio }}
               </v-list-item-title>
@@ -43,7 +59,7 @@
           <div class="d-flex flex-row justify-center">
             <div class="d-flex flex-column">
               <v-list-item-title
-                class="text-h5 mb-1 text-center font-size-ather-roboto-mono"
+                class="text-h5 mb-1 text-center font-spartan-small"
               >
                 prefix Studio : {{ data.data.prefix }}
               </v-list-item-title>
@@ -51,7 +67,7 @@
           </div>
           <div class="d-flex flex-row justify-center mt-2">
             <div class="d-flex flex-column">
-              <p class="text-center font-size-ather-roboto-mono">
+              <p class="text-center font-spartan-small">
                 Hai, Akun Anda EnsikloStudio Anda Sudah Dibuat
               </p>
             </div>
@@ -59,7 +75,7 @@
 
           <div class="d-flex flex-row justify-center mt-2">
             <div class="d-flex flex-column">
-              <p class="text-center font-size-ather-roboto-mono">
+              <p class="text-center font-spartan-small">
                 Terima Kasih
               </p>
             </div>
@@ -67,14 +83,14 @@
 
           <div class="d-flex flex-row justify-center">
             <div class="d-flex flex-column">
-              <p class="text-center font-size-ather-roboto-mono">
+              <p class="text-center font-spartan-small">
                 ENSIKLOTARI
               </p>
             </div>
           </div>
           <div class="d-flex flex-row justify-center">
             <div class="d-flex flex-column">
-              <p class="text-center font-size-ather-roboto-mono">
+              <p class="text-center font-spartan-small">
                 {{ now | moment('MMMM Do YYYY') }}
               </p>
             </div>

@@ -22,6 +22,13 @@
                 md="3"
               >
                 <v-img
+                  v-if="data.img"
+                  width="300"
+                  class="rounded-xl"
+                  :src="`${data.img.url}`"
+                />
+                <v-img
+                  v-else
                   width="300"
                   class="rounded-xl"
                   src="https://ecs7.tokopedia.net/img/cache/300/default_picture_user/default_toped-22.jpg"
@@ -103,22 +110,22 @@
                 <v-divider class="mt-2 mb-2" />
                 <div class="d-flex flex-row mt-2">
                   <div class="d-flex flex-column font-spartan-small">
-                    Name Studio : Hurip Studio
+                    Name Studio : {{ data.name }}
                   </div>
                 </div>
                 <div class="d-flex flex-row mt-2">
                   <div class="d-flex flex-column font-spartan-small">
-                    Keyword : HS
+                    Keyword : {{ data.prefix }}
                   </div>
                 </div>
                 <div class="d-flex flex-row mt-2">
                   <div class="d-flex flex-column font-spartan-small">
-                    Email : huripstudio@gmail.com
+                    Email : {{ data.email }}
                   </div>
                 </div>
                 <div class="d-flex flex-row mt-2">
                   <div class="d-flex flex-column font-spartan-small">
-                    Contact : 087842415524
+                    Contact : {{ data.contact }}
                   </div>
                 </div>
                 <div class="d-flex flex-row mt-2">
@@ -131,7 +138,7 @@
                     </v-icon>
                   </div>
                   <div class="d-flex flex-column font-spartan-small">
-                    Sumedang
+                    {{ data.address }}
                   </div>
                 </div>
                 <div class="d-flex flex-row mt-2">
@@ -141,38 +148,84 @@
                 </div>
                 <div class="d-flex flex-row mt-2">
                   <div class="d-flex flex-column font-spartan-small">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Laborum repellendus rem modi nihil excepturi accusantium
-                    eveniet molestiae nesciunt quasi deleniti accusamus
-                    asperiores maiores corporis debitis a labore officia ad
-                    dignissimos esse adipisci, autem nisi ut quis aut.
-                    Distinctio, magni nisi.
+                    {{ data.about }}
                   </div>
                 </div>
                 <div class="d-flex flex-row margin__icon__dashboard mt-12">
                   <div class="d-flex flex-column ml-2">
-                    <v-icon
-                      color="red"
-                      large
+                    <v-tooltip
+                      bottom
+                      color="primary"
                     >
-                      mdi-instagram
-                    </v-icon>
+                      <template #activator="{on, attrs}">
+                        <a
+                          v-bind="attrs"
+                          :href="data.url_ig"
+                          target="__blank"
+                          v-on="on"
+                        >
+                          <v-icon
+                            color="red"
+                            large
+                          >
+                            mdi-instagram
+                          </v-icon>
+                        </a>
+                      </template>
+                      <span class="font-spartan-small">
+                        {{ data.username_ig }}
+                      </span>
+                    </v-tooltip>
                   </div>
                   <div class="d-flex flex-column ml-2">
-                    <v-icon
-                      large
-                      color="blue"
+                    <v-tooltip
+                      bottom
+                      color="primary"
                     >
-                      mdi-facebook
-                    </v-icon>
+                      <template #activator="{on, attrs}">
+                        <a
+                          target="__blank"
+                          :href="data.url_fb"
+                        >
+                          <v-icon
+                            v-bind="attrs"
+                            large
+                            color="blue"
+                            v-on="on"
+                          >
+                            mdi-facebook
+                          </v-icon>
+                        </a>
+                      </template>
+                      <span class="font-spartan-small">
+                        {{ data.username_fb }}
+                      </span>
+                    </v-tooltip>
                   </div>
                   <div class="d-flex flex-column ml-2">
-                    <v-icon
-                      large
-                      color="blue"
+                    <v-tooltip
+                      bottom
+                      color="primary"
                     >
-                      mdi-twitter
-                    </v-icon>
+                      <template #activator="{on, attrs}">
+                        <a
+                          target="__blank"
+                          :href="data.url_tw"
+                        >
+                          <v-icon
+                            v-bind="attrs"
+                            large
+                            color="blue"
+                            v-on="on"
+                          >
+                            mdi-twitter
+                          </v-icon>
+                        </a>
+                      </template>
+                      <span class="font-spartan-small">
+                        {{ data.username_tw }}
+                      </span>
+                    </v-tooltip>
                   </div>
                 </div>
               </v-col>
@@ -186,6 +239,12 @@
 
 <script>
   export default {
+    props: {
+      data: {
+        type: Object,
+        default: null,
+      },
+    },
     data: () => ({
       files: null,
       imageUrl: null,
@@ -248,4 +307,6 @@
     padding-left: 2px
 .margin__icon__dashboard
   margin-left: 200px
+a
+  text-decoration: none
 </style>

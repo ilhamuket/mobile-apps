@@ -17,6 +17,7 @@ import classesPopuler from './module/classes/class_populer/index'
 import classesReviews from './module/classes/class_reviews/index'
 // Cart
 import cart from './module/cart/index'
+import studioDiscuses from './module/studio/studio_discuses'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -35,6 +36,7 @@ export default new Vuex.Store({
     classesReviews: classesReviews,
     cart: cart,
     studioReviews: studioReviews,
+    studioDiscuses: studioDiscuses,
   },
   state: {
     barColor: 'rgba(0, 0, 0, .8), rgba(0, 0, 0, .8)',

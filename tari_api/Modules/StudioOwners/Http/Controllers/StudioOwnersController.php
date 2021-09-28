@@ -17,6 +17,34 @@ use Modules\StudioOwners\Entities\StudioTeacher;
 
 class StudioOwnersController extends Controller
 {
+    public function summaryRatings(Request $request)
+    {
+        try {
+            $data = [
+                "5" => 0,
+                "4" => 0,
+                "3" => 0,
+                "2" => 0,
+                "1" => 0,
+            ];
+
+            $studio = OwnerStudio::where('author_id', $request->user()->id)->first();
+
+            $data["5"] = Reviews::where('studio_id', $studio->id)->where('ratings', 5)->count();
+            $data["4"] = Reviews::where('studio_id', $studio->id)->where('ratings', 4)->count();
+            $data["3"] = Reviews::where('studio_id', $studio->id)->where('ratings', 3)->count();
+            $data["2"] = Reviews::where('studio_id', $studio->id)->where('ratings', 2)->count();
+            $data["1"] = Reviews::where('studio_id', $studio->id)->where('ratings', 1)->count();
+
+            return Json::response($data);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     public function response(Request $request)
     {
         try {

@@ -18,6 +18,11 @@ import studioAuth from './module/auth/studio/index'
 import ownerStudioClasses from './module/studioOwner/classes/index'
 import studioSummary from './module/studioOwner/classes/class_summary/summary'
 
+// Studio Reviews
+import studioReviews from './module/studioOwner/studioReviews/index'
+
+// discusses
+import studioDiscusses from './module/studioOwner/studioDiscusses'
 // Studio Sub-class
 import studioSubclass from './module/studioOwner/sub_class/index'
 import studioSummarySubclass from './module/studioOwner/sub_class/summary/index'
@@ -53,6 +58,8 @@ export default new Vuex.Store({
     studioOwnerVidio: studioOwnerVidio,
     studioCategories: studioCategories,
     dashboardSummary: dashboardSummary,
+    studioReviews: studioReviews,
+    studioDiscusses: studioDiscusses,
   },
   state: {
     barColor: 'rgba(0, 0, 0, .8), rgba(0, 0, 0, .8)',

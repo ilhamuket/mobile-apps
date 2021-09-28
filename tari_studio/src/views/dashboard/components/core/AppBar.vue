@@ -3,7 +3,7 @@
     id="app-bar"
     absolute
     app
-    class="modified"
+    :class="drawer ? 'modified--drawer' : 'modified'"
     color="pallet1"
     flat
     height="75"
@@ -411,6 +411,11 @@
 .modified
   border-radius: 10px !important
   margin-left: 57px !important
+  margin-right: 27px !important
+  margin-top: 21px !important
+.modified--drawer
+  border-radius: 10px !important
+  margin-left: 16px !important
   margin-right: 27px !important
   margin-top: 21px !important
 .theme--light

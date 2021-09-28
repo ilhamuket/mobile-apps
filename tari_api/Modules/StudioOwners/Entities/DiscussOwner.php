@@ -1,20 +1,21 @@
 <?php
 
-namespace Modules\Studio\Entities;
+namespace Modules\StudioOwners\Entities;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Discuss extends Model
+class DiscussOwner extends Model
 {
     use HasFactory;
 
     protected $fillable = [];
+    protected $table = 'discusses';
 
     protected static function newFactory()
     {
-        return \Modules\Studio\Database\factories\DiscussFactory::new();
+        return \Modules\StudioOwners\Database\factories\DiscussOwnerFactory::new();
     }
 
     public function user()
@@ -25,29 +26,33 @@ class Discuss extends Model
 
     public function parent()
     {
-        return $this->belongsTo(Discuss::class, 'parent_id');
+        return $this->belongsTo(DiscussOwner::class, 'parent_id');
     }
 
     public function child()
     {
-        return $this->hasMany(Discuss::class, 'parent_id');
+        return $this->hasMany(DiscussOwner::class, 'parent_id');
     }
 
     public function class()
     {
-        return $this->belongsTo(StudioClass::class, 'class_id');
+        return $this->belongsTo(ClassesOwnerStudio::class, 'class_id');
     }
 
-    public function likes()
+    public static function boot()
     {
-        return $this->belongsToMany(User::class, 'discuss_like', 'discuss_id', 'user_id');
+        parent::boot();
+        self::deleting(function ($discuss) { // before delete() method call this
+            $discuss->child()->each(function ($photo) {
+                $photo->delete(); // <-- direct deletion
+            });
+            // $discuss->posts()->each(function ($post) {
+            //     $post->delete(); // <-- raise another deleting event on Post to delete comments
+            // });
+            // do the rest of the cleanup...
+        });
     }
-    // public function likes()
-    // {
-    //     return $this->belongsToMany(User::class, 'discuss_report', 'discuss_id', 'user_id');
-    // }
 
-    // === Scope === //
     public function scopeEntities($query, $entities)
     {
         if ($entities != null || $entities != '') {

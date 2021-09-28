@@ -6,6 +6,7 @@
           border="top"
           colored-border
           type="info"
+          color="primary"
           elevation="2"
           class="font-spartan"
         >
@@ -18,6 +19,7 @@
           <v-row>
             <v-col cols="12">
               <v-text-field
+                v-model="data.username_ig"
                 label="Filled Username Instagram"
                 placeholder="type something ..."
                 clearable
@@ -31,6 +33,7 @@
             </v-col>
             <v-col cols="12">
               <v-text-field
+                v-model="data.username_fb"
                 label="Filled Username Facebook"
                 placeholder="type something ..."
                 clearable
@@ -44,6 +47,7 @@
             </v-col>
             <v-col cols="12">
               <v-text-field
+                v-model="data.username_tw"
                 label="Filled Username Twitter"
                 placeholder="type something ..."
                 clearable
@@ -71,7 +75,14 @@
 </template>
 
 <script>
-  export default {}
+  export default {
+    props: {
+      data: {
+        type: Object,
+        default: null,
+      },
+    },
+  }
 </script>
 
 <style></style>

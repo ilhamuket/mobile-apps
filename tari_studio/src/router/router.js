@@ -150,6 +150,7 @@ const router = new Router({
             requiresAuth: true,
           },
         },
+
         {
           name: 'Detail Studio',
           path: '/:slug/:folder',
@@ -196,6 +197,15 @@ const router = new Router({
         },
       ],
     },
+
+    {
+      name: 'Register',
+      path: '/register',
+      component: () => import('@/auth/register/index'),
+      meta: {
+        requiresVisitor: true,
+      },
+    },
     {
       name: 'Login',
       path: '/login',
@@ -204,6 +214,7 @@ const router = new Router({
         requiresVisitor: true,
       },
     },
+
     // {
     //   name: 'Register',
     //   path: '/register',
@@ -234,14 +245,6 @@ const router = new Router({
       component: () => import('@/auth/logout'),
       meta: {
         requiresAuth: true,
-      },
-    },
-    {
-      name: 'Register',
-      path: '/register',
-      component: () => import('@/auth/register/index'),
-      meta: {
-        requiresVisitor: true,
       },
     },
   ],

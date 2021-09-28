@@ -7,6 +7,7 @@ use Modules\StudioOwners\Entities\ClassesOwnerStudio;
 use Modules\StudioOwners\Entities\StudioTeacher;
 use Modules\StudioOwners\Entities\SubClassOwnerStudio;
 use Modules\StudioOwners\Http\Controllers\ClassesOwnerStudioController;
+use Modules\StudioOwners\Http\Controllers\DiscussController;
 use Modules\StudioOwners\Http\Controllers\ImgClassesController;
 use Modules\StudioOwners\Http\Controllers\ImgListClassController;
 use Modules\StudioOwners\Http\Controllers\StudioOwnerCategoryController;
@@ -31,6 +32,7 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
     Route::prefix('studio')->group(function () {
         Route::prefix('summary')->group(function () {
             Route::get('', [StudioOwnersController::class, 'summary']);
+            Route::get('reviews', [StudioOwnersController::class, 'summaryRatings']);
         });
         Route::get('me', [StudioOwnersController::class, 'meStudio']);
         Route::post('update', [StudioOwnersController::class, 'update']);
@@ -87,5 +89,11 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
     Route::prefix('categories')->group(function () {
         Route::get('', [StudioOwnerCategoryController::class, 'index']);
         Route::post('', [StudioOwnerCategoryController::class, 'store']);
+    });
+
+    Route::prefix('discusses')->group(function () {
+        Route::get('/index', [DiscussController::class, 'index']);
+        Route::post('/replies', [DiscussController::class, 'replies']);
+        Route::delete('/{id}', [DiscussController::class, 'destroy']);
     });
 });

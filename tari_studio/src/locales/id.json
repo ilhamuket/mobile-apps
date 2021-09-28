@@ -62,7 +62,10 @@
     "card_notice": {
         "text": "Apakah kamu yakin ingin menghapus dan semua yang berkaitan akan terhapus juga",
         "textById": "Apakah Kamu yakin Ingin Menghapus Yang Judul",
-        "approved": "Apakah Kamu Yakin Ingin Menyetujui"
+        "approved": "Apakah Kamu Yakin Ingin Menyetujui",
+        "discuss": {
+            "del": "Apakah Kamu Yakin Ingin Mengapus Diskusi Dengan Konten"
+        }
     },
     "table": {
         "approved": "Disetujui",
@@ -120,6 +123,15 @@
                 "status": "Status",
                 "created_at": "Dibuat Pada"
             }
+        },
+        "discusses": {
+            "th": {
+                "name_class": "Nama Kelas",
+                "body": "Isi Diskusi",
+                "author": "Pengirim",
+                "comments": "Balasan",
+                "like": "Suka"
+            }
         }
     },
     "vidio_name": "Index Vidio",
@@ -128,5 +140,10 @@
     "category": "Kategori",
     "history_class": "Riwayat Kelas",
     "myaccount": "Akun Ku",
-    "logout": "Logout"
+    "logout": "Logout",
+    "Register": "Register",
+    "belum ditanggapi": "Belum Ditanggapi",
+    "ditanggapi": "Ditanggapi",
+    "sembunyikan": "Disembunyikan",
+    "type": "Ketik Sesuatu ..."
 }

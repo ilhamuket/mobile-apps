@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <span class="font-spartan font-weight-bold">
-          Discuss (0)
+          Discuss ({{ data.length }})
         </span>
         <br>
         <span class="font-spartan-small">
@@ -34,40 +34,57 @@
         </v-alert>
       </v-col>
     </v-row>
+    <v-row>
+      <v-col cols="12">
+        <v-text-field
+          id="question"
+          v-model="content"
+          placeholder="Apa Yang Anda Ingin Tanyakan Mengenai Kelas Ini ?"
+          class=""
+          append-icon="mdi-send"
+          @click:append="sendDiscusses"
+        >
+          <template #prepend>
+            <v-avatar v-if="me.img">
+              <v-img :src="me.img.url" />
+            </v-avatar>
+          </template>
+        </v-text-field>
+        <!-- <div class="d-flex flex-row-reverse mt-12">
+          <div class="d-flex flex-column">
+            <v-btn
+              color="btn_primary"
+              class="d-flex justify-end mb-4 margin__btn"
+              @click=""
+            >
+              Send
+            </v-btn>
+          </div>
+        </div> -->
+      </v-col>
+    </v-row>
     <v-row
-      v-if="isA"
+      v-if="data.length !== 0"
       class="row__hover"
     >
-      <v-col cols="12">
-        <!-- <v-avatar>
-          <v-img
-            src="https://ecs7.tokopedia.net/img/cache/100-square/default_picture_user/default_toped-16.jpg"
-          />
-        </v-avatar>
-
-        <span class="font-spartan-small font-weight-bold ml-1">
-          Mahardika
-        </span>
-        <br>
-        <span class="font-spartan-small margin-body">
-          Apa kah Bagus
-        </span>
-        <br>
-        <span
-          class="font-spartan-small text-h6 margin-actions grey--text"
-        >22 Maret 2002</span> -->
-        <div>
+      <v-col
+        v-for="(item, i) in data"
+        :key="i"
+        cols="12"
+      >
+        <div v-if="item.user">
           <div class="d-flex flex-row flex-nowrap flex_row ">
             <div class="d-flex flex-column">
               <v-avatar>
                 <v-img
-                  src="https://ecs7.tokopedia.net/img/cache/100-square/default_picture_user/default_toped-16.jpg"
+                  v-if="item.user.img"
+                  :src="item.user.img.url"
                 />
               </v-avatar>
             </div>
             <div class="d-flex flex-column">
               <span class="font-spartan-small ml-2">
-                mahardika
+                {{ item.user.nickName }}
               </span>
             </div>
 
@@ -81,7 +98,7 @@
             <div class="d-flex flex-row">
               <div class="d-flex flex-column">
                 <span class="font-spartan-small ml-2">
-                  Penulis
+                  {{ item.class.author_id === me.id ? 'Studio' : 'Visitor' }}
                 </span>
               </div>
             </div>
@@ -110,38 +127,18 @@
           <div class="d-flex flex-row margin__body mb-2">
             <div class="d-flex flex-column">
               <span class="font-spartan-small text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
-                sunt atque neque corporis. Illum similique nemo, praesentium
-                perspiciatis, exercitationem sed et odit, incidunt soluta
-                dolorum deleniti ad. Eum eaque cum facere ipsam a sequi optio
-                libero quia ipsa. Nam repudiandae ut impedit. Magnam nobis
-                mollitia unde et ad nulla repellendus?
+                {{ item.body }}
               </span>
             </div>
-            <!-- <div class="d-flex flex-columnn margin__icon_love">
-            <v-tooltip
-              color="btn_primary"
-              bottom
-            >
-              <template #activator="{on,attrs}">
-                <v-icon
-                  style="cursor:pointer"
-                  v-bind="attrs"
-                  class=""
-                  v-on="on"
-                >
-                  mdi-heart-outline
-                </v-icon>
-              </template>
-              <span class="font-spartan-small">6 people </span>
-            </v-tooltip>
-          </div> -->
           </div>
           <div class="d-flex flex-row margin__actions">
             <div class="d-flex-column">
               <span class="font-spartan-small">
-                22 hour ago
+                {{ timeSince(item.created_at) }}
               </span>
+            </div>
+            <div class="d-flex-column ml-4">
+              <v-icon>mdi-heart-outline</v-icon>
             </div>
             <div class="d-flex-column ml-4">
               <span
@@ -174,18 +171,27 @@
             </v-text-field>
           </div>
         </div>
-        <div class="reply">
+        <div
+          v-for="(child, z) in item.child"
+          :key="z"
+          class="reply"
+        >
           <div class="d-flex flex-row ml-12 mt-4">
             <div class="d-flex flex-column">
-              <v-avatar size="30">
+              <v-avatar
+                color="primary"
+                size="30"
+              >
                 <v-img
-                  src="https://ecs7.tokopedia.net/img/cache/100-square/default_picture_user/default_toped-16.jpg"
+                  v-if="child.user.img"
+                  :src="child.user.img.url"
                 />
+                <span v-else> {{ child.user.nickName.charAt(0) }} </span>
               </v-avatar>
             </div>
             <div class="d-flex flex-column">
               <span class="font-spartan-small ml-2">
-                mahardika
+                {{ child.user.nickName }}
               </span>
             </div>
 
@@ -198,9 +204,19 @@
             </div>
             <div class="d-flex flex-row">
               <div class="d-flex flex-column">
-                <span class="font-spartan-small ml-2">
-                  Penulis
-                </span>
+                <v-chip
+                  color="transparent"
+                  :text-color="
+                    child.class.author_id === child.user.id ? 'red' : 'black'
+                  "
+                  class="font-spartan-small chip__status"
+                >
+                  {{
+                    child.class.author_id === child.user.id
+                      ? 'Studio'
+                      : 'Visitor'
+                  }}
+                </v-chip>
               </div>
             </div>
             <div class="d-flex flex-row margin__icon__reply">
@@ -227,18 +243,17 @@
           </div>
           <div class="d-flex flex-column margin__reply__body">
             <span class="font-spartan-small">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi,
-              eaque cupiditate. Rerum possimus inventore perferendis quasi
-              maxime quidem quod! Dolore nam ducimus corrupti, eligendi repellat
-              repudiandae, praesentium voluptatibus rem est dolor dolorum ad.
-              Harum asperiores architecto minima pariatur fugit facilis.
+              {{ child.body }}
             </span>
           </div>
           <div class="d-flex flex-row margin__actions__reply">
             <div class="d-flex-column">
               <span class="font-spartan-small">
-                22 Hours
+                {{ timeSince(child.created_at) }}
               </span>
+            </div>
+            <div class="d-flex-column ml-4">
+              <v-icon>mdi-heart-outline</v-icon>
             </div>
             <div class="d-flex-column ml-4">
               <span
@@ -291,36 +306,27 @@
         </span>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col cols="12">
-        <v-textarea
-          id="question"
-          placeholder="Apa Yang Anda Ingin Tanyakan Mengenai Kelas Ini ?"
-          class=""
-          outlined
-        />
-        <div class="d-flex flex-row-reverse mt-12">
-          <div class="d-flex flex-column">
-            <v-btn
-              color="btn_primary"
-              class="d-flex justify-end mb-4 margin__btn"
-            >
-              Send
-            </v-btn>
-          </div>
-        </div>
-      </v-col>
-    </v-row>
   </v-container>
 </template>
 
 <script>
   export default {
+    props: {
+      data: {
+        type: Array,
+        default: null,
+      },
+      me: {
+        type: Object,
+        default: null,
+      },
+    },
     data: () => ({
       menu: false,
       isReply: false,
       isA: true,
       isReplies: false,
+      content: '',
     }),
     methods: {
       replyParentActive () {
@@ -385,6 +391,10 @@
         }
         return time
       },
+      sendDiscusses () {
+        this.$emit('send', { item: this.content })
+        this.content = null
+      },
     },
   }
 </script>
@@ -429,4 +439,6 @@
 .margin__reply
   margin-left: 80px
   margin-top: 10px
+.chip__status
+  margin-top: -8px
 </style>

@@ -36,6 +36,12 @@
     // },
     computed: {
       ...mapState(['drawer']),
+      cumputedStore () {
+        return this.$store.state.auth.token
+      },
+    },
+    mounted () {
+    // console.log(this.cumputedStore)
     },
     methods: {
       ...mapMutations({
