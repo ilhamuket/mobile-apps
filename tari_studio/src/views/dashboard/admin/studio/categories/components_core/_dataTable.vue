@@ -47,6 +47,9 @@
             <template #[`header.created_at`]="{ header }">
               {{ $t(header.text) }}
             </template>
+            <template #[`header.class`]="{ header }">
+              {{ $t(header.text) }}
+            </template>
 
             <!-- Items -->
             <template #[`item.name`]="{item}">
@@ -92,7 +95,7 @@
                     <div class="d-flex flex-column mt-2">
                       <a
                         class="font-a-delete d-flex flex-nowrap"
-                        @click="upDeleteClass(item)"
+                        @click="deleteById(item)"
                       >
                         <v-icon
                           color="red"
@@ -118,6 +121,9 @@
             </template>
             <template #[`item.created_at`]="{item}">
               {{ item.created_at | moment('MMMM Do YYYY') }}
+            </template>
+            <template #[`item.class`]="{item}">
+              {{ item.class.length }}
             </template>
           </v-data-table>
         </v-col>
@@ -160,6 +166,12 @@
           sortable: false,
           value: 'created_at',
         },
+        {
+          text: 'table.category.th.class',
+          align: 'start',
+          sortable: false,
+          value: 'class',
+        },
       ],
       selected: [],
       search: '',
@@ -172,6 +184,9 @@
       },
       popUpCreateCategory () {
         this.$emit('create')
+      },
+      deleteById (item) {
+        this.$emit('deleteById', { item: item })
       },
     },
   }

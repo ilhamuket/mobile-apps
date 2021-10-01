@@ -85,7 +85,7 @@
       },
     },
     data: () => ({
-      itemsStatus: ['publish', 'draft'],
+      itemsStatus: ['concept', 'draft'],
       form: {
         name: '',
         display_name: '',

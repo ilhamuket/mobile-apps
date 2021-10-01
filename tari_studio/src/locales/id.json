@@ -121,7 +121,8 @@
                 "name": "Nama",
                 "display_name": "Nama Tampilan",
                 "status": "Status",
-                "created_at": "Dibuat Pada"
+                "created_at": "Dibuat Pada",
+                "class": "Kelass"
             }
         },
         "discusses": {
@@ -131,6 +132,15 @@
                 "author": "Pengirim",
                 "comments": "Balasan",
                 "like": "Suka"
+            }
+        },
+        "reviews": {
+            "th": {
+                "name_class": "Nama Kelas",
+                "body": "Kontent",
+                "author": "Pengirim",
+                "ratings": "Nilai",
+                "status": "Status"
             }
         }
     },
@@ -145,5 +155,6 @@
     "belum ditanggapi": "Belum Ditanggapi",
     "ditanggapi": "Ditanggapi",
     "sembunyikan": "Disembunyikan",
-    "type": "Ketik Sesuatu ..."
+    "type": "Ketik Sesuatu ...",
+    "Segarkan": "Segarkan"
 }

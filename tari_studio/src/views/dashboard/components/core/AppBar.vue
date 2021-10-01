@@ -220,46 +220,55 @@
           v-on="on"
         >
           <v-list-item-avatar
+            v-if="computedStudio.img"
             color="primary"
-            size="36"
+            size="60"
           >
             <!-- <span class="white--text text-h5">{{ profile.initials }}</span> -->
             <v-img
               class="bg-img"
-              src="https://image.shutterstock.com/image-vector/user-login-authenticate-icon-human-260nw-1365533969.jpg"
+              :src="computedStudio.img.url"
             />
-          </v-list-item-avatar>
-          Hi, {{ users.nickName }}
-        </v-chip>
-      </template>
-
-      <v-list>
-        <v-list-item class="d-flex justify-center">
-          <v-list-item-avatar v-if="users.img">
-            <v-img :src="users.img.url" />
           </v-list-item-avatar>
           <v-list-item-avatar
             v-else
             color="primary"
             size="36"
           >
-            <span class="pallet1--text text-h5 ml-3 text-capitalize">{{
-              users.nickName.charAt(0)
-            }}</span>
+            <v-img src="http://127.0.0.1:8000/images/469439.png" />
+          </v-list-item-avatar>
+          Hi, {{ users.nickName }}
+        </v-chip>
+      </template>
+
+      <v-list width="400">
+        <v-list-item class="d-flex justify-center">
+          <v-list-item-avatar
+            v-if="computedStudio.img"
+            size="60"
+          >
+            <v-img :src="computedStudio.img.url" />
+          </v-list-item-avatar>
+          <v-list-item-avatar
+            v-else
+            color="primary"
+            size="36"
+          >
+            <v-img src="http://127.0.0.1:8000/images/469439.png" />
           </v-list-item-avatar>
         </v-list-item>
         <v-list-item
           class="d-flex justify-center"
           link
-          to="pages/profile"
+          to="/"
         >
           <v-list-item-content>
             <v-list-item-title
-              class="text-h5 font-spartan text-center text-capitalize"
+              class="text-h4 font-spartan text-center text-capitalize"
             >
               {{ users.nickName }}
             </v-list-item-title>
-            <v-list-item-subtitle class="text-h6 font-spartan text-center">
+            <v-list-item-subtitle class="text-h5 font-spartan text-center">
               {{ users.email }}
             </v-list-item-subtitle>
           </v-list-item-content>
@@ -336,7 +345,7 @@
         {
           icon: 'mdi-account-outline',
           text: 'myaccount',
-          to: 'pages/profile',
+          to: '/dashboard/profile',
         },
         {
           icon: 'mdi-account',
@@ -359,10 +368,7 @@
     computed: {
       ...mapState(['drawer']),
       users () {
-        const me = localStorage.getItem('ME')
-        const users = JSON.parse(me)
-
-        return users
+        return this.$store.state.user.me
       },
       fullName () {
         return (
@@ -378,6 +384,9 @@
             this.$store.state.user.lastName.charAt(0),
         }
       },
+      computedStudio () {
+        return this.$store.state.studio.me
+      },
     },
 
     mounted () {
@@ -388,16 +397,30 @@
       } else {
         this.$vuetify.theme.dark = false
       }
+      this.getStudioMe()
     },
     methods: {
       ...mapMutations({
         setDrawer: 'SET_DRAWER',
       }),
+      getStudioMe () {
+        this.$store
+          .dispatch('studio/getDataMeStudio', {
+            entities: 'likes,followers,img',
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              this.is_load = false
+            }
+          })
+      },
       toogle_dark_theme () {
         localStorage.setItem('dark_theme', this.$vuetify.theme.dark.toString())
       },
       getMe () {
-        this.$store.dispatch('user/me')
+        this.$store.dispatch('user/me', {
+          entities: 'studio.img',
+        })
       },
     },
   }

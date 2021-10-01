@@ -144,7 +144,7 @@
               <span
                 style="cursor:pointer"
                 class="font-spartan-small"
-                @click="replyParentActive"
+                @click="replyParentActive(item)"
               >
                 Reply
               </span>
@@ -179,6 +179,16 @@
           <div class="d-flex flex-row ml-12 mt-4">
             <div class="d-flex flex-column">
               <v-avatar
+                v-if="child.class.author_id === child.user.id"
+                size="37"
+              >
+                <v-img
+                  v-if="child.user.studio.img"
+                  :src="child.user.studio.img.url"
+                />
+              </v-avatar>
+              <v-avatar
+                v-else
                 color="primary"
                 size="30"
               >
@@ -259,35 +269,45 @@
               <span
                 style="cursor:pointer"
                 class="font-spartan-small"
-                @click="replyChildActive"
+                @click="replyChildActive(child)"
               >
                 Reply
               </span>
             </div>
           </div>
-        </div>
-
-        <div
-          v-if="isReplies"
-          class="d-flex-row mt-2 margin__reply"
-        >
-          <div class="d-flex flex-column">
-            <v-text-field
-              placeholder="Isi Komentar Disini"
-              label="Isi Komentar Disini"
-              append-icon="mdi-send"
-              prefix="@mahardika"
-            >
-              <template #prepend>
-                <v-avatar size="30">
-                  <v-img
-                    src="https://ecs7.tokopedia.net/img/cache/100-square/default_picture_user/default_toped-16.jpg"
-                  />
-                </v-avatar>
-              </template>
-            </v-text-field>
+          <div
+            v-if="child.isChildReplies"
+            class="d-flex-row mt-2 margin__reply"
+          >
+            <div class="d-flex flex-column">
+              <v-text-field
+                v-if="child.user"
+                placeholder="Isi Komentar Disini"
+                label="Isi Komentar Disini"
+                append-icon="mdi-send"
+                :prefix="`@${child.user.nickName}`"
+              >
+                <template #prepend>
+                  <v-avatar size="30">
+                    <v-img
+                      src="https://ecs7.tokopedia.net/img/cache/100-square/default_picture_user/default_toped-16.jpg"
+                    />
+                  </v-avatar>
+                </template>
+              </v-text-field>
+            </div>
           </div>
         </div>
+      </v-col>
+      <v-col
+        v-if="stateLoad"
+        cols="12"
+        class="d-flex justify-center"
+      >
+        <v-progress-circular
+          indeterminate
+          color="primary"
+        />
       </v-col>
     </v-row>
     <v-row
@@ -320,6 +340,10 @@
         type: Object,
         default: null,
       },
+      stateLoad: {
+        type: Boolean,
+        default: false,
+      },
     },
     data: () => ({
       menu: false,
@@ -329,11 +353,11 @@
       content: '',
     }),
     methods: {
-      replyParentActive () {
-        this.isReply = !this.isReply
+      replyParentActive (item) {
+        item.isReplies = !item.isReplies
       },
-      replyChildActive () {
-        this.isReplies = !this.isReplies
+      replyChildActive (item) {
+        item.isChildReplies = !item.isChildReplies
       },
       timeSince (time) {
         switch (typeof time) {

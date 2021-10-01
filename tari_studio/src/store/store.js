@@ -30,12 +30,14 @@ import studioInstructor from './module/studioOwner/instructor/index'
 import studioInstructorSummary from './module/studioOwner/instructor/summary/index'
 
 // Studio Categories
-import studioCategories from './module/studioOwner/classes/studio_category/index'
+import studioCategories from './module/studioOwner/studio_category/index'
+import summary from './module/studioOwner/studio_category/summary'
 // Vidio
 import studioOwnerVidio from './module/studioOwner/vidio/index'
 
 // Summary
 import dashboardSummary from './module/studioOwner/summary/index'
+import studios from './module/studioOwner/index'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -60,6 +62,8 @@ export default new Vuex.Store({
     dashboardSummary: dashboardSummary,
     studioReviews: studioReviews,
     studioDiscusses: studioDiscusses,
+    categorySummary: summary,
+    studios: studios,
   },
   state: {
     barColor: 'rgba(0, 0, 0, .8), rgba(0, 0, 0, .8)',

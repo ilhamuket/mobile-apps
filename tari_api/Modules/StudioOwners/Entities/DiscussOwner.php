@@ -46,10 +46,6 @@ class DiscussOwner extends Model
             $discuss->child()->each(function ($photo) {
                 $photo->delete(); // <-- direct deletion
             });
-            // $discuss->posts()->each(function ($post) {
-            //     $post->delete(); // <-- raise another deleting event on Post to delete comments
-            // });
-            // do the rest of the cleanup...
         });
     }
 

@@ -232,6 +232,7 @@
     <app-discuss
       :data="discuss.data"
       :me="users"
+      :state-load="state_load"
       @send="replyDataDiscusses"
     />
   </div>
@@ -254,6 +255,7 @@
         picker: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
           .toISOString()
           .substr(0, 10),
+        state_load: false,
       }
     },
     computed: {
@@ -326,11 +328,13 @@
         this.$store
           .dispatch('studioDiscuses/getDataDiscusses', {
             class_slug: this.$route.params.class_slug,
-            entities: 'class,user.img,child.user.img, child.class',
+            entities:
+              'class,user.img,child.user.img, child.class,child.user.studio.img',
             page: page,
           })
           .then(res => {
             if (res.data.meta.status) {
+              this.state_load = true
               this.discuss.meta = res.data.meta
               this.discuss.links = res.data.links
               if (
@@ -338,9 +342,10 @@
                 this.computedDiscuss.id !== this.discuss.data.id
               ) {
                 this.discuss.data = res.data.data
+                this.state_load = false
               } else {
                 this.discuss.data.push(...res.data.data)
-              // this.is_load = false
+                this.state_load = false
               }
             }
           })

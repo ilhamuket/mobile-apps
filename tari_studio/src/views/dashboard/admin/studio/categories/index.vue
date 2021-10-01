@@ -9,8 +9,8 @@
         <base-material-stats-card
           color="info"
           icon="mdi-twitter"
-          title="Followers"
-          value="+245"
+          title="All"
+          :value="String(summary.all)"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
         />
@@ -23,8 +23,8 @@
         <base-material-stats-card
           color="info"
           icon="mdi-twitter"
-          title="Followers"
-          value="+245"
+          title="Publish"
+          :value="String(summary.publish)"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
         />
@@ -37,8 +37,8 @@
         <base-material-stats-card
           color="info"
           icon="mdi-twitter"
-          title="Followers"
-          value="+245"
+          title="Concept"
+          :value="String(summary.concept)"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
         />
@@ -51,8 +51,8 @@
         <base-material-stats-card
           color="info"
           icon="mdi-twitter"
-          title="Followers"
-          value="+245"
+          title="draft"
+          :value="String(summary.draft)"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
         />
@@ -61,6 +61,7 @@
         <app-data-category
           :data="categories"
           @create="popUpDialogCreate"
+          @deleteById="popDialogDeleteById"
         />
       </v-col>
     </v-row>
@@ -68,25 +69,38 @@
       :dialog="dialogCreate"
       @input="createDataCategory"
     />
+    <app-data-notice
+      :dialog="deleteById"
+      @input="deleteCategoryById"
+    />
   </v-container>
 </template>
 
 <script>
   import componentsCategory from './components_core/_dataTable.vue'
   import dialogForm from './components/__dialogForm.vue'
+  import dialogNotice from './components/__dialogNotice.vue'
   export default {
     components: {
       'app-data-category': componentsCategory,
       'app-data-create': dialogForm,
+      'app-data-notice': dialogNotice,
     },
     data: () => ({
       dialogCreate: {
         open: false,
       },
+      deleteById: {
+        open: false,
+        data: {},
+      },
     }),
     computed: {
       categories () {
         return this.$store.state.studioCategories.data
+      },
+      summary () {
+        return this.$store.state.categorySummary.data
       },
     },
     mounted () {
@@ -94,7 +108,9 @@
     },
     methods: {
       getDataStudioCategories () {
-        this.$store.dispatch('studioCategories/getDataStudioCategories')
+        this.$store.dispatch('studioCategories/getDataStudioCategories', {
+          entities: 'class',
+        })
       },
       createDataCategory ({ item }) {
         this.$store
@@ -128,8 +144,18 @@
             }
           })
       },
+      getDataCategorySummary () {
+        this.$store.dispatch('categorySummary/getDataCategorySummary')
+      },
       popUpDialogCreate () {
         this.dialogCreate.open = true
+      },
+      popDialogDeleteById ({ item }) {
+        this.deleteById.open = true
+        this.deleteById.data = item
+      },
+      deleteCategoryById ({ item }) {
+        console.log(item)
       },
     },
   }

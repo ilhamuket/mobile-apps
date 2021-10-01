@@ -29,7 +29,7 @@
 
     mounted () {
       this.$store.dispatch('user/me', {
-        entities: 'followingStudio, studio',
+        entities: 'followingStudio, studio.img',
       })
     },
   }

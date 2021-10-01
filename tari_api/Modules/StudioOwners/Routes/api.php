@@ -10,6 +10,7 @@ use Modules\StudioOwners\Http\Controllers\ClassesOwnerStudioController;
 use Modules\StudioOwners\Http\Controllers\DiscussController;
 use Modules\StudioOwners\Http\Controllers\ImgClassesController;
 use Modules\StudioOwners\Http\Controllers\ImgListClassController;
+use Modules\StudioOwners\Http\Controllers\ReviewOwnerController;
 use Modules\StudioOwners\Http\Controllers\StudioOwnerCategoryController;
 use Modules\StudioOwners\Http\Controllers\StudioOwnersController;
 use Modules\StudioOwners\Http\Controllers\StudioOwnerVidioController;
@@ -89,11 +90,19 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
     Route::prefix('categories')->group(function () {
         Route::get('', [StudioOwnerCategoryController::class, 'index']);
         Route::post('', [StudioOwnerCategoryController::class, 'store']);
+        Route::delete('/delete/{id}', [StudioOwnerCategoryController::class, 'destroy']);
+        Route::get('summary', [StudioOwnerCategoryController::class, 'summary']);
     });
 
     Route::prefix('discusses')->group(function () {
         Route::get('/index', [DiscussController::class, 'index']);
         Route::post('/replies', [DiscussController::class, 'replies']);
+        Route::post('/delete', [DiscussController::class, 'deleteAll']);
+        Route::post('/hide', [DiscussController::class, 'toHide']);
         Route::delete('/{id}', [DiscussController::class, 'destroy']);
+    });
+
+    Route::prefix('reviews')->group(function () {
+        Route::get('/', [ReviewOwnerController::class, 'index']);
     });
 });

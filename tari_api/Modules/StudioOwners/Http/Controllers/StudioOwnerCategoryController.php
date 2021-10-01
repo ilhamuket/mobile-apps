@@ -13,6 +13,96 @@ use Modules\StudioOwners\Entities\StudioOwnerCategory;
 
 class StudioOwnerCategoryController extends Controller
 {
+    public function summary(Request $request)
+    {
+        try {
+            $me = $request->user();
+            $studio = OwnerStudio::where('author_id', $me->id)->first();
+            $data = [
+                'all' => 0,
+                'publish' => 0,
+                'concept' => 0,
+                'draft' => 0,
+                "hide" => 0,
+            ];
+
+            $data['all'] = StudioOwnerCategory::where('studio_id', $studio->id)->count();
+            $data['publish'] = StudioOwnerCategory::where('studio_id', $studio->id)
+                ->where('status', 'publish')
+                ->count();
+            $data['concept'] = StudioOwnerCategory::where('studio_id', $studio->id)
+                ->where('status', 'concept')
+                ->count();
+            $data['draft'] = StudioOwnerCategory::where('studio_id', $studio->id)
+                ->where('status', 'draft')
+                ->count();
+            $data['hide'] = StudioOwnerCategory::where('studio_id', $studio->id)
+                ->where('status', 'hide')
+                ->count();
+
+            return Json::response($data);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+    public function approvedAll(Request $request)
+    {
+        try {
+            if (is_array($request->id)) {
+                foreach ($request->id as $id) {
+                    $master = StudioOwnerCategory::findOrFail($id);
+                    $master->isVerified = 1;
+                    $master->status = 'publish';
+                    $master->save();
+                }
+                return Json::response($master);
+            }
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+    public function deleteAll(Request $request)
+    {
+        try {
+            if (is_array($request->id)) {
+                foreach ($request->id as $id) {
+                    $master = StudioOwnerCategory::findOrFail($id);
+                    $master->delete();
+                }
+                return Json::response($master);
+            }
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+
+    public function approve(Request $request, $id)
+    {
+        try {
+            $master = StudioOwnerCategory::findOrFail($id);
+            $master->isVerified = 1;
+            $master->status = 'publish';
+            $master->save();
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     /**
      * Display a listing of the resource.
      * @return Renderable
@@ -112,6 +202,16 @@ class StudioOwnerCategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $master = StudioOwnerCategory::findOrFail($id);
+            $master->delete();
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 }

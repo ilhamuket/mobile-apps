@@ -85,6 +85,7 @@ class ReviewController extends Controller
             $master->body = $request->body;
             $master->ratings = $request->ratings;
             $master->class_id = $request->class_id;
+            $master->status = 'belum ditanggapi';
             $master->studio_id = $request->studio_id;
             $master->user_id = $request->user()->id;
             $master->save();

@@ -121,7 +121,8 @@
         "name": "Name",
         "display_name": "Display Name",
         "status": "Status",
-        "created_at": "Created_at"
+        "created_at": "Created_at",
+        "class": "Class"
       }
     },
     "discusses": {
@@ -131,6 +132,15 @@
         "author": "Author",
         "comments": "Replies",
         "like": "Like"
+      }
+    },
+    "reviews": {
+      "th": {
+        "name_class": "Nama Kelas",
+        "body": "Contents",
+        "author": "Author",
+        "ratings": "Ratings",
+        "status": "Status"
       }
     }
   },
@@ -145,5 +155,6 @@
   "belum ditanggapi": "Not Responded",
   "ditanggapi": "Responded",
   "sembunyikan": "hidden",
-  "type": "Type Something ..."
+  "type": "Type Something ...",
+  "Segarkan": "Refresh"
 }

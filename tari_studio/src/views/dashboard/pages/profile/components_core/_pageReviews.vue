@@ -9,7 +9,6 @@
           small
           dark
           color="primary"
-          @click="refreshMethods"
         >
           <v-tooltip
             color="primary"
@@ -37,15 +36,15 @@
         md="4"
       >
         <v-text-field
-          v-model="search"
-          :label="$t('search')"
           :placeholder="$t('type')"
+          :label="$t('search')"
           append-icon="mdi-magnify"
         />
       </v-col>
       <v-col
         cols="12"
         md="8"
+        sm="4"
         class="d-flex flex-row-reverse"
       >
         <div class="text-center ml-2">
@@ -95,17 +94,16 @@
           Delete {{ selected.length }} item
         </v-btn>
       </v-col>
-
       <v-col cols="12">
         <v-data-table
           v-model="selected"
-          :search="search"
           :items="data"
           :headers="headers"
           show-select
           mobile-breakpoint="0"
           :items-per-page="5"
         >
+          <!-- Headers -->
           <template #[`header.user.firstName`]="{ header }">
             {{ $t(header.text) }}
           </template>
@@ -115,13 +113,9 @@
           <template #[`header.class.name`]="{ header }">
             {{ $t(header.text) }}
           </template>
-          <template #[`header.child.firstName`]="{ header }">
+          <template #[`header.ratings`]="{ header }">
             {{ $t(header.text) }}
           </template>
-          <template #[`header.likes`]="{ header }">
-            {{ $t(header.text) }}
-          </template>
-
           <!-- Items -->
           <template #[`item.id`]="{item}">
             <v-avatar
@@ -129,9 +123,6 @@
               size="60"
             >
               <v-img :src="item.user.img.url" />
-            </v-avatar>
-            <v-avatar v-else>
-              <v-img src="http://127.0.0.1:8000/images/469439.png" />
             </v-avatar>
           </template>
           <template #[`item.user.firstName`]="{item}">
@@ -142,23 +133,6 @@
             </div>
             <div class="bg-hover">
               <div class="d-flex flex-row flex-nowrap">
-                <!-- <div>
-                  <div class="d-flex flex-column flex-nowrap mt-2">
-                    <a
-                      class="font-a d-flex flex-nowrap"
-                      @click="upDialogeditClass(item)"
-                    >
-                      <v-icon
-                        small
-                        color="blue"
-                        class="mr-1"
-                      >
-                        mdi-pencil
-                      </v-icon>
-                      Edit
-                    </a>
-                  </div>
-                </div> -->
                 <div>
                   <div class="d-flex flex-column mt-2 ml-1 mr-1">
                     <a
@@ -195,16 +169,13 @@
               </div>
             </div>
           </template>
-          <template #[`item.class.name`]="{item}">
-            {{ item.class.name }}
+          <template #[`item.ratings`]="{item}">
+            <v-rating
+              v-model="item.ratings"
+              readonly
+              small
+            />
           </template>
-          <template #[`item.child.firstName`]="{item}">
-            {{ item.child.length }}
-          </template>
-          <template #[`item.likes`]="{item}">
-            {{ item.likes.length }}
-          </template>
-
           <template #[`item.status`]="{item}">
             <v-chip
               label
@@ -229,40 +200,35 @@
       },
     },
     data: () => ({
+      selected: [],
       headers: [
         {
           text: '#',
           value: 'id',
         },
         {
-          text: 'table.discusses.th.author',
+          text: 'table.reviews.th.author',
           align: 'start',
           sortable: false,
           value: 'user.firstName',
         },
         {
-          text: 'table.discusses.th.body',
+          text: 'table.reviews.th.body',
           align: 'start',
           sortable: false,
           value: 'body',
         },
         {
-          text: 'table.discusses.th.name_class',
+          text: 'table.reviews.th.name_class',
           align: 'start',
           sortable: false,
           value: 'class.name',
         },
         {
-          text: 'table.discusses.th.comments',
+          text: 'table.reviews.th.ratings',
           align: 'start',
           sortable: false,
-          value: 'child.firstName',
-        },
-        {
-          text: 'table.discusses.th.like',
-          align: 'start',
-          sortable: false,
-          value: 'likes',
+          value: 'ratings',
         },
         {
           text: 'Status',
@@ -271,19 +237,8 @@
           value: 'status',
         },
       ],
-      search: '',
-      selected: [],
     }),
     methods: {
-      reply (item) {
-        this.$emit('reply', { item: item })
-      },
-      refreshMethods () {
-        this.$emit('refresh')
-      },
-      deleteDiscuss (item) {
-        this.$emit('delete', { item: item })
-      },
       setColorStatus (status) {
         if (status === 'belum ditanggapi') return 'red'
         if (status === 'ditanggapi') return 'btn_primary'
@@ -291,9 +246,5 @@
     },
   }
 </script>
-<style lang="sass">
-.size__icon_refresh
-  font-size: 20px
-// .nickName
-//   padding: 20px
-</style>
+
+<style></style>

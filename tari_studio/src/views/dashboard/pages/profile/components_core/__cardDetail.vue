@@ -16,6 +16,9 @@
             >
               <v-img :src="`${studio.img.url}`" />
             </v-avatar>
+            <v-avatar v-else>
+              <v-img src="http://127.0.0.1:8000/images/469439.png" />
+            </v-avatar>
           </v-col>
           <v-col
             class="mt-4"

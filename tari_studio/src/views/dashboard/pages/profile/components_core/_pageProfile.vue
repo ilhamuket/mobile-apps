@@ -10,6 +10,7 @@
             <v-icon
               color="blue"
               class="margin__icon__pencils__user"
+              @click="editProfile(data)"
             >
               mdi-pencil
             </v-icon>
@@ -294,6 +295,9 @@
       //     },
       //   })
       // }
+      },
+      editProfile (item) {
+        this.$emit('edit', { item: item })
       },
     },
   }

@@ -2,24 +2,30 @@ import axios from 'axios'
 export default {
   namespaced: true,
   state: {
-    data: [],
+    data: {},
   },
   getters: {},
   mutations: {
-    GET_DATA: (state, payload) => (state.data = payload),
+    UPDATE_DATA: (state, payload) => {
+      state.data.name = payload.name
+      state.data.prefix = payload.prefix
+      state.data.email = payload.email
+      state.data.contact = payload.contact
+      state.data.address = payload.address
+      state.data.about = payload.about
+    },
   },
   actions: {
-    getDataReviewsStudio: ({ commit }, payload) => {
+    updateDataStudios: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
         'Bearer ' + localStorage.getItem('access_token')
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
-        const params = { ...payload }
         axios
-          .get('owner/reviews', { params: params })
+          .post('owner/studio/update', { ...payload })
           .then(res => {
-            commit('GET_DATA', res.data.data)
+            commit('UPDATE_DATA', res.data.data)
             resolve(res)
           })
           .catch(e => {

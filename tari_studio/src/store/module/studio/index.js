@@ -7,6 +7,7 @@ export default {
     dataBySlug: {},
     me: {},
     isLoad: true,
+    state_load: true,
   },
   getters: {
     data: state => state.data,
@@ -16,6 +17,7 @@ export default {
     GET_DATA_STUDIO: (state, payload) => (state.data = payload),
     GET_DATA_STUDIO_BY_SLUG: (state, payload) => (state.dataBySlug = payload),
     GET_OFF: state => (state.isLoad = false),
+    STATE_LOAD: state => (state.state_load = false),
     GET_ME: (state, payload) => (state.me = payload),
   },
   actions: {

@@ -4,10 +4,11 @@ namespace Modules\StudioOwners\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class StudioOwnerCategory extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [];
     protected $table = 'categories';
@@ -25,6 +26,16 @@ class StudioOwnerCategory extends Model
     public function studio()
     {
         return $this->belongsTo(OwnerStudio::class, 'studio_id');
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+        self::deleting(function ($categories) { // before delete() method call this
+            $categories->class()->each(function ($items) {
+                $items->delete(); // <-- direct deletion
+            });
+        });
     }
 
     // ==== Scope === //

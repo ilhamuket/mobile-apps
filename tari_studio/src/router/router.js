@@ -12,12 +12,13 @@ const router = new Router({
   routes: [
     {
       path: '/',
+      redirect: '/dashboard/home',
       component: () => import('@/views/dashboard/Index'),
       children: [
         // Dashboard
         {
           name: 'dashboard',
-          path: '',
+          path: '/dashboard/:params',
           component: () => import('@/views/dashboard/pages/profile/index'),
           meta: {
             breadcumbs: [
@@ -32,6 +33,15 @@ const router = new Router({
               },
             ],
             requiresAuth: true,
+          },
+          beforeEnter (to, _, next) {
+            if (
+              ['home', 'profile', 'socmed', 'discusses', 'reviews'].includes(
+                to.params.params,
+              )
+            ) {
+              next()
+            } else next({ name: 'index_class' })
           },
         },
         // Pages

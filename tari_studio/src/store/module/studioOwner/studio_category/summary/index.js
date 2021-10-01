@@ -1,15 +1,22 @@
 import axios from 'axios'
+
 export default {
   namespaced: true,
   state: {
-    data: [],
+    data: {
+      all: 2,
+      publish: 2,
+      concept: 0,
+      draft: 0,
+      hide: 0,
+    },
   },
   getters: {},
   mutations: {
     GET_DATA: (state, payload) => (state.data = payload),
   },
   actions: {
-    getDataReviewsStudio: ({ commit }, payload) => {
+    getDataCategorySummary: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
         'Bearer ' + localStorage.getItem('access_token')
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
@@ -17,7 +24,7 @@ export default {
       return new Promise((resolve, reject) => {
         const params = { ...payload }
         axios
-          .get('owner/reviews', { params: params })
+          .get('owner/categories/summary', { params: params })
           .then(res => {
             commit('GET_DATA', res.data.data)
             resolve(res)
