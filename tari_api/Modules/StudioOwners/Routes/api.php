@@ -90,8 +90,12 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
     Route::prefix('categories')->group(function () {
         Route::get('', [StudioOwnerCategoryController::class, 'index']);
         Route::post('', [StudioOwnerCategoryController::class, 'store']);
-        Route::delete('/delete/{id}', [StudioOwnerCategoryController::class, 'destroy']);
+        Route::post('delete', [StudioOwnerCategoryController::class, 'deleteAll']);
+        Route::post('approve', [StudioOwnerCategoryController::class, 'approvedAll']);
         Route::get('summary', [StudioOwnerCategoryController::class, 'summary']);
+        Route::patch('update/{id}', [StudioOwnerCategoryController::class, 'update']);
+        Route::patch('approve/{id}', [StudioOwnerCategoryController::class, 'approve']);
+        Route::delete('/delete/{id}', [StudioOwnerCategoryController::class, 'destroy']);
     });
 
     Route::prefix('discusses')->group(function () {
@@ -104,5 +108,10 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
 
     Route::prefix('reviews')->group(function () {
         Route::get('/', [ReviewOwnerController::class, 'index']);
+        Route::post('/', [ReviewOwnerController::class, 'store']);
+        Route::post('/delete', [ReviewOwnerController::class, 'deleteAll']);
+        Route::post('/hide', [ReviewOwnerController::class, 'hide']);
+        Route::post('/show', [ReviewOwnerController::class, 'show']);
+        Route::delete('/{id}', [ReviewOwnerController::class, 'destroy']);
     });
 });

@@ -64,7 +64,12 @@
     "textById": "Are you sure you want to delete the title",
     "approved": "Are You Sure Want to Approve",
     "discuss": {
-      "del": "Are you sure want to delete Discuss with content"
+      "del": "Are you sure want to delete Discuss with content",
+      "hide": "Are you sure want to hide discuss with content"
+    },
+    "reviews": {
+      "del": "Are you sure want to delete reviews with content",
+      "hide": "Are you sure want to hide reviews with content"
     }
   },
   "table": {
@@ -122,7 +127,7 @@
         "display_name": "Display Name",
         "status": "Status",
         "created_at": "Created_at",
-        "class": "Class"
+        "class": "Total Class"
       }
     },
     "discusses": {
@@ -144,6 +149,8 @@
       }
     }
   },
+  "reviews": "Reviews",
+  "discusses": "Discusses",
   "vidio_name": "Index Video",
   "vidio_name_page": "Video Profile",
   "index_class_data_table": "Class",

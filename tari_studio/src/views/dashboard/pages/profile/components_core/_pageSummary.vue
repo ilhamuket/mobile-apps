@@ -61,6 +61,36 @@
           @click.native="toNavigate('/instructor')"
         />
       </v-col>
+      <v-col
+        cols="12"
+        lg="6"
+      >
+        <base-material-stats-card
+          color="primary"
+          icon="mdi-account-cowboy-hat-outline"
+          :title="$t('discusses')"
+          :value="String(summary.discuss)"
+          sub-icon="mdi-clock"
+          sub-text="Just Updated"
+          style="cursor:pointer"
+          @click.native="toNavigate('/instructor')"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        lg="6"
+      >
+        <base-material-stats-card
+          color="primary"
+          icon="mdi-account-cowboy-hat-outline"
+          :title="$t('reviews')"
+          :value="String(summary.reviews)"
+          sub-icon="mdi-clock"
+          sub-text="Just Updated"
+          style="cursor:pointer"
+          @click.native="toNavigate('/instructor')"
+        />
+      </v-col>
     </v-row>
   </v-container>
 </template>

@@ -28,6 +28,7 @@ class DiscussController extends Controller
             })
                 ->entities($request->entities)
                 ->where('user_id', '!=', $request->user()->id)
+                // ->orderBy('id', 'desc')
                 ->get();
 
             return Json::response($master);
@@ -99,6 +100,7 @@ class DiscussController extends Controller
             $master->parent_id = $request->parent_id;
             $master->user_id = $request->user()->id;
             $master->status = 'ditanggapi';
+            $master->is_response = 1;
             $master->class_id = $class->id;
             $master->save();
             $master->user;

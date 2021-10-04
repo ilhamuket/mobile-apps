@@ -25,6 +25,7 @@ class DiscussController extends Controller
             })
                 ->whereNull('parent_id')
                 ->entities($request->entities)
+                ->orderBy('id', 'desc')
                 ->paginate(2);
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

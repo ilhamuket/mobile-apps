@@ -78,16 +78,18 @@
           class="ml-2"
           outlined
           color="blue"
+          @click="upHide(selected)"
         >
           <v-icon>
             mdi-check-decagram
           </v-icon>
-          Approve {{ selected.length }} item
+          Hide {{ selected.length }} item
         </v-btn>
         <v-btn
           :disabled="selected.length === 0"
           outlined
           color="red"
+          @click="upDelete(selected)"
         >
           <v-icon>
             mdi-delete-empty-outline
@@ -287,6 +289,13 @@
       setColorStatus (status) {
         if (status === 'belum ditanggapi') return 'red'
         if (status === 'ditanggapi') return 'btn_primary'
+      },
+      upDelete (item) {
+        this.$emit('deleteSelected', { item: item })
+      },
+      upHide (item) {
+        this.$emit('hideSelected', { item: item })
+        console.log('ja')
       },
     },
   }

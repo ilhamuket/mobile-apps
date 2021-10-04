@@ -62,7 +62,7 @@ class ClassesOwnerStudioController extends Controller
                 $id = $request->id;
                 foreach ($id as $studio_id) {
                     $master = ClassesOwnerStudio::findOrFail($studio_id);
-                    $master->status = true;
+                    $master->status = 'Publish';
                     $master->save();
                 }
             } else {

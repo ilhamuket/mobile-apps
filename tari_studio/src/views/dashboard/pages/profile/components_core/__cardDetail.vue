@@ -96,6 +96,7 @@
             <v-rating
               v-model="computedRatings"
               readonly
+              half-increments
               background-color="grey"
               color="green"
               class="margin__ratings__user"

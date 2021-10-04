@@ -211,6 +211,21 @@ const router = new Router({
             requiresAuth: true,
           },
         },
+        // Category
+        {
+          name: 'category',
+          path: '/category',
+          component: () => import('@/views/dashboard/pages/category/index'),
+          meta: {
+            breadcumbs: [
+              {
+                text: 'Dashboard',
+                to: '/',
+              },
+            ],
+            requiresAuth: true,
+          },
+        },
         {
           name: 'cart',
           path: 'cart',

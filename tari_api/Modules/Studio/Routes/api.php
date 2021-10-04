@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Modules\Studio\Entities\ClassesScheduleStudio;
 use Modules\Studio\Entities\StudioClass;
 use Modules\Studio\Http\Controllers\CartClassController;
+use Modules\Studio\Http\Controllers\CategoryController;
 use Modules\Studio\Http\Controllers\ClassesScheduleStudioController;
 use Modules\Studio\Http\Controllers\CommentStudioVidioController;
 use Modules\Studio\Http\Controllers\DiscussController;
@@ -39,8 +40,6 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
     Route::post('approve', [StudioController::class, 'studioApprove']);
     // u
     Route::prefix('u')->group(function () {
-
-
         // classes 
         Route::get('classes', [StudioClassController::class, 'indexClasses']);
         Route::get('c/search', [StudioClassController::class, 'indexSearch']);
@@ -79,6 +78,10 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
         // article
         Route::get('article/{slug}', [StudioArticleController::class, 'index']);
         Route::get('class/{studio_slug}/{slug}', [StudioClassController::class, 'indexBySlug']);
+
+        Route::prefix('categories')->group(function () {
+            Route::get('/', [CategoryController::class, 'index']);
+        });
     });
     Route::prefix('cart')->group(function () {
         Route::post('', [CartClassController::class, 'storeWistlist']);

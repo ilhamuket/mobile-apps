@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Studio\Entities\Reviews;
 use Modules\StudioOwners\Entities\ClassesOwnerStudio;
+use Modules\StudioOwners\Entities\DiscussOwner;
 use Modules\StudioOwners\Entities\OwnerStudio;
 use Modules\StudioOwners\Entities\StudioOwnerCategory;
 use Modules\StudioOwners\Entities\StudioOwnerVidio;
@@ -70,6 +71,8 @@ class StudioOwnersController extends Controller
                 'instructor' => 0,
                 'category' => 0,
                 'vidio_profile' => 0,
+                'reviews' => 0,
+                "discuss" => 0,
             ];
 
             $data['classes'] = ClassesOwnerStudio::whereHas('studio', function (Builder $query) use ($studio) {
@@ -82,6 +85,12 @@ class StudioOwnersController extends Controller
                 $query->where('id', $studio->id);
             })->count();
             $data['vidio_profile'] = StudioOwnerVidio::whereHas('studio', function (Builder $query) use ($studio) {
+                $query->where('id', $studio->id);
+            })->count();
+            $data['discuss'] = DiscussOwner::whereHas('class', function (Builder $query) use ($studio) {
+                $query->where('studio_id', $studio->id);
+            })->count();
+            $data['reviews'] = Reviews::whereHas('studio', function (Builder $query) use ($studio) {
                 $query->where('id', $studio->id);
             })->count();
 

@@ -126,18 +126,19 @@
         {
           icon: 'mdi-view-dashboard',
           title: 'dashboard',
-          to: '/',
-        },
-        {
-          icon: 'mdi-account-group-outline',
-          title: 'classes',
-          to: '/class',
+          to: '/dashboard/home',
         },
         {
           icon: 'mdi-playlist-check',
           title: 'category',
           to: '/category',
         },
+        {
+          icon: 'mdi-account-group-outline',
+          title: 'classes',
+          to: '/class',
+        },
+
         {
           icon: 'mdi-account-cowboy-hat-outline',
           title: 'instrucktur',

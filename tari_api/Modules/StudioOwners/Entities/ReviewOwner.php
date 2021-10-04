@@ -5,10 +5,11 @@ namespace Modules\StudioOwners\Entities;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ReviewOwner extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [];
     protected $table = 'reviews';
@@ -39,6 +40,19 @@ class ReviewOwner extends Model
     public function report()
     {
         return $this->belongsToMany(User::class, 'report_user_reviews', 'review_id', 'user_report');
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+        self::deleting(function ($reviews) { // before delete() method call this
+            $reviews->likes()->each(function ($data) {
+                $data->detach(); // <-- direct deletion
+            });
+            $reviews->report()->each(function ($data) {
+                $data->detach(); // <-- direct deletion
+            });
+        });
     }
 
     public function scopeEntities($query, $entities)

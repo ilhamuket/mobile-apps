@@ -152,20 +152,23 @@
           </div>
         </div>
         <div
-          v-if="isReply"
+          v-if="item.isReplies"
           class="d-flex-row ml-12 mt-2"
         >
           <div class="d-flex flex-column">
             <v-text-field
+              v-model="contentReply"
               placeholder="Isi Komentar Disini"
               label="Isi Komentar Disini"
               append-icon="mdi-send"
+              @click:append="sendReply(item)"
             >
               <template #prepend>
-                <v-avatar size="30">
-                  <v-img
-                    src="https://ecs7.tokopedia.net/img/cache/100-square/default_picture_user/default_toped-16.jpg"
-                  />
+                <v-avatar
+                  v-if="me.img"
+                  size="30"
+                >
+                  <v-img :src="me.img.url" />
                 </v-avatar>
               </template>
             </v-text-field>
@@ -288,10 +291,11 @@
                 :prefix="`@${child.user.nickName}`"
               >
                 <template #prepend>
-                  <v-avatar size="30">
-                    <v-img
-                      src="https://ecs7.tokopedia.net/img/cache/100-square/default_picture_user/default_toped-16.jpg"
-                    />
+                  <v-avatar
+                    v-if="me.img"
+                    size="30"
+                  >
+                    <v-img :src="me.img.url" />
                   </v-avatar>
                 </template>
               </v-text-field>
@@ -351,10 +355,12 @@
       isA: true,
       isReplies: false,
       content: '',
+      contentReply: '',
     }),
     methods: {
       replyParentActive (item) {
         item.isReplies = !item.isReplies
+        console.log(item)
       },
       replyChildActive (item) {
         item.isChildReplies = !item.isChildReplies
@@ -418,6 +424,14 @@
       sendDiscusses () {
         this.$emit('send', { item: this.content })
         this.content = null
+      },
+      sendReply (item) {
+        this.$emit('sendReply', {
+          item: {
+            data: item,
+            content: this.contentReply,
+          },
+        })
       },
     },
   }

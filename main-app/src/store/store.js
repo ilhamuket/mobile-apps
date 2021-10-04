@@ -18,6 +18,9 @@ import classesReviews from './module/classes/class_reviews/index'
 // Cart
 import cart from './module/cart/index'
 import studioDiscuses from './module/studio/studio_discuses'
+
+// Category
+import category from './module/category'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -37,6 +40,7 @@ export default new Vuex.Store({
     cart: cart,
     studioReviews: studioReviews,
     studioDiscuses: studioDiscuses,
+    category: category,
   },
   state: {
     barColor: 'rgba(0, 0, 0, .8), rgba(0, 0, 0, .8)',

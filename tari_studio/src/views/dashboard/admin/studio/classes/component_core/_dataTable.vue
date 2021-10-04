@@ -126,7 +126,7 @@
             <template #[`header.status`]="{ header }">
               {{ $t(header.text) }}
             </template>
-            <template #[`header.category.name`]="{ header }">
+            <template #[`header.category.display_name`]="{ header }">
               {{ $t(header.text) }}
             </template>
             <template #[`header.durasi`]="{ header }">
@@ -272,7 +272,7 @@
         { text: 'table.class.th.price', value: 'harga', sortable: false },
         {
           text: 'table.class.th.category',
-          value: 'category.name',
+          value: 'category.display_name',
           sortable: false,
         },
         // { text: 'table.class.th.created_at', value: 'created_at' },
@@ -324,9 +324,11 @@
       },
       upDialogDeletes (item) {
         this.$emit('deletes', { item: item })
+        this.selected = []
       },
       upDialogApproves (item) {
         this.$emit('approves', { item: item })
+        this.selected = []
       },
       upDialogeditClass (item) {
         this.$emit('update', { item: item })

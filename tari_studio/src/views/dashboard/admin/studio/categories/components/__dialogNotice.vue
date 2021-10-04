@@ -25,14 +25,27 @@
             mdi-close
           </v-icon>
         </v-system-bar>
-        <v-card-text>
+        <v-card-text v-if="byId">
           {{ textBody }}
-          {{ dialog.data.display_name }} - # {{ dialog.data.id }}
+          <br>
+          #{{ dialog.data.id }} - {{ dialog.data.display_name }}
+        </v-card-text>
+        <v-card-text v-else>
+          {{ textBody }}
+          <v-list>
+            <v-list-item
+              v-for="(item, i) in dialog.data"
+              :key="i"
+            >
+              #{{ item.id }} - {{ item.display_name }}
+            </v-list-item>
+          </v-list>
         </v-card-text>
 
         <v-card-actions class="d-flex flex-row-reverse">
           <v-btn
-            color="red"
+            v-if="byId"
+            :color="colorBtn1"
             @click="actionsById"
           >
             {{ textBtn }}
@@ -40,7 +53,17 @@
               small
               class="ml-1"
             >
-              {{ textIconBtn }}
+              {{ iconBtn }}
+            </v-icon>
+          </v-btn>
+          <v-btn
+            v-else
+            :color="colorBtn1"
+            @click="actionSelected"
+          >
+            {{ textBtnSelected }}
+            <v-icon>
+              {{ iconBtn }}
             </v-icon>
           </v-btn>
           <v-btn
@@ -76,17 +99,29 @@
         default:
           ' Are You sure want to delete Everyting that related With Category Name :',
       },
+      byId: {
+        type: Boolean,
+        default: false,
+      },
       textBtn: {
         type: String,
         default: 'Delete',
       },
-      textIconBtn: {
+      iconBtn: {
         type: String,
         default: 'mdi-trash-can-outline',
+      },
+      colorBtn1: {
+        type: String,
+        default: 'red',
       },
       colorBtn2: {
         type: String,
         default: 'primary',
+      },
+      textBtnSelected: {
+        type: String,
+        default: 'Delete',
       },
     },
     data: () => ({
@@ -94,6 +129,9 @@
     }),
     methods: {
       actionsById () {
+        this.$emit('input', { item: this.dialog.data })
+      },
+      actionSelected () {
         this.$emit('input', { item: this.dialog.data })
       },
       onResize () {

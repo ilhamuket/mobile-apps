@@ -153,6 +153,7 @@ class StudioOwnerCategoryController extends Controller
             $category->studio_id = $studio->id;
             $category->save();
             $category->studio;
+            $category->class;
 
             return Json::response($category);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
@@ -192,7 +193,20 @@ class StudioOwnerCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $master = StudioOwnerCategory::findOrFail($id);
+            $master->name = $request->input('name', $master->name);
+            $master->display_name = $request->input('display_name', $master->display_name);
+            $master->save();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**

@@ -64,7 +64,12 @@
         "textById": "Apakah Kamu yakin Ingin Menghapus Yang Judul",
         "approved": "Apakah Kamu Yakin Ingin Menyetujui",
         "discuss": {
-            "del": "Apakah Kamu Yakin Ingin Mengapus Diskusi Dengan Konten"
+            "del": "Apakah Kamu Yakin Ingin Mengapus Diskusi Dengan Konten",
+            "hide": "Apakah Kamu Yakin Ingin Menyembunyikan Diskusi Dengan Konten"
+        },
+        "reviews": {
+            "del": "Apakah Kamu Yakin Ingin Mengapus Ulasan Dengan Konten",
+            "hide": "Apakah Kamu Yakin Ingin Menyembunyikan Ulasan Dengan Konten"
         }
     },
     "table": {
@@ -122,7 +127,7 @@
                 "display_name": "Nama Tampilan",
                 "status": "Status",
                 "created_at": "Dibuat Pada",
-                "class": "Kelass"
+                "class": "Total Kelas"
             }
         },
         "discusses": {
@@ -144,6 +149,8 @@
             }
         }
     },
+    "reviews": "Ulasan",
+    "discusses": "Diskusi",
     "vidio_name": "Index Vidio",
     "vidio_name_page": "Vidio Profil",
     "index_class_data_table": "Kelas",

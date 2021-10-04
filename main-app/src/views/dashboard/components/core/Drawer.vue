@@ -147,15 +147,16 @@
           to: '/studio',
         },
         {
+          icon: 'mdi-playlist-check',
+          title: 'category',
+          to: '/category',
+        },
+        {
           icon: 'mdi-account-group-outline',
           title: 'classes',
           to: '/classes',
         },
-        // {
-        //   icon: 'mdi-account',
-        //   title: 'user',
-        //   to: '/pages/user',
-        // },
+
         {
           title: 'history_class',
           icon: 'mdi-clipboard-outline',

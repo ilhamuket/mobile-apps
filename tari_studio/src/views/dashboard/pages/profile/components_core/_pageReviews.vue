@@ -77,16 +77,18 @@
           class="ml-2"
           outlined
           color="blue"
+          @click="hide(selected)"
         >
           <v-icon>
             mdi-check-decagram
           </v-icon>
-          Approve {{ selected.length }} item
+          Hide {{ selected.length }} item
         </v-btn>
         <v-btn
           :disabled="selected.length === 0"
           outlined
           color="red"
+          @click="deleteSelected(selected)"
         >
           <v-icon>
             mdi-delete-empty-outline
@@ -133,7 +135,7 @@
             </div>
             <div class="bg-hover">
               <div class="d-flex flex-row flex-nowrap">
-                <div>
+                <!-- <div>
                   <div class="d-flex flex-column mt-2 ml-1 mr-1">
                     <a
                       class="d-flex blue--text flex-nowrap"
@@ -149,7 +151,7 @@
                       Reply
                     </a>
                   </div>
-                </div>
+                </div> -->
                 <div>
                   <div class="d-flex flex-column mt-2">
                     <a
@@ -242,6 +244,15 @@
       setColorStatus (status) {
         if (status === 'belum ditanggapi') return 'red'
         if (status === 'ditanggapi') return 'btn_primary'
+      },
+      hide (item) {
+        this.$emit('hide', { item: item })
+      },
+      deleteSelected (item) {
+        this.$emit('delete', { item: item })
+      },
+      reply (item) {
+        this.$emit('reply', { item: item })
       },
     },
   }

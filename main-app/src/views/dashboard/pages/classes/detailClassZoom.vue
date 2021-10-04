@@ -193,7 +193,7 @@
                 type="info"
                 text
                 dense
-                icon="mdi-signal-variant"
+                icon="mdi-access-point-network"
                 prominent
                 class="mt-4"
               >
@@ -234,6 +234,7 @@
       :me="users"
       :state-load="state_load"
       @send="replyDataDiscusses"
+      @sendReply="replyDataDiscussesParent"
     />
   </div>
 </template>
@@ -292,7 +293,7 @@
           const bottomOfWindow =
             document.documentElement.scrollTop + window.innerHeight >=
             document.documentElement.offsetHeight
-          console.log(bottomOfWindow)
+          // console.log(bottomOfWindow)
           // console.log('heightOfsset : ', document.documentElement.offsetHeight)
           // console.log(
           //   'scroll : ',
@@ -360,13 +361,23 @@
             if (res.data.meta.status) {
               item = ''
               this.discuss.data.unshift(res.data.data)
-            // this.getDataDiscuss()
             }
           })
       },
-    // getMe () {
-    //   this.$store.dispatch('user/me')
-    // },
+      replyDataDiscussesParent ({ item }) {
+        this.$store
+          .dispatch('studioDiscuses/replyDataDiscusses', {
+            body: item.content,
+            slug: this.$route.params.class_slug,
+            parent_id: item.data.id,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              this.getDataDiscuss()
+              item.content = null
+            }
+          })
+      },
     },
   }
 </script>

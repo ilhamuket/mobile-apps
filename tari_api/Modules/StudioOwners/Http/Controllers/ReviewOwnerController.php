@@ -6,11 +6,82 @@ use Brryfrmnn\Transformers\Json;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Studio\Entities\Reviews;
 use Modules\StudioOwners\Entities\OwnerStudio;
 use Modules\StudioOwners\Entities\ReviewOwner;
 
 class ReviewOwnerController extends Controller
 {
+    public function deleteAll(Request $request)
+    {
+        try {
+            if (is_array($request->id)) {
+                foreach ($request->id as $id) {
+                    $master = ReviewOwner::findOrFail($id);
+                    $master->delete();
+                }
+                return Json::response($master);
+            }
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+    public function hide(Request $request)
+    {
+        try {
+            // dd(is_array($request->id));
+            if (is_array($request->id)) {
+                foreach ($request->id as $id) {
+                    $master = ReviewOwner::findOrFail($id);
+                    $master->status = 'sembunyikan';
+                    $master->save();
+                }
+                return Json::response($master);
+            }
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+
+    public function show(Request $request)
+    {
+        try {
+            if (is_array($request->id)) {
+                foreach ($request->id as $id) {
+                    $master = ReviewOwner::findOrFail($id);
+                    if ($master['status'] === 'sembunyikan') {
+                        if ($master['is_response'] === 1) {
+                            $master->status = 'ditanggapi';
+                            $master->save();
+                        } else {
+                            $master->status = 'belum ditanggapi';
+                            $master->save();
+                        }
+
+                        return Json::response($master);
+                    } else {
+                        return Json::exception('data not found');
+                    }
+                }
+            } else {
+                return Json::exception('data must be array');
+            }
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     /**
      * Display a listing of the resource.
      * @return Renderable
@@ -49,7 +120,22 @@ class ReviewOwnerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $master = new ReviewOwner();
+            $master->body = $request->body;
+            $master->ratings = $request->ratings;
+            $master->class_id = $request->class_id;
+            $master->status = 'studio';
+            $master->studio_id = $request->studio_id;
+            $master->user_id = $request->user()->id;
+            $master->save();
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**
@@ -57,10 +143,10 @@ class ReviewOwnerController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
-    {
-        return view('studioowners::show');
-    }
+    // public function show($id)
+    // {
+    //     return view('studioowners::show');
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -90,6 +176,17 @@ class ReviewOwnerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $master = ReviewOwner::findOrFail($id);
+            $master->save();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 }

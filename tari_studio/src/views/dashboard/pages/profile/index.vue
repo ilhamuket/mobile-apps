@@ -92,10 +92,17 @@
               @reply="upReply"
               @refresh="refresh"
               @delete="upDialogDiscussDelete"
+              @deleteSelected="upDialogDeleteDiscussSelected"
+              @hideSelected="upHideDiscusesAll"
             />
           </v-tab-item>
           <v-tab-item>
-            <app-page-reviews :data="computedReviews" />
+            <app-page-reviews
+              :data="computedReviews"
+              @hide="upHideReviewSelected"
+              @delete="upDeleteReviewsAll"
+              @reply="upReplyReviews"
+            />
           </v-tab-item>
         </v-tabs-items>
       </v-col>
@@ -119,6 +126,39 @@
       :dialog="dialogEditProfile"
       @update="updateDataStudios"
     />
+    <app-dialog-notice
+      :dialog="dialogDeleteDiscussBroadcast"
+      title="Delete"
+      text="card_notice.discuss.del"
+      text-button1="Delete"
+      icon="mdi-delete"
+      @input="deleteDataDiscussesSelected"
+    />
+    <app-dialog-notice
+      :dialog="dialogHideDiscussesAll"
+      title="Hide"
+      text="card_notice.discuss.hide"
+      text-button1="hide"
+      icon="mdi-delete"
+      @input="hideDataDiscussesSelected"
+    />
+    <app-dialog-notice
+      :dialog="dialogHideReviewsAll"
+      title="Hide"
+      text="card_notice.reviews.hide"
+      text-button1="hide"
+      icon="mdi-delete"
+      @input="hideReviewSelected"
+    />
+    <app-dialog-notice
+      :dialog="dialogDeleteReviewsAll"
+      title="Delete"
+      text="card_notice.reviews.del"
+      text-button1="delete"
+      icon="mdi-delete"
+      @input="deleteReviewSelected"
+    />
+    <app-dialog-reply :dialog="replyReviews" />
   </v-container>
 </template>
 
@@ -157,6 +197,10 @@
         open: false,
         data: {},
       },
+      replyReviews: {
+        open: false,
+        data: {},
+      },
       deleteDiscuss: {
         open: false,
         id: 0,
@@ -165,6 +209,22 @@
       dialogEditProfile: {
         open: false,
         data: {},
+      },
+      dialogDeleteDiscussBroadcast: {
+        open: false,
+        data: [],
+      },
+      dialogHideDiscussesAll: {
+        open: false,
+        data: [],
+      },
+      dialogHideReviewsAll: {
+        open: false,
+        data: [],
+      },
+      dialogDeleteReviewsAll: {
+        open: false,
+        data: [],
       },
       params: '',
     }),
@@ -298,6 +358,37 @@
           entities: 'class,user.img',
         })
       },
+      upHideDiscusesAll ({ item }) {
+        this.dialogHideDiscussesAll.open = true
+        this.dialogHideDiscussesAll.data = item
+      },
+      hideDataDiscussesSelected ({ item }) {
+        this.$store
+          .dispatch('studioDiscusses/hideDataDiscussesSelected', item)
+          .then(res => {
+            if (res.data.meta.status) {
+              this.dialogHideDiscussesAll.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                },
+                popup: 'swal2-show',
+                backdrop: 'swal2-backdrop-show',
+                icon: 'swal2-icon-show',
+              })
+              Toast.fire({
+                icon: 'success',
+                title: 'Data Hided Successfully',
+              })
+            }
+          })
+      },
       toClass () {
         this.$router.push('/class')
       },
@@ -316,6 +407,15 @@
         this.reply.open = true
         this.reply.data = item
       // console.log(item)
+      },
+      upReplyReviews ({ item }) {
+        this.replyReviews.open = true
+        this.replyReviews.data = item
+      },
+      upDialogDeleteDiscussSelected ({ item }) {
+        this.dialogDeleteDiscussBroadcast.open = true
+        this.dialogDeleteDiscussBroadcast.data = item
+        console.log(item)
       },
       upEditProfile ({ item }) {
         this.dialogEditProfile.open = true
@@ -392,6 +492,96 @@
           })
       // console.log(item)
       },
+      deleteDataDiscussesSelected ({ item }) {
+        this.$store
+          .dispatch('studioDiscusses/deleteDataDiscussesSelected', item)
+          .then(res => {
+            if (res.data.meta.status) {
+              item = []
+              this.dialogDeleteDiscussBroadcast.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                },
+                popup: 'swal2-show',
+                backdrop: 'swal2-backdrop-show',
+                icon: 'swal2-icon-show',
+              })
+              Toast.fire({
+                icon: 'success',
+                title: 'Data Deleted Successfully',
+              })
+            }
+          })
+      },
+      upHideReviewSelected ({ item }) {
+        this.dialogHideReviewsAll.open = true
+        this.dialogHideReviewsAll.data = item
+      },
+      hideReviewSelected ({ item }) {
+        this.$store
+          .dispatch('studioReviews/hideReviewSelected', item)
+          .then(res => {
+            if (res.data.meta.status) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                },
+                popup: 'swal2-show',
+                backdrop: 'swal2-backdrop-show',
+                icon: 'swal2-icon-show',
+              })
+              Toast.fire({
+                icon: 'success',
+                title: 'Data Reviews Hided Successfully',
+              })
+            }
+          })
+      },
+      upDeleteReviewsAll ({ item }) {
+        this.dialogDeleteReviewsAll.open = true
+        this.dialogDeleteReviewsAll.data = item
+      },
+      deleteReviewSelected ({ item }) {
+        this.$store
+          .dispatch('studioReviews/deleteReviewSelected', item)
+          .then(res => {
+            if (res.data.meta.status) {
+              this.dialogDeleteReviewsAll.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                },
+                popup: 'swal2-show',
+                backdrop: 'swal2-backdrop-show',
+                icon: 'swal2-icon-show',
+              })
+              Toast.fire({
+                icon: 'success',
+                title: 'Data Reviews Deleted Successfully',
+              })
+            }
+          })
+      },
+      sendReplieReviews ({ item }) {},
     },
   }
 </script>

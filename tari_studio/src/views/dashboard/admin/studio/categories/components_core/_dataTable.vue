@@ -7,6 +7,37 @@
     </template>
     <v-container>
       <v-row>
+        <v-col cols="12">
+          <v-btn
+            class="mr-1"
+            outlined
+            rounded
+            small
+            dark
+            color="primary"
+            @click="refreshMethods"
+          >
+            <v-tooltip
+              color="primary"
+              bottom
+            >
+              <template #activator="{on, attrs}">
+                <v-icon
+                  v-bind="attrs"
+                  color="size__icon_refresh"
+                  v-on="on"
+                >
+                  mdi-cached
+                </v-icon>
+              </template>
+              <span class="font-spartan-small">
+                {{ $t('Segarkan') }}
+              </span>
+            </v-tooltip>
+          </v-btn>
+        </v-col>
+      </v-row>
+      <v-row>
         <v-col cols="4">
           <v-text-field
             v-model="search"
@@ -26,13 +57,33 @@
           >
             Create category
           </v-btn>
+          <v-btn
+            :disabled="disableApproveBtn"
+            class="mr-1"
+            color="blue"
+            outlined
+            @click="approveSelected(selected)"
+          >
+            Approve {{ selected.length }} category
+          </v-btn>
+          <v-btn
+            :disabled="selected.length === 0"
+            class="mr-1"
+            color="red"
+            outlined
+            @click="deleteSelected(selected)"
+          >
+            Delete {{ selected.length }} category
+          </v-btn>
         </v-col>
         <v-col cols="12">
           <v-data-table
+            v-model="selected"
             :headers="headers"
             :items="data"
             show-select
             :search="search"
+            :items-per-page="5"
           >
             <!-- Header -->
             <template #[`header.name`]="{ header }">
@@ -62,7 +113,7 @@
                     <div class="d-flex flex-column flex-nowrap mt-2">
                       <a
                         class="font-a d-flex flex-nowrap"
-                        @click="upDialogeditClass(item)"
+                        @click="upDialogUpdateCategory(item)"
                       >
                         <v-icon
                           small
@@ -123,7 +174,12 @@
               {{ item.created_at | moment('MMMM Do YYYY') }}
             </template>
             <template #[`item.class`]="{item}">
-              {{ item.class.length }}
+              <span
+                v-if="item.class"
+                class="font-spartan-small"
+              >
+                {{ item.class.length }}
+              </span>
             </template>
           </v-data-table>
         </v-col>
@@ -176,6 +232,18 @@
       selected: [],
       search: '',
     }),
+    computed: {
+      disableApproveBtn () {
+        let bool = true
+        const nonPublish = this.selected.some(x => x.status === 'publish')
+        if (this.selected.length !== 0 && nonPublish) {
+          bool = true
+        } else if (this.selected.length !== 0 && !nonPublish) {
+          bool = false
+        }
+        return bool
+      },
+    },
     methods: {
       setColorStatus (item) {
         if (item === 'publish') return 'btn_primary'
@@ -187,6 +255,20 @@
       },
       deleteById (item) {
         this.$emit('deleteById', { item: item })
+      },
+      deleteSelected (item) {
+        this.$emit('deleteSelected', { item: item })
+        this.selected = []
+      },
+      approveSelected (item) {
+        this.$emit('approveSelected', { item: item })
+        this.selected = []
+      },
+      upDialogUpdateCategory (item) {
+        this.$emit('update', { item: item })
+      },
+      refreshMethods () {
+        this.$emit('refresh')
       },
     },
   }
