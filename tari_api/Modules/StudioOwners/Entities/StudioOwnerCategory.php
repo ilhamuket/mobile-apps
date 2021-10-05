@@ -28,6 +28,11 @@ class StudioOwnerCategory extends Model
         return $this->belongsTo(OwnerStudio::class, 'studio_id');
     }
 
+    public function img()
+    {
+        return $this->hasOne(CategoryImg::class, 'category_id');
+    }
+
     public static function boot()
     {
         parent::boot();

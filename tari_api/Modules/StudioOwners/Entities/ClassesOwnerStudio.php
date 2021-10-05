@@ -85,12 +85,12 @@ class ClassesOwnerStudio extends Model
         if ($summary == 'approved') {
             $query->whereHas('studio', function (Builder $query) use ($studio) {
                 $query->where('id', $studio);
-            })->where('status', 1);
+            })->where('status', 'Publish');
         }
         if ($summary == 'non-approved') {
             $query->whereHas('studio', function (Builder $query) use ($studio) {
                 $query->where('id', $studio);
-            })->where('status', 0);
+            })->where('status', 'Draft');
         }
         if ($summary == 'new') {
             $query->whereHas('studio', function (Builder $query) use ($studio) {

@@ -156,7 +156,7 @@ export default {
           .post('owner/instructor/approved', { id: params })
           .then(res => {
             // const data = res.data.data
-            commit('APPROVE_DATA', payload.id)
+            commit('APPROVE_DATA', payload)
             resolve(res)
           })
           .catch(e => {

@@ -4,18 +4,19 @@ namespace Modules\Studio\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\StudioOwners\Entities\CategoryImg;
 
 class Category extends Model
 {
     use HasFactory;
 
     protected $fillable = [];
-    
+
     protected static function newFactory()
     {
         return \Modules\Studio\Database\factories\CategoryFactory::new();
     }
-    
+
     public function class()
     {
         return $this->hasMany(StudioClass::class, 'category_id');
@@ -24,6 +25,11 @@ class Category extends Model
     public function studio()
     {
         return $this->belongsTo(Studio::class, 'studio_id');
+    }
+
+    public function img()
+    {
+        return $this->hasOne(CategoryImg::class, 'category_id');
     }
 
     public static function boot()
@@ -49,5 +55,4 @@ class Category extends Model
             }
         }
     }
-
 }

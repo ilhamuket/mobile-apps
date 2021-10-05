@@ -103,6 +103,76 @@
             </template>
 
             <!-- Items -->
+            <template #[`item.img.url`]="{item}">
+              <v-hover v-slot="{ hover }">
+                <v-card
+                  :elevation="hover ? 12 : 2"
+                  :class="{ 'on-hover': hover }"
+                  width="150"
+                  color="grey"
+                >
+                  <v-img
+                    v-if="item.img"
+                    width="140"
+                    height="100"
+                    gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
+                    style="cursor:pointer"
+                    :src="item.img.url"
+                    class="img__hover"
+                    @click="changePicture(item)"
+                  >
+                    <template v-slot:placeholder>
+                      <v-row
+                        class="fill-height ma-0"
+                        align="center"
+                        justify="center"
+                      >
+                        <v-progress-circular
+                          indeterminate
+                          color="grey lighten-5"
+                        />
+                      </v-row>
+                    </template>
+                    <v-container>
+                      <v-row>
+                        <v-col cols="12">
+                          <v-icon
+                            large
+                            class="mt-5 ml-10 show-btn"
+                            color="transparent"
+                          >
+                            mdi-camera-flip
+                          </v-icon>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-img>
+                  <v-img
+                    v-else
+                    src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/zeus/kratos/62cb37c4.png"
+                    width="140"
+                    height="100"
+                    gradient="to top right, rgba(0, 0, 0, 0.05), rgba(20, 20, 20, 0.05)"
+                    style="background-color:rgba(0, 0, 0, 0.05); cursor:pointer"
+                    @click="postPicture(item)"
+                  />
+                  <input
+                    ref="change"
+                    type="file"
+                    style="display: none"
+                    accept="image/*"
+                    @change="onChangePicture"
+                  >
+                  <input
+                    ref="input"
+                    type="file"
+                    style="display: none"
+                    accept="image/*"
+                    @change="onInputPicture"
+                  >
+                </v-card>
+              </v-hover>
+            </template>
             <template #[`item.name`]="{item}">
               <div class="mt-6">
                 {{ item.name }}
@@ -199,6 +269,10 @@
     data: () => ({
       headers: [
         {
+          text: '#',
+          value: 'img.url',
+        },
+        {
           text: 'table.category.th.name',
           align: 'start',
           sortable: false,
@@ -231,6 +305,8 @@
       ],
       selected: [],
       search: '',
+      files: null,
+      category_id: 0,
     }),
     computed: {
       disableApproveBtn () {
@@ -270,8 +346,103 @@
       refreshMethods () {
         this.$emit('refresh')
       },
+      changePicture (item) {
+        this.$refs.change.click()
+        this.category_id = item.id
+      },
+      postPicture (item) {
+        this.$refs.input.click()
+        this.category_id = item.id
+      },
+      onChangePicture (event) {
+        const files = event.target.files
+        const filename = files[0].name
+        console.log(filename)
+        const fileReader = new FileReader()
+        fileReader.addEventListener('load', () => {
+          this.imageUrl = fileReader.result
+        //   console.log(this.imageUrl)
+        })
+        fileReader.readAsDataURL(files[0])
+        this.files = files[0]
+
+        if (this.files.size > 2000000) {
+          console.log('too big')
+          const Toast = this.$swal.mixin({
+            toast: true,
+            position: 'bottom-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: toast => {
+              toast.addEventListener('mouseenter', this.$swal.stopTimer)
+              toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+            },
+            popup: 'swal2-show',
+            backdrop: 'swal2-backdrop-show',
+            icon: 'swal2-icon-show',
+          })
+          Toast.fire({
+            icon: 'error',
+            title: 'file too big',
+          })
+        } else {
+          this.$emit('change', {
+            item: {
+              files: this.files,
+              category_id: this.category_id,
+            },
+          })
+        }
+      },
+      onInputPicture (event) {
+        const files = event.target.files
+        const filename = files[0].name
+        console.log(filename)
+        const fileReader = new FileReader()
+        fileReader.addEventListener('load', () => {
+          this.imageUrl = fileReader.result
+        //   console.log(this.imageUrl)
+        })
+        fileReader.readAsDataURL(files[0])
+        this.files = files[0]
+
+        if (this.files.size > 2000000) {
+          console.log('too big')
+          const Toast = this.$swal.mixin({
+            toast: true,
+            position: 'bottom-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: toast => {
+              toast.addEventListener('mouseenter', this.$swal.stopTimer)
+              toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+            },
+            popup: 'swal2-show',
+            backdrop: 'swal2-backdrop-show',
+            icon: 'swal2-icon-show',
+          })
+          Toast.fire({
+            icon: 'error',
+            title: 'file too big',
+          })
+        } else {
+          this.$emit('input', {
+            item: {
+              files: this.files,
+              category_id: this.category_id,
+            },
+          })
+        }
+      },
     },
   }
 </script>
 
-<style></style>
+<style lang="sass">
+.img__hover
+  &:hover
+    .show-btn
+      color: white !important
+</style>

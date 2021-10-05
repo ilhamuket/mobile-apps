@@ -5,18 +5,27 @@
       width="90%"
     >
       <v-card class="rounded-xl">
-        <v-card-title class="text-h2 pallet1--text font-title-rampart-one">
-          Add Class
+        <v-system-bar
+          :color="$vuetify.theme.dark ? '#141C31' : '#F0F8FF'"
+          window
+          class="mb-2"
+        >
+          <v-toolbar-title
+            :class="$vuetify.theme.dark ? 'white--text' : ' black--text'"
+            class="font-size-ather-roboto-mono"
+          >
+            <v-icon :color="$vuetify.theme.dark ? 'white' : 'black'">
+              mdi-pencil
+            </v-icon>
+            Edit Class
+          </v-toolbar-title>
 
           <v-spacer />
 
-          <v-icon
-            aria-label="Close"
-            @click="dialog.open = false"
-          >
+          <v-icon @click="dialog.open = false">
             mdi-close
           </v-icon>
-        </v-card-title>
+        </v-system-bar>
         <v-container>
           <v-row>
             <v-col cols="12">
@@ -161,9 +170,16 @@
                 prepend-icon="mdi-alpha-a-circle-outline"
               />
             </v-col>
-          </v-row>
-          <div class="d-flex flex-row-reverse">
-            <div class="d-flex flex-column">
+            <v-col
+              cols="12"
+              class="d-flex flex-row-reverse"
+            >
+              <v-btn
+                color="primary"
+                @click="updateClass"
+              >
+                Update
+              </v-btn>
               <v-btn
                 text
                 color="red"
@@ -171,16 +187,16 @@
               >
                 Cancel
               </v-btn>
+            </v-col>
+          </v-row>
+          <!-- <div class="d-flex flex-row-reverse">
+            <div class="d-flex flex-column">
+
             </div>
             <div class="d-flex flex-column">
-              <v-btn
-                color="primary"
-                @click="updateClass"
-              >
-                Update
-              </v-btn>
+
             </div>
-          </div>
+          </div> -->
         </v-container>
       </v-card>
     </v-dialog>
@@ -234,7 +250,7 @@
         })
         Toast.fire({
           icon: 'success',
-          title: 'Dialog Closes',
+          title: 'Dialog Closed',
         })
       },
       updateClass () {

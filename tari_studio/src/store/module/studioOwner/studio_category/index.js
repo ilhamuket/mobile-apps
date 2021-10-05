@@ -177,5 +177,56 @@ export default {
           })
       })
     },
+
+    onPostPicture: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        'Bearer ' + localStorage.getItem('access_token')
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        const URL = 'owner/categories/thumbnail'
+        const data = new FormData()
+        data.append('img', payload.files)
+        data.append('category_id', payload.category_id)
+        const config = {
+          header: {
+            'Content-Type': 'image/png',
+          },
+        }
+        axios
+          .post(URL, data, config)
+          .then(res => {
+            resolve(res)
+          })
+          .catch(e => {
+            reject(e)
+          })
+      })
+    },
+    onChangePicture: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        'Bearer ' + localStorage.getItem('access_token')
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        const data = new FormData()
+        data.append('img', payload.files)
+        data.append('category_id', payload.category_id)
+        const config = {
+          header: {
+            'Content-Type': 'image/png',
+          },
+        }
+        const URL = 'owner/categories/change-thumbnail'
+        axios
+          .post(URL, data, config)
+          .then(res => {
+            resolve(res)
+          })
+          .catch(e => {
+            reject(e)
+          })
+      })
+    },
   },
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Modules\StudioOwners\Entities\ClassesOwnerStudio;
 use Modules\StudioOwners\Entities\StudioTeacher;
 use Modules\StudioOwners\Entities\SubClassOwnerStudio;
+use Modules\StudioOwners\Http\Controllers\CategoryImgController;
 use Modules\StudioOwners\Http\Controllers\ClassesOwnerStudioController;
 use Modules\StudioOwners\Http\Controllers\DiscussController;
 use Modules\StudioOwners\Http\Controllers\ImgClassesController;
@@ -48,9 +49,10 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
         Route::post('approveBroadcast', [ClassesOwnerStudioController::class, 'approvedBroadcast']);
         Route::post('thumbnail', [ImgClassesController::class, 'thumbnail']);
         Route::post('change-thumbnail', [ImgClassesController::class, 'changeThumbnail']);
+        Route::get('summary', [ClassesOwnerStudioController::class, 'summary']);
+        Route::post('change-list', [ImgListClassController::class, 'change']);
         Route::patch('update/{id}', [ClassesOwnerStudioController::class, 'update']);
         Route::delete('destroy/{id}', [ClassesOwnerStudioController::class, 'destroy']);
-        Route::get('summary', [ClassesOwnerStudioController::class, 'summary']);
     });
     Route::prefix('sub-classes')->group(function () {
         Route::get('my-sub', [SubClassOwnerStudioController::class, 'index']);
@@ -93,6 +95,8 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
         Route::post('delete', [StudioOwnerCategoryController::class, 'deleteAll']);
         Route::post('approve', [StudioOwnerCategoryController::class, 'approvedAll']);
         Route::get('summary', [StudioOwnerCategoryController::class, 'summary']);
+        Route::post('thumbnail', [CategoryImgController::class, 'thumbnail']);
+        Route::post('change-thumbnail', [CategoryImgController::class, 'changeThumbnail']);
         Route::patch('update/{id}', [StudioOwnerCategoryController::class, 'update']);
         Route::patch('approve/{id}', [StudioOwnerCategoryController::class, 'approve']);
         Route::delete('/delete/{id}', [StudioOwnerCategoryController::class, 'destroy']);

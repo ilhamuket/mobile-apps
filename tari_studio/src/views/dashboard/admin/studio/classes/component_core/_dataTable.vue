@@ -141,12 +141,54 @@
 
             <!-- Item -->
             <template #[`item.img.url`]="{item}">
-              <v-img
-                v-if="item.img"
-                :src="item.img.url"
-                width="100"
-                height="100"
-              />
+              <v-hover v-slot="{ hover }">
+                <v-card
+                  :elevation="hover ? 12 : 2"
+                  :class="{ 'on-hover': hover }"
+                  width="150"
+                  color="grey"
+                >
+                  <v-img
+                    v-if="item.img"
+                    :src="item.img.url"
+                    width="140"
+                    height="100"
+                    gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
+                    style="cursor:pointer"
+                    @click="changePict(item)"
+                  >
+                    <v-container>
+                      <v-row>
+                        <v-col
+                          cols="12"
+                          class="col__img__class"
+                        >
+                          <v-btn
+                            icon
+                            dark
+                            :class="{ 'show-btns': hover }"
+                            :color="transparent"
+                          >
+                            <v-icon
+                              :class="{ 'show-btns': hover }"
+                              :color="transparent"
+                            >
+                              mdi-camera-flip-outline
+                            </v-icon>
+                          </v-btn>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-img>
+                  <input
+                    ref="fileUpload"
+                    type="file"
+                    style="display: none"
+                    accept="image/*"
+                    @change="changePictProfile"
+                  >
+                </v-card>
+              </v-hover>
             </template>
             <template #[`item.name`]="{item}">
               <div class="mt-6">
@@ -240,6 +282,14 @@
             <template #[`item.created_at`]="{item}">
               {{ item.created_at | moment('MMMM Do YYYY') }}
             </template>
+            <template #[`item.status_kelas`]="{item}">
+              <v-chip
+                label
+                :color="setStatusClass(item.status_kelas)"
+              >
+                {{ item.status_kelas }}
+              </v-chip>
+            </template>
           </v-data-table>
         </v-col>
       </v-row>
@@ -269,16 +319,16 @@
           value: 'name',
         },
         { text: 'table.class.th.levels', value: 'levels', sortable: false },
-        { text: 'table.class.th.price', value: 'harga', sortable: false },
+        // { text: 'table.class.th.price', value: 'harga', sortable: false },
         {
           text: 'table.class.th.category',
           value: 'category.display_name',
           sortable: false,
         },
         // { text: 'table.class.th.created_at', value: 'created_at' },
-        { text: 'table.class.th.prefix', value: 'keyword', sortable: false },
+        // { text: 'table.class.th.prefix', value: 'keyword', sortable: false },
         { text: 'table.class.th.capacity', value: 'kapasitas', sortable: false },
-        { text: 'table.class.th.duration', value: 'durasi', sortable: false },
+        // { text: 'table.class.th.duration', value: 'durasi', sortable: false },
         { text: 'table.class.th.status', value: 'status', sortable: false },
         {
           text: 'table.class.th.status_time',
@@ -286,9 +336,13 @@
           sortable: false,
         },
       ],
+      transparent: 'rgba(255, 255, 255, 0)',
       selected: [],
       search: '',
       dialogAdd: {},
+      dataItem: {},
+      imageUrl: null,
+      files: null,
     }),
     computed: {
       computudTitle () {
@@ -319,6 +373,11 @@
         if (status === 'Draft') return 'blue'
         else return 'red'
       },
+      setStatusClass (status) {
+        if (status === 'ongoing') return 'primary'
+        if (status === 'upcoming') return 'btn_primary'
+        else return 'red'
+      },
       upDialog () {
         this.$emit('add', { item: this.dialogAdd })
       },
@@ -342,6 +401,52 @@
       uploadMatery (item) {
         this.$emit('upload', { item: item })
       },
+      changePict (item) {
+        this.$refs.fileUpload.click()
+        this.dataItem = item
+        console.log(item.id)
+      },
+      changePictProfile (event) {
+        const files = event.target.files
+        const filename = files[0].name
+        console.log(filename)
+        const fileReader = new FileReader()
+        fileReader.addEventListener('load', () => {
+          this.imageUrl = fileReader.result
+        //   console.log(this.imageUrl)
+        })
+        fileReader.readAsDataURL(files[0])
+        this.files = files[0]
+
+        if (this.files.size > 2000000) {
+          console.log('too big')
+          const Toast = this.$swal.mixin({
+            toast: true,
+            position: 'bottom-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: toast => {
+              toast.addEventListener('mouseenter', this.$swal.stopTimer)
+              toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+            },
+            popup: 'swal2-show',
+            backdrop: 'swal2-backdrop-show',
+            icon: 'swal2-icon-show',
+          })
+          Toast.fire({
+            icon: 'error',
+            title: 'file too big',
+          })
+        } else {
+          this.$emit('change', {
+            item: {
+              files: this.files,
+              id: this.dataItem.id,
+            },
+          })
+        }
+      },
     },
   }
 </script>
@@ -351,4 +456,9 @@
 //   color:
 .font-a-delete
   color: #4CAF50 !important
+.show-btns
+  color: rgba(255, 255, 255, 1) !important
+.col__img__class
+  margin-top: 19px
+  margin-left: 40px
 </style>

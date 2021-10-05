@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Modules\StudioOwners\Entities\ClassesOwnerStudio;
 use Modules\StudioOwners\Entities\ImgClasses;
 
@@ -18,6 +19,12 @@ class ImgClassesController extends Controller
             DB::beginTransaction();
 
             $vidio = ImgClasses::where('class_id', $request->class_id)->first();
+            $image_path = $vidio->url;
+            $new = explode("/", $image_path);
+            $image_path = $new[3] . "/".$new[4];
+            if (File::exists($image_path)) {
+                File::delete($image_path);
+            }
             $vidio->delete();
             if ($request->hasfile('img')) {
                 //getting the file from view

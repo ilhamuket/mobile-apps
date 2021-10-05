@@ -65,6 +65,8 @@
           @deleteSelected="popDialogCategorySelected"
           @approveSelected="popDialogApproveSelected"
           @update="upUpdateCategory"
+          @input="postPicture"
+          @change="onChangePicture"
           @refresh="refreshCategory"
         />
       </v-col>
@@ -148,7 +150,7 @@
     methods: {
       getDataStudioCategories () {
         this.$store.dispatch('studioCategories/getDataStudioCategories', {
-          entities: 'class',
+          entities: 'class, img',
         })
       },
       createDataCategory ({ item }) {
@@ -317,6 +319,67 @@
       upUpdateCategory ({ item }) {
         this.update.open = true
         this.update.data = item
+      },
+      postPicture ({ item }) {
+        this.$store
+          .dispatch('studioCategories/onPostPicture', {
+            files: item.files,
+            category_id: item.category_id,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                },
+                popup: 'swal2-show',
+                backdrop: 'swal2-backdrop-show',
+                icon: 'swal2-icon-show',
+              })
+              Toast.fire({
+                icon: 'success',
+                title: 'Upload Category Profile Successfully',
+              })
+              this.getDataStudioCategories()
+            }
+          })
+      },
+      onChangePicture ({ item }) {
+        console.log(item)
+        this.$store
+          .dispatch('studioCategories/onChangePicture', {
+            files: item.files,
+            category_id: item.category_id,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                },
+                popup: 'swal2-show',
+                backdrop: 'swal2-backdrop-show',
+                icon: 'swal2-icon-show',
+              })
+              Toast.fire({
+                icon: 'success',
+                title: 'Edited Category Profile Successfully',
+              })
+              this.getDataStudioCategories()
+            }
+          })
       },
       refreshCategory () {
         this.getDataStudioCategories()

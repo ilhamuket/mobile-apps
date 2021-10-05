@@ -105,7 +105,7 @@
                 Keyword : <span class="">#{{ dialog.data.keyword }}</span>
               </div>
               <div class="font-spartan text-subtitle-2">
-                Links :
+                Links Room :
                 <a
                   :href="dialog.data.url_meets"
                   target="__blank"
