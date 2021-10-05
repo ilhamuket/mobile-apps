@@ -51,7 +51,7 @@
       getDataCategory (page) {
         this.$store
           .dispatch('category/getDataCategory', {
-            entities: 'studio.img',
+            entities: 'studio.img,img',
             page: page,
             paginate: 6,
           })

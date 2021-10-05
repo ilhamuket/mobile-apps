@@ -160,7 +160,7 @@
       getDataClasses (page) {
         this.$store
           .dispatch('classes/getDataClasses', {
-            entities: 'img,studio, lastSee',
+            entities: 'img,studio, lastSee, category',
             filter: 'Publish',
             sort: '-views, id',
             status_kelas: this.filter,
@@ -237,7 +237,7 @@
           .dispatch('classes/getDataClassesSearch', {
             q: this.search,
             filter: 'Publish',
-            entities: 'img,studio',
+            entities: 'img,studio,category',
           })
           .then(res => {
             if (res.data.meta.status) {

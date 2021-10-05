@@ -105,6 +105,16 @@
             Studio : {{ item.studio.name }}
           </v-chip>
 
+          <v-chip
+            v-if="item.category"
+            label
+            outlined
+            color="btn_primary"
+            class="text-h4 font-spartan-small ml-4"
+          >
+            Category : {{ item.category.display_name }}
+          </v-chip>
+
           <v-divider
             class="mt-1 mb-1 divider--opacity"
             dark

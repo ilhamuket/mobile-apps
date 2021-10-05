@@ -13,8 +13,67 @@
             :class="{ 'on-hover': hover }"
           >
             <v-img
-              v-if="item.studio.img"
+              v-if="item.img"
+              :src="item.img.url"
+              width="400"
+              height="276"
+              gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
+              style="cursor:pointer"
+            >
+              <v-container>
+                <v-row>
+                  <v-col
+                    class="d-flex flex-row-reverse"
+                    cols="12"
+                  >
+                    <v-icon color="primary">
+                      mdi-heart-outline
+                    </v-icon>
+                    <v-icon
+                      class="mr-2"
+                      color="primary"
+                    >
+                      mdi-share-variant
+                    </v-icon>
+                  </v-col>
+                </v-row>
+                <v-row class="cols__list_category">
+                  <v-col cols="12">
+                    <span class="font-spartan primary--text">
+                      {{ item.display_name }}
+                    </span>
+                    <br>
+                    <span
+                      v-if="item.studio"
+                      class="font-spartan primary--text"
+                    >
+                      {{ item.studio.name }}
+                    </span>
+                    <br>
+                    <v-btn
+                      small
+                      outlined
+                      color="primary"
+                      class="btn_explore"
+                    >
+                      Explore
+                    </v-btn>
+                    <v-btn
+                      small
+                      outlined
+                      color="primary"
+                      class="ml-1 btn_explore"
+                    >
+                      Follow
+                    </v-btn>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-img>
+            <v-img
+              v-else-if="item.studio.img"
               :src="item.studio.img.url"
+              gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
             >
               <v-container>
                 <v-row>

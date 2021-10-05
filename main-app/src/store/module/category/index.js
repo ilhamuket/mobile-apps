@@ -4,14 +4,14 @@ export default {
   namespaced: true,
   state: {
     data: [],
-    load_first: false,
+    load_first: true,
   },
   getters: {},
   mutations: {
     GET_DATA_CATEGORY: (state, payload) => {
       state.data = payload
     },
-    STOP_LOAD: state => (state.load_first = true),
+    STOP_LOAD: state => (state.load_first = false),
   },
   actions: {
     getDataCategory: ({ commit }, payload) => {
