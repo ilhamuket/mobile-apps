@@ -128,7 +128,8 @@ class StudioClassController extends Controller
                 ->statusClass($request->status_kelas)
                 ->sort($request->sort)
                 ->filterByDate($request->date)
-                ->paginate(3);
+                ->category($request->category_name)
+                ->paginate($request->input('paginate', 3));
             // $master->appends(['search' => $search]);
 
             return Json::response($master);

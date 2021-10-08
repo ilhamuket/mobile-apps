@@ -3,7 +3,7 @@
     <v-container class="">
       <v-banner
         single-line
-        color="red"
+        color="pallet1"
         @click:icon="alert"
       >
         <v-img
@@ -23,11 +23,15 @@
           </v-btn>
         </template>
       </v-banner>
-      <v-row class="row__margin">
+      <v-row
+        v-resize="onResize"
+        :class="isMobile ? 'mt-2' : 'row__margin'"
+      >
         <v-col
           cols="12"
           md="8"
-          class="d-flex justify-center"
+          sm="12"
+          class=""
         >
           <v-stepper v-model="e1">
             <v-stepper-header>
@@ -123,6 +127,7 @@
       },
       isYet: false,
       region: 'bandung',
+      isMobile: false,
     }),
     computed: {
       imgUrl () {
@@ -138,6 +143,10 @@
     methods: {
       toPush (link) {
         this.$router.push(link)
+      },
+      onResize () {
+        if (window.innerWidth < 769) this.isMobile = true
+        else this.isMobile = false
       },
       nextToStepTwo ({ item }) {
         this.e1 = 2
@@ -191,7 +200,7 @@
               url: this.studio.data.item1.data.options,
             })
             .then(res => {
-              this.$router.push('/')
+              // this.$router.push('/')
               if (res.data.meta.status) {
                 this.isYet = true
                 localStorage.setItem('yet', this.isYet)
@@ -216,7 +225,7 @@
                 console.log('diverifikasi')
                 this.$router.push('/')
               } else {
-                this.$router.push('/')
+                // this.$router.push('/')
                 const Toast = this.$swal.mixin({
                   toast: true,
                   position: 'bottom-end',

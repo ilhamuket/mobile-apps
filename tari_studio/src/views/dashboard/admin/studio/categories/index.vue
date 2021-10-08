@@ -150,7 +150,7 @@
     methods: {
       getDataStudioCategories () {
         this.$store.dispatch('studioCategories/getDataStudioCategories', {
-          entities: 'class, img',
+          entities: 'class, img,likes,follow',
         })
       },
       createDataCategory ({ item }) {

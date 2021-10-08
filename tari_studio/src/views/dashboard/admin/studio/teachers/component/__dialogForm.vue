@@ -5,18 +5,26 @@
       class="rounded-xl"
     >
       <v-card>
-        <v-card-title class="text-h2 pallet1--text font-title-rampart-one">
-          Add Instructor
+        <v-system-bar
+          :color="$vuetify.theme.dark ? '#141C31' : '#F0F8FF'"
+          window
+        >
+          <v-toolbar-title
+            :class="$vuetify.theme.dark ? 'white--text' : ' black--text'"
+            class="font-spartan-small"
+          >
+            <v-icon :color="$vuetify.theme.dark ? 'white' : 'black'">
+              mdi-account-cowboy-hat-outline
+            </v-icon>
+            Add Instructor
+          </v-toolbar-title>
 
           <v-spacer />
 
-          <v-icon
-            aria-label="Close"
-            @click="dialog.open = false"
-          >
+          <v-icon @click="dialog.open = false">
             mdi-close
           </v-icon>
-        </v-card-title>
+        </v-system-bar>
         <v-card-text>
           <v-row>
             <v-col cols="12">

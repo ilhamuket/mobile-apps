@@ -16,8 +16,15 @@
             >
               <v-img :src="`${studio.img.url}`" />
             </v-avatar>
-            <v-avatar v-else>
-              <v-img src="http://127.0.0.1:8000/images/469439.png" />
+            <v-avatar
+              v-else
+              tile
+              size="70"
+              class="ml-2 rounded-xl mt-2"
+            >
+              <v-img
+                src="https://ecs7.tokopedia.net/img/cache/300/default_picture_user/default_toped-22.jpg"
+              />
             </v-avatar>
           </v-col>
           <v-col

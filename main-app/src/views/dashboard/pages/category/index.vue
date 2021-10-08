@@ -16,7 +16,11 @@
     </v-row>
     <v-row v-else>
       <v-col cols="12">
-        <app-page-list :data="category.data" />
+        <app-page-list
+          :data="category.data"
+          :me="me"
+          @follow="followCategory"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -39,9 +43,11 @@
       load_first: true,
     }),
     computed: {
-    //   category () {
-    //     return this.$store.state.category.data
-    //   },
+      me () {
+        const Me = localStorage.getItem('ME')
+        const users = JSON.parse(Me)
+        return users
+      },
     },
     mounted () {
       this.getDataCategory()
@@ -51,7 +57,7 @@
       getDataCategory (page) {
         this.$store
           .dispatch('category/getDataCategory', {
-            entities: 'studio.img,img',
+            entities: 'studio.img,img,follow',
             page: page,
             paginate: 6,
           })
@@ -75,21 +81,10 @@
           const bottomOfWindow =
             document.documentElement.scrollTop + window.innerHeight >=
             document.documentElement.offsetHeight
-          // console.log(bottomOfWindow)
-          // console.log('heightOfsset : ', document.documentElement.offsetHeight)
-          // console.log(
-          //   'scroll : ',
-          //   document.documentElement.scrollTop + window.innerHeight,
-          // )
 
-          // setTimeout(() => {
           if (bottomOfWindow) {
-            // setTimeout(() => {
             this.moreCategory()
-          // this.resize()
-          // }, 3000)
           }
-        // }, 3000)
         }
       },
       moreCategory () {
@@ -98,6 +93,20 @@
           this.getDataCategory(this.page)
         }
       },
+      followCategory ({ item }) {
+        // console.log(item)
+        this.$store
+          .dispatch('category/followCategory', {
+            id: item.id,
+            user: this.me,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+            // this.getDataCategory()
+            }
+          })
+      },
+      unFollowCategory () {},
     },
   }
 </script>

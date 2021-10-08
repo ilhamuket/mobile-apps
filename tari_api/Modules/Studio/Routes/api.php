@@ -81,6 +81,9 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
 
         Route::prefix('categories')->group(function () {
             Route::get('/', [CategoryController::class, 'index']);
+            Route::get('/{name}', [CategoryController::class, 'show']);
+            Route::post('/follow/{id}', [CategoryController::class, 'follow']);
+            Route::post('/likes/{id}', [CategoryController::class, 'likes']);
         });
     });
     Route::prefix('cart')->group(function () {
@@ -90,6 +93,7 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
     Route::prefix('reviews')->group(function () {
         Route::post('class', [ReviewController::class, 'store']);
         Route::get('class/{slug}', [ReviewController::class, 'byClass']);
+        Route::get('avarage/{slug}', [ReviewController::class, 'avarage']);
         Route::get('studio/{slug}', [ReviewController::class, 'reviewsStudio']);
     });
     // Rooms

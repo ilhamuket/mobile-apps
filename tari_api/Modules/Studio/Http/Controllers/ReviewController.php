@@ -11,6 +11,35 @@ use Modules\Studio\Entities\Reviews;
 
 class ReviewController extends Controller
 {
+    public function avarage(Request $request, $studio_slug)
+    {
+        try {
+            $data = [
+                "float" => 0,
+                "avarage" => 0,
+                "sum" => 0,
+            ];
+            $avarage = Reviews::whereHas('studio', function (Builder $query) use ($studio_slug) {
+                $query->where('slug', $studio_slug);
+            })->pluck('ratings')->avg();
+
+            $sum = Reviews::whereHas('studio', function (Builder $query) use ($studio_slug) {
+                $query->where('slug', $studio_slug);
+            })->pluck('ratings')->sum();
+
+            $data["float"] = number_format($avarage, 2, ',', ' ');
+            $data["avarage"] = $avarage;
+            $data['sum'] = $sum;
+
+            return Json::response($data);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     public function reviewsStudio(Request $request, $studio_slug)
     {
         try {

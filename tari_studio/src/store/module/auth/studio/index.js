@@ -30,11 +30,11 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .post('auth/register/studio', { ...payload })
-          .then(({ data }) => {
-            const token = data.data
+          .then(res => {
+            const token = res.data.data
             commit('GET_TOKEN', token)
             localStorage.setItem('access_token', token)
-            resolve(data)
+            resolve(res)
           })
           .catch(e => {
             reject(e)

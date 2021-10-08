@@ -101,6 +101,12 @@
             <template #[`header.class`]="{ header }">
               {{ $t(header.text) }}
             </template>
+            <template #[`header.follow`]="{ header }">
+              {{ $t(header.text) }}
+            </template>
+            <template #[`header.likes`]="{ header }">
+              {{ $t(header.text) }}
+            </template>
 
             <!-- Items -->
             <template #[`item.img.url`]="{item}">
@@ -248,8 +254,18 @@
                 v-if="item.class"
                 class="font-spartan-small"
               >
-                {{ item.class.length }}
+                <span v-if="item.class">
+                  {{ item.class ? item.class.length : '0' }}</span>
               </span>
+            </template>
+            <template #[`item.follow`]="{item}">
+              <span v-if="item.follow">{{
+                item.follow ? item.follow.length : '0'
+              }}</span>
+            </template>
+            <template #[`item.likes`]="{item}">
+              <span v-if="item.likes">
+                {{ item.likes ? item.likes.length : '0' }}</span>
             </template>
           </v-data-table>
         </v-col>
@@ -285,22 +301,30 @@
           value: 'display_name',
         },
         {
-          text: 'table.category.th.status',
-          align: 'start',
-          sortable: false,
-          value: 'status',
-        },
-        {
           text: 'table.category.th.created_at',
           align: 'start',
           sortable: false,
           value: 'created_at',
         },
         {
+          text: 'table.category.th.status',
+          align: 'start',
+          sortable: false,
+          value: 'status',
+        },
+        {
           text: 'table.category.th.class',
           align: 'start',
           sortable: false,
           value: 'class',
+        },
+        {
+          text: 'table.category.th.follow',
+          value: 'follow',
+        },
+        {
+          text: 'table.category.th.likes',
+          value: 'likes',
         },
       ],
       selected: [],

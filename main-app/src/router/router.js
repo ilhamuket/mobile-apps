@@ -227,6 +227,21 @@ const router = new Router({
           },
         },
         {
+          name: 'detail_category',
+          path: '/category/detail/:studio_slug/:name',
+          component: () =>
+            import('@/views/dashboard/pages/category/detailCategory'),
+          meta: {
+            breadcumbs: [
+              {
+                text: 'Dashboard',
+                to: '/',
+              },
+            ],
+            requiresAuth: true,
+          },
+        },
+        {
           name: 'cart',
           path: 'cart',
           component: () => import('@/views/dashboard/pages/cart/index'),

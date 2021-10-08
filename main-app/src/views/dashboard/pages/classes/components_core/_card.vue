@@ -12,6 +12,7 @@
           :src="item.img.url"
           height="200px"
           style="cursor:pointer"
+          gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
           @click="toPush(item)"
         >
           <v-row class="fill-height mt-g text-right">

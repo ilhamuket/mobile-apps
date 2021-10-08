@@ -1,72 +1,46 @@
 <template>
-  <v-card class="mb-12">
-    <v-container>
-      <v-form v-model="invalid">
-        <v-row>
-          <!-- <v-col cols="12">
-            <v-text-field
-              v-model="fullNameStudio"
-              :rules="[rules.required]"
-              label="Name Studio"
-              prepend-icon="mdi-alpha-n-circle-outline"
-            />
-          </v-col> -->
-          <!-- <v-col cols="12">
-            <v-text-field
-              v-model="data.email"
-              :rules="[rules.required]"
-              label="Email Studio"
-              prepend-icon="mdi-at"
-            />
-          </v-col>
-          <v-col cols="12">
-            <v-text-field
-              v-model="data.phoneNumber"
-              :rules="[rules.required]"
-              label="Contact Studio"
-              prepend-icon="mdi-alpha-p-circle-outline"
-            />
-          </v-col> -->
-          <v-col cols="12">
-            <v-textarea
-              v-model="step2.data.about"
-              :rules="[rules.required]"
-              label="About Studio"
-              prepend-icon="mdi-alpha-p-circle-outline"
-            />
-          </v-col>
-          <v-col
-            v-for="(item, i) in step2.data.options"
-            :key="i"
-            cols="12"
-          >
-            <v-text-field
-              v-model="item.option"
-              :rules="[rules.required]"
-              label="Url"
-              :placeholder="'Url ke-' + (i + 1)"
-              type="text"
-              prepend-icon="mdi-youtube"
-              append-icon="mdi-close"
-              @keyup="createNewInput(i)"
-              @click:append="deleteInput(i)"
-            />
-          </v-col>
-        </v-row>
-        <v-btn
-          color="primary"
-          :disabled="!invalid"
-          @click="nextStep"
+  <v-container>
+    <v-form v-model="invalid">
+      <v-row>
+        <v-col cols="12">
+          <v-textarea
+            v-model="step2.data.about"
+            :rules="[rules.required]"
+            label="About Studio"
+            prepend-icon="mdi-alpha-p-circle-outline"
+          />
+        </v-col>
+        <v-col
+          v-for="(item, i) in step2.data.options"
+          :key="i"
+          cols="12"
         >
-          Continue
-        </v-btn>
+          <v-text-field
+            v-model="item.option"
+            :rules="[rules.required]"
+            label="Url"
+            :placeholder="'Url ke-' + (i + 1)"
+            type="text"
+            prepend-icon="mdi-youtube"
+            append-icon="mdi-close"
+            @keyup="createNewInput(i)"
+            @click:append="deleteInput(i)"
+          />
+        </v-col>
+      </v-row>
+      <v-btn
+        color="primary"
+        :disabled="!invalid"
+        @click="nextStep"
+      >
+        Continue
+      </v-btn>
 
-        <v-btn text>
-          Cancel
-        </v-btn>
-      </v-form>
-    </v-container>
-  </v-card>
+      <v-btn text>
+        Cancel
+      </v-btn>
+    </v-form>
+  </v-container>
 </template>
 
 <script>

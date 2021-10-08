@@ -27,7 +27,7 @@
             class="col__filter"
             cols="2"
           >
-            <span class="text__filter">Sort</span>
+            <span class="text__filter">{{ $t('sort') }}</span>
             <v-select
               v-model="filter"
               outlined

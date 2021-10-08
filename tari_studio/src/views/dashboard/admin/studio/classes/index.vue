@@ -267,6 +267,10 @@
         capacity: null,
         category_id: 0,
         instructor_id: 0,
+        start_at: null,
+        end_at: null,
+        time_start: null,
+        time_end: null,
       },
       dialogDeleteById: {
         id: 0,
@@ -411,6 +415,10 @@
         this.update.capacity = item.kapasitas
         this.update.category_id = item.category_id
         this.update.instructor_id = instructorId
+        this.update.start_at = item.start_at
+        this.update.end_at = item.end_at
+        this.update.time_start = item.time_start
+        this.update.time_end = item.time_end
       },
       popUpInfo ({ item }) {
         console.log(item)
@@ -652,6 +660,7 @@
             kapasitas: item.capacity,
             category_id: item.category_id,
             instructor_id: item.instructor_id,
+            start_at: item.start_at,
           })
           .then(res => {
             if (res.data.meta.status) {

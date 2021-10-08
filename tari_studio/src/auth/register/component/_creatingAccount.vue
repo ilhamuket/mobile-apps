@@ -2,7 +2,10 @@
   <v-container>
     <v-form v-model="invalid">
       <v-row>
-        <v-col cols="6">
+        <v-col
+          cols="12"
+          md="6"
+        >
           <v-text-field
             v-model="data.firstName"
             dense
@@ -11,7 +14,10 @@
             prepend-icon="mdi-alpha-f-circle-outline"
           />
         </v-col>
-        <v-col cols="6">
+        <v-col
+          cols="12"
+          md="6"
+        >
           <v-text-field
             v-model="data.lastName"
             dense

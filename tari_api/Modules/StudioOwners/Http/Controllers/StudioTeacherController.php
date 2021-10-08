@@ -48,7 +48,7 @@ class StudioTeacherController extends Controller
             return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         }
     }
-    public function approved(Request $request)
+    public function approved(Request $request, $id)
     {
         try {
             $master = StudioTeacher::findOrFail($id);

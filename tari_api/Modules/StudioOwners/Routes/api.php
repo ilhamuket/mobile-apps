@@ -12,6 +12,7 @@ use Modules\StudioOwners\Http\Controllers\DiscussController;
 use Modules\StudioOwners\Http\Controllers\ImgClassesController;
 use Modules\StudioOwners\Http\Controllers\ImgListClassController;
 use Modules\StudioOwners\Http\Controllers\ReviewOwnerController;
+use Modules\StudioOwners\Http\Controllers\StudioClassVidioController;
 use Modules\StudioOwners\Http\Controllers\StudioOwnerCategoryController;
 use Modules\StudioOwners\Http\Controllers\StudioOwnersController;
 use Modules\StudioOwners\Http\Controllers\StudioOwnerVidioController;
@@ -117,5 +118,9 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
         Route::post('/hide', [ReviewOwnerController::class, 'hide']);
         Route::post('/show', [ReviewOwnerController::class, 'show']);
         Route::delete('/{id}', [ReviewOwnerController::class, 'destroy']);
+    });
+
+    Route::prefix('class-vidio')->group(function () {
+        Route::post('', [StudioClassVidioController::class, 'store']);
     });
 });

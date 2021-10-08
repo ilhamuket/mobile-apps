@@ -127,7 +127,9 @@
                 "display_name": "Nama Tampilan",
                 "status": "Status",
                 "created_at": "Dibuat Pada",
-                "class": "Total Kelas"
+                "class": "Total Kelas",
+                "follow": "Pengikut",
+                "likes": "Menyukai"
             }
         },
         "discusses": {

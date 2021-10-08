@@ -15,6 +15,7 @@
             width="400"
             height="200"
             style="cursor:pointer"
+            gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
             @click="clickPush(list.slug)"
           />
           <v-list-item-avatar

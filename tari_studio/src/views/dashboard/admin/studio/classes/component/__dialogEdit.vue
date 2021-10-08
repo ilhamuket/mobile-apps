@@ -68,9 +68,9 @@
                   >
                     <v-list-item-avatar
                       color="primary"
-                      size="20"
+                      size="22"
                     >
-                      <span>{{ data.item.name.charAt(0) }}</span>
+                      <span class="ml-2">{{ data.item.name.charAt(0) }}</span>
                     </v-list-item-avatar>
 
                     <v-chip
@@ -93,10 +93,10 @@
                     v-bind="data"
                   >
                     <v-list-item-avatar
-                      color="brown"
-                      size="20"
+                      color="primary"
+                      size="22"
                     >
-                      <span>{{ data.item.name.charAt(0) }}</span>
+                      <span class="ml-2">{{ data.item.name.charAt(0) }}</span>
                     </v-list-item-avatar>
 
                     <span class="black--text">{{ data.item.name }}</span>
@@ -124,16 +124,7 @@
                 prepend-icon="mdi-google-analytics"
               />
             </v-col>
-            <v-col cols="12">
-              <v-text-field
-                v-model="dialog.duration"
-                dense
-                label="Duration (Minutes)"
-                type="number"
-                placeholder="Input Duration Class (Minutes)"
-                prepend-icon="mdi-metronome"
-              />
-            </v-col>
+
             <v-col cols="12">
               <v-text-field
                 v-model="dialog.keyword"
@@ -160,6 +151,176 @@
                 type="number"
                 placeholder="Input Capacity Class"
                 prepend-icon="mdi-human-capacity-increase"
+              />
+            </v-col>
+            <v-col
+              cols="12"
+              md="6"
+            >
+              <v-menu
+                ref="menuStart_at"
+                v-model="menuStart_at"
+                :close-on-content-click="false"
+                :return-value.sync="dialog.start_at"
+                transition="scale-transition"
+                offset-y
+                min-width="auto"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="dialog.start_at"
+                    label="Started At *"
+                    prepend-icon="mdi-calendar"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                  />
+                </template>
+                <v-date-picker
+                  v-model="dialog.start_at"
+                  no-title
+                  scrollable
+                >
+                  <v-spacer />
+                  <v-btn
+                    text
+                    color="primary"
+                    @click="menuStart_at = false"
+                  >
+                    Cancel
+                  </v-btn>
+                  <v-btn
+                    text
+                    color="primary"
+                    @click="$refs.menuStart_at.save(dialog.start_at)"
+                  >
+                    OK
+                  </v-btn>
+                </v-date-picker>
+              </v-menu>
+            </v-col>
+            <v-col
+              cols="12"
+              md="6"
+            >
+              <v-menu
+                ref="menuEnd_at"
+                v-model="menuEnd_at"
+                :close-on-content-click="false"
+                :return-value.sync="dialog.end_at"
+                transition="scale-transition"
+                offset-y
+                min-width="auto"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="dialog.end_at"
+                    label="Started At *"
+                    prepend-icon="mdi-calendar"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                  />
+                </template>
+                <v-date-picker
+                  v-model="dialog.end_at"
+                  no-title
+                  scrollable
+                >
+                  <v-spacer />
+                  <v-btn
+                    text
+                    color="primary"
+                    @click="menuEnd_at = false"
+                  >
+                    Cancel
+                  </v-btn>
+                  <v-btn
+                    text
+                    color="primary"
+                    @click="$refs.menuEnd_at.save(dialog.end_at)"
+                  >
+                    OK
+                  </v-btn>
+                </v-date-picker>
+              </v-menu>
+            </v-col>
+            <v-col
+              cols="12"
+              md="6"
+            >
+              <v-menu
+                ref="menu1"
+                v-model="menuTimeStart"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                :return-value.sync="dialog.time_start"
+                transition="scale-transition"
+                offset-y
+                max-width="290px"
+                min-width="290px"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="dialog.time_start"
+                    label="Time Started"
+                    prepend-icon="mdi-clock-time-four-outline"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                  />
+                </template>
+                <v-time-picker
+                  v-if="menuTimeStart"
+                  v-model="dialog.time_start"
+                  format="24hr"
+                  full-width
+                  @click:minute="$refs.menu1.save(dialog.time_start)"
+                />
+              </v-menu>
+            </v-col>
+            <v-col
+              cols="12"
+              md="6"
+            >
+              <v-menu
+                ref="menu2"
+                v-model="menuTimeEnd"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                :return-value.sync="dialog.time_end"
+                transition="scale-transition"
+                offset-y
+                max-width="290px"
+                min-width="290px"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="dialog.time_end"
+                    label="Time Started"
+                    prepend-icon="mdi-clock-time-four-outline"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                  />
+                </template>
+                <v-time-picker
+                  v-if="menuTimeEnd"
+                  v-model="dialog.time_end"
+                  format="24hr"
+                  full-width
+                  @click:minute="$refs.menu2.save(dialog.time_end)"
+                />
+              </v-menu>
+            </v-col>
+            <v-col cols="12">
+              <v-text-field
+                v-model="dialog.duration"
+                dense
+                label="Duration (Minutes)"
+                type="number"
+                placeholder="Input Duration Class (Minutes)"
+                prepend-icon="mdi-metronome"
               />
             </v-col>
             <v-col cols="12">
@@ -217,6 +378,10 @@
     },
     data: () => ({
       items: ['Intermediate', 'Advance', 'Beginner'],
+      menuStart_at: false,
+      menuTimeStart: false,
+      menuEnd_at: false,
+      menuTimeEnd: false,
       form: {
         name: '',
         levels: '',

@@ -16,6 +16,37 @@
     </template>
     <v-container>
       <v-row>
+        <v-col cols="12">
+          <v-btn
+            class="mr-1"
+            outlined
+            rounded
+            small
+            dark
+            color="primary"
+            @click="refreshClick"
+          >
+            <v-tooltip
+              color="primary"
+              bottom
+            >
+              <template #activator="{on, attrs}">
+                <v-icon
+                  v-bind="attrs"
+                  color="size__icon_refresh"
+                  v-on="on"
+                >
+                  mdi-cached
+                </v-icon>
+              </template>
+              <span class="font-spartan-small">
+                {{ $t('Segarkan') }}
+              </span>
+            </v-tooltip>
+          </v-btn>
+        </v-col>
+      </v-row>
+      <v-row>
         <v-col cols="4">
           <v-text-field
             v-model="search"
@@ -61,7 +92,7 @@
             <v-icon>
               mdi-plus
             </v-icon>
-            Create Sub-Class
+            Add instructor
           </v-btn>
 
           <v-btn
@@ -130,15 +161,17 @@
             </template>
 
             <!-- Item -->
+            <template #[`item.#`]="{item}">
+              <v-avatar
+                color="primary"
+                size="50"
+                tile
+              >
+                <span v-if="item.name">{{ item.name.charAt(0) }}</span>
+              </v-avatar>
+            </template>
             <template #[`item.name`]="{item}">
               <div class="mt-6">
-                <v-list-item-avatar
-                  size="23"
-                  color="btn_primary"
-                >
-                  <!-- <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg" /> -->
-                  <span>{{ item.name.charAt(0) }}</span>
-                </v-list-item-avatar>
                 <v-tooltip
                   v-if="item.name.length > 9"
                   bottom
@@ -225,6 +258,10 @@
       isMobile: false,
       headers: [
         {
+          text: '#',
+          value: '#',
+        },
+        {
           text: 'table.teachers.th.fullName',
           align: 'start',
           sortable: false,
@@ -257,9 +294,7 @@
         return title
       },
     },
-    mounted () {
-      console.log(this.isMobile)
-    },
+    mounted () {},
     methods: {
       onResize () {
         if (window.innerWidth < 769) this.isMobile = true
@@ -283,6 +318,9 @@
       setColorVerified (status) {
         if (status === 1) return 'primary'
         else return 'red'
+      },
+      refreshClick () {
+        this.$emit('refresh')
       },
     },
   }

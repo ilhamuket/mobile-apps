@@ -82,8 +82,7 @@ export default {
         axios
           .post('owner/instructor', { ...payload })
           .then(res => {
-            const instructor = res.data.data
-            commit('INSERT_DATA', instructor)
+            commit('INSERT_DATA', payload)
             resolve(res)
           })
           .catch(e => {

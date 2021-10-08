@@ -72,5 +72,7 @@
   "history_class": "History Class",
   "cart": "Cart",
   "detail_classes": "Detail Class",
-  "category": "Category"
+  "category": "Category",
+  "detail_category": "Detail Category",
+  "sort": "Sort"
 }

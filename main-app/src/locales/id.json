@@ -71,5 +71,7 @@
     "history_class": "Riwayat Kelas",
     "cart": "Keranjang",
     "detail_classes": "Detail Kelas",
-    "category": "Kategori"
+    "category": "Kategori",
+    "detail_category": "Detail Kategory",
+    "sort": "Urutkan"
 }

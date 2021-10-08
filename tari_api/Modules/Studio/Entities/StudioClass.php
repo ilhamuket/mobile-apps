@@ -175,4 +175,15 @@ class StudioClass extends Model
 
         return $query;
     }
+
+    public function scopeCategory($query, $categoryName)
+    {
+        if ($categoryName != null && $categoryName != '') {
+            $query->whereHas('category', function (Builder $query) use ($categoryName) {
+                $query->where('name', $categoryName);
+            });
+        }
+
+        return $query;
+    }
 }
