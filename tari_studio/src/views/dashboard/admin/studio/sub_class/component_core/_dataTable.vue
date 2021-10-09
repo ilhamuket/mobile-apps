@@ -179,12 +179,11 @@
             </template>
             <template #[`item.classes.name`]=" {item}">
               <v-chip
-                v-if="item.classes"
                 label
                 color="primary"
                 text-color="black"
               >
-                {{ item.classes.name }}
+                {{ item.classes ? item.classes.name : '-' }}
               </v-chip>
             </template>
             <template #[`item.created_at`]="{item}">

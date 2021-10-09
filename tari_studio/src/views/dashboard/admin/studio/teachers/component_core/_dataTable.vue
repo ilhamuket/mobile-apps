@@ -163,11 +163,12 @@
             <!-- Item -->
             <template #[`item.#`]="{item}">
               <v-avatar
+                v-if="item.name"
                 color="primary"
                 size="50"
                 tile
               >
-                <span v-if="item.name">{{ item.name.charAt(0) }}</span>
+                <span>{{ item.name.charAt(0) }}</span>
               </v-avatar>
             </template>
             <template #[`item.name`]="{item}">

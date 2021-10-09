@@ -55,22 +55,20 @@
               {{ studio.address }}
             </v-chip>
             <v-chip
-              v-if="studio.followers"
               label
               class="font-spartan-small ml-2"
               color="transparent"
               text-color="btn_primary"
             >
-              {{ studio.followers.length }} followers
+              {{ studio.followers ? studio.followers.length : 0 }} followers
             </v-chip>
             <v-chip
-              v-if="studio.likes"
               label
               class="font-spartan-small ml-2"
               color="transparent"
               text-color="btn_primary"
             >
-              {{ studio.likes.length }} Likes
+              {{ studio.likes ? studio.likes.length : 0 }} Likes
             </v-chip>
           </v-col>
         </v-row>

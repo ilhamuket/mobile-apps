@@ -114,12 +114,6 @@
             <template #[`header.levels`]="{ header }">
               {{ $t(header.text) }}
             </template>
-            <!-- <template #[`header.harga`]="{ header }">
-              {{ $t(header.text) }}
-            </template> -->
-            <!-- <template #[`header.created_at`]="{ header }">
-              {{ $t(header.text) }}
-            </template> -->
             <template #[`header.kapasitas`]="{ header }">
               {{ $t(header.text) }}
             </template>
@@ -129,12 +123,6 @@
             <template #[`header.category.display_name`]="{ header }">
               {{ $t(header.text) }}
             </template>
-            <!-- <template #[`header.durasi`]="{ header }">
-              {{ $t(header.text) }}
-            </template> -->
-            <!-- <template #[`header.keyword`]="{ header }">
-              {{ $t(header.text) }}
-            </template> -->
             <template #[`header.status_kelas`]="{header}">
               {{ $t(header.text) }}
             </template>
@@ -258,9 +246,6 @@
                 {{ item.levels }}
               </v-chip>
             </template>
-            <!-- <template #[`item.keyword`]="{item}">
-              <span>{{ item.keyword ? item.keyword : '-' }}</span>
-            </template> -->
             <template #[`item.status`]="{item}">
               <v-chip
                 :color="setColorStatus(item.status)"
@@ -279,9 +264,6 @@
                 0 / {{ item.kapasitas }}
               </v-chip>
             </template>
-            <!-- <template #[`item.created_at`]="{item}">
-              {{ item.created_at | moment('MMMM Do YYYY') }}
-            </template> -->
             <template #[`item.status_kelas`]="{item}">
               <v-chip
                 label
@@ -319,16 +301,13 @@
           value: 'name',
         },
         { text: 'table.class.th.levels', value: 'levels', sortable: false },
-        // { text: 'table.class.th.price', value: 'harga', sortable: false },
         {
           text: 'table.class.th.category',
           value: 'category.display_name',
           sortable: false,
         },
-        // { text: 'table.class.th.created_at', value: 'created_at' },
-        // { text: 'table.class.th.prefix', value: 'keyword', sortable: false },
+
         { text: 'table.class.th.capacity', value: 'kapasitas', sortable: false },
-        // { text: 'table.class.th.duration', value: 'durasi', sortable: false },
         { text: 'table.class.th.status', value: 'status', sortable: false },
         {
           text: 'table.class.th.status_time',
