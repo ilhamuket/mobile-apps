@@ -12,11 +12,6 @@ module.exports = {
     parser: 'babel-eslint',
     sourceType: 'module',
     allowImportExportEverywhere: false,
-    ecmaFeatures: {
-      globalReturn: false,
-    },
-    babelOptions: {
-      configFile: 'path/to/config.js',
-    },
+    codeFrame: true,
   },
 }

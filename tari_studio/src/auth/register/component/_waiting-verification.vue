@@ -7,6 +7,7 @@
       >
         <v-list-item-content v-if="data.data.item2">
           <!-- <div
+                  // eslint-disable-next-line max-len
                   class="text-overline mb-4 text-center font-title-rampart-one text-custome"
                 >
                   Verification Email
