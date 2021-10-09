@@ -44,18 +44,19 @@ const router = new Router({
             } else next({ name: 'index_class' })
           },
         },
-        // Pages
-        // {
-        //   name: 'User Profile',
-        //   path: 'pages/profile',
-        //   component: () => import('@/views/dashboard/pages/profile/index'),
-        //   meta: {
-        //     requiresAuth: true,
-        //   },
-        // },
+        // Class Vidio
+        {
+          name: 'class_vidio',
+          path: '/class-vidio',
+          component: () =>
+            import('@/views/dashboard/admin/studio/classVidio/index.vue'),
+          meta: {
+            requiresAuth: true,
+          },
+        },
         {
           name: 'Notifications',
-          path: 'components/notifications',
+          path: '/components/notifications',
           component: () => import('@/views/dashboard/component/Notifications'),
           meta: {
             requiresAuth: true,
