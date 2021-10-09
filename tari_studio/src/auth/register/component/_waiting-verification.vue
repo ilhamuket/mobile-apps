@@ -5,7 +5,7 @@
         class="opacity-1"
         three-line
       >
-        <v-list-item-content>
+        <v-list-item-content v-if="data.data.item2">
           <!-- <div
                   class="text-overline mb-4 text-center font-title-rampart-one text-custome"
                 >
@@ -29,20 +29,14 @@
           </div> -->
           <div class="d-flex flex-row mt-2 justify-center">
             <div class="d-flex flex-column">
-              <span
-                v-if="data.data.item2"
-                class="font-spartan text-h5"
-              >
+              <span class="font-spartan text-h5">
                 Username Studio : {{ data.data.item2.userName }}
               </span>
             </div>
           </div>
           <div class="d-flex flex-row justify-center">
             <div class="d-flex flex-column">
-              <span
-                v-if="data.data.item2"
-                class="font-spartan text-h5"
-              >
+              <span class="font-spartan text-h5">
                 Email Studio : {{ data.data.item2.email }}
               </span>
             </div>

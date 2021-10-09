@@ -114,12 +114,12 @@
             <template #[`header.levels`]="{ header }">
               {{ $t(header.text) }}
             </template>
-            <template #[`header.harga`]="{ header }">
+            <!-- <template #[`header.harga`]="{ header }">
               {{ $t(header.text) }}
-            </template>
-            <template #[`header.created_at`]="{ header }">
+            </template> -->
+            <!-- <template #[`header.created_at`]="{ header }">
               {{ $t(header.text) }}
-            </template>
+            </template> -->
             <template #[`header.kapasitas`]="{ header }">
               {{ $t(header.text) }}
             </template>
@@ -129,12 +129,12 @@
             <template #[`header.category.display_name`]="{ header }">
               {{ $t(header.text) }}
             </template>
-            <template #[`header.durasi`]="{ header }">
+            <!-- <template #[`header.durasi`]="{ header }">
               {{ $t(header.text) }}
-            </template>
-            <template #[`header.keyword`]="{ header }">
+            </template> -->
+            <!-- <template #[`header.keyword`]="{ header }">
               {{ $t(header.text) }}
-            </template>
+            </template> -->
             <template #[`header.status_kelas`]="{header}">
               {{ $t(header.text) }}
             </template>
@@ -258,9 +258,9 @@
                 {{ item.levels }}
               </v-chip>
             </template>
-            <template #[`item.keyword`]="{item}">
+            <!-- <template #[`item.keyword`]="{item}">
               <span>{{ item.keyword ? item.keyword : '-' }}</span>
-            </template>
+            </template> -->
             <template #[`item.status`]="{item}">
               <v-chip
                 :color="setColorStatus(item.status)"
@@ -279,9 +279,9 @@
                 0 / {{ item.kapasitas }}
               </v-chip>
             </template>
-            <template #[`item.created_at`]="{item}">
+            <!-- <template #[`item.created_at`]="{item}">
               {{ item.created_at | moment('MMMM Do YYYY') }}
-            </template>
+            </template> -->
             <template #[`item.status_kelas`]="{item}">
               <v-chip
                 label

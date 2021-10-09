@@ -250,22 +250,13 @@
               {{ item.created_at | moment('MMMM Do YYYY') }}
             </template>
             <template #[`item.class`]="{item}">
-              <span
-                v-if="item.class"
-                class="font-spartan-small"
-              >
-                <span v-if="item.class">
-                  {{ item.class ? item.class.length : '0' }}</span>
-              </span>
+              <span> {{ item.class ? item.class.length : '0' }}</span>
             </template>
             <template #[`item.follow`]="{item}">
-              <span v-if="item.follow">{{
-                item.follow ? item.follow.length : '0'
-              }}</span>
+              <span>{{ item.follow ? item.follow.length : '0' }}</span>
             </template>
             <template #[`item.likes`]="{item}">
-              <span v-if="item.likes">
-                {{ item.likes ? item.likes.length : '0' }}</span>
+              <span> {{ item.likes ? item.likes.length : '0' }}</span>
             </template>
           </v-data-table>
         </v-col>
