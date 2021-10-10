@@ -28,11 +28,6 @@ class CreateTableInstructorStudioInModuleStudio extends Migration
      */
     public function down()
     {
-        Schema::table('class_instructor', function (Blueprint $table) {
-            $table->dropForeign(['class_id']);
-            $table->dropColumn('class_id');
-            $table->dropForeign(['instructor_id']);
-            $table->dropColumn('instructor_id');
-        });
+        Schema::dropIfExists('class_instructor');
     }
 }
