@@ -15,7 +15,7 @@ class ClassesOwnerStudio extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [];
-    protected $table = 'studioclasses';
+    protected $table = 'studioClasses';
 
     protected static function newFactory()
     {
