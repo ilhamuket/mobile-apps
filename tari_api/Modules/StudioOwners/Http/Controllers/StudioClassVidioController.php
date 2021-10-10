@@ -19,9 +19,15 @@ class StudioClassVidioController extends Controller
     public function index(Request $request)
     {
         try {
-            $master = StudioClassVidio::get();
-        } catch (\Throwable $th) {
-            //throw $th;
+            $master = StudioClassVidio::entities($request->entities)->get();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         }
     }
 

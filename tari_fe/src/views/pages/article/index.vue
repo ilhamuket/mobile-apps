@@ -165,7 +165,6 @@
             id: id,
           })
           .then(res => {
-            console.log(res)
             if (res.data.meta.status) {
               const Toast = this.$swal.mixin({
                 toast: true,

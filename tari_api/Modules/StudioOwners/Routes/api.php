@@ -122,5 +122,6 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
 
     Route::prefix('class-vidio')->group(function () {
         Route::post('', [StudioClassVidioController::class, 'store']);
+        Route::get('', [StudioClassVidioController::class, 'index']);
     });
 });

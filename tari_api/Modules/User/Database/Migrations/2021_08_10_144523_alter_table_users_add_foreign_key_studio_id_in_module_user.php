@@ -14,7 +14,8 @@ class AlterTableUsersAddForeignKeyStudioIdInModuleUser extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('studio_id')->nullable()->constrained();
+            $table->dropForeign(['studio_id']);
+            $table->dropColumn('studio_id');
         });
     }
 
@@ -26,8 +27,7 @@ class AlterTableUsersAddForeignKeyStudioIdInModuleUser extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['studio_id']);
-            $table->dropColumn('studio_id');
+            $table->foreignId('studio_id')->nullable()->constrained();
         });
     }
 }

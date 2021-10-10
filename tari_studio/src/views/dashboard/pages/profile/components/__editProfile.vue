@@ -79,7 +79,7 @@
               class="d-flex flex-row-reverse"
             >
               <v-btn
-                color="primary"
+                color="btn_primary"
                 @click="updateProfile"
               >
                 update

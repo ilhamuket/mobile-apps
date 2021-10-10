@@ -184,7 +184,7 @@
                         text-color="red"
                       >
                         <h4>
-                          Forgott Password ?
+                          Forgot Password ?
                         </h4>
                       </v-chip>
                     </div>
