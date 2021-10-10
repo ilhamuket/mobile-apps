@@ -12,7 +12,7 @@ class StudioOwnerVidio extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [];
-    protected $table = 'studiovidios';
+    protected $table = 'studioVidios';
 
     protected static function newFactory()
     {
