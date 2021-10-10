@@ -11,7 +11,7 @@ class StudioVidio extends Model
     use HasFactory;
 
     protected $fillable = [];
-    protected $table = 'studiovidios';
+    protected $table = 'studioVidios';
 
     protected static function newFactory()
     {
