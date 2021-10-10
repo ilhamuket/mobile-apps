@@ -17,7 +17,7 @@ class AlterTableStudioClassesAddUserActivityIdInModuleStudio extends Migration
             $table->unsignedBigInteger('user_activity_id');
             $table->foreign('user_activity_id')->references('id')->on('users');
             $table->unsignedBigInteger('class_id');
-            $table->foreign('class_id')->references('id')->on('studioclasses');
+            $table->foreign('class_id')->references('id')->on('studioClasses');
         });
     }
 

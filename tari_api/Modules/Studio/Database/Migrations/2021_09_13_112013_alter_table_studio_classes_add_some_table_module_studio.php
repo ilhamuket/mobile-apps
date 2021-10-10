@@ -13,7 +13,7 @@ class AlterTableStudioClassesAddSomeTableModuleStudio extends Migration
      */
     public function up()
     {
-        Schema::table('studioclasses', function (Blueprint $table) {
+        Schema::table('studioClasses', function (Blueprint $table) {
             $table->dropColumn('status');
             $table->string('url_meets')->nullable();
             $table->string('keyword')->nullable();
@@ -32,7 +32,7 @@ class AlterTableStudioClassesAddSomeTableModuleStudio extends Migration
      */
     public function down()
     {
-        Schema::table('studioclasses', function (Blueprint $table) {
+        Schema::table('studioClasses', function (Blueprint $table) {
             $table->boolean('status')->nullable();
             $table->dropColumn('url_meets');
             $table->dropColumn('keyword');

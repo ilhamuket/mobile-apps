@@ -17,7 +17,7 @@ class CreateTablePivotCartInModuleStudio extends Migration
             $table->id();
             $table->string('type');
             $table->unsignedBigInteger('class_id');
-            $table->foreign('class_id')->references('id')->on('studioclasses');
+            $table->foreign('class_id')->references('id')->on('studioClasses');
             $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });

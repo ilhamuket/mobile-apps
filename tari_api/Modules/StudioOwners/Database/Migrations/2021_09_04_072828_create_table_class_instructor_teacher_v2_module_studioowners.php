@@ -17,7 +17,7 @@ class CreateTableClassInstructorTeacherV2ModuleStudioowners extends Migration
             $table->unsignedBigInteger('instructor_id');
             $table->foreign('instructor_id')->references('id')->on('studios_teachers');
             $table->unsignedBigInteger('class_id');
-            $table->foreign('class_id')->references('id')->on('studioclasses');
+            $table->foreign('class_id')->references('id')->on('studioClasses');
         });
     }
 

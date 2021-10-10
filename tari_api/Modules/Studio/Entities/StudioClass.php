@@ -17,7 +17,7 @@ class StudioClass extends Model
     use HasFactory;
 
     protected $fillable = [];
-    protected $table = 'studioclasses';
+    protected $table = 'studioClasses';
 
     protected static function newFactory()
     {

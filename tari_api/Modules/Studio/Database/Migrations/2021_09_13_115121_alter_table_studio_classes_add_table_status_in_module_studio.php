@@ -13,7 +13,7 @@ class AlterTableStudioClassesAddTableStatusInModuleStudio extends Migration
      */
     public function up()
     {
-        Schema::table('studioclasses', function (Blueprint $table) {
+        Schema::table('studioClasses', function (Blueprint $table) {
             $table->string('status')->nullable();
         });
     }
@@ -25,7 +25,7 @@ class AlterTableStudioClassesAddTableStatusInModuleStudio extends Migration
      */
     public function down()
     {
-        Schema::table('studioclasses', function (Blueprint $table) {
+        Schema::table('studioClasses', function (Blueprint $table) {
             $table->dropColumn('status');
         });
     }

@@ -13,7 +13,7 @@ class AlterTableStudioclassesAddTableSlugForTableInModuleStudio extends Migratio
      */
     public function up()
     {
-        Schema::table('studioclasses', function (Blueprint $table) {
+        Schema::table('studioClasses', function (Blueprint $table) {
             $table->string('slug')->nullable();
         });
     }
@@ -25,7 +25,7 @@ class AlterTableStudioclassesAddTableSlugForTableInModuleStudio extends Migratio
      */
     public function down()
     {
-        Schema::table('studioclasses', function (Blueprint $table) {
+        Schema::table('studioClasses', function (Blueprint $table) {
             $table->dropColumn('slug');
         });
     }

@@ -18,7 +18,7 @@ class CreateTableReviewsInModuleStudio extends Migration
             $table->text('body');
             $table->unsignedBigInteger('ratings');
             $table->unsignedBigInteger('class_id');
-            $table->foreign('class_id')->references('id')->on('studioclasses');
+            $table->foreign('class_id')->references('id')->on('studioClasses');
             $table->foreignId('studio_id')->nullable()->constrained();
             $table->foreignId('user_id')->constrained();
             $table->timestamps();

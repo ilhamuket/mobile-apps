@@ -24,7 +24,7 @@ class CreateTableDiscussClassStudioInModuleStudio extends Migration
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->foreign('parent_id')->references('id')->on("discusses");
             $table->unsignedBigInteger('class_id');
-            $table->foreign('class_id')->references('id')->on('studioclasses');
+            $table->foreign('class_id')->references('id')->on('studioClasses');
             $table->timestamps();
         });
     }

@@ -13,7 +13,7 @@ class AlterTableStudioClassesFixViewsRemove extends Migration
      */
     public function up()
     {
-        Schema::table('studioclasses', function (Blueprint $table) {
+        Schema::table('studioClasses', function (Blueprint $table) {
             $table->dropColumn('views');
         });
     }
@@ -25,7 +25,7 @@ class AlterTableStudioClassesFixViewsRemove extends Migration
      */
     public function down()
     {
-        Schema::table('studioclasses', function (Blueprint $table) {
+        Schema::table('studioClasses', function (Blueprint $table) {
             $table->unsignedBigInteger('views')->default(0);
         });
     }

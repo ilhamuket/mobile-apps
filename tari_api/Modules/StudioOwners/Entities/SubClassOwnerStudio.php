@@ -49,21 +49,21 @@ class SubClassOwnerStudio extends Model
     {
         if ($summary == 'all') {
             $query
-                ->where('studioclasses.studio_id', $studio_id);
+                ->where('studioClasses.studio_id', $studio_id);
         }
         if ($summary == 'approved') {
             $query
-                ->where('studioclasses.studio_id', $studio_id)
+                ->where('studioClasses.studio_id', $studio_id)
                 ->where('classes_schedule_studio.is_verified', 1);
         }
         if ($summary == 'non_approved') {
             $query
-                ->where('studioclasses.studio_id', $studio_id)
+                ->where('studioClasses.studio_id', $studio_id)
                 ->where('classes_schedule_studio.is_verified', 0);
         }
         if ($summary == 'new') {
             $query
-                ->where('studioclasses.studio_id', $studio_id)
+                ->where('studioClasses.studio_id', $studio_id)
                 ->whereDate('classes_schedule_studio.created_at', now());
         }
     }

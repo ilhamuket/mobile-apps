@@ -17,7 +17,7 @@ class CreateImgStudioClassesListInModuleStudioowners extends Migration
             $table->id();
             $table->string('url');
             $table->unsignedBigInteger('class_id');
-            $table->foreign('class_id')->references('id')->on('studioclasses');
+            $table->foreign('class_id')->references('id')->on('studioClasses');
             $table->softDeletes();
             $table->timestamps();
         });
