@@ -11,29 +11,29 @@ class CreateTableCommentsStudioInModuleStudio extends Migration
      *
      * @return void
      */
-    // public function up()
-    // {
-    //     Schema::create('comment_studio_vidios', function (Blueprint $table) {
-    //         $table->id();
-    //         $table->string('comment');
-    //         $table->boolean('isReplies')->default(false);
-    //         $table->foreignId('user_id')->constrained();
-    //         $table->unsignedBigInteger('studio_vidio_id');
-    //         $table->foreign('studio_vidio_id')->references('id')->on('studiovidios');
-    //         $table->unsignedBigInteger('parent_id')->nullable();
-    //         $table->foreign('parent_id')->references('id')->on('comment_studio_vidios');
-    //         $table->softDeletes();
-    //         $table->timestamps();
-    //     });
-    // }
+    public function up()
+    {
+        Schema::create('comment_studio_vidios', function (Blueprint $table) {
+            $table->id();
+            $table->string('comment');
+            $table->boolean('isReplies')->default(false);
+            $table->foreignId('user_id')->constrained();
+            $table->unsignedBigInteger('studio_vidio_id');
+            $table->foreign('studio_vidio_id')->references('id')->on('studioVidios');
+            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->foreign('parent_id')->references('id')->on('comment_studio_vidios');
+            $table->softDeletes();
+            $table->timestamps();
+        });
+    }
 
-    // /**
-    //  * Reverse the migrations.
-    //  *
-    //  * @return void
-    //  */
-    // public function down()
-    // {
-    //     Schema::dropIfExists('comment_studio_vidios');
-    // }
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('comment_studio_vidios');
+    }
 }

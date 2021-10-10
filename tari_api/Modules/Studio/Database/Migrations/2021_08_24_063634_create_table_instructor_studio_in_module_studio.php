@@ -15,7 +15,7 @@ class CreateTableInstructorStudioInModuleStudio extends Migration
     {
         Schema::create('class_instructor', function (Blueprint $table) {
             $table->unsignedBigInteger('class_id');
-            $table->foreign('class_id')->references('id')->on('studioclasses');
+            $table->foreign('class_id')->references('id')->on('studioClasses');
             $table->unsignedBigInteger('instructor_id');
             $table->foreign('instructor_id')->references('id')->on('users');
         });
