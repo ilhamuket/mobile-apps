@@ -119,8 +119,9 @@ class ImagesStudioController extends Controller
         try {
             $master = new ImagesStudio();
             $master->name_thumbnail = $request->name_thumbnail;
-            $path = $request->photo->store('images');
-            // $publicPath = \Storage::url($path);
+            $path = $request->photo->store('listImg');
+            // $publicPath = \Images::url($path);
+            dd($path);
             $master->url =  $path;
             $master->studio_id = $request->studio_id;
             $master->type = $request->type;
