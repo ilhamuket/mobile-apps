@@ -39,11 +39,12 @@ class ImagesStudioController extends Controller
     public function storeThumbnail(Request $request)
     {
         try {
+            $studio = OwnerStudio::where('author_id', $request->user()->id)->first();
             $master = new ImagesStudio();
             $master->name_thumbnail = $request->name_thumbnail;
             $path = $request->img->store('images/studio');
             $master->url =  $path;
-            $master->studio_id = $request->studio_id;
+            $master->studio_id = $studio->studio_id;
             $master->type = $request->type;
             $master->save();
 
@@ -88,7 +89,7 @@ class ImagesStudioController extends Controller
         try {
             DB::beginTransaction();
             $studio = OwnerStudio::where('author_id', $request->user()->id)->first();
-            $studioImg = ImagesStudio::where('studio_id', $request->studio_id)->first();
+            $studioImg = ImagesStudio::where('studio_id', $studio->studio_id)->first();
             $new_array = explode('/', $studioImg->url);
             $image_path = $new_array[3] . '/' . $new_array[4] . '/' . $new_array[5] . '/' . $new_array[6];
 
@@ -102,7 +103,7 @@ class ImagesStudioController extends Controller
             $path = $request->img->store('images/studio');
             $master->name_thumbnail = 's';
             $master->url = $path;
-            $master->studio_id = $request->studio_id;
+            $master->studio_id = $studio->studio_id;
             $master->type = 'studio';
             $master->save();
             DB::commit();
