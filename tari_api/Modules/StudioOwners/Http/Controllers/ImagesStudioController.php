@@ -38,7 +38,7 @@ class ImagesStudioController extends Controller
         try {
             $master = new ImagesStudio();
             $master->name_thumbnail = $request->name_thumbnail;
-            $path = $request->photo->store('storage');
+            $path = $request->photo->store('images');
 
 
             $master->url =  $path;
