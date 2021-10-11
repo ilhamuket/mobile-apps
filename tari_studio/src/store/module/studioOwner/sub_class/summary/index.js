@@ -1,4 +1,5 @@
-import axios from 'axios'
+/* eslint-disable no-undef */
+import axios from "axios"
 export default {
   namespaced: true,
   state: {
@@ -14,17 +15,17 @@ export default {
     GET_DATA: (state, payload) => (state.data = payload),
   },
   actions: {
-    getDataSummarySubClass: ({ commit }, payload) => {
+    getDataSummarySubClass: ({ commit }) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         axios
-          .get('owner/sub-classes/summary')
+          .get("owner/sub-classes/summary")
           .then(res => {
             const summary = res.data.data
-            commit('GET_DATA', summary)
+            commit("GET_DATA", summary)
             resolve(res)
           })
           .catch(e => {

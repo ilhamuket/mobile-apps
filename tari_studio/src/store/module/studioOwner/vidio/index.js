@@ -1,4 +1,5 @@
-import axios from 'axios'
+/* eslint-disable no-unused-vars */
+import axios from "axios"
 
 export default {
   namespaced: true,
@@ -20,11 +21,12 @@ export default {
     },
     GO_PUBLISH: (state, payload) => {
       for (const item in payload) {
+        // console.log(item)
         if (Object.hasOwnProperty.call(payload, item)) {
           const vidio = payload[item]
           const index = state.data.findIndex(x => x.id === vidio.id)
           if (index !== -1) {
-            state.data[index].status = 'publish'
+            state.data[index].status = "publish"
           }
         }
       }
@@ -51,16 +53,16 @@ export default {
   actions: {
     getDataVidio: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         const params = { ...payload }
         axios
-          .get('owner/vidio', { params: params })
+          .get("owner/vidio", { params: params })
           .then(res => {
             const data = res.data.data
-            commit('GET_DATA', data)
+            commit("GET_DATA", data)
           })
           .catch(e => {
             reject(e)
@@ -69,15 +71,15 @@ export default {
     },
     insertDataVidio: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         axios
-          .post('owner/vidio', { ...payload })
+          .post("owner/vidio", { ...payload })
           .then(res => {
             const data = res.data.data
-            commit('INSERT_DATA', data)
+            commit("INSERT_DATA", data)
             resolve(res)
           })
           .catch(e => {
@@ -87,15 +89,15 @@ export default {
     },
     publishVidio: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         const params = payload.map(x => x.id)
         axios
-          .post('owner/vidio/go-publish', { id: params })
+          .post("owner/vidio/go-publish", { id: params })
           .then(res => {
-            commit('GO_PUBLISH', payload)
+            commit("GO_PUBLISH", payload)
             resolve(res)
           })
           .catch(e => {
@@ -105,15 +107,15 @@ export default {
     },
     deletesDataVidio: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         const params = payload.map(x => x.id)
         axios
-          .post('owner/vidio/deletes', { id: params })
+          .post("owner/vidio/deletes", { id: params })
           .then(res => {
-            commit('DELETES_DATA', payload)
+            commit("DELETES_DATA", payload)
             resolve(res)
           })
           .catch(e => {
@@ -123,14 +125,14 @@ export default {
     },
     deleteDataById: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         axios
           .delete(`owner/vidio/${payload.id}`)
           .then(res => {
-            commit('DELETES_DATA_BY_ID', payload.id)
+            commit("DELETES_DATA_BY_ID", payload.id)
             resolve(res)
           })
           .catch(e => {
@@ -142,14 +144,14 @@ export default {
     // Summary
     getDataSummary: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         axios
-          .get('owner/vidio/summary')
+          .get("owner/vidio/summary")
           .then(res => {
-            commit('GET_DATA_SUMMARY', res.data.data)
+            commit("GET_DATA_SUMMARY", res.data.data)
             resolve(res)
           })
           .catch(e => {

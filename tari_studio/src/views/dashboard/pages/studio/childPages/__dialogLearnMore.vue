@@ -54,5 +54,5 @@
     transition: .3s ease
     z-index: 1
 .overflow-x-hidden
-    overflow-x: hidden !important
+  overflow-x: hidden !important
 </style>

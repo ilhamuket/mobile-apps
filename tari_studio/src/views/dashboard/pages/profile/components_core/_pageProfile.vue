@@ -36,7 +36,10 @@
                 />
 
                 <div class="d-flex flex-row">
-                  <div class="d-flex flex-column">
+                  <div
+                    v-if="!data.img"
+                    class="d-flex flex-column"
+                  >
                     <v-btn
                       width="170"
                       class="mt-4 ml-12"
@@ -55,6 +58,42 @@
                       style="display: none"
                       accept="image/*"
                       @change="onFilePickedInput"
+                    >
+                  </div>
+                  <div
+                    v-else
+                    class="d-flex flex-column"
+                  >
+                    <v-btn
+                      width="170"
+                      class="mt-4 ml-12"
+                      icon
+                      dark
+                      color="primary"
+                      @click="change"
+                    >
+                      <v-tooltip
+                        bottom
+                        color="primary"
+                      >
+                        <template #activator="{on, attrs}">
+                          <v-icon
+                            v-bind="attrs"
+                            large
+                            v-on="on"
+                          >
+                            mdi-camera-flip
+                          </v-icon>
+                        </template>
+                        <span>Change Picture</span>
+                      </v-tooltip>
+                    </v-btn>
+                    <input
+                      ref="change"
+                      type="file"
+                      style="display: none"
+                      accept="image/*"
+                      @change="changePicture"
                     >
                   </div>
                   <div class="d-flex flex-column">
@@ -261,43 +300,88 @@
         const fileReader = new FileReader()
         fileReader.addEventListener('load', () => {
           this.imageUrl = fileReader.result
-          //   console.log(this.imageUrl)
-          console.log(this.imageUrl)
+        //   console.log(this.imageUrl)
+        // console.log(this.imageUrl)
         })
         fileReader.readAsDataURL(files[0])
         this.files = files[0]
 
-      // if (this.files.size > 2000000) {
-      //   console.log('too big')
-      //   const Toast = this.$swal.mixin({
-      //     toast: true,
-      //     position: 'bottom-end',
-      //     showConfirmButton: false,
-      //     timer: 3000,
-      //     timerProgressBar: true,
-      //     didOpen: toast => {
-      //       toast.addEventListener('mouseenter', this.$swal.stopTimer)
-      //       toast.addEventListener('mouseleave', this.$swal.resumeTimer)
-      //     },
-      //     popup: 'swal2-show',
-      //     backdrop: 'swal2-backdrop-show',
-      //     icon: 'swal2-icon-show',
-      //   })
-      //   Toast.fire({
-      //     icon: 'error',
-      //     title: 'file too big',
-      //   })
-      // } else {
-      //   this.$emit('input', {
-      //     item: {
-      //       files: this.files,
-      //       id: this.dialog.data.id,
-      //     },
-      //   })
-      // }
+        if (this.files.size > 2000000) {
+          console.log('too big')
+          const Toast = this.$swal.mixin({
+            toast: true,
+            position: 'bottom-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: toast => {
+              toast.addEventListener('mouseenter', this.$swal.stopTimer)
+              toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+            },
+            popup: 'swal2-show',
+            backdrop: 'swal2-backdrop-show',
+            icon: 'swal2-icon-show',
+          })
+          Toast.fire({
+            icon: 'error',
+            title: 'file too big',
+          })
+        } else {
+          this.$emit('input', {
+            item: {
+              files: this.files,
+              id: this.data.id,
+            },
+          })
+        }
+      },
+      change () {
+        this.$refs.change.click()
       },
       editProfile (item) {
         this.$emit('edit', { item: item })
+      },
+      changePicture (event) {
+        const files = event.target.files
+        const filename = files[0].name
+        console.log(filename)
+        const fileReader = new FileReader()
+        fileReader.addEventListener('load', () => {
+          this.imageUrl = fileReader.result
+        //   console.log(this.imageUrl)
+        // console.log(this.imageUrl)
+        })
+        fileReader.readAsDataURL(files[0])
+        this.files = files[0]
+
+        if (this.files.size > 2000000) {
+          console.log('too big')
+          const Toast = this.$swal.mixin({
+            toast: true,
+            position: 'bottom-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: toast => {
+              toast.addEventListener('mouseenter', this.$swal.stopTimer)
+              toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+            },
+            popup: 'swal2-show',
+            backdrop: 'swal2-backdrop-show',
+            icon: 'swal2-icon-show',
+          })
+          Toast.fire({
+            icon: 'error',
+            title: 'file too big',
+          })
+        } else {
+          this.$emit('change', {
+            item: {
+              files: this.files,
+              id: this.data.id,
+            },
+          })
+        }
       },
     },
   }

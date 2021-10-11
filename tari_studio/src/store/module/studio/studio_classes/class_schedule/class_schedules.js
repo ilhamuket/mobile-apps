@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from "axios"
 
 export default {
   namespaced: true,
@@ -12,7 +12,7 @@ export default {
   actions: {
     getDataClassSchedules: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
@@ -23,7 +23,7 @@ export default {
           })
           .then(res => {
             const data = res.data.data
-            commit('GET_DATA', data)
+            commit("GET_DATA", data)
             resolve(res)
           })
           .catch(e => {

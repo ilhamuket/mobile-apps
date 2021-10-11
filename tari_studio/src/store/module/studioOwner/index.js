@@ -33,10 +33,62 @@ export default {
           })
       })
     },
+    inputPictureImgStudio: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        'Bearer ' + localStorage.getItem('access_token')
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        const URL = 'owner/files'
+        const data = new FormData()
+        data.append('name_thumbnail', 's')
+        data.append('img', payload.files)
+        data.append('studio_id', payload.studio_id)
+        data.append('type', 'thumbnail')
+        const config = {
+          header: {
+            'Content-Type': 'image/png',
+          },
+        }
+
+        axios
+          .post(URL, data, config)
+          .then(res => {
+            resolve(res)
+          })
+          .catch(e => {
+            reject(e)
+          })
+      })
+    },
     changePictureImgStudio: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
         'Bearer ' + localStorage.getItem('access_token')
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        const URL = 'owner/files/update'
+        const data = new FormData()
+        data.append('name_thumbnail', 's')
+        data.append('studio_id', payload.studio_id)
+        data.append('img', payload.files)
+        data.append('type', 'thumbnail')
+
+        const config = {
+          header: {
+            'Content-Type': 'image/png',
+          },
+        }
+
+        axios
+          .post(URL, data, config)
+          .then(res => {
+            resolve(res)
+          })
+          .catch(e => {
+            reject(e)
+          })
+      })
     },
   },
 }

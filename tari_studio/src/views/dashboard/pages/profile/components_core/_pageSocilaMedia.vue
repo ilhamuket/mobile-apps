@@ -66,7 +66,10 @@
         cols="12"
         class="d-flex justify-end"
       >
-        <v-btn color="btn_primary">
+        <v-btn
+          color="btn_primary"
+          @click="save"
+        >
           Save
         </v-btn>
       </v-col>
@@ -80,6 +83,11 @@
       data: {
         type: Object,
         default: null,
+      },
+    },
+    methods: {
+      save () {
+        this.$emit('save', { item: this.data })
       },
     },
   }

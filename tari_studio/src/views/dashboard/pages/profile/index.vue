@@ -72,6 +72,9 @@
           <v-tab class="font-spartan-small">
             Reviews
           </v-tab>
+          <v-tab class="font-spartan-small">
+            Payment
+          </v-tab>
         </v-tabs>
         <v-tabs-items v-model="tabs">
           <v-tab-item>
@@ -108,6 +111,9 @@
               @delete="upDeleteReviewsAll"
               @reply="upReplyReviews"
             />
+          </v-tab-item>
+          <v-tab-item>
+            <app-page-payment />
           </v-tab-item>
         </v-tabs-items>
       </v-col>
@@ -168,33 +174,35 @@
 </template>
 
 <script>
-  import card from './components_core/__cardDetail.vue'
-  import pageOne from './components_core/_pageProfile.vue'
-  import summary from './components_core/_pageSummary.vue'
-  import medsos from './components_core/_pageSocilaMedia.vue'
-  import discuss from './components_core/_pageDiscusses.vue'
-  import reviews from './components_core/_pageReviews.vue'
-  import reply from './components/__dialogReply.vue'
-  import notice from './components/__dialogNotice.vue'
-  import editProfile from './components/__editProfile.vue'
+  import card from "./components_core/__cardDetail.vue"
+  import pageOne from "./components_core/_pageProfile.vue"
+  import summary from "./components_core/_pageSummary.vue"
+  import medsos from "./components_core/_pageSocilaMedia.vue"
+  import discuss from "./components_core/_pageDiscusses.vue"
+  import reviews from "./components_core/_pageReviews.vue"
+  import payment from "./components_core/_payment.vue"
+  import reply from "./components/__dialogReply.vue"
+  import notice from "./components/__dialogNotice.vue"
+  import editProfile from "./components/__editProfile.vue"
   export default {
     components: {
-      'app-card': card,
-      'app-page-one': pageOne,
-      'app-page-summarry': summary,
-      'app-page-medsos': medsos,
-      'app-page-discusses': discuss,
-      'app-page-reviews': reviews,
-      'app-dialog-reply': reply,
-      'app-dialog-notice': notice,
-      'app-dialog-edit-profile': editProfile,
+      "app-card": card,
+      "app-page-one": pageOne,
+      "app-page-summarry": summary,
+      "app-page-medsos": medsos,
+      "app-page-discusses": discuss,
+      "app-page-reviews": reviews,
+      "app-page-payment": payment,
+      "app-dialog-reply": reply,
+      "app-dialog-notice": notice,
+      "app-dialog-edit-profile": editProfile,
     },
     data: () => ({
       tabs: null,
       isMobile: false,
       is_load: true,
       attrsLoad: {
-        class: 'mb-6',
+        class: "mb-6",
         boilerplate: true,
         elevation: 2,
       },
@@ -231,7 +239,7 @@
         open: false,
         data: [],
       },
-      params: '',
+      params: "",
     }),
     computed: {
       computedMe () {
@@ -256,28 +264,32 @@
     watch: {
       tabs () {
         if (this.tabs === 0) {
-          this.params = 'home'
+          this.params = "home"
           const params = (this.$route.params.params = this.params)
           this.$router.push(params).catch(() => {})
         } else if (this.tabs === 1) {
-          this.params = 'profile'
+          this.params = "profile"
           const params = (this.$route.params.params = this.params)
           this.$router.push(params).catch(() => {})
         } else if (this.tabs === 2) {
-          this.params = 'socmed'
+          this.params = "socmed"
           const params = (this.$route.params.params = this.params)
           this.$router.push(params).catch(() => {})
         } else if (this.tabs === 3) {
-          this.params = 'discusses'
+          this.params = "discusses"
           const params = (this.$route.params.params = this.params)
           this.$router.push(params).catch(() => {})
         } else if (this.tabs === 4) {
-          this.params = 'reviews'
+          this.params = "reviews"
+          const params = (this.$route.params.params = this.params)
+          this.$router.push(params).catch(() => {})
+        } else if (this.tabs === 5) {
+          this.params = "payment"
           const params = (this.$route.params.params = this.params)
           this.$router.push(params).catch(() => {})
         }
       },
-      '$route.params.params': function (val) {
+      "$route.params.params": function (val) {
         return (this.params = val)
       },
     },
@@ -291,17 +303,17 @@
     },
     methods: {
       firstLoad () {
-        if (this.$route.params.params === 'home') return (this.tabs = 0)
-        else if (this.$route.params.params === 'profile') return (this.tabs = 1)
-        else if (this.$route.params.params === 'socmed') return (this.tabs = 2)
-        else if (this.$route.params.params === 'discusses') return (this.tabs = 3)
-        else if (this.$route.params.params === 'reviews') return (this.tabs = 4)
+        if (this.$route.params.params === "home") return (this.tabs = 0)
+        else if (this.$route.params.params === "profile") return (this.tabs = 1)
+        else if (this.$route.params.params === "socmed") return (this.tabs = 2)
+        else if (this.$route.params.params === "discusses") return (this.tabs = 3)
+        else if (this.$route.params.params === "reviews") return (this.tabs = 4)
         else return (this.tabs = 0)
       },
       me () {
         this.$store
-          .dispatch('user/me', {
-            entities: 'studio',
+          .dispatch("user/me", {
+            entities: "studio",
           })
           .then(res => {
             this.users = res.data.data
@@ -314,8 +326,8 @@
       },
       getStudioMe () {
         this.$store
-          .dispatch('studio/getDataMeStudio', {
-            entities: 'likes,followers,img',
+          .dispatch("studio/getDataMeStudio", {
+            entities: "likes,followers,img",
           })
           .then(res => {
             if (res.data.meta.status) {
@@ -326,7 +338,7 @@
       updateDataStudios ({ item }) {
         console.log(item)
         this.$store
-          .dispatch('studios/updateDataStudios', {
+          .dispatch("studios/updateDataStudios", {
             name: item.name,
             prefix: item.prefix,
             email: item.email,
@@ -339,28 +351,28 @@
               this.dialogEditProfile.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Data Repllied Successfully',
+                icon: "success",
+                title: "Data Repllied Successfully",
               })
             }
           })
       },
       getDataReviewsStudio () {
-        this.$store.dispatch('studioReviews/getDataReviewsStudio', {
-          entities: 'class,user.img',
+        this.$store.dispatch("studioReviews/getDataReviewsStudio", {
+          entities: "class,user.img",
         })
       },
       upHideDiscusesAll ({ item }) {
@@ -369,43 +381,43 @@
       },
       hideDataDiscussesSelected ({ item }) {
         this.$store
-          .dispatch('studioDiscusses/hideDataDiscussesSelected', item)
+          .dispatch("studioDiscusses/hideDataDiscussesSelected", item)
           .then(res => {
             if (res.data.meta.status) {
               this.dialogHideDiscussesAll.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Data Hided Successfully',
+                icon: "success",
+                title: "Data Hided Successfully",
               })
             }
           })
       },
       toClass () {
-        this.$router.push('/class')
+        this.$router.push("/class")
       },
       getDataSummary () {
-        this.$store.dispatch('dashboardSummary/getDataSummary')
+        this.$store.dispatch("dashboardSummary/getDataSummary")
       },
       toNavigate (link) {
         this.$router.push(link)
       },
       getDataStudioDiscusses () {
-        this.$store.dispatch('studioDiscusses/getDataStudioDiscusses', {
-          entities: 'class.img,user.img,child,likes',
+        this.$store.dispatch("studioDiscusses/getDataStudioDiscusses", {
+          entities: "class.img,user.img,child,likes",
         })
       },
       upReply ({ item }) {
@@ -432,7 +444,7 @@
       },
       replyDataStudioDiscuss ({ item }) {
         this.$store
-          .dispatch('studioDiscusses/replyDataStudioDiscuss', {
+          .dispatch("studioDiscusses/replyDataStudioDiscuss", {
             body: item.content,
             parent_id: item.data.id,
             id: item.data.class_id,
@@ -443,21 +455,21 @@
               item = null
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Data Repllied Successfully',
+                icon: "success",
+                title: "Data Repllied Successfully",
               })
             }
           })
@@ -468,7 +480,7 @@
       },
       deleteDataDiscusses ({ item }) {
         this.$store
-          .dispatch('studioDiscusses/deleteDataDiscusses', {
+          .dispatch("studioDiscusses/deleteDataDiscusses", {
             id: item.id,
           })
           .then(res => {
@@ -476,21 +488,21 @@
               this.deleteDiscuss.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Data Repllied Deleted Successfully',
+                icon: "success",
+                title: "Data Repllied Deleted Successfully",
               })
             }
           })
@@ -498,28 +510,28 @@
       },
       deleteDataDiscussesSelected ({ item }) {
         this.$store
-          .dispatch('studioDiscusses/deleteDataDiscussesSelected', item)
+          .dispatch("studioDiscusses/deleteDataDiscussesSelected", item)
           .then(res => {
             if (res.data.meta.status) {
               item = []
               this.dialogDeleteDiscussBroadcast.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Data Deleted Successfully',
+                icon: "success",
+                title: "Data Deleted Successfully",
               })
             }
           })
@@ -530,26 +542,26 @@
       },
       hideReviewSelected ({ item }) {
         this.$store
-          .dispatch('studioReviews/hideReviewSelected', item)
+          .dispatch("studioReviews/hideReviewSelected", item)
           .then(res => {
             if (res.data.meta.status) {
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Data Reviews Hided Successfully',
+                icon: "success",
+                title: "Data Reviews Hided Successfully",
               })
             }
           })
@@ -560,27 +572,27 @@
       },
       deleteReviewSelected ({ item }) {
         this.$store
-          .dispatch('studioReviews/deleteReviewSelected', item)
+          .dispatch("studioReviews/deleteReviewSelected", item)
           .then(res => {
             if (res.data.meta.status) {
               this.dialogDeleteReviewsAll.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Data Reviews Deleted Successfully',
+                icon: "success",
+                title: "Data Reviews Deleted Successfully",
               })
             }
           })
@@ -589,14 +601,14 @@
       saveSocialMedia ({ item }) {
         console.log(item)
         this.$store
-          .dispatch('studios/updateDataStudios', {
+          .dispatch("studios/updateDataStudios", {
             ig: item.username_ig,
             tw: item.username_tw,
             fb: item.username_fb,
           })
           .then(res => {
             if (res.data.meta.status) {
-              this.$route.params.params = 'profile'
+              this.$route.params.params = "profile"
               this.firstLoad()
             }
           })
@@ -604,7 +616,7 @@
       inputPictureImgStudio ({ item }) {
         console.log(item)
         this.$store
-          .dispatch('studios/inputPictureImgStudio', {
+          .dispatch("studios/inputPictureImgStudio", {
             files: item.files,
             studio_id: item.id,
           })
@@ -612,21 +624,21 @@
             if (res.data.meta.status) {
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Data Repllied Successfully',
+                icon: "success",
+                title: "Data Repllied Successfully",
               })
               this.getStudioMe()
             }
@@ -634,7 +646,7 @@
       },
       changePictureImgStudio ({ item }) {
         this.$store
-          .dispatch('studios/changePictureImgStudio', {
+          .dispatch("studios/changePictureImgStudio", {
             files: item.files,
             studio_id: item.id,
           })
@@ -642,21 +654,21 @@
             if (res.data.meta.status) {
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Data Repllied Successfully',
+                icon: "success",
+                title: "Data Repllied Successfully",
               })
               this.getStudioMe()
             }

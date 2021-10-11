@@ -13,6 +13,8 @@
           :value="String(summary.all)"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
+          style="cursor:pointer"
+          @click.native="setSummary('')"
         />
       </v-col>
       <v-col
@@ -27,6 +29,8 @@
           :value="String(summary.publish)"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
+          style="cursor:pointer"
+          @click.native="setSummary('publish')"
         />
       </v-col>
       <v-col
@@ -41,6 +45,8 @@
           :value="String(summary.concept)"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
+          style="cursor:pointer"
+          @click.native="setSummary('concept')"
         />
       </v-col>
       <v-col
@@ -55,6 +61,8 @@
           :value="String(summary.draft)"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
+          style="cursor:pointer"
+          @click.native="setSummary('draft')"
         />
       </v-col>
       <v-col cols="12">
@@ -135,6 +143,7 @@
         open: false,
         data: {},
       },
+      itemSummary: '',
     }),
     computed: {
       categories () {
@@ -144,15 +153,40 @@
         return this.$store.state.categorySummary.data
       },
     },
+    watch: {
+      itemSummary (val) {
+        this.$router.push({ query: { ...this.$route.query, summary: val } })
+      },
+      '$route.query.summary': function (val) {
+        this.itemSummary = val
+        this.getDataStudioCategories()
+      },
+    },
     mounted () {
       this.getDataStudioCategories()
+      this.getDataCategorySummary()
+      this.firstLoad()
     },
     methods: {
+      firstLoad () {
+        if (this.$route.query.summary === 'publish') {
+          this.itemSummary = 'publish'
+        } else if (this.$route.query.summary === 'concept') {
+          this.itemSummary = 'concept'
+        } else if (this.$route.query.summary === 'draft') {
+          this.itemSummary = 'draft'
+        } else {
+          this.itemSummary = ''
+        }
+        this.getDataStudioCategories()
+      },
       getDataStudioCategories () {
         this.$store.dispatch('studioCategories/getDataStudioCategories', {
           entities: 'class, img,likes,follow',
+          summary: this.itemSummary,
         })
       },
+
       createDataCategory ({ item }) {
         this.$store
           .dispatch('studioCategories/insertDataCategory', {
@@ -315,6 +349,10 @@
               })
             }
           })
+      },
+      setSummary (val) {
+        this.itemSummary = val
+        this.getDataStudioCategories()
       },
       upUpdateCategory ({ item }) {
         this.update.open = true

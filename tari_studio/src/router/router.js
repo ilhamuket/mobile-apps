@@ -1,124 +1,124 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import auth from '../store/module/auth'
+import Vue from "vue"
+import Router from "vue-router"
+import auth from "../store/module/auth"
 // import t from '../i18n'
-import i18n from '@/i18n'
+import i18n from "@/i18n"
 
 Vue.use(Router)
 
 const router = new Router({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
-      redirect: '/dashboard/home',
-      component: () => import('@/views/dashboard/Index'),
+      path: "/",
+      redirect: "/dashboard/home",
+      component: () => import("@/views/dashboard/Index"),
       children: [
         // Dashboard
         {
-          name: 'dashboard',
-          path: '/dashboard/:params',
-          component: () => import('@/views/dashboard/pages/profile/index'),
+          name: "dashboard",
+          path: "/dashboard/:params",
+          component: () => import("@/views/dashboard/pages/profile/index"),
           meta: {
             breadcumbs: [
               {
-                text: 'Dashboard',
+                text: "Dashboard",
                 disabled: false,
               },
               {
-                text: 'Studio',
+                text: "Studio",
                 disabled: false,
-                to: '/studio',
+                to: "/studio",
               },
             ],
             requiresAuth: true,
           },
           beforeEnter (to, _, next) {
             if (
-              ['home', 'profile', 'socmed', 'discusses', 'reviews'].includes(
+              ["home", "profile", "socmed", "discusses", "reviews"].includes(
                 to.params.params,
               )
             ) {
               next()
-            } else next({ name: 'index_class' })
+            } else next({ name: "index_class" })
           },
         },
         // Class Vidio
         {
-          name: 'class_vidio',
-          path: '/class-vidio',
+          name: "class_vidio",
+          path: "/class-vidio",
           component: () =>
-            import('@/views/dashboard/admin/studio/classVidio/index.vue'),
+            import("@/views/dashboard/admin/studio/classVidio/index.vue"),
           meta: {
             requiresAuth: true,
           },
         },
         {
-          name: 'Notifications',
-          path: '/components/notifications',
-          component: () => import('@/views/dashboard/component/Notifications'),
+          name: "Notifications",
+          path: "/components/notifications",
+          component: () => import("@/views/dashboard/component/Notifications"),
           meta: {
             requiresAuth: true,
           },
         },
         {
-          name: 'Icons',
-          path: 'components/icons',
-          component: () => import('@/views/dashboard/component/Icons'),
+          name: "Icons",
+          path: "components/icons",
+          component: () => import("@/views/dashboard/component/Icons"),
           meta: {
             requiresAuth: true,
           },
         },
         {
-          name: 'Typography',
-          path: 'components/typography',
-          component: () => import('@/views/dashboard/component/Typography'),
+          name: "Typography",
+          path: "components/typography",
+          component: () => import("@/views/dashboard/component/Typography"),
           meta: {
             requiresAuth: true,
           },
         },
         // Tables
         {
-          name: 'Regular Tables',
-          path: 'tables/regular-tables',
-          component: () => import('@/views/dashboard/tables/RegularTables'),
+          name: "Regular Tables",
+          path: "tables/regular-tables",
+          component: () => import("@/views/dashboard/tables/RegularTables"),
           meta: {
             requiresAuth: true,
           },
         },
         // Maps
         {
-          name: 'Google Maps',
-          path: 'maps/google-maps',
-          component: () => import('@/views/dashboard/maps/GoogleMaps'),
+          name: "Google Maps",
+          path: "maps/google-maps",
+          component: () => import("@/views/dashboard/maps/GoogleMaps"),
           meta: {
             requiresAuth: true,
           },
         },
         // Upgrade
         {
-          name: 'Upgrade',
-          path: 'upgrade',
-          component: () => import('@/views/dashboard/Upgrade'),
+          name: "Upgrade",
+          path: "upgrade",
+          component: () => import("@/views/dashboard/Upgrade"),
         },
         // Tablle Clas
         {
-          name: 'index_class',
-          path: '/class',
+          name: "index_class",
+          path: "/class",
           component: () =>
-            import('@/views/dashboard/admin/studio/classes/index'),
+            import("@/views/dashboard/admin/studio/classes/index"),
           meta: {
             breadcumbs: [
               {
-                text: 'Dashboard',
+                text: "Dashboard",
                 disabled: false,
-                to: '/',
+                to: "/",
               },
               {
-                text: 'Instructor',
+                text: "Instructor",
                 disabled: false,
-                to: '/instructor',
+                to: "/instructor",
               },
             ],
             requiresAuth: true,
@@ -126,81 +126,81 @@ const router = new Router({
         },
         // SuvClass
         {
-          name: 'subject',
-          path: '/sub-class',
+          name: "subject",
+          path: "/sub-class",
           component: () =>
-            import('@/views/dashboard/admin/studio/sub_class/index'),
+            import("@/views/dashboard/admin/studio/sub_class/index"),
           meta: {
             requiresAuth: true,
           },
         },
         // Vidio
         {
-          name: 'vidio_name',
-          path: '/vidio',
-          component: () => import('@/views/dashboard/admin/studio/vidio/index'),
+          name: "vidio_name",
+          path: "/vidio",
+          component: () => import("@/views/dashboard/admin/studio/vidio/index"),
           meta: {
             requiresAuth: true,
           },
         },
         {
-          name: 'sub_class_create',
-          path: '/create/sub-class',
+          name: "sub_class_create",
+          path: "/create/sub-class",
           component: () =>
-            import('@/views/dashboard/admin/studio/sub_class/create.vue'),
+            import("@/views/dashboard/admin/studio/sub_class/create.vue"),
           meta: {
             requiresAuth: true,
           },
         },
         // Studio
         {
-          name: 'Studio',
-          path: '/studio',
-          component: () => import('@/views/dashboard/pages/studio'),
+          name: "Studio",
+          path: "/studio",
+          component: () => import("@/views/dashboard/pages/studio"),
           meta: {
             requiresAuth: true,
           },
         },
 
         {
-          name: 'Detail Studio',
-          path: '/:slug/:folder',
+          name: "Detail Studio",
+          path: "/:slug/:folder",
           component: () =>
-            import('@/views/dashboard/pages/studio/detailStudio'),
+            import("@/views/dashboard/pages/studio/detailStudio"),
           meta: {
             requiresAuth: true,
           },
           beforeEnter (to, _, next) {
             if (
-              ['home', 'class', 'reviews', 'spam', 'trash'].includes(
+              ["home", "class", "reviews", "spam", "trash"].includes(
                 to.params.folder,
               )
             ) {
               next()
-            } else next({ name: 'studio' })
+            } else next({ name: "studio" })
           },
         },
         // Teacher Studio
         {
-          name: 'instrucktur',
-          path: '/instructor',
+          name: "instrucktur",
+          path: "/instructor",
           component: () =>
-            import('@/views/dashboard/admin/studio/teachers/index'),
+            import("@/views/dashboard/admin/studio/teachers/index"),
           meta: {
             requiresAuth: true,
           },
         },
         // Categoories
         {
-          name: 'category',
-          path: 'category',
+          name: "category",
+          path: "category",
           component: () =>
-            import('@/views/dashboard/admin/studio/categories/index'),
+            import("@/views/dashboard/admin/studio/categories/index"),
           meta: {
             breadcumbs: [
               {
-                text: 'Dashboard',
-                to: '/',
+                text: "Dashboard",
+                to: "/",
               },
             ],
             requiresAuth: true,
@@ -210,17 +210,17 @@ const router = new Router({
     },
 
     {
-      name: 'Register',
-      path: '/register',
-      component: () => import('@/auth/register/index'),
+      name: "Register",
+      path: "/register",
+      component: () => import("@/auth/register/index"),
       meta: {
         requiresVisitor: true,
       },
     },
     {
-      name: 'Login',
-      path: '/login',
-      component: () => import('@/auth/login'),
+      name: "Login",
+      path: "/login",
+      component: () => import("@/auth/login"),
       meta: {
         requiresVisitor: true,
       },
@@ -235,25 +235,25 @@ const router = new Router({
     //   },
     // },
     {
-      name: 'Verifications',
-      path: '/verification',
-      component: () => import('@/auth/verifikasi/verification'),
+      name: "Verifications",
+      path: "/verification",
+      component: () => import("@/auth/verifikasi/verification"),
       meta: {
         requiresAuth: true,
       },
     },
     {
-      name: 'WaitingEmail',
-      path: '/waiting-email',
-      component: () => import('@/auth/verifikasi/waitingEmail.vue'),
+      name: "WaitingEmail",
+      path: "/waiting-email",
+      component: () => import("@/auth/verifikasi/waitingEmail.vue"),
       meta: {
         requiresAuth: true,
       },
     },
     {
-      name: 'Logout',
-      path: '/logout',
-      component: () => import('@/auth/logout'),
+      name: "Logout",
+      path: "/logout",
+      component: () => import("@/auth/logout"),
       meta: {
         requiresAuth: true,
       },
@@ -267,11 +267,11 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    if (localStorage.getItem('access_token') === null) {
+    if (localStorage.getItem("access_token") === null) {
       // console.log(, 'from')
 
       next({
-        path: '/login',
+        path: "/login",
         query: { redirect: to.fullPath },
       })
     } else {
@@ -296,16 +296,16 @@ router.beforeEach((to, from, next) => {
 
     if (to.matched.some(record => record.meta.requiresAdmin)) {
       if (auth.state.token) {
-        const Me = localStorage.getItem('ME')
+        const Me = localStorage.getItem("ME")
         const users = JSON.parse(Me)
         if (users !== null) {
           if (
-            users.role.some(x => x.name === 'admin' || 'superadministrator')
+            users.role.some(x => x.name === "admin" || "superadministrator")
           ) {
             next()
           } else {
             next({
-              path: '/',
+              path: "/",
             })
           }
         }
@@ -346,9 +346,9 @@ router.beforeEach((to, from, next) => {
   } else if (to.matched.some(record => record.meta.requiresVisitor)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    if (localStorage.getItem('access_token')) {
+    if (localStorage.getItem("access_token")) {
       next({
-        path: '/',
+        path: "/",
         query: { redirect: to.fullPath },
       })
     } else {

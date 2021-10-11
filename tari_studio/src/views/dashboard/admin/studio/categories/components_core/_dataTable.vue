@@ -2,7 +2,7 @@
   <base-material-card icon="mdi-playlist-check">
     <template #after-heading>
       <span class="text-h3 primary--text">
-        Category - All
+        {{ cumputedName }}
       </span>
     </template>
     <v-container>
@@ -191,14 +191,24 @@
                         class="font-a d-flex flex-nowrap"
                         @click="upDialogUpdateCategory(item)"
                       >
-                        <v-icon
-                          small
-                          color="blue"
-                          class="mr-1"
+                        <v-tooltip
+                          color="primary"
+                          bottom
                         >
-                          mdi-pencil
-                        </v-icon>
-                        Edit
+                          <template #activator="{on, attrs}">
+                            <v-icon
+                              v-bind="attrs"
+                              small
+                              color="blue"
+                              v-on="on"
+                            >
+                              mdi-pencil
+                            </v-icon>
+                          </template>
+                          <span
+                            class="font-spartan-small blue--text"
+                          >Edit</span>
+                        </v-tooltip>
                       </a>
                     </div>
                   </div>
@@ -208,13 +218,25 @@
                         class="d-flex blue--text flex-nowrap"
                         @click="upInfoClass(item)"
                       >
-                        <v-icon
-                          color="blue"
-                          small
+                        <v-tooltip
+                          bottom
+                          color="primary"
                         >
-                          mdi-eye
-                        </v-icon>
-                        Info
+                          <template #activator="{on, attrs}">
+                            <v-icon
+                              v-bind="attrs"
+                              small
+                              class="ml-1"
+                              color="blue"
+                              v-on="on"
+                            >
+                              mdi-eye
+                            </v-icon>
+                          </template>
+                          <span class="font-spartan-small blue--text">
+                            Info
+                          </span>
+                        </v-tooltip>
                       </a>
                     </div>
                   </div>
@@ -224,13 +246,51 @@
                         class="font-a-delete d-flex flex-nowrap"
                         @click="deleteById(item)"
                       >
-                        <v-icon
-                          color="red"
-                          small
+                        <v-tooltip
+                          color="primary"
+                          bottom
                         >
-                          mdi-delete
-                        </v-icon>
-                        Delete
+                          <template #activator="{on, attrs}">
+                            <v-icon
+                              v-bind="attrs"
+                              small
+                              class="ml-1"
+                              color="red"
+                              v-on="on"
+                            >
+                              mdi-delete
+                            </v-icon>
+                          </template>
+                          <span
+                            class="font-spartan-small red--text"
+                          >Delete</span>
+                        </v-tooltip>
+                      </a>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="d-flex flex-column mt-2">
+                      <a
+                        class="font-a-delete d-flex flex-nowrap"
+                        @click="deleteById(item)"
+                      >
+                        <v-tooltip
+                          color="primary"
+                          bottom
+                        >
+                          <template #activator="{on, attrs}">
+                            <v-icon
+                              v-bind="attrs"
+                              small
+                              class="ml-1"
+                              color="red"
+                              v-on="on"
+                            >
+                              mdi-bag-suitcase-off
+                            </v-icon>
+                          </template>
+                          <span class="font-spartan-small red--text">Hide</span>
+                        </v-tooltip>
                       </a>
                     </div>
                   </div>
@@ -333,6 +393,17 @@
           bool = false
         }
         return bool
+      },
+      cumputedName () {
+        let name = 'Category - All'
+        if (this.$route.query.summary === 'publish') {
+          name = 'Category - Publish'
+        } else if (this.$route.query.summary === 'concept') {
+          name = 'Category - Concept'
+        } else if (this.$route.query.summary === 'draft') {
+          name = 'Category - Draft'
+        }
+        return name
       },
     },
     methods: {
