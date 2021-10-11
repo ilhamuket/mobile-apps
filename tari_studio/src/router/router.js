@@ -36,9 +36,14 @@ const router = new Router({
           },
           beforeEnter (to, _, next) {
             if (
-              ["home", "profile", "socmed", "discusses", "reviews"].includes(
-                to.params.params,
-              )
+              [
+                "home",
+                "profile",
+                "socmed",
+                "discussion",
+                "reviews",
+                "bank-account",
+              ].includes(to.params.params)
             ) {
               next()
             } else next({ name: "index_class" })

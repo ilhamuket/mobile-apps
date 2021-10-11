@@ -1,4 +1,5 @@
-import axios from 'axios'
+/* eslint-disable no-unused-vars */
+import axios from "axios"
 export default {
   namespaced: true,
   state: {
@@ -30,7 +31,7 @@ export default {
           const reviews = payload[item]
           const indexReviews = state.data.findIndex(x => x.id === reviews)
           if (indexReviews !== -1) {
-            state.data[indexReviews].status = 'sembunyikan'
+            state.data[indexReviews].status = "sembunyikan"
           }
         }
       }
@@ -42,9 +43,9 @@ export default {
           const indexReviews = state.data.findIndex(x => x.id === reviews)
           if (indexReviews !== -1) {
             if (state.data[indexReviews].is_response === true) {
-              state.data[indexReviews].status = 'ditanggapai'
+              state.data[indexReviews].status = "ditanggapai"
             } else {
-              state.data[indexReviews].status = 'belum ditanggapai'
+              state.data[indexReviews].status = "belum ditanggapai"
             }
           }
         }
@@ -55,15 +56,15 @@ export default {
   actions: {
     getDataReviewsStudio: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         const params = { ...payload }
         axios
-          .get('owner/reviews', { params: params })
+          .get("owner/reviews", { params: params })
           .then(res => {
-            commit('GET_DATA', res.data.data)
+            commit("GET_DATA", res.data.data)
             resolve(res)
           })
           .catch(e => {
@@ -73,14 +74,14 @@ export default {
     },
     deleteReviewsById: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         axios
           .delete(`owner/reviews/${payload.id}`)
           .then(res => {
-            commit('DELETE_DATA_BY_ID', payload)
+            commit("DELETE_DATA_BY_ID", payload)
             resolve(res)
           })
           .catch(e => {
@@ -90,15 +91,15 @@ export default {
     },
     deleteReviewSelected: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         const params = payload.map(x => x.id)
         axios
-          .post('owner/reviews/delete', { id: params })
+          .post("owner/reviews/delete", { id: params })
           .then(res => {
-            commit('DELETE_REVIEW_SELECTED', params)
+            commit("DELETE_REVIEW_SELECTED", params)
             resolve(res)
           })
           .catch(e => {
@@ -108,15 +109,15 @@ export default {
     },
     hideReviewSelected: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         const params = payload.map(x => x.id)
         axios
-          .post('owner/reviews/hide', { id: params })
+          .post("owner/reviews/hide", { id: params })
           .then(res => {
-            commit('HIDE_REVIEWS_SELECTED', params)
+            commit("HIDE_REVIEWS_SELECTED", params)
             resolve(res)
           })
           .catch(e => {
@@ -126,15 +127,15 @@ export default {
     },
     showReviewSelected: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         const params = payload.map(x => x.id)
         axios
-          .post('owner/reviews/show', { id: params })
+          .post("owner/reviews/show", { id: params })
           .then(res => {
-            commit('SHOW_REVIEWS_SELECTED', params)
+            commit("SHOW_REVIEWS_SELECTED", params)
             resolve(res)
           })
           .catch(e => {

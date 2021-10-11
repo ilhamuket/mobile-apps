@@ -1,4 +1,5 @@
-import axios from 'axios'
+/* eslint-disable no-unused-vars */
+import axios from "axios"
 export default {
   namespaced: true,
   state: {
@@ -39,7 +40,7 @@ export default {
     APPROVE_CATEGORY: (state, payload) => {
       const indexCategory = state.data.findIndex(x => x.id === payload.id)
       if (indexCategory !== -1) {
-        state.data[indexCategory].status = 'publish'
+        state.data[indexCategory].status = "publish"
       }
     },
     APPROVE_CATEGORY_SELECTED: (state, payload) => {
@@ -48,7 +49,7 @@ export default {
           const categoryId = payload[item]
           const indexCategory = state.data.findIndex(x => x.id === categoryId)
           if (indexCategory !== -1) {
-            state.data[indexCategory].status = 'publish'
+            state.data[indexCategory].status = "publish"
           }
         }
       }
@@ -57,15 +58,15 @@ export default {
   actions: {
     getDataStudioCategories: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         const params = { ...payload }
         axios
-          .get('owner/categories', { params: params })
+          .get("owner/categories", { params: params })
           .then(res => {
-            commit('GET_DATA', res.data.data)
+            commit("GET_DATA", res.data.data)
             resolve(res)
           })
           .catch(e => {
@@ -75,14 +76,14 @@ export default {
     },
     insertDataCategory: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         axios
-          .post('owner/categories', { ...payload })
+          .post("owner/categories", { ...payload })
           .then(res => {
-            commit('INSERT_DATA', payload)
+            commit("INSERT_DATA", payload)
             resolve(res)
           })
           .catch(e => {
@@ -92,14 +93,14 @@ export default {
     },
     updateDataCategory: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         axios
           .patch(`owner/categories/update/${payload.id}`, { ...payload })
           .then(res => {
-            commit('UPDATE_DATA', payload)
+            commit("UPDATE_DATA", payload)
             resolve(res)
           })
           .catch(e => {
@@ -109,14 +110,14 @@ export default {
     },
     deleteDataCategory: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         axios
           .delete(`owner/categories/delete/${payload.id}`)
           .then(res => {
-            commit('DELETE_DATA', payload)
+            commit("DELETE_DATA", payload)
             resolve(res)
           })
           .catch(e => {
@@ -126,14 +127,14 @@ export default {
     },
     approveCategory: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         axios
           .patch(`owner/categories/approve/${payload.id}`)
           .then(res => {
-            commit('APPROVE_CATEGORY', payload)
+            commit("APPROVE_CATEGORY", payload)
             resolve(res)
           })
           .catch(e => {
@@ -143,15 +144,15 @@ export default {
     },
     deleteDataCategorySelected: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         const params = payload.map(x => x.id)
         axios
-          .post('owner/categories/delete', { id: params })
+          .post("owner/categories/delete", { id: params })
           .then(res => {
-            commit('DELETE_DATA_SELECTED', params)
+            commit("DELETE_DATA_SELECTED", params)
             resolve(res)
           })
           .catch(e => {
@@ -161,15 +162,15 @@ export default {
     },
     approveCategorySelected: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         const params = payload.map(x => x.id)
         axios
-          .post('owner/categories/approve', { id: params })
+          .post("owner/categories/approve", { id: params })
           .then(res => {
-            commit('APPROVE_CATEGORY_SELECTED', params)
+            commit("APPROVE_CATEGORY_SELECTED", params)
             resolve(res)
           })
           .catch(e => {
@@ -180,17 +181,17 @@ export default {
 
     onPostPicture: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
-        const URL = 'owner/categories/thumbnail'
+        const URL = "owner/categories/thumbnail"
         const data = new FormData()
-        data.append('img', payload.files)
-        data.append('category_id', payload.category_id)
+        data.append("img", payload.files)
+        data.append("category_id", payload.category_id)
         const config = {
           header: {
-            'Content-Type': 'image/png',
+            "Content-Type": "image/png",
           },
         }
         axios
@@ -205,19 +206,19 @@ export default {
     },
     onChangePicture: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         const data = new FormData()
-        data.append('img', payload.files)
-        data.append('category_id', payload.category_id)
+        data.append("img", payload.files)
+        data.append("category_id", payload.category_id)
         const config = {
           header: {
-            'Content-Type': 'image/png',
+            "Content-Type": "image/png",
           },
         }
-        const URL = 'owner/categories/change-thumbnail'
+        const URL = "owner/categories/change-thumbnail"
         axios
           .post(URL, data, config)
           .then(res => {

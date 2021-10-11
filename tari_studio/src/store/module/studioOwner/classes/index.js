@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from "axios"
 
 export default {
   namespaced: true,
@@ -17,6 +17,7 @@ export default {
       state.data = classes
     },
     DELETES_DATA: (state, payload) => {
+      // eslint-disable-next-line no-unused-vars
       for (const item in payload) {
         if (Object.hasOwnProperty.call(payload, item)) {
           const classes = payload[item]
@@ -28,6 +29,7 @@ export default {
       }
     },
     APPROVE_DATA: (state, payload) => {
+      // eslint-disable-next-line no-unused-vars
       for (const item in payload) {
         if (Object.hasOwnProperty.call(payload, item)) {
           const classes = payload[item]
@@ -57,16 +59,16 @@ export default {
   actions: {
     getDataClassesStudio: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         const params = { ...payload }
         axios
-          .get('owner/classes/myClass', { params: params })
+          .get("owner/classes/myClass", { params: params })
           .then(res => {
             const data = res.data.data
-            commit('SET_DATA', data)
+            commit("SET_DATA", data)
             resolve(res)
           })
           .catch(e => {
@@ -76,15 +78,15 @@ export default {
     },
     insertDataClassesStudio: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         axios
-          .post('owner/classes/create', { ...payload })
+          .post("owner/classes/create", { ...payload })
           .then(res => {
             const data = res.data.data
-            commit('INSERT_DATA', data)
+            commit("INSERT_DATA", data)
             resolve(res)
           })
           .catch(e => {
@@ -94,14 +96,14 @@ export default {
     },
     deleteDataClassesStudio: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
       const params = payload.map(x => x.id)
       return new Promise((resolve, reject) => {
         axios
-          .post('owner/classes/delBroadcast', { id: params })
+          .post("owner/classes/delBroadcast", { id: params })
           .then(res => {
-            commit('DELETES_DATA', payload)
+            commit("DELETES_DATA", payload)
             resolve(res)
           })
           .catch(e => {
@@ -111,16 +113,16 @@ export default {
     },
     approvesDataClassesStudio: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         const params = payload.map(x => x.id)
         axios
-          .post('owner/classes/approveBroadcast', { id: params })
+          .post("owner/classes/approveBroadcast", { id: params })
           .then(res => {
             // const data = res.data.data
-            commit('APPROVE_DATA', payload)
+            commit("APPROVE_DATA", payload)
             resolve(res)
           })
           .catch(e => {
@@ -130,7 +132,7 @@ export default {
     },
     updateDataClassesStudio: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
@@ -138,7 +140,7 @@ export default {
           .patch(`owner/classes/update/${payload.id}`, { ...payload })
           .then(res => {
             const data = res.data.data
-            commit('UPDATE_DATA', data)
+            commit("UPDATE_DATA", data)
             resolve(res)
           })
           .catch(e => {
@@ -148,14 +150,14 @@ export default {
     },
     delDataClassesStudio: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         axios
           .delete(`owner/classes/destroy/${payload.id}`)
           .then(res => {
-            commit('DEL_DATA', payload.id)
+            commit("DEL_DATA", payload.id)
             resolve(res)
           })
           .catch(e => {

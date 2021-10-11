@@ -67,13 +67,13 @@
             Social Media
           </v-tab>
           <v-tab class="font-spartan-small">
-            Discusses
+            Discusion
           </v-tab>
           <v-tab class="font-spartan-small">
             Reviews
           </v-tab>
           <v-tab class="font-spartan-small">
-            Payment
+            Bank Account
           </v-tab>
         </v-tabs>
         <v-tabs-items v-model="tabs">
@@ -276,7 +276,7 @@
           const params = (this.$route.params.params = this.params)
           this.$router.push(params).catch(() => {})
         } else if (this.tabs === 3) {
-          this.params = "discusses"
+          this.params = "discussion"
           const params = (this.$route.params.params = this.params)
           this.$router.push(params).catch(() => {})
         } else if (this.tabs === 4) {
@@ -284,7 +284,7 @@
           const params = (this.$route.params.params = this.params)
           this.$router.push(params).catch(() => {})
         } else if (this.tabs === 5) {
-          this.params = "payment"
+          this.params = "bank-account"
           const params = (this.$route.params.params = this.params)
           this.$router.push(params).catch(() => {})
         }
@@ -306,8 +306,11 @@
         if (this.$route.params.params === "home") return (this.tabs = 0)
         else if (this.$route.params.params === "profile") return (this.tabs = 1)
         else if (this.$route.params.params === "socmed") return (this.tabs = 2)
-        else if (this.$route.params.params === "discusses") return (this.tabs = 3)
+        else if (this.$route.params.params === "discussion")
+          return (this.tabs = 3)
         else if (this.$route.params.params === "reviews") return (this.tabs = 4)
+        else if (this.$route.params.params === "bank-account")
+          return (this.tabs = 5)
         else return (this.tabs = 0)
       },
       me () {

@@ -1,4 +1,5 @@
-import axios from 'axios'
+/* eslint-disable no-unused-vars */
+import axios from "axios"
 export default {
   namespaced: true,
   state: {
@@ -10,7 +11,7 @@ export default {
     REPLY_DATA: (state, payload) => {
       const index = state.data.findIndex(x => x.id === payload.parent_id)
       if (index !== -1) {
-        state.data[index].status = 'ditanggapi'
+        state.data[index].status = "ditanggapi"
       }
     },
     DELETE_DATA: (state, payload) => {
@@ -38,7 +39,7 @@ export default {
           const indexDiscusses = state.data.findIndex(x => x.id === discusses)
           // console.log('status : ', indexDiscusses)
           if (indexDiscusses !== -1) {
-            state.data[indexDiscusses].status = 'sembunyikan'
+            state.data[indexDiscusses].status = "sembunyikan"
           }
         }
       }
@@ -47,15 +48,15 @@ export default {
   actions: {
     getDataStudioDiscusses: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         const params = { ...payload }
         axios
-          .get('owner/discusses/index', { params: params })
+          .get("owner/discusses/index", { params: params })
           .then(res => {
-            commit('GET_DATA', res.data.data)
+            commit("GET_DATA", res.data.data)
             resolve(res)
           })
           .catch(e => {
@@ -65,14 +66,14 @@ export default {
     },
     replyDataStudioDiscuss: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         axios
-          .post('owner/discusses/replies', { ...payload })
+          .post("owner/discusses/replies", { ...payload })
           .then(res => {
-            commit('REPLY_DATA', res.data.data)
+            commit("REPLY_DATA", res.data.data)
             resolve(res)
           })
           .catch(e => {
@@ -82,14 +83,14 @@ export default {
     },
     deleteDataDiscusses: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         axios
           .delete(`owner/discusses/${payload.id}`)
           .then(res => {
-            commit('DELETE_DATA', payload)
+            commit("DELETE_DATA", payload)
             resolve(res)
           })
           .catch(e => {
@@ -99,15 +100,15 @@ export default {
     },
     deleteDataDiscussesSelected: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         const params = payload.map(x => x.id)
         axios
-          .post('owner/discusses/delete', { id: params })
+          .post("owner/discusses/delete", { id: params })
           .then(res => {
-            commit('DELETE_DATA_SELECTED', params)
+            commit("DELETE_DATA_SELECTED", params)
             resolve(res)
           })
           .catch(e => {
@@ -117,15 +118,15 @@ export default {
     },
     hideDataDiscussesSelected: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         const params = payload.map(x => x.id)
         axios
-          .post('owner/discusses/hide', { id: params })
+          .post("owner/discusses/hide", { id: params })
           .then(res => {
-            commit('HIDE_STATUS_DATA', params)
+            commit("HIDE_STATUS_DATA", params)
             resolve(res)
           })
           .catch(e => {

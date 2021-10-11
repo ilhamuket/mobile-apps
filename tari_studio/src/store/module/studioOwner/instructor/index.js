@@ -1,4 +1,5 @@
-import axios from 'axios'
+/* eslint-disable no-unused-vars */
+import axios from "axios"
 
 export default {
   namespaced: true,
@@ -56,16 +57,16 @@ export default {
   actions: {
     getDataTeacherStudio: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         const params = { ...payload }
         axios
-          .get('owner/instructor', { params: params })
+          .get("owner/instructor", { params: params })
           .then(res => {
             const data = res.data.data
-            commit('GET_DATA', data)
+            commit("GET_DATA", data)
             resolve(res)
           })
           .catch(e => {
@@ -75,14 +76,14 @@ export default {
     },
     insertDataTeacherStudio: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         axios
-          .post('owner/instructor', { ...payload })
+          .post("owner/instructor", { ...payload })
           .then(res => {
-            commit('INSERT_DATA', payload)
+            commit("INSERT_DATA", payload)
             resolve(res)
           })
           .catch(e => {
@@ -92,7 +93,7 @@ export default {
     },
     updateDataTeacherStudio: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
@@ -100,7 +101,7 @@ export default {
           .patch(`owner/instructor/edit/${payload.id}`, { ...payload })
           .then(res => {
             // const data = res.data.data
-            commit('UPDATE_DATA', payload)
+            commit("UPDATE_DATA", payload)
             resolve(res)
           })
           .catch(e => {
@@ -110,14 +111,14 @@ export default {
     },
     deleteDataTeacherStudioById: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         axios
           .delete(`owner/instructor/delete/${payload.id}`)
           .then(res => {
-            commit('DESTROY_DATA', payload.id)
+            commit("DESTROY_DATA", payload.id)
             resolve(res)
           })
           .catch(e => {
@@ -127,16 +128,16 @@ export default {
     },
     deletesDataTeacherStudioBroadCast: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         const params = payload.map(x => x.id)
         axios
-          .post('owner/instructor/deletes', { id: params })
+          .post("owner/instructor/deletes", { id: params })
           .then(res => {
             // const data = res.data.data
-            commit('DELETES_DATA', payload)
+            commit("DELETES_DATA", payload)
             resolve(res)
           })
           .catch(e => {
@@ -146,16 +147,16 @@ export default {
     },
     approveDataTeacherStudioBoadCast: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         const params = payload.map(x => x.id)
         axios
-          .post('owner/instructor/approved', { id: params })
+          .post("owner/instructor/approved", { id: params })
           .then(res => {
             // const data = res.data.data
-            commit('APPROVE_DATA', payload)
+            commit("APPROVE_DATA", payload)
             resolve(res)
           })
           .catch(e => {
