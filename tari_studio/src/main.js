@@ -23,12 +23,12 @@ import i18n from './i18n'
 import VueMoment from 'vue-moment'
 // import moment from 'moment-timezone'
 import VueSweetalert2 from 'vue-sweetalert2'
-import loader from 'vue-ui-preloader'
+// import loader from 'vue-ui-preloader'
 
 // If you don't need the styles, do not connect
 import 'sweetalert2/dist/sweetalert2.min.css'
 
-Vue.use(loader)
+// Vue.use(loader)
 
 Vue.use(VueSweetalert2)
 
