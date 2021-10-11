@@ -128,5 +128,6 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
 
     Route::prefix('files')->group(function () {
         Route::post('', [ImagesStudioController::class, 'storeThumbnail']);
+        Route::post('update', [ImagesStudioController::class, 'update']);
     });
 });

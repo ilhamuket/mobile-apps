@@ -71,7 +71,8 @@ return [
         public_path('storage') => storage_path('app/public'),
         public_path('images') => storage_path('app/images'),
         public_path('listImg') => storage_path('app/images/listImg'),
-        // public_path('images/category') => storage_path('app/images/category')
+        public_path('images/category') => storage_path('app/images/category'),
+        public_path('images/studio') => storage_path('app/images/studio')
     ],
 
 ];
