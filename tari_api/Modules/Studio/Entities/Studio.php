@@ -19,10 +19,10 @@ class Studio extends Model
         return \Modules\Studio\Database\factories\StudioFactory::new();
     }
 
-    public function member()
-    {
-        return $this->hasMany(User::class, 'studio_id');
-    }
+    // public function member()
+    // {
+    //     return $this->hasMany(User::class, 'studio_id');
+    // }
 
     public function author()
     {
