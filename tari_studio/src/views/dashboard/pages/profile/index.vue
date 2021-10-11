@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row v-if="is_load">
-      <loader
+      <!-- <loader
         object="#ff9633"
         color1="#ffffff"
         color2="#24e544"
@@ -12,7 +12,7 @@
         opacity="52"
         disable-scrolling="false"
         name="dots"
-      />
+      /> -->
       <v-row>
         <v-col
           cols="12"
@@ -81,10 +81,15 @@
             <app-page-one
               :data="computedStudio"
               @edit="upEditProfile"
+              @input="inputPictureImgStudio"
+              @change="changePictureImgStudio"
             />
           </v-tab-item>
           <v-tab-item>
-            <app-page-medsos :data="computedStudio" />
+            <app-page-medsos
+              :data="computedStudio"
+              @save="saveSocialMedia"
+            />
           </v-tab-item>
           <v-tab-item>
             <app-page-discusses
@@ -415,7 +420,6 @@
       upDialogDeleteDiscussSelected ({ item }) {
         this.dialogDeleteDiscussBroadcast.open = true
         this.dialogDeleteDiscussBroadcast.data = item
-        console.log(item)
       },
       upEditProfile ({ item }) {
         this.dialogEditProfile.open = true
@@ -582,6 +586,82 @@
           })
       },
       sendReplieReviews ({ item }) {},
+      saveSocialMedia ({ item }) {
+        console.log(item)
+        this.$store
+          .dispatch('studios/updateDataStudios', {
+            ig: item.username_ig,
+            tw: item.username_tw,
+            fb: item.username_fb,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              this.$route.params.params = 'profile'
+              this.firstLoad()
+            }
+          })
+      },
+      inputPictureImgStudio ({ item }) {
+        console.log(item)
+        this.$store
+          .dispatch('studios/inputPictureImgStudio', {
+            files: item.files,
+            studio_id: item.id,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                },
+                popup: 'swal2-show',
+                backdrop: 'swal2-backdrop-show',
+                icon: 'swal2-icon-show',
+              })
+              Toast.fire({
+                icon: 'success',
+                title: 'Data Repllied Successfully',
+              })
+              this.getStudioMe()
+            }
+          })
+      },
+      changePictureImgStudio ({ item }) {
+        this.$store
+          .dispatch('studios/changePictureImgStudio', {
+            files: item.files,
+            studio_id: item.id,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                },
+                popup: 'swal2-show',
+                backdrop: 'swal2-backdrop-show',
+                icon: 'swal2-icon-show',
+              })
+              Toast.fire({
+                icon: 'success',
+                title: 'Data Repllied Successfully',
+              })
+              this.getStudioMe()
+            }
+          })
+      },
     },
   }
 </script>
