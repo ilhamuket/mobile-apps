@@ -9,6 +9,7 @@ use Modules\StudioOwners\Entities\SubClassOwnerStudio;
 use Modules\StudioOwners\Http\Controllers\CategoryImgController;
 use Modules\StudioOwners\Http\Controllers\ClassesOwnerStudioController;
 use Modules\StudioOwners\Http\Controllers\DiscussController;
+use Modules\StudioOwners\Http\Controllers\ImagesStudioController;
 use Modules\StudioOwners\Http\Controllers\ImgClassesController;
 use Modules\StudioOwners\Http\Controllers\ImgListClassController;
 use Modules\StudioOwners\Http\Controllers\ReviewOwnerController;
@@ -123,5 +124,9 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
     Route::prefix('class-vidio')->group(function () {
         Route::post('', [StudioClassVidioController::class, 'store']);
         Route::get('', [StudioClassVidioController::class, 'index']);
+    });
+
+    Route::prefix('files')->group(function () {
+        Route::post('', [ImagesStudioController::class, 'storeThumbnail']);
     });
 });
