@@ -4,10 +4,12 @@ export default {
   namespaced: true,
   state: {
     data: {
-      classes: 10,
-      instructor: 8,
-      category: 1,
-      vidio_profile: 4,
+      classes: 0,
+      instructor: 0,
+      category: 0,
+      vidio_profile: 1,
+      reviews: 0,
+      discuss: 0,
     },
   },
   getters: {},
