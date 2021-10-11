@@ -1,22 +1,24 @@
 module.exports = {
   root: true,
   env: {
-    node: true,
+    node: true
   },
-  extends: 'vuetify',
+  extends: "vuetify",
   rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'off' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'off' : 'off',
+    "no-console": process.env.NODE_ENV === "production" ? "off" : "off",
+    "no-debugger": process.env.NODE_ENV === "production" ? "off" : "off",
+    strict: 0
   },
   parserOptions: {
-    parser: 'babel-eslint',
-    sourceType: 'module',
+    parser: "babel-eslint",
+    sourceType: "module",
     allowImportExportEverywhere: false,
+    codeFrame: true,
     ecmaFeatures: {
-      globalReturn: false,
+      globalReturn: false
     },
     babelOptions: {
-      configFile: 'path/to/config.js',
-    },
-  },
-}
+      configFile: "path/to/config.js"
+    }
+  }
+};
