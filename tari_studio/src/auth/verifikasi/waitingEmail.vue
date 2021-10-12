@@ -71,7 +71,7 @@
                 <div class="d-flex flex-row justify-center">
                   <div class="d-flex flex-column">
                     <p class="text-center font-spartan-small white--text">
-                      {{ users.created_at | moment('MMMM Do YYYY') }}
+                      {{ users.created_at | moment("MMMM Do YYYY") }}
                     </p>
                   </div>
                 </div>
@@ -97,7 +97,7 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import axios from "axios"
   export default {
     data: () => ({
       isDisable: false,
@@ -106,7 +106,7 @@
     }),
     computed: {
       users () {
-        const Me = localStorage.getItem('ME')
+        const Me = localStorage.getItem("ME")
         const users = JSON.parse(Me)
 
         return users
@@ -141,29 +141,29 @@
       },
       sendVerifications () {
         axios.defaults.headers.common.Authorization =
-          'Bearer ' + localStorage.getItem('access_token')
+          "Bearer " + localStorage.getItem("access_token")
         axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
         this.isDisable = true
 
-        axios.get('auth/verifications/resend').then(res => {
+        axios.get("auth/verifications/resend/studio").then(res => {
           if (res.data.meta.status) {
             const Toast = this.$swal.mixin({
               toast: true,
-              position: 'bottom-end',
+              position: "bottom-end",
               showConfirmButton: false,
               timer: 3000,
               timerProgressBar: true,
               didOpen: toast => {
-                toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                toast.addEventListener("mouseleave", this.$swal.resumeTimer)
               },
-              popup: 'swal2-show',
-              backdrop: 'swal2-backdrop-show',
-              icon: 'swal2-icon-show',
+              popup: "swal2-show",
+              backdrop: "swal2-backdrop-show",
+              icon: "swal2-icon-show",
             })
             Toast.fire({
-              icon: 'success',
+              icon: "success",
               title: res.data.data,
             })
 
