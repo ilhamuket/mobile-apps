@@ -215,6 +215,7 @@
     computed: {
       initials () {
         let result = ''
+        /* eslint-disable no-unused-vars */
         for (const name in this.data) {
           if (Object.hasOwnProperty.call(this.data, name)) {
             const initials = this.data[name]

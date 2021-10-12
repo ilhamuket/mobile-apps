@@ -139,6 +139,7 @@
         this.userIds = []
 
         if (this.allSelected) {
+          /* eslint-disable no-unused-vars */
           for (const user in this.data) {
             this.userIds.push(this.data[user])
             this.checkbox = true

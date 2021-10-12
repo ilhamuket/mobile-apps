@@ -214,6 +214,7 @@
         let boolFoll = false
         if (this.data.length > 0) {
           booleanArr = this.data.filter(x => x.follow)
+          /* eslint-disable no-unused-vars */
           for (const item in booleanArr) {
             if (Object.hasOwnProperty.call(booleanArr, item)) {
               const isFollow = booleanArr[item]
