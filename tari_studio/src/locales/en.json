@@ -149,6 +149,14 @@
         "ratings": "Ratings",
         "status": "Status"
       }
+    },
+    "bank": {
+        "th": {
+            "name": "A/n",
+            "noRek": "No.Rek",
+            "name_bank": "Bank Name",
+            "status": "Status"
+        }
     }
   },
   "reviews": "Reviews",
