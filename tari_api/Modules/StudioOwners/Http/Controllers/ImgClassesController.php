@@ -20,7 +20,7 @@ class ImgClassesController extends Controller
 
             $imgClass = ImgClasses::where('class_id', $request->class_id)->first();
             $new_array = explode('/', $imgClass->url);
-            $image_path = $new_array[3] . '/' . $new_array[4] . '/' . $new_array[5] . '/' . $new_array[6];
+            $image_path = $new_array[2] . '/' . $new_array[3];
             if (File::exists($image_path)) {
                 File::delete($image_path);
             }
