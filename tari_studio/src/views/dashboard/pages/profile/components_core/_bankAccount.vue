@@ -9,6 +9,7 @@
           small
           dark
           color="primary"
+          @click="refresh"
         >
           <v-tooltip
             color="primary"
@@ -104,22 +105,22 @@
                         <template #activator="{on, attrs}">
                           <v-icon
                             v-bind="attrs"
-                            color="red"
+                            color="blue"
                             small
                             v-on="on"
                           >
-                            mdi-delete
+                            mdi-pencil
                           </v-icon>
                         </template>
-                        <span class="font-spartan-small red--text">
-                          Delete
+                        <span class="font-spartan-small blue--text">
+                          Edit
                         </span>
                       </v-tooltip>
                     </a>
                   </div>
                 </div>
                 <div>
-                  <div class="d-flex flex-column mt-2 ml-4">
+                  <div class="d-flex flex-column mt-2">
                     <a
                       class="font-a-delete d-flex flex-nowrap"
                       @click="deleteDiscuss(item)"
@@ -131,15 +132,15 @@
                         <template #activator="{on, attrs}">
                           <v-icon
                             v-bind="attrs"
-                            color="blue"
+                            color="red"
                             small
                             v-on="on"
                           >
-                            mdi-pencil
+                            mdi-delete
                           </v-icon>
                         </template>
-                        <span class="font-spartan-small blue--text">
-                          Edit
+                        <span class="font-spartan-small red--text">
+                          Delete
                         </span>
                       </v-tooltip>
                     </a>
@@ -216,6 +217,9 @@
       },
       addBankAccount () {
         this.$emit("add")
+      },
+      refresh () {
+        this.$emit("refresh")
       },
     },
   }

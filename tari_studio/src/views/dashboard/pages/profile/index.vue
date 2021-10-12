@@ -187,7 +187,7 @@
   import medsos from "./components_core/_pageSocilaMedia.vue"
   import discuss from "./components_core/_pageDiscusses.vue"
   import reviews from "./components_core/_pageReviews.vue"
-  import payment from "./components_core/_payment.vue"
+  import payment from "./components_core/_bankAccount.vue"
   import reply from "./components/__dialogReply.vue"
   import notice from "./components/__dialogNotice.vue"
   import editProfile from "./components/__editProfile.vue"
