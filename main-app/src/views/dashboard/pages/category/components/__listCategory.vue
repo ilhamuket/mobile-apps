@@ -255,18 +255,22 @@
         this.$router.push(link)
       },
       followCategory (item) {
-        this.$emit('follow', { item: item })
+        this.$emit("follow", { item: item })
         const indexCategory = this.data.findIndex(x => x.id === item.id)
-        console.log(indexCategory)
+        // console.log(indexCategory)
         if (indexCategory !== -1) {
           this.isFollowYouComputed.splice(indexCategory, 1, true)
         }
       },
       unFollowCategory (item) {
-        this.$emit('unfollow', { item: item })
+        this.$emit("unfollow", { item: item })
+        const indexCategory = this.data.findIndex(x => x.id === item.id)
+        if (indexCategory !== -1) {
+          this.isFollowYouComputed.splice(indexCategory, 1, false)
+        }
       },
       likeCategory (item) {
-        this.$emit('like', { item: item })
+        this.$emit("like", { item: item })
       },
     },
   }

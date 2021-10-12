@@ -32,7 +32,7 @@
       <v-col cols="12">
         <v-card-title class="">
           <span class="text-capitalize text-center mx-auto font-spartan">
-            {{ $t('dahsboard.cds') }}
+            {{ $t("dahsboard.cds") }}
           </span>
         </v-card-title>
         <v-divider class="divider--opacity mt-2 mb-2" />
@@ -54,6 +54,7 @@
                   height="200px"
                   :src="item.img.url"
                   style="cursor:pointer"
+                  gradient="to top right, rgba(0, 0, 0, 0.05), rgba(20, 20, 20, 0.05)"
                   @click="toPush(`${item.slug}/home`)"
                 >
                   <v-row class="fill-height mt-g text-right">
@@ -66,7 +67,31 @@
                         small
                         @click.stop=""
                       >
-                        {{ item.views ? item.views : '0' }} Visited
+                        {{ item.views ? item.views : "0" }} Visited
+                      </v-chip>
+                    </v-col>
+                  </v-row>
+                </v-img>
+                <v-img
+                  v-else
+                  class="white--text align-end"
+                  height="200px"
+                  src="https://myars.ars.ac.id/media/logo.png"
+                  style="cursor:pointer"
+                  gradient="to top right, rgba(0, 0, 0, 0.05), rgba(20, 20, 20, 0.05)"
+                  @click="toPush(`${item.slug}/home`)"
+                >
+                  <v-row class="fill-height mt-g text-right">
+                    <v-col cols="12">
+                      <v-chip
+                        label
+                        class="font-spartan mr-1 text-uppercase"
+                        color="primary"
+                        text-color="white"
+                        small
+                        @click.stop=""
+                      >
+                        {{ item.views ? item.views : "0" }} Visited
                       </v-chip>
                     </v-col>
                   </v-row>
@@ -197,7 +222,7 @@
                     text
                     @click="toPush(`${item.slug}/home`)"
                   >
-                    {{ $t('dahsboard.sxp') }}
+                    {{ $t("dahsboard.sxp") }}
                   </v-btn>
                 </v-card-actions>
               </v-card>
@@ -213,7 +238,7 @@
                 class="font-spartan-small hover--text font-weight-bold"
                 @click="toPush('/studio')"
               >
-                {{ $t('dahsboard.see') }} <v-icon>mdi-chevron-right</v-icon>
+                {{ $t("dahsboard.see") }} <v-icon>mdi-chevron-right</v-icon>
               </span>
             </v-col>
           </v-row>
@@ -227,7 +252,7 @@
       >
         <v-card-title>
           <span class="text-capitalize text-center mx-auto font-spartan">
-            {{ $t('dahsboard.cls') }}
+            {{ $t("dahsboard.cls") }}
           </span>
         </v-card-title>
         <v-divider class="divider--opacity mt-2 mb-2" />
@@ -246,6 +271,48 @@
                   height="200px"
                   :src="item.img.url"
                   style="cursor:pointer"
+                  gradient="to top right, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)"
+                >
+                  <v-row
+                    v-if="item.category"
+                    class="fill-height mt-g text-right"
+                  >
+                    <v-col cols="12">
+                      <v-chip
+                        label
+                        class="font-spartan mr-1 text-uppercase"
+                        color="btn_primary"
+                        text-color="white"
+                        small
+                        @click.stop=""
+                      >
+                        Class Zoom
+                      </v-chip>
+                    </v-col>
+                    <v-col
+                      class="col__"
+                      cols="12"
+                    >
+                      <v-chip
+                        label
+                        class="font-spartan mr-1 text-uppercase"
+                        color="btn_primary"
+                        text-color="white"
+                        small
+                        @click.stop=""
+                      >
+                        {{ item.category.name }}
+                      </v-chip>
+                    </v-col>
+                  </v-row>
+                </v-img>
+                <v-img
+                  v-else
+                  class="white--text align-end"
+                  height="200"
+                  src="http://localhost:8081/img/et.7701c625.png"
+                  style="cursor:pointer"
+                  gradient="to top right, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)"
                 >
                   <v-row
                     v-if="item.category"
@@ -331,7 +398,7 @@
                       toPush(`classes/detail/${item.studio.slug}/${item.slug}`)
                     "
                   >
-                    {{ $t('dahsboard.cxp') }}
+                    {{ $t("dahsboard.cxp") }}
                   </v-btn>
                 </v-card-actions>
               </v-card>
@@ -347,7 +414,7 @@
                 style="cursor:pointer"
                 @click="toPush('/classes')"
               >
-                {{ $t('dahsboard.see') }} <v-icon>mdi-chevron-right</v-icon>
+                {{ $t("dahsboard.see") }} <v-icon>mdi-chevron-right</v-icon>
               </span>
             </v-col>
           </v-row>
@@ -364,7 +431,7 @@
     }),
     computed: {
       users () {
-        const Me = localStorage.getItem('ME')
+        const Me = localStorage.getItem("ME")
         const users = JSON.parse(Me)
 
         return users
@@ -383,8 +450,8 @@
     methods: {
       getDataMostPopuler () {
         this.$store
-          .dispatch('studioPopuler/getDataMostPopuler', {
-            entities: 'img, followers, likes',
+          .dispatch("studioPopuler/getDataMostPopuler", {
+            entities: "img, followers, likes",
           })
           .then(res => {
             if (res.data.meta.status) {
@@ -393,8 +460,8 @@
           })
       },
       getDataPopulerClasses () {
-        this.$store.dispatch('classesPopuler/getDataPopulerClasses', {
-          entities: 'category, img,studio',
+        this.$store.dispatch("classesPopuler/getDataPopulerClasses", {
+          entities: "category, img,studio",
         })
       },
       toPush (link) {

@@ -47,28 +47,115 @@
         md="8"
       >
         <v-btn
+          color="btn_primary"
+          class=""
+          @click="addBankAccount"
+        >
+          Add Bank Account
+        </v-btn>
+        <v-btn
+          class="mr-1"
+          :disabled="selected.length === 0"
           outlined
           color="red"
         >
-          Delete Item
+          Delete {{ selected.length }} Item
         </v-btn>
       </v-col>
       <v-col cols="12">
-        <v-data-table :headers="headers">
+        <v-data-table
+          v-model="selected"
+          show-select
+          :headers="headers"
+          :items="data"
+        >
           <!-- Headers -->
-          <template #[`header.user.firstName`]="{ header }">
+          <template #[`header.name`]="{ header }">
             {{ $t(header.text) }}
           </template>
-          <template #[`header.body`]="{ header }">
+          <template #[`header.no_rek`]="{ header }">
             {{ $t(header.text) }}
           </template>
-          <template #[`header.class.name`]="{ header }">
+          <template #[`header.bank_name`]="{ header }">
             {{ $t(header.text) }}
           </template>
-          <template #[`header.ratings`]="{ header }">
+          <template #[`header.status`]="{ header }">
             {{ $t(header.text) }}
           </template>
           <!-- Items -->
+          <template #[`item.name`]="{item}">
+            <div class="mt-6">
+              <span class="nickName">
+                {{ item.name }}
+              </span>
+            </div>
+            <div class="bg-hover">
+              <div class="d-flex flex-row flex-nowrap">
+                <div>
+                  <div class="d-flex flex-column mt-2">
+                    <a
+                      class="font-a-delete d-flex flex-nowrap"
+                      @click="deleteDiscuss(item)"
+                    >
+                      <v-tooltip
+                        color="primary"
+                        bottom
+                      >
+                        <template #activator="{on, attrs}">
+                          <v-icon
+                            v-bind="attrs"
+                            color="red"
+                            small
+                            v-on="on"
+                          >
+                            mdi-delete
+                          </v-icon>
+                        </template>
+                        <span class="font-spartan-small red--text">
+                          Delete
+                        </span>
+                      </v-tooltip>
+                    </a>
+                  </div>
+                </div>
+                <div>
+                  <div class="d-flex flex-column mt-2 ml-4">
+                    <a
+                      class="font-a-delete d-flex flex-nowrap"
+                      @click="deleteDiscuss(item)"
+                    >
+                      <v-tooltip
+                        color="primary"
+                        bottom
+                      >
+                        <template #activator="{on, attrs}">
+                          <v-icon
+                            v-bind="attrs"
+                            color="blue"
+                            small
+                            v-on="on"
+                          >
+                            mdi-pencil
+                          </v-icon>
+                        </template>
+                        <span class="font-spartan-small blue--text">
+                          Edit
+                        </span>
+                      </v-tooltip>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
+          <template #[`item.status`]="{item}">
+            <v-chip
+              label
+              :color="setColorStatus(item.status)"
+            >
+              {{ $t(item.status) }}
+            </v-chip>
+          </template>
         </v-data-table>
       </v-col>
     </v-row>
@@ -77,36 +164,42 @@
 
 <script>
   export default {
+    props: {
+      data: {
+        type: Array,
+        default: null,
+      },
+    },
     data: () => ({
       selected: [],
       headers: [
-        {
-          text: "#",
-          value: "id",
-        },
+        // {
+        //   text: "#",
+        //   value: "id",
+        // },
         {
           text: "table.bank.th.name",
           align: "start",
           sortable: false,
-          value: "user.firstName",
+          value: "name",
         },
         {
           text: "table.bank.th.noRek",
           align: "start",
           sortable: false,
-          value: "body",
+          value: "no_rek",
         },
         {
           text: "table.bank.th.name_bank",
           align: "start",
           sortable: false,
-          value: "class.name",
+          value: "bank_name",
         },
         {
           text: "table.bank.th.status",
           align: "start",
           sortable: false,
-          value: "ratings",
+          value: "status",
         },
       // {
       //   text: "Status",
@@ -116,6 +209,15 @@
       // },
       ],
     }),
+    methods: {
+      setColorStatus (status) {
+        if (status === "active") return "btn_primary"
+        else return "red"
+      },
+      addBankAccount () {
+        this.$emit("add")
+      },
+    },
   }
 </script>
 

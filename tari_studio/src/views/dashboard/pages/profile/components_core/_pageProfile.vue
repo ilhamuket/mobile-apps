@@ -21,16 +21,19 @@
               <v-col
                 cols="12"
                 md="3"
+                sm="12"
               >
                 <v-img
                   v-if="data.img"
                   width="300"
+                  height="300"
                   class="rounded-xl"
                   :src="`${data.img.url}`"
                 />
                 <v-img
                   v-else
                   width="300"
+                  height="300"
                   class="rounded-xl"
                   src="https://ecs7.tokopedia.net/img/cache/300/default_picture_user/default_toped-22.jpg"
                 />
@@ -298,7 +301,7 @@
         const filename = files[0].name
         console.log(filename)
         const fileReader = new FileReader()
-        fileReader.addEventListener('load', () => {
+        fileReader.addEventListener("load", () => {
           this.imageUrl = fileReader.result
         //   console.log(this.imageUrl)
         // console.log(this.imageUrl)
@@ -307,27 +310,27 @@
         this.files = files[0]
 
         if (this.files.size > 2000000) {
-          console.log('too big')
+          console.log("too big")
           const Toast = this.$swal.mixin({
             toast: true,
-            position: 'bottom-end',
+            position: "bottom-end",
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
             didOpen: toast => {
-              toast.addEventListener('mouseenter', this.$swal.stopTimer)
-              toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+              toast.addEventListener("mouseenter", this.$swal.stopTimer)
+              toast.addEventListener("mouseleave", this.$swal.resumeTimer)
             },
-            popup: 'swal2-show',
-            backdrop: 'swal2-backdrop-show',
-            icon: 'swal2-icon-show',
+            popup: "swal2-show",
+            backdrop: "swal2-backdrop-show",
+            icon: "swal2-icon-show",
           })
           Toast.fire({
-            icon: 'error',
-            title: 'file too big',
+            icon: "error",
+            title: "file too big",
           })
         } else {
-          this.$emit('input', {
+          this.$emit("input", {
             item: {
               files: this.files,
               id: this.data.id,
@@ -339,14 +342,14 @@
         this.$refs.change.click()
       },
       editProfile (item) {
-        this.$emit('edit', { item: item })
+        this.$emit("edit", { item: item })
       },
       changePicture (event) {
         const files = event.target.files
         const filename = files[0].name
         console.log(filename)
         const fileReader = new FileReader()
-        fileReader.addEventListener('load', () => {
+        fileReader.addEventListener("load", () => {
           this.imageUrl = fileReader.result
         //   console.log(this.imageUrl)
         // console.log(this.imageUrl)
@@ -355,27 +358,27 @@
         this.files = files[0]
 
         if (this.files.size > 2000000) {
-          console.log('too big')
+          console.log("too big")
           const Toast = this.$swal.mixin({
             toast: true,
-            position: 'bottom-end',
+            position: "bottom-end",
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
             didOpen: toast => {
-              toast.addEventListener('mouseenter', this.$swal.stopTimer)
-              toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+              toast.addEventListener("mouseenter", this.$swal.stopTimer)
+              toast.addEventListener("mouseleave", this.$swal.resumeTimer)
             },
-            popup: 'swal2-show',
-            backdrop: 'swal2-backdrop-show',
-            icon: 'swal2-icon-show',
+            popup: "swal2-show",
+            backdrop: "swal2-backdrop-show",
+            icon: "swal2-icon-show",
           })
           Toast.fire({
-            icon: 'error',
-            title: 'file too big',
+            icon: "error",
+            title: "file too big",
           })
         } else {
-          this.$emit('change', {
+          this.$emit("change", {
             item: {
               files: this.files,
               id: this.data.id,

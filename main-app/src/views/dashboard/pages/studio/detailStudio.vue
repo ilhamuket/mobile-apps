@@ -238,7 +238,7 @@
         this.$store
           .dispatch('studio/getDataStudioBySlug', {
             slug: this.$route.params.slug,
-            entities: 'member,author,img,followers,likes',
+            entities: 'author,img,followers,likes',
           })
           .then(({ data }) => {
             this.studio = data.data

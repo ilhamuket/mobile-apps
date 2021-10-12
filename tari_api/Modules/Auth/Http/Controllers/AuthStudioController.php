@@ -115,7 +115,7 @@ class AuthStudioController extends Controller
                 $studiosVidios->save();
             }
 
-            // $users->notify(new VerifiedStudio());
+            $users->notify(new VerifiedStudio());
             $accessToken = $users->createToken('auth')->plainTextToken;
 
             DB::commit();

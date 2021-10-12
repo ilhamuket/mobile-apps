@@ -20,6 +20,7 @@
           :data="category.data"
           :me="me"
           @follow="followCategory"
+          @unfollow="unfollowCategory"
         />
       </v-col>
     </v-row>
@@ -27,10 +28,10 @@
 </template>
 
 <script>
-  import listCategory from './components/__listCategory.vue'
+  import listCategory from "./components/__listCategory.vue"
   export default {
     components: {
-      'app-page-list': listCategory,
+      "app-page-list": listCategory,
     },
     data: () => ({
       category: {
@@ -44,7 +45,7 @@
     }),
     computed: {
       me () {
-        const Me = localStorage.getItem('ME')
+        const Me = localStorage.getItem("ME")
         const users = JSON.parse(Me)
         return users
       },
@@ -56,8 +57,8 @@
     methods: {
       getDataCategory (page) {
         this.$store
-          .dispatch('category/getDataCategory', {
-            entities: 'studio.img,img,follow',
+          .dispatch("category/getDataCategory", {
+            entities: "studio.img,img,follow",
             page: page,
             paginate: 6,
           })
@@ -94,19 +95,62 @@
         }
       },
       followCategory ({ item }) {
-        // console.log(item)
         this.$store
-          .dispatch('category/followCategory', {
+          .dispatch("category/followCategory", {
             id: item.id,
             user: this.me,
           })
           .then(res => {
             if (res.data.meta.status) {
-            // this.getDataCategory()
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: `Follow category ${res.data.data.name}`,
+              })
             }
           })
       },
-      unFollowCategory () {},
+      unfollowCategory ({ item }) {
+        this.$store
+          .dispatch("category/unfollowCategory", {
+            id: item.id,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: `UnFollow category ${res.data.data.name}`,
+              })
+            }
+          })
+      },
     },
   }
 </script>

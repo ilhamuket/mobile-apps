@@ -38,6 +38,9 @@ import studioOwnerVidio from "./module/studioOwner/vidio/index"
 // Summary
 import dashboardSummary from "./module/studioOwner/summary/index"
 import studios from "./module/studioOwner/index"
+
+// Bank Account
+import BankAccount from "./module/studioOwner/bank_account/index"
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -64,6 +67,7 @@ export default new Vuex.Store({
     studioDiscusses: studioDiscusses,
     categorySummary: summary,
     studios: studios,
+    bank_account: BankAccount,
   },
   state: {
     barColor: "rgba(0, 0, 0, .8), rgba(0, 0, 0, .8)",

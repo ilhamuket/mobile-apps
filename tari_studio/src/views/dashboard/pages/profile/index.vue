@@ -113,7 +113,10 @@
             />
           </v-tab-item>
           <v-tab-item>
-            <app-page-payment />
+            <app-page-payment
+              :data="computedBankAccount"
+              @add="updialogAddBankAccount"
+            />
           </v-tab-item>
         </v-tabs-items>
       </v-col>
@@ -170,6 +173,10 @@
       @input="deleteReviewSelected"
     />
     <app-dialog-reply :dialog="replyReviews" />
+    <app-dialog-add-form
+      :dialog="dialogAddBankAccount"
+      @input="insertDataBankAccont"
+    />
   </v-container>
 </template>
 
@@ -184,6 +191,7 @@
   import reply from "./components/__dialogReply.vue"
   import notice from "./components/__dialogNotice.vue"
   import editProfile from "./components/__editProfile.vue"
+  import dialogFormAddPayment from "./components/__dialogAddPayment.vue"
   export default {
     components: {
       "app-card": card,
@@ -196,6 +204,7 @@
       "app-dialog-reply": reply,
       "app-dialog-notice": notice,
       "app-dialog-edit-profile": editProfile,
+      "app-dialog-add-form": dialogFormAddPayment,
     },
     data: () => ({
       tabs: null,
@@ -239,6 +248,9 @@
         open: false,
         data: [],
       },
+      dialogAddBankAccount: {
+        open: false,
+      },
       params: "",
     }),
     computed: {
@@ -259,6 +271,9 @@
       },
       computedReviews () {
         return this.$store.state.studioReviews.data
+      },
+      computedBankAccount () {
+        return this.$store.state.bank_account.data
       },
     },
     watch: {
@@ -300,6 +315,7 @@
       this.getDataReviewsStudio()
       this.getDataStudioDiscusses()
       this.firstLoad()
+      this.getDataBankAccount()
     },
     methods: {
       firstLoad () {
@@ -674,6 +690,45 @@
                 title: "Data Repllied Successfully",
               })
               this.getStudioMe()
+            }
+          })
+      },
+      getDataBankAccount () {
+        this.$store.dispatch("bank_account/getDataBankAccount")
+      },
+      updialogAddBankAccount () {
+        this.dialogAddBankAccount.open = true
+      },
+      insertDataBankAccont ({ item }) {
+        // console.log(item)
+        this.$store
+          .dispatch("bank_account/insertDataBankAccont", {
+            name: item.name,
+            no_rek: item.no_rek,
+            bank_name: item.bank_name,
+            status: item.status,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              this.dialogAddBankAccount.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Data Added Successfully",
+              })
             }
           })
       },

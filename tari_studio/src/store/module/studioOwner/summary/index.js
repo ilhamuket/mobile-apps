@@ -10,6 +10,7 @@ export default {
       vidio_profile: 1,
       reviews: 0,
       discuss: 0,
+      bank_account: 0,
     },
   },
   getters: {},

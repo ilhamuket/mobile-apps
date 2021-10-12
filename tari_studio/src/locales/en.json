@@ -174,5 +174,7 @@
   "sembunyikan": "hidden",
   "type": "Type Something ...",
   "Segarkan": "Refresh",
-  "class_vidio": "Class Vidio"
+  "class_vidio": "Class Vidio",
+  "active": "Active",
+  "not active": "Not Active"
 }

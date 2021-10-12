@@ -18,12 +18,23 @@
             gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
             @click="clickPush(list.slug)"
           />
+          <v-img
+            v-else-if="!list.img"
+            class="d-flex justify-center"
+            src="https://myars.ars.ac.id/media/logo.png"
+            width="400"
+            height="200"
+            style="cursor:pointer"
+            gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
+            @click="clickPush(list.slug)"
+          />
           <v-list-item-avatar
             v-else
             tile
             width="360"
             height="200"
             style="cursor:pointer"
+            gradient="to top right, rgba(0, 0, 0, 0.05), rgba(20, 20, 20, 0.05)"
             @click="clickPush(list.slug)"
           >
             <!-- <span
@@ -49,7 +60,7 @@
                       v-on="on"
                       @click="clickPush(list.slug)"
                     >
-                      {{ list.name.substr(0, 26) + ' .. ' }}
+                      {{ list.name.substr(0, 26) + " .. " }}
                     </h3>
                   </template>
                   <span>{{ list.name }}</span>
@@ -176,7 +187,7 @@
             <v-spacer />
 
             <v-icon @click="clickSHow(list)">
-              {{ list.show === 1 ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
+              {{ list.show === 1 ? "mdi-chevron-up" : "mdi-chevron-down" }}
             </v-icon>
           </v-card-actions>
 
@@ -203,7 +214,7 @@
         default: () => [
           {
             img: {
-              url: '',
+              url: "",
             },
           },
         ],
@@ -214,12 +225,12 @@
     }),
     computed: {
       initials () {
-        let result = ''
+        let result = ""
         /* eslint-disable no-unused-vars */
         for (const name in this.data) {
           if (Object.hasOwnProperty.call(this.data, name)) {
             const initials = this.data[name]
-            const fullName = initials.name.split(' ')
+            const fullName = initials.name.split(" ")
             const initial = fullName.shift().chart(0) + fullName.pop().chart(0)
             result = initial.toUpperCase()
           }

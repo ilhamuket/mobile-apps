@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from "axios"
 
 export default {
   namespaced: true,
@@ -20,15 +20,15 @@ export default {
   actions: {
     getDataCategory: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         const params = { ...payload }
         axios
-          .get('studio/u/categories', { params: params })
+          .get("studio/u/categories", { params: params })
           .then(res => {
-            commit('GET_DATA_CATEGORY', res.data.data)
+            commit("GET_DATA_CATEGORY", res.data.data)
             resolve(res)
           })
           .catch(e => {
@@ -38,7 +38,7 @@ export default {
     },
     getDataCategoryShow: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
@@ -46,7 +46,7 @@ export default {
         axios
           .get(`studio/u/categories/${payload.name}`, { params: params })
           .then(res => {
-            commit('GET_DATA_CATEGORY_OBJECT', res.data.data)
+            commit("GET_DATA_CATEGORY_OBJECT", res.data.data)
             resolve(res)
           })
           .catch(e => {
@@ -56,14 +56,14 @@ export default {
     },
     ratingCategory: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         axios
           .get(`studio/reviews/avarage/${payload.studio_slug}`)
           .then(res => {
-            commit('RATINGS', res.data.data)
+            commit("RATINGS", res.data.data)
             resolve(res)
           })
           .catch(e => {
@@ -73,7 +73,7 @@ export default {
     },
     followCategory: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
@@ -89,12 +89,28 @@ export default {
     },
     likeCategory: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         axios
           .post(`studio/u/categories/likes/${payload.id}`)
+          .then(res => {
+            resolve(res)
+          })
+          .catch(e => {
+            reject(e)
+          })
+      })
+    },
+    unfollowCategory: (_, payload) => {
+      axios.defaults.headers.common.Authorization =
+        "Bearer " + localStorage.getItem("access_token")
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        axios
+          .post(`studio/u/categories/unfollow/${payload.id}`)
           .then(res => {
             resolve(res)
           })

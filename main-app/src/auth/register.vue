@@ -16,25 +16,7 @@
                 width="1000"
                 class="mr-2"
                 :src="imgUrl"
-              >
-                <!-- <v-app-bar
-                  absolute
-                  color="#F8F8F8"
-                  elevate-on-scroll
-                >
-                  <v-toolbar-title
-                    class="mr-12"
-                    dark
-                  >
-                    <v-img
-                      src="@/assets/logo-e-color (2).png"
-                      width="200"
-                      class="mr-12"
-                    />
-                  </v-toolbar-title>
-                </v-app-bar> -->
-                <!-- <v-container fluid /> -->
-              </v-img>
+              />
             </v-col>
           </v-row>
         </v-col>
@@ -48,7 +30,7 @@
             class="bg-auth"
           >
             <v-card-title
-              class="font-size-ather-roboto-mono text-custome"
+              class="font-spartan"
               title-tag="h2"
             >
               Welcome to EnsikloTari! 👋
@@ -177,26 +159,28 @@
                       </v-btn>
                     </div>
                   </div>
-                  <div class="d-flex flex-row justify-center">
+
+                  <div class="text-center font-spartan mt-6">
+                    <span class="font-spartan">Sudah Punya Akun ? </span>
+                    <a
+                      class="color-a"
+                      @click="signIn"
+                    >
+                      <span>&nbsp;Masuk</span>
+                    </a>
+                  </div>
+
+                  <div class="d-flex flex-row justify-center mt-2">
                     <div class="d-flex flex-column">
                       <v-chip
                         color="transparent"
                         text-color="red"
                       >
                         <h4>
-                          Forgot Password ?
+                          Lupa Password
                         </h4>
                       </v-chip>
                     </div>
-                  </div>
-                  <div class="text-center font-questions">
-                    <span class="color-black-2">Already Have Account ? </span>
-                    <a
-                      class="color-a"
-                      @click="signIn"
-                    >
-                      <span>&nbsp;SignIn</span>
-                    </a>
                   </div>
                 </v-form>
               </validation-observer>
@@ -209,39 +193,39 @@
 </template>
 
 <script>
-  import { required, digits, email, max, regex } from 'vee-validate/dist/rules'
+  import { required, digits, email, max, regex } from "vee-validate/dist/rules"
   import {
     extend,
     ValidationObserver,
     ValidationProvider,
     setInteractionMode,
-  } from 'vee-validate'
+  } from "vee-validate"
 
-  setInteractionMode('eager')
+  setInteractionMode("eager")
 
-  extend('digits', {
+  extend("digits", {
     ...digits,
-    message: '{_field_} needs to be {length} digits. ({_value_})',
+    message: "{_field_} needs to be {length} digits. ({_value_})",
   })
 
-  extend('required', {
+  extend("required", {
     ...required,
-    message: '{_field_} can not be empty',
+    message: "{_field_} can not be empty",
   })
 
-  extend('max', {
+  extend("max", {
     ...max,
-    message: '{_field_} may not be greater than {length} characters',
+    message: "{_field_} may not be greater than {length} characters",
   })
 
-  extend('regex', {
+  extend("regex", {
     ...regex,
-    message: '{_field_} {_value_} does not match {regex}',
+    message: "{_field_} {_value_} does not match {regex}",
   })
 
-  extend('email', {
+  extend("email", {
     ...email,
-    message: 'Email must be valid',
+    message: "Email must be valid",
   })
 
   export default {
@@ -251,26 +235,26 @@
     },
     data: () => ({
       show: false,
-      username: '',
-      phoneNumber: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
+      username: "",
+      phoneNumber: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
       rules: {
-        required: value => !!value || 'Required.',
-        min: v => (v && v.length >= 8) || 'Min 8 characters',
+        required: value => !!value || "Required.",
+        min: v => (v && v.length >= 8) || "Min 8 characters",
       },
     }),
     computed: {
       imgUrl () {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        this.sideImg = require('@/assets/asset-web-sp-6.png')
+        this.sideImg = require("@/assets/asset-web-sp-6.png")
         return this.sideImg
       },
       randomString (id) {
-        let result = ''
+        let result = ""
         const character =
-          'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
         var charactersLength = character.length
         for (let i = 0; i < id; i++) {
           result += character.charAt(Math.floor(Math.random() * charactersLength))
@@ -279,7 +263,7 @@
       },
       passwordMatch () {
         return () =>
-          this.password === this.confirmPassword || 'Password must match'
+          this.password === this.confirmPassword || "Password must match"
       },
     },
     mounted () {
@@ -288,21 +272,21 @@
     methods: {
       register () {
         this.$store
-          .dispatch('auth/register', {
+          .dispatch("auth/register", {
             email: this.email,
-            firstName: this.username + '_',
-            lastName: '##USERSENSIKLO_',
+            firstName: this.username + "_",
+            lastName: "##USERSENSIKLO_",
             password: this.password,
             nickName: this.username,
             noHp: this.phoneNumber,
           })
           .then(res => {
             if (res.data.meta.status === true) {
-              this.$store.dispatch('user/me').then(res => {
+              this.$store.dispatch("user/me").then(res => {
                 if (res.data.data.isVerified === 0) {
-                  this.$router.push('/waiting-email')
+                  this.$router.push("/waiting-email")
                 } else {
-                  this.$router.push('/')
+                  this.$router.push("/")
                 }
               })
             } else {
@@ -310,28 +294,28 @@
               this.alert = true
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'top-end',
+                position: "top-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
 
               Toast.fire({
-                icon: 'error',
-                title: 'Password atau Email Anda salah',
+                icon: "error",
+                title: "Password atau Email Anda salah",
               })
             }
           })
       },
       signIn () {
-        this.$router.push('/login')
+        this.$router.push("/login")
       },
     //   randomString (id) {
     //     for (let i = 0; i < id; i++) {

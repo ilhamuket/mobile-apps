@@ -81,7 +81,7 @@
               </v-container>
             </v-img>
             <v-img
-              v-else
+              v-else-if="!item.img"
               src="https://images.tokopedia.net/img/cache/200-square/attachment/2019/2/18/20723472/20723472_abf0b8ac-7f50-4c95-be2d-7a9ae559df19.jpg.webp?ect=4g"
               width="400"
               height="300"
