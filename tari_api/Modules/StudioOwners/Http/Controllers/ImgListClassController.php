@@ -46,14 +46,12 @@ class ImgListClassController extends Controller
             DB::beginTransaction();
             $listImg = ImgListClass::where('id', $request->id_old)->first();
             $image_path = $listImg->url;
-            // dd($image_path);
             $new_array = explode("/", $image_path);
-            // dd($new_array);
+
             $image_path = $new_array[3] . '/' . $new_array[4] . '/' . $new_array[5];
             // dd($image_path);
             if (File::exists($image_path)) {
                 File::delete($image_path);
-                // @unlink($image_path);
             }
             $listImg->delete();
 
@@ -62,6 +60,8 @@ class ImgListClassController extends Controller
             $master->url = $path;
             $master->class_id = $listImg->class_id;
             $master->save();
+
+            DB::commit();
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
