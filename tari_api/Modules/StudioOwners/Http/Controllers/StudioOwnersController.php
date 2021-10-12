@@ -9,6 +9,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Studio\Entities\Reviews;
+use Modules\StudioOwners\Entities\BankAccount;
 use Modules\StudioOwners\Entities\ClassesOwnerStudio;
 use Modules\StudioOwners\Entities\DiscussOwner;
 use Modules\StudioOwners\Entities\OwnerStudio;
@@ -73,6 +74,7 @@ class StudioOwnersController extends Controller
                 'vidio_profile' => 0,
                 'reviews' => 0,
                 "discuss" => 0,
+                "bank_account" => 0
             ];
 
             $data['classes'] = ClassesOwnerStudio::whereHas('studio', function (Builder $query) use ($studio) {
@@ -91,6 +93,9 @@ class StudioOwnersController extends Controller
                 $query->where('studio_id', $studio->id);
             })->count();
             $data['reviews'] = Reviews::whereHas('studio', function (Builder $query) use ($studio) {
+                $query->where('id', $studio->id);
+            })->count();
+            $data["bank_account"] = BankAccount::whereHas('studio', function (Builder $query) use ($studio) {
                 $query->where('id', $studio->id);
             })->count();
 

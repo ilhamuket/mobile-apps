@@ -18,37 +18,21 @@ class ImgClassesController extends Controller
         try {
             DB::beginTransaction();
 
-            $vidio = ImgClasses::where('class_id', $request->class_id)->first();
-            $image_path = $vidio->url;
-            $new = explode("/", $image_path);
-            $image_path = $new[3] . "/".$new[4];
+            $imgClass = ImgClasses::where('class_id', $request->class_id)->first();
+            $new_array = explode('/', $imgClass->url);
+            $image_path = $new_array[3] . '/' . $new_array[4] . '/' . $new_array[5] . '/' . $new_array[6];
             if (File::exists($image_path)) {
                 File::delete($image_path);
             }
-            $vidio->delete();
-            if ($request->hasfile('img')) {
-                //getting the file from view
-                $image = $request->file('img');
-                $image_size = $image->getSize();
+            $imgClass->delete();
+            $master = new ImgClasses();
+            $path = $request->img->store('images');
+            $master->url = $path;
+            $master->class_id = $imgClass->class_id;
+            $master->save();
 
-                //getting the extension of the file
-                $image_ext = $image->getClientOriginalExtension();
-
-                //changing the name of the file
-                $new_image_name = rand(123456, 999999) . "." . $image_ext;
-
-                $destination_path = public_path('images');
-                $image->move($destination_path, $new_image_name);
-
-                // save to database
-                $master = new ImgClasses();
-                $master->url =  'images/' . $new_image_name;
-                $master->class_id = $request->class_id;
-                $master->save();
-
-                DB::commit();
-                return Json::response($master);
-            }
+            DB::commit();
+            return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
@@ -63,35 +47,13 @@ class ImgClassesController extends Controller
     public function thumbnail(Request $request)
     {
         try {
-            DB::beginTransaction();
-            if ($request->hasfile('img')) {
-                //getting the file from view
-                $image = $request->file('img');
-                $image_size = $image->getSize();
+            $master = new ImgClasses();
+            $path = $request->img->store('images');
+            $master->url = $path;
+            $master->class_id = $request->class_id;
+            $master->save();
 
-                //getting the extension of the file
-                $image_ext = $image->getClientOriginalExtension();
-
-                //changing the name of the file
-                $new_image_name = rand(123456, 999999) . "." . $image_ext;
-
-                $destination_path = public_path('images');
-                $image->move($destination_path, $new_image_name);
-
-                // save to database
-                $master = new ImgClasses();
-                // $master->name_thumbnail = $new_image_name;
-                $master->url =  'images/' . $new_image_name;
-                $master->class_id = $request->class_id;
-                $master->save();
-
-                $studioClasses = ClassesOwnerStudio::findOrFail($request->class_id);
-                $studioClasses->status = 'Publish';
-                $studioClasses->save();
-
-                DB::commit();
-                return Json::response($master);
-            }
+            return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         } catch (\Illuminate\Database\QueryException $e) {
