@@ -10,6 +10,21 @@ use Modules\Studio\Entities\Category;
 
 class CategoryController extends Controller
 {
+    public function unfollow(Request $request, $id)
+    {
+        try {
+            $master = Category::findOrFail($id);
+            $master->follow()->detach($request->user()->id);
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     public function follow(Request $request, $id)
     {
         try {
