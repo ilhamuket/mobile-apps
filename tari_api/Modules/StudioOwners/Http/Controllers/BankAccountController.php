@@ -15,14 +15,19 @@ class BankAccountController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $master = BankAccount::get();
+            $studio = OwnerStudio::where('author_id', $request->user()->id)->first();
+            $master = BankAccount::where('studio_id', $studio->id)->get();
 
             return Json::response($master);
-        } catch (\Throwable $th) {
-            //throw $th;
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         }
     }
 
@@ -90,7 +95,22 @@ class BankAccountController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $master = BankAccount::findOrFail($id);
+            $master->name = $request->input('name', $master->name);
+            $master->no_rek = $request->input('no_rek', $master->no_rek);
+            $master->bank_name = $request->input('bank_name', $master->bank_name);
+            $master->status = $request->input('status', $master->status);
+            $master->save();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**
@@ -100,6 +120,16 @@ class BankAccountController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $master = BankAccount::findOrFail($id);
+            $master->delete();
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 }

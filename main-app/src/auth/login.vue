@@ -3,7 +3,7 @@
     <v-container fluid>
       <v-row
         dense
-        class=""
+        class="d-flex flex-row-reverse"
       >
         <v-col
           cols="12"
@@ -152,13 +152,13 @@
   export default {
     data: () => ({
       show: false,
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     }),
     computed: {
       imgUrl () {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        this.sideImg = require('@/assets/img/login2.jpg')
+        this.sideImg = require("@/assets/img/login2.jpg")
         return this.sideImg
       },
     },
@@ -168,17 +168,17 @@
     methods: {
       login () {
         this.$store
-          .dispatch('auth/login', {
+          .dispatch("auth/login", {
             email: this.email,
             password: this.password,
           })
           .then(response => {
             if (response.data.meta.status === true) {
-              this.$store.dispatch('user/me').then(res => {
+              this.$store.dispatch("user/me").then(res => {
                 if (res.data.data.isVerified === 0) {
-                  this.$router.push('/waiting-email')
+                  this.$router.push("/waiting-email")
                 } else {
-                  const redirecturl = this.$route.query.redirect || '/'
+                  const redirecturl = this.$route.query.redirect || "/"
                   this.$router.push(redirecturl)
                 }
               })
@@ -187,29 +187,29 @@
               this.alert = true
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'top-end',
+                position: "top-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
 
               Toast.fire({
-                icon: 'error',
-                title: 'Password atau Email Anda salah',
+                icon: "error",
+                title: "Password atau Email Anda salah",
               })
             }
           })
           .catch(() => {})
       },
       pushToRegister () {
-        this.$router.push('/register')
+        this.$router.push("/register")
       },
     },
   }

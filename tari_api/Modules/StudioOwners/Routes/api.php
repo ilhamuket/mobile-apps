@@ -135,5 +135,7 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
     Route::prefix('bank-account')->group(function () {
         Route::get('', [BankAccountController::class, 'index']);
         Route::post('', [BankAccountController::class, 'store']);
+        Route::delete('{id}', [BankAccountController::class, 'destroy']);
+        Route::patch('{id}', [BankAccountIController::class, 'update']);
     });
 });

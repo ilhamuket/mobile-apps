@@ -20,31 +20,13 @@ class ImgListClassController extends Controller
     public function thumbnail(Request $request)
     {
         try {
-            if ($request->hasfile('img')) {
-                //getting the file from view
-                $image = $request->file('img');
-                $image_size = $image->getSize();
+            $master = new ImgListClass();
+            $path = $request->img->store('images');
+            $master->url = $path;
+            $master->class_id = $request->class_id;
+            $master->save();
 
-                //getting the extension of the file
-                $image_ext = $image->getClientOriginalExtension();
-
-                //changing the name of the file
-                $new_image_name = rand(123456, 999999) . "." . $image_ext;
-
-                $destination_path = public_path('images');
-                // $destination_path = public_path('listImg');
-                $image->move($destination_path, $new_image_name);
-
-                // save to database
-                $master = new ImgListClass();
-                // $master->name_thumbnail = $new_image_name;
-                $master->url =  'images/' . $new_image_name;
-                $master->class_id = $request->class_id;
-                $master->save();
-
-                DB::commit();
-                return Json::response($master);
-            }
+            return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         } catch (\Illuminate\Database\QueryException $e) {
@@ -64,40 +46,23 @@ class ImgListClassController extends Controller
             DB::beginTransaction();
             $listImg = ImgListClass::where('id', $request->id_old)->first();
             $image_path = $listImg->url;
-            $new = explode("/", $image_path);
-            $image_path = $new[3] . "/".$new[4];
+            // dd($image_path);
+            $new_array = explode("/", $image_path);
+            // dd($new_array);
+            $image_path = $new_array[3] . '/' . $new_array[4] . '/' . $new_array[5];
             // dd($image_path);
             if (File::exists($image_path)) {
                 File::delete($image_path);
                 // @unlink($image_path);
             }
             $listImg->delete();
-          
-            if ($request->hasfile('img')) {
-                //getting the file from view
-                $image = $request->file('img');
-                $image_size = $image->getSize();
 
-                //getting the extension of the file
-                $image_ext = $image->getClientOriginalExtension();
-
-                //changing the name of the file
-                $new_image_name = rand(123456, 999999) . "." . $image_ext;
-
-                $destination_path = public_path('images');
-                $image->move($destination_path, $new_image_name);
-
-                // save to database
-                $master = new ImgListClass();
-                // $master->name_thumbnail = $new_image_name;
-                $master->url =  'images/' . $new_image_name;
-                $master->class_id = $listImg->class_id;
-              
-                $master->save();
-
-                DB::commit();
-                return Json::response($master);
-            }
+            $master = new ImgListClass();
+            $path = $request->img->store('images');
+            $master->url = $path;
+            $master->class_id = $listImg->class_id;
+            $master->save();
+            return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
