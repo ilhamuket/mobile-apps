@@ -68,4 +68,13 @@ class StudioOwnerCategory extends Model
             }
         }
     }
+
+    public function scopeBySummary($query, $summary)
+    {
+        if ($summary != '' && $summary != null) {
+            $query->where('status', $summary);
+        }
+
+        return $query;
+    }
 }

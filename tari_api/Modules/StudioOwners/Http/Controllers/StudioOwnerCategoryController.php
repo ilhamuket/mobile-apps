@@ -114,6 +114,7 @@ class StudioOwnerCategoryController extends Controller
             $studio = OwnerStudio::where('author_id', $me->id)->first();
             $master = StudioOwnerCategory::where('studio_id', $studio->id)
                 ->entities($request->entities)
+                ->bySummary($request->summary)
                 ->get();
 
             return Json::response($master);

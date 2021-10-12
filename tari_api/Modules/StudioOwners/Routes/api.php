@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Modules\StudioOwners\Entities\ClassesOwnerStudio;
 use Modules\StudioOwners\Entities\StudioTeacher;
 use Modules\StudioOwners\Entities\SubClassOwnerStudio;
+use Modules\StudioOwners\Http\Controllers\BankAccountController;
 use Modules\StudioOwners\Http\Controllers\CategoryImgController;
 use Modules\StudioOwners\Http\Controllers\ClassesOwnerStudioController;
 use Modules\StudioOwners\Http\Controllers\DiscussController;
@@ -129,5 +130,10 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
     Route::prefix('files')->group(function () {
         Route::post('', [ImagesStudioController::class, 'storeThumbnail']);
         Route::post('update', [ImagesStudioController::class, 'update']);
+    });
+
+    Route::prefix('bank-account')->group(function () {
+        Route::get('', [BankAccountController::class, 'index']);
+        Route::post('', [BankAccountController::class, 'store']);
     });
 });
