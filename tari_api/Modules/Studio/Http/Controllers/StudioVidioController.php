@@ -46,6 +46,7 @@ class StudioVidioController extends Controller
 
             if (is_object($studio)) {
                 $master = StudioVidio::with('studio', 'author')
+                    ->filterStatus($request->status)
                     ->search($request->search)
                     ->where('studio_id', $studio->id)
                     ->whereNull('deleted_at')
