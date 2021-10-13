@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Studio\Entities\CommentStudioVidio;
 
 class StudioOwnerVidio extends Model
 {
@@ -27,6 +28,11 @@ class StudioOwnerVidio extends Model
     public function author()
     {
         return $this->belongsTo(User::class, 'author_id');
+    }
+
+    public function comment()
+    {
+        return $this->hasMany(CommentStudioVidio::class, 'studio_vidio_id');
     }
 
     // ==== Scope === //
@@ -54,6 +60,15 @@ class StudioOwnerVidio extends Model
             ['status', 'publish']
         ]);
         if ($summary === 'new') return $query->where('studio_id', $studio_id)->whereDate('created_at', now());
+
+        return $query;
+    }
+
+    public function scopeFilterStatus($query, $status)
+    {
+        if ($status != null || $status != null) {
+            $query->where('status', $status);
+        }
 
         return $query;
     }
