@@ -88,7 +88,6 @@ class StudioOwnerVidioController extends Controller
             $me = $request->user();
             $studio = OwnerStudio::where('author_id', $me->id)->first();
             $master = StudioOwnerVidio::entities($request->entities)
-                ->filterStatus($request->status)
                 ->where('studio_id', $studio->id)
                 ->summary($request->summary, $studio->id)
                 ->get();
