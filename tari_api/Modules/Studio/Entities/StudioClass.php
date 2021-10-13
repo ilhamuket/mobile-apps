@@ -186,4 +186,13 @@ class StudioClass extends Model
 
         return $query;
     }
+
+    public function scopeFilterStatus($query, $status)
+    {
+        if ($status != null || $status != '') {
+            $query->where('status', $status);
+        }
+
+        return $query;
+    }
 }

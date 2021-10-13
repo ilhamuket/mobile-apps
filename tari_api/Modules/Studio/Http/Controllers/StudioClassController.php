@@ -125,6 +125,7 @@ class StudioClassController extends Controller
             $master = StudioClass::entities($request->entities)
                 ->filterBy($request->filter)
                 ->search($request->q)
+                ->filterStatus($request->status)
                 ->statusClass($request->status_kelas)
                 ->sort($request->sort)
                 ->filterByDate($request->date)

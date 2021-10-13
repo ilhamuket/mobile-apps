@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Modules\Studio\Entities\StudioClass;
 use Modules\StudioOwners\Entities\ClassesOwnerStudio;
 use Modules\StudioOwners\Entities\ImgClasses;
 
@@ -53,6 +54,10 @@ class ImgClassesController extends Controller
             $master->url = $path;
             $master->class_id = $request->class_id;
             $master->save();
+
+            $class = StudioClass::findOrFail($master->class_id);
+            $class->status = 'publish';
+            $class->save();
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
