@@ -117,7 +117,7 @@
             "th": {
                 "title": "Judul Vidio",
                 "status": "Status",
-                "studio": "Nama Studio",
+                "comments": "Comment",
                 "author": "Pembuat"
             }
         },
@@ -176,5 +176,6 @@
     "Segarkan": "Segarkan",
     "class_vidio": "Class Vidio",
     "active": "Aktif",
-    "not active": "Tidak Aktif"
+    "not active": "Tidak Aktif",
+    "bank_account": "Bank Account"
 }

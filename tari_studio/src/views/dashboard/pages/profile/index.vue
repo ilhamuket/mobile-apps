@@ -78,7 +78,10 @@
         </v-tabs>
         <v-tabs-items v-model="tabs">
           <v-tab-item>
-            <app-page-summarry :summary="cumputedSummary" />
+            <app-page-summarry
+              :summary="cumputedSummary"
+              @navigate="navigateTabs"
+            />
           </v-tab-item>
           <v-tab-item>
             <app-page-one
@@ -116,6 +119,7 @@
             <app-page-payment
               :data="computedBankAccount"
               @add="updialogAddBankAccount"
+              @edit="upDialogEditBankAccount"
             />
           </v-tab-item>
         </v-tabs-items>
@@ -177,6 +181,10 @@
       :dialog="dialogAddBankAccount"
       @input="insertDataBankAccont"
     />
+    <app-dialog-edit-bank-account
+      :dialog="dataDialogEditBankAccount"
+      @input="updateDataBankAccount"
+    />
   </v-container>
 </template>
 
@@ -192,6 +200,7 @@
   import notice from "./components/__dialogNotice.vue"
   import editProfile from "./components/__editProfile.vue"
   import dialogFormAddPayment from "./components/__dialogAddPayment.vue"
+  import dialogEditBankAccount from "./components/__dialogEditBankAccount.vue"
   export default {
     components: {
       "app-card": card,
@@ -205,6 +214,7 @@
       "app-dialog-notice": notice,
       "app-dialog-edit-profile": editProfile,
       "app-dialog-add-form": dialogFormAddPayment,
+      "app-dialog-edit-bank-account": dialogEditBankAccount,
     },
     data: () => ({
       tabs: null,
@@ -250,6 +260,10 @@
       },
       dialogAddBankAccount: {
         open: false,
+      },
+      dataDialogEditBankAccount: {
+        open: false,
+        data: {},
       },
       params: "",
     }),
@@ -632,6 +646,11 @@
             }
           })
       },
+      navigateTabs ({ item }) {
+        console.log(item)
+        this.$route.params.params = item
+        this.firstLoad()
+      },
       inputPictureImgStudio ({ item }) {
         console.log(item)
         this.$store
@@ -711,6 +730,42 @@
           .then(res => {
             if (res.data.meta.status) {
               this.dialogAddBankAccount.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Data Added Successfully",
+              })
+            }
+          })
+      },
+      upDialogEditBankAccount ({ item }) {
+        this.dataDialogEditBankAccount.open = true
+        this.dataDialogEditBankAccount.data = item
+      },
+      updateDataBankAccount ({ item }) {
+        this.$store
+          .dispatch("bank_account/updateDataBankAccount", {
+            id: item.id,
+            bank_name: item.bank_name,
+            name: item.name,
+            no_rek: item.no_rek,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              this.dataDialogEditBankAccount.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
                 position: "bottom-end",

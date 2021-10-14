@@ -5,18 +5,26 @@
       width="90%"
     >
       <v-card>
-        <v-card-title class="text-h2 pallet1--text font-title-rampart-one">
-          Add Class
+        <v-system-bar
+          :color="$vuetify.theme.dark ? '#141C31' : '#F0F8FF'"
+          window
+        >
+          <v-toolbar-title
+            :class="$vuetify.theme.dark ? 'white--text' : ' black--text'"
+            class="font-size-ather-roboto-mono"
+          >
+            <v-icon :color="$vuetify.theme.dark ? 'white' : 'black'">
+              mdi-account-plus
+            </v-icon>
+            Add Vidio Profile
+          </v-toolbar-title>
 
           <v-spacer />
 
-          <v-icon
-            aria-label="Close"
-            @click="dialog.open = false"
-          >
+          <v-icon @click="dialog.open = false">
             mdi-close
           </v-icon>
-        </v-card-title>
+        </v-system-bar>
         <v-container>
           <v-row>
             <v-col>
@@ -103,60 +111,60 @@
     data: () => ({
       data: [
         {
-          option: '',
+          option: "",
         },
       ],
-      formStatus: '',
-      status: ['publish', 'previews', 'concept'],
+      formStatus: "",
+      status: ["publish", "previews", "concept"],
     }),
     methods: {
       addText () {
-        this.data.push({ option: '' })
+        this.data.push({ option: "" })
       },
       deleteInput (index) {
         if (index > 0 || this.data.length > 1) {
           this.data.splice(index, 1)
           const Toast = this.$swal.mixin({
             toast: true,
-            position: 'top-end',
+            position: "top-end",
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
             didOpen: toast => {
-              toast.addEventListener('mouseenter', this.$swal.stopTimer)
-              toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+              toast.addEventListener("mouseenter", this.$swal.stopTimer)
+              toast.addEventListener("mouseleave", this.$swal.resumeTimer)
             },
-            popup: 'swal2-show',
-            backdrop: 'swal2-backdrop-show',
-            icon: 'swal2-icon-show',
+            popup: "swal2-show",
+            backdrop: "swal2-backdrop-show",
+            icon: "swal2-icon-show",
           })
           Toast.fire({
-            icon: 'success',
-            title: 'Deleted Successfully',
+            icon: "success",
+            title: "Deleted Successfully",
           })
         } else {
           const Toast = this.$swal.mixin({
             toast: true,
-            position: 'top-end',
+            position: "top-end",
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
             didOpen: toast => {
-              toast.addEventListener('mouseenter', this.$swal.stopTimer)
-              toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+              toast.addEventListener("mouseenter", this.$swal.stopTimer)
+              toast.addEventListener("mouseleave", this.$swal.resumeTimer)
             },
-            popup: 'swal2-show',
-            backdrop: 'swal2-backdrop-show',
-            icon: 'swal2-icon-show',
+            popup: "swal2-show",
+            backdrop: "swal2-backdrop-show",
+            icon: "swal2-icon-show",
           })
           Toast.fire({
-            icon: 'error',
-            title: 'Failed filled first',
+            icon: "error",
+            title: "Failed filled first",
           })
         }
       },
       addVidio () {
-        this.$emit('input', {
+        this.$emit("input", {
           item: {
             url: this.data,
             status: this.formStatus,

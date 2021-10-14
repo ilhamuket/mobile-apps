@@ -37,7 +37,10 @@
                   </v-col>
                 </v-row>
                 <v-row class="cols__list_category">
-                  <v-col cols="12">
+                  <v-col
+                    class="mt-8"
+                    cols="12"
+                  >
                     <span class="font-spartan btn_primary--text">
                       {{ item.name }}
                     </span>
@@ -46,13 +49,13 @@
                       Rp.{{ item.harga }}
                     </span>
 
-                    <v-rating
+                    <!-- <v-rating
                       :value="2"
                       class="ratings__class__category"
                       small
                       background-color="grey"
                       color="orange"
-                    />
+                    /> -->
 
                     <br>
                     <v-btn
@@ -118,15 +121,15 @@
                       {{ item.studio.display_name }}
                     </span>
 
-                    <v-rating
+                    <!-- <v-rating
                       :value="2"
                       class="ratings__class__category"
                       small
                       background-color="grey"
                       color="orange"
-                    />
+                    /> -->
 
-                    <br>
+                    <!-- <br> -->
                     <v-btn
                       small
                       outlined

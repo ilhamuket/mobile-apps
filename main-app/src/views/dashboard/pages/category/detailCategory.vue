@@ -33,14 +33,14 @@
 </template>
 
 <script>
-  import cardDetail from './components/__cardDetail.vue'
-  import pageAllCategory from './component_core/_pageLive.vue'
-  import pageVidio from './component_core/_pageVidio.vue'
+  import cardDetail from "./components/__cardDetail.vue"
+  import pageAllCategory from "./component_core/_pageLive.vue"
+  import pageVidio from "./component_core/_pageVidio.vue"
   export default {
     components: {
-      'app-card-detail': cardDetail,
-      'app-page-all': pageAllCategory,
-      'app-page-vidio': pageVidio,
+      "app-card-detail": cardDetail,
+      "app-page-all": pageAllCategory,
+      "app-page-vidio": pageVidio,
     },
     data: () => ({
       tabs: null,
@@ -58,7 +58,7 @@
         return this.$store.state.category.category
       },
       me () {
-        const Me = localStorage.getItem('ME')
+        const Me = localStorage.getItem("ME")
         const users = JSON.parse(Me)
         return users
       },
@@ -74,18 +74,19 @@
     },
     methods: {
       getDataCategoryShow () {
-        this.$store.dispatch('category/getDataCategoryShow', {
-          entities: 'studio.img,img,follow,class',
+        this.$store.dispatch("category/getDataCategoryShow", {
+          entities: "studio.img,img,follow,class",
           name: this.$route.params.name,
         })
       },
       studioClassByCategory (page) {
         this.$store
-          .dispatch('classes/getDataClasses', {
+          .dispatch("classes/getDataClasses", {
             paginate: 6,
             page: page,
-            entities: 'studio.img,img',
+            entities: "studio.img,img",
             category_name: this.$route.params.name,
+            status: "publish",
           })
           .then(res => {
             if (res.data.meta.status) {
@@ -119,7 +120,7 @@
       ratingCategory () {
         if (this.category.studio) {
           this.$store
-            .dispatch('category/ratingCategory', {
+            .dispatch("category/ratingCategory", {
               studio_slug: this.$route.params.studio_slug,
             })
             .then(res => {

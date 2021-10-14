@@ -139,11 +139,11 @@
                   color="primary"
                   large
                 >
-                  {{ isCollapse ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
+                  {{ isCollapse ? "mdi-chevron-up" : "mdi-chevron-down" }}
                 </v-icon>
               </v-btn>
             </template>
-            {{ isCollapse ? 'Hide Summary' : 'See Summary' }}
+            {{ isCollapse ? "Hide Summary" : "See Summary" }}
           </v-tooltip>
         </div>
       </div>
@@ -214,21 +214,21 @@
 </template>
 
 <script>
-  import table from './component_core/_dataTable.vue'
-  import dialogForm from './component/__dialogFormAdd.vue'
-  import dialogNotice from './component/__dialogNotice.vue'
-  import dialogEdit from './component/__dialogEdit.vue'
-  import dialogInfo from './component/__dialogInfo.vue'
-  import upload from './component/___dialogUploadImage.vue'
-  import axios from 'axios'
+  import table from "./component_core/_dataTable.vue"
+  import dialogForm from "./component/__dialogFormAdd.vue"
+  import dialogNotice from "./component/__dialogNotice.vue"
+  import dialogEdit from "./component/__dialogEdit.vue"
+  import dialogInfo from "./component/__dialogInfo.vue"
+  import upload from "./component/___dialogUploadImage.vue"
+  import axios from "axios"
   export default {
     components: {
-      'app-data-table': table,
-      'app-data-form': dialogForm,
-      'app-dialog-notice': dialogNotice,
-      'app-data-edit': dialogEdit,
-      'app-data-info': dialogInfo,
-      'app-data-upload': upload,
+      "app-data-table": table,
+      "app-data-form": dialogForm,
+      "app-dialog-notice": dialogNotice,
+      "app-data-edit": dialogEdit,
+      "app-data-info": dialogInfo,
+      "app-data-upload": upload,
     },
     data: () => ({
       show: false,
@@ -257,10 +257,10 @@
       update: {
         open: false,
         id: 0,
-        name: '',
-        levels: '',
-        about: '',
-        url: '',
+        name: "",
+        levels: "",
+        about: "",
+        url: "",
         duration: null,
         keyword: null,
         price: null,
@@ -275,9 +275,9 @@
       dialogDeleteById: {
         id: 0,
         open: false,
-        title: '',
+        title: "",
       },
-      summary: '',
+      summary: "",
     }),
     computed: {
       computedClasses () {
@@ -294,7 +294,7 @@
       summary (newVal) {
         this.$router.push({ query: { ...this.$route.query, summary: newVal } })
       },
-      '$route.query.summary': function (val) {
+      "$route.query.summary": function (val) {
         this.summary = val
       },
     },
@@ -305,13 +305,13 @@
     },
     methods: {
       getDataClassesStudio () {
-        this.$store.dispatch('ownerStudioClasses/getDataClassesStudio', {
-          entities: 'studio, author, instructor, img, category,listImg',
+        this.$store.dispatch("ownerStudioClasses/getDataClassesStudio", {
+          entities: "studio, author, instructor, img, category,listImg",
           summary: this.summary,
         })
       },
       getDataStudioCategories () {
-        this.$store.dispatch('studioCategories/getDataStudioCategories', {})
+        this.$store.dispatch("studioCategories/getDataStudioCategories", {})
       },
       popDialog () {
         this.addForm.open = true
@@ -326,7 +326,7 @@
       },
       createClasses ({ item }) {
         this.$store
-          .dispatch('ownerStudioClasses/insertDataClassesStudio', {
+          .dispatch("ownerStudioClasses/insertDataClassesStudio", {
             name: item.name,
             levels: item.levels,
             about: item.about,
@@ -344,50 +344,60 @@
           })
           .then(({ data }) => {
             if (data.meta.status) {
-              item.name = ''
-              item.levels = ''
-              item.about = ''
-              item = null
+              item.name = ""
+              item.levels = ""
+              item.about = ""
+              item.url_meets = ""
+              item.keyword = ""
+              item.duration = ""
+              item.price = ""
+              item.kapasitas = ""
+              item.time_start = ""
+              item.end_at = ""
+              item.instructor_id = ""
+              item.category_id = ""
+              item.start_at = ""
+              item.end_at = ""
               this.addForm.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Class Created Successfully',
+                icon: "success",
+                title: "Class Created Successfully",
               })
             } else {
-              item.name = ''
-              item.levels = ''
-              item.about = ''
+              item.name = ""
+              item.levels = ""
+              item.about = ""
               this.addForm.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
+                icon: "success",
                 title: `${data.meta.message}`,
               })
             }
@@ -427,16 +437,16 @@
       },
       inputListMatery ({ item }) {
         axios.defaults.headers.common.Authorization =
-          'Bearer ' + localStorage.getItem('access_token')
+          "Bearer " + localStorage.getItem("access_token")
         axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
-        const URL = 'owner/classes/thumbnail-list'
+        const URL = "owner/classes/thumbnail-list"
         const data = new FormData()
-        data.append('img', item.files)
-        data.append('class_id', item.id)
+        data.append("img", item.files)
+        data.append("class_id", item.id)
         const config = {
           header: {
-            'Content-Type': 'image/png',
+            "Content-Type": "image/png",
           },
         }
 
@@ -444,21 +454,21 @@
           item = null
           const Toast = this.$swal.mixin({
             toast: true,
-            position: 'bottom-end',
+            position: "bottom-end",
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
             didOpen: toast => {
-              toast.addEventListener('mouseenter', this.$swal.stopTimer)
-              toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+              toast.addEventListener("mouseenter", this.$swal.stopTimer)
+              toast.addEventListener("mouseleave", this.$swal.resumeTimer)
             },
-            popup: 'swal2-show',
-            backdrop: 'swal2-backdrop-show',
-            icon: 'swal2-icon-show',
+            popup: "swal2-show",
+            backdrop: "swal2-backdrop-show",
+            icon: "swal2-icon-show",
           })
           Toast.fire({
-            icon: 'success',
-            title: 'Matery Added Successfully',
+            icon: "success",
+            title: "Matery Added Successfully",
           })
           this.list.open = false
           this.getDataClassesStudio()
@@ -466,37 +476,37 @@
       },
       changeList ({ item }) {
         axios.defaults.headers.common.Authorization =
-          'Bearer ' + localStorage.getItem('access_token')
+          "Bearer " + localStorage.getItem("access_token")
         axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
-        const URL = 'owner/classes/change-list'
+        const URL = "owner/classes/change-list"
         const data = new FormData()
-        data.append('img', item.files)
-        data.append('id_old', item.id)
+        data.append("img", item.files)
+        data.append("id_old", item.id)
         const config = {
           header: {
-            'Content-Type': 'image/png',
+            "Content-Type": "image/png",
           },
         }
         axios.post(URL, data, config).then(res => {
           if (res.data.meta.status) {
             const Toast = this.$swal.mixin({
               toast: true,
-              position: 'bottom-end',
+              position: "bottom-end",
               showConfirmButton: false,
               timer: 3000,
               timerProgressBar: true,
               didOpen: toast => {
-                toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                toast.addEventListener("mouseleave", this.$swal.resumeTimer)
               },
-              popup: 'swal2-show',
-              backdrop: 'swal2-backdrop-show',
-              icon: 'swal2-icon-show',
+              popup: "swal2-show",
+              backdrop: "swal2-backdrop-show",
+              icon: "swal2-icon-show",
             })
             Toast.fire({
-              icon: 'success',
-              title: 'List Pict Edited Successfully',
+              icon: "success",
+              title: "List Pict Edited Successfully",
             })
             this.list.open = false
             this.getDataClassesStudio()
@@ -505,16 +515,16 @@
       },
       inputPicture ({ item }) {
         axios.defaults.headers.common.Authorization =
-          'Bearer ' + localStorage.getItem('access_token')
+          "Bearer " + localStorage.getItem("access_token")
         axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
-        const URL = 'owner/classes/thumbnail'
+        const URL = "owner/classes/thumbnail"
         const data = new FormData()
-        data.append('img', item.files)
-        data.append('class_id', item.id)
+        data.append("img", item.files)
+        data.append("class_id", item.id)
         const config = {
           header: {
-            'Content-Type': 'image/png',
+            "Content-Type": "image/png",
           },
         }
         axios.post(URL, data, config).then(res => {
@@ -522,21 +532,21 @@
             item = null
             const Toast = this.$swal.mixin({
               toast: true,
-              position: 'bottom-end',
+              position: "bottom-end",
               showConfirmButton: false,
               timer: 3000,
               timerProgressBar: true,
               didOpen: toast => {
-                toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                toast.addEventListener("mouseleave", this.$swal.resumeTimer)
               },
-              popup: 'swal2-show',
-              backdrop: 'swal2-backdrop-show',
-              icon: 'swal2-icon-show',
+              popup: "swal2-show",
+              backdrop: "swal2-backdrop-show",
+              icon: "swal2-icon-show",
             })
             Toast.fire({
-              icon: 'success',
-              title: 'Profile Editted Successfully',
+              icon: "success",
+              title: "Profile Editted Successfully",
             })
             this.info.open = false
             this.getDataClassesStudio()
@@ -545,16 +555,16 @@
       },
       changePicture ({ item }) {
         axios.defaults.headers.common.Authorization =
-          'Bearer ' + localStorage.getItem('access_token')
+          "Bearer " + localStorage.getItem("access_token")
         axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
-        const URL = 'owner/classes/change-thumbnail'
+        const URL = "owner/classes/change-thumbnail"
         const data = new FormData()
-        data.append('img', item.files)
-        data.append('class_id', item.id)
+        data.append("img", item.files)
+        data.append("class_id", item.id)
         const config = {
           header: {
-            'Content-Type': 'image/png',
+            "Content-Type": "image/png",
           },
         }
 
@@ -563,21 +573,21 @@
             item = null
             const Toast = this.$swal.mixin({
               toast: true,
-              position: 'bottom-end',
+              position: "bottom-end",
               showConfirmButton: false,
               timer: 3000,
               timerProgressBar: true,
               didOpen: toast => {
-                toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                toast.addEventListener("mouseleave", this.$swal.resumeTimer)
               },
-              popup: 'swal2-show',
-              backdrop: 'swal2-backdrop-show',
-              icon: 'swal2-icon-show',
+              popup: "swal2-show",
+              backdrop: "swal2-backdrop-show",
+              icon: "swal2-icon-show",
             })
             Toast.fire({
-              icon: 'success',
-              title: 'Profile Editted Successfully',
+              icon: "success",
+              title: "Profile Editted Successfully",
             })
             this.info.open = false
             this.getDataClassesStudio()
@@ -592,27 +602,27 @@
       deletesData ({ item }) {
         // console.log(item)
         this.$store
-          .dispatch('ownerStudioClasses/deleteDataClassesStudio', item)
+          .dispatch("ownerStudioClasses/deleteDataClassesStudio", item)
           .then(res => {
             if (res.data.meta.status) {
               this.deletes.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Class Deleted Successfully',
+                icon: "success",
+                title: "Class Deleted Successfully",
               })
             }
           })
@@ -620,27 +630,27 @@
       },
       approvesDataClassesStudio ({ item }) {
         this.$store
-          .dispatch('ownerStudioClasses/approvesDataClassesStudio', item)
+          .dispatch("ownerStudioClasses/approvesDataClassesStudio", item)
           .then(res => {
             this.approves.open = false
             if (res.data.meta.status) {
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Class Approved Successfully',
+                icon: "success",
+                title: "Class Approved Successfully",
               })
               this.getDataClassesStudio()
             }
@@ -648,7 +658,7 @@
       },
       updateDataClassesStudio ({ item }) {
         this.$store
-          .dispatch('ownerStudioClasses/updateDataClassesStudio', {
+          .dispatch("ownerStudioClasses/updateDataClassesStudio", {
             id: item.id,
             name: item.name,
             levels: item.levels,
@@ -667,21 +677,21 @@
               this.update.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Class Edited Successfully',
+                icon: "success",
+                title: "Class Edited Successfully",
               })
               this.getDataClassesStudio()
             }
@@ -689,7 +699,7 @@
       },
       delDataClassesStudio ({ item }) {
         this.$store
-          .dispatch('ownerStudioClasses/delDataClassesStudio', {
+          .dispatch("ownerStudioClasses/delDataClassesStudio", {
             id: item.id,
           })
           .then(({ data }) => {
@@ -697,27 +707,27 @@
               this.dialogDeleteById.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Class Deleted Successfully',
+                icon: "success",
+                title: "Class Deleted Successfully",
               })
             }
           })
       },
       getDataSummary () {
-        this.$store.dispatch('studioSummary/getDataSummary')
+        this.$store.dispatch("studioSummary/getDataSummary")
       },
       orderBy (val) {
         this.summary = val

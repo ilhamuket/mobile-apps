@@ -62,6 +62,14 @@
         >
           Delete {{ selected.length }} Item
         </v-btn>
+        <v-btn
+          class="mr-1"
+          :disabled="computedIsActive || selected.length === 0"
+          outlined
+          color="blue"
+        >
+          Activate {{ selected.length }} Item
+        </v-btn>
       </v-col>
       <v-col cols="12">
         <v-data-table
@@ -96,7 +104,7 @@
                   <div class="d-flex flex-column mt-2">
                     <a
                       class="font-a-delete d-flex flex-nowrap"
-                      @click="deleteDiscuss(item)"
+                      @click="editBankAccount(item)"
                     >
                       <v-tooltip
                         color="primary"
@@ -120,7 +128,7 @@
                   </div>
                 </div>
                 <div>
-                  <div class="d-flex flex-column mt-2">
+                  <div class="d-flex flex-column mt-2 ml-2">
                     <a
                       class="font-a-delete d-flex flex-nowrap"
                       @click="deleteDiscuss(item)"
@@ -210,6 +218,15 @@
       // },
       ],
     }),
+    computed: {
+      computedIsActive () {
+        let bool = false
+        if (this.selected.length > 0 && this.selected.length !== 0) {
+          bool = this.selected.some(x => x.status === "active")
+        }
+        return bool
+      },
+    },
     methods: {
       setColorStatus (status) {
         if (status === "active") return "btn_primary"
@@ -220,6 +237,9 @@
       },
       refresh () {
         this.$emit("refresh")
+      },
+      editBankAccount (item) {
+        this.$emit("edit", { item: item })
       },
     },
   }

@@ -117,7 +117,7 @@
       "th": {
         "title": "Judul Video",
         "status": "Status",
-        "studio": "Studio Name",
+        "comments": "Comment",
         "author": "Author"
       }
     },

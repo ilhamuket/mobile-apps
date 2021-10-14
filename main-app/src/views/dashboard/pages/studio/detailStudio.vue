@@ -273,6 +273,7 @@
           .dispatch('studioChild/getDataListVidio', {
             slug: this.$route.params.slug,
             search: this.search,
+            status: 'publish',
           })
           .then(({ data }) => {
             this.listVidio = data.data

@@ -9,7 +9,7 @@
         "
       >
         <!-- {{ computudTitle }} -->
-        {{ $t('index_class_data_table') }}
+        {{ $t("index_class_data_table") }}
       </span>
     </template>
     <v-container>
@@ -251,7 +251,7 @@
                 :color="setColorStatus(item.status)"
                 label
                 text-color="white"
-                class="chips--weight"
+                class="chips--weight text-capitalize"
               >
                 {{ item.status }}
               </v-chip>
@@ -290,34 +290,34 @@
     data: () => ({
       headers: [
         {
-          text: '#',
-          value: 'img.url',
+          text: "#",
+          value: "img.url",
           sortable: false,
         },
         {
-          text: 'table.class.th.name',
-          align: 'start',
+          text: "table.class.th.name",
+          align: "start",
           sortable: false,
-          value: 'name',
+          value: "name",
         },
-        { text: 'table.class.th.levels', value: 'levels', sortable: false },
+        { text: "table.class.th.levels", value: "levels", sortable: false },
         {
-          text: 'table.class.th.category',
-          value: 'category.display_name',
+          text: "table.class.th.category",
+          value: "category.display_name",
           sortable: false,
         },
 
-        { text: 'table.class.th.capacity', value: 'kapasitas', sortable: false },
-        { text: 'table.class.th.status', value: 'status', sortable: false },
+        { text: "table.class.th.capacity", value: "kapasitas", sortable: false },
+        { text: "table.class.th.status", value: "status", sortable: false },
         {
-          text: 'table.class.th.status_time',
-          value: 'status_kelas',
+          text: "table.class.th.status_time",
+          value: "status_kelas",
           sortable: false,
         },
       ],
-      transparent: 'rgba(255, 255, 255, 0)',
+      transparent: "rgba(255, 255, 255, 0)",
       selected: [],
-      search: '',
+      search: "",
       dialogAdd: {},
       dataItem: {},
       imageUrl: null,
@@ -325,60 +325,60 @@
     }),
     computed: {
       computudTitle () {
-        let name = 'Class - All'
-        if (this.$route.query.summary === 'all') {
-          name = 'Class - All'
+        let name = "Class - All"
+        if (this.$route.query.summary === "all") {
+          name = "Class - All"
         }
-        if (this.$route.query.summary === 'approved') {
-          name = 'Class - Approved'
+        if (this.$route.query.summary === "approved") {
+          name = "Class - Approved"
         }
-        if (this.$route.query.summary === 'non-approved') {
-          name = 'Class - Non Approved'
+        if (this.$route.query.summary === "non-approved") {
+          name = "Class - Non Approved"
         }
-        if (this.$route.query.summary === 'new') {
-          name = 'Class - New'
+        if (this.$route.query.summary === "new") {
+          name = "Class - New"
         }
         return name
       },
     },
     methods: {
       setColorLevels (levels) {
-        if (levels === 'Beginner' || levels === 'beginner') return 'pallet1'
-        if (levels === 'Advance') return 'secondary'
-        if (levels === 'Intermediate') return 'btn_primary'
+        if (levels === "Beginner" || levels === "beginner") return "pallet1"
+        if (levels === "Advance") return "secondary"
+        if (levels === "Intermediate") return "btn_primary"
       },
       setColorStatus (status) {
-        if (status === 'Publish') return 'btn_primary'
-        if (status === 'Draft') return 'blue'
-        else return 'red'
+        if (status === "publish") return "btn_primary"
+        if (status === "draft") return "blue"
+        else return "red"
       },
       setStatusClass (status) {
-        if (status === 'ongoing') return 'primary'
-        if (status === 'upcoming') return 'btn_primary'
-        else return 'red'
+        if (status === "ongoing") return "primary"
+        if (status === "upcoming") return "btn_primary"
+        else return "red"
       },
       upDialog () {
-        this.$emit('add', { item: this.dialogAdd })
+        this.$emit("add", { item: this.dialogAdd })
       },
       upDialogDeletes (item) {
-        this.$emit('deletes', { item: item })
+        this.$emit("deletes", { item: item })
         this.selected = []
       },
       upDialogApproves (item) {
-        this.$emit('approves', { item: item })
+        this.$emit("approves", { item: item })
         this.selected = []
       },
       upDialogeditClass (item) {
-        this.$emit('update', { item: item })
+        this.$emit("update", { item: item })
       },
       upDeleteClass (item) {
-        this.$emit('del', { item: item })
+        this.$emit("del", { item: item })
       },
       upInfoClass (item) {
-        this.$emit('info', { item: item })
+        this.$emit("info", { item: item })
       },
       uploadMatery (item) {
-        this.$emit('upload', { item: item })
+        this.$emit("upload", { item: item })
       },
       changePict (item) {
         this.$refs.fileUpload.click()
@@ -390,7 +390,7 @@
         const filename = files[0].name
         console.log(filename)
         const fileReader = new FileReader()
-        fileReader.addEventListener('load', () => {
+        fileReader.addEventListener("load", () => {
           this.imageUrl = fileReader.result
         //   console.log(this.imageUrl)
         })
@@ -398,27 +398,27 @@
         this.files = files[0]
 
         if (this.files.size > 2000000) {
-          console.log('too big')
+          console.log("too big")
           const Toast = this.$swal.mixin({
             toast: true,
-            position: 'bottom-end',
+            position: "bottom-end",
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
             didOpen: toast => {
-              toast.addEventListener('mouseenter', this.$swal.stopTimer)
-              toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+              toast.addEventListener("mouseenter", this.$swal.stopTimer)
+              toast.addEventListener("mouseleave", this.$swal.resumeTimer)
             },
-            popup: 'swal2-show',
-            backdrop: 'swal2-backdrop-show',
-            icon: 'swal2-icon-show',
+            popup: "swal2-show",
+            backdrop: "swal2-backdrop-show",
+            icon: "swal2-icon-show",
           })
           Toast.fire({
-            icon: 'error',
-            title: 'file too big',
+            icon: "error",
+            title: "file too big",
           })
         } else {
-          this.$emit('change', {
+          this.$emit("change", {
             item: {
               files: this.files,
               id: this.dataItem.id,

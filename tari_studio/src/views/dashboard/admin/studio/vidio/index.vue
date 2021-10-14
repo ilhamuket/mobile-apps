@@ -112,6 +112,8 @@
           @create="upDialog"
           @approve="upDialogPublish"
           @deleted="upDialogDeleted"
+          @deleteById="upDialogDeleteVidioById"
+          @refresh="studioOwnerVidio"
         />
       </v-col>
     </v-row>
@@ -137,18 +139,29 @@
       color-button2="primary"
       @input="deletesDataVidio"
     />
+    <app-dialog-notice
+      :dialog="deletedById"
+      title="Delete"
+      text="card_notice.text"
+      text-button1="Delete"
+      icon="mdi-delete "
+      color-button1="red"
+      color-button2="primary"
+      :by-id="true"
+      @input="deleteDataById"
+    />
   </v-container>
 </template>
 
 <script>
-  import dataTable from './components_core/_dataTable.vue'
-  import dialogForm from './components/__dialogForm.vue'
-  import dialogNotice from './components/__dialogNotice.vue'
+  import dataTable from "./components_core/_dataTable.vue"
+  import dialogForm from "./components/__dialogForm.vue"
+  import dialogNotice from "./components/__dialogNotice.vue"
   export default {
     components: {
-      'app-data-form': dialogForm,
-      'app-data-table': dataTable,
-      'app-dialog-notice': dialogNotice,
+      "app-data-form": dialogForm,
+      "app-data-table": dataTable,
+      "app-dialog-notice": dialogNotice,
     },
     data: () => ({
       tab: null,
@@ -159,25 +172,25 @@
       },
       items: [
         {
-          tab: 'all',
-          title: 'All',
-          icon: 'mdi-send',
-          summary: '0',
-          status: 'all',
+          tab: "all",
+          title: "All",
+          icon: "mdi-send",
+          summary: "0",
+          status: "all",
         },
         {
-          tab: 'publish',
-          title: 'Publish',
-          icon: 'mdi-send-check',
-          summary: '0',
-          status: 'publish',
+          tab: "publish",
+          title: "Publish",
+          icon: "mdi-send-check",
+          summary: "0",
+          status: "publish",
         },
         {
-          tab: 'new',
-          title: 'New',
-          icon: 'mdi-send-lock',
-          summary: '0',
-          status: 'new',
+          tab: "new",
+          title: "New",
+          icon: "mdi-send-lock",
+          summary: "0",
+          status: "new",
         },
       ],
       add: {
@@ -193,7 +206,11 @@
         id: 0,
         data: [],
       },
-      status: '',
+      deletedById: {
+        open: false,
+        data: {},
+      },
+      status: "",
     }),
     computed: {
       vidio () {
@@ -212,7 +229,7 @@
       status (newVal) {
         this.$router.push({ query: { ...this.$route.query, summary: newVal } })
       },
-      '$route.query.status': function (val) {
+      "$route.query.status": function (val) {
         this.$status = val
         this.studioOwnerVidio()
       },
@@ -223,26 +240,26 @@
     },
     methods: {
       studioOwnerVidio () {
-        this.$store.dispatch('studioOwnerVidio/getDataVidio', {
-          entities: 'author, studio',
+        this.$store.dispatch("studioOwnerVidio/getDataVidio", {
+          entities: "author, studio, comment",
           summary: this.status,
         })
       },
       getDataSummary () {
-        this.$store.dispatch('studioOwnerVidio/getDataSummary', {}).then(res => {
+        this.$store.dispatch("studioOwnerVidio/getDataSummary", {}).then(res => {
           this.summary = res.data.data
           this.setSummary(res.data.data)
-          console.log(this.summary)
+        // console.log(this.summary)
         })
       },
       setSummary (data) {
         this.summary = data
         this.items.forEach(item => {
-          if (item.status === 'all') {
+          if (item.status === "all") {
             item.summary = this.summary.all
-          } else if (item.status === 'publish') {
+          } else if (item.status === "publish") {
             item.summary = this.summary.publish
-          } else if (item.status === 'new') {
+          } else if (item.status === "new") {
             item.summary = this.summary.new
           } else {
             item.summary = 0
@@ -269,7 +286,7 @@
       insertDataVidio ({ item }) {
         console.log(item)
         this.$store
-          .dispatch('studioOwnerVidio/insertDataVidio', {
+          .dispatch("studioOwnerVidio/insertDataVidio", {
             status: item.status,
             url: item.url,
           })
@@ -280,74 +297,105 @@
               this.add.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'top-end',
+                position: "top-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Data Added Successfully',
+                icon: "success",
+                title: "Data Added Successfully",
               })
               this.studioOwnerVidio()
             }
           })
       },
       publishVidio ({ item }) {
-        this.$store.dispatch('studioOwnerVidio/publishVidio', item).then(res => {
+        this.$store.dispatch("studioOwnerVidio/publishVidio", item).then(res => {
           if (res.data.meta.status) {
             this.goPublish.open = false
             const Toast = this.$swal.mixin({
               toast: true,
-              position: 'top-end',
+              position: "top-end",
               showConfirmButton: false,
               timer: 3000,
               timerProgressBar: true,
               didOpen: toast => {
-                toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                toast.addEventListener("mouseleave", this.$swal.resumeTimer)
               },
-              popup: 'swal2-show',
-              backdrop: 'swal2-backdrop-show',
-              icon: 'swal2-icon-show',
+              popup: "swal2-show",
+              backdrop: "swal2-backdrop-show",
+              icon: "swal2-icon-show",
             })
             Toast.fire({
-              icon: 'success',
-              title: 'Data Approved Successfully',
+              icon: "success",
+              title: "Data Approved Successfully",
             })
           }
         })
       },
       deletesDataVidio ({ item }) {
         this.$store
-          .dispatch('studioOwnerVidio/deletesDataVidio', item)
+          .dispatch("studioOwnerVidio/deletesDataVidio", item)
           .then(res => {
             if (res.data.meta.status) {
               this.deleted.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'top-end',
+                position: "top-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Data Deleted Successfully',
+                icon: "success",
+                title: "Data Deleted Successfully",
+              })
+            }
+          })
+      },
+      upDialogDeleteVidioById ({ item }) {
+        this.deletedById.open = true
+        this.deletedById.data = item
+      },
+      deleteDataById ({ item }) {
+        this.$store
+          .dispatch("studioOwnerVidio/deleteDataById", { id: item.id })
+          .then(res => {
+            if (res.data.meta.status) {
+              this.deletedById.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Data Deleted Successfully",
               })
             }
           })

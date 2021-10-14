@@ -73,7 +73,7 @@
           sub-icon="mdi-clock"
           sub-text="Just Updated"
           style="cursor:pointer"
-          @click.native="toNavigate('/instructor')"
+          @click.native="navigateTabs('discussion')"
         />
       </v-col>
       <v-col
@@ -88,7 +88,7 @@
           sub-icon="mdi-clock"
           sub-text="Just Updated"
           style="cursor:pointer"
-          @click.native="toNavigate('/instructor')"
+          @click.native="navigateTabs('reviews')"
         />
       </v-col>
       <v-col
@@ -98,12 +98,12 @@
         <base-material-stats-card
           color="primary"
           icon="mdi-account-cowboy-hat-outline"
-          :title="$t('reviews')"
+          :title="$t('bank_account')"
           :value="String(summary.bank_account)"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
           style="cursor:pointer"
-          @click.native="toNavigate('/instructor')"
+          @click.native="navigateTabs('bank-account')"
         />
       </v-col>
     </v-row>
@@ -118,9 +118,15 @@
         default: null,
       },
     },
+    data: () => ({
+      tabs: 0,
+    }),
     methods: {
       toNavigate (link) {
         this.$router.push(link)
+      },
+      navigateTabs (tabs) {
+        this.$emit("navigate", { item: tabs })
       },
     },
   }

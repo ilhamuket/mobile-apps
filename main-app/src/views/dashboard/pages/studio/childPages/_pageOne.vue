@@ -76,7 +76,7 @@
                   class="grey--text"
                 >
                   Created By
-                  {{ list.author.firstName + ' ' + list.author.lastName }} -
+                  {{ list.author.firstName + " " + list.author.lastName }} -
                   {{ timeSince(list.created_at) }}
                 </h4>
               </div>
@@ -179,7 +179,10 @@
             class="overflow-y-auto"
           >
             <v-list-item>
-              <v-list-item-content class="mt-7">
+              <v-list-item-content
+                v-if="listVidios.length !== 0"
+                class="mt-7"
+              >
                 <v-card
                   v-for="n in listVidios"
                   :key="n.id"
@@ -204,7 +207,8 @@
                             small
                             @click.stop=""
                           >
-                            {{ n.studio.name }} || {{ n.studio.email }}
+                            {{ n.studio.name }}
+                            <!-- || {{ n.studio.email }} -->
                           </v-chip>
                         </v-col>
 
@@ -235,7 +239,7 @@
                           class="grey--text"
                         >
                           Created By
-                          {{ n.author.firstName + ' ' + n.author.lastName }} -
+                          {{ n.author.firstName + " " + n.author.lastName }} -
                           {{ timeSince(n.created_at) }}
                         </p>
                       </div>
@@ -243,16 +247,18 @@
                   </div>
                 </v-card>
               </v-list-item-content>
-              <!-- <v-card class="mt-12 mx-auto">
-                <v-alert
-                  class="mt-12 mx-auto"
-                  dense
-                  outlined
-                  type="error"
-                >
-                  You dont have a Vidio Class
-                </v-alert>
-              </v-card> -->
+              <v-list-item-content v-else>
+                <v-card class="mt-12 mx-auto">
+                  <v-alert
+                    class="mt-12 mx-auto"
+                    dense
+                    outlined
+                    type="error"
+                  >
+                    You dont have a Vidio Class
+                  </v-alert>
+                </v-card>
+              </v-list-item-content>
             </v-list-item>
           </v-list>
         </v-card>
@@ -262,12 +268,12 @@
 </template>
 
 <script>
-  import comments from './component/__comments.vue'
-  import listArticle from './component/__listArticle.vue'
+  import comments from "./component/__comments.vue"
+  import listArticle from "./component/__listArticle.vue"
   export default {
     components: {
-      'app-comments': comments,
-      'app-data-list': listArticle,
+      "app-comments": comments,
+      "app-data-list": listArticle,
     },
     props: {
       list: {
@@ -286,19 +292,19 @@
     data: () => ({
       model: 0,
       cycle: false,
-      colors: ['primary', 'secondary', 'yellow darken-2', 'red', 'orange'],
+      colors: ["primary", "secondary", "yellow darken-2", "red", "orange"],
       items: [
         {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+          src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
         },
         {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
+          src: "https://cdn.vuetifyjs.com/images/carousel/sky.jpg",
         },
         {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
+          src: "https://cdn.vuetifyjs.com/images/carousel/bird.jpg",
         },
         {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
+          src: "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
         },
       ],
       is_field: false,
@@ -352,55 +358,55 @@
         this.getDataComments()
       },
       getDataComments () {
-        this.$store.dispatch('commentStudioVidio/getDataComments', {
-          vidio_id: localStorage.getItem('vidio_id'),
+        this.$store.dispatch("commentStudioVidio/getDataComments", {
+          vidio_id: localStorage.getItem("vidio_id"),
         })
       },
       insertComments ({ item }) {
         this.$store
-          .dispatch('commentStudioVidio/insertComments', {
+          .dispatch("commentStudioVidio/insertComments", {
             comment: item.comment,
-            vidio_id: localStorage.getItem('vidio_id'),
+            vidio_id: localStorage.getItem("vidio_id"),
           })
           .then(res => {
             if (res.data.meta.status) {
               this.getDataComments()
-              item.comment = ''
+              item.comment = ""
             }
           })
       },
       repliesComments ({ item }) {
         this.$store
-          .dispatch('commentStudioVidio/insertComments', {
+          .dispatch("commentStudioVidio/insertComments", {
             comment: item.item.repliesComment,
             parent_id: item.parent_id,
-            vidio_id: localStorage.getItem('vidio_id'),
+            vidio_id: localStorage.getItem("vidio_id"),
           })
           .then(res => {
             if (res.data.meta.status) {
               this.getDataComments()
-              item.item.repliesComment = ''
+              item.item.repliesComment = ""
               item.seeReplies = true
             }
           })
       },
       repliesNestingComments ({ item }) {
         this.$store
-          .dispatch('commentStudioVidio/insertComments', {
+          .dispatch("commentStudioVidio/insertComments", {
             comment:
-              '@' +
+              "@" +
               item.user.firstName +
-              ' ' +
+              " " +
               item.user.lastName +
-              '  ' +
+              "  " +
               item.item.repliesNestingComment,
-            vidio_id: localStorage.getItem('vidio_id'),
+            vidio_id: localStorage.getItem("vidio_id"),
             parent_id: item.custome.parent_id,
           })
           .then(res => {
             if (res.data.meta) {
               this.getDataComments()
-              item.item.repliesNestingComment = ''
+              item.item.repliesNestingComment = ""
               item.seeReplies = true
             }
           })
@@ -416,15 +422,15 @@
       },
       resize () {
         this.inputHeight = `${this.$refs.input.scrollHeight}px`
-        if (this.page === '' || this.page == null) {
-          this.inputHeight = '62px'
+        if (this.page === "" || this.page == null) {
+          this.inputHeight = "62px"
         }
       },
       toSee () {
         this.seeComments = !this.seeComments
       },
       play (item) {
-        this.$emit('play', { item: item })
+        this.$emit("play", { item: item })
         this.listId = item.id
         this.getDataComments()
       },
@@ -448,54 +454,54 @@
       },
       timeSince (time) {
         switch (typeof time) {
-          case 'number':
+          case "number":
             break
-          case 'string':
+          case "string":
             time = +new Date(time)
             break
-          case 'object':
+          case "object":
             if (time.constructor === Date) time = time.getTime()
             break
           default:
             time = +new Date()
         }
         const timeformats = [
-          [60, 'seconds', 1], // 60
-          [120, '1 minute ago', '1 minute from now'], // 60*2
-          [3600, 'minutes', 60], // 60*60, 60
-          [7200, '1 hour ago', '1 hour from now'], // 60*60*2
-          [86400, 'hours', 3600], // 60*60*24, 60*60
-          [172800, 'Yesterday', 'Tomorrow'], // 60*60*24*2
-          [604800, 'days', 86400], // 60*60*24*7, 60*60*24
-          [1209600, 'Last week', 'Next week'], // 60*60*24*7*4*2
-          [2419200, 'weeks', 604800], // 60*60*24*7*4, 60*60*24*7
-          [4838400, 'Last month', 'Next month'], // 60*60*24*7*4*2
-          [29030400, 'months', 2419200], // 60*60*24*7*4*12, 60*60*24*7*4
-          [58060800, 'Last year', 'Next year'], // 60*60*24*7*4*12*2
-          [2903040000, 'years', 29030400], // 60*60*24*7*4*12*100, 60*60*24*7*4*12
-          [5806080000, 'Last century', 'Next century'], // 60*60*24*7*4*12*100*2
-          [58060800000, 'centuries', 2903040000], // 60*60*24*7*4*12*100*20, 60*60*24*7*4*12*100
+          [60, "seconds", 1], // 60
+          [120, "1 minute ago", "1 minute from now"], // 60*2
+          [3600, "minutes", 60], // 60*60, 60
+          [7200, "1 hour ago", "1 hour from now"], // 60*60*2
+          [86400, "hours", 3600], // 60*60*24, 60*60
+          [172800, "Yesterday", "Tomorrow"], // 60*60*24*2
+          [604800, "days", 86400], // 60*60*24*7, 60*60*24
+          [1209600, "Last week", "Next week"], // 60*60*24*7*4*2
+          [2419200, "weeks", 604800], // 60*60*24*7*4, 60*60*24*7
+          [4838400, "Last month", "Next month"], // 60*60*24*7*4*2
+          [29030400, "months", 2419200], // 60*60*24*7*4*12, 60*60*24*7*4
+          [58060800, "Last year", "Next year"], // 60*60*24*7*4*12*2
+          [2903040000, "years", 29030400], // 60*60*24*7*4*12*100, 60*60*24*7*4*12
+          [5806080000, "Last century", "Next century"], // 60*60*24*7*4*12*100*2
+          [58060800000, "centuries", 2903040000], // 60*60*24*7*4*12*100*20, 60*60*24*7*4*12*100
         ]
         let seconds = (+new Date() - time) / 1000
-        let token = 'ago'
+        let token = "ago"
         let listchoice = 1
 
         if (seconds === 0) {
-          return 'Just now'
+          return "Just now"
         }
         if (seconds < 0) {
           seconds = Math.abs(seconds)
-          token = 'from now'
+          token = "from now"
           listchoice = 2
         }
         let i = 0
         let format
         while ((format = timeformats[i++])) {
           if (seconds < format[0]) {
-            if (typeof format[2] === 'string') return format[listchoice]
+            if (typeof format[2] === "string") return format[listchoice]
             else {
               return (
-                Math.floor(seconds / format[2]) + ' ' + format[1] + ' ' + token
+                Math.floor(seconds / format[2]) + " " + format[1] + " " + token
               )
             }
           }
@@ -506,7 +512,7 @@
       studioArticle () {
         this.state_loading = true
         this.$store
-          .dispatch('studioArticle/getArticles', {
+          .dispatch("studioArticle/getArticles", {
             slug: this.$route.params.slug,
             page: this.page,
           })
@@ -521,7 +527,7 @@
                 this.article.data.push(...res.data.data)
               }
             } else {
-              console.log('error')
+              console.log("error")
             }
           })
       },
@@ -533,7 +539,7 @@
         }
       },
       getDataMe () {
-        this.$store.dispatch('user/me')
+        this.$store.dispatch("user/me")
       },
     },
   }

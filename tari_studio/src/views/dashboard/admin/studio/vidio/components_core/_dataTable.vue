@@ -13,6 +13,37 @@
     </template>
     <v-container>
       <v-row>
+        <v-col cols="12">
+          <v-btn
+            class="mr-1"
+            outlined
+            rounded
+            small
+            dark
+            color="primary"
+            @click="refresh"
+          >
+            <v-tooltip
+              color="primary"
+              bottom
+            >
+              <template #activator="{on, attrs}">
+                <v-icon
+                  v-bind="attrs"
+                  color="size__icon_refresh"
+                  v-on="on"
+                >
+                  mdi-cached
+                </v-icon>
+              </template>
+              <span class="font-spartan-small">
+                {{ $t("Segarkan") }}
+              </span>
+            </v-tooltip>
+          </v-btn>
+        </v-col>
+      </v-row>
+      <v-row>
         <v-col
           cols="12"
           md="4"
@@ -116,7 +147,7 @@
             <v-icon>
               mdi-plus
             </v-icon>
-            Add Studio
+            Add Vidio Profile
           </v-btn>
 
           <v-btn
@@ -169,7 +200,7 @@
             <template #[`header.end_at`]="{ header }">
               {{ $t(header.text) }}
             </template>
-            <template #[`header.studio.name`]="{ header }">
+            <template #[`header.comment`]="{ header }">
               {{ $t(header.text) }}
             </template>
             <template #[`header.status`]="{ header }">
@@ -194,27 +225,82 @@
                       <div>
                         <div class="d-flex flex-column flex-nowrap mt-2">
                           <a class="font-a d-flex flex-nowrap">
-                            <v-icon
-                              small
-                              color="blue"
-                              class="mr-1"
+                            <v-tooltip
+                              color="primary"
+                              bottom
+                              close-delay
                             >
-                              mdi-pencil
-                            </v-icon>
-                            Edit
+                              <template #activator="{on, attrs}">
+                                <v-icon
+                                  v-bind="attrs"
+                                  small
+                                  color="blue"
+                                  class="mr-1"
+                                  v-on="on"
+                                >
+                                  mdi-pencil
+                                </v-icon>
+                              </template>
+                              <span class="font-spartan-small blue--text">
+                                Edit
+                              </span>
+                            </v-tooltip>
                           </a>
                         </div>
                       </div>
                       <div>
-                        <div class="d-flex flex-column mt-2">
-                          <a class="font-a-delete d-flex flex-nowrap">
-                            <v-icon
-                              color="red"
-                              small
+                        <div class="d-flex flex-column mt-2 ml-2">
+                          <a
+                            class="font-a-delete d-flex flex-nowrap"
+                            @click="deleteById(item)"
+                          >
+                            <v-tooltip
+                              color="primary"
+                              bottom
+                              close-delay
                             >
-                              mdi-delete
-                            </v-icon>
-                            Delete
+                              <template #activator="{on, attrs}">
+                                <v-icon
+                                  v-bind="attrs"
+                                  color="red"
+                                  small
+                                  v-on="on"
+                                >
+                                  mdi-delete
+                                </v-icon>
+                              </template>
+                              <span
+                                class="font-spartan-small red--text"
+                              >Delete</span>
+                            </v-tooltip>
+                          </a>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="d-flex flex-column mt-2 ml-2">
+                          <a
+                            class="font-a-delete d-flex flex-nowrap"
+                            @click="deleteById(item)"
+                          >
+                            <v-tooltip
+                              color="primary"
+                              bottom
+                              close-delay
+                            >
+                              <template #activator="{on, attrs}">
+                                <v-icon
+                                  v-bind="attrs"
+                                  color="red"
+                                  small
+                                  v-on="on"
+                                >
+                                  mdi-delete-variant
+                                </v-icon>
+                              </template>
+                              <span
+                                class="font-spartan-small red--text"
+                              >Hide</span>
+                            </v-tooltip>
                           </a>
                         </div>
                       </div>
@@ -235,6 +321,9 @@
                 {{ item.status }}
               </v-chip>
             </template>
+            <template #[`item.comment`]="{item}">
+              {{ item.comment ? item.comment.length : 0 }}
+            </template>
           </v-data-table>
         </v-col>
       </v-row>
@@ -253,42 +342,69 @@
     data: () => ({
       isMobile: false,
       selected: [],
-      status: '',
+      status: "",
       headers: [
-        { text: '#', value: 'id', sortable: false },
-        { text: 'table.vidio.th.title', value: 'name', sortable: false },
+        { text: "#", value: "id", sortable: false },
+        { text: "table.vidio.th.title", value: "name", sortable: false },
         {
-          text: 'table.vidio.th.status',
-          value: 'status',
+          text: "table.vidio.th.status",
+          value: "status",
           sortable: false,
-          align: 'left',
+          align: "left",
         },
-        { text: 'table.vidio.th.studio', value: 'studio.name', sortable: false },
-      // { text: 'table.vidio.th.author', value: 'author.nickName' },
-      // { text: 'table.vidio.th.approved', value: 'is_verified' },
+        {
+          text: "table.vidio.th.comments",
+          value: "comment",
+          sortable: false,
+        },
       ],
     }),
+    mounted () {},
     methods: {
       onResize () {
         if (window.innerWidth < 769) this.isMobile = true
         else this.isMobile = false
       },
       approve (item) {
-        this.$emit('approve', { item: item })
+        this.$emit("approve", { item: item })
       },
       setColourStatus (status) {
-        if (status === 'publish') return 'primary'
-        if (status === 'previews') return 'secondary'
-        else return 'red'
+        if (status === "publish") return "primary"
+        if (status === "previews") return "secondary"
+        else return "red"
       },
       setStatus (val) {
         this.status = val
       },
       addVidio () {
-        this.$emit('create')
+        this.$emit("create")
       },
       deletedVidio (item) {
-        this.$emit('deleted', { item: item })
+        this.$emit("deleted", { item: item })
+      },
+      deleteById (item) {
+        this.$emit("deleteById", { item: item })
+      },
+      refresh () {
+        this.$emit("refresh")
+        const Toast = this.$swal.mixin({
+          toast: true,
+          position: "top-right",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: toast => {
+            toast.addEventListener("mouseenter", this.$swal.stopTimer)
+            toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+          },
+          popup: "swal2-show",
+          backdrop: "swal2-backdrop-show",
+          icon: "swal2-icon-show",
+        })
+        Toast.fire({
+          icon: "success",
+          title: "Fecth Data",
+        })
       },
     },
   }
