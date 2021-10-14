@@ -61,6 +61,7 @@
             entities: "studio.img,img,follow",
             page: page,
             paginate: 6,
+            status: 'publish',
           })
           .then(res => {
             if (res.data.meta.status) {

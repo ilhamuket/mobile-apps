@@ -215,7 +215,7 @@
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
                     v-model="dialog.end_at"
-                    label="Started At *"
+                    label="Ended At*"
                     prepend-icon="mdi-calendar"
                     readonly
                     v-bind="attrs"

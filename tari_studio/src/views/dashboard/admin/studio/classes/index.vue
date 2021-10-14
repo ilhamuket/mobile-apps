@@ -671,6 +671,9 @@
             category_id: item.category_id,
             instructor_id: item.instructor_id,
             start_at: item.start_at,
+            end_at: item.end_at,
+            time_start: item.time_start,
+            time_end: item.time_end,
           })
           .then(res => {
             if (res.data.meta.status) {

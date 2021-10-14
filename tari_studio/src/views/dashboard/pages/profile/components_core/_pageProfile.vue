@@ -1,7 +1,10 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="12">
+      <v-col
+        v-resize="onResize"
+        cols="12"
+      >
         <v-card>
           <v-card-title>
             <span class="font-spartan mt-2 mb-2">
@@ -9,7 +12,11 @@
             </span>
             <v-icon
               color="blue"
-              class="margin__icon__pencils__user"
+              :class="
+                isMobile
+                  ? 'margin__icon__pencil__mobile'
+                  : 'margin__icon__pencils__user'
+              "
               @click="editProfile(data)"
             >
               mdi-pencil
@@ -147,7 +154,7 @@
               >
                 <div class="d-flex flex-row">
                   <div class="d-flex flex-column font-spartan font-weight-bold">
-                    #Profile Studio
+                    #Studio Profile
                   </div>
                 </div>
                 <v-divider class="mt-2 mb-2" />
@@ -180,8 +187,8 @@
                       mdi-map-marker
                     </v-icon>
                   </div>
-                  <div class="d-flex flex-column font-spartan-small">
-                    {{ data.address }}
+                  <div class="d-flex flex-column font-spartan-small ml-2">
+                    {{ data.address ? data.address : "-" }}
                   </div>
                 </div>
                 <div class="d-flex flex-row mt-2">
@@ -194,6 +201,94 @@
                     {{ data.about }}
                   </div>
                 </div>
+                <v-divider class="mt-2 mb-2" />
+                <!-- Account Profile -->
+                <div class="d-flex flex-row mt-6">
+                  <div class="d-flex flex-column font-spartan font-weight-bold">
+                    #Account Profile
+                  </div>
+                  <div class="d-flex flex-column">
+                    <v-tooltip
+                      color="primary"
+                      bottom
+                    >
+                      <template #activator="{on, attrs}">
+                        <v-icon
+                          color="blue"
+                          v-bind="attrs"
+                          :class="
+                            isMobile
+                              ? 'margin__icon__pencil__mobile__account'
+                              : 'margin__icon__penci__account'
+                          "
+                          v-on="on"
+                        >
+                          mdi-account-edit-outline
+                        </v-icon>
+                      </template>
+                      <span class="font-spartan-small blue--text">
+                        Edit Account
+                      </span>
+                    </v-tooltip>
+                  </div>
+                </div>
+                <v-divider class="mt-2 mb-2" />
+                <div class="d-flex flex-row">
+                  <div class="d-flex flex-column">
+                    <span class="font-spartan-small">
+                      FirstName : {{ user.firstName }}
+                    </span>
+                  </div>
+                </div>
+                <div class="d-flex flex-row mt-2">
+                  <div class="d-flex flex-column">
+                    <span class="font-spartan-small">
+                      LastName : {{ user.lastName }}
+                    </span>
+                  </div>
+                </div>
+                <div class="d-flex flex-row mt-2">
+                  <div class="d-flex flex-column">
+                    <span class="font-spartan-small">
+                      Email : {{ user.email }}
+                    </span>
+                  </div>
+                </div>
+                <div class="d-flex flex-row mt-2">
+                  <div class="d-flex flex-column">
+                    <span class="font-spartan-small">
+                      Contact : {{ user.noHp }}
+                    </span>
+                  </div>
+                </div>
+                <div class="d-flex flex-row mt-2">
+                  <div class="d-flex flex-column">
+                    <span class="font-spartan-small">
+                      Regional : <v-icon color="blue">mdi-map-marker</v-icon>
+                      {{ user.homeAddress }}
+                    </span>
+                  </div>
+                </div>
+                <div class="d-flex flex-row mt-2">
+                  <div class="d-flex flex-column">
+                    <span class="font-spartan-small">
+                      Status :
+                      <v-chip
+                        color="btn_primary"
+                        outlined
+                        class="ml-2"
+                      >
+                        <v-icon
+                          color="orange"
+                          label
+                          class="mr-1"
+                        >mdi-crown-outline</v-icon>
+                        Mahkota</v-chip>
+                    </span>
+                  </div>
+                </div>
+
+                <!-- end Account Profile -->
                 <div class="d-flex flex-row margin__icon__dashboard mt-12">
                   <div class="d-flex flex-column ml-2">
                     <v-tooltip
@@ -287,12 +382,21 @@
         type: Object,
         default: null,
       },
+      user: {
+        type: Object,
+        default: null,
+      },
     },
     data: () => ({
       files: null,
       imageUrl: null,
+      isMobile: false,
     }),
     methods: {
+      onResize () {
+        if (window.innerWidth < 769) this.isMobile = true
+        else this.isMobile = false
+      },
       onPickFileInput () {
         this.$refs.fileUpload.click()
       },
@@ -400,4 +504,10 @@
   margin-left: 200px
 a
   text-decoration: none
+.margin__icon__pencil__mobile
+  margin-left: 240px
+.margin__icon__pencil__mobile__account
+  margin-left: 220px
+.margin__icon__penci__account
+  margin-left: 633px
 </style>

@@ -86,6 +86,7 @@
           <v-tab-item>
             <app-page-one
               :data="computedStudio"
+              :user="users"
               @edit="upEditProfile"
               @input="inputPictureImgStudio"
               @change="changePictureImgStudio"
@@ -266,6 +267,7 @@
         data: {},
       },
       params: "",
+      users: {},
     }),
     computed: {
       computedMe () {
