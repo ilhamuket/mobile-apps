@@ -63,7 +63,9 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         try {
-            $master = Category::entities($request->entities)->paginate($request->input('paginate', 3));
+            $master = Category::entities($request->entities)
+                ->filterStatus($request->status)
+                ->paginate($request->input('paginate', 3));
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
