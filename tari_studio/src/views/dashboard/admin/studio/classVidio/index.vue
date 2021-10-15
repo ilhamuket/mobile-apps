@@ -139,7 +139,7 @@
         this.getDataClassVidio()
         const Toast = this.$swal.mixin({
           toast: true,
-          position: "bottom-end",
+          position: "top-end",
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
@@ -226,10 +226,47 @@
         this.update.data = item
       },
       updateDataClassVidio ({ item }) {
-        console.log(item)
+        this.$store
+          .dispatch("classVidio/updateDataClassVidio", {
+            id: item.id,
+            name: item.name,
+            levels: item.levels,
+            duration: item.duration,
+            about: item.about,
+            price: item.price,
+            status: item.status,
+            note: item.note,
+            category_id: item.category_id,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              this.update.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Update Class Vidio Sucessfully",
+              })
+            }
+          })
       },
     },
   }
 </script>
 
-<style></style>
+<style lang="sass">
+.sweet2-title
+  font-family: 'Spartan', sans-serif !important
+</style>

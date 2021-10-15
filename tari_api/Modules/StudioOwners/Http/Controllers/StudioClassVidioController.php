@@ -158,6 +158,7 @@ class StudioClassVidioController extends Controller
             $master->category_id = $request->input('category_id', $master->category_id);
             // $master->playlist = $request->input('playlist_id', $master->playlist);
             $master->save();
+            $master->category;
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

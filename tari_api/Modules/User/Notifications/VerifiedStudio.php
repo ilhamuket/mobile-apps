@@ -40,7 +40,7 @@ class VerifiedStudio extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = env("FRONTEND_URL_PRODUCTION_STUDIO", "https://studio-ensiklotari.vercel.app/")  . 'verification';
+        $url = env("FRONTEND_URL_PRODUCTION_STUDIO", "https://www.studio.ensiklotari.com/")  . 'verification';
         // $url = 'http://localhost:8081/verification';
         return (new MailMessage)
             ->subject('Verify Your Account')
