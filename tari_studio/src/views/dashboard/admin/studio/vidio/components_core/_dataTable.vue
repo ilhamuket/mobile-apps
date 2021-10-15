@@ -4,8 +4,8 @@
       <span
         :class="
           $vuetify.theme.dark
-            ? 'text-h3 white--text font-customize font-size-ather-roboto-mono-name-page'
-            : 'text-h3 pallet1--text font-customize font-size-ather-roboto-mono-name-page'
+            ? 'text-h3 btn_primary--text font-spartan'
+            : 'text-h3 btn_primary--text font-spartan'
         "
       >
         Index Video

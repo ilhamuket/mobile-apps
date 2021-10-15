@@ -5,12 +5,13 @@ namespace Modules\StudioOwners\Entities;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Media\Entities\Category;
 use Modules\Studio\Entities\Playlist;
 
 class StudioClassVidio extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [];
 

@@ -70,7 +70,8 @@
     "reviews": {
       "del": "Are you sure want to delete reviews with content",
       "hide": "Are you sure want to hide reviews with content"
-    }
+    },
+    "hide":"Are you sure want to hide class "
   },
   "table": {
     "approved": "Approved",
@@ -176,5 +177,7 @@
   "Segarkan": "Refresh",
   "class_vidio": "Class Vidio",
   "active": "Active",
-  "not active": "Not Active"
+  "not active": "Not Active",
+  "hide_class": "Hide Class",
+  "update_class": "Update Class"
 }

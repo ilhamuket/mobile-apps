@@ -1,7 +1,7 @@
 <template>
   <base-material-card icon="mdi-playlist-check">
     <template #after-heading>
-      <span class="text-h3 primary--text">
+      <span class="text-h3 btn_primary--text font-spartan">
         {{ cumputedName }}
       </span>
     </template>
@@ -31,7 +31,7 @@
                 </v-icon>
               </template>
               <span class="font-spartan-small">
-                {{ $t('Segarkan') }}
+                {{ $t("Segarkan") }}
               </span>
             </v-tooltip>
           </v-btn>
@@ -307,16 +307,16 @@
               </v-chip>
             </template>
             <template #[`item.created_at`]="{item}">
-              {{ item.created_at | moment('MMMM Do YYYY') }}
+              {{ item.created_at | moment("MMMM Do YYYY") }}
             </template>
             <template #[`item.class`]="{item}">
-              <span> {{ item.class ? item.class.length : '0' }}</span>
+              <span> {{ item.class ? item.class.length : "0" }}</span>
             </template>
             <template #[`item.follow`]="{item}">
-              <span>{{ item.follow ? item.follow.length : '0' }}</span>
+              <span>{{ item.follow ? item.follow.length : "0" }}</span>
             </template>
             <template #[`item.likes`]="{item}">
-              <span> {{ item.likes ? item.likes.length : '0' }}</span>
+              <span> {{ item.likes ? item.likes.length : "0" }}</span>
             </template>
           </v-data-table>
         </v-col>
@@ -336,57 +336,57 @@
     data: () => ({
       headers: [
         {
-          text: '#',
-          value: 'img.url',
+          text: "#",
+          value: "img.url",
         },
         {
-          text: 'table.category.th.name',
-          align: 'start',
+          text: "table.category.th.name",
+          align: "start",
           sortable: false,
-          value: 'name',
+          value: "name",
         },
         {
-          text: 'table.category.th.display_name',
-          align: 'start',
+          text: "table.category.th.display_name",
+          align: "start",
           sortable: false,
-          value: 'display_name',
+          value: "display_name",
         },
         {
-          text: 'table.category.th.created_at',
-          align: 'start',
+          text: "table.category.th.created_at",
+          align: "start",
           sortable: false,
-          value: 'created_at',
+          value: "created_at",
         },
         {
-          text: 'table.category.th.status',
-          align: 'start',
+          text: "table.category.th.status",
+          align: "start",
           sortable: false,
-          value: 'status',
+          value: "status",
         },
         {
-          text: 'table.category.th.class',
-          align: 'start',
+          text: "table.category.th.class",
+          align: "start",
           sortable: false,
-          value: 'class',
+          value: "class",
         },
         {
-          text: 'table.category.th.follow',
-          value: 'follow',
+          text: "table.category.th.follow",
+          value: "follow",
         },
         {
-          text: 'table.category.th.likes',
-          value: 'likes',
+          text: "table.category.th.likes",
+          value: "likes",
         },
       ],
       selected: [],
-      search: '',
+      search: "",
       files: null,
       category_id: 0,
     }),
     computed: {
       disableApproveBtn () {
         let bool = true
-        const nonPublish = this.selected.some(x => x.status === 'publish')
+        const nonPublish = this.selected.some(x => x.status === "publish")
         if (this.selected.length !== 0 && nonPublish) {
           bool = true
         } else if (this.selected.length !== 0 && !nonPublish) {
@@ -395,42 +395,42 @@
         return bool
       },
       cumputedName () {
-        let name = 'Category - All'
-        if (this.$route.query.summary === 'publish') {
-          name = 'Category - Publish'
-        } else if (this.$route.query.summary === 'concept') {
-          name = 'Category - Concept'
-        } else if (this.$route.query.summary === 'draft') {
-          name = 'Category - Draft'
+        let name = "Category - All"
+        if (this.$route.query.summary === "publish") {
+          name = "Category - Publish"
+        } else if (this.$route.query.summary === "concept") {
+          name = "Category - Concept"
+        } else if (this.$route.query.summary === "draft") {
+          name = "Category - Draft"
         }
         return name
       },
     },
     methods: {
       setColorStatus (item) {
-        if (item === 'publish') return 'btn_primary'
-        if (item === 'draft') return 'primary'
-        else return 'red'
+        if (item === "publish") return "btn_primary"
+        if (item === "draft") return "primary"
+        else return "red"
       },
       popUpCreateCategory () {
-        this.$emit('create')
+        this.$emit("create")
       },
       deleteById (item) {
-        this.$emit('deleteById', { item: item })
+        this.$emit("deleteById", { item: item })
       },
       deleteSelected (item) {
-        this.$emit('deleteSelected', { item: item })
+        this.$emit("deleteSelected", { item: item })
         this.selected = []
       },
       approveSelected (item) {
-        this.$emit('approveSelected', { item: item })
+        this.$emit("approveSelected", { item: item })
         this.selected = []
       },
       upDialogUpdateCategory (item) {
-        this.$emit('update', { item: item })
+        this.$emit("update", { item: item })
       },
       refreshMethods () {
-        this.$emit('refresh')
+        this.$emit("refresh")
       },
       changePicture (item) {
         this.$refs.change.click()
@@ -445,7 +445,7 @@
         const filename = files[0].name
         console.log(filename)
         const fileReader = new FileReader()
-        fileReader.addEventListener('load', () => {
+        fileReader.addEventListener("load", () => {
           this.imageUrl = fileReader.result
         //   console.log(this.imageUrl)
         })
@@ -453,27 +453,27 @@
         this.files = files[0]
 
         if (this.files.size > 2000000) {
-          console.log('too big')
+          console.log("too big")
           const Toast = this.$swal.mixin({
             toast: true,
-            position: 'bottom-end',
+            position: "bottom-end",
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
             didOpen: toast => {
-              toast.addEventListener('mouseenter', this.$swal.stopTimer)
-              toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+              toast.addEventListener("mouseenter", this.$swal.stopTimer)
+              toast.addEventListener("mouseleave", this.$swal.resumeTimer)
             },
-            popup: 'swal2-show',
-            backdrop: 'swal2-backdrop-show',
-            icon: 'swal2-icon-show',
+            popup: "swal2-show",
+            backdrop: "swal2-backdrop-show",
+            icon: "swal2-icon-show",
           })
           Toast.fire({
-            icon: 'error',
-            title: 'file too big',
+            icon: "error",
+            title: "file too big",
           })
         } else {
-          this.$emit('change', {
+          this.$emit("change", {
             item: {
               files: this.files,
               category_id: this.category_id,
@@ -486,7 +486,7 @@
         const filename = files[0].name
         console.log(filename)
         const fileReader = new FileReader()
-        fileReader.addEventListener('load', () => {
+        fileReader.addEventListener("load", () => {
           this.imageUrl = fileReader.result
         //   console.log(this.imageUrl)
         })
@@ -494,27 +494,27 @@
         this.files = files[0]
 
         if (this.files.size > 2000000) {
-          console.log('too big')
+          console.log("too big")
           const Toast = this.$swal.mixin({
             toast: true,
-            position: 'bottom-end',
+            position: "bottom-end",
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
             didOpen: toast => {
-              toast.addEventListener('mouseenter', this.$swal.stopTimer)
-              toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+              toast.addEventListener("mouseenter", this.$swal.stopTimer)
+              toast.addEventListener("mouseleave", this.$swal.resumeTimer)
             },
-            popup: 'swal2-show',
-            backdrop: 'swal2-backdrop-show',
-            icon: 'swal2-icon-show',
+            popup: "swal2-show",
+            backdrop: "swal2-backdrop-show",
+            icon: "swal2-icon-show",
           })
           Toast.fire({
-            icon: 'error',
-            title: 'file too big',
+            icon: "error",
+            title: "file too big",
           })
         } else {
-          this.$emit('input', {
+          this.$emit("input", {
             item: {
               files: this.files,
               category_id: this.category_id,

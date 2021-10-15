@@ -46,7 +46,17 @@ export default {
         state.data[indexClasses].name = payload.name
         state.data[indexClasses].levels = payload.levels
         state.data[indexClasses].about = payload.about
+        state.data[indexClasses].durasi = payload.durasi
+        state.data[indexClasses].meets = payload.meets
+        state.data[indexClasses].keyword = payload.keyword
+        state.data[indexClasses].harga = payload.harga
+        state.data[indexClasses].kapasitas = payload.kapasitas
+        state.data[indexClasses].category_id = payload.category_id
         state.data[indexClasses].instructor_id = payload.instructor_id
+        state.data[indexClasses].start_at = payload.start_at
+        state.data[indexClasses].end_at = payload.end_at
+        state.data[indexClasses].time_start = payload.time_start
+        state.data[indexClasses].time_end = payload.time_end
       }
     },
     DEL_DATA: (state, id) => {
@@ -139,8 +149,8 @@ export default {
         axios
           .patch(`owner/classes/update/${payload.id}`, { ...payload })
           .then(res => {
-            const data = res.data.data
-            commit("UPDATE_DATA", data)
+            // const data = res.data.data
+            commit("UPDATE_DATA", payload)
             resolve(res)
           })
           .catch(e => {

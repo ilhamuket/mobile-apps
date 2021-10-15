@@ -70,7 +70,8 @@
         "reviews": {
             "del": "Apakah Kamu Yakin Ingin Mengapus Ulasan Dengan Konten",
             "hide": "Apakah Kamu Yakin Ingin Menyembunyikan Ulasan Dengan Konten"
-        }
+        },
+        "hide":"Apakah Kamu Yakin Ingin Menyembunyikan Kelas"
     },
     "table": {
         "approved": "Disetujui",
@@ -177,5 +178,7 @@
     "class_vidio": "Class Vidio",
     "active": "Aktif",
     "not active": "Tidak Aktif",
-    "bank_account": "Bank Account"
+    "bank_account": "Bank Account",
+    "hide_class": "Sembunyikan Kelas",
+    "update_class": "Sunting Kelass"
 }

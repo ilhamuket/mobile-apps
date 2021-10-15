@@ -16,4 +16,9 @@ class StudioClassVidios extends Model
     {
         return \Modules\Studio\Database\factories\StudioClassVidiosFactory::new();
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
 }

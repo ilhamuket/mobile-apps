@@ -125,6 +125,9 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
     Route::prefix('class-vidio')->group(function () {
         Route::post('', [StudioClassVidioController::class, 'store']);
         Route::get('', [StudioClassVidioController::class, 'index']);
+        Route::post('publish', [StudioClassVidioController::class, 'setPublish']);
+        Route::patch('{id}', [StudioClassVidioController::class, 'update']);
+        Route::delete('{id}', [StudioClassVidioController::class, 'destroy']);
     });
 
     Route::prefix('files')->group(function () {

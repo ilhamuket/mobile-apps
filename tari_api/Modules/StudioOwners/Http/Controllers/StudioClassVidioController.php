@@ -12,6 +12,27 @@ use Modules\StudioOwners\Entities\OwnerStudio;
 
 class StudioClassVidioController extends Controller
 {
+    public function setPublish(Request $request)
+    {
+        try {
+            if (is_array($request->id)) {
+                foreach ($request->id as $id) {
+                    $master = StudioClassVidio::findOrFail($id);
+                    $master->status = 'publish';
+                    $master->is_verified = 1;
+                    $master->save();
+                }
+
+                return Json::response($master);
+            }
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     /**
      * Display a listing of the resource.
      * @return Renderable
@@ -124,7 +145,28 @@ class StudioClassVidioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $master = StudioClassVidio::findOrFail($id);
+            $master->name = $request->input('name', $master->name);
+            $master->levels = $request->input('levels', $master->levels);
+            $master->duration = $request->input('duration', $master->duration);
+            $master->about = $request->input('about', $master->about);
+            $master->price = $request->input('price', $master->price);
+            $master->status = $request->input('status', $master->status);
+            $master->note = $request->input('note', $master->note);
+            $master->is_verified = $request->input('is_verified', $master->is_verified);
+            $master->category_id = $request->input('category_id', $master->category_id);
+            // $master->playlist = $request->input('playlist_id', $master->playlist);
+            $master->save();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**
@@ -134,6 +176,17 @@ class StudioClassVidioController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $master = StudioClassVidio::findOrFail($id);
+            $master->delete();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 }

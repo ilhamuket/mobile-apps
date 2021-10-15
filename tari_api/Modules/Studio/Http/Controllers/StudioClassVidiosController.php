@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Studio\Entities\StudioClass;
 use Modules\Studio\Entities\StudioClassVidios;
+use Modules\StudioOwners\Entities\OwnerStudio;
 
 class StudioClassVidiosController extends Controller
 {
@@ -47,6 +48,7 @@ class StudioClassVidiosController extends Controller
     public function store(Request $request)
     {
         try {
+            $studio = OwnerStudio::where('author_id', $request->user()->id)->first();
             $master = new StudioClassVidios();
             $master->name = $request->name;
             $master->url = $request->url;
@@ -54,7 +56,7 @@ class StudioClassVidiosController extends Controller
             $master->levels = $request->levels;
             $master->durasi = $request->durasi;
             $master->price = $request->price;
-            $master->studio_id = $request->studio_id;
+            $master->studio_id = $studio->studio_id;
             $master->author_id = $request->user()->id;
             $master->playlist_id = $request->playlist_id;
             $master->save();
@@ -97,7 +99,11 @@ class StudioClassVidiosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            // $master = 
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
     /**

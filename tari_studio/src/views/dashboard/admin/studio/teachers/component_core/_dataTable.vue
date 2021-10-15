@@ -7,8 +7,8 @@
       <span
         :class="
           $vuetify.theme.dark
-            ? 'text-h3 white--text font-customize font-size-ather-roboto-mono-name-page'
-            : 'text-h3 pallet1--text font-customize font-size-ather-roboto-mono-name-page'
+            ? 'text-h3 btn_primary--text font-spartan'
+            : 'text-h3 btn_primary--text font-spartan'
         "
       >
         {{ computedTitle }}
@@ -40,7 +40,7 @@
                 </v-icon>
               </template>
               <span class="font-spartan-small">
-                {{ $t('Segarkan') }}
+                {{ $t("Segarkan") }}
               </span>
             </v-tooltip>
           </v-btn>
@@ -183,7 +183,7 @@
                       v-bind="attrs"
                       v-on="on"
                     >
-                      {{ item.name.substr(0, 9) + '..' }}
+                      {{ item.name.substr(0, 9) + ".." }}
                     </span>
                   </template>
                   <span>{{ item.name }}</span>
@@ -235,8 +235,8 @@
               >
                 {{
                   item.is_verified === 1
-                    ? $t('table.approved')
-                    : $t('table.non_approved')
+                    ? $t("table.approved")
+                    : $t("table.non_approved")
                 }}
               </v-chip>
             </template>
@@ -259,38 +259,38 @@
       isMobile: false,
       headers: [
         {
-          text: '#',
-          value: '#',
+          text: "#",
+          value: "#",
         },
         {
-          text: 'table.teachers.th.fullName',
-          align: 'start',
+          text: "table.teachers.th.fullName",
+          align: "start",
           sortable: false,
-          value: 'name',
+          value: "name",
         },
-        { text: 'table.teachers.th.email', value: 'email' },
-        { text: 'table.teachers.th.region', value: 'region', sortable: false },
-        { text: 'table.teachers.th.contact', value: 'contact' },
-        { text: 'table.teachers.th.profession', value: 'profession' },
-        { text: 'table.teachers.th.approved', value: 'is_verified' },
+        { text: "table.teachers.th.email", value: "email" },
+        { text: "table.teachers.th.region", value: "region", sortable: false },
+        { text: "table.teachers.th.contact", value: "contact" },
+        { text: "table.teachers.th.profession", value: "profession" },
+        { text: "table.teachers.th.approved", value: "is_verified" },
       ],
-      search: '',
+      search: "",
       selected: [],
     }),
     computed: {
       computedTitle () {
-        let title = 'Index Instructor - All'
-        if (this.$route.query.summary === 'all') {
-          title = 'Index Instructor - All'
+        let title = "Index Instructor - All"
+        if (this.$route.query.summary === "all") {
+          title = "Index Instructor - All"
         }
-        if (this.$route.query.summary === 'approved') {
-          title = 'Index Instructor - Approved'
+        if (this.$route.query.summary === "approved") {
+          title = "Index Instructor - Approved"
         }
-        if (this.$route.query.summary === 'non_approved') {
-          title = 'Index Instructor - Non Approved'
+        if (this.$route.query.summary === "non_approved") {
+          title = "Index Instructor - Non Approved"
         }
-        if (this.$route.query.summary === 'new') {
-          title = 'Index Instructor - New'
+        if (this.$route.query.summary === "new") {
+          title = "Index Instructor - New"
         }
         return title
       },
@@ -302,26 +302,26 @@
         else this.isMobile = false
       },
       createTeachers () {
-        this.$emit('create')
+        this.$emit("create")
       },
       popEditForm (item) {
-        this.$emit('edit', { item: item })
+        this.$emit("edit", { item: item })
       },
       popUpApprove (item) {
-        this.$emit('approve', { item: item })
+        this.$emit("approve", { item: item })
       },
       popDelete (item) {
-        this.$emit('deletes', { item: item })
+        this.$emit("deletes", { item: item })
       },
       deleteByIdPopUp (item) {
-        this.$emit('deleteById', { item: item })
+        this.$emit("deleteById", { item: item })
       },
       setColorVerified (status) {
-        if (status === 1) return 'primary'
-        else return 'red'
+        if (status === 1) return "primary"
+        else return "red"
       },
       refreshClick () {
-        this.$emit('refresh')
+        this.$emit("refresh")
       },
     },
   }

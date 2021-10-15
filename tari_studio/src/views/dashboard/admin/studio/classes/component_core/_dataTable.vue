@@ -4,8 +4,8 @@
       <span
         :class="
           $vuetify.theme.dark
-            ? 'text-h3 white--text font-customize font-size-ather-roboto-mono-name-page'
-            : 'text-h3 pallet1--text font-customize font-size-ather-roboto-mono-name-page'
+            ? 'text-h3 white--text font-spartan'
+            : 'text-h3 btn_primary--text font-spartan'
         "
       >
         <!-- {{ computudTitle }} -->
@@ -13,6 +13,37 @@
       </span>
     </template>
     <v-container>
+      <v-row>
+        <v-col cols="12">
+          <v-btn
+            class="mr-1"
+            outlined
+            rounded
+            small
+            dark
+            color="primary"
+            @click="refresh"
+          >
+            <v-tooltip
+              color="primary"
+              bottom
+            >
+              <template #activator="{on, attrs}">
+                <v-icon
+                  v-bind="attrs"
+                  color="size__icon_refresh"
+                  v-on="on"
+                >
+                  mdi-cached
+                </v-icon>
+              </template>
+              <span class="font-spartan-small">
+                {{ $t("Segarkan") }}
+              </span>
+            </v-tooltip>
+          </v-btn>
+        </v-col>
+      </v-row>
       <v-row>
         <v-col
           cols="12"
@@ -379,6 +410,9 @@
       },
       uploadMatery (item) {
         this.$emit("upload", { item: item })
+      },
+      refresh () {
+        this.$emit("refresh")
       },
       changePict (item) {
         this.$refs.fileUpload.click()
