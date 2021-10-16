@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller;
 use Modules\Studio\Entities\StudioClass;
 use Modules\Studio\Entities\StudioClassVidios;
 use Modules\StudioOwners\Entities\OwnerStudio;
+use Modules\StudioOwners\Entities\StudioClassVidio;
 
 class StudioClassVidiosController extends Controller
 {
