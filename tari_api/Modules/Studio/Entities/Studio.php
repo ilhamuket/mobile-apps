@@ -43,6 +43,11 @@ class Studio extends Model
         return $this->belongsToMany(User::class, 'like_studio', 'studio_id', 'user_id');
     }
 
+    public function reviews()
+    {
+        return $this->hasMany(Reviews::class, 'studio_id');
+    }
+
     // ==== Scope ==== //
 
     public function scopeSearch($query, $search)
@@ -85,5 +90,14 @@ class Studio extends Model
                 return Json::exception(null, validator()->errors());
             }
         }
+    }
+
+    // Value
+
+    public function getValueAttribute()
+    {
+        $avarage = Reviews::where('studio_id', 1)->pluck('ratings')->avg();
+        // dd($avarage);
+        $this->attributes["value"] = 2;
     }
 }
