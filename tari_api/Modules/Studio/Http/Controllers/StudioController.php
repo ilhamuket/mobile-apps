@@ -185,7 +185,7 @@ class StudioController extends Controller
     public function show($id)
     {
         try {
-            $master = Studio::with('member', 'author', 'img')->findOrFail($id);
+            $master = Studio::with('author', 'img')->findOrFail($id);
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
