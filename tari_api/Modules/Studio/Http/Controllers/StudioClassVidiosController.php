@@ -19,7 +19,9 @@ class StudioClassVidiosController extends Controller
     public function index(Request $request)
     {
         try {
-            $master = StudioClassVidios::get();
+            $master = StudioClassVidios::entities($request->entities)
+                ->filterLevel($request->level)
+                ->get();
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
