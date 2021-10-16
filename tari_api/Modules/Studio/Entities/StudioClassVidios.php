@@ -24,7 +24,7 @@ class StudioClassVidios extends Model
 
     public function studio()
     {
-        return $this->belongsTo(Category::class, 'studio_id');
+        return $this->belongsTo(Studio::class, 'studio_id');
     }
 
     // === Scope === //
