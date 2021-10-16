@@ -68,10 +68,12 @@
             "hide": "Apakah Kamu Yakin Ingin Menyembunyikan Diskusi Dengan Konten"
         },
         "reviews": {
-            "del": "Apakah Kamu Yakin Ingin Mengapus Ulasan Dengan Konten",
+            "del": "Apakah kamu yakin ingin mengapus ulasan dengan konten",
             "hide": "Apakah Kamu Yakin Ingin Menyembunyikan Ulasan Dengan Konten"
         },
-        "hide":"Apakah Kamu Yakin Ingin Menyembunyikan Kelas"
+        "hide":"Apakah Kamu Yakin Ingin Menyembunyikan Kelas",
+        "delete_class_vidio": "Apakah kamu yakin ingin menghapus kelas vidio",
+        "publish_class": "Apakah anda yakin ingin mengpublish kelas vidio"
     },
     "table": {
         "approved": "Disetujui",
@@ -180,5 +182,7 @@
     "not active": "Tidak Aktif",
     "bank_account": "Bank Account",
     "hide_class": "Sembunyikan Kelas",
-    "update_class": "Sunting Kelass"
+    "update_class": "Sunting Kelass",
+    "Delete": "Hapus",
+    "Publish Class": "Publish Kelas"
 }

@@ -126,6 +126,7 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
         Route::post('', [StudioClassVidioController::class, 'store']);
         Route::get('', [StudioClassVidioController::class, 'index']);
         Route::post('publish', [StudioClassVidioController::class, 'setPublish']);
+        Route::post('delete', [StudioClassVidioController::class, 'deleteBroadcast']);
         Route::patch('{id}', [StudioClassVidioController::class, 'update']);
         Route::delete('{id}', [StudioClassVidioController::class, 'destroy']);
     });

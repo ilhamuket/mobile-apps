@@ -12,6 +12,40 @@ use Modules\StudioOwners\Entities\OwnerStudio;
 
 class StudioClassVidioController extends Controller
 {
+    public function summary(Request $request)
+    {
+        try {
+            $data = [
+                "all" => 0,
+                "publish" => 0,
+                "draft" => 0,
+                "new" => 0
+            ];
+
+            $data["all"] = StudioClassVidio::get();
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
+    public function deleteBroadcast(Request $request)
+    {
+        try {
+            if (is_array($request->id)) {
+                foreach ($request->id as $id) {
+                    $master = StudioClassVidio::findOrFail($id);
+                    $master->delete();
+                }
+
+                return Json::response($master);
+            }
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     public function setPublish(Request $request)
     {
         try {
@@ -40,7 +74,10 @@ class StudioClassVidioController extends Controller
     public function index(Request $request)
     {
         try {
-            $master = StudioClassVidio::entities($request->entities)->get();
+            $studio = OwnerStudio::where('author_id', $request->user()->id)->first();
+            $master = StudioClassVidio::entities($request->entities)
+                ->where('studio_id', $studio->id)
+                ->get();
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

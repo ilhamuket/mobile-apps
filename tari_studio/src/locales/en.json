@@ -71,7 +71,9 @@
       "del": "Are you sure want to delete reviews with content",
       "hide": "Are you sure want to hide reviews with content"
     },
-    "hide":"Are you sure want to hide class "
+    "hide":"Are you sure want to hide class ",
+    "delete_class_vidio": "Are you sure want to delete class vidio",
+    "publish_class": "Are you sure want to publish class vidio"
   },
   "table": {
     "approved": "Approved",
@@ -179,5 +181,7 @@
   "active": "Active",
   "not active": "Not Active",
   "hide_class": "Hide Class",
-  "update_class": "Update Class"
+  "update_class": "Update Class",
+  "Delete": "Delete",
+  "Publish Class": "Publish Class"
 }

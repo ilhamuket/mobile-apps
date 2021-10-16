@@ -41,6 +41,26 @@ export default {
         state.data[indexClassVidio].status = "hide"
       }
     },
+    DELETE_DATA_SELECTED: (state, payload) => {
+      for (const item in payload) {
+        if (Object.hasOwnProperty.call(payload, item)) {
+          const classVidio = payload[item]
+          const indexClassVidio = state.data.findIndex(
+            x => x.id === classVidio.id,
+          )
+          console.log(indexClassVidio)
+          if (indexClassVidio !== -1) {
+            state.data.splice(indexClassVidio, 1)
+          }
+        }
+      }
+    },
+    DELETE_DATA_BY_ID: (state, payload) => {
+      const indexClassVidio = state.data.findIndex(x => x.id === payload.id)
+      if (indexClassVidio !== -1) {
+        state.data.splice(indexClassVidio, 1)
+      }
+    },
   },
   actions: {
     getDataClassVidio: ({ commit }, payload) => {
@@ -108,6 +128,41 @@ export default {
           .patch(`owner/class-vidio/${payload.id}`, { ...payload })
           .then(res => {
             commit("UPDATE_DATA", payload)
+            resolve(res)
+          })
+          .catch(e => {
+            reject(e)
+          })
+      })
+    },
+    deleteDataClassVidioSelected: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        "Bearer " + localStorage.getItem("access_token")
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        const params = payload.map(x => x.id)
+        axios
+          .post("owner/class-vidio/delete", { id: params })
+          .then(res => {
+            commit("DELETE_DATA_SELECTED", payload)
+            resolve(res)
+          })
+          .catch(e => {
+            reject(e)
+          })
+      })
+    },
+    deleteDataClassVidioById: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        "Bearer " + localStorage.getItem("access_token")
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        axios
+          .delete(`owner/class-vidio/${payload.id}`)
+          .then(res => {
+            commit("DELETE_DATA_BY_ID", payload)
             resolve(res)
           })
           .catch(e => {

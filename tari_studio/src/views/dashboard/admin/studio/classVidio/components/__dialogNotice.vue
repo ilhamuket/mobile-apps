@@ -24,7 +24,7 @@
           </v-icon>
         </v-system-bar>
         <v-card-text v-if="isPublish">
-          Apakah Anda yakin Ingin Mengpublish Class Berikut:
+          {{ $t("card_notice.publish_class") }}
           <v-list-item
             v-for="n in dialog.data"
             :key="n.id"
@@ -51,6 +51,35 @@
         </v-card-text>
         <v-card-text v-if="isHide">
           {{ $t("card_notice.hide") }} #{{ dialog.data.name }}
+        </v-card-text>
+        <v-card-text v-if="isDelete">
+          {{ $t("card_notice.delete_class_vidio") }}
+          <v-list-item
+            v-for="n in dialog.data"
+            :key="n.id"
+          >
+            <v-list-item-avatar tile>
+              <v-img
+                :src="n.url_thumbnail"
+                width="120"
+              />
+            </v-list-item-avatar>
+            <v-list-item-content>
+              <v-list-item-title>
+                {{ n.name }} -
+                <v-chip
+                  class="text-capitalize"
+                  :color="setColorStatus(n.levels)"
+                  text-color="white"
+                >
+                  {{ n.levels }}
+                </v-chip>
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-card-text>
+        <v-card-text v-if="isDeleteById">
+          {{ $t("card_notice.delete_class_vidio") }} #{{ dialog.data.name }}
         </v-card-text>
         <v-card-actions
           v-if="isPublish"
@@ -80,6 +109,42 @@
             @click="publish"
           >
             Hide
+          </v-btn>
+          <v-btn
+            color="btn_primary"
+            @click="dialog.open = false"
+          >
+            cancel
+          </v-btn>
+        </v-card-actions>
+        <v-card-actions
+          v-if="isDelete"
+          class="d-flex flex-row-reverse"
+        >
+          <v-btn
+            text
+            color="red"
+            @click="deletes"
+          >
+            Delete
+          </v-btn>
+          <v-btn
+            color="btn_primary"
+            @click="dialog.open = false"
+          >
+            cancel
+          </v-btn>
+        </v-card-actions>
+        <v-card-actions
+          v-if="isDeleteById"
+          class="d-flex flex-row-reverse"
+        >
+          <v-btn
+            text
+            color="red"
+            @click="deletes"
+          >
+            Delete
           </v-btn>
           <v-btn
             color="btn_primary"
@@ -120,6 +185,14 @@
         type: String,
         default: "Publish Class",
       },
+      isDelete: {
+        type: Boolean,
+        default: false,
+      },
+      isDeleteById: {
+        type: Boolean,
+        default: false,
+      },
     },
     methods: {
       setColorStatus (status) {
@@ -132,6 +205,9 @@
         this.$emit("input", { item: this.dialog.data })
       },
       hide () {
+        this.$emit("input", { item: this.dialog.data })
+      },
+      deletes () {
         this.$emit("input", { item: this.dialog.data })
       },
     },

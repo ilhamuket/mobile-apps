@@ -66,6 +66,15 @@
           >
             Publish {{ selected.length }} items
           </v-btn>
+          <v-btn
+            class="mr-1"
+            outlined
+            color="red"
+            :disabled="selected.length === 0"
+            @click="deleteSelected(selected)"
+          >
+            Delete {{ selected.length }} items
+          </v-btn>
         </v-col>
         <v-col cols="12">
           <v-data-table
@@ -135,7 +144,34 @@
                     <div class="d-flex flex-column mt-2">
                       <a
                         class="font-a-delete d-flex flex-nowrap"
-                        @click="deleteByIdPopUp(item)"
+                        @click="info(item)"
+                      >
+                        <v-tooltip
+                          color="primary"
+                          bottom
+                        >
+                          <template #activator="{on, attrs}">
+                            <v-icon
+                              v-bind="attrs"
+                              color="blue"
+                              small
+                              v-on="on"
+                            >
+                              mdi-eye
+                            </v-icon>
+                          </template>
+                          <span class="font-spartan-small blue--text">
+                            Info
+                          </span>
+                        </v-tooltip>
+                      </a>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="d-flex flex-column mt-2">
+                      <a
+                        class="font-a-delete d-flex flex-nowrap"
+                        @click="deletesById(item)"
                       >
                         <v-tooltip
                           color="primary"
@@ -281,6 +317,12 @@
       },
       edit (item) {
         this.$emit("edit", { item: item })
+      },
+      deleteSelected (item) {
+        this.$emit("deletes", { item: item })
+      },
+      deletesById (item) {
+        this.$emit("deletesById", { item: item })
       },
     },
   }

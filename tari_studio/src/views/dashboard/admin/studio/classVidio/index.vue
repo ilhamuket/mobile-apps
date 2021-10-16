@@ -64,6 +64,8 @@
           @publish="upPublishClassVidio"
           @hide="upHideDataClassVidio"
           @edit="upDialogUpdate"
+          @deletes="upDeleteClassVidioSelected"
+          @deletesById="upDeleteClassVidioById"
         />
       </v-col>
     </v-row>
@@ -79,6 +81,22 @@
       color="red"
       icon="mdi-bag-suitcase-off"
       @input="hideDataClassVidio"
+    />
+    <app-dialog-notice
+      :dialog="deleteSelected"
+      :is-delete="true"
+      title="Delete"
+      color="red"
+      icon="mdi-bag-suitcase-off"
+      @input="deleteDataClassVidioSelected"
+    />
+    <app-dialog-notice
+      :dialog="deleteById"
+      :is-delete-by-id="true"
+      title="Delete"
+      color="red"
+      icon="mdi-bag-suitcase-off"
+      @input="deleteDataClassVidioById"
     />
     <app-dialog-edit
       :dialog="update"
@@ -110,6 +128,14 @@
         data: {},
       },
       update: {
+        open: false,
+        data: {},
+      },
+      deleteSelected: {
+        open: false,
+        data: [],
+      },
+      deleteById: {
         open: false,
         data: {},
       },
@@ -258,6 +284,70 @@
               Toast.fire({
                 icon: "success",
                 title: "Update Class Vidio Sucessfully",
+              })
+            }
+          })
+      },
+      upDeleteClassVidioSelected ({ item }) {
+        this.deleteSelected.open = true
+        this.deleteSelected.data = item
+      },
+      upDeleteClassVidioById ({ item }) {
+        this.deleteById.open = true
+        this.deleteById.data = item
+      },
+      deleteDataClassVidioSelected ({ item }) {
+        this.$store
+          .dispatch("classVidio/deleteDataClassVidioSelected", item)
+          .then(res => {
+            if (res.data.meta.status) {
+              this.deleteSelected.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Delete Class Vidio Sucessfully",
+              })
+            }
+          })
+      },
+      deleteDataClassVidioById ({ item }) {
+        this.$store
+          .dispatch("classVidio/deleteDataClassVidioById", {
+            id: item.id,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              this.deleteById.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Delete Class Vidio Sucessfully",
               })
             }
           })
