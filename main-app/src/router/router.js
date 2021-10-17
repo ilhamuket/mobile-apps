@@ -255,6 +255,21 @@ const router = new Router({
             requiresAuth: true,
           },
         },
+        // cLASS vIDIO
+        {
+          name: "ensiklo_vidio",
+          path: "/class-vidio",
+          component: () => import("@/views/dashboard/pages/ensikloVidio/index"),
+          meta: {
+            breadcumbs: [
+              {
+                text: "Dashboard",
+                to: "/",
+              },
+            ],
+            requiresAuth: true,
+          },
+        },
         {
           name: "Error",
           path: "/error",

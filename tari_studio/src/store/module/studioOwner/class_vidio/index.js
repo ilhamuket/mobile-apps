@@ -20,6 +20,11 @@ export default {
         }
       }
     },
+    INSERT_DATA: (state, payload) => {
+      const classVidio = state.data
+      classVidio.unshift(payload)
+      state.data = classVidio
+    },
     UPDATE_DATA: (state, payload) => {
       const indexClassVidio = state.data.findIndex(x => x.id === payload.id)
       console.log(indexClassVidio)
@@ -163,6 +168,23 @@ export default {
           .delete(`owner/class-vidio/${payload.id}`)
           .then(res => {
             commit("DELETE_DATA_BY_ID", payload)
+            resolve(res)
+          })
+          .catch(e => {
+            reject(e)
+          })
+      })
+    },
+    createDataClassVidio: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        "Bearer " + localStorage.getItem("access_token")
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        axios
+          .post("owner/class-vidio/", { ...payload })
+          .then(res => {
+            commit("INSERT_DATA", payload)
             resolve(res)
           })
           .catch(e => {

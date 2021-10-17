@@ -108,9 +108,18 @@
         >
           No Data Avalaible
         </span>
-        <app-data-list
+        <!-- <app-data-list
           v-else
           :data="studio"
+        /> -->
+        <app-data-list-page
+          v-else
+          :data="studio"
+          :user="user"
+          @follow="followStudio"
+          @unFollow="executeUnfollowStudio"
+          @like="likeStudio"
+          @unLike="unLikeStudio"
         />
       </v-col>
     </v-row>
@@ -118,17 +127,19 @@
 </template>
 
 <script>
-  import list from './component_core/_list.vue'
+// import list from "./component_core/_list.vue"
+  import list_ from "./component_core/_list_new.vue"
   export default {
     components: {
-      'app-data-list': list,
+      // "app-data-list": list,
+      "app-data-list-page": list_,
     },
     data: () => ({
-      search: '',
+      search: "",
       timer: null,
       isLoad: true,
       attrs: {
-        class: 'mb-6',
+        class: "mb-6",
         boilerplate: true,
         elevation: 2,
       },
@@ -138,37 +149,41 @@
       studio () {
         return this.$store.state.studio.data
       },
+      user () {
+        return this.$store.state.user.me
+      },
     },
     mounted () {
       this.getDataStudio()
+      this.getMe()
     },
     methods: {
       getDataStudio () {
         this.$store
-          .dispatch('studio/getDataStudio', {
+          .dispatch("studio/getDataStudio", {
             search: this.search,
-            entities: 'author,img,followers,likes',
+            entities: "author,img,followers,likes,reviews",
           })
           .then(res => {
             this.is_loading = false
             if (this.studio.length === 0) {
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'top-end',
+                position: "top-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Data Not Found',
+                icon: "success",
+                title: "Data Not Found",
               })
             }
           })
@@ -179,6 +194,123 @@
       // })
       // this.$store.commit('studio/GET_OFF')
       },
+      getMe () {
+        this.$store.dispatch("user/me")
+      },
+      followStudio ({ item }) {
+        this.$store
+          .dispatch("studio/followStudio", {
+            slug: item.slug,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              // this.isFollow = true
+
+              this.$swal.fire({
+                customClass: {},
+                title: "You have Followed this studio.",
+                width: 600,
+                padding: "3em",
+                background:
+                  "#fff url(https://sweetalert2.github.io/images/trees.png)",
+                backdrop: `
+  rgba(0,0,123,0.4)
+  url("https://sweetalert2.github.io/images/nyan-cat.gif")
+  left top
+  no-repeat
+`,
+              })
+            }
+          })
+      },
+      executeUnfollowStudio ({ item }) {
+        this.$store
+          .dispatch("studio/unfollStudio", {
+            slug: item.slug,
+          })
+          .then(({ data }) => {
+            if (data.meta.status) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "You Unfollow this Studio",
+              })
+              this.getDataStudioBySlug()
+            }
+          })
+      },
+      likeStudio ({ item }) {
+        this.$store
+          .dispatch("studio/likeStudio", {
+            slug: item.slug,
+          })
+          .then(({ data }) => {
+            if (data.meta.status) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+
+              Toast.fire({
+                icon: "success",
+                title: "You like this Studio",
+              })
+            }
+          })
+      },
+      unLikeStudio ({ item }) {
+        this.$store
+          .dispatch("studio/unLikeStudio", {
+            slug: item.slug,
+          })
+          .then(({ data }) => {
+            if (data.meta.status) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+
+              Toast.fire({
+                icon: "success",
+                title: "You Unlike this Studio",
+              })
+            }
+          })
+      },
+
       searchMethods () {
         if (this.timer) {
           clearTimeout(this.timer)

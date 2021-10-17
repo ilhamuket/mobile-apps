@@ -325,10 +325,10 @@
 // import esL from 'moment/locale/es'
 // import 'moment/locale/fr'
 // import 'moment/locale/en-gb'
-  import { mapState, mapMutations } from 'vuex'
+  import { mapState, mapMutations } from "vuex"
 
   export default {
-    name: 'DashboardCoreAppBar',
+    name: "DashboardCoreAppBar",
 
     props: {
       value: {
@@ -339,67 +339,74 @@
 
     data: () => ({
       notifications: [
-        'Mike John Responded to your email',
-        'You have 5 new tasks',
+        "Mike John Responded to your email",
+        "You have 5 new tasks",
         "You're now friends with Andrew",
-        'Another Notification',
-        'Another one',
+        "Another Notification",
+        "Another one",
       ],
       dataUser: {
         cart: [],
       },
       notify: false,
       model: null,
-      len: 'en',
+      len: "en",
       lenguage: [
         {
-          name: 'en',
+          name: "en",
           img:
-            'https://media.istockphoto.com/vectors/flag-of-great-britain-vector-id497118178?s=612x612',
+            "https://media.istockphoto.com/vectors/flag-of-great-britain-vector-id497118178?s=612x612",
         },
         {
-          name: 'id',
+          name: "id",
           img:
-            'https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg',
+            "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg",
         },
       ],
       items: [
         {
-          icon: 'mdi-account-outline',
-          text: 'myaccount',
-          to: '/pages/user',
+          icon: "mdi-account-outline",
+          text: "myaccount",
+          to: "/pages/user",
           badge: false,
         },
         {
-          icon: 'mdi-cart',
-          text: 'cart',
-          to: '/cart',
+          icon: "mdi-cart",
+          text: "cart",
+          to: "/cart",
           badge: true,
-          content: '0',
+          content: "0",
         },
         {
-          icon: 'mdi-account-group-outline',
-          text: 'history_class',
+          icon: "mdi-cart",
+          text: "your_class",
+          to: "/cart",
+          badge: true,
+          content: "0",
+        },
+        {
+          icon: "mdi-account-group-outline",
+          text: "history_class",
 
           badge: false,
         },
         {
-          icon: 'mdi-logout',
-          text: 'logout',
-          to: '/logout',
+          icon: "mdi-logout",
+          text: "logout",
+          to: "/logout",
           badge: false,
         },
       ],
     }),
 
     computed: {
-      ...mapState(['drawer']),
+      ...mapState(["drawer"]),
       user () {
         return this.$store.state.user.me
       },
 
       users () {
-        const me = localStorage.getItem('ME')
+        const me = localStorage.getItem("ME")
         const users = JSON.parse(me)
 
         return users
@@ -407,7 +414,7 @@
       fullName () {
         return (
           this.$store.state.user.me.firstName +
-          ' ' +
+          " " +
           this.$store.state.user.me.lastName
         )
       },
@@ -426,8 +433,8 @@
 
     mounted () {
       this.getMe()
-      const theme = localStorage.getItem('dark_theme')
-      if (theme === 'true') {
+      const theme = localStorage.getItem("dark_theme")
+      if (theme === "true") {
         this.$vuetify.theme.dark = true
       } else {
         this.$vuetify.theme.dark = false
@@ -443,33 +450,33 @@
       },
       getDataCart () {
         this.$store
-          .dispatch('cart/getDataCart', {
-            entities: 'user,class.studio, class.category, class.img',
-            type: 'cart',
+          .dispatch("cart/getDataCart", {
+            entities: "user,class.studio, class.category, class.img",
+            type: "cart",
           })
           .then(res => {
             if (res.data.meta.status) {
-              const index = this.items.findIndex(x => x.text === 'cart')
+              const index = this.items.findIndex(x => x.text === "cart")
               this.items[index].content = res.data.data.length
             }
           })
       },
 
       ...mapMutations({
-        setDrawer: 'SET_DRAWER',
+        setDrawer: "SET_DRAWER",
       }),
       toogle_dark_theme () {
-        localStorage.setItem('dark_theme', this.$vuetify.theme.dark.toString())
+        localStorage.setItem("dark_theme", this.$vuetify.theme.dark.toString())
       },
       getMe () {
         this.$store
-          .dispatch('user/me', {
-            entities: 'cart',
+          .dispatch("user/me", {
+            entities: "cart",
           })
           .then(res => {
             if (res.data.meta.status) {
               this.dataUser = res.data.data
-              const index = this.items.findIndex(x => x.text === 'cart')
+              const index = this.items.findIndex(x => x.text === "cart")
               this.items[index].content = this.dataUser.cart.length
             }
           })

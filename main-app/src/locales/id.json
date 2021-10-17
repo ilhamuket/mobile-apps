@@ -73,5 +73,8 @@
     "detail_classes": "Detail Kelas",
     "category": "Kategori",
     "detail_category": "Detail Kategory",
-    "sort": "Urutkan"
+    "sort": "Urutkan",
+    "ensiklo_live": "EnsikloLive",
+    "ensiklo_vidio": "EnsikloVidio",
+    "your_class": "Kelasmu"
 }

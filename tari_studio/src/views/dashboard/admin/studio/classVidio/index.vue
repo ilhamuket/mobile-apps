@@ -61,6 +61,7 @@
         <app-data-table
           :data="computedClassVidio"
           @refresh="refresh"
+          @create="upDialogAdd"
           @publish="upPublishClassVidio"
           @hide="upHideDataClassVidio"
           @edit="upDialogUpdate"
@@ -105,6 +106,11 @@
       icon="mdi-pencil"
       @input="updateDataClassVidio"
     />
+    <app-dialog-form
+      :dialog="add"
+      :category="computedCategories"
+      @save="createDataClassVidio"
+    />
   </v-container>
 </template>
 
@@ -112,11 +118,13 @@
   import dataTable from "./components_core/_dataTable.vue"
   import dialogNotice from "./components/__dialogNotice.vue"
   import dialogEdit from "./components/__dialogEdit.vue"
+  import dialogForm from "./components/__dialogForm.vue"
   export default {
     components: {
       "app-data-table": dataTable,
       "app-dialog-notice": dialogNotice,
       "app-dialog-edit": dialogEdit,
+      "app-dialog-form": dialogForm,
     },
     data: () => ({
       publish: {
@@ -138,6 +146,9 @@
       deleteById: {
         open: false,
         data: {},
+      },
+      add: {
+        open: false,
       },
     }),
     computed: {
@@ -348,6 +359,52 @@
               Toast.fire({
                 icon: "success",
                 title: "Delete Class Vidio Sucessfully",
+              })
+            }
+          })
+      },
+      upDialogAdd () {
+        this.add.open = true
+      },
+      createDataClassVidio ({ item }) {
+        this.$store
+          .dispatch("classVidio/createDataClassVidio", {
+            url: item.url,
+            levels: item.levels,
+            duration: item.duration,
+            about: item.about,
+            price: item.price,
+            status: "draft",
+            note: item.note,
+            category_id: item.category_id,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              this.add.open = false
+              item.url = null
+              item.levels = null
+              item.duration = null
+              item.about = null
+              item.status = null
+              item.note = null
+              item.category_id = null
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Create Class Vidio Sucessfully",
               })
             }
           })

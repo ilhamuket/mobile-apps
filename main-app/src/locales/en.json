@@ -74,5 +74,8 @@
   "detail_classes": "Detail Class",
   "category": "Category",
   "detail_category": "Detail Category",
-  "sort": "Sort"
+  "sort": "Sort",
+  "ensiklo_live": "EnsikloLive",
+  "ensiklo_vidio": "EnsikloVidio",
+  "your_class": "Kelasmu"
 }

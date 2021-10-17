@@ -61,7 +61,7 @@
                       class="d-flex flex-column ml-2 font-roboto-mono-small"
                     >
                       {{ data.followers.length }}
-                      {{ $t('studioPage.card_detail.folowers') }}
+                      {{ $t("studioPage.card_detail.folowers") }}
                     </div>
                     <div
                       v-if="data.likes"
@@ -74,7 +74,7 @@
                       class="d-flex flex-column ml-2 font-roboto-mono-small"
                     >
                       {{ data.likes.length }}
-                      {{ $t('studioPage.card_detail.likes') }}
+                      {{ $t("studioPage.card_detail.likes") }}
                     </div>
                   </div>
                 </v-col>
@@ -82,21 +82,21 @@
                   <div class="d-flex flex-column">
                     <v-btn
                       v-if="!isFollowYou"
-                      color="primary"
+                      color="btn_primary"
                       outlined
                       width="170"
                       small
                       class="mb-2"
                       @click="folow(data)"
                     >
-                      {{ $t('studioPage.card_detail.btn.folow') }}
+                      {{ $t("studioPage.card_detail.btn.folow") }}
                     </v-btn>
                     <v-btn
                       v-else
                       width="170"
                       small
                       outlined
-                      color="primary"
+                      color="btn_primary"
                       class="mb-2"
                       @click="unfoll(data)"
                     >
@@ -183,7 +183,7 @@
               <div class="d-flex flex-column mt-1 text-align-center mr-2">
                 <P class="mt-1 font-roboto-mono-small">
                   ({{ dataReviews.length }}
-                  {{ $t('studioPage.card_detail.review') }})
+                  {{ $t("studioPage.card_detail.review") }})
                 </P>
               </div>
             </v-col>
@@ -233,7 +233,7 @@
         type: Object,
         default: () => ({
           img: {
-            url: '',
+            url: "",
           },
           followers: [],
         }),
@@ -293,16 +293,16 @@
     },
     methods: {
       folow (item) {
-        this.$emit('inputFollow', { item: item })
+        this.$emit("inputFollow", { item: item })
       },
       unfoll (item) {
-        this.$emit('inputUnfoll', { item: item })
+        this.$emit("inputUnfoll", { item: item })
       },
       likes (item) {
-        this.$emit('inputLike', { item: item })
+        this.$emit("inputLike", { item: item })
       },
       unLike (item) {
-        this.$emit('inputUnLike', { item: item })
+        this.$emit("inputUnLike", { item: item })
       },
     },
   }

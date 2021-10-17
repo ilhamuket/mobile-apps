@@ -59,6 +59,13 @@
           class="d-flex flex-row-reverse"
         >
           <v-btn
+            color="btn_primary"
+            @click="create"
+          >
+            Create Class
+          </v-btn>
+          <v-btn
+            class="mr-1"
             outlined
             color="blue"
             :disabled="computedIsPublish || selected.length === 0"
@@ -308,6 +315,9 @@
         if (level === "beginner") return "#C7DF1D"
         if (level === "intermediate") return "#66EC1A"
         if (level === "advance") return "#1AEC56"
+      },
+      create () {
+        this.$emit("create")
       },
       publishClassVidio (item) {
         this.$emit("publish", { item: item })

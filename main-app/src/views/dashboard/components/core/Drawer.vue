@@ -122,10 +122,10 @@
 
 <script>
 // Utilities
-  import { mapState } from 'vuex'
+  import { mapState } from "vuex"
 
   export default {
-    name: 'DashboardCoreDrawer',
+    name: "DashboardCoreDrawer",
 
     props: {
       expandOnHover: {
@@ -137,69 +137,69 @@
     data: () => ({
       items: [
         {
-          icon: 'mdi-view-dashboard',
-          title: 'dashboard',
-          to: '/',
+          icon: "mdi-view-dashboard",
+          title: "dashboard",
+          to: "/",
         },
         {
-          icon: 'mdi-shopping-music',
-          title: 'Studio',
-          to: '/studio',
+          icon: "mdi-shopping-music",
+          title: "Studio",
+          to: "/studio",
         },
         {
-          icon: 'mdi-playlist-check',
-          title: 'category',
-          to: '/category',
+          icon: "mdi-playlist-check",
+          title: "category",
+          to: "/category",
         },
         {
-          icon: 'mdi-account-group-outline',
-          title: 'classes',
-          to: '/classes',
+          icon: "mdi-account-group-outline",
+          title: "ensiklo_live",
+          to: "/classes",
         },
 
         {
-          title: 'history_class',
-          icon: 'mdi-clipboard-outline',
-          to: '/tables/regular-tables',
+          title: "ensiklo_vidio",
+          icon: "mdi-clipboard-outline",
+          to: "/class-vidio",
         },
         {
-          title: 'typography',
-          icon: 'mdi-format-font',
-          to: '/components/typography',
+          title: "typography",
+          icon: "mdi-format-font",
+          to: "/components/typography",
         },
         {
-          title: 'icons',
-          icon: 'mdi-chart-bubble',
-          to: '/components/icons',
+          title: "icons",
+          icon: "mdi-chart-bubble",
+          to: "/components/icons",
         },
         {
-          title: 'google',
-          icon: 'mdi-map-marker',
-          to: '/maps/google-maps',
+          title: "google",
+          icon: "mdi-map-marker",
+          to: "/maps/google-maps",
         },
         {
-          title: 'notifications',
-          icon: 'mdi-bell',
-          to: '/components/notifications',
+          title: "notifications",
+          icon: "mdi-bell",
+          to: "/components/notifications",
         },
       ],
     }),
 
     computed: {
-      ...mapState(['barColor', 'barImage']),
+      ...mapState(["barColor", "barImage"]),
       drawer: {
         get () {
           return this.$store.state.drawer
         },
         set (val) {
-          this.$store.commit('SET_DRAWER', (val = false))
+          this.$store.commit("SET_DRAWER", (val = false))
         },
       },
       computedItems () {
         return this.items.map(this.mapItem)
       },
       users () {
-        const Me = localStorage.getItem('ME')
+        const Me = localStorage.getItem("ME")
         const users = JSON.parse(Me)
 
         return users
@@ -207,7 +207,7 @@
       profile () {
         return {
           avatar: true,
-          title: 'EnsikloTari',
+          title: "EnsikloTari",
         }
       },
     },
