@@ -21,6 +21,7 @@ class ReviewOwnerController extends Controller
                 "third" => 0,
                 "two" => 0,
                 "one" => 0,
+                "all" => 0,
             ];
             $data["five"] = ReviewOwner::where('class_id', $class_id)
                 ->where("ratings", 5)
@@ -36,6 +37,8 @@ class ReviewOwnerController extends Controller
                 ->count();
             $data["one"] = ReviewOwner::where('class_id', $class_id)
                 ->where("ratings", 1)
+                ->count();
+            $data["all"] = ReviewOwner::where('class_id', $class_id)
                 ->count();
 
             return Json::response($data);
