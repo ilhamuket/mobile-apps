@@ -27,6 +27,14 @@
           <v-container>
             <v-row>
               <v-col cols="12">
+                <v-text-field
+                  v-model="dialog.data.name"
+                  label="Name"
+                  placeholder="Name"
+                  prepend-icon="mdi-alpha-n-circle-outline"
+                />
+              </v-col>
+              <v-col cols="12">
                 <v-select
                   v-model="dialog.data.levels"
                   prepend-icon="mdi-alpha-l-circle-outline"

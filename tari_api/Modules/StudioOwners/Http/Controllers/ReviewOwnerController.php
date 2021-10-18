@@ -12,6 +12,41 @@ use Modules\StudioOwners\Entities\ReviewOwner;
 
 class ReviewOwnerController extends Controller
 {
+    public function summaryByClass(Request $request, $class_id)
+    {
+        try {
+            $data = [
+                "5" => 0,
+                "4" => 0,
+                "3" => 0,
+                "2" => 0,
+                "1" => 0,
+            ];
+            $data["5"] = ReviewOwner::where('class_id', $class_id)
+                ->where("ratings", 5)
+                ->count();
+            $data["4"] = ReviewOwner::where('class_id', $class_id)
+                ->where("ratings", 4)
+                ->count();
+            $data["3"] = ReviewOwner::where('class_id', $class_id)
+                ->where("ratings", 3)
+                ->count();
+            $data["2"] = ReviewOwner::where('class_id', $class_id)
+                ->where("ratings", 2)
+                ->count();
+            $data["1"] = ReviewOwner::where('class_id', $class_id)
+                ->where("ratings", 1)
+                ->count();
+
+            return Json::response($data);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     public function deleteAll(Request $request)
     {
         try {

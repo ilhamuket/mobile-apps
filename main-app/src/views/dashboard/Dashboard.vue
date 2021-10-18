@@ -395,7 +395,7 @@
                     color="orange"
                     text
                     @click="
-                      toPush(`classes/detail/${item.studio.slug}/${item.slug}`)
+                      toPush(`detail/class/live/${item.studio.slug}/${item.slug}`)
                     "
                   >
                     {{ $t("dahsboard.cxp") }}

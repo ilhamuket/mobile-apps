@@ -75,6 +75,7 @@
                     width="190"
                     color="primary white--text"
                     class="btn_explore-vidio"
+                    @click="navigate(`/class-vidio/detail/${item.slug}`)"
                   >
                     Explore
                   </v-btn>
@@ -129,6 +130,11 @@
       data: {
         type: Array,
         default: null,
+      },
+    },
+    methods: {
+      navigate (link) {
+        this.$router.push(link)
       },
     },
   }

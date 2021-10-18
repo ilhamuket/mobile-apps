@@ -40,24 +40,24 @@
 </template>
 
 <script>
-  import cardImg from './components_core/_img.vue'
-  import detail from './components_core/_cardDetail.vue'
-  import list from './components/__listImg.vue'
-  import buying from './components/__buying.vue'
-  import cardReviews from './components_core/_cardReviews.vue'
+  import cardImg from "./components_core/_img.vue"
+  import detail from "./components_core/_cardDetail.vue"
+  import list from "./components/__listImg.vue"
+  import buying from "./components/__buying.vue"
+  import cardReviews from "./components_core/_cardReviews.vue"
   export default {
     components: {
-      'app-card-img': cardImg,
-      'app-card-detail': detail,
-      'app-list-img': list,
-      'app-buying': buying,
-      'app-card-reviews': cardReviews,
+      "app-card-img": cardImg,
+      "app-card-detail": detail,
+      "app-list-img": list,
+      "app-buying": buying,
+      "app-card-reviews": cardReviews,
     },
     data: () => ({
       breadcumbs: {
-        text: 'Mahardika',
+        text: "Mahardika",
         disabled: true,
-        to: '/',
+        to: "/",
       },
     }),
     computed: {
@@ -76,7 +76,7 @@
         this.$router.history.current.meta.breadcumbs.push(newVal)
       },
       $route: function () {
-        console.log('as')
+        console.log("as")
       },
     },
     mounted () {
@@ -89,44 +89,28 @@
     methods: {
       getBreadcumbs () {
         this.$router.history.current.meta.breadcumbs.push({
-          text: 'Mahardika',
+          text: "Mahardika",
           disabled: true,
-          to: '/',
+          to: "/",
         })
       // this.breadcumbs =
       },
       getMe () {
-        this.$store.dispatch('user/me')
+        this.$store.dispatch("user/me")
       },
       getDataClassesBySlug () {
-        this.$store.dispatch('classes/getDataClassesBySlug', {
-          entities: 'listImg,img,studio.followers,category, listImg',
+        this.$store.dispatch("classes/getDataClassesBySlug", {
+          entities: "listImg,img,studio.followers,category, listImg",
           slug: this.$route.params.slug,
           studio_slug: this.$route.params.studio_slug,
         })
       },
       getDataReviews () {
-        this.$store.dispatch('classesReviews/getDataReviews', {
+        this.$store.dispatch("classesReviews/getDataReviews", {
           class_slug: this.$route.params.slug,
-          entities: 'user.img,studio,class,likes,report',
+          entities: "user.img,studio,class,likes,report",
         })
       },
     },
   }
 </script>
-
-<style lang="sass">
-.bg-img::before
-    content: ''
-    display: block
-    width: 100%
-    height: 100%
-    background-image: linear-gradient(to top, grey, grey)
-    position: absolute
-    bottom: 0
-.bg-img
-    background-color: #F0F2F5 !important
-    position: relative
-    z-index: 1
-    overflow: hidden
-</style>

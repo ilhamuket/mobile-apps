@@ -271,6 +271,21 @@ const router = new Router({
           },
         },
         {
+          name: "detail_ensiklo-vidio",
+          path: "/class-vidio/detail/:slug",
+          component: () =>
+            import("@/views/dashboard/pages/ensikloVidio/detailClass"),
+          meta: {
+            breadcumbs: [
+              {
+                text: "Dashboard",
+                to: "/",
+              },
+            ],
+            requiresAuth: true,
+          },
+        },
+        {
           name: "Error",
           path: "/error",
           component: () => import("@/views/dashboard/ensikloerrors/error"),
