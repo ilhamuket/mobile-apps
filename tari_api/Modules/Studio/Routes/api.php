@@ -79,12 +79,18 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
         Route::get('article/{slug}', [StudioArticleController::class, 'index']);
         Route::get('class/{studio_slug}/{slug}', [StudioClassController::class, 'indexBySlug']);
 
+        //  category
         Route::prefix('categories')->group(function () {
             Route::get('/', [CategoryController::class, 'index']);
             Route::get('/{name}', [CategoryController::class, 'show']);
             Route::post('/follow/{id}', [CategoryController::class, 'follow']);
             Route::post('/unfollow/{id}', [CategoryController::class, 'unfollow']);
             Route::post('/likes/{id}', [CategoryController::class, 'likes']);
+        });
+
+        // class - vidio
+        Route::prefix('class-vidio')->group(function () {
+            Route::get("{slug}", [StudioClassVidiosController::class, 'show']);
         });
     });
     Route::prefix('cart')->group(function () {
