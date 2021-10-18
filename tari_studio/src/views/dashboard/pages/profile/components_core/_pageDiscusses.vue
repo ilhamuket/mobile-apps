@@ -25,7 +25,7 @@
               </v-icon>
             </template>
             <span class="font-spartan-small">
-              {{ $t('Segarkan') }}
+              {{ $t("Segarkan") }}
             </span>
           </v-tooltip>
         </v-btn>
@@ -133,7 +133,9 @@
               <v-img :src="item.user.img.url" />
             </v-avatar>
             <v-avatar v-else>
-              <v-img src="http://127.0.0.1:8000/images/469439.png" />
+              <v-img
+                src="https://ecs7.tokopedia.net/img/cache/100-square/user-1/2021/1/22/38585570/38585570_bd6dcd82-263e-45e4-bb8f-725e0088068b.jpg"
+              />
             </v-avatar>
           </template>
           <template #[`item.user.firstName`]="{item}">
@@ -233,69 +235,69 @@
     data: () => ({
       headers: [
         {
-          text: '#',
-          value: 'id',
+          text: "#",
+          value: "id",
         },
         {
-          text: 'table.discusses.th.author',
-          align: 'start',
+          text: "table.discusses.th.author",
+          align: "start",
           sortable: false,
-          value: 'user.firstName',
+          value: "user.firstName",
         },
         {
-          text: 'table.discusses.th.body',
-          align: 'start',
+          text: "table.discusses.th.body",
+          align: "start",
           sortable: false,
-          value: 'body',
+          value: "body",
         },
         {
-          text: 'table.discusses.th.name_class',
-          align: 'start',
+          text: "table.discusses.th.name_class",
+          align: "start",
           sortable: false,
-          value: 'class.name',
+          value: "class.name",
         },
         {
-          text: 'table.discusses.th.comments',
-          align: 'start',
+          text: "table.discusses.th.comments",
+          align: "start",
           sortable: false,
-          value: 'child.firstName',
+          value: "child.firstName",
         },
         {
-          text: 'table.discusses.th.like',
-          align: 'start',
+          text: "table.discusses.th.like",
+          align: "start",
           sortable: false,
-          value: 'likes',
+          value: "likes",
         },
         {
-          text: 'Status',
-          align: 'start',
+          text: "Status",
+          align: "start",
           sortable: false,
-          value: 'status',
+          value: "status",
         },
       ],
-      search: '',
+      search: "",
       selected: [],
     }),
     methods: {
       reply (item) {
-        this.$emit('reply', { item: item })
+        this.$emit("reply", { item: item })
       },
       refreshMethods () {
-        this.$emit('refresh')
+        this.$emit("refresh")
       },
       deleteDiscuss (item) {
-        this.$emit('delete', { item: item })
+        this.$emit("delete", { item: item })
       },
       setColorStatus (status) {
-        if (status === 'belum ditanggapi') return 'red'
-        if (status === 'ditanggapi') return 'btn_primary'
+        if (status === "belum ditanggapi") return "red"
+        if (status === "ditanggapi") return "btn_primary"
       },
       upDelete (item) {
-        this.$emit('deleteSelected', { item: item })
+        this.$emit("deleteSelected", { item: item })
       },
       upHide (item) {
-        this.$emit('hideSelected', { item: item })
-        console.log('ja')
+        this.$emit("hideSelected", { item: item })
+        console.log("ja")
       },
     },
   }

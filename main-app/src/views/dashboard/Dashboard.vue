@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row v-if="is_load">
-      <loader
+      <!-- <loader
         object="#ff9633"
         color1="#ffffff"
         color2="#17fd3d"
@@ -12,7 +12,7 @@
         opacity="80"
         disable-scrolling="false"
         name="dots"
-      />
+      /> -->
       <v-col>
         <v-skeleton-loader type="card-avatar, article, actions" />
       </v-col>

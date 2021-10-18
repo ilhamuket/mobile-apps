@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <span class="font-spartan font-weight-bold">
-          Discuss ({{ data.length }})
+          {{ $t("discussion") }} ({{ data.length }})
         </span>
         <br>
         <span class="font-spartan-small">
@@ -20,8 +20,8 @@
               mdi-chat-question-outline
             </v-icon>
           </div>
-          <span class="font-spartan font-weight-bold grey--text">
-            Ada pertanyaan? Diskusikan dengan penjual atau pengguna lain
+          <span class="font-spartan-small font-weight-bold grey--text">
+            {{ $t("question") }}
           </span>
           <v-spacer />
           <v-btn
@@ -47,6 +47,14 @@
           <template #prepend>
             <v-avatar v-if="me.img">
               <v-img :src="me.img.url" />
+            </v-avatar>
+            <v-avatar
+              v-else
+              color="primary"
+            >
+              <span class="font-spartan white--text">
+                {{ me.nickName.charAt(0) }}
+              </span>
             </v-avatar>
           </template>
         </v-text-field>
@@ -75,11 +83,16 @@
         <div v-if="item.user">
           <div class="d-flex flex-row flex-nowrap flex_row ">
             <div class="d-flex flex-column">
-              <v-avatar>
-                <v-img
-                  v-if="item.user.img"
-                  :src="item.user.img.url"
-                />
+              <v-avatar v-if="item.user.img">
+                <v-img :src="item.user.img.url" />
+              </v-avatar>
+              <v-avatar
+                v-else
+                color="primary"
+              >
+                <span class="font-spartan white--text">
+                  {{ me.nickName.charAt(0) }}
+                </span>
               </v-avatar>
             </div>
             <div class="d-flex flex-column">
@@ -98,7 +111,7 @@
             <div class="d-flex flex-row">
               <div class="d-flex flex-column">
                 <span class="font-spartan-small ml-2">
-                  {{ item.class.author_id === me.id ? 'Studio' : 'Visitor' }}
+                  {{ item.class.author_id === me.id ? "Studio" : "Visitor" }}
                 </span>
               </div>
             </div>
@@ -170,6 +183,15 @@
                 >
                   <v-img :src="me.img.url" />
                 </v-avatar>
+                <v-avatar
+                  v-else
+                  size="30"
+                  color="primary"
+                >
+                  <span class="font-spartan white--text">
+                    {{ me.nickName.charAt(0) }}
+                  </span>
+                </v-avatar>
               </template>
             </v-text-field>
           </div>
@@ -226,8 +248,8 @@
                 >
                   {{
                     child.class.author_id === child.user.id
-                      ? 'Studio'
-                      : 'Visitor'
+                      ? "Studio"
+                      : "Visitor"
                   }}
                 </v-chip>
               </div>
@@ -297,6 +319,15 @@
                   >
                     <v-img :src="me.img.url" />
                   </v-avatar>
+                  <v-avatar
+                    v-else
+                    color="primary"
+                    size="30"
+                  >
+                    <span class="font-spartan white--text">
+                      {{ me.nickName.charAt(0) }}
+                    </span>
+                  </v-avatar>
                 </template>
               </v-text-field>
             </div>
@@ -354,8 +385,8 @@
       isReply: false,
       isA: true,
       isReplies: false,
-      content: '',
-      contentReply: '',
+      content: "",
+      contentReply: "",
     }),
     methods: {
       replyParentActive (item) {
@@ -367,54 +398,54 @@
       },
       timeSince (time) {
         switch (typeof time) {
-          case 'number':
+          case "number":
             break
-          case 'string':
+          case "string":
             time = +new Date(time)
             break
-          case 'object':
+          case "object":
             if (time.constructor === Date) time = time.getTime()
             break
           default:
             time = +new Date()
         }
         const timeformats = [
-          [60, 'seconds', 1], // 60
-          [120, '1 minute ago', '1 minute from now'], // 60*2
-          [3600, 'minutes', 60], // 60*60, 60
-          [7200, '1 hour ago', '1 hour from now'], // 60*60*2
-          [86400, 'hours', 3600], // 60*60*24, 60*60
-          [172800, 'Yesterday', 'Tomorrow'], // 60*60*24*2
-          [604800, 'days', 86400], // 60*60*24*7, 60*60*24
-          [1209600, 'Last week', 'Next week'], // 60*60*24*7*4*2
-          [2419200, 'weeks', 604800], // 60*60*24*7*4, 60*60*24*7
-          [4838400, 'Last month', 'Next month'], // 60*60*24*7*4*2
-          [29030400, 'months', 2419200], // 60*60*24*7*4*12, 60*60*24*7*4
-          [58060800, 'Last year', 'Next year'], // 60*60*24*7*4*12*2
-          [2903040000, 'years', 29030400], // 60*60*24*7*4*12*100, 60*60*24*7*4*12
-          [5806080000, 'Last century', 'Next century'], // 60*60*24*7*4*12*100*2
-          [58060800000, 'centuries', 2903040000], // 60*60*24*7*4*12*100*20, 60*60*24*7*4*12*100
+          [60, "seconds", 1], // 60
+          [120, "1 minute ago", "1 minute from now"], // 60*2
+          [3600, "minutes", 60], // 60*60, 60
+          [7200, "1 hour ago", "1 hour from now"], // 60*60*2
+          [86400, "hours", 3600], // 60*60*24, 60*60
+          [172800, "Yesterday", "Tomorrow"], // 60*60*24*2
+          [604800, "days", 86400], // 60*60*24*7, 60*60*24
+          [1209600, "Last week", "Next week"], // 60*60*24*7*4*2
+          [2419200, "weeks", 604800], // 60*60*24*7*4, 60*60*24*7
+          [4838400, "Last month", "Next month"], // 60*60*24*7*4*2
+          [29030400, "months", 2419200], // 60*60*24*7*4*12, 60*60*24*7*4
+          [58060800, "Last year", "Next year"], // 60*60*24*7*4*12*2
+          [2903040000, "years", 29030400], // 60*60*24*7*4*12*100, 60*60*24*7*4*12
+          [5806080000, "Last century", "Next century"], // 60*60*24*7*4*12*100*2
+          [58060800000, "centuries", 2903040000], // 60*60*24*7*4*12*100*20, 60*60*24*7*4*12*100
         ]
         let seconds = (+new Date() - time) / 1000
-        let token = 'ago'
+        let token = "ago"
         let listchoice = 1
 
         if (seconds === 0) {
-          return 'Just now'
+          return "Just now"
         }
         if (seconds < 0) {
           seconds = Math.abs(seconds)
-          token = 'from now'
+          token = "from now"
           listchoice = 2
         }
         let i = 0
         let format
         while ((format = timeformats[i++])) {
           if (seconds < format[0]) {
-            if (typeof format[2] === 'string') return format[listchoice]
+            if (typeof format[2] === "string") return format[listchoice]
             else {
               return (
-                Math.floor(seconds / format[2]) + ' ' + format[1] + ' ' + token
+                Math.floor(seconds / format[2]) + " " + format[1] + " " + token
               )
             }
           }
@@ -422,11 +453,11 @@
         return time
       },
       sendDiscusses () {
-        this.$emit('send', { item: this.content })
+        this.$emit("send", { item: this.content })
         this.content = null
       },
       sendReply (item) {
-        this.$emit('sendReply', {
+        this.$emit("sendReply", {
           item: {
             data: item,
             content: this.contentReply,

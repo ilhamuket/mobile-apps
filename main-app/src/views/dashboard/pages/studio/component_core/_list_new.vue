@@ -72,8 +72,9 @@
                     <v-btn
                       small
                       width="190"
-                      color="btn_primary"
-                      class="btn_explore"
+                      outlined
+                      color="primary"
+                      class="btn-expolore-studio"
                       @click="clickPush(item.slug)"
                     >
                       Explore
@@ -83,8 +84,8 @@
                       small
                       width="100"
                       outlined
-                      color="white"
-                      class="btn_explore"
+                      color="primary"
+                      class="btn-expolore-studio ml-1"
                       @click="follow(item)"
                     >
                       Follow
@@ -95,7 +96,7 @@
                       small
                       outlined
                       color="primary"
-                      class="btn_explore"
+                      class="btn-expolore-studio ml-1"
                       @click="unFolow(item)"
                     >
                       <v-tooltip
@@ -271,7 +272,7 @@
 <style lang="sass">
 .cols_list_studio
     margin-top: 100px !important
-.btn_explore
+.btn-expolore-studio
     margin-left: -2px
     // &:hover
     //     background-color: #9DC4D1

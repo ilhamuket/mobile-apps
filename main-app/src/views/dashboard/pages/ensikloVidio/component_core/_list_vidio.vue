@@ -71,9 +71,10 @@
 
                   <v-btn
                     small
+                    outlined
                     width="190"
-                    color="btn_primary white--text"
-                    class="btn_explore"
+                    color="primary white--text"
+                    class="btn_explore-vidio"
                   >
                     Explore
                   </v-btn>
@@ -82,7 +83,7 @@
                   width="100"
                   outlined
                   color="white"
-                  class="btn_explore"
+                  class="btn_explore-vidio"
                 >
                   Follow
                 </v-btn> -->
@@ -92,7 +93,7 @@
                   small
                   outlined
                   color="primary"
-                  class="btn_explore"
+                  class="btn_explore-vidio"
                   @click="unFolow(item)"
                 >
                   <v-tooltip
@@ -138,8 +139,9 @@
     margin-top: 110px !important
 .ratings__ensiklotari-vidio
     margin-top: -7px
-.btn_explore
+.btn_explore-vidio
     margin-left: -2px
+    margin-top: 7px
     // &:hover
     //     background-color: #9DC4D1
     //     color: white !important

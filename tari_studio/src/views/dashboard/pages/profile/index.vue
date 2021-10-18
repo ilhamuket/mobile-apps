@@ -67,7 +67,7 @@
             Social Media
           </v-tab>
           <v-tab class="font-spartan-small">
-            Discusion
+            Discussion
           </v-tab>
           <v-tab class="font-spartan-small">
             Reviews

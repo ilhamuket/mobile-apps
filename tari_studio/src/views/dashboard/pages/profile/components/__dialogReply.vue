@@ -34,19 +34,19 @@
               cols="12"
             >
               <v-avatar
-                v-if="dialog.data.user"
+                v-if="dialog.data.user.img"
                 size="90"
               >
                 <v-img :src="dialog.data.user.img.url" />
               </v-avatar>
-              <!-- <v-avatar
+              <v-avatar
                 v-else
                 size="90"
               >
                 <v-img
                   src="https://ecs7.tokopedia.net/img/cache/100-square/user-1/2021/1/22/38585570/38585570_bd6dcd82-263e-45e4-bb8f-725e0088068b.jpg"
                 />
-              </v-avatar> -->
+              </v-avatar>
             </v-col>
             <v-col
               cols="12"
@@ -57,7 +57,7 @@
                 class="font-spartan text-h4"
               >
                 {{
-                  dialog.data.user.firstName + ' ' + dialog.data.user.lastName
+                  dialog.data.user.firstName + " " + dialog.data.user.lastName
                 }}
               </span>
             </v-col>
@@ -153,11 +153,11 @@
       },
     },
     data: () => ({
-      content: '',
+      content: "",
     }),
     methods: {
       send () {
-        this.$emit('send', {
+        this.$emit("send", {
           item: {
             data: this.dialog.data,
             content: this.content,
@@ -168,21 +168,21 @@
         this.dialog.open = false
         const Toast = this.$swal.mixin({
           toast: true,
-          position: 'bottom-end',
+          position: "bottom-end",
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
           didOpen: toast => {
-            toast.addEventListener('mouseenter', this.$swal.stopTimer)
-            toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+            toast.addEventListener("mouseenter", this.$swal.stopTimer)
+            toast.addEventListener("mouseleave", this.$swal.resumeTimer)
           },
-          popup: 'swal2-show',
-          backdrop: 'swal2-backdrop-show',
-          icon: 'swal2-icon-show',
+          popup: "swal2-show",
+          backdrop: "swal2-backdrop-show",
+          icon: "swal2-icon-show",
         })
         Toast.fire({
-          icon: 'error',
-          title: 'Dialog Closed',
+          icon: "error",
+          title: "Dialog Closed",
         })
       },
     },
