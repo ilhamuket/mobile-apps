@@ -16,25 +16,25 @@ class ReviewOwnerController extends Controller
     {
         try {
             $data = [
-                "5" => 0,
-                "4" => 0,
-                "3" => 0,
-                "2" => 0,
-                "1" => 0,
+                "five" => 0,
+                "four" => 0,
+                "third" => 0,
+                "two" => 0,
+                "one" => 0,
             ];
-            $data["5"] = ReviewOwner::where('class_id', $class_id)
+            $data["five"] = ReviewOwner::where('class_id', $class_id)
                 ->where("ratings", 5)
                 ->count();
-            $data["4"] = ReviewOwner::where('class_id', $class_id)
+            $data["four"] = ReviewOwner::where('class_id', $class_id)
                 ->where("ratings", 4)
                 ->count();
-            $data["3"] = ReviewOwner::where('class_id', $class_id)
+            $data["third"] = ReviewOwner::where('class_id', $class_id)
                 ->where("ratings", 3)
                 ->count();
-            $data["2"] = ReviewOwner::where('class_id', $class_id)
+            $data["two"] = ReviewOwner::where('class_id', $class_id)
                 ->where("ratings", 2)
                 ->count();
-            $data["1"] = ReviewOwner::where('class_id', $class_id)
+            $data["one"] = ReviewOwner::where('class_id', $class_id)
                 ->where("ratings", 1)
                 ->count();
 
