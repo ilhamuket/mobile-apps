@@ -4,6 +4,7 @@ namespace Modules\StudioOwners\Http\Controllers;
 
 use Brryfrmnn\Transformers\Json;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Studio\Entities\Reviews;
@@ -23,22 +24,34 @@ class ReviewOwnerController extends Controller
                 "one" => 0,
                 "all" => 0,
             ];
-            $data["five"] = ReviewOwner::where('class_id', $class_id)
+            $data["five"] = ReviewOwner::whereHas('classVidio', function (Builder $query) use ($class_id) {
+                $query->where('slug', $class_id);
+            })
                 ->where("ratings", 5)
                 ->count();
-            $data["four"] = ReviewOwner::where('class_id', $class_id)
+            $data["four"] = ReviewOwner::whereHas('classVidio', function (Builder $query) use ($class_id) {
+                $query->where('slug', $class_id);
+            })
                 ->where("ratings", 4)
                 ->count();
-            $data["third"] = ReviewOwner::where('class_id', $class_id)
+            $data["third"] = ReviewOwner::whereHas('classVidio', function (Builder $query) use ($class_id) {
+                $query->where('slug', $class_id);
+            })
                 ->where("ratings", 3)
                 ->count();
-            $data["two"] = ReviewOwner::where('class_id', $class_id)
+            $data["two"] = ReviewOwner::whereHas('classVidio', function (Builder $query) use ($class_id) {
+                $query->where('slug', $class_id);
+            })
                 ->where("ratings", 2)
                 ->count();
-            $data["one"] = ReviewOwner::where('class_id', $class_id)
+            $data["one"] = ReviewOwner::whereHas('classVidio', function (Builder $query) use ($class_id) {
+                $query->where('slug', $class_id);
+            })
                 ->where("ratings", 1)
                 ->count();
-            $data["all"] = ReviewOwner::where('class_id', $class_id)
+            $data["all"] = ReviewOwner::whereHas('classVidio', function (Builder $query) use ($class_id) {
+                $query->where('slug', $class_id);
+            })
                 ->count();
 
             return Json::response($data);
