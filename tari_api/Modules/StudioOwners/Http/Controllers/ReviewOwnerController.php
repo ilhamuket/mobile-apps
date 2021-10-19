@@ -13,6 +13,22 @@ use Modules\StudioOwners\Entities\ReviewOwner;
 
 class ReviewOwnerController extends Controller
 {
+    public function showReviewsClassVidio(Request $request, $class_slug)
+    {
+        try {
+            $master = ReviewOwner::whereHas('classVidio', function (Builder $query) use ($class_slug) {
+                $query->where('slug', $class_slug);
+            })
+                ->entities($request->entities)
+                ->get();
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     public function summaryByClass(Request $request, $class_id)
     {
         try {
