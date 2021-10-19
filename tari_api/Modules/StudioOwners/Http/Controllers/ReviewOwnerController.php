@@ -21,6 +21,8 @@ class ReviewOwnerController extends Controller
             })
                 ->entities($request->entities)
                 ->get();
+
+            return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         } catch (\Illuminate\Database\QueryException $e) {
