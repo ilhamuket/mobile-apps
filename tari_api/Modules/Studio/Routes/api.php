@@ -102,6 +102,7 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
         Route::get('class/{slug}', [ReviewController::class, 'byClass']);
         Route::get('avarage/{slug}', [ReviewController::class, 'avarage']);
         Route::get('studio/{slug}', [ReviewController::class, 'reviewsStudio']);
+        Route::get('class-vidio/{slug}', [ReviewController::class, 'showReviewsClassVidio']);
     });
     // Rooms
     Route::prefix('rooms')->group(function () {
