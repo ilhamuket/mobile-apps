@@ -20,6 +20,7 @@ use Modules\Studio\Http\Controllers\StudioClassController;
 use Modules\Studio\Http\Controllers\StudioClassVidiosController;
 use Modules\Studio\Http\Controllers\StudioController;
 use Modules\Studio\Http\Controllers\StudioVidioController;
+use Modules\StudioOwners\Http\Controllers\ReviewOwnerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -102,7 +103,7 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
         Route::get('class/{slug}', [ReviewController::class, 'byClass']);
         Route::get('avarage/{slug}', [ReviewController::class, 'avarage']);
         Route::get('studio/{slug}', [ReviewController::class, 'reviewsStudio']);
-        Route::get('class-vidio/{slug}', [ReviewController::class, 'showReviewsClassVidio']);
+        Route::get('class-vidio/{slug}', [ReviewOwnerController::class, 'showReviewsClassVidio']);
     });
     // Rooms
     Route::prefix('rooms')->group(function () {
