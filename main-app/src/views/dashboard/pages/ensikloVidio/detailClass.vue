@@ -24,7 +24,10 @@
     <v-card class="card--reviews">
       <v-row>
         <v-col cols="12">
-          <app-card-reviews />
+          <app-card-reviews
+            :value="valueReviews"
+            :reviews="computedReviews"
+          />
         </v-col>
       </v-row>
     </v-card>
@@ -51,15 +54,34 @@
       computedMe () {
         return this.$store.state.user.me
       },
+      valueReviews () {
+        return this.$store.state.ensikloVidio.value
+      },
+      computedReviews () {
+        return this.$store.state.ensikloVidio.reviews
+      },
     },
     mounted () {
       this.showDataEnsikloVidio()
+      this.getValueReviewsEnsiloVidio()
+      this.getDataEnsikloVidioReviews()
     },
     methods: {
       showDataEnsikloVidio () {
         this.$store.dispatch("ensikloVidio/showDataEnsikloVidio", {
           slug: this.$route.params.slug,
           entities: "category,studio.img,studio.reviews,studio.followers",
+        })
+      },
+      getValueReviewsEnsiloVidio () {
+        this.$store.dispatch("ensikloVidio/getValueReviewsEnsiloVidio", {
+          class_id: this.$route.params.slug,
+        })
+      },
+      getDataEnsikloVidioReviews () {
+        this.$store.dispatch("ensikloVidio/getDataEnsikloVidioReviews", {
+          class_slug: this.$route.params.slug,
+          entities: "user",
         })
       },
     },

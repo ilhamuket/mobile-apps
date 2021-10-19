@@ -30,6 +30,7 @@
         <v-container>
           <v-row>
             <v-col
+              v-if="dialog.data.user"
               class="d-flex justify-center"
               cols="12"
             >

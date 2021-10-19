@@ -71,6 +71,7 @@
           v-model="count"
           class="font__studio__start"
           small
+          :length="count"
           readonly
         >
           <template v-slot:item="props">
@@ -133,12 +134,10 @@
         if (this.data.studio) {
           if (this.data.studio.reviews) {
             const a = this.data.studio.reviews.map(x => x.ratings)
-            console.log("ini", a)
 
             if (a.length > 0) {
               const sum = a.filter(x => x > 0).reduce((x, y) => x + y)
               value = sum / this.data.studio.reviews.length
-              console.log("value : ", value)
             }
           }
         }

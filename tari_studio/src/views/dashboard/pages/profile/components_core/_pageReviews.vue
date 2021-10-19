@@ -19,12 +19,13 @@
                 v-bind="attrs"
                 color="size__icon_refresh"
                 v-on="on"
+                @click="refresh"
               >
                 mdi-cached
               </v-icon>
             </template>
             <span class="font-spartan-small">
-              {{ $t('Segarkan') }}
+              {{ $t("Segarkan") }}
             </span>
           </v-tooltip>
         </v-btn>
@@ -118,6 +119,9 @@
           <template #[`header.ratings`]="{ header }">
             {{ $t(header.text) }}
           </template>
+          <template #[`header.class_vidio.name`]="{ header }">
+            {{ $t(header.text) }}
+          </template>
           <!-- Items -->
           <template #[`item.id`]="{item}">
             <v-avatar
@@ -127,11 +131,14 @@
               <v-img :src="item.user.img.url" />
             </v-avatar>
           </template>
+          <template #[`item.class.name`]="{item}">
+            <span>
+              {{ item.class ? item.class.name : "-" }}
+            </span>
+          </template>
           <template #[`item.user.firstName`]="{item}">
             <div class="mt-6">
-              <span class="nickName">
-                {{ item.user.nickName }}
-              </span>
+              <span class="nickName"> {{ item.user.nickName }} </span>
             </div>
             <div class="bg-hover">
               <div class="d-flex flex-row flex-nowrap">
@@ -187,6 +194,31 @@
               {{ $t(item.status) }}
             </v-chip>
           </template>
+          <template #[`item.class_vidio.name`]="{item}">
+            <span v-if="item.class_vidio">
+              <v-tooltip
+                v-if="item.class_vidio.name.length > 20"
+                color="primary"
+                bottom
+              >
+                <template #activator="{on, attrs}">
+                  <span
+                    class="font-spartan-small"
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    {{ item.class_vidio.name.substr(0, 20) + "..." }}
+                  </span>
+                </template>
+                <span class="font-spartan-small">
+                  {{ item.class_vidio.name }}
+                </span>
+              </v-tooltip>
+              <span v-else>
+                {{ item.class_vidio.name }}
+              </span>
+            </span>
+          </template>
         </v-data-table>
       </v-col>
     </v-row>
@@ -205,54 +237,63 @@
       selected: [],
       headers: [
         {
-          text: '#',
-          value: 'id',
+          text: "#",
+          value: "id",
         },
         {
-          text: 'table.reviews.th.author',
-          align: 'start',
+          text: "table.reviews.th.author",
+          align: "start",
           sortable: false,
-          value: 'user.firstName',
+          value: "user.firstName",
         },
         {
-          text: 'table.reviews.th.body',
-          align: 'start',
+          text: "table.reviews.th.body",
+          align: "start",
           sortable: false,
-          value: 'body',
+          value: "body",
         },
         {
-          text: 'table.reviews.th.name_class',
-          align: 'start',
+          text: "table.reviews.th.name_class",
+          align: "start",
           sortable: false,
-          value: 'class.name',
+          value: "class.name",
         },
         {
-          text: 'table.reviews.th.ratings',
-          align: 'start',
+          text: "table.reviews.th.name_class_vidio",
+          align: "start",
           sortable: false,
-          value: 'ratings',
+          value: "class_vidio.name",
         },
         {
-          text: 'Status',
-          align: 'start',
+          text: "table.reviews.th.ratings",
+          align: "start",
           sortable: false,
-          value: 'status',
+          value: "ratings",
+        },
+        {
+          text: "Status",
+          align: "start",
+          sortable: false,
+          value: "status",
         },
       ],
     }),
     methods: {
       setColorStatus (status) {
-        if (status === 'belum ditanggapi') return 'red'
-        if (status === 'ditanggapi') return 'btn_primary'
+        if (status === "belum ditanggapi") return "red"
+        if (status === "ditanggapi") return "btn_primary"
       },
       hide (item) {
-        this.$emit('hide', { item: item })
+        this.$emit("hide", { item: item })
       },
       deleteSelected (item) {
-        this.$emit('delete', { item: item })
+        this.$emit("delete", { item: item })
       },
       reply (item) {
-        this.$emit('reply', { item: item })
+        this.$emit("reply", { item: item })
+      },
+      refresh () {
+        this.$emit("refresh")
       },
     },
   }

@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-container fluid>
-      <v-row dense>
+      <v-row>
         <v-col
           cols="12"
           md="4"
@@ -12,8 +12,7 @@
             class="bg-auth"
           >
             <v-card-title
-              class="font-spartan primary--text mt-6 text-nowrap"
-              title-tag="h2"
+              class="font-spartan text-h5 primary--text mt-12 text-nowrap"
             >
               Selamat datang di Studio EnsikloTari! 👋
             </v-card-title>
@@ -21,72 +20,79 @@
               Masuk Dan Jelajahi Bersama Kami
             </v-card-text>
 
-            <v-alert
+            <!-- <v-alert
               dense
               text
-              color="primary"
+              color="transparent"
               class=""
             >
               <p class="font-spartan customize--subtitle force--opacity">
                 The Key To Happiness Is Login To Life, As a Guest And Not as An
                 Administartor
               </p>
-            </v-alert>
+            </v-alert> -->
             <v-card-text
-              class=""
+              class="mt-6"
               color="transparent"
             >
               <v-form @submit.prevent.enter="login">
-                <v-text-field
-                  v-model="email"
-                  label="Email Or Username"
-                  placeholder="E-mail Or Username"
-                  outlined
-                  dense
-                  prepend-icon="mdi-login-variant"
-                />
-                <v-text-field
-                  v-model="password"
-                  label="Password"
-                  placeholder="Password"
-                  outlined
-                  dense
-                  prepend-icon="mdi-lock"
-                  :append-icon="!show ? 'mdi-eye' : 'mdi-eye-off'"
-                  :type="show ? 'text' : 'password'"
-                  @click:append="show = !show"
-                />
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="email"
+                    label="Email Or Username"
+                    placeholder="E-mail Or Username"
+                    outlined
+                    dense
+                  />
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="password"
+                    label="Password"
+                    placeholder="Password"
+                    outlined
+                    dense
+                    :append-icon="!show ? 'mdi-eye' : 'mdi-eye-off'"
+                    :type="show ? 'text' : 'password'"
+                    @click:append="show = !show"
+                  />
+                </v-col>
 
-                <div class="d-flex flex-row justify-center ml-8">
-                  <div class="d-flex flex-coloumn">
-                    <v-btn
-                      color="pallet1"
-                      width="370"
-                      type="submit"
-                    >
-                      Sign-In
-                    </v-btn>
+                <v-col cols="12">
+                  <div class="d-flex flex-row justify-center ml-8">
+                    <div class="d-flex flex-coloumn">
+                      <v-btn
+                        color="pallet1"
+                        width="370"
+                        type="submit"
+                      >
+                        Sign-In
+                      </v-btn>
+                    </div>
                   </div>
-                </div>
-                <div class="d-flex flex-row justify-center">
-                  <div class="d-flex flex-column">
-                    <v-chip
-                      color="transparent"
-                      text-color="red"
-                    >
-                      <h4>
-                        Forgott Password ?
-                      </h4>
-                    </v-chip>
+                </v-col>
+                <v-col cols="12">
+                  <div class="d-flex flex-row justify-center mt-2">
+                    <div class="d-flex flex-column">
+                      <v-chip
+                        color="transparent"
+                        style="cursor:pointer"
+                      >
+                        <span class="font-spartan-small">
+                          Lupa Password ?
+                        </span>
+                      </v-chip>
+                    </div>
                   </div>
-                </div>
-                <div class="text-center font-questions">
-                  <span class="color-black-2">New on our platform? </span>
+                </v-col>
+                <div class="text-center font-questions mt-12">
+                  <!-- <span class="color-black-2">New on our platform? </span> -->
                   <a
                     class="color-a"
+                    style="text-decoration:underline"
                     @click="signUp"
                   >
-                    <span>&nbsp;Create an account</span>
+                    <span>&nbsp;Daftar Sekarang</span>
                   </a>
                 </div>
               </v-form>
@@ -135,13 +141,13 @@
   export default {
     data: () => ({
       show: false,
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     }),
     computed: {
       imgUrl () {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        this.sideImg = require('@/assets/img/login1.jpg')
+        this.sideImg = require("@/assets/img/login1.jpg")
         return this.sideImg
       },
     },
@@ -151,36 +157,36 @@
     methods: {
       login () {
         this.$store
-          .dispatch('studioAuth/studioLogin', {
+          .dispatch("studioAuth/studioLogin", {
             email: this.email,
             password: this.password,
           })
           .then(res => {
             if (res.meta.status) {
-              this.$store.dispatch('user/me').then(response => {
+              this.$store.dispatch("user/me").then(response => {
                 if (response.data.data.isVerified === 0) {
-                  this.$router.push('/waiting-email')
+                  this.$router.push("/waiting-email")
                 } else {
-                  const redirecturl = this.$route.query.redirect || '/'
+                  const redirecturl = this.$route.query.redirect || "/"
                   this.$router.push(redirecturl)
                   // location.reload()
                   const Toast = this.$swal.mixin({
                     toast: true,
-                    position: 'top-end',
+                    position: "top-end",
                     showConfirmButton: false,
                     timer: 3000,
                     timerProgressBar: true,
                     didOpen: toast => {
-                      toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                      toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                      toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                      toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                     },
-                    popup: 'swal2-show',
-                    backdrop: 'swal2-backdrop-show',
-                    icon: 'swal2-icon-show',
+                    popup: "swal2-show",
+                    backdrop: "swal2-backdrop-show",
+                    icon: "swal2-icon-show",
                   })
 
                   Toast.fire({
-                    icon: 'success',
+                    icon: "success",
                     title: `Succes Login As ${response.data.data.nickName}`,
                   })
                 }
@@ -190,28 +196,28 @@
               this.alert = true
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'top-end',
+                position: "top-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
 
               Toast.fire({
-                icon: 'error',
+                icon: "error",
                 title: res.meta.message,
               })
             }
           })
       },
       signUp () {
-        this.$router.push('/register')
+        this.$router.push("/register")
       },
     },
   }
@@ -247,6 +253,7 @@
 .color-a
   color: #6B75AA !important
   font-weight: bold !important
+  text-decoration: underline
 .customize--subtitle
   font-size: 12px !important
 .force--opacity

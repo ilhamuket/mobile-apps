@@ -114,6 +114,7 @@
               @hide="upHideReviewSelected"
               @delete="upDeleteReviewsAll"
               @reply="upReplyReviews"
+              @refresh="refresh"
             />
           </v-tab-item>
           <v-tab-item>
@@ -407,7 +408,7 @@
       },
       getDataReviewsStudio () {
         this.$store.dispatch("studioReviews/getDataReviewsStudio", {
-          entities: "class,user.img",
+          entities: "class,user.img,classVidio",
         })
       },
       upHideDiscusesAll ({ item }) {

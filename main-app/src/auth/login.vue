@@ -91,9 +91,9 @@
                       color="transparent"
                       text-color="red"
                     >
-                      <h4>
-                        Forgott Password ?
-                      </h4>
+                      <span class="font-spartan-small">
+                        Lupa Password ?
+                      </span>
                     </v-chip>
                   </div>
                 </div>
@@ -102,9 +102,10 @@
                   <br>
                   <a
                     class="color-a"
+                    style="text-decoration:underline"
                     @click="pushToRegister"
                   >
-                    <span>&nbsp;Create an account</span>
+                    <span>&nbsp;Daftar Sekarang</span>
                   </a>
                 </div>
               </v-form>

@@ -94,7 +94,6 @@
                       v-else
                       width="100"
                       small
-                      outlined
                       color="primary"
                       class="btn-expolore-studio ml-1"
                       @click="unFolow(item)"

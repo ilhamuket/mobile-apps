@@ -146,7 +146,8 @@
     },
     "reviews": {
       "th": {
-        "name_class": "Nama Kelas",
+        "name_class": "EnsikloLive",
+        "name_class_vidio": "EnsikloVidio",
         "body": "Contents",
         "author": "Author",
         "ratings": "Ratings",
