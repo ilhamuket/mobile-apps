@@ -29,6 +29,7 @@ class ReviewOwnerController extends Controller
                 $query->where('slug', $class_slug);
             })
                 ->where('status', '!=', "sembunyikan")
+                ->where('ratings', '!=', null)
                 ->entities($request->entities)
                 ->get();
 
@@ -55,31 +56,37 @@ class ReviewOwnerController extends Controller
             $data["five"] = ReviewOwner::whereHas('classVidio', function (Builder $query) use ($class_id) {
                 $query->where('slug', $class_id);
             })
+                ->where('ratings', '!=', null)
                 ->where("ratings", 5)
                 ->count();
             $data["four"] = ReviewOwner::whereHas('classVidio', function (Builder $query) use ($class_id) {
                 $query->where('slug', $class_id);
             })
+                ->where('ratings', '!=', null)
                 ->where("ratings", 4)
                 ->count();
             $data["third"] = ReviewOwner::whereHas('classVidio', function (Builder $query) use ($class_id) {
                 $query->where('slug', $class_id);
             })
+                ->where('ratings', '!=', null)
                 ->where("ratings", 3)
                 ->count();
             $data["two"] = ReviewOwner::whereHas('classVidio', function (Builder $query) use ($class_id) {
                 $query->where('slug', $class_id);
             })
+                ->where('ratings', '!=', null)
                 ->where("ratings", 2)
                 ->count();
             $data["one"] = ReviewOwner::whereHas('classVidio', function (Builder $query) use ($class_id) {
                 $query->where('slug', $class_id);
             })
+                ->where('ratings', '!=', null)
                 ->where("ratings", 1)
                 ->count();
             $data["all"] = ReviewOwner::whereHas('classVidio', function (Builder $query) use ($class_id) {
                 $query->where('slug', $class_id);
             })
+                ->where('ratings', '!=', null)
                 ->count();
 
             return Json::response($data);
@@ -171,6 +178,7 @@ class ReviewOwnerController extends Controller
             $studios = OwnerStudio::where('author_id', $request->user()->id)->first();
             $master = ReviewOwner::where('studio_id', $studios->id)
                 ->entities($request->entities)
+                ->where('ratings', '!=', null)
                 ->get();
 
             return Json::response($master);

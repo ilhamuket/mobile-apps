@@ -21,11 +21,11 @@ class ReviewController extends Controller
             ];
             $avarage = Reviews::whereHas('studio', function (Builder $query) use ($studio_slug) {
                 $query->where('slug', $studio_slug);
-            })->pluck('ratings')->avg();
+            })->where('ratings', '!=', null)->pluck('ratings')->avg();
 
             $sum = Reviews::whereHas('studio', function (Builder $query) use ($studio_slug) {
                 $query->where('slug', $studio_slug);
-            })->pluck('ratings')->sum();
+            })->where('ratings', '!=', null)->pluck('ratings')->sum();
 
             $data["float"] = number_format($avarage, 2, ',', ' ');
             $data["avarage"] = $avarage;
@@ -46,6 +46,7 @@ class ReviewController extends Controller
             $reviews = Reviews::whereHas('studio', function (Builder $query) use ($studio_slug) {
                 $query->where('slug', $studio_slug);
             })->entities($request->entities)
+                ->where('ratings', '!=', null)
                 ->get();
 
             // dd(array_sum(array($reviews['ratings'])));
@@ -71,6 +72,7 @@ class ReviewController extends Controller
             $master = Reviews::whereHas('class', function (Builder $query) use ($class_slug) {
                 $query->where('slug', $class_slug);
             })
+                ->where('ratings', '!=', null)
                 ->entities($request->entities)
                 ->orderBy('created_at', 'desc')
                 ->get();
