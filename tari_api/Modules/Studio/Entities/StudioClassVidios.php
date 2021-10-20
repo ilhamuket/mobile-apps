@@ -2,6 +2,7 @@
 
 namespace Modules\Studio\Entities;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -47,6 +48,26 @@ class StudioClassVidios extends Model
     {
         if ($level != null || $level != '') {
             $query->where('levels', $level);
+        }
+
+        return $query;
+    }
+
+    public function scopeCategory($query, $category)
+    {
+        if ($category != '' || $category != null) {
+            $query->whereHas('category', function (Builder $query) {
+                $query->where('name', $category);
+            });
+        }
+
+        return $query;
+    }
+
+    public function scopeFilterStatus($query, $status)
+    {
+        if ($status != null || $status != '') {
+            $query->where('status', $status);
         }
 
         return $query;

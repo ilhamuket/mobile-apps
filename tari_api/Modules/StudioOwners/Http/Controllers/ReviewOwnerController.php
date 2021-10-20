@@ -19,6 +19,7 @@ class ReviewOwnerController extends Controller
             $master = ReviewOwner::whereHas('classVidio', function (Builder $query) use ($class_slug) {
                 $query->where('slug', $class_slug);
             })
+                ->where('status', '!=', "sembunyikan")
                 ->entities($request->entities)
                 ->get();
 

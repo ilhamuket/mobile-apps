@@ -21,6 +21,8 @@ class StudioClassVidiosController extends Controller
     {
         try {
             $master = StudioClassVidios::entities($request->entities)
+                ->category($request->category)
+                ->filterStatus($request->status)
                 ->filterLevel($request->level)
                 ->get();
 
