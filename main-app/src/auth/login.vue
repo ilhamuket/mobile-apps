@@ -30,12 +30,12 @@
             cols="12"
             class="bg-auth"
           >
-            <v-card-title
+            <!-- <v-card-title
               class="font-size-ather-roboto-mono primary--text text-custome mt-6"
               title-tag="h2"
             >
               Selamat Datang Di EnsikloTari 👋
-            </v-card-title>
+            </v-card-title> -->
             <v-card-text class="mb-2 secondary--text font-subtitle">
               Masuk Dengan Akun Mu Dan Mulai Pertualangan Mu
             </v-card-text>
@@ -45,7 +45,9 @@
               text
               color="secondary"
             >
-              <p class="font-size-ather-roboto-mono black--text text-custome-2">
+              <p
+                class="font-spartan-small text-lowercase third--text text-custome-2"
+              >
                 The Key To Happiness Is Login To Life, As a Guest And Not as An
                 Administartor
               </p>
@@ -76,11 +78,11 @@
                 <div class="d-flex flex-row justify-center ml-8 mt-7">
                   <div class="d-flex flex-coloumn">
                     <v-btn
-                      color="primary"
+                      color="btn_primary"
                       width="370"
                       type="submit"
                     >
-                      Sign-In
+                      Masuk
                     </v-btn>
                   </div>
                 </div>
@@ -159,7 +161,7 @@
     computed: {
       imgUrl () {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        this.sideImg = require("@/assets/img/login2.jpg")
+        this.sideImg = require("@/assets/img/preview.jpg")
         return this.sideImg
       },
     },

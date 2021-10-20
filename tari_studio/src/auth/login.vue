@@ -62,11 +62,11 @@
                   <div class="d-flex flex-row justify-center ml-8">
                     <div class="d-flex flex-coloumn">
                       <v-btn
-                        color="pallet1"
+                        color="btn_primary"
                         width="370"
                         type="submit"
                       >
-                        Sign-In
+                        Masuk
                       </v-btn>
                     </div>
                   </div>
@@ -147,7 +147,7 @@
     computed: {
       imgUrl () {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        this.sideImg = require("@/assets/img/login1.jpg")
+        this.sideImg = require("@/assets/img/preview.jpg")
         return this.sideImg
       },
     },
