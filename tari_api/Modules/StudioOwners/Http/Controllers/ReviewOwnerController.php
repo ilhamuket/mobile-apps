@@ -13,6 +13,15 @@ use Modules\StudioOwners\Entities\ReviewOwner;
 
 class ReviewOwnerController extends Controller
 {
+    public function replyReviewsClassVidio(Request $request, $class_id)
+    {
+        try {
+            $master = new Reviews();
+            $master->body = $request->body;
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
     public function showReviewsClassVidio(Request $request, $class_slug)
     {
         try {
