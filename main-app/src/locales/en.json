@@ -80,5 +80,25 @@
   "your_class": "Kelasmu",
   "discussion": "discussion",
   "question": "Any questions? Discuss with other sellers or users",
-  "detail_ensiklo-vidio": "Detail EnsikloVidio"
+  "detail_ensiklo-vidio": "Detail EnsikloVidio",
+  "profile": {
+      "last_name": "Last Name",
+      "first_name": "First Name",
+      "username": "Username",
+      "date": "Date Of Birth",
+      "contact": "Contact",
+      "btn": {
+          "change": "change picture",
+          "choose": "select image"
+      },
+      "wait": "Waiting for payment",
+      "list": "Transaction List",
+      "wishlist": "Wishlist",
+      "followed": "Followed",
+      "personal": "Personal Data",
+      "cp": "Change Password"
+  },
+  "pembelian": "Purchase",
+  "profile_": "Profile",
+  "change": "Change"
 }

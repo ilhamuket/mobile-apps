@@ -1,90 +1,58 @@
 <template>
   <v-container id="user-profile">
-    <loader
-      v-if="isLoader"
-      object="#ff9633"
-      color1="#ffffff"
-      color2="#24e544"
-      size="5"
-      speed="2"
-      bg="#343a40"
-      objectbg="#e79b04"
-      opacity="52"
-      disable-scrolling="false"
-      name="dots"
-    />
-
-    <v-row
-      v-else
-      class="ml-2"
-      justify="center"
-    >
-      <v-col cols="12">
-        <v-card class="rounded-xl">
-          <v-img
-            height="140"
-            class="img-oppa"
-            src=""
-          >
-            <div class="d-flex flex-row justify-center">
-              <div class="d-flex flex-column">
-                <v-img
-                  width="570"
-                  src="@/assets/logo.svg"
-                />
-              </div>
-            </div>
-          </v-img>
+    <v-row>
+      <v-col
+        cols="12"
+        md="3"
+      >
+        <v-card>
+          <app-card-side :user="cumputedMe" />
         </v-card>
       </v-col>
-      <v-col
-        class="d-flex justify-center"
-        cols="12"
-      >
-        <app-data-card :me="cumputedMe" />
-      </v-col>
-      <v-col
-        cols="12"
-        md="4"
-      >
-        <app-data-profile
-          :me="cumputedMe"
-          @popUpDialog="popUpDialog"
-        />
-      </v-col>
-      <v-col
-        cols="12"
-        md="4"
-      >
-        <app-list-following :me="cumputedMe" />
-      </v-col>
 
-      <v-col cols="12">
-        <timelines id="timeLines" />
+      <v-col
+        cols="12"
+        md="9"
+      >
+        <v-card>
+          <v-tabs
+            v-model="tabs"
+            background-color="btn_primary"
+            color="btn_primary"
+            class="tabs-profile"
+            show-arrows
+          >
+            <v-tab class="font-spartan-small">
+              Profile
+            </v-tab>
+          </v-tabs>
+          <v-tabs-items v-model="tabs">
+            <v-tab-item>
+              <app-profile
+                :user="cumputedMe"
+                @input="choosePicture"
+                @change="changePicture"
+              />
+            </v-tab-item>
+          </v-tabs-items>
+        </v-card>
       </v-col>
     </v-row>
-    <app-dialog-edit
-      :data="cumputedMe"
-      :dialog="dialogEdit"
-      @input="updateProfile"
-      @refresh="getMe"
-    />
   </v-container>
 </template>
 
 <script>
-  import card from './component_core/_cardDetail.vue'
-  import timelines from './component_core/Timeline.vue'
-  import cardInformation from './component_core/_cardDetailProfile.vue'
-  import cardList from './component_core/_cardInformation.vue'
-  import dialogEditProfile from './component/_dialogEdit.vue'
+// import timelines from "./component_core/Timeline.vue"
+  import cardSide from "./component/__cardSide.vue"
+  import profile from "./component_core/_profile.vue"
+
+  // import dialogEditProfile from "./component/_dialogEdit.vue"
   export default {
     components: {
-      timelines,
-      'app-data-card': card,
-      'app-data-profile': cardInformation,
-      'app-list-following': cardList,
-      'app-dialog-edit': dialogEditProfile,
+      // timelines,
+      // "app-dialog-edit": dialogEditProfile,
+      "app-card-side": cardSide,
+      "app-profile": profile,
     },
     data: () => ({
       isLoader: true,
@@ -92,6 +60,7 @@
         open: false,
         data: {},
       },
+      tabs: null,
     }),
     computed: {
       cumputedMe () {
@@ -104,8 +73,8 @@
     methods: {
       getMe () {
         this.$store
-          .dispatch('user/me', {
-            entities: 'followingStudio.followers,followingStudio.likes',
+          .dispatch("user/me", {
+            entities: "followingStudio.followers,followingStudio.likes, img",
           })
           .then(res => {
             if (res.data.meta.status) {
@@ -119,7 +88,7 @@
       },
       updateProfile ({ item }) {
         this.$store
-          .dispatch('user/updateProfile', {
+          .dispatch("user/updateProfile", {
             id: item.id,
             firstName: item.firstName,
             lastName: item.lastName,
@@ -139,22 +108,81 @@
               this.dialogEdit.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'User Profile Edited Successfully',
+                icon: "success",
+                title: "User Profile Edited Successfully",
               })
+            }
+          })
+      },
+      choosePicture ({ item }) {
+        this.$store
+          .dispatch("user/choosePicture", {
+            files: item.files,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "User Profile Successfully",
+              })
+              this.getMe()
+            }
+          })
+      },
+      changePicture ({ item }) {
+        console.log(item.files)
+        this.$store
+          .dispatch("user/changePicture", {
+            files: item.files,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "User Profile Successfully",
+              })
+              this.getMe()
             }
           })
       },

@@ -79,5 +79,25 @@
     "your_class": "Kelasmu",
     "discussion": "Diskusi",
     "question": "Ada pertanyaan? Diskusikan dengan penjual atau pengguna lain",
-    "detail_ensiklo-vidio": "Detail EnsikloVidio"
+    "detail_ensiklo-vidio": "Detail EnsikloVidio",
+    "profile": {
+        "last_name": "Nama Belakang",
+        "first_name": "Nama Depan",
+        "username": "Nama Pengguna",
+        "date": "Tanggal Lahir",
+        "contact": "Kontak",
+        "btn": {
+            "change": "Ubah Foto",
+            "choose": "Pilih Foto"
+        },
+        "wait": "Menunggu Pembayaran",
+        "list": "Daftar Transaksi",
+        "wishlist": "Daftar Keinginan",
+        "followed": "Diikuti",
+        "personal": "Biodata Diri",
+        "cp": "Ubah Kata Sandi"
+    },
+    "pembelian": "Pembelian",
+    "profile_": "Profil",
+    "change": "Ubah"
 }

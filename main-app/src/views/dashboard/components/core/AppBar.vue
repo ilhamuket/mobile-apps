@@ -74,7 +74,7 @@
               >
                 <v-chip
                   color="transparent"
-                  text-color="white"
+                  text-color="btn_primary"
                   style="text-transform: uppercase"
                 >
                   <v-avatar left>
@@ -94,7 +94,7 @@
               >
                 <v-chip
                   color="transparent"
-                  text-color="white"
+                  text-color="black"
                   class="text-uppercase"
                 >
                   <v-avatar left>
@@ -193,7 +193,7 @@
     >
       <v-icon>mdi-account</v-icon>
     </v-btn> -->
-    <v-switch
+    <!-- <v-switch
       v-model="$vuetify.theme.dark"
       :prepend-icon="
         $vuetify.theme.dark ? 'mdi-theme-light-dark' : 'mdi-white-balance-sunny'
@@ -202,7 +202,7 @@
       color="success"
       hide-details
       @click="toogle_dark_theme"
-    />
+    /> -->
 
     <v-menu
       bottom
@@ -242,14 +242,14 @@
               users.nickName.charAt(0)
             }}</span>
           </v-list-item-avatar>
-          Hi, {{ users.nickName }}
+          Hi, {{ user.nickName }}
         </v-chip>
       </template>
 
       <v-list>
         <v-list-item class="d-flex justify-center">
-          <v-list-item-avatar v-if="users.img">
-            <v-img :src="users.img.url" />
+          <v-list-item-avatar v-if="user.img">
+            <v-img :src="user.img.url" />
           </v-list-item-avatar>
           <v-list-item-avatar
             v-else
@@ -508,4 +508,9 @@
           .v-input__icon
             .v-icon .mdi
               color: white !important
+</style>
+<style lang="sass" scoped>
+.v-list
+  background-color: white !important
+  color: green !important
 </style>

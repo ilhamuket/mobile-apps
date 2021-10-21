@@ -30,7 +30,7 @@ class AlterTableRenameStudentIdInModuleStudio extends Migration
     public function down()
     {
         Schema::table('studios', function (Blueprint $table) {
-            $table->unsignedBigInteger('student_id');
+            $table->unsignedBigInteger('student_id')->nullable();
             $table->foreign('student_id')->references('id')->on('users');
 
             $table->dropForeign(['author_id']);
