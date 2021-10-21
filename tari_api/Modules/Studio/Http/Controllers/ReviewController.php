@@ -12,7 +12,7 @@ use Modules\Studio\Entities\Studio;
 
 class ReviewController extends Controller
 {
-    public function summaryReviewStudio(Request $request, $id)
+    public function summaryReviewStudio(Request $request)
     {
         try {
             $studio = Studio::where('author_id', $request->user()->me)->first();
@@ -24,17 +24,17 @@ class ReviewController extends Controller
                 "one" => 0
             ];
 
-            $data["five"] = Reviews::where('studio_id', $studio_id)->where('ratings', '!=', null)
+            $data["five"] = Reviews::where('studio_id', $studio->id)->where('ratings', '!=', null)
                 ->where("ratings", 5)->count();
-            $data["four"] = Reviews::where('studio_id', $studio_id)->where('ratings', '!=', null)
+            $data["four"] = Reviews::where('studio_id', $studio->id)->where('ratings', '!=', null)
                 ->where("ratings", 4)->count();
-            $data["third"] = Reviews::where('studio_id', $studio_id)->where('ratings', '!=', null)
+            $data["third"] = Reviews::where('studio_id', $studio->id)->where('ratings', '!=', null)
                 ->where("ratings", 3)->count();
-            $data["two"] = Reviews::where('studio_id', $studio_id)->where('ratings', '!=', null)
+            $data["two"] = Reviews::where('studio_id', $studio->id)->where('ratings', '!=', null)
                 ->where("ratings", 2)->count();
-            $data["one"] = Reviews::where('studio_id', $studio_id)->where('ratings', '!=', null)
+            $data["one"] = Reviews::where('studio_id', $studio->id)->where('ratings', '!=', null)
                 ->where("ratings", 1)->count();
-            $data["all"] = Reviews::where('studio_id', $studio_id)->where('ratings', '!=', null)
+            $data["all"] = Reviews::where('studio_id', $studio->id)->where('ratings', '!=', null)
                 ->count();
 
             return Json::response($data);

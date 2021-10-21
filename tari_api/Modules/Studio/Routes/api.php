@@ -100,10 +100,10 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
     });
     Route::prefix('reviews')->group(function () {
         Route::post('class', [ReviewController::class, 'store']);
+        Route::get('studio/summary/ratings', [ReviewController::class, 'summaryReviewStudio']);
         Route::get('class/{slug}', [ReviewController::class, 'byClass']);
         Route::get('avarage/{slug}', [ReviewController::class, 'avarage']);
         Route::get('studio/{slug}', [ReviewController::class, 'reviewsStudio']);
-        Route::get('studio/summary/{id}', [ReviewController::class, 'summaryReviewStudio']);
         Route::get('class-vidio/{slug}', [ReviewOwnerController::class, 'showReviewsClassVidio']);
     });
     // Rooms
