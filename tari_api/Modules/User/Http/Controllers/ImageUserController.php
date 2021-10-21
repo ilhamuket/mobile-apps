@@ -18,6 +18,8 @@ class ImageUserController extends Controller
             DB::beginTransaction();
             $me = $request->user();
             $vidio = ImageUser::where('user_id', $me->id)->first();
+            $new_array = explode('/', $vidio->url);
+            dd($new_array);
             $image_path = $new_array[3] . '/' . $new_array[4] . '/' . $new_array[5];
             // dd($image_path);
             if (File::exists($image_path)) {
