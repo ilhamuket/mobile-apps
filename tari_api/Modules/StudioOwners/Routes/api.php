@@ -121,6 +121,7 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
         Route::post('/show', [ReviewOwnerController::class, 'show']);
         Route::delete('/{id}', [ReviewOwnerController::class, 'destroy']);
         Route::get('summary-class/{class_id}', [ReviewOwnerController::class, 'summaryByClass']);
+        Route::post('reply/{id}', [ReviewOwnerController::class, 'replyReviewsClassVidio']);
     });
 
     Route::prefix('class-vidio')->group(function () {

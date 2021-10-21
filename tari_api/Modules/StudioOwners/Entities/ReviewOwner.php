@@ -23,6 +23,11 @@ class ReviewOwner extends Model
         return $this->belongsTo(ClassesOwnerStudio::class, 'class_id');
     }
 
+    public function response()
+    {
+        return $this->hasMany(ReviewResponse::class, 'review_id');
+    }
+
     public function classVidio()
     {
         return $this->belongsTo(StudioClassVidio::class, 'class_vidio_id');

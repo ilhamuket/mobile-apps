@@ -137,8 +137,8 @@
     },
     "discusses": {
       "th": {
-        "name_class": "Class Name",
-        "body": "Contents",
+        "name_class": "Name",
+        "body": "Content",
         "author": "Author",
         "comments": "Replies",
         "like": "Like"

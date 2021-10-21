@@ -7,19 +7,38 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use Modules\Studio\Entities\Reviews;
 use Modules\StudioOwners\Entities\OwnerStudio;
 use Modules\StudioOwners\Entities\ReviewOwner;
+use Modules\StudioOwners\Entities\ReviewResponse;
 
 class ReviewOwnerController extends Controller
 {
-    public function replyReviewsClassVidio(Request $request, $class_id)
+    public function replyReviewsClassVidio(Request $request, $review_id)
     {
         try {
-            $master = new Reviews();
-            $master->body = $request->body;
-        } catch (\Throwable $th) {
-            //throw $th;
+            DB::beginTransaction();
+            $reviews = ReviewOwner::findOrFail($review_id);
+            $reviews->status = "ditanggapi";
+            $reviews->save();
+
+            $response = new ReviewResponse();
+            $response->body = $request->body;
+            $response->review_id = $reviews_id;
+            $response->status = '';
+
+            DB::commit();
+            return Json::response($response);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            DB::rollBack();
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         }
     }
     public function showReviewsClassVidio(Request $request, $class_slug)
