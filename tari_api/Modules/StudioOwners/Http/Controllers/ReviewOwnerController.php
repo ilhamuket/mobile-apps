@@ -25,7 +25,7 @@ class ReviewOwnerController extends Controller
 
             $response = new ReviewResponse();
             $response->body = $request->body;
-            $response->review_id = $reviews_id;
+            $response->review_id = $review_id;
             $response->status = '';
 
             DB::commit();
