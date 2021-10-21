@@ -15,7 +15,7 @@ class ReviewController extends Controller
     public function summaryReviewStudio(Request $request)
     {
         try {
-            $studio = Studio::where('author_id', $request->user()->me)->first();
+            $studio = Studio::where('author_id', $request->user()->id)->first();
             $data = [
                 "five" => 0,
                 "four" => 0,
