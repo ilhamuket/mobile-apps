@@ -21,13 +21,13 @@
                 <span
                   class="font-spartan ratings__modified primary--text d-flex justify-center"
                 >
-                  4.6
+                  {{ computedCount }}
                 </span>
                 <br>
                 <span
                   class="font-spartan font__users_rating primary--text d-flex justify-center"
                 >
-                  dari 620 User
+                  {{ reviews.length }} User
                 </span>
               </v-card-text>
             </v-card>
@@ -38,87 +38,173 @@
             lg="7"
           >
             <div>
-              <v-progress-linear
-                :value="skill"
-                color="primary"
-                height="15"
-                rounded
+              <v-rating
+                :value="5"
+                color="btn_primary"
+                length="1"
+                half-increments
                 readonly
               >
-                <v-rating
-                  :value="5"
-                  color="orange"
-                  half-increments
-                  readonly
-                />
+                <template v-slot:item="props">
+                  <v-icon
+                    :color="'btn_primary'"
+                    medium
+                    @click="props.click"
+                  >
+                    mdi-star-circle
+                  </v-icon>
+                  <span>5</span>
+                </template>
+              </v-rating>
+              <v-progress-linear
+                class="progres--ratings"
+                :value="computedFive"
+                color="btn_primary"
+                height="12"
+                readonly
+                rounded
+              >
+                <span
+                  class="font-progresss font-weight-bold btn_primary--text"
+                >{{ value.five }}</span>
               </v-progress-linear>
 
               <br>
 
+              <v-rating
+                :value="5"
+                color="btn_primary"
+                length="1"
+                half-increments
+                readonly
+              >
+                <template v-slot:item="props">
+                  <v-icon
+                    :color="'btn_primary'"
+                    medium
+                    @click="props.click"
+                  >
+                    mdi-star-circle
+                  </v-icon>
+                  <span>4</span>
+                </template>
+              </v-rating>
               <v-progress-linear
-                :value="skill"
-                color="primary"
-                height="15"
+                class="progres--ratings"
+                :value="computedFour"
+                color="btn_primary"
+                height="12"
                 readonly
                 rounded
               >
-                <v-rating
-                  :value="4"
-                  color="orange"
-                  half-increments
-                  readonly
-                />
+                <span
+                  class="font-progresss font-weight-bold btn_primary--text"
+                >{{ value.four }}</span>
               </v-progress-linear>
+
               <br>
+
+              <v-rating
+                :value="5"
+                color="btn_primary"
+                length="1"
+                half-increments
+                readonly
+              >
+                <template v-slot:item="props">
+                  <v-icon
+                    :color="'btn_primary'"
+                    medium
+                    @click="props.click"
+                  >
+                    mdi-star-circle
+                  </v-icon>
+                  <span>3</span>
+                </template>
+              </v-rating>
               <v-progress-linear
-                :value="skill"
-                color="primary"
-                height="15"
+                class="progres--ratings"
+                :value="computedThird"
+                color="btn_primary"
+                height="12"
                 readonly
                 rounded
               >
-                <v-rating
-                  :value="3"
-                  color="orange"
-                  half-increments
-                  readonly
-                />
+                <span
+                  class="font-progresss font-weight-bold btn_primary--text"
+                >{{ value.third }}</span>
               </v-progress-linear>
+
               <br>
+
+              <v-rating
+                :value="5"
+                color="btn_primary"
+                length="1"
+                half-increments
+                readonly
+              >
+                <template v-slot:item="props">
+                  <v-icon
+                    :color="'btn_primary'"
+                    medium
+                    @click="props.click"
+                  >
+                    mdi-star-circle
+                  </v-icon>
+                  <span>2</span>
+                </template>
+              </v-rating>
               <v-progress-linear
-                :value="skill"
-                color="primary"
-                height="15"
+                class="progres--ratings"
+                :value="computedTwo"
+                color="btn_primary"
+                height="12"
                 readonly
                 rounded
               >
-                <v-rating
-                  :value="2"
-                  color="orange"
-                  half-increments
-                  readonly
-                />
+                <span
+                  class="font-progresss font-weight-bold btn_primary--text"
+                >{{ value.two }}</span>
               </v-progress-linear>
+
               <br>
+
+              <v-rating
+                :value="5"
+                color="btn_primary"
+                length="1"
+                half-increments
+                readonly
+              >
+                <template v-slot:item="props">
+                  <v-icon
+                    :color="'btn_primary'"
+                    medium
+                    @click="props.click"
+                  >
+                    mdi-star-circle
+                  </v-icon>
+                  <span>1</span>
+                </template>
+              </v-rating>
               <v-progress-linear
-                :value="skill"
-                color="primary"
-                height="15"
+                class="progres--ratings"
+                :value="computedOne"
+                color="btn_primary"
+                height="12"
                 readonly
                 rounded
               >
-                <v-rating
-                  :value="1"
-                  color="orange"
-                  half-increments
-                  readonly
-                />
+                <span
+                  class="font-progresss font-weight-bold btn_primary--text"
+                >{{ value.one }}</span>
               </v-progress-linear>
             </div>
           </v-col>
         </v-row>
-        <v-divider class="mt-5 mb-2" />
-        <v-row class="mt-4">
+        <!-- <v-divider class="mt-5 mb-2" /> -->
+        <!-- <v-row class="mt-4">
           <v-col
             cols="12"
             md="4"
@@ -160,7 +246,7 @@
               </v-card-text>
             </v-card>
           </v-col>
-        </v-row>
+        </v-row> -->
         <!-- <v-divider class="mt-5 mb-6 divider--opacity" /> -->
         <v-row>
           <v-col
@@ -234,18 +320,17 @@
           All Reviews ({{ reviews.length }})
         </span>
         <v-row
-          v-if="reviews.length !== 0"
+          v-if="reviews.length > 0"
           class="mt-2"
         >
           <v-col
             v-for="(item, i) in reviews"
             :key="i"
-            class="ml-5"
             cols="12"
           >
             <v-avatar
               v-if="item.user"
-              color="primary"
+              :color="item.user.img ? '' : 'primary'"
             >
               <v-img
                 v-if="item.user.img"
@@ -253,19 +338,17 @@
               />
               <span
                 v-else
-                class="text-capitalize"
-              >{{
-                item.user.nickName.charAt(0)
-              }}</span>
+                class="font-spartan"
+              >
+                {{ item.user.nickName.charAt(0) }}
+              </span>
             </v-avatar>
+
             <span
               v-if="item.user"
-              class="ml-2 mr-2 text-capitalize"
-            >{{
-              item.user.nickName
-            }}</span>-
+              class="ml-4"
+            >{{ item.user.nickName }}</span>-
             <span class="font__date">{{ timeSince(item.created_at) }}</span>
-
             <v-card-text>
               <v-rating
                 :value="item.ratings"
@@ -280,33 +363,44 @@
               <p class="font-spartan-small ml-12 mt-1">
                 {{ item.body }}
               </p>
-              <v-tooltip
-                v-if="item.likes"
-                bottom
-                color="primary"
-              >
-                <template #activator="{on ,attrs}">
-                  <v-btn
-                    dark
-                    small
-                    v-bind="attrs"
-                    icon
-                    class="like__reviews"
-                    v-on="on"
+              <div class="d-flex flex-row ml-9">
+                <div class="d-flex flex-column mr-1">
+                  <v-img
+                    width="100"
+                    src="https://api.ensiklotari.com/app/images/studio/WdC3rSuP0VsBsMkWL3kaToBWB2kp5hhOY566B8Bx.jpg"
+                  />
+                </div>
+                <div class="d-flex flex-column">
+                  <v-img
+                    width="100"
+                    src="https://api.ensiklotari.com/app/images/studio/WdC3rSuP0VsBsMkWL3kaToBWB2kp5hhOY566B8Bx.jpg"
+                  />
+                </div>
+              </div>
+            </v-card-text>
+            <v-card-text
+              v-if="item.response.length !== 0"
+              class="ml-12 card-response"
+            >
+              <v-container>
+                <v-row>
+                  <v-col
+                    v-for="(response, x) in item.response"
+                    :key="x"
+                    cols="12"
                   >
-                    <v-icon :color="$vuetify.theme.dark ? 'white' : 'black'">
-                      mdi-thumb-up-outline
-                    </v-icon>
-                  </v-btn>
-                </template>
-                <span>{{ item.likes.length }} People Like This Reviews</span>
-              </v-tooltip>
-              <p class="report__reviews btn_primary--text">
-                Report
-              </p>
+                    <span class="font-spartan-small">
+                      Seller Response:
+                    </span>
+                    <br>
+                    <span class="font-spartan-small">
+                      {{ response.body }}
+                    </span>
+                  </v-col>
+                </v-row>
+              </v-container>
             </v-card-text>
           </v-col>
-          <v-divider class="divider--opacity" />
         </v-row>
         <v-row
           v-else
@@ -331,11 +425,11 @@
     props: {
       reviews: {
         type: Array,
-        default: () => [
-          {
-            ratings: 0,
-          },
-        ],
+        default: null,
+      },
+      value: {
+        type: Object,
+        default: null,
       },
     },
     data: () => ({
@@ -345,96 +439,142 @@
       knowledge: 33,
       power: 78,
       rating: 2,
-      filter: 'All',
+      filter: "All",
       item: [
         {
-          name: 'All',
-          icon: 'mdi-account',
-          color: 'btn_primary',
+          name: "All",
+          icon: "mdi-account",
+          color: "btn_primary",
         },
         {
-          name: '5',
-          icon: 'mdi-star',
-          color: 'orange',
+          name: "5",
+          icon: "mdi-star",
+          color: "orange",
         },
         {
-          name: '4',
-          icon: 'mdi-star',
-          color: 'orange',
+          name: "4",
+          icon: "mdi-star",
+          color: "orange",
         },
         {
-          name: '3',
-          icon: 'mdi-star',
-          color: 'orange',
+          name: "3",
+          icon: "mdi-star",
+          color: "orange",
         },
         {
-          name: '2',
-          icon: 'mdi-star',
-          color: 'orange',
+          name: "2",
+          icon: "mdi-star",
+          color: "orange",
         },
         {
-          name: '1',
-          icon: 'mdi-star',
-          color: 'orange',
+          name: "1",
+          icon: "mdi-star",
+          color: "orange",
         },
       ],
     }),
-    computed: {},
-    mounted () {
-    // this.reduce()
+    computed: {
+      computedFive () {
+        let number = 0
+        if (this.value !== null) {
+          number = (this.value.five / this.value.all) * 100
+        }
+        return number
+      },
+      computedFour () {
+        let number = 0
+        if (this.value !== null) {
+          number = (this.value.four / this.value.all) * 100
+        }
+        return number
+      },
+      computedThird () {
+        let number = 0
+        if (this.value !== null) {
+          number = (this.value.third / this.value.all) * 100
+        }
+        return number
+      },
+      computedTwo () {
+        let number = 0
+        if (this.value !== null) {
+          number = (this.value.two / this.value.all) * 100
+        }
+        return number
+      },
+      computedOne () {
+        let number = 0
+        if (this.value !== null) {
+          number = (this.value.one / this.value.all) * 100
+        }
+        return number
+      },
+      computedCount () {
+        let array = []
+        let avarage = 0.0
+        if (this.reviews.length !== 0) {
+          array = this.reviews.map(x => x.ratings)
+          const sum = array.filter(x => x > 0).reduce((x, y) => x + y)
+          avarage = sum / this.reviews.length
+        }
+        const x = parseFloat(avarage.toFixed(2))
+
+        return x
+      },
     },
+    mounted () {},
     methods: {
       reduce () {},
       timeSince (time) {
         switch (typeof time) {
-          case 'number':
+          case "number":
             break
-          case 'string':
+          case "string":
             time = +new Date(time)
             break
-          case 'object':
+          case "object":
             if (time.constructor === Date) time = time.getTime()
             break
           default:
             time = +new Date()
         }
         const timeformats = [
-          [60, 'seconds', 1], // 60
-          [120, '1 minute ago', '1 minute from now'], // 60*2
-          [3600, 'minutes', 60], // 60*60, 60
-          [7200, '1 hour ago', '1 hour from now'], // 60*60*2
-          [86400, 'hours', 3600], // 60*60*24, 60*60
-          [172800, 'Yesterday', 'Tomorrow'], // 60*60*24*2
-          [604800, 'days', 86400], // 60*60*24*7, 60*60*24
-          [1209600, 'Last week', 'Next week'], // 60*60*24*7*4*2
-          [2419200, 'weeks', 604800], // 60*60*24*7*4, 60*60*24*7
-          [4838400, 'Last month', 'Next month'], // 60*60*24*7*4*2
-          [29030400, 'months', 2419200], // 60*60*24*7*4*12, 60*60*24*7*4
-          [58060800, 'Last year', 'Next year'], // 60*60*24*7*4*12*2
-          [2903040000, 'years', 29030400], // 60*60*24*7*4*12*100, 60*60*24*7*4*12
-          [5806080000, 'Last century', 'Next century'], // 60*60*24*7*4*12*100*2
-          [58060800000, 'centuries', 2903040000], // 60*60*24*7*4*12*100*20, 60*60*24*7*4*12*100
+          [60, "seconds", 1], // 60
+          [120, "1 minute ago", "1 minute from now"], // 60*2
+          [3600, "minutes", 60], // 60*60, 60
+          [7200, "1 hour ago", "1 hour from now"], // 60*60*2
+          [86400, "hours", 3600], // 60*60*24, 60*60
+          [172800, "Yesterday", "Tomorrow"], // 60*60*24*2
+          [604800, "days", 86400], // 60*60*24*7, 60*60*24
+          [1209600, "Last week", "Next week"], // 60*60*24*7*4*2
+          [2419200, "weeks", 604800], // 60*60*24*7*4, 60*60*24*7
+          [4838400, "Last month", "Next month"], // 60*60*24*7*4*2
+          [29030400, "months", 2419200], // 60*60*24*7*4*12, 60*60*24*7*4
+          [58060800, "Last year", "Next year"], // 60*60*24*7*4*12*2
+          [2903040000, "years", 29030400], // 60*60*24*7*4*12*100, 60*60*24*7*4*12
+          [5806080000, "Last century", "Next century"], // 60*60*24*7*4*12*100*2
+          [58060800000, "centuries", 2903040000], // 60*60*24*7*4*12*100*20, 60*60*24*7*4*12*100
         ]
         let seconds = (+new Date() - time) / 1000
-        let token = 'ago'
+        let token = "ago"
         let listchoice = 1
 
         if (seconds === 0) {
-          return 'Just now'
+          return "Just now"
         }
         if (seconds < 0) {
           seconds = Math.abs(seconds)
-          token = 'from now'
+          token = "from now"
           listchoice = 2
         }
         let i = 0
         let format
         while ((format = timeformats[i++])) {
           if (seconds < format[0]) {
-            if (typeof format[2] === 'string') return format[listchoice]
+            if (typeof format[2] === "string") return format[listchoice]
             else {
               return (
-                Math.floor(seconds / format[2]) + ' ' + format[1] + ' ' + token
+                Math.floor(seconds / format[2]) + " " + format[1] + " " + token
               )
             }
           }
@@ -446,6 +586,12 @@
 </script>
 
 <style lang="sass" scoped>
+.progres--ratings
+    margin-left: 50px
+    margin-top: -20px
+.ratings__users__reviews
+    margin-left: 46px
+    margin-top: -35px
 .ratings__modified
     font-weight: 900
     font-size: 30px
@@ -488,4 +634,10 @@
 .theme--dark
   .divider--opacity
     opacity: .2
+.card-response
+  background-color: #F5F5F5
+  width: 1080px
+.font-progresss
+  font-size: 9px
+  margin-left: 580px
 </style>

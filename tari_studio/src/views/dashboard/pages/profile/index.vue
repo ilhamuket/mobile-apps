@@ -648,6 +648,7 @@
           .then(res => {
             if (res.data.meta.status) {
               this.replyReviews.open = false
+              item.content = ""
               const Toast = this.$swal.mixin({
                 toast: true,
                 position: "bottom-end",

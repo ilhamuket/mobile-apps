@@ -201,6 +201,8 @@
             <v-rating
               v-model="item.ratings"
               readonly
+              background-color="grey"
+              color="orange"
               small
             />
           </template>

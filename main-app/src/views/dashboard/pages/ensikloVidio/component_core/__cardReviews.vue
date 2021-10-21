@@ -318,22 +318,23 @@
             </div>
           </div>
         </v-card-text>
-        <v-card-text class="ml-12 card-response">
+        <v-card-text
+          v-if="item.response.length !== 0"
+          class="ml-12 card-response"
+        >
           <v-container>
             <v-row>
-              <v-col cols="12">
+              <v-col
+                v-for="(response, x) in item.response"
+                :key="x"
+                cols="12"
+              >
                 <span class="font-spartan-small">
                   Seller Response:
                 </span>
                 <br>
                 <span class="font-spartan-small">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
-                  sit dolor ut eligendi, debitis nesciunt temporibus beatae
-                  exercitationem, inventore magni reprehenderit. Eveniet,
-                  quibusdam! Suscipit fugiat, impedit maiores alias rem officia
-                  officiis nisi placeat. Error, vel soluta similique fuga ut
-                  tenetur, consectetur labore hic molestiae at quod, assumenda
-                  unde laborum beatae.
+                  {{ response.body }}
                 </span>
               </v-col>
             </v-row>

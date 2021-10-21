@@ -81,7 +81,7 @@
       getDataEnsikloVidioReviews () {
         this.$store.dispatch("ensikloVidio/getDataEnsikloVidioReviews", {
           class_slug: this.$route.params.slug,
-          entities: "user",
+          entities: "user,response",
         })
       },
     },

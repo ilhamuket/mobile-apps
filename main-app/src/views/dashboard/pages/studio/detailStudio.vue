@@ -64,10 +64,10 @@
           Home
         </v-tab>
         <v-tab class="font-cutomize">
-          {{ $t('studioPage.class') }}
+          {{ $t("studioPage.class") }}
         </v-tab>
         <v-tab class="font-cutomize">
-          {{ $t('studioPage.review') }}
+          {{ $t("studioPage.review") }}
         </v-tab>
       </v-tabs>
       <v-tabs-items v-model="tabs">
@@ -88,7 +88,10 @@
           />
         </v-tab-item>
         <v-tab-item>
-          <app-page-three :reviews="computedReviews" />
+          <app-page-three
+            :reviews="computedReviews"
+            :value="valueReviews"
+          />
         </v-tab-item>
       </v-tabs-items>
     </v-container>
@@ -101,25 +104,25 @@
 </template>
 
 <script>
-  import topCardDetails from './component_core/_cardDetailStudio.vue'
-  import pageOne from './childPages/_pageOne.vue'
-  import pageTwo from './childPages/_pageTwo.vue'
-  import pageThree from './childPages/_pageThree.vue'
-  import dialogLearnMore from './childPages/component/__dialogLearnMore.vue'
-  import dialogNotice from './childPages/component/__dialogNotice.vue'
+  import topCardDetails from "./component_core/_cardDetailStudio.vue"
+  import pageOne from "./childPages/_pageOne.vue"
+  import pageTwo from "./childPages/_pageTwo.vue"
+  import pageThree from "./childPages/_pageThree.vue"
+  import dialogLearnMore from "./childPages/component/__dialogLearnMore.vue"
+  import dialogNotice from "./childPages/component/__dialogNotice.vue"
   export default {
     components: {
-      'app-studio-card-detail': topCardDetails,
-      'app-page-one': pageOne,
-      'app-page-two': pageTwo,
-      'app-page-three': pageThree,
-      'app-dialog-page-two': dialogLearnMore,
-      'app-dialog-notice': dialogNotice,
+      "app-studio-card-detail": topCardDetails,
+      "app-page-one": pageOne,
+      "app-page-two": pageTwo,
+      "app-page-three": pageThree,
+      "app-dialog-page-two": dialogLearnMore,
+      "app-dialog-notice": dialogNotice,
     },
     data: () => ({
       tabs: null,
       model: 0,
-      colors: ['primary', 'secondary', 'yellow darken-2', 'red', 'orange'],
+      colors: ["primary", "secondary", "yellow darken-2", "red", "orange"],
       id: null,
       folder: null,
       currentDate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
@@ -131,9 +134,9 @@
       },
       dialogUnFollow: {
         open: false,
-        slug: '',
-        img: '',
-        name: '',
+        slug: "",
+        img: "",
+        name: "",
       },
       studio: {},
       autoPlay: {},
@@ -149,11 +152,11 @@
       state_load: false,
       timelines: [],
       isFollow: false,
-      search: '',
+      search: "",
       isLoad: true,
-      date: '',
+      date: "",
       attrs: {
-        class: 'mb-6',
+        class: "mb-6",
         boilerplate: true,
         elevation: 2,
       },
@@ -178,24 +181,27 @@
       studioDates () {
         return this.$store.state.studioClasses.date
       },
+      valueReviews () {
+        return this.$store.state.studioReviews.value
+      },
     },
     watch: {
       tabs () {
         if (this.tabs === 0) {
-          this.folder = 'home'
+          this.folder = "home"
           const params = (this.$route.params.folder = this.folder)
           this.$router.push(params).catch(() => {})
         } else if (this.tabs === 1) {
-          this.folder = 'class'
+          this.folder = "class"
           const params = (this.$route.params.folder = this.folder)
           this.$router.push(params).catch(() => {})
         } else if (this.tabs === 2) {
-          this.folder = 'reviews'
+          this.folder = "reviews"
           const params = (this.$route.params.folder = this.folder)
           this.$router.push(params).catch(() => {})
         }
       },
-      '$route.params.folder': function (val) {
+      "$route.params.folder": function (val) {
         return this.folder
       },
     },
@@ -208,9 +214,11 @@
       this.getDataMe()
       this.firstLoad()
       this.getDataReviewsStudio()
+      this.getDataValueReviewsStudio()
       this.ratingsStudio()
       this.scroll()
       this.getDataStudioDate()
+      this.getValueReviewsEnsiloVidio()
     },
     methods: {
       ratingsStudio () {
@@ -218,62 +226,72 @@
           const ratings = this.computedReviews.map(x => x.ratings)
           if (ratings.length > 0) {
             this.sum = ratings.filter(x => x > 0).reduce((x, y) => x + y)
-            console.log('Jumlah : ', this.sum)
             this.mean = this.sum / this.computedReviews.length
-            console.log('Rata-rata : ', this.mean)
             this.ratings.value = this.mean
             this.ratings.people = this.computedReviews.length
           }
         }
       },
       getDataReviewsStudio () {
+        this.$store.dispatch("studioReviews/getDataReviewsStudio", {
+          slug: this.$route.params.slug,
+          entities: "user.img,studio,class,likes,report,response",
+        })
+      },
+      getDataValueReviewsStudio () {
         this.$store
-          .dispatch('studioReviews/getDataReviewsStudio', {
-            slug: this.$route.params.slug,
-            entities: 'user.img,studio,class,likes,report',
+          .dispatch("studioReviews/getDataValueReviewsStudio", {
+            id: this.$route.params.slug,
           })
-          .then(res => {})
+          .then(res => {
+            console.log(res.data.data)
+          })
       },
       getDataStudioBySlug () {
         this.$store
-          .dispatch('studio/getDataStudioBySlug', {
+          .dispatch("studio/getDataStudioBySlug", {
             slug: this.$route.params.slug,
-            entities: 'author,img,followers,likes',
+            entities: "author,img,followers,likes",
           })
           .then(({ data }) => {
             this.studio = data.data
+            localStorage.setItem("studio_id", data.data.id)
             this.isLoad = false
-          // console.log(this.studio)
           })
       },
+      getValueReviewsEnsiloVidio () {
+        this.$store.dispatch("ensikloVidio/getValueReviewsEnsiloVidio", {
+          class_id: this.$route.params.slug,
+        })
+      },
       getDataStudioDate () {
-        this.$store.dispatch('studioClasses/getDataStudioDate', {
+        this.$store.dispatch("studioClasses/getDataStudioDate", {
           slug: this.$route.params.slug,
         })
       },
       getDataComments () {
-        this.$store.dispatch('commentStudioVidio/getDataComments', {
-          vidio_id: localStorage.getItem('vidio_id'),
+        this.$store.dispatch("commentStudioVidio/getDataComments", {
+          vidio_id: localStorage.getItem("vidio_id"),
         })
       },
       getDataAutoplay () {
         this.$store
-          .dispatch('studioChild/getDataAutoplay', {
+          .dispatch("studioChild/getDataAutoplay", {
             vidio_id: this.id,
             studio_slug: this.$route.params.slug,
           })
           .then(res => {
             this.autoPlay = res.data.data
-            localStorage.setItem('vidio_id', res.data.data.id)
+            localStorage.setItem("vidio_id", res.data.data.id)
             this.getDataComments()
           })
       },
       getDataListVidio () {
         this.$store
-          .dispatch('studioChild/getDataListVidio', {
+          .dispatch("studioChild/getDataListVidio", {
             slug: this.$route.params.slug,
             search: this.search,
-            status: 'publish',
+            status: "publish",
           })
           .then(({ data }) => {
             this.listVidio = data.data
@@ -281,10 +299,10 @@
       },
       getDataStudioClasses (date, page) {
         this.$store
-          .dispatch('studioClasses/getDataStudioClasses', {
+          .dispatch("studioClasses/getDataStudioClasses", {
             slug: this.$route.params.slug,
-            entities: 'studio.img,author,schedules,instructor_v2, img',
-            filter: 'Publish',
+            entities: "studio.img,author,schedules,instructor_v2, img",
+            filter: "Publish",
             date: date || this.currentDate,
             page: page,
           })
@@ -300,57 +318,43 @@
                 this.classes.data.push(...res.data.data)
                 this.state_load = false
               }
-              console.log(this.classes.data.length)
-            // console.log(this.classes.data)
             }
           })
       },
       firstLoad () {
-        if (this.$route.params.folder === 'home') return (this.tabs = 0)
-        else if (this.$route.params.folder === 'class') return (this.tabs = 1)
-        else if (this.$route.params.folder === 'reviews') return (this.tabs = 2)
+        if (this.$route.params.folder === "home") return (this.tabs = 0)
+        else if (this.$route.params.folder === "class") return (this.tabs = 1)
+        else if (this.$route.params.folder === "reviews") return (this.tabs = 2)
         else return (this.tabs = 0)
       },
       getDataClassSchedules (id) {
         this.$store
-          .dispatch('schedulesStudioClass/getDataClassSchedules', {
-            sort: 'start_at,time_start',
+          .dispatch("schedulesStudioClass/getDataClassSchedules", {
+            sort: "start_at,time_start",
             class_id: id,
           })
           .then(({ data }) => {
             this.timelines = data.data
-          // console.log(this.dialogSeeMore.id)
           })
       },
       getDataMe () {
-        this.$store.dispatch('user/me')
+        this.$store.dispatch("user/me")
       },
       scroll () {
         window.onscroll = () => {
           const bottomOfWindow =
             document.documentElement.scrollTop + window.innerHeight >=
             document.documentElement.offsetHeight
-          console.log(bottomOfWindow)
-          // console.log('heightOfsset : ', document.documentElement.offsetHeight)
-          // console.log(
-          //   'scroll : ',
-          //   document.documentElement.scrollTop + window.innerHeight,
-          // )
 
-          // setTimeout(() => {
           if (bottomOfWindow) {
-            // setTimeout(() => {
             this.moreClass()
-          // this.resize()
-          // }, 3000)
           }
-        // }, 3000)
         }
       },
       // Emit
       letsPlay ({ item }) {
         this.id = item.id
-        localStorage.setItem('vidio_id', this.id)
+        localStorage.setItem("vidio_id", this.id)
         this.getDataAutoplay()
       },
       fetchDate ({ item }) {
@@ -361,21 +365,17 @@
       moreClass () {
         if (this.classes.links.next) {
           this.page++
-          console.log(this.date, 'ini moreclass')
-          // console.log(this.page)
-          // this.is_load = true
           this.getDataStudioClasses(this.date, this.page)
         }
       },
       fetchDataFromChild ({ item }) {
-        console.log(item)
         this.dialogSeeMore.open = true
         this.dialogSeeMore.data = item
         this.getDataClassSchedules(this.dialogSeeMore.data.id)
       },
       followStudio ({ item }) {
         this.$store
-          .dispatch('studio/followStudio', {
+          .dispatch("studio/followStudio", {
             slug: item.slug,
           })
           .then(res => {
@@ -384,11 +384,11 @@
               this.getDataStudioBySlug()
               this.$swal.fire({
                 customClass: {},
-                title: 'You have Followed this studio.',
+                title: "You have Followed this studio.",
                 width: 600,
-                padding: '3em',
+                padding: "3em",
                 background:
-                  '#fff url(https://sweetalert2.github.io/images/trees.png)',
+                  "#fff url(https://sweetalert2.github.io/images/trees.png)",
                 backdrop: `
   rgba(0,0,123,0.4)
   url("https://sweetalert2.github.io/images/nyan-cat.gif")
@@ -407,28 +407,28 @@
       },
       executeUnfollowStudio ({ item }) {
         this.$store
-          .dispatch('studio/unfollStudio', {
+          .dispatch("studio/unfollStudio", {
             slug: item.slug,
           })
           .then(({ data }) => {
             if (data.meta.status) {
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'You Unfollow this Studio',
+                icon: "success",
+                title: "You Unfollow this Studio",
               })
               this.getDataStudioBySlug()
               this.dialogUnFollow.open = false
@@ -440,43 +440,43 @@
         this.$swal
           .fire({
             title: `${item.name} !`,
-            text: 'Modal with a custom image.',
+            text: "Modal with a custom image.",
             imageUrl: item.img.url,
             imageWidth: 400,
             imageHeight: 200,
-            imageAlt: 'Custom image',
+            imageAlt: "Custom image",
             showCancelButton: true,
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'No, cancel!',
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!",
           })
           .then(res => {
             if (res.isConfirmed) {
               this.$store
-                .dispatch('studio/unfollStudio', {
+                .dispatch("studio/unfollStudio", {
                   slug: item.slug,
                 })
                 .then(({ data }) => {
                   if (data.meta.status) {
                     const Toast = this.$swal.mixin({
                       toast: true,
-                      position: 'bottom-end',
+                      position: "bottom-end",
                       showConfirmButton: false,
                       timer: 3000,
                       timerProgressBar: true,
                       didOpen: toast => {
-                        toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                        toast.addEventListener("mouseenter", this.$swal.stopTimer)
                         toast.addEventListener(
-                          'mouseleave',
+                          "mouseleave",
                           this.$swal.resumeTimer,
                         )
                       },
-                      popup: 'swal2-show',
-                      backdrop: 'swal2-backdrop-show',
-                      icon: 'swal2-icon-show',
+                      popup: "swal2-show",
+                      backdrop: "swal2-backdrop-show",
+                      icon: "swal2-icon-show",
                     })
                     Toast.fire({
-                      icon: 'success',
-                      title: 'You Unfollow this Studio',
+                      icon: "success",
+                      title: "You Unfollow this Studio",
                     })
                     this.getDataStudioBySlug()
                   }
@@ -486,38 +486,38 @@
               res.dismiss === this.$swal.DismissReason.cancel
             ) {
               this.$swal.fire(
-                'You Still Followed',
-                'Enjoy With My Content :)',
-                'error',
+                "You Still Followed",
+                "Enjoy With My Content :)",
+                "error",
               )
             }
           })
       },
       likeStudio ({ item }) {
         this.$store
-          .dispatch('studio/likeStudio', {
+          .dispatch("studio/likeStudio", {
             slug: item.slug,
           })
           .then(({ data }) => {
             if (data.meta.status) {
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
 
               Toast.fire({
-                icon: 'success',
-                title: 'You like this Studio',
+                icon: "success",
+                title: "You like this Studio",
               })
               this.getDataStudioBySlug()
             }
@@ -525,29 +525,29 @@
       },
       unLikeStudio ({ item }) {
         this.$store
-          .dispatch('studio/unLikeStudio', {
+          .dispatch("studio/unLikeStudio", {
             slug: item.slug,
           })
           .then(({ data }) => {
             if (data.meta.status) {
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
 
               Toast.fire({
-                icon: 'success',
-                title: 'You Unlike this Studio',
+                icon: "success",
+                title: "You Unlike this Studio",
               })
               this.getDataStudioBySlug()
             }
