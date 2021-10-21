@@ -5,6 +5,8 @@ namespace Modules\Studio\Entities;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\StudioOwners\Entities\ReviewResponse;
+use Modules\StudioOwners\Entities\StudioClassVidio;
 
 class Reviews extends Model
 {
@@ -40,6 +42,16 @@ class Reviews extends Model
     public function report()
     {
         return $this->belongsToMany(User::class, 'report_user_reviews', 'review_id', 'user_report');
+    }
+
+    public function response()
+    {
+        return $this->hasMany(ReviewResponse::class, 'review_id');
+    }
+
+    public function classVidio()
+    {
+        return $this->belongsTo(StudioClassVidios::class, 'class_vidio_id');
     }
 
     public function scopeEntities($query, $entities)

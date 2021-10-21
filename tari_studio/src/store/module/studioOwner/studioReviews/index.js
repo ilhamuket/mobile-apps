@@ -51,7 +51,12 @@ export default {
         }
       }
     },
-    SEND_REPLIES: (state, payload) => {},
+    SEND_REPLIES: (state, payload) => {
+      const indexReviews = state.data.findIndex(x => x.id === payload.id)
+      if (indexReviews !== -1) {
+        state.data[indexReviews].status = "ditanggapi"
+      }
+    },
   },
   actions: {
     getDataReviewsStudio: ({ commit }, payload) => {
@@ -143,6 +148,22 @@ export default {
           })
       })
     },
-    sendReplieReviews: ({ commit }, payload) => {},
+    sendReplieReviews: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        "Bearer " + localStorage.getItem("access_token")
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        axios
+          .post(`owner/reviews/reply/${payload.id}`, { ...payload })
+          .then(res => {
+            commit("SEND_REPLIES", payload)
+            resolve(res)
+          })
+          .catch(e => {
+            reject(e)
+          })
+      })
+    },
   },
 }

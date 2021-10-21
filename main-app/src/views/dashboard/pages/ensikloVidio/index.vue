@@ -26,6 +26,7 @@
       getDataEnsikloVidio () {
         this.$store.dispatch("ensikloVidio/getDataEnsikloVidio", {
           entities: "category,studio",
+          status: "publish",
         })
       },
     },

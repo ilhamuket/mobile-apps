@@ -43,10 +43,15 @@
               <v-avatar
                 v-else
                 size="90"
+                color="primary"
               >
-                <v-img
+                <!-- <v-img
                   src="https://ecs7.tokopedia.net/img/cache/100-square/user-1/2021/1/22/38585570/38585570_bd6dcd82-263e-45e4-bb8f-725e0088068b.jpg"
-                />
+                /> -->
+                <span class="font-spartan">
+                  {{ dialog.data.user.firstName.charAt(0)
+                  }}{{ dialog.data.user.lastName.charAt(0) }}
+                </span>
               </v-avatar>
             </v-col>
             <v-col

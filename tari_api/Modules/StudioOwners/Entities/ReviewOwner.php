@@ -32,6 +32,7 @@ class ReviewOwner extends Model
     {
         return $this->belongsTo(StudioClassVidio::class, 'class_vidio_id');
     }
+
     public function studio()
     {
         return $this->belongsTo(OwnerStudio::class, 'studio_id');

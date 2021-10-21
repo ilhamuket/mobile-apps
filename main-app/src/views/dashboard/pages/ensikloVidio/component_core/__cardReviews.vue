@@ -60,7 +60,7 @@
             readonly
             rounded
           >
-            <span class="font-progresss font-weight-bold">{{
+            <span class="font-progresss font-weight-bold btn_primary--text">{{
               value.five
             }}</span>
           </v-progress-linear>
@@ -93,7 +93,7 @@
             readonly
             rounded
           >
-            <span class="font-progresss font-weight-bold">{{
+            <span class="font-progresss font-weight-bold btn_primary--text">{{
               value.four
             }}</span>
           </v-progress-linear>
@@ -126,7 +126,7 @@
             readonly
             rounded
           >
-            <span class="font-progresss font-weight-bold">{{
+            <span class="font-progresss font-weight-bold btn_primary--text">{{
               value.third
             }}</span>
           </v-progress-linear>
@@ -159,7 +159,9 @@
             readonly
             rounded
           >
-            <span class="font-progresss font-weight-bold">{{ value.two }}</span>
+            <span class="font-progresss font-weight-bold btn_primary--text">{{
+              value.two
+            }}</span>
           </v-progress-linear>
 
           <br>
@@ -190,7 +192,9 @@
             readonly
             rounded
           >
-            <span class="font-progresss font-weight-bold">{{ value.one }}</span>
+            <span class="font-progresss font-weight-bold btn_primary--text">{{
+              value.one
+            }}</span>
           </v-progress-linear>
         </div>
       </v-col>
@@ -266,7 +270,10 @@
     <span class="font-spartan-small ml-4">
       All Reviews ({{ reviews.length }})
     </span>
-    <v-row class="mt-2">
+    <v-row
+      v-if="reviews.length > 0"
+      class="mt-2"
+    >
       <v-col
         v-for="(item, i) in reviews"
         :key="i"
@@ -332,6 +339,13 @@
             </v-row>
           </v-container>
         </v-card-text>
+      </v-col>
+    </v-row>
+    <v-row v-else>
+      <v-col cols="12">
+        <span class="font-spartan d-flex justify-center">
+          Belum Ada
+        </span>
       </v-col>
     </v-row>
   </v-container>

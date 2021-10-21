@@ -73,7 +73,7 @@
           </v-menu>
         </div>
 
-        <v-btn
+        <!-- <v-btn
           :disabled="selected.length === 0"
           class="ml-2"
           outlined
@@ -95,7 +95,7 @@
             mdi-delete-empty-outline
           </v-icon>
           Delete {{ selected.length }} item
-        </v-btn>
+        </v-btn> -->
       </v-col>
       <v-col cols="12">
         <v-data-table
@@ -130,6 +130,14 @@
             >
               <v-img :src="item.user.img.url" />
             </v-avatar>
+            <v-avatar
+              v-else
+              color="primary"
+            >
+              <span class="font-spartan">
+                {{ item.user.nickName.charAt(0) }}
+              </span>
+            </v-avatar>
           </template>
           <template #[`item.class.name`]="{item}">
             <span>
@@ -163,15 +171,26 @@
                   <div class="d-flex flex-column mt-2">
                     <a
                       class="font-a-delete d-flex flex-nowrap"
-                      @click="deleteDiscuss(item)"
+                      @click="replyReviews(item)"
                     >
-                      <v-icon
-                        color="red"
-                        small
+                      <v-tooltip
+                        color="primary"
+                        bottom
                       >
-                        mdi-delete
-                      </v-icon>
-                      Delete
+                        <template #activator="{on,attrs}">
+                          <v-icon
+                            v-bind="attrs"
+                            color="blue"
+                            small
+                            v-on="on"
+                          >
+                            mdi-reply-all-outline
+                          </v-icon>
+                        </template>
+                        <span class="font-spartan-spartan blue--text">
+                          reply
+                        </span>
+                      </v-tooltip>
                     </a>
                   </div>
                 </div>
@@ -246,12 +265,12 @@
           sortable: false,
           value: "user.firstName",
         },
-        {
-          text: "table.reviews.th.body",
-          align: "start",
-          sortable: false,
-          value: "body",
-        },
+        // {
+        //   text: "table.reviews.th.body",
+        //   align: "start",
+        //   sortable: false,
+        //   value: "body",
+        // },
         {
           text: "table.reviews.th.name_class",
           align: "start",
@@ -294,6 +313,9 @@
       },
       refresh () {
         this.$emit("refresh")
+      },
+      replyReviews (item) {
+        this.$emit("reply", { item: item })
       },
     },
   }

@@ -126,17 +126,25 @@
 
           <!-- Items -->
           <template #[`item.id`]="{item}">
-            <v-avatar
-              v-if="item.user.img"
-              size="60"
-            >
-              <v-img :src="item.user.img.url" />
-            </v-avatar>
-            <v-avatar v-else>
-              <v-img
-                src="https://ecs7.tokopedia.net/img/cache/100-square/user-1/2021/1/22/38585570/38585570_bd6dcd82-263e-45e4-bb8f-725e0088068b.jpg"
-              />
-            </v-avatar>
+            <div v-if="item.user">
+              <v-avatar
+                v-if="item.user.img"
+                size="60"
+              >
+                <v-img :src="item.user.img.url" />
+              </v-avatar>
+              <v-avatar
+                v-else
+                color="primary"
+              >
+                <!-- <v-img
+                  src="https://ecs7.tokopedia.net/img/cache/100-square/user-1/2021/1/22/38585570/38585570_bd6dcd82-263e-45e4-bb8f-725e0088068b.jpg"
+                /> -->
+                <span class="font-spartan">
+                  {{ item.user.nickName.charAt(0) }}
+                </span>
+              </v-avatar>
+            </div>
           </template>
           <template #[`item.user.firstName`]="{item}">
             <div class="mt-6">
@@ -256,18 +264,18 @@
           sortable: false,
           value: "class.name",
         },
-        {
-          text: "table.discusses.th.comments",
-          align: "start",
-          sortable: false,
-          value: "child.firstName",
-        },
-        {
-          text: "table.discusses.th.like",
-          align: "start",
-          sortable: false,
-          value: "likes",
-        },
+        // {
+        //   text: "table.discusses.th.comments",
+        //   align: "start",
+        //   sortable: false,
+        //   value: "child.firstName",
+        // },
+        // {
+        //   text: "table.discusses.th.like",
+        //   align: "start",
+        //   sortable: false,
+        //   value: "likes",
+        // },
         {
           text: "Status",
           align: "start",
