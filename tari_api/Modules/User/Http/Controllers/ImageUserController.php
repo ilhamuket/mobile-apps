@@ -30,6 +30,7 @@ class ImageUserController extends Controller
 
             $img = new ImageUser();
             $path = $request->img->store("images");
+            $img->name_thumbnail = 'user';
             $img->url = $path;
             $img->user_id = $request->user()->id;
             $img->save();
