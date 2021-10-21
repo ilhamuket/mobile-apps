@@ -22,27 +22,27 @@ class ReviewController extends Controller
                 "one" => 0
             ];
 
-            $data["five"] = Reviews::whereHas(function (Builder $query) use ($slug_studio) {
+            $data["five"] = Reviews::whereHas("studio", function (Builder $query) use ($slug_studio) {
                 $query->where('slug', $slug_studio);
             })->where('ratings', '!=', null)
                 ->where("ratings", 5)->count();
-            $data["four"] = Reviews::whereHas(function (Builder $query) use ($slug_studio) {
+            $data["four"] = Reviews::whereHas("studio", function (Builder $query) use ($slug_studio) {
                 $query->where('slug', $slug_studio);
             })->where('ratings', '!=', null)
                 ->where("ratings", 4)->count();
-            $data["third"] = Reviews::whereHas(function (Builder $query) use ($slug_studio) {
+            $data["third"] = Reviews::whereHas("studio", function (Builder $query) use ($slug_studio) {
                 $query->where('slug', $slug_studio);
             })->where('ratings', '!=', null)
                 ->where("ratings", 3)->count();
-            $data["two"] = Reviews::whereHas(function (Builder $query) use ($slug_studio) {
+            $data["two"] = Reviews::whereHas("studio", function (Builder $query) use ($slug_studio) {
                 $query->where('slug', $slug_studio);
             })->where('ratings', '!=', null)
                 ->where("ratings", 2)->count();
-            $data["one"] = Reviews::whereHas(function (Builder $query) use ($slug_studio) {
+            $data["one"] = Reviews::whereHas("studio", function (Builder $query) use ($slug_studio) {
                 $query->where('slug', $slug_studio);
             })->where('ratings', '!=', null)
                 ->where("ratings", 1)->count();
-            $data["all"] = Reviews::whereHas(function (Builder $query) use ($slug_studio) {
+            $data["all"] = Reviews::whereHas("studio", function (Builder $query) use ($slug_studio) {
                 $query->where('slug', $slug_studio);
             })->where('ratings', '!=', null)
                 ->count();
