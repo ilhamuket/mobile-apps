@@ -11,7 +11,7 @@ use Modules\Studio\Entities\Reviews;
 
 class ReviewController extends Controller
 {
-    public function summaryReviewStudio(Request $request, $id)
+    public function summaryReviewStudio(Request $request, $slug_studio)
     {
         try {
             $data = [
@@ -22,17 +22,29 @@ class ReviewController extends Controller
                 "one" => 0
             ];
 
-            $data["five"] = Reviews::where('studio_id', $id)->where('ratings', '!=', null)
+            $data["five"] = Reviews::whereHas(function (Builder $query) use ($slug_studio) {
+                $query->where('slug', $slug_studio);
+            })->where('ratings', '!=', null)
                 ->where("ratings", 5)->count();
-            $data["four"] = Reviews::where('studio_id', $id)->where('ratings', '!=', null)
+            $data["four"] = Reviews::whereHas(function (Builder $query) use ($slug_studio) {
+                $query->where('slug', $slug_studio);
+            })->where('ratings', '!=', null)
                 ->where("ratings", 4)->count();
-            $data["third"] = Reviews::where('studio_id', $id)->where('ratings', '!=', null)
+            $data["third"] = Reviews::whereHas(function (Builder $query) use ($slug_studio) {
+                $query->where('slug', $slug_studio);
+            })->where('ratings', '!=', null)
                 ->where("ratings", 3)->count();
-            $data["two"] = Reviews::where('studio_id', $id)->where('ratings', '!=', null)
+            $data["two"] = Reviews::whereHas(function (Builder $query) use ($slug_studio) {
+                $query->where('slug', $slug_studio);
+            })->where('ratings', '!=', null)
                 ->where("ratings", 2)->count();
-            $data["one"] = Reviews::where('studio_id', $id)->where('ratings', '!=', null)
+            $data["one"] = Reviews::whereHas(function (Builder $query) use ($slug_studio) {
+                $query->where('slug', $slug_studio);
+            })->where('ratings', '!=', null)
                 ->where("ratings", 1)->count();
-            $data["all"] = Reviews::where('studio_id', $id)->where('ratings', '!=', null)
+            $data["all"] = Reviews::whereHas(function (Builder $query) use ($slug_studio) {
+                $query->where('slug', $slug_studio);
+            })->where('ratings', '!=', null)
                 ->count();
 
             return Json::response($data);
