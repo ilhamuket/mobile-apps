@@ -13,26 +13,36 @@ class ReviewController extends Controller
 {
     public function summaryReviewStudio(Request $request, $id)
     {
-        $data = [
-            "five" => 0,
-            "four" => 0,
-            "third" => 0,
-            "two" => 0,
-            "one" => 0
-        ];
+        try {
+            $data = [
+                "five" => 0,
+                "four" => 0,
+                "third" => 0,
+                "two" => 0,
+                "one" => 0
+            ];
 
-        $data["five"] = Reviews::where('studio_id', $id)->where('ratings', '!=', null)
-            ->where("ratings", 5)->count();
-        $data["four"] = Reviews::where('studio_id', $id)->where('ratings', '!=', null)
-            ->where("ratings", 4)->count();
-        $data["third"] = Reviews::where('studio_id', $id)->where('ratings', '!=', null)
-            ->where("ratings", 3)->count();
-        $data["two"] = Reviews::where('studio_id', $id)->where('ratings', '!=', null)
-            ->where("ratings", 2)->count();
-        $data["one"] = Reviews::where('studio_id', $id)->where('ratings', '!=', null)
-            ->where("ratings", 1)->count();
-        $data["all"] = Reviews::where('studio_id', $id)->where('ratings', '!=', null)
-            ->count();
+            $data["five"] = Reviews::where('studio_id', $id)->where('ratings', '!=', null)
+                ->where("ratings", 5)->count();
+            $data["four"] = Reviews::where('studio_id', $id)->where('ratings', '!=', null)
+                ->where("ratings", 4)->count();
+            $data["third"] = Reviews::where('studio_id', $id)->where('ratings', '!=', null)
+                ->where("ratings", 3)->count();
+            $data["two"] = Reviews::where('studio_id', $id)->where('ratings', '!=', null)
+                ->where("ratings", 2)->count();
+            $data["one"] = Reviews::where('studio_id', $id)->where('ratings', '!=', null)
+                ->where("ratings", 1)->count();
+            $data["all"] = Reviews::where('studio_id', $id)->where('ratings', '!=', null)
+                ->count();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
     public function avarage(Request $request, $studio_slug)
     {
