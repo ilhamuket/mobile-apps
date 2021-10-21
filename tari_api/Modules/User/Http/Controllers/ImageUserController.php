@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Modules\User\Entities\ImageUser;
 
 class ImageUserController extends Controller
@@ -17,31 +18,21 @@ class ImageUserController extends Controller
             DB::beginTransaction();
             $me = $request->user();
             $vidio = ImageUser::where('user_id', $me->id)->first();
-            $vidio->delete();
-            if ($request->hasfile('img')) {
-                //getting the file from view
-                $image = $request->file('img');
-                $image_size = $image->getSize();
-
-                //getting the extension of the file
-                $image_ext = $image->getClientOriginalExtension();
-
-                //changing the name of the file
-                $new_image_name = rand(123456, 999999) . "." . $image_ext;
-
-                $destination_path = public_path('images');
-                $image->move($destination_path, $new_image_name);
-
-                // save to database
-                $master = new ImageUser();
-                $master->name_thumbnail = $new_image_name;
-                $master->url =  'images/' . $new_image_name;
-                $master->user_id = $request->user()->id;
-                $master->save();
-
-                DB::commit();
-                return Json::response($master);
+            $image_path = $new_array[3] . '/' . $new_array[4] . '/' . $new_array[5];
+            // dd($image_path);
+            if (File::exists($image_path)) {
+                File::delete($image_path);
             }
+            $vidio->delete();
+
+
+            $img = new ImageUser();
+            $path = $request->img->store("user");
+            $img->url = $path;
+            $img->user_id = $request->user()->id;
+            $img->save();
+
+            return Json::response($img);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
@@ -58,7 +49,7 @@ class ImageUserController extends Controller
         try {
             $master = new ImageUser();
             $master->name_thumbnail = $request->user()->nickname;
-            $path = $request->img->store('images');
+            $path = $request->img->store('user');
             $master->url =  $path;
             $master->user_id = $request->user()->id;
             $master->save();
