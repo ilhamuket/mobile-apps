@@ -35,7 +35,7 @@ class ReviewController extends Controller
             $data["all"] = Reviews::where('studio_id', $id)->where('ratings', '!=', null)
                 ->count();
 
-            return Json::response($master);
+            return Json::response($data);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         } catch (\Illuminate\Database\QueryException $e) {
