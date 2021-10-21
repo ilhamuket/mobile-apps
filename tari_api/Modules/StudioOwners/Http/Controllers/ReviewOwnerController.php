@@ -27,6 +27,7 @@ class ReviewOwnerController extends Controller
             $response->body = $request->body;
             $response->review_id = $review_id;
             $response->status = '';
+            $response->save();
 
             DB::commit();
             return Json::response($response);
