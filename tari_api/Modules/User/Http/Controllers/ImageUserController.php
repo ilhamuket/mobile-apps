@@ -35,6 +35,7 @@ class ImageUserController extends Controller
             $img->user_id = $request->user()->id;
             $img->save();
 
+            DB::commit();
             return Json::response($img);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
