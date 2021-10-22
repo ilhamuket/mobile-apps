@@ -90,6 +90,11 @@
             "change": "Ubah Foto",
             "choose": "Pilih Foto"
         },
+        "add": {
+            "username": "Tambahkan Username",
+            "first_name": "Tambahkan Nama Depan",
+            "date": "Tambahkan Tanggal Lahir"
+        },
         "wait": "Menunggu Pembayaran",
         "list": "Daftar Transaksi",
         "wishlist": "Daftar Keinginan",
@@ -99,5 +104,6 @@
     },
     "pembelian": "Pembelian",
     "profile_": "Profil",
-    "change": "Ubah"
+    "change": "Ubah",
+    "etc": "Lainnya"
 }

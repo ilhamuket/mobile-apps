@@ -91,6 +91,11 @@
           "change": "change picture",
           "choose": "select image"
       },
+      "add": {
+          "username": "Tambahkan Username",
+          "first_name": "Tambahkan Nama Depan",
+          "date": "Add Date of Birth"
+      },
       "wait": "Waiting for payment",
       "list": "Transaction List",
       "wishlist": "Wishlist",
@@ -100,5 +105,6 @@
   },
   "pembelian": "Purchase",
   "profile_": "Profile",
-  "change": "Change"
+  "change": "Change",
+  "etc": "Other"
 }

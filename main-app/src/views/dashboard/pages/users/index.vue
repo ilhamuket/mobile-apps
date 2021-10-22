@@ -17,13 +17,16 @@
         <v-card>
           <v-tabs
             v-model="tabs"
-            background-color="btn_primary"
             color="btn_primary"
             class="tabs-profile"
-            show-arrows
           >
             <v-tab class="font-spartan-small">
-              Profile
+              <v-icon
+                color="grey"
+                class="mr-1"
+              >
+                mdi-account
+              </v-icon>Profile
             </v-tab>
           </v-tabs>
           <v-tabs-items v-model="tabs">
@@ -157,7 +160,6 @@
           })
       },
       changePicture ({ item }) {
-        console.log(item.files)
         this.$store
           .dispatch("user/changePicture", {
             files: item.files,
@@ -196,4 +198,13 @@
   font-size: 59px !important
 .img-oppa
   background-color: #843839 !important
+</style>
+<style lang="sass">
+.tabs-profile
+  .v-item-group
+        border-bottom: 2px double #9DACC2 !important
+        .v-tab
+            text-transform: capitalize
+            font-family: "Spartan", sans-serif
+            font-size: 14px
 </style>

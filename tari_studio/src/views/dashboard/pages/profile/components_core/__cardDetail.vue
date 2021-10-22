@@ -43,7 +43,7 @@
             >
               {{ studio.type }}
             </v-chip>
-            <v-chip
+            <!-- <v-chip
               label
               class="font-spartan-small ml-2"
               color="transparent"
@@ -52,8 +52,8 @@
               <v-icon class="mr-1">
                 mdi-map-marker
               </v-icon>
-              {{ studio.address }}
-            </v-chip>
+              {{ studio.user.address }}
+            </v-chip> -->
             <v-chip
               label
               class="font-spartan-small ml-2"

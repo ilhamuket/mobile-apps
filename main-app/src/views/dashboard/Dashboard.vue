@@ -137,23 +137,6 @@
                       </v-chip>
                     </div>
 
-                    <div
-                      class="d-flex flex-column flex-nowrap text-capitalize ml-2 "
-                    >
-                      <v-chip
-                        color="primary"
-                        small
-                        label
-                        outlined
-                        class="font-size-ather-roboto-mono"
-                      >
-                        <v-icon>
-                          mdi-map-marker
-                        </v-icon>
-                        {{ item.address }}
-                      </v-chip>
-                    </div>
-
                     <div class="d-flex flex-column ml-2">
                       <v-chip
                         color="primary"
@@ -161,12 +144,25 @@
                         label
                         outlined
                       >
-                        <v-icon
-                          :color="$vuetify.theme.dark ? 'white' : 'orange'"
-                          class="mr-1"
+                        <v-tooltip
+                          bottom
+                          color="primary"
                         >
-                          mdi-account-check
-                        </v-icon>
+                          <template #activator="{on, attrs}">
+                            <v-icon
+                              v-bind="attrs"
+                              :color="$vuetify.theme.dark ? 'white' : 'orange'"
+                              class="mr-1"
+                              v-on="on"
+                            >
+                              mdi-account-check
+                            </v-icon>
+                          </template>
+                          <span class="font-spartan-small">
+                            Following
+                          </span>
+                        </v-tooltip>
+
                         {{ item.followers.length }}
                       </v-chip>
                     </div>
@@ -395,7 +391,9 @@
                     color="orange"
                     text
                     @click="
-                      toPush(`detail/class/live/${item.studio.slug}/${item.slug}`)
+                      toPush(
+                        `detail/class/live/${item.studio.slug}/${item.slug}`
+                      )
                     "
                   >
                     {{ $t("dahsboard.cxp") }}

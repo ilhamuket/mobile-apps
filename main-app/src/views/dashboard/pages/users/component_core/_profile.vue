@@ -13,10 +13,12 @@
                   v-if="user.img"
                   width="600"
                   height="300"
+                  class="rounded-lg"
                   :src="user.img.url"
                 />
                 <v-img
                   v-else
+                  class="rounded-lg"
                   width="600"
                   height="300"
                   src="https://ecs7.tokopedia.net/img/cache/300/default_picture_user/default_toped-22.jpg"
@@ -189,7 +191,7 @@
                         small
                         color="transparent"
                         text-color="btn_primary"
-                      >Tambahkan Tanggal Lahir</v-chip>
+                      >{{ $t("profile.add.date") }}</v-chip>
                     </span>
                   </div>
                 </div>
@@ -240,6 +242,32 @@
                         text-color="btn_primary"
                       >Tambahkan Contact</v-chip>
                     </span>
+                  </div>
+                </div>
+                <div class="d-flex flex-row margin--socmed">
+                  <div class="d-flex flex-column">
+                    <v-icon
+                      large
+                      color="red"
+                    >
+                      mdi-instagram
+                    </v-icon>
+                  </div>
+                  <div class="d-flex flex-column">
+                    <v-icon
+                      color="blue"
+                      large
+                    >
+                      mdi-facebook
+                    </v-icon>
+                  </div>
+                  <div class="d-flex flex-column">
+                    <v-icon
+                      color="blue"
+                      large
+                    >
+                      mdi-twitter
+                    </v-icon>
                   </div>
                 </div>
               </v-col>
@@ -355,4 +383,10 @@
   }
 </script>
 
-<style></style>
+<style lang="sass" scoped>
+.margin--socmed
+    margin-top: 96px
+    margin-left: 176px
+    .v-icon
+        font-size: 40px !important
+</style>

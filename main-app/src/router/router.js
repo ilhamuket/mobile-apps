@@ -293,6 +293,20 @@ const router = new Router({
             requiresAuth: true,
           },
         },
+        {
+          name: "etc",
+          path: "/pages/user/etc/:variable",
+          component: () => import("@/views/dashboard/pages/etc/index.vue"),
+          meta: {
+            breadcumbs: [
+              {
+                text: "Dashboard",
+                to: "/",
+              },
+            ],
+            requiresAuth: true,
+          },
+        },
         // {
         //   name: 'Page Not Found',
         //   path: '*',

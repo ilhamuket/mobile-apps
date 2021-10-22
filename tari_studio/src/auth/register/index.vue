@@ -46,23 +46,23 @@
               <v-divider />
 
               <v-stepper-step
-                editable
+                :editable="e1 > 2 || disable_state ? true : false"
                 :complete="e1 > 2"
                 step="2"
               >
                 Buat Studio
-                <!-- :editable="e1 > 2 || disable_state ? true : false" -->
+                <!--  -->
               </v-stepper-step>
 
               <v-divider />
 
               <v-stepper-step
-                editable
+                :editable="e1 > 3 || disable_state_three ? true : false"
                 :complete="e1 > 3"
                 step="3"
               >
                 Tahap Akhir
-                <!-- :editable="e1 > 3 || disable_state_three ? true : false"  -->
+                <!--   -->
               </v-stepper-step>
             </v-stepper-header>
 
@@ -93,52 +93,52 @@
 </template>
 
 <script>
-  import axios from 'axios'
-  import cardCreatingAccount from './component/_creatingAccount.vue'
-  import cardCreatingStudio from './component/_creatingStudio.vue'
-  import cardFinal from './component/_waiting-verification.vue'
+  import axios from "axios"
+  import cardCreatingAccount from "./component/_creatingAccount.vue"
+  import cardCreatingStudio from "./component/_creatingStudio.vue"
+  import cardFinal from "./component/_waiting-verification.vue"
   axios.defaults.headers.common.Authorization =
-    'Bearer ' + localStorage.getItem('access_token')
+    "Bearer " + localStorage.getItem("access_token")
   axios.defaults.baseURL = process.env.VUE_APP_API_URL
   export default {
     components: {
-      'app-card-creating-acc': cardCreatingAccount,
-      'app-card-creating-studio': cardCreatingStudio,
-      'app-card-final': cardFinal,
+      "app-card-creating-acc": cardCreatingAccount,
+      "app-card-creating-studio": cardCreatingStudio,
+      "app-card-final": cardFinal,
     },
     data: () => ({
       show: false,
-      email: '',
-      password: '',
+      email: "",
+      password: "",
       e1: 1,
       invalid: false,
       disable_state: false,
       disable_state_three: false,
       users: {
-        firstName: 'Studio',
-        lastName: 'Bagus',
+        firstName: "Studio",
+        lastName: "Bagus",
       },
       studio: {
         data: {
           item2: {},
-          preifx: 'as',
-          fullnameStudio: '',
+          preifx: "as",
+          fullnameStudio: "",
         },
       },
       isYet: false,
-      region: 'bandung',
+      region: "bandung",
       isMobile: false,
     }),
     computed: {
       imgUrl () {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        this.sideImg = require('@/assets/img/Secure login-bro.svg')
+        this.sideImg = require("@/assets/img/Secure login-bro.svg")
         return this.sideImg
       },
     //
     },
     mounted () {
-      localStorage.setItem('yet', this.isYet)
+      localStorage.setItem("yet", this.isYet)
     },
     methods: {
       toPush (link) {
@@ -155,7 +155,7 @@
         console.log(this.users)
       },
       alert () {
-        alert('Hello, World!')
+        alert("Hello, World!")
       },
       nextToStepThree ({ item }) {
         this.studio = item
@@ -165,12 +165,12 @@
       },
       uploadFiles ({ item }) {
         console.log(item)
-        const URL = 'studio/files/thumbnail'
+        const URL = "studio/files/thumbnail"
         const data = new FormData()
-        data.append('file', item)
+        data.append("file", item)
         const config = {
           header: {
-            'Content-Type': 'image/png',
+            "Content-Type": "image/png",
           },
         }
         axios.post(URL, data, config).then(response => {
@@ -185,9 +185,9 @@
         })
       },
       registerAsStudio () {
-        if (localStorage.getItem('yet') === 'false') {
+        if (localStorage.getItem("yet") === "false") {
           this.$store
-            .dispatch('studioAuth/registerAsStudio', {
+            .dispatch("studioAuth/registerAsStudio", {
               firstName: this.studio.data.item2.firstName,
               lastName: this.studio.data.item2.lastName,
               password: this.studio.data.item2.password,
@@ -203,46 +203,46 @@
               // this.$router.push('/')
               if (res.data.meta.status) {
                 this.isYet = true
-                localStorage.setItem('yet', this.isYet)
+                localStorage.setItem("yet", this.isYet)
                 const Toast = this.$swal.mixin({
                   toast: true,
-                  position: 'bottom-end',
+                  position: "bottom-end",
                   showConfirmButton: false,
                   timer: 3000,
                   timerProgressBar: true,
                   didOpen: toast => {
-                    toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                    toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                    toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                    toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                   },
-                  popup: 'swal2-show',
-                  backdrop: 'swal2-backdrop-show',
-                  icon: 'swal2-icon-show',
+                  popup: "swal2-show",
+                  backdrop: "swal2-backdrop-show",
+                  icon: "swal2-icon-show",
                 })
                 Toast.fire({
-                  icon: 'success',
-                  title: 'Send Verifications',
+                  icon: "success",
+                  title: "Send Verifications",
                 })
-                console.log('diverifikasi')
-                this.$router.push('/')
+                console.log("diverifikasi")
+                this.$router.push("/")
               } else {
                 // this.$router.push('/')
                 const Toast = this.$swal.mixin({
                   toast: true,
-                  position: 'bottom-end',
+                  position: "bottom-end",
                   showConfirmButton: false,
                   timer: 3000,
                   timerProgressBar: true,
                   didOpen: toast => {
-                    toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                    toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                    toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                    toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                   },
-                  popup: 'swal2-show',
-                  backdrop: 'swal2-backdrop-show',
-                  icon: 'swal2-icon-show',
+                  popup: "swal2-show",
+                  backdrop: "swal2-backdrop-show",
+                  icon: "swal2-icon-show",
                 })
                 Toast.fire({
-                  icon: 'error',
-                  title: 'Gagal',
+                  icon: "error",
+                  title: "Gagal",
                 })
               }
             })
@@ -250,8 +250,8 @@
         // localStorage.setItem('yet', this.isYet)
         //
         } else {
-          this.$store.dispatch('studioAuth/resendOtp')
-          console.log('sendUlang')
+          this.$store.dispatch("studioAuth/resendOtp")
+          console.log("sendUlang")
         }
       },
     },

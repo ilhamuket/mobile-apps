@@ -96,7 +96,7 @@
                     v-for="(item, i) in itemProfile"
                     :key="i"
                   >
-                    <v-list-item-content>
+                    <v-list-item-content @click="push(item.to)">
                       <v-list-item-title
                         class="list--title"
                         v-text="$t(item.text)"
@@ -128,13 +128,25 @@
         { text: "profile.list", icon: "mdi-account" },
       ],
       itemProfile: [
-        { text: "profile.wishlist", icon: "mdi-clock" },
-        { text: "profile.followed", icon: "mdi-account" },
+        {
+          text: "profile.wishlist",
+          icon: "mdi-clock",
+          to: "/pages/user/etc/wishlist",
+        },
+        {
+          text: "profile.followed",
+          icon: "mdi-account",
+          to: "/pages/user/etc/followed",
+        },
       ],
+      panel: true,
     }),
     methods: {
       see (value) {
         window.open(value, "_blank")
+      },
+      push (link) {
+        this.$router.push(link)
       },
     },
   }
