@@ -3,6 +3,7 @@
 /public/storage
 /public/app/images
 /public/app/listImg
+/public/images
 /storage/*.key
 /vendor
 .env

@@ -199,6 +199,14 @@
                       </v-row>
                     </v-container>
                   </v-img>
+                  <v-img
+                    v-else
+                    src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/zeus/kratos/62cb37c4.png"
+                    width="140"
+                    height="100"
+                    gradient="to top right, rgba(0, 0, 0, 0.05), rgba(20, 20, 20, 0.05)"
+                    style="background-color:rgba(0, 0, 0, 0.05);"
+                  />
                   <input
                     ref="fileUpload"
                     type="file"
@@ -299,6 +307,7 @@
               <v-chip
                 label
                 :color="setStatusClass(item.status_kelas)"
+                text-color="white"
               >
                 {{ item.status_kelas }}
               </v-chip>

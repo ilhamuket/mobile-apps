@@ -83,8 +83,7 @@
         <v-card-actions class="d-flex flex-row-reverse mr-5">
           <div class="d-flex flex-column">
             <v-btn
-              outlined
-              color="primary"
+              color="btn_primary"
               @click="addTeachers"
             >
               Create

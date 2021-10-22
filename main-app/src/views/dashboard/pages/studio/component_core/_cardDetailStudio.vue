@@ -15,6 +15,11 @@
                 width="120"
                 height="120"
               />
+              <v-img
+                v-else
+                class="rounded-lg"
+                src="https://ecs7.tokopedia.net/img/cache/300/default_picture_user/default_toped-22.jpg"
+              />
             </v-col>
             <v-col cols="9">
               <v-row>
@@ -44,11 +49,11 @@
                         mdi-map-marker
                       </v-icon>
                     </div>
-                    <div
+                    <!-- <div
                       class="d-flex flex-column flex-nowrap text-capitalize font-roboto-mono-small"
                     >
                       {{ data.address }}
-                    </div>
+                    </div> -->
 
                     <div
                       v-if="data.followers"

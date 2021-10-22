@@ -53,10 +53,11 @@
         </v-img>
 
         <v-card-actions
+          v-if="item.studio"
           class="font-spartan-small customize--font primary--text"
         >
           <v-tooltip
-            v-if="item.name.length > 13"
+            v-if="item.studio.name.length > 13"
             bottom
             color="primary"
             style="cursor:pointer"
@@ -68,17 +69,17 @@
                 @click="toPush(item)"
                 v-on="on"
               >
-                {{ item.name.substr(0, 9) + '...' }}
+                {{ item.studio.name.substr(0, 9) + "..." }}
               </span>
             </template>
-            {{ item.name }}
+            {{ item.studio.name }}
           </v-tooltip>
           <span
             v-else
             style="cursor:pointer"
             @click="toPush(item)"
           >
-            {{ item.name }}
+            {{ item.studio.name }}
           </span>
           <span class="orange--text text-caption ml-2"> (200 Reviews) </span>
           <v-spacer />
@@ -97,13 +98,12 @@
 
         <v-card-text class="text--primary">
           <v-chip
-            v-if="item.studio"
             label
             outlined
             color="btn_primary"
             class="text-h4 font-spartan-small"
           >
-            Studio : {{ item.studio.name }}
+            {{ item.name }}
           </v-chip>
 
           <v-chip
@@ -130,7 +130,7 @@
           <br>
           <br>
           <span class="font-spartan-small">
-            Started Class : {{ item.start_at | moment('MMMM Do YYYY') }}
+            Started Class : {{ item.start_at | moment("MMMM Do YYYY") }}
           </span>
           <br>
           <span class="font-spartan-small font-italic">
@@ -202,7 +202,7 @@
     }),
     computed: {
       momentConver (val) {
-        return val.moment('dddd, MMMM Do YYYY')
+        return val.moment("dddd, MMMM Do YYYY")
       },
     },
     watch: {
@@ -212,9 +212,9 @@
 
     methods: {
       setColorLabel (item) {
-        if (item === 'ongoing') return 'btn_primary'
-        if (item === 'upcoming') return 'primary'
-        else return 'red'
+        if (item === "ongoing") return "btn_primary"
+        if (item === "upcoming") return "primary"
+        else return "red"
       },
       scroll () {
         if (this.tabs === 0) {

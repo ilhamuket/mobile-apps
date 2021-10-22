@@ -148,6 +148,7 @@ class StudioOwnerCategoryController extends Controller
             $studio = OwnerStudio::where('author_id', $me->id)->first();
             $category = new StudioOwnerCategory();
             $category->name = $request->name;
+            $category->slug = \Str::slug($request->name);
             $category->display_name = $request->display_name;
             $category->status = $request->status;
             $category->isVerified = true;

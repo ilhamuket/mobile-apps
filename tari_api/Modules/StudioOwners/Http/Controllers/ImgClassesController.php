@@ -28,7 +28,7 @@ class ImgClassesController extends Controller
             }
             $imgClass->delete();
             $master = new ImgClasses();
-            $path = $request->img->store('images');
+            $path = $request->img->store('images/ensiklo-live');
             $master->url = $path;
             $master->class_id = $imgClass->class_id;
             $master->save();
@@ -50,7 +50,7 @@ class ImgClassesController extends Controller
     {
         try {
             $master = new ImgClasses();
-            $path = $request->img->store('images');
+            $path = $request->img->store('images/ensiklo-live');
             $master->url = $path;
             $master->class_id = $request->class_id;
             $master->save();

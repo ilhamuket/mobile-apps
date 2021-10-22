@@ -89,15 +89,15 @@ class ImagesStudioController extends Controller
         try {
             DB::beginTransaction();
             $studio = OwnerStudio::where('author_id', $request->user()->id)->first();
-            $studioImg = ImagesStudio::where('studio_id', $request->studio_id)->first();
+            $studioImg = ImagesStudio::where('studio_id', $studio->id)->first();
             $new_array = explode('/', $studioImg->url);
-            $image_path = $new_array[3] . '/' . $new_array[4] . '/' . $new_array[5] . '/' . $new_array[6];
+            $image_path = $new_array[3] . '/' . $new_array[4] . '/' . $new_array[5];
 
 
             if (File::exists($image_path)) {
                 File::delete($image_path);
-                $studioImg->delete();
             }
+            $studioImg->delete();
 
             $master = new ImagesStudio();
             $path = $request->img->store('images/studio');
