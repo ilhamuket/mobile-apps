@@ -150,6 +150,7 @@
       <v-col cols="12">
         <app-data-table
           :data="computedClasses"
+          :studio="studio"
           @add="popDialog"
           @deletes="popDeletes"
           @approves="popApproves"
@@ -279,6 +280,7 @@
         title: "",
       },
       summary: "",
+      studio: {},
     }),
     computed: {
       computedClasses () {
@@ -289,6 +291,9 @@
       },
       computedCategories () {
         return this.$store.state.studioCategories.data
+      },
+      computedStudio () {
+        return this.$store.state.studio.me
       },
     },
     watch: {
@@ -303,8 +308,21 @@
       this.getDataClassesStudio()
       this.getDataSummary()
       this.getDataStudioCategories()
+      this.getStudioMe()
     },
     methods: {
+      getStudioMe () {
+        this.$store
+          .dispatch("studio/getDataMeStudio", {
+            entities: "bank",
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              this.is_load = false
+              this.studio = res.data.data
+            }
+          })
+      },
       getDataClassesStudio () {
         this.$store.dispatch("ownerStudioClasses/getDataClassesStudio", {
           entities: "studio, author, instructor, img, category,listImg",

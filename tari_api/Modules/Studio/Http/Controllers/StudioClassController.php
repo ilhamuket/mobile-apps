@@ -12,6 +12,36 @@ use Modules\Studio\Entities\StudioClass;
 
 class StudioClassController extends Controller
 {
+    public function getWishlist(Request $request, $id)
+    {
+        try {
+            $master = StudioClass::findOrFail($id);
+            $master->wishlist()->attach($request->user()->id);
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+    public function deleteWishlist(Request $request, $id)
+    {
+        try {
+            $master = StudioClass::findOrFail($id);
+            $master->wishlist()->detach($request->user()->id);
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     public function recomendation(Request $request, $studio_slug)
     {
         try {

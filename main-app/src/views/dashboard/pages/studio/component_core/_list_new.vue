@@ -119,6 +119,113 @@
                 </v-row>
               </v-container>
             </v-img>
+            <v-img
+              v-else
+              src="https://ecs7.tokopedia.net/img/cache/300/default_picture_user/default_toped-22.jpg"
+              width="400"
+              height="276"
+              gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
+              style="background-color: grey"
+            >
+              <v-container>
+                <v-row>
+                  <v-col
+                    class="d-flex flex-row-reverse"
+                    cols="12"
+                  >
+                    <v-icon
+                      v-if="!computedIsLikeYou[i]"
+                      color="red"
+                      @click="like(item)"
+                    >
+                      mdi-heart-outline
+                    </v-icon>
+                    <v-icon
+                      v-else
+                      color="red"
+                      @click="unLike(item)"
+                    >
+                      mdi-heart
+                    </v-icon>
+                    <v-icon
+                      class="mr-2"
+                      color="primary"
+                    >
+                      mdi-share-variant
+                    </v-icon>
+                  </v-col>
+                </v-row>
+                <v-row class="cols_list_studio">
+                  <v-col cols="12">
+                    <span class="font-spartan white--text">
+                      {{ item.name }}
+                    </span>
+                    <br>
+                    <span
+                      v-if="item.author"
+                      class="font-spartan white--text"
+                    >
+                      Studio
+                    </span>
+
+                    <v-rating
+                      :value="computedList[i]"
+                      readonly
+                      background-color="grey"
+                      color="orange"
+                      size="20"
+                    />
+
+                    <v-btn
+                      small
+                      width="190"
+                      outlined
+                      color="primary"
+                      class="btn-expolore-studio"
+                      @click="clickPush(item.slug)"
+                    >
+                      Explore
+                    </v-btn>
+                    <v-btn
+                      v-if="!computedIsFollowingYou[i]"
+                      small
+                      width="100"
+                      outlined
+                      color="primary"
+                      class="btn-expolore-studio ml-1"
+                      @click="follow(item)"
+                    >
+                      Follow
+                    </v-btn>
+                    <v-btn
+                      v-else
+                      width="100"
+                      small
+                      color="primary"
+                      class="btn-expolore-studio ml-1"
+                      @click="unFolow(item)"
+                    >
+                      <v-tooltip
+                        color="primary"
+                        bottom
+                      >
+                        <template #activator="{on, attrs}">
+                          <v-icon
+                            v-bind="attrs"
+                            v-on="on"
+                          >
+                            mdi-account-check
+                          </v-icon>
+                        </template>
+                        <span class="font-spartan-small">
+                          Un Follow
+                        </span>
+                      </v-tooltip>
+                    </v-btn>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-img>
           </v-card>
         </v-hover>
       </v-col>

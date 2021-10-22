@@ -106,6 +106,10 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
         Route::get('studio/summary/{id}', [ReviewController::class, 'summaryReviewStudio']);
         Route::get('class-vidio/{slug}', [ReviewOwnerController::class, 'showReviewsClassVidio']);
     });
+    Route::prefix('wishlist')->group(function () {
+        Route::post("{id}", [StudioClassController::class, 'getWishlist']);
+        Route::post("delete/{id}", [StudioClassController::class, 'deleteWishlist']);
+    });
     // Rooms
     Route::prefix('rooms')->group(function () {
         Route::get('', [RoomController::class, 'index']);

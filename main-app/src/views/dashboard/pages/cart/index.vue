@@ -18,14 +18,14 @@
 </template>
 
 <script>
-  import card from './component_core/_card.vue'
-  import buy from './component_core/_cardBuy.vue'
-  import wistlist from './component_core/_cardWistlist.vue'
+  import card from "./component_core/_card.vue"
+  import buy from "./component_core/_cardBuy.vue"
+  import wistlist from "./component_core/_cardWistlist.vue"
   export default {
     components: {
-      'app-data-card': card,
-      'app-data-buy': buy,
-      'app-data-wistlist': wistlist,
+      "app-data-card": card,
+      "app-data-buy": buy,
+      "app-data-wistlist": wistlist,
     },
     data: () => ({}),
     computed: {
@@ -38,9 +38,9 @@
     },
     methods: {
       getDataCart () {
-        this.$store.dispatch('cart/getDataCart', {
-          entities: 'user,class.studio, class.category, class.img',
-          type: 'cart',
+        this.$store.dispatch("cart/getDataCart", {
+          entities: "user,class.studio, class.category, class.img",
+          type: "cart",
         })
       },
     },

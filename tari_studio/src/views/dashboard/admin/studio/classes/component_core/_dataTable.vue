@@ -94,7 +94,9 @@
             </v-menu>
           </div>
           <v-btn
+            v-if="studio.bank"
             outlined
+            :disabled="studio.bank.length === 0"
             color="btn_primary"
             class="ml-2"
             @click="upDialog"
@@ -326,6 +328,10 @@
         type: Array,
         default: null,
       },
+      studio: {
+        type: Object,
+        default: null,
+      },
     },
     data: () => ({
       headers: [
@@ -380,6 +386,9 @@
         }
         return name
       },
+    },
+    mounted () {
+      console.log(this.studio)
     },
     methods: {
       setColorLevels (levels) {

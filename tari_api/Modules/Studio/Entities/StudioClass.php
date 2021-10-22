@@ -74,6 +74,11 @@ class StudioClass extends Model
         return $this->belongsToMany(User::class, 'classes_user_activity', 'class_id', 'user_activity_id');
     }
 
+    public function wishlist()
+    {
+        return $this->belongsToMany(User::class, 'user_wishlist_live', "class_id", "user_id");
+    }
+
     // ==== Scope ==== //
 
     public function getStatusKelasAttribute()

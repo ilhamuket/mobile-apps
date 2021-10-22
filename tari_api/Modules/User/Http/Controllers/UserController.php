@@ -71,7 +71,7 @@ class UserController extends Controller
             $user = User::join('model_has_roles', 'model_has_roles.model_id', "=", "users.id")
                 ->join('roles', 'model_has_roles.role_id', '=', 'roles.id')
                 ->entities($request->entities)
-                ->with('followingStudio.followers', 'followingStudio.likes', 'img')
+                // ->with('followingStudio.followers', 'followingStudio.likes', 'img', "followingStudio.img")
                 ->select('users.*', 'roles.name as role_name')
                 ->findOrFail($me->id);
 

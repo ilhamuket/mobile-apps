@@ -14,13 +14,16 @@
           </v-tab>
           <v-tab class="">
             <v-icon class="mr-2">
-              mdi-heart-outline
+              mdi-account-check
             </v-icon>Followed
           </v-tab>
         </v-tabs>
-        <v-tabs-items>
+        <v-tabs-items v-model="tabs">
           <v-tab-item>
-            <!--  -->
+            <app-tabs-wishlist :user="user" />
+          </v-tab-item>
+          <v-tab-item>
+            <app-tabs-followed :user="user" />
           </v-tab-item>
         </v-tabs-items>
       </v-col>
@@ -29,10 +32,57 @@
 </template>
 
 <script>
+  import tabWishlist from "./component_core/_tabWishlist.vue"
+  import tabFollowed from "./component_core/_tabFollowed.vue"
   export default {
+    components: {
+      "app-tabs-wishlist": tabWishlist,
+      "app-tabs-followed": tabFollowed,
+    },
     data: () => ({
       tabs: null,
+      user: {},
     }),
+    computed: {
+      computedMe () {
+        return this.$store.state.user.me
+      },
+    },
+    watch: {
+      tabs () {
+        if (this.tabs === 0) {
+          const params = (this.$route.params.variable = "wish-list")
+          this.$router.push(params).catch(() => {})
+        } else if (this.tabs === 1) {
+          const params = (this.$route.params.variable = "followed")
+          this.$router.push(params).catch(() => {})
+        }
+      },
+    },
+    mounted () {
+      this.getMe()
+      this.firstLoad()
+    },
+    methods: {
+      getMe () {
+        this.$store
+          .dispatch("user/me", {
+            entities: "followingStudio.img,followingStudio.reviews,wishlist.img",
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              this.user = res.data.data
+            }
+          })
+      },
+      firstLoad () {
+        if (this.$route.params.variable === "wist-list") {
+          this.tabs = 0
+        } else if (this.$route.params.variable === "followed") {
+          this.tabs = 1
+        }
+      },
+    },
   }
 </script>
 

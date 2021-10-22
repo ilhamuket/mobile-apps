@@ -14,6 +14,7 @@ use Modules\Room\Entities\Room;
 use Modules\Studio\Entities\CartClass;
 use Modules\Studio\Entities\ClassesScheduleStudio;
 use Modules\Studio\Entities\Studio;
+use Modules\Studio\Entities\StudioClass;
 use Modules\StudioOwners\Entities\ClassesOwnerStudio;
 use Modules\StudioOwners\Entities\OwnerStudio;
 use Modules\User\Entities\ImageUser;
@@ -98,6 +99,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function followingStudio()
     {
         return $this->belongsToMany(Studio::class, 'follow_studio', 'user_id', 'studio_id');
+    }
+
+    public function wishlist()
+    {
+        return $this->belongsToMany(StudioClass::class, 'user_wishlist_live', "user_id", "class_id");
     }
 
     public function scopeByRole($query, $role_id)

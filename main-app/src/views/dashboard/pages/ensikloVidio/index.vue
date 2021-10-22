@@ -1,8 +1,22 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="12">
+      <v-col
+        v-if="ensikloVidio.length !== 0"
+        cols="12"
+      >
         <app-list-vidio :data="ensikloVidio" />
+      </v-col>
+      <v-col
+        v-else
+        cols="12"
+        class="img--empety"
+      >
+        <v-img
+          width="900"
+          height="400"
+          src="@/assets/img/noclass.svg"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -33,4 +47,7 @@
   }
 </script>
 
-<style></style>
+<style lang="sass" scoped>
+.img--empety
+  margin-left: 220px
+</style>

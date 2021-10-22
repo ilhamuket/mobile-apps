@@ -7,6 +7,7 @@ use Brryfrmnn\Transformers\Json;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\StudioOwners\Entities\BankAccount;
 
 class Studio extends Model
 {
@@ -47,6 +48,13 @@ class Studio extends Model
     {
         return $this->hasMany(Reviews::class, 'studio_id');
     }
+
+    public function bank()
+    {
+        return $this->hasMany(BankAccount::class, 'studio_id');
+    }
+
+
 
     // ==== Scope ==== //
 

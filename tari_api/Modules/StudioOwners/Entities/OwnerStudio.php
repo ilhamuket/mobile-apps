@@ -56,6 +56,11 @@ class OwnerStudio extends Model
         return $this->hasMany(Reviews::class, 'studio_id');
     }
 
+    public function bank()
+    {
+        return $this->hasMany(BankAccount::class, 'studio_id');
+    }
+
     // ==== Scope === //
     public function scopeEntities($query, $entities)
     {
