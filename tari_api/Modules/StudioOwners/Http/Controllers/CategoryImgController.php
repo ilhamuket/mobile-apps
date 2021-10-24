@@ -19,7 +19,7 @@ class CategoryImgController extends Controller
             $categoryImg = CategoryImg::where('category_id', $request->category_id)->first();
             $new_array = explode('/', $categoryImg->url);
             // dd($new_array);
-            $image_path = $new_array[3] . '/' . $new_array[4] . '/' . $new_array[5] . '/' . $new_array[6];
+            $image_path = $new_array[3] . '/' . $new_array[4] . '/' . $new_array[5];
             // dd($image_path);
 
             if (File::exists($image_path)) {
