@@ -47,7 +47,7 @@
   }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 .img--empety
   margin-left: 220px
 </style>

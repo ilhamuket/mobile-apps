@@ -59,6 +59,7 @@
           :disabled="selected.length === 0"
           outlined
           color="red"
+          @click="deleteAll(selected)"
         >
           Delete {{ selected.length }} Item
         </v-btn>
@@ -67,6 +68,7 @@
           :disabled="computedIsActive || selected.length === 0"
           outlined
           color="blue"
+          @click="activated(selected)"
         >
           Activate {{ selected.length }} Item
         </v-btn>
@@ -131,7 +133,7 @@
                   <div class="d-flex flex-column mt-2 ml-2">
                     <a
                       class="font-a-delete d-flex flex-nowrap"
-                      @click="deleteDiscuss(item)"
+                      @click="deleteBankAccount(item)"
                     >
                       <v-tooltip
                         color="primary"
@@ -161,6 +163,7 @@
             <v-chip
               label
               :color="setColorStatus(item.status)"
+              text-color="white"
             >
               {{ $t(item.status) }}
             </v-chip>
@@ -235,11 +238,20 @@
       addBankAccount () {
         this.$emit("add")
       },
+      deleteAll (item) {
+        this.$emit("delAll", { item: item })
+      },
       refresh () {
         this.$emit("refresh")
       },
       editBankAccount (item) {
         this.$emit("edit", { item: item })
+      },
+      deleteBankAccount (item) {
+        this.$emit("deleteById", { item: item })
+      },
+      activated (item) {
+        this.$emit("activated", { item: item })
       },
     },
   }

@@ -20,7 +20,10 @@
         </v-tabs>
         <v-tabs-items v-model="tabs">
           <v-tab-item>
-            <app-tabs-wishlist :user="user" />
+            <app-tabs-wishlist
+              :user="user"
+              @del="deleteFromWishlist"
+            />
           </v-tab-item>
           <v-tab-item>
             <app-tabs-followed :user="user" />
@@ -81,6 +84,34 @@
         } else if (this.$route.params.variable === "followed") {
           this.tabs = 1
         }
+      },
+      deleteFromWishlist ({ item }) {
+        this.$store
+          .dispatch("etc/deleteFromWishlist", {
+            id: item.id,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Delete Item Successfully",
+              })
+            }
+          })
       },
     },
   }

@@ -120,8 +120,12 @@
           <v-tab-item>
             <app-page-payment
               :data="computedBankAccount"
+              @delAll="upDialogDeleteSelected"
               @add="updialogAddBankAccount"
               @edit="upDialogEditBankAccount"
+              @deleteById="upDialogDeleteBankById"
+              @refresh="refereshBankAccount"
+              @activated="upActivateDataBankAccount"
             />
           </v-tab-item>
         </v-tabs-items>
@@ -190,6 +194,25 @@
       :dialog="dataDialogEditBankAccount"
       @input="updateDataBankAccount"
     />
+    <app-dialog-notice-bank-account
+      :dialog="dialogDeleteSelectedBank"
+      icon="mdi-delete"
+      text="Are you sure want to delete Bank Account"
+    />
+    <app-dialog-notice-bank-account
+      :dialog="dalogBankDeleteById"
+      icon="mdi-delete"
+      :by-id="true"
+      text="Are you sure want to delete Bank Account with name"
+      @input="deleteDataBankAccountById"
+    />
+    <app-dialog-notice-bank-account
+      :dialog="activatedBankAccount"
+      icon="mdi-check"
+      text="Are you sure want to activated Bank Account with name"
+      text-btn1="Activated"
+      @input="activatedDataBankAccount"
+    />
   </v-container>
 </template>
 
@@ -206,6 +229,7 @@
   import editProfile from "./components/__editProfile.vue"
   import dialogFormAddPayment from "./components/__dialogAddPayment.vue"
   import dialogEditBankAccount from "./components/__dialogEditBankAccount.vue"
+  import dialogNoticeBankAccount from "./components/__dialogNoticeBank.vue"
   export default {
     components: {
       "app-card": card,
@@ -220,6 +244,7 @@
       "app-dialog-edit-profile": editProfile,
       "app-dialog-add-form": dialogFormAddPayment,
       "app-dialog-edit-bank-account": dialogEditBankAccount,
+      "app-dialog-notice-bank-account": dialogNoticeBankAccount,
     },
     data: () => ({
       tabs: null,
@@ -269,6 +294,18 @@
       dataDialogEditBankAccount: {
         open: false,
         data: {},
+      },
+      dialogDeleteSelectedBank: {
+        open: false,
+        data: [],
+      },
+      dalogBankDeleteById: {
+        open: false,
+        data: {},
+      },
+      activatedBankAccount: {
+        open: false,
+        data: [],
       },
       params: "",
       users: {},
@@ -822,6 +859,96 @@
               Toast.fire({
                 icon: "success",
                 title: "Data Added Successfully",
+              })
+            }
+          })
+      },
+      upDialogDeleteSelected ({ item }) {
+        this.dialogDeleteSelectedBank.open = true
+        this.dialogDeleteSelectedBank.data = item
+      },
+      upDialogDeleteBankById ({ item }) {
+        this.dalogBankDeleteById.open = true
+        this.dalogBankDeleteById.data = item
+      },
+      deleteDataBankAccountById ({ item }) {
+        this.$store
+          .dispatch("bank_account/deleteDataBankAccountById", {
+            id: item.id,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              this.dalogBankDeleteById.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Data Deleted Successfully",
+              })
+            }
+          })
+      },
+      refereshBankAccount () {
+        this.getDataBankAccount()
+        const Toast = this.$swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: toast => {
+            toast.addEventListener("mouseenter", this.$swal.stopTimer)
+            toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+          },
+          popup: "swal2-show",
+          backdrop: "swal2-backdrop-show",
+          icon: "swal2-icon-show",
+        })
+        Toast.fire({
+          icon: "success",
+          title: "Fetch Data",
+        })
+      },
+      upActivateDataBankAccount ({ item }) {
+        this.activatedBankAccount.open = true
+        this.activatedBankAccount.data = item
+      },
+      activatedDataBankAccount ({ item }) {
+        console.log(item, "asas")
+        this.$store
+          .dispatch("bank_account/activatedDataBankAccount", item)
+          .then(res => {
+            if (res.data.meta.status) {
+              this.activatedBankAccount.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Data Activated Successfully",
               })
             }
           })

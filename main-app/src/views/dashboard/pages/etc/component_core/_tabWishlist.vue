@@ -5,6 +5,7 @@
         <app-list-wishlist
           v-if="user.wishlist"
           :data="user.wishlist"
+          @del="delWishlist"
         />
       </v-col>
     </v-row>
@@ -21,6 +22,11 @@
       user: {
         type: Object,
         default: null,
+      },
+    },
+    methods: {
+      delWishlist ({ item }) {
+        this.$emit("del", { item })
       },
     },
   }

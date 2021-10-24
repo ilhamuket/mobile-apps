@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row>
+    <v-row v-if="data.length > 0">
       <v-col
         v-for="(item, i) in data"
         :key="i"
@@ -73,6 +73,7 @@
                       small
                       color="red"
                       class="btn-expolore-studio ml-2"
+                      @click="delWishlist(item)"
                     >
                       <v-tooltip
                         color="red"
@@ -99,6 +100,17 @@
         </v-hover>
       </v-col>
     </v-row>
+    <v-col
+      v-else
+      cols="12"
+      class="img--empety"
+    >
+      <v-img
+        width="900"
+        height="400"
+        src="@/assets/img/noclass.svg"
+      />
+    </v-col>
   </v-container>
 </template>
 
@@ -111,6 +123,13 @@
       },
     },
     methods: {
+      delWishlist (item) {
+        this.$emit("del", { item: item })
+        const index = this.data.findIndex(x => x.id === item.id)
+        if (index !== -1) {
+          this.data.splice(index, 1)
+        }
+      },
       setColorStatus (status) {
         if (status === "ongoing") {
           return "btn_primary"

@@ -24,6 +24,9 @@ import category from "./module/category"
 
 // EnsikloVidio
 import ensikloVidio from "./module/studio/ensiklo_vidio/index"
+import etc from "./module/etc"
+
+// etc
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -45,6 +48,7 @@ export default new Vuex.Store({
     studioDiscuses: studioDiscuses,
     category: category,
     ensikloVidio: ensikloVidio,
+    etc: etc,
   },
   state: {
     barColor: "rgba(0, 0, 0, .8), rgba(0, 0, 0, .8)",

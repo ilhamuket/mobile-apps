@@ -136,6 +136,7 @@ class StudioClassController extends Controller
 
             if (Carbon::now()->isWeekend()) {
                 $master->views = 0;
+                $master->save();
                 // $master->lastSee()->update(['user_activity_id' => null]);
             }
 

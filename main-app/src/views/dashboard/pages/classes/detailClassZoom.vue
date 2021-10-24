@@ -240,10 +240,10 @@
 </template>
 
 <script>
-  import discuss from './components_core/_discuss.vue'
+  import discuss from "./components_core/_discuss.vue"
   export default {
     components: {
-      'app-discuss': discuss,
+      "app-discuss": discuss,
     },
     data () {
       return {
@@ -257,6 +257,7 @@
           .toISOString()
           .substr(0, 10),
         state_load: false,
+        user: {},
       }
     },
     computed: {
@@ -267,7 +268,7 @@
         return this.$store.state.studioDiscuses.data
       },
       users () {
-        const Me = localStorage.getItem('ME')
+        const Me = localStorage.getItem("ME")
         const users = JSON.parse(Me)
         return users
       },
@@ -276,18 +277,19 @@
       this.getDataClassesBySlug()
       this.getDataDiscuss()
       this.scroll()
-    // this.getMe()
-    // console.log(this.classes.list_img)
+      this.getMe()
+      console.log(this.user)
     },
     methods: {
       time (val) {
         if (val !== null) {
-          const nameArray = val.split(':')
+          const nameArray = val.split(":")
           nameArray.splice(2, 1)
-          const newName = nameArray.join(':')
+          const newName = nameArray.join(":")
           return newName
         }
       },
+
       scroll () {
         window.onscroll = () => {
           const bottomOfWindow =
@@ -311,6 +313,19 @@
         }
       },
 
+      getMe () {
+        this.$store
+          .dispatch("user/me", {
+            entities: "wishlist",
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              this.user = res.data.data
+              console.log(res.data.data.wishlist)
+            }
+          })
+      },
+
       moreDiscuss () {
         if (this.discuss.links.next) {
           this.page++
@@ -319,18 +334,18 @@
       },
 
       getDataClassesBySlug () {
-        this.$store.dispatch('classes/getDataClassesBySlug', {
-          entities: 'listImg,img,studio.followers,category',
+        this.$store.dispatch("classes/getDataClassesBySlug", {
+          entities: "listImg,img,studio.followers,category",
           slug: this.$route.params.class_slug,
           studio_slug: this.$route.params.studio_slug,
         })
       },
       getDataDiscuss (page) {
         this.$store
-          .dispatch('studioDiscuses/getDataDiscusses', {
+          .dispatch("studioDiscuses/getDataDiscusses", {
             class_slug: this.$route.params.class_slug,
             entities:
-              'class,user.img,child.user.img, child.class,child.user.studio.img',
+              "class,user.img,child.user.img, child.class,child.user.studio.img",
             page: page,
           })
           .then(res => {
@@ -353,20 +368,20 @@
       },
       replyDataDiscusses ({ item }) {
         this.$store
-          .dispatch('studioDiscuses/replyDataDiscusses', {
+          .dispatch("studioDiscuses/replyDataDiscusses", {
             body: item,
             slug: this.$route.params.class_slug,
           })
           .then(res => {
             if (res.data.meta.status) {
-              item = ''
+              item = ""
               this.discuss.data.unshift(res.data.data)
             }
           })
       },
       replyDataDiscussesParent ({ item }) {
         this.$store
-          .dispatch('studioDiscuses/replyDataDiscusses', {
+          .dispatch("studioDiscuses/replyDataDiscusses", {
             body: item.content,
             slug: this.$route.params.class_slug,
             parent_id: item.data.id,

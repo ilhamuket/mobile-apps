@@ -12,6 +12,33 @@ use Modules\StudioOwners\Entities\OwnerStudio;
 class BankAccountController extends Controller
 {
     /**
+     * this method to activated bank account
+     * @param Request $request
+     * @param int $id
+     * @return Renderable
+     */
+
+    public function activated(Request $request)
+    {
+        try {
+            if (is_array($request->id)) {
+                foreach ($request->id as $id) {
+                    $master = BankAccount::findOrFail($id);
+                    $master->status = "active";
+                    $master->save();
+                }
+
+                return Json::response($master);
+            }
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+    /**
      * Display a listing of the resource.
      * @return Renderable
      */
