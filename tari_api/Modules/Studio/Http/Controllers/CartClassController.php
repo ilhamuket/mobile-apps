@@ -10,6 +10,20 @@ use Modules\Studio\Entities\CartClass;
 
 class CartClassController extends Controller
 {
+    public function indexUser(Request $request)
+    {
+        try {
+            $master = CartClass::where("user_id", $request->user()->id)->get();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     public function storeWistlist(Request $request)
     {
         try {

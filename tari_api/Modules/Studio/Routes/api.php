@@ -97,6 +97,7 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
     Route::prefix('cart')->group(function () {
         Route::post('', [CartClassController::class, 'storeWistlist']);
         Route::get('', [CartClassController::class, 'index']);
+        Route::get('user', [CartClassController::class, 'indexUser']);
     });
     Route::prefix('reviews')->group(function () {
         Route::post('class', [ReviewController::class, 'store']);

@@ -1,31 +1,54 @@
 <template>
   <v-container>
-    <v-row class="ml-5">
-      <v-col cols="8">
-        <app-data-card :data="cart" />
+    <v-row>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="3"
+      >
+        <base-material-stats-card
+          color="orange"
+          icon="mdi-sofa"
+          title="All"
+          value="184"
+        />
       </v-col>
       <v-col
-        class="posistion"
-        cols="4"
+        cols="12"
+        sm="6"
+        lg="3"
       >
-        <app-data-buy />
+        <base-material-stats-card
+          color="orange"
+          icon="mdi-sofa"
+          title="Bookings"
+          value="184"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="3"
+      >
+        <base-material-stats-card
+          color="orange"
+          icon="mdi-sofa"
+          title="Bookings"
+          value="184"
+        />
       </v-col>
       <v-col cols="12">
-        <app-data-wistlist />
+        <app-data-table />
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-  import card from "./component_core/_card.vue"
-  import buy from "./component_core/_cardBuy.vue"
-  import wistlist from "./component_core/_cardWistlist.vue"
+  import dataTable from "./component_core/_dataTable.vue"
   export default {
     components: {
-      "app-data-card": card,
-      "app-data-buy": buy,
-      "app-data-wistlist": wistlist,
+      "app-data-table": dataTable,
     },
     data: () => ({}),
     computed: {
