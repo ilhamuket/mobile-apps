@@ -105,5 +105,15 @@
     "pembelian": "Pembelian",
     "profile_": "Profil",
     "change": "Ubah",
-    "etc": "Lainnya"
+    "etc": "Lainnya",
+    "ensiklolive":{
+        "ppp": "Harga Per Orang",
+        "slot": "Kapasitas",
+        "title_desc": "This is a Live Class",
+        "desc": "Untuk menikmati kelas, pastikan Anda memiliki layanan internet",
+        "about": "Tentang Class",
+        "note": "Catatan"
+      },
+    "minutes": "Minutes",
+    "type": "Ketik Sesuatu"
 }

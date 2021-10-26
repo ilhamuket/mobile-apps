@@ -91,42 +91,42 @@
         type: Object,
         default: () => ({
           open: false,
-          title: '',
+          title: "",
           data: [],
         }),
       },
       byId: [Boolean],
       title: {
         type: String,
-        default: '',
+        default: "",
       },
       icon: {
         type: String,
-        default: '',
+        default: "",
       },
       text: {
         type: String,
-        default: '',
+        default: "",
       },
       textButton1: {
         type: String,
-        default: '',
+        default: "",
       },
       colorButton1: {
         type: String,
-        default: 'primary',
+        default: "primary",
       },
       colorButton2: {
         type: String,
-        default: 'red',
+        default: "red",
       },
     },
     methods: {
       input () {
-        this.$emit('input', { item: this.dialog.data })
+        this.$emit("input", { item: this.dialog.data })
       },
       inputById () {
-        this.$emit('input', { item: this.dialog })
+        this.$emit("input", { item: this.dialog })
       },
     },
   }

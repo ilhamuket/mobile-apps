@@ -38,13 +38,13 @@
                 </v-row>
                 <v-row class="cols__list_category">
                   <v-col cols="12">
-                    <span class="font-spartan btn_primary--text">
+                    <span class="font-spartan white--text">
                       {{ item.display_name }}
                     </span>
                     <br>
                     <span
                       v-if="item.studio"
-                      class="font-spartan btn_primary--text"
+                      class="font-spartan white--text"
                     >
                       {{ item.studio.name }}
                     </span>
@@ -65,7 +65,7 @@
                       class="btn_explore"
                       @click="
                         toPush(
-                          `/category/detail/${item.studio.slug}/${item.name}`
+                          `/category/detail/${item.studio.slug}/${item.slug}`
                         )
                       "
                     >
@@ -120,13 +120,13 @@
                 </v-row>
                 <v-row class="cols__list_category">
                   <v-col cols="12">
-                    <span class="font-spartan btn_primary--text">
+                    <span class="font-spartan white--text">
                       {{ item.display_name }}
                     </span>
                     <br>
                     <span
                       v-if="item.studio"
-                      class="font-spartan btn_primary--text"
+                      class="font-spartan white--text"
                     >
                       {{ item.studio.name }}
                     </span>
@@ -144,13 +144,8 @@
                       color="primary"
                       width="200"
                       class="btn_explore"
-                      @click="
-                        toPush(
-                          `/category/detail/${item.studio.slug}/${item.name}`
-                        )
-                      "
                     >
-                      Explore
+                      Explore222
                     </v-btn>
                     <v-btn
                       v-if="!isFollowYouComputed[i]"

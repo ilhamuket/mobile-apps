@@ -35,12 +35,27 @@
                 :user="cumputedMe"
                 @input="choosePicture"
                 @change="changePicture"
+                @edit="popUpDialog"
+                @editContact="popDialogEditContact"
+                @updateSocmed="popDialogEditSocmed"
               />
             </v-tab-item>
           </v-tabs-items>
         </v-card>
       </v-col>
     </v-row>
+    <app-card-edit
+      :dialog="dialogEdit"
+      @input="updateProfile"
+    />
+    <app-edit-contact
+      :dialog="dialogEditContact"
+      @input="updateProfile"
+    />
+    <app-edit-contact
+      :dialog="dialogEditSocmed"
+      @input="updateProfile"
+    />
   </v-container>
 </template>
 
@@ -48,6 +63,8 @@
 // import timelines from "./component_core/Timeline.vue"
   import cardSide from "./component/__cardSide.vue"
   import profile from "./component_core/_profile.vue"
+  import cardEdit from "./component/__change.vue"
+  import editContact from "./component/__changeContact.vue"
 
   // import dialogEditProfile from "./component/_dialogEdit.vue"
   export default {
@@ -56,10 +73,20 @@
       // "app-dialog-edit": dialogEditProfile,
       "app-card-side": cardSide,
       "app-profile": profile,
+      "app-card-edit": cardEdit,
+      "app-edit-contact": editContact,
     },
     data: () => ({
       isLoader: true,
       dialogEdit: {
+        open: false,
+        data: {},
+      },
+      dialogEditContact: {
+        open: false,
+        data: {},
+      },
+      dialogEditSocmed: {
         open: false,
         data: {},
       },
@@ -89,6 +116,14 @@
         this.dialogEdit.open = true
         this.dialogEdit.data = item
       },
+      popDialogEditContact ({ item }) {
+        this.dialogEditContact.open = true
+        this.dialogEditContact.data = item
+      },
+      popDialogEditSocmed ({ item }) {
+        this.dialogEditSocmed.open = true
+        this.dialogEditSocmed.data = item
+      },
       updateProfile ({ item }) {
         this.$store
           .dispatch("user/updateProfile", {
@@ -109,6 +144,7 @@
             this.dialogEdit.open = false
             if (res.data.meta.status) {
               this.dialogEdit.open = false
+              this.dialogEditContact.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
                 position: "bottom-end",

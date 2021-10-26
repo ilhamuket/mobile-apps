@@ -471,7 +471,7 @@
       getMe () {
         this.$store
           .dispatch("user/me", {
-            entities: "cart",
+            entities: "cart.img",
           })
           .then(res => {
             if (res.data.meta.status) {

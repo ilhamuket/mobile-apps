@@ -185,7 +185,7 @@ class StudioClass extends Model
     {
         if ($categoryName != null && $categoryName != '') {
             $query->whereHas('category', function (Builder $query) use ($categoryName) {
-                $query->where('name', $categoryName);
+                $query->where('slug', $categoryName);
             });
         }
 

@@ -114,6 +114,7 @@
                 </v-icon>
               </v-btn>
               <v-tooltip
+                v-if="yourWishlist === false"
                 bottom
                 color="btn_primary"
               >
@@ -125,6 +126,7 @@
                     icon
                     dark
                     v-on="on"
+                    @click="pushWishlist(classes)"
                   >
                     <v-icon color="">
                       mdi-heart-outline
@@ -132,6 +134,28 @@
                   </v-btn>
                 </template>
                 <span>WishList</span>
+              </v-tooltip>
+              <v-tooltip
+                v-else
+                bottom
+                color="btn_primary"
+              >
+                <template #activator="{on, attrs}">
+                  <v-btn
+                    v-bind="attrs"
+                    class="size__icon"
+                    color="btn_primary"
+                    icon
+                    dark
+                    @click="deleteFromWishlist(classes)"
+                    v-on="on"
+                  >
+                    <v-icon color="">
+                      mdi-heart
+                    </v-icon>
+                  </v-btn>
+                </template>
+                <span class="font-spartan-small ">Cancel on wish list</span>
               </v-tooltip>
               <v-tooltip
                 bottom
@@ -160,14 +184,14 @@
               <div class="d-flex flex-row mt-2">
                 <div class="d-flex flex-column">
                   <span class="font-spartan">
-                    Price Per Person
+                    {{ $t("ensiklolive.ppp") }}
                   </span>
                 </div>
               </div>
               <div class="d-flex flex-row">
                 <div class="d-flex flex-column">
                   <span class="font-spartan-price mt-2">
-                    Slot : 0 / {{ classes.kapasitas }}
+                    {{ $t("ensiklolive.slot") }} : 0 / {{ classes.kapasitas }}
                   </span>
                 </div>
               </div>
@@ -177,7 +201,10 @@
                     v-if="classes.time_start"
                     class="font-spartan-price mt-2"
                   >
-                    {{ time(classes.time_start) }} (60 Minutes)
+                    {{ time(classes.time_start) }} ({{
+                      classes.durasi ? classes.durasi : "-"
+                    }}
+                    {{ $t("minutes") }})
                   </span>
                 </div>
               </div>
@@ -197,15 +224,16 @@
                 prominent
                 class="mt-4"
               >
-                <span class="font-weight-bold"> This is a Zoom Live Class</span>
+                <span class="font-weight-bold">
+                  {{ $t("ensiklolive.title_desc") }}</span>
                 <br>
-                To enjoy the class, make sure you have internet service
+                {{ $t("ensiklolive.desc") }}
               </v-alert>
 
               <div class="d-flex flex-row mt-12">
                 <div class="d-flex flex-column">
                   <span class="font-spartan-about font-weight-bold ">
-                    About This Class
+                    {{ $t("ensiklolive.about") }}
                   </span>
                   <span class="font-spartan-about-text mt-2">
                     "{{ classes.about }}"
@@ -216,7 +244,7 @@
               <div class="d-flex flex-row mt-12">
                 <div class="d-flex flex-column">
                   <span class="font-spartan-about font-weight-bold ">
-                    Notes
+                    {{ $t("ensiklolive.note") }}
                   </span>
                   <span class="font-spartan-about-text mt-2">
                     "{{ classes.about }}"
@@ -272,13 +300,24 @@
         const users = JSON.parse(Me)
         return users
       },
+      yourWishlist () {
+        let bool = false
+        if (this.classes) {
+          if (this.classes.wishlist) {
+            bool = this.classes.wishlist.some(x => x.id === this.user.id)
+            console.log("bool : ", bool)
+          }
+        }
+        return bool
+      },
     },
     mounted () {
       this.getDataClassesBySlug()
       this.getDataDiscuss()
       this.scroll()
       this.getMe()
-      console.log(this.user)
+
+      console.log(this.yourWishlist)
     },
     methods: {
       time (val) {
@@ -321,7 +360,7 @@
           .then(res => {
             if (res.data.meta.status) {
               this.user = res.data.data
-              console.log(res.data.data.wishlist)
+            // console.log(this.user)
             }
           })
       },
@@ -335,7 +374,7 @@
 
       getDataClassesBySlug () {
         this.$store.dispatch("classes/getDataClassesBySlug", {
-          entities: "listImg,img,studio.followers,category",
+          entities: "listImg,img,studio.followers,category,wishlist",
           slug: this.$route.params.class_slug,
           studio_slug: this.$route.params.studio_slug,
         })
@@ -390,6 +429,65 @@
             if (res.data.meta.status) {
               this.getDataDiscuss()
               item.content = null
+            }
+          })
+      },
+      pushWishlist (item) {
+        this.$store
+          .dispatch("etc/pushWishlist", {
+            id: item.id,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Add Wishlist Successfully",
+              })
+              this.getDataClassesBySlug()
+            }
+          })
+      },
+      deleteFromWishlist (item) {
+        console.log("tai")
+        this.$store
+          .dispatch("etc/deleteFromWishlist", {
+            id: item.id,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Delete Item Successfully",
+              })
+              this.getDataClassesBySlug()
             }
           })
       },

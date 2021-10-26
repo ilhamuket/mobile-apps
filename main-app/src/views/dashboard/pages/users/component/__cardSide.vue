@@ -35,6 +35,19 @@
         </div>
       </v-col>
       <v-divider />
+      <div class="d-flex flex-row mt-2 ml-5">
+        <div class="d-flex flex-column">
+          <span class="font-spartan-small">
+            FullName : {{ user.firstName }} {{ user.lastName }}
+          </span>
+        </div>
+      </div>
+      <div class="d-flex flex-row mt-2 ml-5">
+        <div class="d-flex flex-column">
+          <span class="font-spartan-small"> Contact : {{ user.noHp }} </span>
+        </div>
+      </div>
+
       <v-col cols="12">
         <v-expansion-panels>
           <v-expansion-panel>

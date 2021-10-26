@@ -78,7 +78,7 @@
   "ensiklo_live": "EnsikloLive",
   "ensiklo_vidio": "EnsikloVidio",
   "your_class": "Kelasmu",
-  "discussion": "discussion",
+  "discussion": "Discussion",
   "question": "Any questions? Discuss with other sellers or users",
   "detail_ensiklo-vidio": "Detail EnsikloVidio",
   "profile": {
@@ -106,5 +106,15 @@
   "pembelian": "Purchase",
   "profile_": "Profile",
   "change": "Change",
-  "etc": "Other"
+  "etc": "Other",
+  "ensiklolive":{
+    "ppp": "Price Per Person",
+    "slot": "Capacity",
+    "title_desc": "This is a Live Class",
+    "desc": "To enjoy the class, make sure you have internet service",
+    "about": "About Class",
+    "note": "Note"
+  },
+  "minutes": "Minutes",
+  "type": "Ketik Sesuatu"
 }

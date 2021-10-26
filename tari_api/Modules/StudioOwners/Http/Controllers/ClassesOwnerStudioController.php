@@ -31,7 +31,7 @@ class ClassesOwnerStudioController extends Controller
             })->count();
             $data['approved'] = ClassesOwnerStudio::whereHas('studio', function (Builder $query) use ($studio) {
                 $query->where('id', $studio->id);
-            })->where('status', 'Publish')
+            })->where('status', 'publish')
                 ->count();
             $data['non_approved'] = ClassesOwnerStudio::whereHas('studio', function (Builder $query) use ($studio) {
                 $query->where('id', $studio->id);
@@ -62,7 +62,7 @@ class ClassesOwnerStudioController extends Controller
                 $id = $request->id;
                 foreach ($id as $studio_id) {
                     $master = ClassesOwnerStudio::findOrFail($studio_id);
-                    $master->status = 'Publish';
+                    $master->status = 'publish';
                     $master->isVerified = 1;
                     $master->save();
                 }
@@ -228,6 +228,7 @@ class ClassesOwnerStudioController extends Controller
             $master->category_id = $request->input('category_id', $master->category_id);
             $master->start_at = $request->input('start_at', $master->start_at);
             $master->end_at = $request->input('end_at', $master->end_at);
+            $master->status = $request->input('status', $master->status);
             $master->save();
             $master->instructor()->sync($request->input('instructor_id', $master->instructor));
             $master->studio;

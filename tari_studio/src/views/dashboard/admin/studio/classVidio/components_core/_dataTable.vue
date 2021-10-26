@@ -95,7 +95,8 @@
             <template #[`item.id`]="{item}">
               <v-img
                 :src="item.url_thumbnail"
-                width="100"
+                width="140"
+                height="100"
               />
             </template>
             <template #[`item.name`]="{item}">

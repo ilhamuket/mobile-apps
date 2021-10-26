@@ -160,6 +160,7 @@
           @upload="uploadMatery"
           @change="changePicture"
           @refresh="refresh"
+          @hide="hideDataClass"
         />
       </v-col>
     </v-row>
@@ -196,6 +197,17 @@
       color-button1="red"
       color-button2="primary"
       @input="delDataClassesStudio"
+    />
+    <app-dialog-notice
+      :by-id="true"
+      :dialog="hideClass"
+      title="hide"
+      text="Are you sure want to hide"
+      text-button1="hide"
+      icon="mdi-eye-off"
+      color-button1="red"
+      color-button2="primary"
+      @input="hideDataClassesStudio"
     />
     <app-data-edit
       :dialog="update"
@@ -273,6 +285,11 @@
         end_at: null,
         time_start: null,
         time_end: null,
+      },
+      hideClass: {
+        open: false,
+        id: 0,
+        title: "",
       },
       dialogDeleteById: {
         id: 0,
@@ -422,6 +439,11 @@
             }
           })
       },
+      hideDataClass ({ item }) {
+        this.hideClass.open = true
+        this.hideClass.title = item.name
+        this.hideClass.id = item.id
+      },
       popDeletes ({ item }) {
         this.deletes.open = true
         this.deletes.data = item
@@ -487,11 +509,40 @@
           })
           Toast.fire({
             icon: "success",
-            title: "Matery Added Successfully",
+            title: "Image Added Successfully",
           })
           this.list.open = false
           this.getDataClassesStudio()
         })
+      },
+      hideDataClassesStudio ({ item }) {
+        this.$store
+          .dispatch("ownerStudioClasses/hideDataClassesStudio", {
+            id: item.id,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              this.hideClass.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Hide Class Successfully",
+              })
+            }
+          })
       },
       changeList ({ item }) {
         axios.defaults.headers.common.Authorization =

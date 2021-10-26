@@ -98,7 +98,7 @@
                       outlined
                       small
                       color="btn_primary"
-                      width="270"
+                      width="250"
                       class="mt-4"
                     >
                       {{ $t("profile.cp") }}
@@ -127,12 +127,14 @@
                         small
                         color="transparent"
                         text-color="btn_primary"
+                        @click="editProfile(user)"
                       >{{ $t("change") }}</v-chip>
                       <v-chip
                         v-else
                         small
                         color="transparent"
                         text-color="btn_primary"
+                        @click="editProfile(user)"
                       >Tambahkan Nama Depan</v-chip>
                     </span>
                   </div>
@@ -146,12 +148,14 @@
                         small
                         color="transparent"
                         text-color="btn_primary"
+                        @click="editProfile(user)"
                       >{{ $t("change") }}</v-chip>
                       <v-chip
                         v-else
                         small
                         color="transparent"
                         text-color="btn_primary"
+                        @click="editProfile(user)"
                       >Tambahkan Nama Belakang</v-chip>
                     </span>
                   </div>
@@ -165,12 +169,14 @@
                         small
                         color="transparent"
                         text-color="btn_primary"
+                        @click="editProfile(user)"
                       >{{ $t("change") }}</v-chip>
                       <v-chip
                         v-else
                         small
                         color="transparent"
                         text-color="btn_primary"
+                        @click="editProfile(user)"
                       >Tambahkan Username</v-chip>
                     </span>
                   </div>
@@ -185,12 +191,14 @@
                         small
                         color="transparent"
                         text-color="btn_primary"
+                        @click="editProfile(user)"
                       >{{ $t("change") }}</v-chip>
                       <v-chip
                         v-else
                         small
                         color="transparent"
                         text-color="btn_primary"
+                        @click="editProfile(user)"
                       >{{ $t("profile.add.date") }}</v-chip>
                     </span>
                   </div>
@@ -214,12 +222,14 @@
                         small
                         color="transparent"
                         text-color="btn_primary"
+                        @click="editProfileContact(user)"
                       >{{ $t("change") }}</v-chip>
                       <v-chip
                         v-else
                         small
                         color="transparent"
                         text-color="btn_primary"
+                        @click="editProfileContact(user)"
                       >Tambahkan Contact</v-chip>
                     </span>
                   </div>
@@ -234,13 +244,89 @@
                         small
                         color="transparent"
                         text-color="btn_primary"
+                        @click="editProfileContact(user)"
                       >{{ $t("change") }}</v-chip>
                       <v-chip
                         v-else
                         small
                         color="transparent"
                         text-color="btn_primary"
+                        @click="editProfileContact(user)"
                       >Tambahkan Contact</v-chip>
+                    </span>
+                  </div>
+                </div>
+                <div class="d-flex flex-row mt-6">
+                  <div class="d-flex flex-column">
+                    <span class="font-spartan-text font-weight-bold">
+                      Media Social
+                    </span>
+                  </div>
+                </div>
+                <v-divider class="mt-2 mb-2" />
+                <div class="d-flex flex-row mt-3">
+                  <div class="d-flex flex-column">
+                    <span class="font-spartan-text">
+                      <v-icon color="red">mdi-instagram</v-icon>
+                      {{ user.username_ig }}
+                      <v-chip
+                        v-if="user.username_ig"
+                        small
+                        color="transparent"
+                        text-color="btn_primary"
+                        @click="editProfile(user)"
+                      >{{ $t("change") }}</v-chip>
+                      <v-chip
+                        v-else
+                        small
+                        color="transparent"
+                        text-color="btn_primary"
+                        @click="editProfileSocmed(user)"
+                      >Tambahkan Username Instagram</v-chip>
+                    </span>
+                  </div>
+                </div>
+                <div class="d-flex flex-row mt-3">
+                  <div class="d-flex flex-column">
+                    <span class="font-spartan-text">
+                      <v-icon color="blue">mdi-facebook</v-icon>
+                      {{ user.username_fb }}
+                      <v-chip
+                        v-if="user.username_fb"
+                        small
+                        color="transparent"
+                        text-color="btn_primary"
+                        @click="editProfileSocmed(user)"
+                      >{{ $t("change") }}</v-chip>
+                      <v-chip
+                        v-else
+                        small
+                        color="transparent"
+                        text-color="btn_primary"
+                        @click="editProfileSocmed(user)"
+                      >Tambahkan Username Facabook</v-chip>
+                    </span>
+                  </div>
+                </div>
+                <div class="d-flex flex-row mt-3">
+                  <div class="d-flex flex-column">
+                    <span class="font-spartan-text">
+                      <v-icon color="blue">mdi-twitter</v-icon>
+                      {{ user.username_tw }}
+                      <v-chip
+                        v-if="user.username_tw"
+                        small
+                        color="transparent"
+                        text-color="btn_primary"
+                        @click="editProfileSocmed(user)"
+                      >{{ $t("change") }}</v-chip>
+                      <v-chip
+                        v-else
+                        small
+                        color="transparent"
+                        text-color="btn_primary"
+                        @click="editProfileSocmed(user)"
+                      >Tambahkan Username Twitter</v-chip>
                     </span>
                   </div>
                 </div>
@@ -378,6 +464,15 @@
             },
           })
         }
+      },
+      editProfile (item) {
+        this.$emit("edit", { item: item })
+      },
+      editProfileContact (item) {
+        this.$emit("editContact", { item: item })
+      },
+      editProfileSocmed ({ item }) {
+        this.$emit("updateSocmed", { item: item })
       },
     },
   }

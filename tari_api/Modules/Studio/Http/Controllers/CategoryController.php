@@ -104,7 +104,7 @@ class CategoryController extends Controller
     public function show(Request $request, $name)
     {
         try {
-            $master = Category::where('name', $name)->entities($request->entities)->first();
+            $master = Category::where('slug', $name)->entities($request->entities)->first();
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');

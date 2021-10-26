@@ -117,13 +117,8 @@ class StudioClassController extends Controller
             })->where('slug', $slug)
                 ->entities($request->entities)
                 ->first();
-
-            // dd(Carbon::now()->isoFormat('dddd, MMMM Do YYYY, h:mm'));
             $bool = false;
-            // dd(Carbon::now()->addMinutes(1)->toDateTimeString() === Carbon::now()->toDateTimeString());
-            // dd(Carbon::now()->subMinutes(1)->toDateTimeString());
-
-            $master->lastSee()->sync($request->user()->id);
+            $master->lastSee()->attach($request->user()->id);
 
 
             if (Carbon::now()->toDateTimeString() && $bool == false) {

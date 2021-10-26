@@ -185,5 +185,9 @@
     "hide_class": "Sembunyikan Kelas",
     "update_class": "Sunting Kelass",
     "Delete": "Hapus",
-    "Publish Class": "Publish Kelas"
+    "Publish Class": "Publish Kelas",
+    "hide": "Disembunyikan",
+    "publish": "Publish",
+    "draft": "Draft",
+    "concept": "Konsep"
 }

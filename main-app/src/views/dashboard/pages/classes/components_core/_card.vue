@@ -128,9 +128,13 @@
             Capacity : 0 / {{ item.kapasitas }}
           </v-chip>
           <br>
+          <span class="font-spartan-small">
+            Registration : {{ item.start_at | moment("MMMM Do") }} -
+            {{ item.end_at | moment("MMMM Do YYYY") }}
+          </span>
           <br>
           <span class="font-spartan-small">
-            Started Class : {{ item.start_at | moment("MMMM Do YYYY") }}
+            Started Class : {{ item.end_at | moment("MMMM Do YYYY") }}
           </span>
           <br>
           <span class="font-spartan-small font-italic">

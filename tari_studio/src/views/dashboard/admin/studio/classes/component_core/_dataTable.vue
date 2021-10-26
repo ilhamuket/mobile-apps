@@ -231,46 +231,106 @@
                         class="font-a d-flex flex-nowrap"
                         @click="upDialogeditClass(item)"
                       >
-                        <v-icon
-                          small
+                        <v-tooltip
+                          bottom
                           color="blue"
-                          class="mr-1"
                         >
-                          mdi-pencil
-                        </v-icon>
-                        Edit
+                          <template #activator="{on, attrs}">
+                            <v-icon
+                              small
+                              color="blue"
+                              class="mr-1"
+                              v-bind="attrs"
+                              v-on="on"
+                            >
+                              mdi-pencil
+                            </v-icon>
+                          </template>
+                          <span class="font-spartan-small">
+                            Edit
+                          </span>
+                        </v-tooltip>
                       </a>
                     </div>
                   </div>
                   <div>
-                    <div class="d-flex flex-column mt-2 ml-1 mr-1">
+                    <div class="d-flex flex-column mt-2 ml-1">
                       <a
                         class="d-flex blue--text flex-nowrap"
                         @click="upInfoClass(item)"
                       >
-                        <v-icon
+                        <v-tooltip
                           color="blue"
-                          small
+                          bottom
                         >
-                          mdi-eye
-                        </v-icon>
-                        Info
+                          <template #activator="{on, attrs}">
+                            <v-icon
+                              v-bind="attrs"
+                              color="blue"
+                              small
+                              v-on="on"
+                            >
+                              mdi-eye
+                            </v-icon>
+                          </template>
+                          <span class="font-spartan-small">
+                            Info
+                          </span>
+                        </v-tooltip>
                       </a>
                     </div>
                   </div>
                   <div>
-                    <div class="d-flex flex-column mt-2">
+                    <div class="d-flex flex-column mt-2 ml-1">
                       <a
                         class="font-a-delete d-flex flex-nowrap"
                         @click="uploadMatery(item)"
                       >
-                        <v-icon
+                        <v-tooltip
                           color="btn_primary"
-                          small
+                          bottom
                         >
-                          mdi-camera
-                        </v-icon>
-                        Upload
+                          <template #activator="{on,attrs}">
+                            <v-icon
+                              v-bind="attrs"
+                              color="btn_primary"
+                              small
+                              v-on="on"
+                            >
+                              mdi-camera
+                            </v-icon>
+                          </template>
+                          <span class="font-spartan-small">
+                            Upload
+                          </span>
+                        </v-tooltip>
+                      </a>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="d-flex flex-column mt-2 ml-1">
+                      <a
+                        class="font-a-delete d-flex flex-nowrap"
+                        @click="hideDataClassesStudio(item)"
+                      >
+                        <v-tooltip
+                          color="red"
+                          bottom
+                        >
+                          <template #activator="{on,attrs}">
+                            <v-icon
+                              v-bind="attrs"
+                              color="btn_primary"
+                              small
+                              v-on="on"
+                            >
+                              mdi-eye-off
+                            </v-icon>
+                          </template>
+                          <span class="font-spartan-small">
+                            Hided
+                          </span>
+                        </v-tooltip>
                       </a>
                     </div>
                   </div>
@@ -292,9 +352,9 @@
                 :color="setColorStatus(item.status)"
                 label
                 text-color="white"
-                class="chips--weight text-capitalize"
+                class="chips--weight"
               >
-                {{ item.status }}
+                {{ $t(item.status) }}
               </v-chip>
             </template>
             <template #[`item.kapasitas`]="{item}">
@@ -388,7 +448,7 @@
       },
     },
     mounted () {
-      console.log(this.studio)
+    // console.log(this.studio)
     },
     methods: {
       setColorLevels (levels) {
@@ -429,13 +489,15 @@
       uploadMatery (item) {
         this.$emit("upload", { item: item })
       },
+      hideDataClassesStudio (item) {
+        this.$emit("hide", { item: item })
+      },
       refresh () {
         this.$emit("refresh")
       },
       changePict (item) {
         this.$refs.fileUpload.click()
         this.dataItem = item
-        console.log(item.id)
       },
       changePictProfile (event) {
         const files = event.target.files

@@ -65,6 +65,12 @@ export default {
         state.data.splice(index, 1)
       }
     },
+    HIDE_DATA: (state, payload) => {
+      const indexClasses = state.data.findIndex(x => x.id === payload.id)
+      if (indexClasses !== -1) {
+        state.data[indexClasses].status = "hide"
+      }
+    },
   },
   actions: {
     getDataClassesStudio: ({ commit }, payload) => {
@@ -151,6 +157,24 @@ export default {
           .then(res => {
             // const data = res.data.data
             commit("UPDATE_DATA", payload)
+            resolve(res)
+          })
+          .catch(e => {
+            reject(e)
+          })
+      })
+    },
+    hideDataClassesStudio: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        "Bearer " + localStorage.getItem("access_token")
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        axios
+          .patch(`owner/classes/update/${payload.id}`, { ...payload })
+          .then(res => {
+            // const data = res.data.data
+            commit("HIDE_DATA", payload)
             resolve(res)
           })
           .catch(e => {

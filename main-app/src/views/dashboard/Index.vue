@@ -29,7 +29,7 @@
     }),
     mounted () {
       this.$store.dispatch("user/me", {
-        entities: "followingStudio.img,followingStudio.reviews,cart",
+        entities: "followingStudio.img,followingStudio.reviews,cart,img",
       })
     },
   }

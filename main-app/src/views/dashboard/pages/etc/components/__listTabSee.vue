@@ -1,8 +1,8 @@
 <template>
   <v-container>
-    <v-row v-if="data.length > 0">
+    <v-row v-if="itemLastSee.length !== 0">
       <v-col
-        v-for="(item, i) in data"
+        v-for="(item, i) in itemLastSee"
         :key="i"
         cols="12"
         md="4"
@@ -30,8 +30,8 @@
                       label
                       class="mr-1"
                       small
-                      :color="setColorStatus(item.status_kelas)"
                       text-color="white"
+                      :color="setColorStatus(item.status_kelas)"
                     >
                       {{ item.status_kelas }}
                     </v-chip>
@@ -60,28 +60,18 @@
                       Register Now !
                     </v-btn>
                     <v-btn
+                      v-if="item.studio"
                       width="120"
                       small
-                      color="red"
+                      color="secondary"
                       class="btn-expolore-studio ml-2"
-                      @click="delWishlist(item)"
+                      @click="
+                        navigate(
+                          `/detail/class/live/${item.studio.slug}/${item.slug}`
+                        )
+                      "
                     >
-                      <v-tooltip
-                        color="red"
-                        bottom
-                      >
-                        <template #activator="{on,attrs}">
-                          <v-icon
-                            v-bind="attrs"
-                            v-on="on"
-                          >
-                            mdi-trash-can
-                          </v-icon>
-                        </template>
-                        <span class="font-spartan-text white--text">
-                          Delete From wishlist
-                        </span>
-                      </v-tooltip>
+                      Explore
                     </v-btn>
                   </v-col>
                 </v-row>
@@ -91,17 +81,6 @@
         </v-hover>
       </v-col>
     </v-row>
-    <v-col
-      v-else
-      cols="12"
-      class="img--empety"
-    >
-      <v-img
-        width="900"
-        height="400"
-        src="@/assets/img/noclass.svg"
-      />
-    </v-col>
   </v-container>
 </template>
 
@@ -113,20 +92,31 @@
         default: null,
       },
     },
-    methods: {
-      delWishlist (item) {
-        this.$emit("del", { item: item })
-        const index = this.data.findIndex(x => x.id === item.id)
-        if (index !== -1) {
-          this.data.splice(index, 1)
-        }
+    computed: {
+      itemLastSee () {
+        const arrObjOne = this.data.filter(
+          (item, index) => this.data.indexOf(item) === index,
+        )
+
+        const newArray = [
+          ...new Map(
+            arrObjOne.reverse().map(item => [JSON.stringify(item), item]),
+          ).values(),
+        ]
+        return newArray
       },
+    },
+    mounted () {},
+    methods: {
       setColorStatus (status) {
         if (status === "ongoing") {
           return "btn_primary"
         } else if (status === "upcoming") {
           return "secondary"
         } else return "red"
+      },
+      navigate (link) {
+        this.$router.push(link)
       },
     },
   }

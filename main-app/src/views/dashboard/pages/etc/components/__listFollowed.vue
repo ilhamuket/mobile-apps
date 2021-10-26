@@ -2,6 +2,14 @@
   <v-container>
     <v-row>
       <v-col
+        cols="12"
+        class="cols__margin__studio"
+      >
+        <span class="font-spartan font-weight-bold">
+          #Studio
+        </span>
+      </v-col>
+      <v-col
         v-for="(item, i) in data"
         :key="i"
         cols="12"
@@ -139,4 +147,10 @@
 <style lang="sass">
 .cols__followed
     margin-top: 120px !important
+.cols__margin__studio
+  margin-top: 20px
+  margin-bottom: -30px
+  margin-left: 4px
+  .font-spartan
+    font-size: 26px !important
 </style>

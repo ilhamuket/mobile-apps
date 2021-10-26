@@ -118,17 +118,15 @@
         }
       },
       ratingCategory () {
-        if (this.category.studio) {
-          this.$store
-            .dispatch("category/ratingCategory", {
-              studio_slug: this.$route.params.studio_slug,
-            })
-            .then(res => {
-              if (res.data.meta.status) {
-                console.log(res.data.data)
-              }
-            })
-        }
+        this.$store
+          .dispatch("category/ratingCategory", {
+            studio_slug: this.$route.params.studio_slug,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              console.log(res.data.data)
+            }
+          })
       },
     },
   }

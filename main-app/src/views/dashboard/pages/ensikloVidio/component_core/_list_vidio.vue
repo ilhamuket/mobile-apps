@@ -79,41 +79,15 @@
                   >
                     Explore
                   </v-btn>
-                  <!-- <v-btn
-                  small
-                  width="100"
-                  outlined
-                  color="white"
-                  class="btn_explore-vidio"
-                >
-                  Follow
-                </v-btn> -->
-                  <!-- <v-btn
-                  v-else
-                  width="100"
-                  small
-                  outlined
-                  color="primary"
-                  class="btn_explore-vidio"
-                  @click="unFolow(item)"
-                >
-                  <v-tooltip
-                    color="primary"
-                    bottom
+                  <v-btn
+                    small
+                    width="120"
+                    color="btn_primary"
+                    class="btn_explore-vidio white--text ml-1"
+                    @click="navigate(`/class-vidio/detail/${item.slug}`)"
                   >
-                    <template #activator="{on, attrs}">
-                      <v-icon
-                        v-bind="attrs"
-                        v-on="on"
-                      >
-                        mdi-account-check
-                      </v-icon>
-                    </template>
-                    <span class="font-spartan-small">
-                      Un Follow
-                    </span>
-                  </v-tooltip>
-                </v-btn> -->
+                    Register Now !
+                  </v-btn>
                 </v-col>
               </v-row>
             </v-container>

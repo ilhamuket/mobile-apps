@@ -149,7 +149,7 @@
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
                     v-model="form.start_at"
-                    label="Started At *"
+                    label="Registration opens on*"
                     prepend-icon="mdi-calendar"
                     readonly
                     v-bind="attrs"
@@ -192,7 +192,7 @@
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
                     v-model="form.end_at"
-                    label="Ended At"
+                    label="Closing opens on March 22"
                     prepend-icon="mdi-calendar"
                     readonly
                     v-bind="attrs"
@@ -341,18 +341,18 @@
       },
     },
     data: () => ({
-      items: ['Intermediate', 'Advance', 'Beginner'],
+      items: ["Intermediate", "Advance", "Beginner"],
       form: {
-        name: '',
-        levels: '',
-        about: '',
-        url: '',
-        keyword: '',
-        durasi: '',
-        harga: '',
-        capacity: '',
-        start_at: '',
-        end_at: '',
+        name: "",
+        levels: "",
+        about: "",
+        url: "",
+        keyword: "",
+        durasi: "",
+        harga: "",
+        capacity: "",
+        start_at: "",
+        end_at: "",
         category_id: 0,
         time_start: null,
         time_end: null,
@@ -377,29 +377,29 @@
         this.dialog.open = false
         const Toast = this.$swal.mixin({
           toast: true,
-          position: 'bottom-end',
+          position: "bottom-end",
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
           didOpen: toast => {
-            toast.addEventListener('mouseenter', this.$swal.stopTimer)
-            toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+            toast.addEventListener("mouseenter", this.$swal.stopTimer)
+            toast.addEventListener("mouseleave", this.$swal.resumeTimer)
           },
-          popup: 'swal2-show',
-          backdrop: 'swal2-backdrop-show',
-          icon: 'swal2-icon-show',
+          popup: "swal2-show",
+          backdrop: "swal2-backdrop-show",
+          icon: "swal2-icon-show",
         })
         Toast.fire({
-          icon: 'success',
-          title: 'Dialog Closed',
+          icon: "success",
+          title: "Dialog Closed",
         })
       },
       createClass () {
-        this.$emit('input', { item: this.form })
+        this.$emit("input", { item: this.form })
       },
       getDataTeacherStudio () {
-        this.$store.dispatch('studioInstructor/getDataTeacherStudio', {
-          entities: 'studio',
+        this.$store.dispatch("studioInstructor/getDataTeacherStudio", {
+          entities: "studio",
         })
       },
     },
