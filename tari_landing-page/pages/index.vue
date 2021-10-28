@@ -33,7 +33,7 @@ export default {
         {
           hid: "description",
           name: "EnsikloTari",
-          content: "EnsikloTari Menari Dimanapu Kapanpun",
+          content: "EnsikloTari Menari Dimanapun Kapanpun",
         },
       ],
     };
