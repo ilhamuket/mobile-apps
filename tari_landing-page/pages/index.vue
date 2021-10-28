@@ -32,8 +32,8 @@ export default {
       meta: [
         {
           hid: "description",
-          name: "Next Ui Kit",
-          content: "Next Ui Kit is the best way",
+          name: "EnsikloTari",
+          content: "EnsikloTari Menari Dimanapu Kapanpun",
         },
       ],
     };
