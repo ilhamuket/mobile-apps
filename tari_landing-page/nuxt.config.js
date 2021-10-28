@@ -5,7 +5,7 @@ export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: "%s - EnsikloTari",
-    title: "NuxtJs UI kit | Free UI kit built with Vuetifyy",
+    title: "%s - EnsikloTari",
     htmlAttrs: {
       lang: "en"
     },

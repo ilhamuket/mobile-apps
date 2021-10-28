@@ -4,13 +4,72 @@ namespace Modules\StudioOwners\Http\Controllers;
 
 use Brryfrmnn\Transformers\Json;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Modules\StudioOwners\Entities\ImgInstructor;
 use Modules\StudioOwners\Entities\OwnerStudio;
 use Modules\StudioOwners\Entities\StudioTeacher;
+use Symfony\Component\VarDumper\Caster\ImgStub;
 
 class StudioTeacherController extends Controller
 {
+    public function uploadImg(Request $request)
+    {
+        try {
+            $master = new ImgInstructor();
+            $path = $request->img->store('images/user');
+            $master->url = $path;
+            $master->instructor_id = $request->instructor_id;
+            $master->save();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+
+    public function changeImg(Request $request, $instructor_id)
+    {
+        try {
+            DB::beginTransaction();
+            $img = ImgInstructor::where('instructor_id', $instructor_id)->first();
+            $newArr = explode('/', $img->url);
+
+            $image_path = $newArr[3] . '/' . $newArr[4] . '/' . $newArr[5];
+
+
+            if (File::exists($image_path)) {
+                File::delete($image_path);
+            }
+            $img->delete();
+
+            $master = new ImgInstructor();
+            $master->url = $request->img->store('images/user');
+            $master->instructor_id = $instructor_id;
+            $master->save();
+
+            DB::commit();
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            DB::rollBack();
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+
     public function deletedBroadCast(Request $request)
     {
         if (is_array($request->id)) {
@@ -53,6 +112,22 @@ class StudioTeacherController extends Controller
         try {
             $master = StudioTeacher::findOrFail($id);
             $master->is_verified = true;
+            $master->save();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+    public function deactive(Request $request, $id)
+    {
+        try {
+            $master = StudioTeacher::findOrFail($id);
+            $master->is_verified = false;
             $master->save();
 
             return Json::response($master);

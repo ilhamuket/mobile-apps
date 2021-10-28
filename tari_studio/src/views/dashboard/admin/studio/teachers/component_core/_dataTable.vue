@@ -1,7 +1,7 @@
 <template>
   <base-material-card
     icon="mdi-alpha-t-box"
-    color="pallet1"
+    color="primary"
   >
     <template #after-heading>
       <span
@@ -162,8 +162,32 @@
 
             <!-- Item -->
             <template #[`item.#`]="{item}">
+              <v-hover
+                v-if="item.img"
+                v-slot="{ hover }"
+              >
+                <v-card
+                  :elevation="hover ? 12 : 2"
+                  :class="{ 'on-hover': hover }"
+                >
+                  <v-img
+                    width="100"
+                    :src="item.img.url"
+                    gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
+                    style="cursor:pointer"
+                    @click="clickImg(item)"
+                  />
+                  <input
+                    ref="fileUpload"
+                    type="file"
+                    style="display: none"
+                    accept="image/*"
+                    @change="changePictProfile"
+                  >
+                </v-card>
+              </v-hover>
               <v-avatar
-                v-if="item.name"
+                v-else
                 color="primary"
                 size="50"
                 tile
@@ -198,14 +222,25 @@
                         class="font-a d-flex flex-nowrap"
                         @click="popEditForm(item)"
                       >
-                        <v-icon
-                          small
-                          color="blue"
-                          class="mr-1"
+                        <v-tooltip
+                          bottom
+                          color="primary"
                         >
-                          mdi-pencil
-                        </v-icon>
-                        Edit
+                          <template #activator="{on,attrs}">
+                            <v-icon
+                              v-bind="attrs"
+                              small
+                              color="blue"
+                              class="mr-1"
+                              v-on="on"
+                            >
+                              mdi-pencil
+                            </v-icon>
+                          </template>
+                          <span class="font-spartan-small">
+                            Edit
+                          </span>
+                        </v-tooltip>
                       </a>
                     </div>
                   </div>
@@ -215,13 +250,51 @@
                         class="font-a-delete d-flex flex-nowrap"
                         @click="deleteByIdPopUp(item)"
                       >
-                        <v-icon
-                          color="red"
-                          small
+                        <v-tooltip
+                          bottom
+                          color="primary"
                         >
-                          mdi-delete
-                        </v-icon>
-                        Delete
+                          <template #activator="{on,attrs}">
+                            <v-icon
+                              color="red"
+                              small
+                              v-bind="attrs"
+                              v-on="on"
+                            >
+                              mdi-delete
+                            </v-icon>
+                          </template>
+                          <span class="font-spartan-small red--text">
+                            Delete
+                          </span>
+                        </v-tooltip>
+                      </a>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="d-flex flex-column mt-2">
+                      <a
+                        class="font-a-delete d-flex flex-nowrap"
+                        @click="deactive(item)"
+                      >
+                        <v-tooltip
+                          bottom
+                          color="primary"
+                        >
+                          <template #activator="{on,attrs}">
+                            <v-icon
+                              color="red"
+                              small
+                              v-bind="attrs"
+                              v-on="on"
+                            >
+                              mdi-eye-off
+                            </v-icon>
+                          </template>
+                          <span class="font-spartan-small red--text">
+                            Deactivate
+                          </span>
+                        </v-tooltip>
                       </a>
                     </div>
                   </div>
@@ -276,6 +349,7 @@
       ],
       search: "",
       selected: [],
+      instructor_id: 0,
     }),
     computed: {
       computedTitle () {
@@ -317,11 +391,59 @@
         this.$emit("deleteById", { item: item })
       },
       setColorVerified (status) {
-        if (status === 1) return "primary"
+        if (status === 1) return "btn_primary"
         else return "red"
       },
       refreshClick () {
         this.$emit("refresh")
+      },
+      clickImg (item) {
+        this.$refs.fileUpload.click()
+        this.instructor_id = item.id
+      },
+      changePictProfile (event) {
+        const files = event.target.files
+        const filename = files[0].name
+        console.log(filename)
+        const fileReader = new FileReader()
+        fileReader.addEventListener("load", () => {
+          this.imageUrl = fileReader.result
+        //   console.log(this.imageUrl)
+        })
+        fileReader.readAsDataURL(files[0])
+        this.files = files[0]
+
+        if (this.files.size > 2000000) {
+          console.log("too big")
+          const Toast = this.$swal.mixin({
+            toast: true,
+            position: "bottom-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: toast => {
+              toast.addEventListener("mouseenter", this.$swal.stopTimer)
+              toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+            },
+            popup: "swal2-show",
+            backdrop: "swal2-backdrop-show",
+            icon: "swal2-icon-show",
+          })
+          Toast.fire({
+            icon: "error",
+            title: "file too big",
+          })
+        } else {
+          this.$emit("change", {
+            item: {
+              files: this.files,
+              id: this.instructor_id,
+            },
+          })
+        }
+      },
+      deactive (item) {
+        this.$emit("deactive", { item: item })
       },
     },
   }

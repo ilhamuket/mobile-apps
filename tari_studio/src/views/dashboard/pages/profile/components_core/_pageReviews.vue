@@ -228,7 +228,11 @@
                     v-bind="attrs"
                     v-on="on"
                   >
-                    {{ item.class_vidio.name.substr(0, 20) + "..." }}
+                    {{
+                      item.class_vidio
+                        ? item.class_vidio.name.substr(0, 20) + "..."
+                        : "-"
+                    }}
                   </span>
                 </template>
                 <span class="font-spartan-small">
@@ -236,7 +240,7 @@
                 </span>
               </v-tooltip>
               <span v-else>
-                {{ item.class_vidio.name }}
+                {{ item.class_vidio ? item.class_vidio.name : "-" }}
               </span>
             </span>
           </template>

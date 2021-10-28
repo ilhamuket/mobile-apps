@@ -97,12 +97,12 @@
         const arrObjOne = this.data.filter(
           (item, index) => this.data.indexOf(item) === index,
         )
-
         const newArray = [
           ...new Map(
             arrObjOne.reverse().map(item => [JSON.stringify(item), item]),
           ).values(),
         ]
+        // console.log(newArray)
         return newArray
       },
     },

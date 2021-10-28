@@ -286,7 +286,7 @@
                               color="red"
                               v-on="on"
                             >
-                              mdi-bag-suitcase-off
+                              mdi-eye-off
                             </v-icon>
                           </template>
                           <span class="font-spartan-small red--text">Hide</span>

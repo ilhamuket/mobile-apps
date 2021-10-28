@@ -266,7 +266,7 @@
       },
       list: {
         open: false,
-        data: {},
+        data: [],
       },
       update: {
         open: false,

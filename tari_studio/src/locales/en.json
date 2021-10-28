@@ -62,6 +62,7 @@
   "card_notice": {
     "text": "Are you sure you want to delete and everything related will be deleted too",
     "textById": "Are you sure you want to delete the title",
+    "deactive": "Are you sure want to deactive Instructor ",
     "approved": "Are You Sure Want to Approve",
     "discuss": {
       "del": "Are you sure want to delete Discuss with content",

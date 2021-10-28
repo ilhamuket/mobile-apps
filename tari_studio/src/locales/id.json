@@ -62,6 +62,7 @@
     "card_notice": {
         "text": "Apakah kamu yakin ingin menghapus dan semua yang berkaitan akan terhapus juga",
         "textById": "Apakah Kamu yakin Ingin Menghapus Yang Judul",
+        "deactive": "Apakah kamu yakin ingin menonatikfkan Instructor ",
         "approved": "Apakah Kamu Yakin Ingin Menyetujui",
         "discuss": {
             "del": "Apakah Kamu Yakin Ingin Mengapus Diskusi Dengan Konten",

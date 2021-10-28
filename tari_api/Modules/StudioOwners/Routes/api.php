@@ -74,7 +74,12 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
         Route::post('', [StudioTeacherController::class, 'store']);
         Route::post('deletes', [StudioTeacherController::class, 'deletedBroadCast']);
         Route::post('approved', [StudioTeacherController::class, 'approvedBroadcast']);
+        Route::prefix('file')->group(function () {
+            Route::post('', [StudioTeacherController::class, 'uploadImg']);
+            Route::post('{id}', [StudioTeacherController::class, 'changeImg']);
+        });
         Route::patch('edit/{id}', [StudioTeacherController::class, 'update']);
+        Route::patch('deactive/{id}', [StudioTeacherController::class, 'deactive']);
         Route::delete('delete/{id}', [StudioTeacherController::class, 'destroy']);
         Route::prefix('summary')->group(function () {
             Route::get('', [StudioTeacherController::class, 'summary']);

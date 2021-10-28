@@ -8,7 +8,7 @@
         <v-col cols="12" md="7" lg="6" class="d-flex align-center">
           <div class="text-center text-md-left">
             <h1 class="banner-title font-spartan font-weight-bold white--text">
-             Selamat Datang EnsikloTari
+              Selamat Datang EnsikloTari
             </h1>
             <!-- <h4 class="banner-subtitle white--text font-weight-regular">
               Free Vuetify UI Kit with Lots of Ready to Use Sections
@@ -28,6 +28,7 @@
               <v-btn
                 nuxt
                 large
+                target="__blank"
                 href="https://studio.ensiklotari.com"
                 class="btn-custom-md"
                 outlined
@@ -58,6 +59,6 @@ export default {
   name: "Banner",
   data() {
     return {};
-  }
+  },
 };
 </script>

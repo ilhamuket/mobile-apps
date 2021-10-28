@@ -20,26 +20,64 @@
         >
           <ul class="navbar-nav">
             <li class="nav-item" text>
-              <n-link class="nav-link" nuxt to="/"> Sanggar</n-link>
+              <a href="#what" class="headers__sanggar"> Sanggar </a>
+            </li>
+            <li>
+              <v-menu>
+                <template v-slot:activator="{ on: menu, attrs }">
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on: tooltip }">
+                      <a
+                        color="white"
+                        dark
+                        class="headers__sanggar"
+                        v-bind="attrs"
+                        text
+                        v-on="{ ...tooltip, ...menu }"
+                      >
+                        Lain-nya
+                      </a>
+                    </template>
+                    <span>Im A ToolTip</span>
+                  </v-tooltip>
+                </template>
+                <v-list>
+                  <v-list-item-group>
+                    <v-list-item v-for="(item, index) in items" :key="index" :href="item.id">
+                      <v-list-item-title>{{
+                        item.title
+                      }}</v-list-item-title>
+                    </v-list-item>
+                  </v-list-item-group>
+                </v-list>
+              </v-menu>
             </li>
             <li class="nav-item" text>
-              <v-btn  text  class="nav-link" nuxt  target="_blank"
-                href="https://studio.ensiklotari.com">
-                Masuk-Studio
-              </v-btn>
+              <a
+                color="white"
+                nuxt
+                text
+                class="headers__sanggar"
+                target="_blank"
+                href="https://studio.ensiklotari.com"
+                elevation="0"
+              >
+                Masuk-Sanggar
+              </a>
             </li>
             <li class="nav-item">
               <!-- login-regiter -->
-              <v-btn
+              <a
                 color="white"
                 nuxt
+                class="headers__sanggar"
                 text
                 target="_blank"
                 href="https://app.ensiklotari.com"
                 elevation="0"
               >
-               Masuk-Murid
-              </v-btn>
+                Masuk-Murid
+              </a>
             </li>
           </ul>
         </div>
@@ -56,18 +94,34 @@ export default {
   name: "Header",
 
   components: {
-    Logo: () => import("@/layouts/sections/Logo")
+    Logo: () => import("@/layouts/sections/Logo"),
   },
   data() {
     return {
-      isActive: false
+      isActive: false,
+      fav: true,
+      menu: false,
+      message: false,
+      items: [
+        { title: "keunggulan", id: "#keunggulan" },
+        { title: "keunggulan", id: "#keunggulan" },
+        { title: "keunggulan", id: "#keunggulan" },
+        { title: "keunggulan", id: "#keunggulan" },
+      ],
+      hints: true,
     };
   },
   methods: {
-    toggleClass: function(event) {
+    toggleClass: function (event) {
       this.isActive = !this.isActive;
       console.log("has");
-    }
-  }
+    },
+  },
 };
 </script>
+<style lang="sass">
+.headers__sanggar
+  color: white !important
+  text-decoration: none
+  margin-left: 20px
+</style>

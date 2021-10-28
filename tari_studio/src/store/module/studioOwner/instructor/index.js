@@ -53,6 +53,12 @@ export default {
         }
       }
     },
+    DEACTIVE_DATA: (state, payload) => {
+      const indexTeachers = state.data.findIndex(x => x.id === payload.id)
+      if (indexTeachers !== -1) {
+        state.data[indexTeachers].is_verified = false
+      }
+    },
   },
   actions: {
     getDataTeacherStudio: ({ commit }, payload) => {
@@ -157,6 +163,43 @@ export default {
           .then(res => {
             // const data = res.data.data
             commit("APPROVE_DATA", payload)
+            resolve(res)
+          })
+          .catch(e => {
+            reject(e)
+          })
+      })
+    },
+    changePictProfile: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        "Bearer " + localStorage.getItem("access_token")
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        const URL = "owner/instructor/file/" + payload.instructor_id
+        const data = new FormData()
+        data.append("img", payload.files)
+        data.append("instructor_id", payload.instructor_id)
+        axios
+          .post(URL, data)
+          .then(res => {
+            resolve(res)
+          })
+          .catch(e => {
+            reject(e)
+          })
+      })
+    },
+    deactiveDataTeachers: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        "Bearer " + localStorage.getItem("access_token")
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        axios
+          .patch(`owner/instructor/deactive/${payload.id}`)
+          .then(res => {
+            commit("DEACTIVE_DATA", payload)
             resolve(res)
           })
           .catch(e => {

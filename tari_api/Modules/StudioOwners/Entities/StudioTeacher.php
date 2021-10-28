@@ -23,6 +23,10 @@ class StudioTeacher extends Model
     {
         return $this->belongsTo(OwnerStudio::class, 'studio_id');
     }
+    public function img()
+    {
+        return $this->hasOne(ImgInstructor::class, 'instructor_id');
+    }
     // ==== Scope === //
     public function scopeEntities($query, $entities)
     {

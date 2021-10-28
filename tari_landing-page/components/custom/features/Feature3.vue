@@ -36,7 +36,7 @@
                     to="/"
                     elevation="0"
                   >
-                    <span>Daftar Disini</span>
+                    <span>Buat Akun !!</span>
                     <i class="mdi mdi-arrow-right"></i>
                   </v-btn>
                 </div>

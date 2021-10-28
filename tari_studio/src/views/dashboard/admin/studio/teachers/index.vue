@@ -74,6 +74,8 @@
           @deletes="popUpDeleted"
           @deleteById="popUpDeletedById"
           @refresh="refreshMethods"
+          @change="changePictProfile"
+          @deactive="upDeactive"
         />
       </v-col>
     </v-row>
@@ -114,35 +116,46 @@
       color-button2="primary"
       @input="deleteDataTeacherStudioById"
     />
+    <app-dialog-notice
+      :dialog="dialogDeactive"
+      :by-id="true"
+      title="Deactive"
+      text="card_notice.deactive"
+      text-button1="Deactive"
+      icon="mdi-eye-off"
+      color-button1="red"
+      color-button2="primary"
+      @input="deactiveDataTeachers"
+    />
   </v-container>
 </template>
 
 <script>
-  import dataTable from './component_core/_dataTable.vue'
-  import dialogForm from './component/__dialogForm.vue'
-  import dialogEdit from './component/__dialogEdit.vue'
-  import dialogNotice from './component/__dialogNotice.vue'
+  import dataTable from "./component_core/_dataTable.vue"
+  import dialogForm from "./component/__dialogForm.vue"
+  import dialogEdit from "./component/__dialogEdit.vue"
+  import dialogNotice from "./component/__dialogNotice.vue"
 
   export default {
     components: {
-      'app-data-table': dataTable,
-      'app-dialog-form': dialogForm,
-      'app-dialog-edit': dialogEdit,
-      'app-dialog-notice': dialogNotice,
+      "app-data-table": dataTable,
+      "app-dialog-form": dialogForm,
+      "app-dialog-edit": dialogEdit,
+      "app-dialog-notice": dialogNotice,
     },
     data: () => ({
-      summary: '',
+      summary: "",
       dialogForm: {
         open: false,
       },
       edit: {
         open: false,
-        name: '',
-        email: '',
-        region: '',
-        contact: '',
-        profession: '',
-        about: '',
+        name: "",
+        email: "",
+        region: "",
+        contact: "",
+        profession: "",
+        about: "",
       },
       approve: {
         open: false,
@@ -157,7 +170,12 @@
       dialogDeleteById: {
         open: false,
         id: 0,
-        name: '',
+        name: "",
+      },
+      dialogDeactive: {
+        open: false,
+        id: 0,
+        name: "",
       },
     }),
     computed: {
@@ -172,7 +190,7 @@
       summary (val) {
         this.$router.push({ query: { ...this.$route.query, summary: val } })
       },
-      '$router.push.query': function (newVal) {
+      "$router.push.query": function (newVal) {
         this.summary = newVal
         this.getDataTeacherStudio()
       },
@@ -183,8 +201,8 @@
     },
     methods: {
       getDataTeacherStudio () {
-        this.$store.dispatch('studioInstructor/getDataTeacherStudio', {
-          entities: 'studio',
+        this.$store.dispatch("studioInstructor/getDataTeacherStudio", {
+          entities: "studio,img",
           summary: this.summary,
         })
       },
@@ -192,25 +210,25 @@
         this.getDataTeacherStudio()
         const Toast = this.$swal.mixin({
           toast: true,
-          position: 'bottom-end',
+          position: "bottom-end",
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
           didOpen: toast => {
-            toast.addEventListener('mouseenter', this.$swal.stopTimer)
-            toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+            toast.addEventListener("mouseenter", this.$swal.stopTimer)
+            toast.addEventListener("mouseleave", this.$swal.resumeTimer)
           },
-          popup: 'swal2-show',
-          backdrop: 'swal2-backdrop-show',
-          icon: 'swal2-icon-show',
+          popup: "swal2-show",
+          backdrop: "swal2-backdrop-show",
+          icon: "swal2-icon-show",
         })
         Toast.fire({
-          icon: 'success',
-          title: 'Has been refreshed',
+          icon: "success",
+          title: "Fetch Data",
         })
       },
       getDataSummaryTeachers () {
-        this.$store.dispatch('studioInstructorSummary/getDataSummaryTeachers')
+        this.$store.dispatch("studioInstructorSummary/getDataSummaryTeachers")
       },
       orderBySummary (val) {
         this.summary = val
@@ -246,7 +264,7 @@
       },
       insertDataTeacherStudio ({ item }) {
         this.$store
-          .dispatch('studioInstructor/insertDataTeacherStudio', {
+          .dispatch("studioInstructor/insertDataTeacherStudio", {
             name: item.name,
             email: item.email,
             profession: item.profession,
@@ -266,28 +284,28 @@
               this.dialogForm.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Teaches Created Successfully',
+                icon: "success",
+                title: "Teaches Created Successfully",
               })
             }
           })
       },
       updateDataTeacherStudio ({ item }) {
         this.$store
-          .dispatch('studioInstructor/updateDataTeacherStudio', {
+          .dispatch("studioInstructor/updateDataTeacherStudio", {
             id: item.id,
             name: item.name,
             email: item.email,
@@ -301,21 +319,21 @@
               this.edit.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Data Teachers Updated Successfully',
+                icon: "success",
+                title: "Data Teachers Updated Successfully",
               })
             }
           })
@@ -323,61 +341,61 @@
       approveDataTeacherStudioBoadCast ({ item }) {
         console.log(item)
         this.$store
-          .dispatch('studioInstructor/approveDataTeacherStudioBoadCast', item)
+          .dispatch("studioInstructor/approveDataTeacherStudioBoadCast", item)
           .then(res => {
             if (res.data.meta.status) {
               this.approve.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Data Teachers Approved Successfully',
+                icon: "success",
+                title: "Data Teachers Approved Successfully",
               })
             }
           })
       },
       deletesDataTeacherStudioBroadCast ({ item }) {
         this.$store
-          .dispatch('studioInstructor/deletesDataTeacherStudioBroadCast', item)
+          .dispatch("studioInstructor/deletesDataTeacherStudioBroadCast", item)
           .then(res => {
             if (res.data.meta.status) {
               this.deleted.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Data Teachers Deleted Successfully',
+                icon: "success",
+                title: "Data Teachers Deleted Successfully",
               })
             }
           })
       },
       deleteDataTeacherStudioById ({ item }) {
         this.$store
-          .dispatch('studioInstructor/deleteDataTeacherStudioById', {
+          .dispatch("studioInstructor/deleteDataTeacherStudioById", {
             id: item.id,
           })
           .then(res => {
@@ -385,21 +403,85 @@
               this.dialogDeleteById.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Data Teachers Deleted Successfully',
+                icon: "success",
+                title: "Data Teachers Deleted Successfully",
+              })
+            }
+          })
+      },
+      changePictProfile ({ item }) {
+        this.$store
+          .dispatch("studioInstructor/changePictProfile", {
+            files: item.files,
+            instructor_id: item.id,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Edit Photo Profile Successfully",
+              })
+              this.getDataTeacherStudio()
+            }
+          })
+      },
+      upDeactive ({ item }) {
+        this.dialogDeactive.open = true
+        this.dialogDeactive.id = item.id
+        this.dialogDeactive.name = item.name
+      },
+      deactiveDataTeachers ({ item }) {
+        this.$store
+          .dispatch("studioInstructor/deactiveDataTeachers", {
+            id: item.id,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              this.dialogDeactive.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Data Teachers Deactive Successfully",
               })
             }
           })

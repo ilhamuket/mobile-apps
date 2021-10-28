@@ -52,7 +52,7 @@ export default {
     colors: ["primary", "secondary", "red", "blue", "orange"],
     items: [
       {
-        src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+        src: "http://127.0.0.1:8000/images/idTe8IHFxCfVcgKD0UglFQaoG3Z5VPm3jw4hPMOA.jpg",
       },
       {
         src: "https://cdn.vuetifyjs.com/images/carousel/sky.jpg",
