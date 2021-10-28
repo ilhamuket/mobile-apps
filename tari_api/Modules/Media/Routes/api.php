@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 // use Illuminate\Routing\Route;
 use Modules\Classes\Http\Controllers\ClassesController;
 use Modules\Media\Http\Controllers\ArticleController;
+use Modules\Media\Http\Controllers\ImgAllController;
 use Modules\Media\Http\Controllers\MediaController;
 use Modules\Media\Http\Controllers\PostController;
 /*
@@ -39,6 +40,10 @@ Route::prefix('media')->middleware(['auth:sanctum'])->group(function () {
     Route::post('article/deletes', [ArticleController::class, 'destroy']);
     Route::post('article/approves', [ArticleController::class, 'approves']);
     Route::patch('article/approve/{id}', [ArticleController::class, 'approveById']);
+
+    Route::prefix('all')->group(function () {
+        Route::post('', [ImgAllController::class, 'store']);
+    });
 });
 
 Route::prefix('summary')->middleware(['auth:sanctum'])->group(function () {
