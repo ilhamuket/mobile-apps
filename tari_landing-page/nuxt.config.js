@@ -4,8 +4,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: "EnsikloTari Belaar Dimanapun Kapanpun - EnsikloTari",
-    title: "%s - EnsikloTari",
+    titleTemplate: "%s - EnsikloTari",
+    title: "Belajar Dimanapun Kapanpun Dengen ",
     htmlAttrs: {
       lang: "en"
     },
