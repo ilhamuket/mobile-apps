@@ -56,7 +56,7 @@ class ImgListClassController extends Controller
             $listImg->delete();
 
             $master = new ImgListClass();
-            $path = $request->img->store('images/list-class');
+            $path = $request->img->store('images/category');
             $master->url = $path;
             $master->class_id = $listImg->class_id;
             $master->save();
