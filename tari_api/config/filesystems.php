@@ -70,7 +70,7 @@ return [
     'links' => [
         public_path('storage') => storage_path('app/public'),
         public_path('images') => storage_path('app/images'),
-        public_path('images/list-class') => storage_path('app/list-class'),
+        public_path('images/list-class') => storage_path('app/images/list-class'),
         public_path('images/ensiklo-live') => storage_path('app/images/ensiklo-live'),
         public_path('images/category') => storage_path('app/images/category'),
         public_path('images/studio') => storage_path('app/images/studio'),
