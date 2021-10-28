@@ -64,7 +64,7 @@
                     color="info"
                     class="linking feature2-action-btn"
                   >
-                    Let's Talk <i class="mdi mdi-arrow-right"></i>
+                    Lihat <i class="mdi mdi-arrow-right"></i>
                   </v-btn>
                 </v-col>
               </v-row>
@@ -104,7 +104,7 @@
                     color="info"
                     class="linking feature2-action-btn"
                   >
-                    Let's Talk <i class="mdi mdi-arrow-right"></i>
+                    Lihat <i class="mdi mdi-arrow-right"></i>
                   </v-btn>
                 </v-col>
               </v-row>
@@ -144,7 +144,7 @@
                     color="info"
                     class="linking feature2-action-btn"
                   >
-                    Let's Talk <i class="mdi mdi-arrow-right"></i>
+                    Lihat <i class="mdi mdi-arrow-right"></i>
                   </v-btn>
                 </v-col>
               </v-row>
@@ -184,7 +184,7 @@
                     color="info"
                     class="linking feature2-action-btn"
                   >
-                    Let's Talk <i class="mdi mdi-arrow-right"></i>
+                    Lihat <i class="mdi mdi-arrow-right"></i>
                   </v-btn>
                 </v-col>
               </v-row>
