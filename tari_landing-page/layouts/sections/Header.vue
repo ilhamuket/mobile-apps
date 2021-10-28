@@ -20,17 +20,11 @@
         >
           <ul class="navbar-nav">
             <li class="nav-item" text>
-              <ul class="nav-link" href="#id"> Sanggar</ul>
+              <n-link class="nav-link" nuxt to="/"> Sanggar</n-link>
             </li>
             <li class="nav-item" text>
-              <v-btn
-                color="white"
-                nuxt
-                text
-                target="_blank"
-                href="https://studio.ensiklotari.com"
-                elevation="0"
-              >
+              <v-btn  text  class="nav-link" nuxt  target="_blank"
+                href="https://studio.ensiklotari.com">
                 Masuk-Studio
               </v-btn>
             </li>
@@ -44,7 +38,7 @@
                 href="https://app.ensiklotari.com"
                 elevation="0"
               >
-                Masuk-Murid
+               Masuk-Murid
               </v-btn>
             </li>
           </ul>
