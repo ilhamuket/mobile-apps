@@ -19,7 +19,8 @@
                 <v-btn
                   nuxt
                   width="300"
-                  to="/"
+                  href="https://app.ensiklotari.com/class-vidio"
+                  target="__blank"
                   class="btn-custom-lg btn-arrow"
                   depressed
                   color="error"

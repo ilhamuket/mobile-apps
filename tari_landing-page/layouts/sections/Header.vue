@@ -104,9 +104,9 @@ export default {
       message: false,
       items: [
         { title: "keunggulan", id: "#keunggulan" },
-        { title: "keunggulan", id: "#keunggulan" },
-        { title: "keunggulan", id: "#keunggulan" },
-        { title: "keunggulan", id: "#keunggulan" },
+        { title: "Fitur", id: "#fitur" },
+        { title: "EnsikloLive", id: "#live" },
+        { title: "EnsikloVidio", id: "#vidio" },
       ],
       hints: true,
     };

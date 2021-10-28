@@ -31,7 +31,8 @@
                   nuxt
                   large
                   rounded
-                  to="/basic-components"
+                  href="https://studio.ensiklotari.com/register"
+                  target="__blank"
                   class="btn-custom-md"
                   depressed
                   color="white"

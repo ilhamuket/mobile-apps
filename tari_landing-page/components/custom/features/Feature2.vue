@@ -50,7 +50,7 @@
                           class="px-md-0 d-flex align-center"
                         >
                           <h4 class="font-weight-medium font-18">
-                            Make your website in no-time with us.
+                            Epul J - Dancer
                           </h4>
                         </v-col>
                       </v-row>
@@ -90,7 +90,7 @@
                           class="px-md-0 d-flex align-center"
                         >
                           <h4 class="font-weight-medium font-18">
-                            Make your website in no-time with us.
+                            Epul J - Dancer
                           </h4>
                         </v-col>
                       </v-row>
@@ -130,7 +130,7 @@
                           class="px-md-0 d-flex align-center"
                         >
                           <h4 class="font-weight-medium font-18">
-                            Make your website in no-time with us.
+                           Epul J - Dancer
                           </h4>
                         </v-col>
                       </v-row>
@@ -170,7 +170,7 @@
                           class="px-md-0 d-flex align-center"
                         >
                           <h4 class="font-weight-medium font-18">
-                            Make your website in no-time with us.
+                           Epul J - Dancer
                           </h4>
                         </v-col>
                       </v-row>

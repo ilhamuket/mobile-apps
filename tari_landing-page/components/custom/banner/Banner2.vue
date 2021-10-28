@@ -25,7 +25,8 @@
                 <v-btn
                   nuxt
                   large
-                  to="/"
+                  href="https://app.ensiklotari.com/classes"
+                  target="__blank"
                   class="btn-custom-lg btn-arrow"
                   depressed
                   color="error"

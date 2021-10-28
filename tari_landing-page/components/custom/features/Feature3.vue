@@ -21,7 +21,7 @@
                     Daftar
                   </v-chip>
                   <h3 class="feature3-title font-weight-medium">
-                   Masih Ragu ?
+                    Masih Ragu ?
                   </h3>
                   <p>
                     You can relay on our amazing features list and also our
@@ -33,7 +33,8 @@
                     class="btn-custom-lg linking mt-10 btn-arrow"
                     nuxt
                     large
-                    to="/"
+                    href="https://app.ensiklotari.com/classes/register"
+                    target="__blank"
                     elevation="0"
                   >
                     <span>Buat Akun !!</span>
