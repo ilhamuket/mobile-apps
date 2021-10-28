@@ -52,16 +52,13 @@ export default {
     colors: ["primary", "secondary", "red", "blue", "orange"],
     items: [
       {
-        src: "http://127.0.0.1:8000/images/idTe8IHFxCfVcgKD0UglFQaoG3Z5VPm3jw4hPMOA.jpg",
+        src: "https://api.ensiklotari.com/images/category/fiNBaPXYNLwbOhdcwbskT0MAPXVIOI2d03XOSh4O.jpg",
       },
       {
-        src: "https://cdn.vuetifyjs.com/images/carousel/sky.jpg",
+        src: "https://api.ensiklotari.com/images/category/o3LmUXaA2hGa192ycyAbcF1GDrN1sAXEU4XXBZGJ.jpg",
       },
       {
-        src: "https://cdn.vuetifyjs.com/images/carousel/bird.jpg",
-      },
-      {
-        src: "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
+        src: "https://api.ensiklotari.com/images/category/0cOKASyNfM6rjHWftIZ9pS3UkDczINdZjSMkPWXm.jpg",
       },
     ],
   }),
@@ -70,10 +67,10 @@ export default {
 
 <style lang="sass">
 .overflow-scroll
-    height: 450px !important
-    overflow-y: scroll
-    text-justify: justify
-    text-align: justify
+  height: 450px !important
+  overflow-y: scroll
+  text-justify: justify
+  text-align: justify
 .bg--what
-    background-color: #F4F8FA
+  background-color: #F4F8FA
 </style>>

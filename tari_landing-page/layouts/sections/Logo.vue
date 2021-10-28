@@ -2,9 +2,9 @@
   <div class="logo">
     <NLink to="/">
       <v-img
-        src="https://www.ensiklotari.com/img/new/ensiklotariLogo.svg"
+        src="https://api.ensiklotari.com/images/category/2yWAsvcRa7gqGqBlvlVcgiyEfn1xuxvPMyRbWgZD.svg"
         alt="logo"
-        width="200"
+        width="160"
       />
     </NLink>
   </div>

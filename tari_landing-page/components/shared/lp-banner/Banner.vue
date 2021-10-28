@@ -42,7 +42,7 @@
         </v-col>
         <v-col cols="12" md="5" lg="6">
           <v-img
-            src="https://www.ensiklotari.com/img/new/asset-web-illustration1.svg"
+            src="https://api.ensiklotari.com/images/category/0EJblVJPOqzE2WcOSP3CANM8hsTX1YJ3hvZOfJ2N.svg"
             alt="banner"
           />
         </v-col>
