@@ -20,7 +20,7 @@
                 nuxt
                 large
                 target="_blank"
-                href="https://www.wrappixel.com/templates/nextkit-nuxtjs-free-uikit/"
+                href="https://app.ensiklotari.com"
                 elevation="0"
               >
                 Masuk Murid
@@ -28,7 +28,7 @@
               <v-btn
                 nuxt
                 large
-                to="/coming-soon"
+                href="https://studio.ensiklotari.com"
                 class="btn-custom-md"
                 outlined
                 color="white"
