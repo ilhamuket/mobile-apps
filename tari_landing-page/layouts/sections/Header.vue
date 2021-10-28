@@ -20,23 +20,31 @@
         >
           <ul class="navbar-nav">
             <li class="nav-item" text>
-              <n-link class="nav-link" nuxt to="/"> Sanggar</n-link>
+              <ul class="nav-link" href="#id"> Sanggar</ul>
             </li>
             <li class="nav-item" text>
-              <n-link class="nav-link" nuxt to="/basic-components">
+              <v-btn
+                color="white"
+                nuxt
+                text
+                target="_blank"
+                href="https://studio.ensiklotari.com"
+                elevation="0"
+              >
                 Masuk-Studio
-              </n-link>
+              </v-btn>
             </li>
             <li class="nav-item">
               <!-- login-regiter -->
               <v-btn
                 color="white"
                 nuxt
+                text
                 target="_blank"
-                href="https://www.wrappixel.com/templates/nextkit-nuxtjs-free-uikit/"
+                href="https://app.ensiklotari.com"
                 elevation="0"
               >
-               Masuk-Murid
+                Masuk-Murid
               </v-btn>
             </li>
           </ul>
