@@ -307,6 +307,21 @@ const router = new Router({
             requiresAuth: true,
           },
         },
+        {
+          name: "instructor",
+          path: "/instructor",
+          component: () =>
+            import("@/views/dashboard/pages/instructor/index.vue"),
+          meta: {
+            breadcumbs: [
+              {
+                text: "Dashboard",
+                to: "/",
+              },
+            ],
+            requiresAuth: true,
+          },
+        },
         // {
         //   name: 'Page Not Found',
         //   path: '*',
