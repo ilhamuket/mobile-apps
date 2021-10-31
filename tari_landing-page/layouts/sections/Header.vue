@@ -105,6 +105,7 @@ export default {
       items: [
         { title: "keunggulan", id: "#keunggulan" },
         { title: "Fitur", id: "#fitur" },
+        {title: "Payment", id: "#payment"},
         { title: "EnsikloLive", id: "#live" },
         { title: "EnsikloVidio", id: "#vidio" },
       ],

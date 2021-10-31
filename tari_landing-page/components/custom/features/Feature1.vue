@@ -27,7 +27,7 @@
         <!-- -----------------------------------------------
             Start Feature 1
         ----------------------------------------------- -->
-    
+
         <v-row justify="center" class="mt-13">
           <v-col cols="12" md="6">
             <v-card elevation="0">
@@ -43,7 +43,7 @@
                   pellentesque ipsum.
                 </p>
                 <a
-                  href="#"
+                  href="#live"
                   class="
                     text-themecolor
                     linking
@@ -71,7 +71,7 @@
                   pellentesque ipsum.
                 </p>
                 <a
-                  href="#"
+                  href="#vidio"
                   class="
                     text-themecolor
                     linking

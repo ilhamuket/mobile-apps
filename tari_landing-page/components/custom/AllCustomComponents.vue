@@ -58,8 +58,8 @@
     <!-- -----------------------------------------------
     Team
     ----------------------------------------------- -->
-    <TeamText />
-    <Team />
+    <TeamText id="payment" />
+    <!-- <Team /> -->
     <!-- -----------------------------------------------
     ./ Team
     ----------------------------------------------- -->
@@ -68,6 +68,7 @@
     ----------------------------------------------- -->
     <TestimonialText />
     <Testimonial />
+    <!-- <Setting /> -->
     <!-- -----------------------------------------------
     ./ Testimonial
     ----------------------------------------------- -->
@@ -130,6 +131,7 @@ export default {
     C2a1: () => import("@/components/custom/c2a/C2a1"),
     C2a2: () => import("@/components/custom/c2a/C2a2"),
     Contact: () => import("@/components/custom/contact/Contact"),
+    Setting: () => import('@/components/Setting'),
     "app-what": what,
   },
 };
