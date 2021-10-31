@@ -32,7 +32,7 @@
             md="6"
             lg="4"
           >
-            <v-card class="portfolio-card overflow-hidden">
+            <v-card height="400" class="portfolio-card overflow-hidden">
               <div class="portfolio-img">
                 <img
                   v-if="item.img"
