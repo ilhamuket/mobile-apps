@@ -48,7 +48,9 @@
                 <p v-if="item.studio" class="font-14 mb-0">
                   {{ item.studio.name }}
                 </p>
-                <p class="font-spartan-small">20 ulasan</p>
+                <p v-if="item.studio" class="font-spartan-small">
+                  {{ item.studio.reviews ? item.studio.reviews.length : 0 }} ulasan
+                </p>
                 <v-rating
                   class="ratings--ensikloive"
                   :value="computedValue[i]"
@@ -58,10 +60,8 @@
               </v-card-text>
             </v-card>
           </v-col>
-         
         </v-row>
 
-  
         <!-- -----------------------------------------------
             End Portfolio
         ----------------------------------------------- -->
