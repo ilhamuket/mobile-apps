@@ -138,3 +138,6 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
     // Users
     Route::get('u/{slug}', [StudioController::class, 'bySlug']);
 });
+Route::prefix('all')->group(function () {
+    Route::get('live', [StudioClassController::class, 'forAll']);
+});
