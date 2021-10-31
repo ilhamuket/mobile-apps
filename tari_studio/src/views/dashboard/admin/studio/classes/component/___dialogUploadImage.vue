@@ -26,66 +26,68 @@
           </v-icon>
         </v-system-bar>
 
-        <v-container v-if="dialog.data.list_img">
-          <v-row v-if="dialog.data.list_img.length !== 0">
-            <v-col
-              v-for="(item, i) in dialog.data.list_img"
-              :key="i"
-              cols="12"
-              sm="12"
-              md="4"
-            >
-              <v-hover v-slot="{ hover }">
-                <v-card
-                  :elevation="hover ? 12 : 2"
-                  :class="{ 'on-hover': hover }"
-                >
-                  <v-img
-                    height="200"
-                    :src="item.url"
-                    gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
-                    @click="changePictInput(i, item)"
+        <v-container>
+          <div v-if="dialog.data.list_img">
+            <v-row v-if="dialog.data.list_img.length !== 0">
+              <v-col
+                v-for="(item, i) in dialog.data.list_img"
+                :key="i"
+                cols="12"
+                sm="12"
+                md="4"
+              >
+                <v-hover v-slot="{ hover }">
+                  <v-card
+                    :elevation="hover ? 12 : 2"
+                    :class="{ 'on-hover': hover }"
                   >
-                    <v-container>
-                      <v-row
-                        class="fill-height flex-column"
-                        justify="space-between"
-                      >
-                        <v-col
-                          cols="12"
-                          class="col__camera"
+                    <v-img
+                      height="200"
+                      :src="item.url"
+                      gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
+                      @click="changePictInput(i, item)"
+                    >
+                      <v-container>
+                        <v-row
+                          class="fill-height flex-column"
+                          justify="space-between"
                         >
-                          <div class="align-self-center">
-                            <v-btn
-                              :class="{ 'show-btns': hover }"
-                              :color="transparent"
-                              icon
-                              dark
-                            >
-                              <v-icon
+                          <v-col
+                            cols="12"
+                            class="col__camera"
+                          >
+                            <div class="align-self-center">
+                              <v-btn
                                 :class="{ 'show-btns': hover }"
                                 :color="transparent"
-                                large
+                                icon
+                                dark
                               >
-                                mdi-camera-flip-outline
-                              </v-icon>
-                            </v-btn>
-                          </div>
-                        </v-col>
-                      </v-row>
-                    </v-container>
-                  </v-img>
-                  <input
-                    ref="change"
-                    type="file"
-                    style="display: none"
-                    accept="image/*"
-                    @change="changePict"
-                  >
-                </v-card>
-              </v-hover>
-            </v-col>
-          </v-row>
+                                <v-icon
+                                  :class="{ 'show-btns': hover }"
+                                  :color="transparent"
+                                  large
+                                >
+                                  mdi-camera-flip-outline
+                                </v-icon>
+                              </v-btn>
+                            </div>
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </v-img>
+                    <input
+                      ref="change"
+                      type="file"
+                      style="display: none"
+                      accept="image/*"
+                      @change="changePict"
+                    >
+                  </v-card>
+                </v-hover>
+              </v-col>
+            </v-row>
+          </div>
           <v-row v-else>
             <v-col
               cols="12"
@@ -110,12 +112,12 @@
               md="12"
               class="row__list d-flex justify-center"
             >
-              <span
+              <!-- <span
                 v-if="dialog.data.list_img.length === 3"
                 class="font-spartan"
               >
-                <!-- change the image by clicking on the image -->
-              </span>
+
+              </span> -->
 
               <v-btn
                 dark
@@ -168,8 +170,8 @@
     data: () => ({
       isTrue: true,
       files: null,
-      icons: ['mdi-rewind', 'mdi-play', 'mdi-fast-forward'],
-      transparent: 'rgba(255, 255, 255, 0)',
+      icons: ["mdi-rewind", "mdi-play", "mdi-fast-forward"],
+      transparent: "rgba(255, 255, 255, 0)",
       pict_id: 0,
     }),
     methods: {
@@ -185,7 +187,7 @@
         const filename = files[0].name
         console.log(filename)
         const fileReader = new FileReader()
-        fileReader.addEventListener('load', () => {
+        fileReader.addEventListener("load", () => {
           this.imageUrl = fileReader.result
         //   console.log(this.imageUrl)
         })
@@ -193,27 +195,27 @@
         this.files = files[0]
 
         if (this.files.size > 2000000) {
-          console.log('too big')
+          console.log("too big")
           const Toast = this.$swal.mixin({
             toast: true,
-            position: 'bottom-end',
+            position: "bottom-end",
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
             didOpen: toast => {
-              toast.addEventListener('mouseenter', this.$swal.stopTimer)
-              toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+              toast.addEventListener("mouseenter", this.$swal.stopTimer)
+              toast.addEventListener("mouseleave", this.$swal.resumeTimer)
             },
-            popup: 'swal2-show',
-            backdrop: 'swal2-backdrop-show',
-            icon: 'swal2-icon-show',
+            popup: "swal2-show",
+            backdrop: "swal2-backdrop-show",
+            icon: "swal2-icon-show",
           })
           Toast.fire({
-            icon: 'error',
-            title: 'file too big',
+            icon: "error",
+            title: "file too big",
           })
         } else {
-          this.$emit('input', {
+          this.$emit("input", {
             item: {
               files: this.files,
               id: this.dialog.data.id,
@@ -226,34 +228,34 @@
         const filename = files[0].name
         console.log(filename)
         const fileReader = new FileReader()
-        fileReader.addEventListener('load', () => {
+        fileReader.addEventListener("load", () => {
           this.imageUrl = fileReader.result
         //   console.log(this.imageUrl)
         })
         fileReader.readAsDataURL(files[0])
         this.files = files[0]
         if (this.files.size > 2000000) {
-          console.log('too big')
+          console.log("too big")
           const Toast = this.$swal.mixin({
             toast: true,
-            position: 'bottom-end',
+            position: "bottom-end",
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
             didOpen: toast => {
-              toast.addEventListener('mouseenter', this.$swal.stopTimer)
-              toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+              toast.addEventListener("mouseenter", this.$swal.stopTimer)
+              toast.addEventListener("mouseleave", this.$swal.resumeTimer)
             },
-            popup: 'swal2-show',
-            backdrop: 'swal2-backdrop-show',
-            icon: 'swal2-icon-show',
+            popup: "swal2-show",
+            backdrop: "swal2-backdrop-show",
+            icon: "swal2-icon-show",
           })
           Toast.fire({
-            icon: 'error',
-            title: 'file too big',
+            icon: "error",
+            title: "file too big",
           })
         } else {
-          this.$emit('change', {
+          this.$emit("change", {
             item: {
               files: this.files,
               id: this.pict_id,
