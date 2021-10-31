@@ -39,6 +39,8 @@
                   :src="item.img.url"
                   class="img-fluid"
                   alt="portfolio"
+                  width="420"
+                
                 />
               </div>
               <v-card-text>
