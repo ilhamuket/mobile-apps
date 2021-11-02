@@ -116,5 +116,6 @@
       },
     "minutes": "Minutes",
     "type": "Ketik Sesuatu",
-    "instructor": "Instructor"
+    "instructor": "Instructor",
+    "auth-register": "Daftar"
 }
