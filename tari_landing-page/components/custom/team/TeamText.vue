@@ -54,6 +54,6 @@ export default {
 .margin--bri
   margin-left: -55px
 .margin--container__payment
-  margin-top: 50px !important
-  margin-left: 405px
+  margin-top: 3% !important
+  margin-left: 33%
 </style>
