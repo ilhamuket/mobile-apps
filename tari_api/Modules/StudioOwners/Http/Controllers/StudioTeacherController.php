@@ -222,8 +222,10 @@ class StudioTeacherController extends Controller
             $master->region = $request->region;
             $master->contact = $request->contact;
             $master->profession = $request->profession;
-            $master->about = $request->about;
+            $master->about = $rePquest->about;
             $master->studio_id = $studio->id;
+            $master->slug =
+                \Str::slug($request->name);
             $master->save();
             $master->studio;
 
@@ -244,7 +246,19 @@ class StudioTeacherController extends Controller
      */
     public function show($id)
     {
-        return view('studioowners::show');
+        try {
+            $master = StudioTeacher::entities($request->entities)
+                ->findOrFail($id);
+
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**

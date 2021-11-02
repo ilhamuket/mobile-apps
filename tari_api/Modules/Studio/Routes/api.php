@@ -22,6 +22,7 @@ use Modules\Studio\Http\Controllers\StudioController;
 use Modules\Studio\Http\Controllers\StudioInstructorController;
 use Modules\Studio\Http\Controllers\StudioVidioController;
 use Modules\StudioOwners\Http\Controllers\ReviewOwnerController;
+use Modules\StudioOwners\Http\Controllers\StudioClassVidioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,7 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
     // Instructor 
     Route::prefix('instructor')->group(function () {
         Route::get('', [StudioInstructorController::class, 'index']);
+        Route::get('{slug}', [StudioInstructorController::class, 'show']);
     });
     // u
     Route::prefix('u')->group(function () {
@@ -146,4 +148,5 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
 });
 Route::prefix('all')->group(function () {
     Route::get('live', [StudioClassController::class, 'forAll']);
+    Route::get('vidio', [StudioClassVidioController::class, 'forAll']);
 });

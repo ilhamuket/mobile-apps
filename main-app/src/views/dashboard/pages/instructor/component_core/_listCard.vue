@@ -10,7 +10,8 @@
         <v-hover v-slot="{ hover }">
           <v-card
             width="400"
-            height="220"
+            height="400"
+            class="rounded-lg"
             :elevation="hover ? 12 : 2"
           >
             <div class="img--instructor">
@@ -18,7 +19,10 @@
                 v-if="item.img"
                 :src="item.img.url"
                 width="400"
+                class="rounded-xl"
                 height="400"
+                style="cursor: pointer"
+                @click="navigate(`/instructor/profile/${item.slug}`)"
               >
                 <v-container>
                   <v-row class="cols__margin--name">
@@ -71,7 +75,7 @@
                         bottom
                         color="btn_primary"
                       >
-                        <template #activator="{on,attrs}">
+                        <template #activator="{ on, attrs }">
                           <v-icon
                             v-bind="attrs"
                             color="red"
@@ -91,7 +95,7 @@
                         bottom
                         color="btn_primary"
                       >
-                        <template #activator="{on, attrs}">
+                        <template #activator="{ on, attrs }">
                           <v-icon
                             v-bind="attrs"
                             color="blue"
@@ -111,7 +115,7 @@
                         bottom
                         color="btn_primary"
                       >
-                        <template #activator="{on, attrs}">
+                        <template #activator="{ on, attrs }">
                           <v-icon
                             v-bind="attrs"
                             color="blue"
@@ -142,6 +146,12 @@
       data: {
         type: Array,
         default: null,
+      },
+    },
+    data: () => ({}),
+    methods: {
+      navigate (link) {
+        this.$router.push(link)
       },
     },
   }

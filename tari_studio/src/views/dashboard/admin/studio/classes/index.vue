@@ -2,6 +2,25 @@
   <v-container>
     <v-row>
       <v-col
+        v-if="studio.bank"
+        cols="12"
+        class="d-flex justify-center"
+      >
+        <v-alert
+          v-if="studio.bank.length === 0"
+          border="left"
+          colored-border
+          color="deep-purple accent-4"
+          elevation="2"
+          dismissible
+          width="1200"
+        >
+          Please Fill in the Bank Account to create a class
+        </v-alert>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col
         cols="12"
         sm="6"
         lg="3"
@@ -13,7 +32,7 @@
           :value="String(computedSummary.all)"
           sub-icon="mdi-tag"
           sub-text="Tracked from Google Analytics"
-          style="cursor:pointer"
+          style="cursor: pointer"
           @click.native="orderBy('all')"
         />
       </v-col>
@@ -29,7 +48,7 @@
           :value="String(computedSummary.approved)"
           sub-icon="mdi-tag"
           sub-text="Tracked from Google Analytics"
-          style="cursor:pointer"
+          style="cursor: pointer"
           @click.native="orderBy('approved')"
         />
       </v-col>
@@ -46,7 +65,7 @@
           :value="String(computedSummary.non_approved)"
           sub-icon="mdi-tag"
           sub-text="Tracked from Google Analytics"
-          style="cursor:pointer"
+          style="cursor: pointer"
           @click.native="orderBy('non-approved')"
         />
       </v-col>
@@ -62,7 +81,7 @@
           :value="String(computedSummary.new)"
           sub-icon="mdi-tag"
           sub-text="Tracked from Google Analytics"
-          style="cursor:pointer"
+          style="cursor: pointer"
           @click.native="orderBy('new')"
         />
       </v-col>
@@ -83,7 +102,7 @@
             value="1"
             sub-icon="mdi-clock"
             sub-text="Just Updated"
-            style="cursor:pointer"
+            style="cursor: pointer"
             @click.native="sortByType('verified')"
           />
         </v-col>
@@ -99,7 +118,7 @@
             value="1"
             sub-icon="mdi-clock"
             sub-text="Just Updated"
-            style="cursor:pointer"
+            style="cursor: pointer"
             @click.native="sortByType('unverified')"
           />
         </v-col>
@@ -115,7 +134,7 @@
             value="1"
             sub-icon="mdi-clock"
             sub-text="Just Updated"
-            style="cursor:pointer"
+            style="cursor: pointer"
             @click.native="sortByType('deleted')"
           />
         </v-col>
@@ -127,7 +146,7 @@
             color="primary"
             bottom
           >
-            <template #activator="{on ,attrs}">
+            <template #activator="{ on, attrs }">
               <v-btn
                 v-bind="attrs"
                 dark
@@ -333,7 +352,7 @@
           .dispatch("studio/getDataMeStudio", {
             entities: "bank",
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.is_load = false
               this.studio = res.data.data
@@ -401,7 +420,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -424,7 +443,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -453,7 +472,7 @@
         this.approves.data = item
       },
       popUpdate ({ item }) {
-        const instructorId = item.instructor.map(x => x.id)
+        const instructorId = item.instructor.map((x) => x.id)
         this.update.open = true
         this.update.name = item.name
         this.update.id = item.id
@@ -491,7 +510,7 @@
           },
         }
 
-        axios.post(URL, data, config).then(res => {
+        axios.post(URL, data, config).then((res) => {
           item = null
           const Toast = this.$swal.mixin({
             toast: true,
@@ -499,7 +518,7 @@
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
-            didOpen: toast => {
+            didOpen: (toast) => {
               toast.addEventListener("mouseenter", this.$swal.stopTimer)
               toast.addEventListener("mouseleave", this.$swal.resumeTimer)
             },
@@ -520,7 +539,7 @@
           .dispatch("ownerStudioClasses/hideDataClassesStudio", {
             id: item.id,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.hideClass.open = false
               const Toast = this.$swal.mixin({
@@ -529,7 +548,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -558,7 +577,7 @@
             "Content-Type": "image/png",
           },
         }
-        axios.post(URL, data, config).then(res => {
+        axios.post(URL, data, config).then((res) => {
           if (res.data.meta.status) {
             const Toast = this.$swal.mixin({
               toast: true,
@@ -566,7 +585,7 @@
               showConfirmButton: false,
               timer: 3000,
               timerProgressBar: true,
-              didOpen: toast => {
+              didOpen: (toast) => {
                 toast.addEventListener("mouseenter", this.$swal.stopTimer)
                 toast.addEventListener("mouseleave", this.$swal.resumeTimer)
               },
@@ -597,7 +616,7 @@
             "Content-Type": "image/png",
           },
         }
-        axios.post(URL, data, config).then(res => {
+        axios.post(URL, data, config).then((res) => {
           if (res.data.meta.status) {
             item = null
             const Toast = this.$swal.mixin({
@@ -606,7 +625,7 @@
               showConfirmButton: false,
               timer: 3000,
               timerProgressBar: true,
-              didOpen: toast => {
+              didOpen: (toast) => {
                 toast.addEventListener("mouseenter", this.$swal.stopTimer)
                 toast.addEventListener("mouseleave", this.$swal.resumeTimer)
               },
@@ -638,7 +657,7 @@
           },
         }
 
-        axios.post(URL, data, config).then(res => {
+        axios.post(URL, data, config).then((res) => {
           if (res.data.meta.status) {
             item = null
             const Toast = this.$swal.mixin({
@@ -647,7 +666,7 @@
               showConfirmButton: false,
               timer: 3000,
               timerProgressBar: true,
-              didOpen: toast => {
+              didOpen: (toast) => {
                 toast.addEventListener("mouseenter", this.$swal.stopTimer)
                 toast.addEventListener("mouseleave", this.$swal.resumeTimer)
               },
@@ -673,7 +692,7 @@
         // console.log(item)
         this.$store
           .dispatch("ownerStudioClasses/deleteDataClassesStudio", item)
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.deletes.open = false
               const Toast = this.$swal.mixin({
@@ -682,7 +701,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -701,7 +720,7 @@
       approvesDataClassesStudio ({ item }) {
         this.$store
           .dispatch("ownerStudioClasses/approvesDataClassesStudio", item)
-          .then(res => {
+          .then((res) => {
             this.approves.open = false
             if (res.data.meta.status) {
               const Toast = this.$swal.mixin({
@@ -710,7 +729,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -735,7 +754,7 @@
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
-          didOpen: toast => {
+          didOpen: (toast) => {
             toast.addEventListener("mouseenter", this.$swal.stopTimer)
             toast.addEventListener("mouseleave", this.$swal.resumeTimer)
           },
@@ -768,7 +787,7 @@
             time_start: item.time_start,
             time_end: item.time_end,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.update.open = false
               const Toast = this.$swal.mixin({
@@ -777,7 +796,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -807,7 +826,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },

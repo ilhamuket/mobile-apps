@@ -223,9 +223,9 @@
     methods: {
       ratingsStudio () {
         if (this.computedReviews) {
-          const ratings = this.computedReviews.map(x => x.ratings)
+          const ratings = this.computedReviews.map((x) => x.ratings)
           if (ratings.length > 0) {
-            this.sum = ratings.filter(x => x > 0).reduce((x, y) => x + y)
+            this.sum = ratings.filter((x) => x > 0).reduce((x, y) => x + y)
             this.mean = this.sum / this.computedReviews.length
             this.ratings.value = this.mean
             this.ratings.people = this.computedReviews.length
@@ -243,7 +243,7 @@
           .dispatch("studioReviews/getDataValueReviewsStudio", {
             id: this.$route.params.slug,
           })
-          .then(res => {
+          .then((res) => {
             console.log(res.data.data)
           })
       },
@@ -280,7 +280,7 @@
             vidio_id: this.id,
             studio_slug: this.$route.params.slug,
           })
-          .then(res => {
+          .then((res) => {
             this.autoPlay = res.data.data
             localStorage.setItem("vidio_id", res.data.data.id)
             this.getDataComments()
@@ -301,12 +301,12 @@
         this.$store
           .dispatch("studioClasses/getDataStudioClasses", {
             slug: this.$route.params.slug,
-            entities: "studio.img,author,schedules,instructor_v2, img",
+            entities: "studio.img,author,schedules,instructor_v2,img,category",
             filter: "Publish",
             date: date || this.currentDate,
             page: page,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.state_load = true
               this.classes.meta = res.data.meta
@@ -378,7 +378,7 @@
           .dispatch("studio/followStudio", {
             slug: item.slug,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.isFollow = true
               this.getDataStudioBySlug()
@@ -418,7 +418,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -449,7 +449,7 @@
             confirmButtonText: "Yes, delete it!",
             cancelButtonText: "No, cancel!",
           })
-          .then(res => {
+          .then((res) => {
             if (res.isConfirmed) {
               this.$store
                 .dispatch("studio/unfollStudio", {
@@ -463,7 +463,7 @@
                       showConfirmButton: false,
                       timer: 3000,
                       timerProgressBar: true,
-                      didOpen: toast => {
+                      didOpen: (toast) => {
                         toast.addEventListener("mouseenter", this.$swal.stopTimer)
                         toast.addEventListener(
                           "mouseleave",
@@ -506,7 +506,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -536,7 +536,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },

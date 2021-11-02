@@ -22,9 +22,7 @@
                 Sanggar Sanggar EnsikloTari
               </h2>
               <p class="white--text op-8 font-weight-regular">
-                Pellentesque vehicula eros a dui pretium ornare. Phasellus
-                congue vel quam nec luctus.In accumsan at eros in dignissim.
-                Cras sodales nisi nonn accumsan.
+                Mengangkat budaya menari di indonesia dengan sanggar - sanggar EnsikloTari
               </p>
               <div class="mt-16 pt-2">
                 <v-btn

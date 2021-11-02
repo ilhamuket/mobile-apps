@@ -13,7 +13,7 @@
           :value="String(summary.all)"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
-          style="cursor:pointer"
+          style="cursor: pointer"
           @click.native="setSummary('')"
         />
       </v-col>
@@ -29,7 +29,7 @@
           :value="String(summary.publish)"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
-          style="cursor:pointer"
+          style="cursor: pointer"
           @click.native="setSummary('publish')"
         />
       </v-col>
@@ -45,7 +45,7 @@
           :value="String(summary.concept)"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
-          style="cursor:pointer"
+          style="cursor: pointer"
           @click.native="setSummary('concept')"
         />
       </v-col>
@@ -61,7 +61,7 @@
           :value="String(summary.draft)"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
-          style="cursor:pointer"
+          style="cursor: pointer"
           @click.native="setSummary('draft')"
         />
       </v-col>
@@ -96,7 +96,7 @@
       :dialog="dialogApproveSelected"
       text-body="Are you sure want to publish category with name"
       text-btn="Approve"
-      color-btn1="primary"
+      color-btn1="btn_primary"
       color-btn2="red"
       icon-btn="mdi-check-decagram"
       icon="mdi-check-decagram"
@@ -112,16 +112,16 @@
 </template>
 
 <script>
-  import componentsCategory from './components_core/_dataTable.vue'
-  import dialogForm from './components/__dialogForm.vue'
-  import dialogNotice from './components/__dialogNotice.vue'
-  import dialogUpdate from './components/__dialogEdit.vue'
+  import componentsCategory from "./components_core/_dataTable.vue"
+  import dialogForm from "./components/__dialogForm.vue"
+  import dialogNotice from "./components/__dialogNotice.vue"
+  import dialogUpdate from "./components/__dialogEdit.vue"
   export default {
     components: {
-      'app-data-category': componentsCategory,
-      'app-data-create': dialogForm,
-      'app-data-notice': dialogNotice,
-      'app-data-update': dialogUpdate,
+      "app-data-category": componentsCategory,
+      "app-data-create": dialogForm,
+      "app-data-notice": dialogNotice,
+      "app-data-update": dialogUpdate,
     },
     data: () => ({
       dialogCreate: {
@@ -143,7 +143,7 @@
         open: false,
         data: {},
       },
-      itemSummary: '',
+      itemSummary: "",
     }),
     computed: {
       categories () {
@@ -157,7 +157,7 @@
       itemSummary (val) {
         this.$router.push({ query: { ...this.$route.query, summary: val } })
       },
-      '$route.query.summary': function (val) {
+      "$route.query.summary": function (val) {
         this.itemSummary = val
         this.getDataStudioCategories()
       },
@@ -169,58 +169,58 @@
     },
     methods: {
       firstLoad () {
-        if (this.$route.query.summary === 'publish') {
-          this.itemSummary = 'publish'
-        } else if (this.$route.query.summary === 'concept') {
-          this.itemSummary = 'concept'
-        } else if (this.$route.query.summary === 'draft') {
-          this.itemSummary = 'draft'
+        if (this.$route.query.summary === "publish") {
+          this.itemSummary = "publish"
+        } else if (this.$route.query.summary === "concept") {
+          this.itemSummary = "concept"
+        } else if (this.$route.query.summary === "draft") {
+          this.itemSummary = "draft"
         } else {
-          this.itemSummary = ''
+          this.itemSummary = ""
         }
         this.getDataStudioCategories()
       },
       getDataStudioCategories () {
-        this.$store.dispatch('studioCategories/getDataStudioCategories', {
-          entities: 'class, img,likes,follow',
+        this.$store.dispatch("studioCategories/getDataStudioCategories", {
+          entities: "class, img,likes,follow",
           summary: this.itemSummary,
         })
       },
 
       createDataCategory ({ item }) {
         this.$store
-          .dispatch('studioCategories/insertDataCategory', {
+          .dispatch("studioCategories/insertDataCategory", {
             name: item.name,
             display_name: item.display_name,
             status: item.status,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               item = null
               this.dialogCreate.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Class Created Successfully',
+                icon: "success",
+                title: "Class Created Successfully",
               })
             }
           })
       },
       getDataCategorySummary () {
-        this.$store.dispatch('categorySummary/getDataCategorySummary')
+        this.$store.dispatch("categorySummary/getDataCategorySummary")
       },
       popUpDialogCreate () {
         this.dialogCreate.open = true
@@ -236,27 +236,27 @@
 
       deleteCategoryById ({ item }) {
         this.$store
-          .dispatch('studioCategories/deleteDataCategory', item)
-          .then(res => {
+          .dispatch("studioCategories/deleteDataCategory", item)
+          .then((res) => {
             if (res.data.meta.status) {
               this.deleteById.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Category Deleted Successfully',
+                icon: "success",
+                title: "Category Deleted Successfully",
               })
             }
           })
@@ -267,85 +267,85 @@
       },
       deleteDataCategorySelected ({ item }) {
         this.$store
-          .dispatch('studioCategories/deleteDataCategorySelected', item)
-          .then(res => {
+          .dispatch("studioCategories/deleteDataCategorySelected", item)
+          .then((res) => {
             if (res.data.meta.status) {
               this.dialogDeleteSelected.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Category Deleted Successfully',
+                icon: "success",
+                title: "Category Deleted Successfully",
               })
             }
           })
       },
       approveCategorySelected ({ item }) {
         this.$store
-          .dispatch('studioCategories/approveCategorySelected', item)
-          .then(res => {
+          .dispatch("studioCategories/approveCategorySelected", item)
+          .then((res) => {
             if (res.data.meta.status) {
               this.dialogApproveSelected.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Category Approved Successfully',
+                icon: "success",
+                title: "Category Approved Successfully",
               })
             }
           })
       },
       updateDataCategory ({ item }) {
         this.$store
-          .dispatch('studioCategories/updateDataCategory', {
+          .dispatch("studioCategories/updateDataCategory", {
             id: item.id,
             name: item.name,
             display_name: item.display_name,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.update.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Category Edited Successfully',
+                icon: "success",
+                title: "Category Edited Successfully",
               })
             }
           })
@@ -360,29 +360,29 @@
       },
       postPicture ({ item }) {
         this.$store
-          .dispatch('studioCategories/onPostPicture', {
+          .dispatch("studioCategories/onPostPicture", {
             files: item.files,
             category_id: item.category_id,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Upload Category Profile Successfully',
+                icon: "success",
+                title: "Upload Category Profile Successfully",
               })
               this.getDataStudioCategories()
             }
@@ -391,29 +391,29 @@
       onChangePicture ({ item }) {
         console.log(item)
         this.$store
-          .dispatch('studioCategories/onChangePicture', {
+          .dispatch("studioCategories/onChangePicture", {
             files: item.files,
             category_id: item.category_id,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: "bottom-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Edited Category Profile Successfully',
+                icon: "success",
+                title: "Edited Category Profile Successfully",
               })
               this.getDataStudioCategories()
             }

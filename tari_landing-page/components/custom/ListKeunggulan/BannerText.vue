@@ -8,9 +8,11 @@
         <v-row justify="center">
           <v-col cols="12" sm="10" md="9" lg="7">
             <div class="text-center">
-              <h2 class="ui-title text-h3 font-spartan-text font-weight-bold">Terdapat Banyak Sanggar - Sanggar</h2>
+              <h2 class="ui-title text-h3 font-spartan-text font-weight-bold">
+                Terdapat Banyak Sanggar - Sanggar
+              </h2>
               <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam reiciendis blanditiis nihil impedit nobis accusamus! Eos excepturi consequatur magni eaque.
+                EnsikloTari Bermitra Dengan Berbagai Sanggar Sanggar Seluruh Indonesia
               </p>
             </div>
           </v-col>

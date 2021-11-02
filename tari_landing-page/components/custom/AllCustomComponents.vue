@@ -102,8 +102,8 @@ export default {
     return {};
   },
   components: {
-    HeaderText: () => import("@/components/custom/header/HeaderText"),
-    BannerText: () => import("@/components/custom/banner/BannerText"),
+    HeaderText: () => import("@/components/custom/Keunggulan/Keunggulan"),
+    BannerText: () => import("@/components/custom/ListKeunggulan/BannerText"),
     FeatureText: () => import("@/components/custom/features/FeatureText"),
     PricingText: () => import("@/components/custom/pricing/PricingText"),
     TeamText: () => import("@/components/custom/team/TeamText"),
@@ -114,10 +114,10 @@ export default {
     PortfolioText: () => import("@/components/custom/portfolio/PortfolioText"),
     FormBannerText: () =>
       import("@/components/custom/form-banner/FormBannerText"),
-    Header1: () => import("@/components/custom/header/Header1"),
-    Header2: () => import("@/components/custom/header/Header2"),
-    Banner1: () => import("@/components/custom/banner/Banner1"),
-    Banner2: () => import("@/components/custom/banner/Banner2"),
+    Header1: () => import("@/components/custom/Keunggulan/Header1"),
+    Header2: () => import("@/components/custom/Keunggulan/Header2"),
+    Banner1: () => import("@/components/custom/ListKeunggulan/Banner1"),
+    Banner2: () => import("@/components/custom/ListKeunggulan/Banner2"),
     Feature1: () => import("@/components/custom/features/Feature1"),
     Feature2: () => import("@/components/custom/features/Feature2"),
     Feature3: () => import("@/components/custom/features/Feature3"),

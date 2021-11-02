@@ -82,32 +82,32 @@
   "question": "Any questions? Discuss with other sellers or users",
   "detail_ensiklo-vidio": "Detail EnsikloVidio",
   "profile": {
-      "last_name": "Last Name",
-      "first_name": "First Name",
-      "username": "Username",
-      "date": "Date Of Birth",
-      "contact": "Contact",
-      "btn": {
-          "change": "change picture",
-          "choose": "select image"
-      },
-      "add": {
-          "username": "Tambahkan Username",
-          "first_name": "Tambahkan Nama Depan",
-          "date": "Add Date of Birth"
-      },
-      "wait": "Waiting for payment",
-      "list": "Transaction List",
-      "wishlist": "Wishlist",
-      "followed": "Followed",
-      "personal": "Personal Data",
-      "cp": "Change Password"
+    "last_name": "Last Name",
+    "first_name": "First Name",
+    "username": "Username",
+    "date": "Date Of Birth",
+    "contact": "Contact",
+    "btn": {
+      "change": "change picture",
+      "choose": "select image"
+    },
+    "add": {
+      "username": "Tambahkan Username",
+      "first_name": "Tambahkan Nama Depan",
+      "date": "Add Date of Birth"
+    },
+    "wait": "Waiting for payment",
+    "list": "Transaction List",
+    "wishlist": "Wishlist",
+    "followed": "Followed",
+    "personal": "Personal Data",
+    "cp": "Change Password"
   },
   "pembelian": "Purchase",
   "profile_": "Profile",
   "change": "Change",
   "etc": "Other",
-  "ensiklolive":{
+  "ensiklolive": {
     "ppp": "Price Per Person",
     "slot": "Capacity",
     "title_desc": "This is a Live Class",
@@ -118,5 +118,6 @@
   "minutes": "Minutes",
   "type": "Ketik Sesuatu",
   "instructor": "Instruktur",
-  "auth-register": "Register"
+  "auth-register": "Register",
+  "profil_instrutors": "Profile Instruktor"
 }

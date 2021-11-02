@@ -51,6 +51,9 @@ class StudioOwnerCategory extends Model
             $categories->class()->each(function ($items) {
                 $items->delete(); // <-- direct deletion
             });
+            $categories->img()->each(function ($items) {
+                dd($items->url);
+            });
         });
     }
 

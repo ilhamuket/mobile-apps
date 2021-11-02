@@ -27,7 +27,7 @@
             class="col__filter"
             cols="2"
           >
-            <span class="text__filter">{{ $t('sort') }}</span>
+            <span class="text__filter">{{ $t("sort") }}</span>
             <v-select
               v-model="filter"
               outlined
@@ -73,16 +73,21 @@
                 color="red"
               />
             </div>
-            <span
-              v-if="classes.length === 0"
-              class="d-flex justify-center"
-            >
-              No Data Avalaible
-            </span>
+
             <app-card
-              v-else
+              v-if="classes.data.length !== 0"
               :classes="classes.data"
             />
+            <div
+              v-else
+              class="d-flex justify-center"
+            >
+              <v-img
+                width="900"
+                height="400"
+                src="@/assets/img/noclass.svg"
+              />
+            </div>
           </v-col>
         </v-row>
         <v-row
@@ -115,16 +120,16 @@
 </template>
 
 <script>
-  import card from './components_core/_card.vue'
+  import card from "./components_core/_card.vue"
   export default {
     components: {
-      'app-card': card,
+      "app-card": card,
     },
     data: () => ({
-      inputHeight: '0',
-      filter: 'all',
-      itemFilter: ['all', 'ongoing', 'upcoming', 'missed'],
-      search: '',
+      inputHeight: "0",
+      filter: "all",
+      itemFilter: ["all", "ongoing", "upcoming", "missed"],
+      search: "",
       isLoading: false,
       first_load: true,
       is_load: false,
@@ -149,7 +154,7 @@
       },
     },
     mounted () {
-      if (this.search === '' || this.search === null) {
+      if (this.search === "" || this.search === null) {
         this.getDataClasses(this.page)
       } else {
         this.getDataClassesSearch(this.page)
@@ -159,15 +164,15 @@
     methods: {
       getDataClasses (page) {
         this.$store
-          .dispatch('classes/getDataClasses', {
-            entities: 'img,studio, lastSee, category',
-            filter: 'Publish',
-            sort: '-views, id',
+          .dispatch("classes/getDataClasses", {
+            entities: "img,studio, lastSee, category",
+            filter: "Publish",
+            sort: "-views, id",
             status_kelas: this.filter,
             q: this.search,
             page: page,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.first_load = false
               this.isLoading = false
@@ -183,21 +188,21 @@
             if (this.classes.data.length === 0) {
               const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'top-end',
+                position: "top-end",
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
-                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
-                popup: 'swal2-show',
-                backdrop: 'swal2-backdrop-show',
-                icon: 'swal2-icon-show',
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
               })
               Toast.fire({
-                icon: 'success',
-                title: 'Data Not Found',
+                icon: "success",
+                title: "Data Not Found",
               })
             }
           })
@@ -234,12 +239,12 @@
       },
       getDataClassesSearch () {
         this.$store
-          .dispatch('classes/getDataClassesSearch', {
+          .dispatch("classes/getDataClassesSearch", {
             q: this.search,
-            filter: 'Publish',
-            entities: 'img,studio,category',
+            filter: "Publish",
+            entities: "img,studio,category",
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.classes.data = res.data.data
               // const index =  this.classes.data.findIndex(x => x.id === res.data.data.id)

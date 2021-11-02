@@ -16,9 +16,7 @@
               </h2>
 
               <p class="font-spartan-text text-h4 grey--text fonts">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea cumque aperiam, 
-                beatae error mollitia vero, esse ipsa facere explicabo ex odit delectus excepturi? Vel maxime repudiandae, 
-                facere nobis aliquid illum.
+                Belajar Dimanapun & Kapanpun, di EnsikloTari anda bisa belajar tari Dimanapun dengan sangat mudah
               </p>
 
               <div class="mt-16 pt-2">

@@ -41,7 +41,9 @@
             ref="picker"
             v-model="date"
             :min="min"
-            :allowed-dates="allowedDates"
+            :events="allowedDates"
+            show-current="false"
+            event-color="btn_primary"
             :picker-date.sync="pickerDate"
             full-width
             show-week
@@ -55,105 +57,114 @@
           :key="i"
           cols="12"
           md="4"
+          class="ml-1"
         >
-          <v-card class="mx-auto">
+          <v-card class="ml-1">
             <v-img
               v-if="item.img"
               :src="item.img.url"
               width="400"
-              height="200"
-            />
+              height="300"
+              style="cursor: pointer"
+              @click="toPush(item)"
+            >
+              <v-container>
+                <v-row>
+                  <v-col class="d-flex flex-row-reverse">
+                    <v-chip
+                      label
+                      text-color="white"
+                      :color="setColorStatus(item.status_kelas)"
+                    >
+                      {{ item.status_kelas }}
+                    </v-chip>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-img>
             <v-img
               v-else
               height="200px"
               src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
             />
             <v-card-text>
-              <div class="text-h6">
-                <v-chip
-                  :color="setColorStatus(item.status_kelas)"
-                  label
-                  text-color="white"
-                  class="text-capitalize"
-                >
-                  {{ item.status_kelas }}
-                </v-chip>
-              </div>
-
-              <v-card-text class="text--primary">
-                <span class="text-h3 font-spartan pallet1--text">
-                  {{ item.name }}
-                </span>
-
-                <v-divider
-                  class="mt-2 mb-2 divider--opacity"
-                  dark
-                />
-                <v-chip
-                  label
-                  color="btn_primary"
-                  class="font-spartan-small font-weight-thin"
-                >
-                  Capacity : 0 / {{ item.kapasitas }}
-                </v-chip>
-                <br>
-
-                <br>
-                <span
-                  class="font-spartan-small btn_primary--text text-h4 font-italic"
-                >
-                  {{ item.time_start }} s/d {{ item.time_end }}
-                </span>
-                <br>
-                <span class="font-spartan-small">
-                  Duration : {{ item.durasi }} Minutes
-                </span>
-                <br>
-                <br>
-                <span class="font-spartan mt-1">
-                  Rp.20000
-                </span>
-              </v-card-text>
-              <!-- <div class="text--primary font-size-ather-roboto-mono">
-              {{ item.about }}
-            </div> -->
-            </v-card-text>
-
-            <v-card-actions>
-              <v-btn
-                class="ml-5"
-                text
-                color="secondary"
-                small
-                @click="toPush(item)"
-              >
-                See Detail
-              </v-btn>
-
-              <v-spacer />
-
-              <v-btn
-                icon
-                dark
-                @click="show = !show"
-              >
-                <v-icon color="secondary">
-                  {{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
-                </v-icon>
-              </v-btn>
-            </v-card-actions>
-
-            <v-expand-transition>
-              <div v-show="show">
-                <v-divider />
-
-                <v-card-text>
-                  <div class="text--primary font-spartan-small">
+              <v-row class="">
+                <div class="d-flex flex-row mt-2 ml-1">
+                  <div class="d-flex flex-column">
+                    <v-chip
+                      v-if="item.category"
+                      label
+                      text-color="white"
+                      color="btn_primary"
+                      class="font-spartan-small"
+                    >
+                      {{ item.name }} - {{ item.category.display_name }}
+                    </v-chip>
+                  </div>
+                </div>
+              </v-row>
+              <v-row>
+                <div class="d-flex flex-row mt-2 ml-1">
+                  <div class="d-flex flex-column">
+                    <span class="font-spartan">
+                      Price per person : Rp{{ item.harga }}
+                    </span>
+                  </div>
+                </div>
+              </v-row>
+              <v-row>
+                <div class="d-flex flex-row mt-2 ml-1">
+                  <div class="d-flex flex-column">
+                    <span class="font-spartan-small">
+                      Registration : {{ item.start_at | moment("MMMM Do") }} -
+                      {{ item.end_at | moment("MMMM Do YYYY") }}
+                    </span>
+                  </div>
+                </div>
+              </v-row>
+              <v-row>
+                <div class="d-flex flex-row mt-2 ml-1">
+                  <div
+                    v-if="item.about.length > 200"
+                    class="d-flex flex-column"
+                  >
+                    <span
+                      v-if="isMore"
+                      class="font-spartan-small"
+                    >
+                      #About <br>
+                      {{
+                        item.about.length > 200
+                          ? item.about.substr(0, 200) + "..."
+                          : item.about
+                      }}
+                    </span>
+                    <span
+                      v-else
+                      class="font-spartan-small"
+                    >
+                      #About <br>
+                      {{ item.about }}
+                    </span>
+                    <a
+                      class="font-spartan-small font-italic btn_primary--text"
+                      style="cursor: pointer"
+                      color="transparent"
+                      @click="isMore = !isMore"
+                    >
+                      less
+                    </a>
+                  </div>
+                  <div
+                    v-else
+                    class="d-flex flex-column"
+                  >
+                    #About <br>
                     {{ item.about }}
                   </div>
-                </v-card-text>
-              </div>
-            </v-expand-transition>
+                </div>
+              </v-row>
+            </v-card-text>
           </v-card>
           <v-col
             v-if="stateLoad"
@@ -207,10 +218,11 @@
       },
     },
     data: () => ({
-      items: ['tahu', 'ayam'],
+      items: ["tahu", "ayam"],
+      isMore: true,
       rating: 3,
       show: false,
-      picker: '2021-09-21',
+      picker: "2021-09-21",
       date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),
@@ -220,24 +232,24 @@
       pickerDate: null,
       notes: [],
       allNotes: [
-        'President met with prime minister',
-        'New power plant opened',
-        'Rocket launch announced',
-        'Global warming discussion cancelled',
-        'Company changed its location',
+        "President met with prime minister",
+        "New power plant opened",
+        "Rocket launch announced",
+        "Global warming discussion cancelled",
+        "Company changed its location",
       ],
     }),
     watch: {
       pickerDate (val) {},
     },
     mounted () {
-      console.log(this.allowedDates(), 'Ini FUnction')
+      console.log(this.allowedDates(), "Ini FUnction")
     },
     methods: {
       allowedDates (val) {
         console.log(val)
-        const dates = this.studioDates.map(x => x.start_at)
-        const isTrue = dates.some(x => x === val)
+        const dates = this.studioDates.map((x) => x.start_at)
+        const isTrue = dates.some((x) => x === val)
         // console.log(isTrue, 'ini date')
         if (isTrue) {
           return true
@@ -246,19 +258,19 @@
         }
       },
       setColorStatus (status) {
-        if (status === 'upcoming') return 'primary'
-        if (status === 'ongoing') return 'btn_primary'
-        else return 'red'
+        if (status === "upcoming") return "primary"
+        if (status === "ongoing") return "btn_primary"
+        else return "red"
       },
       clickSeeMore (item) {
-        this.$emit('open', { item: item })
+        this.$emit("open", { item: item })
       },
       fetchTime (i) {
-        this.$emit('fetchDate', { item: i })
+        this.$emit("fetchDate", { item: i })
       },
       toPush (item) {
         this.$router.push(
-          '/detail/class/live/' + item.studio.slug + '/' + item.slug,
+          "/detail/class/live/" + item.studio.slug + "/" + item.slug,
         )
       // console.log(item.studio.slug)
       },
@@ -279,7 +291,7 @@
         // ]
         const date = new Date()
         console.log(
-          date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate(),
+          date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate(),
         )
         console.log(date.toISOString())
       },
@@ -318,4 +330,9 @@
   margin-left: 10px
 .card__class
   margin-top: -10px !important
+.margin--cols
+  margin-top: 64%
+  margin-left: 1%
+.margin-a
+  margin-left: 90%
 </style>

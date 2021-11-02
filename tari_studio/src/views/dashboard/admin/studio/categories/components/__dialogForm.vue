@@ -44,21 +44,12 @@
                   :rules="[rules.required]"
                   prepend-icon="mdi-alpha-s-box"
                   label="Status"
-                  placeholder="Input Display Name"
+                  placeholder="Input Status"
                   :items="itemsStatus"
                 />
               </v-col>
             </v-row>
             <div class="d-flex flex-row-reverse">
-              <div class="d-flex flex-column ml-1">
-                <v-btn
-                  color="red"
-                  text
-                  @click="dialog.open = false"
-                >
-                  Cancel
-                </v-btn>
-              </div>
               <div class="d-flex flex-column">
                 <v-btn
                   color="primary"
@@ -66,6 +57,16 @@
                   @click="createForm"
                 >
                   Create
+                </v-btn>
+              </div>
+
+              <div class="d-flex flex-column ml-1">
+                <v-btn
+                  color="red"
+                  text
+                  @click="dialog.open = false"
+                >
+                  Cancel
                 </v-btn>
               </div>
             </div>
@@ -85,20 +86,20 @@
       },
     },
     data: () => ({
-      itemsStatus: ['concept', 'draft'],
+      itemsStatus: ["concept", "draft"],
       form: {
-        name: '',
-        display_name: '',
-        status: '',
+        name: "",
+        display_name: "",
+        status: "",
       },
       invalid: true,
       rules: {
-        required: value => !!value || 'Filled Form',
+        required: (value) => !!value || "Filled Form",
       },
     }),
     methods: {
       createForm () {
-        this.$emit('input', { item: this.form })
+        this.$emit("input", { item: this.form })
       },
     },
   }

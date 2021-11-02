@@ -306,19 +306,20 @@
           <div class="d-flex flex-row-reverse">
             <div class="d-flex flex-column">
               <v-btn
+                color="btn_primary"
+                @click="createClass"
+              >
+                Create
+              </v-btn>
+            </div>
+
+            <div class="d-flex flex-column">
+              <v-btn
                 text
                 color="red"
                 @click="closeDialog"
               >
                 Cancel
-              </v-btn>
-            </div>
-            <div class="d-flex flex-column">
-              <v-btn
-                color="primary"
-                @click="createClass"
-              >
-                Create
               </v-btn>
             </div>
           </div>
@@ -381,7 +382,7 @@
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
-          didOpen: toast => {
+          didOpen: (toast) => {
             toast.addEventListener("mouseenter", this.$swal.stopTimer)
             toast.addEventListener("mouseleave", this.$swal.resumeTimer)
           },

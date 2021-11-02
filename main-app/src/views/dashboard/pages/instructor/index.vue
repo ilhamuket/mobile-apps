@@ -12,10 +12,21 @@
             color="red"
           />
         </div>
-        <app-card
+
+        <div v-if="computedInstructor.length !== 0">
+          <app-card :data="computedInstructor" />
+        </div>
+
+        <div
           v-else
-          :data="computedInstructor"
-        />
+          class="d-flex justify-center"
+        >
+          <v-img
+            width="900"
+            height="400"
+            src="@/assets/img/noclass.svg"
+          />
+        </div>
       </v-col>
     </v-row>
   </v-container>
@@ -45,7 +56,7 @@
             entities: "img,studio",
             status: 1,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.isLoading = false
             }
