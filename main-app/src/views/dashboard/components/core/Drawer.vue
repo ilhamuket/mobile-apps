@@ -156,7 +156,11 @@
           title: "ensiklo_live",
           to: "/classes",
         },
-
+        {
+          icon: "mdi-account-cowboy-hat-outline",
+          title: "instrucktur",
+          to: "/instructor",
+        },
         {
           title: "ensiklo_vidio",
           icon: "mdi-clipboard-outline",

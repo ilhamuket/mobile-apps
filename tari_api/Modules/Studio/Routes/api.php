@@ -19,6 +19,7 @@ use Modules\Studio\Http\Controllers\StudioArticleController;
 use Modules\Studio\Http\Controllers\StudioClassController;
 use Modules\Studio\Http\Controllers\StudioClassVidiosController;
 use Modules\Studio\Http\Controllers\StudioController;
+use Modules\Studio\Http\Controllers\StudioInstructorController;
 use Modules\Studio\Http\Controllers\StudioVidioController;
 use Modules\StudioOwners\Http\Controllers\ReviewOwnerController;
 
@@ -39,6 +40,11 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
     Route::patch('', [StudioController::class, 'destroy']);
     Route::get('populer', [StudioController::class, 'mostPopuler']);
     Route::post('approve', [StudioController::class, 'studioApprove']);
+
+    // Instructor 
+    Route::prefix('instructor')->group(function () {
+        Route::get('', [StudioInstructorController::class, 'index']);
+    });
     // u
     Route::prefix('u')->group(function () {
         // classes 

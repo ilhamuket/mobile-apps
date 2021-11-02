@@ -78,7 +78,7 @@
   },
   "table": {
     "approved": "Approved",
-    "non_approved": "Non Approved",
+    "non_approved": "Not Approved",
     "class": {
       "th": {
         "name": "Name",

@@ -2,7 +2,20 @@
   <v-container>
     <v-row>
       <v-col cols="12">
-        <app-card />
+        <div
+          v-if="isLoading"
+          class="d-flex justify-center"
+        >
+          <v-progress-circular
+            class="d-flex justify-center"
+            indeterminate
+            color="red"
+          />
+        </div>
+        <app-card
+          v-else
+          :data="computedInstructor"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -13,6 +26,31 @@
   export default {
     components: {
       "app-card": listCard,
+    },
+    data: () => ({
+      isLoading: true,
+    }),
+    computed: {
+      computedInstructor () {
+        return this.$store.state.instructor.data
+      },
+    },
+    mounted () {
+      this.getInstructor()
+    },
+    methods: {
+      getInstructor () {
+        this.$store
+          .dispatch("instructor/getInstructor", {
+            entities: "img,studio",
+            status: 1,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              this.isLoading = false
+            }
+          })
+      },
     },
   }
 </script>

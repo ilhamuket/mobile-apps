@@ -2,52 +2,63 @@
   <v-container>
     <v-row>
       <v-col
+        v-for="(item, i) in data"
+        :key="i"
         cols="12"
-        md="4"
+        md="3"
       >
         <v-hover v-slot="{ hover }">
-          <v-card :elevation="hover ? 12 : 2">
-            <v-img
-              style="cursor:pointer"
-              src="https://www.ensiklotari.com/_nuxt/img/t1.51b60a5.jpg"
-            >
-              <v-container>
-                <v-row class="cols__margin--name">
-                  <v-col>
-                    <div class="d-flex flex-row">
-                      <div class="d-flex flex-column">
-                        <v-chip
-                          small
-                          label
-                          color="btn_primary"
-                          class="font-spartan"
-                          text-color="white"
-                        >
-                          Mahardika Kessuma Denie
-                        </v-chip>
+          <v-card
+            width="400"
+            height="220"
+            :elevation="hover ? 12 : 2"
+          >
+            <div class="img--instructor">
+              <v-img
+                v-if="item.img"
+                :src="item.img.url"
+                width="400"
+                height="400"
+              >
+                <v-container>
+                  <v-row class="cols__margin--name">
+                    <v-col>
+                      <div class="d-flex flex-row">
+                        <div class="d-flex flex-column">
+                          <v-chip
+                            small
+                            label
+                            color="btn_primary"
+                            class="font-spartan text-capitalize"
+                            text-color="white"
+                          >
+                            {{ item.name }}
+                          </v-chip>
+                        </div>
                       </div>
-                    </div>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    class="cols__studio"
-                  >
-                    <div class="d-flex flex-row">
-                      <div class="d-flex flex-column">
-                        <v-chip
-                          color="btn_primary"
-                          text-color="white"
-                          class="font-spartan-text font-weight-bold"
-                          small
-                        >
-                          Dancer - Hurip Studio
-                        </v-chip>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      class="cols__studio"
+                    >
+                      <div class="d-flex flex-row">
+                        <div class="d-flex flex-column">
+                          <v-chip
+                            v-if="item.studio"
+                            color="btn_primary"
+                            text-color="white"
+                            class="font-spartan-text font-weight-bold"
+                            small
+                          >
+                            {{ item.profession }} - {{ item.studio.name }}
+                          </v-chip>
+                        </div>
                       </div>
-                    </div>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-img>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-img>
+            </div>
             <v-container>
               <v-row>
                 <v-col
@@ -56,25 +67,63 @@
                 >
                   <div class="d-flex flex-row margin--icon">
                     <div class="d-flex flex-column">
-                      <v-icon
-                        color="red"
-                        class="mr-2"
+                      <v-tooltip
+                        bottom
+                        color="btn_primary"
                       >
-                        mdi-instagram
-                      </v-icon>
+                        <template #activator="{on,attrs}">
+                          <v-icon
+                            v-bind="attrs"
+                            color="red"
+                            class="mr-2"
+                            v-on="on"
+                          >
+                            mdi-instagram
+                          </v-icon>
+                        </template>
+                        <span class="font-spartan-small">
+                          {{ item.username_ig }}
+                        </span>
+                      </v-tooltip>
                     </div>
                     <div class="d-flex flex-column">
-                      <v-icon
-                        color="blue"
-                        class="mr-2"
+                      <v-tooltip
+                        bottom
+                        color="btn_primary"
                       >
-                        mdi-facebook
-                      </v-icon>
+                        <template #activator="{on, attrs}">
+                          <v-icon
+                            v-bind="attrs"
+                            color="blue"
+                            class="mr-2"
+                            v-on="on"
+                          >
+                            mdi-facebook
+                          </v-icon>
+                        </template>
+                        <span class="font-spartan-small">
+                          {{ item.username_fb }}
+                        </span>
+                      </v-tooltip>
                     </div>
                     <div class="d-flex flex-column">
-                      <v-icon color="blue">
-                        mdi-twitter
-                      </v-icon>
+                      <v-tooltip
+                        bottom
+                        color="btn_primary"
+                      >
+                        <template #activator="{on, attrs}">
+                          <v-icon
+                            v-bind="attrs"
+                            color="blue"
+                            v-on="on"
+                          >
+                            mdi-twitter
+                          </v-icon>
+                        </template>
+                        <span class="font-spartan-small">
+                          {{ item.username_tw }}
+                        </span>
+                      </v-tooltip>
                     </div>
                   </div>
                 </v-col>
@@ -88,14 +137,22 @@
 </template>
 
 <script>
-  export default {}
+  export default {
+    props: {
+      data: {
+        type: Array,
+        default: null,
+      },
+    },
+  }
 </script>
 
 <style lang="sass">
 .margin-callbacks
     margin-top: -20px
+    margin-left: 43px
 .cols__margin--name
-    margin-top: 290px
+    margin-top: 312px
 .margin--icon
     margin-right: 135px
     margin-top: 20px
@@ -103,4 +160,11 @@
         font-size: 26px !important
 .cols__studio
     margin-top: -20px !important
+.img--instructor
+  img
+    transition: 0.1s ease-in !important
+    cursor: pointer !important
+  &:hover
+    img
+       transform: scale(1,1) !important
 </style>

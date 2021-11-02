@@ -273,6 +273,9 @@ class StudioTeacherController extends Controller
             $teacher->contact = $request->input('contact', $teacher->contact);
             $teacher->profession = $request->input('profession', $teacher->profession);
             $teacher->about = $request->input('about', $teacher->about);
+            $teacher->username_fb = $request->input('username_fb', $teacher->username_fb);
+            $teacher->username_ig = $request->input('username_ig', $teacher->username_ig);
+            $teacher->username_tw = $request->input('username_tw', $teacher->username_tw);
             $teacher->save();
 
             return Json::response($teacher);

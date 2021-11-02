@@ -25,6 +25,7 @@ import category from "./module/category"
 // EnsikloVidio
 import ensikloVidio from "./module/studio/ensiklo_vidio/index"
 import etc from "./module/etc"
+import instructor from "./module/instructor"
 
 // etc
 Vue.use(Vuex)
@@ -49,6 +50,7 @@ export default new Vuex.Store({
     category: category,
     ensikloVidio: ensikloVidio,
     etc: etc,
+    instructor: instructor,
   },
   state: {
     barColor: "rgba(0, 0, 0, .8), rgba(0, 0, 0, .8)",

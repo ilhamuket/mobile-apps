@@ -32,6 +32,7 @@
                 v-model="dialog.name"
                 label="Name"
                 placeholder="Input FullName"
+                prepend-icon="mdi-rename-box"
                 clearable
               />
             </v-col>
@@ -41,6 +42,7 @@
                 type="email"
                 label="Name"
                 placeholder="Input FullName"
+                prepend-icon="mdi-at"
                 clearable
               />
             </v-col>
@@ -51,6 +53,7 @@
                 label="Region"
                 placeholder="Input Region"
                 clearable
+                prepend-icon="mdi-map-marker"
                 item-text="name"
                 item-value="name"
               >
@@ -101,24 +104,72 @@
                 type="Contact"
                 label="Contact"
                 placeholder="Input Contact"
+                prepend-icon="mdi-phone"
                 clearable
               />
             </v-col>
             <v-col cols="12">
               <v-text-field
                 v-model="dialog.profession"
-                type="Contact"
-                label="Contact"
-                placeholder="Input Contact"
+                type="Profession"
+                label="Profession"
+                placeholder="Input Profession"
+                prepend-icon="mdi-professional-hexagon"
                 clearable
               />
             </v-col>
             <v-col cols="12">
+              <v-text-field
+                v-model="dialog.username_fb"
+                type="Username Fb"
+                label="Username Fb"
+                placeholder="Input Username Fb"
+                clearable
+              >
+                <template #prepend>
+                  <v-icon color="blue">
+                    mdi-facebook
+                  </v-icon>
+                </template>
+              </v-text-field>
+            </v-col>
+            <v-col cols="12">
+              <v-text-field
+                v-model="dialog.username_ig"
+                type="username Instagram"
+                label="username Instagram"
+                placeholder="Input username Instagram"
+                clearable
+              >
+                <template #prepend>
+                  <v-icon color="red">
+                    mdi-instagram
+                  </v-icon>
+                </template>
+              </v-text-field>
+            </v-col>
+            <v-col cols="12">
+              <v-text-field
+                v-model="dialog.username_tw"
+                type="username Twitter"
+                label="username Twitter"
+                placeholder="Input username Twitter"
+                clearable
+              >
+                <template #prepend>
+                  <v-icon color="blue">
+                    mdi-twitter
+                  </v-icon>
+                </template>
+              </v-text-field>
+            </v-col>
+            <v-col cols="12">
               <v-textarea
                 v-model="dialog.about"
-                type="Contact"
-                label="Contact"
-                placeholder="Input Contact"
+                type="About"
+                label="About"
+                placeholder="Input About"
+                prepend-icon="mdi-information-variant"
                 clearable
               />
             </v-col>
@@ -127,8 +178,7 @@
         <v-card-actions class="d-flex flex-row-reverse mb-2 mr-2">
           <div class="d-flex flex-column">
             <v-btn
-              outlined
-              color="primary"
+              color="btn_primary"
               @click="editData"
             >
               Update
@@ -150,7 +200,7 @@
 </template>
 
 <script>
-  import database from '../database/city.json'
+  import database from "../database/city.json"
   export default {
     props: {
       dialog: {
@@ -163,7 +213,7 @@
     }),
     methods: {
       editData () {
-        this.$emit('input', { item: this.dialog })
+        this.$emit("input", { item: this.dialog })
       },
     },
   }

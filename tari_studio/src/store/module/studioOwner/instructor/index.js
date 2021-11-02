@@ -190,6 +190,7 @@ export default {
           })
       })
     },
+
     deactiveDataTeachers: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
         "Bearer " + localStorage.getItem("access_token")
@@ -200,6 +201,26 @@ export default {
           .patch(`owner/instructor/deactive/${payload.id}`)
           .then(res => {
             commit("DEACTIVE_DATA", payload)
+            resolve(res)
+          })
+          .catch(e => {
+            reject(e)
+          })
+      })
+    },
+    uploadPictProfile: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        "Bearer " + localStorage.getItem("access_token")
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        const URL = "owner/instructor/file"
+        const data = new FormData()
+        data.append("img", payload.files)
+        data.append("instructor_id", payload.instructor_id)
+        axios
+          .post(URL, data)
+          .then(res => {
             resolve(res)
           })
           .catch(e => {

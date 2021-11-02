@@ -10,7 +10,7 @@
       ----------------------------------------------- -->
         <v-col cols="12" sm="12" md="12" lg="3" class="px-xs-0">
           <h4 class="font-weight-regular font-18">Address</h4>
-          <p class="mt-10">71 Amsteroum Avenue Cronish Night, NY 35098</p>
+          <p class="mt-10">Antapani, Jl. Terusan Sekolah No.1-2, Cicaheum, Kec. Kiaracondong, Kota Bandung, Jawa Barat 40282</p>
         </v-col>
         <!-- -----------------------------------------------
         Second Column
@@ -26,12 +26,12 @@
         <v-col cols="12" sm="12" md="12" lg="3" class="px-xs-0">
           <h4 class="font-weight-regular font-18">Email</h4>
           <p class="mt-10 mb-0">
-            Office : <a class="dark-link" href="/">info@wrappixel.com</a>
+            Office : ensiklotari01@gmail.com
           </p>
           <p>
             Site :
-            <a class="dark-link" href="https://www.wrappixel.com/"
-              >wrappixel.com</a
+            <a class="dark-link" href="https://ensiklotari.com"
+              >ensiklotari.com</a
             >
           </p>
         </v-col>

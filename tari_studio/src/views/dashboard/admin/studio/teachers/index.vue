@@ -76,6 +76,7 @@
           @refresh="refreshMethods"
           @change="changePictProfile"
           @deactive="upDeactive"
+          @pict="uploadPictProfile"
         />
       </v-col>
     </v-row>
@@ -156,6 +157,9 @@
         contact: "",
         profession: "",
         about: "",
+        username_fb: "",
+        username_tw: "",
+        username_ig: "",
       },
       approve: {
         open: false,
@@ -246,6 +250,9 @@
         this.edit.contact = item.contact
         this.edit.profession = item.profession
         this.edit.about = item.about
+        this.edit.username_fb = item.username_fb
+        this.edit.username_tw = item.username_tw
+        this.edit.username_ig = item.username_ig
       },
       popUpApprove ({ item }) {
         this.approve.open = true
@@ -304,6 +311,7 @@
           })
       },
       updateDataTeacherStudio ({ item }) {
+        console.log(item)
         this.$store
           .dispatch("studioInstructor/updateDataTeacherStudio", {
             id: item.id,
@@ -313,6 +321,9 @@
             contact: item.contact,
             profession: item.profession,
             about: item.about,
+            username_fb: item.username_fb,
+            username_tw: item.username_tw,
+            username_ig: item.username_ig,
           })
           .then(res => {
             if (res.data.meta.status) {
@@ -419,6 +430,36 @@
                 icon: "success",
                 title: "Data Teachers Deleted Successfully",
               })
+            }
+          })
+      },
+      uploadPictProfile ({ item }) {
+        this.$store
+          .dispatch("studioInstructor/uploadPictProfile", {
+            files: item.files,
+            instructor_id: item.id,
+          })
+          .then(res => {
+            if (res.data.meta.status) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Edit Photo Profile Successfully",
+              })
+              this.getDataTeacherStudio()
             }
           })
       },

@@ -172,6 +172,7 @@
                 >
                   <v-img
                     width="100"
+                    height="100"
                     :src="item.img.url"
                     gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
                     style="cursor:pointer"
@@ -186,14 +187,30 @@
                   >
                 </v-card>
               </v-hover>
-              <v-avatar
+              <v-hover
                 v-else
-                color="primary"
-                size="50"
-                tile
+                v-slot="{ hover }"
               >
-                <span>{{ item.name.charAt(0) }}</span>
-              </v-avatar>
+                <v-card
+                  :elevation="hover ? 12 : 2"
+                  :class="{ 'on-hover': hover }"
+                >
+                  <v-img
+                    width="100"
+                    src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/zeus/kratos/62cb37c4.png"
+                    gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
+                    style="cursor:pointer"
+                    @click="clickImgPicture(item)"
+                  />
+                  <input
+                    ref="upload"
+                    type="file"
+                    style="display: none"
+                    accept="image/*"
+                    @change="uploadPictProfile"
+                  >
+                </v-card>
+              </v-hover>
             </template>
             <template #[`item.name`]="{item}">
               <div class="mt-6">
@@ -305,6 +322,7 @@
               <v-chip
                 :color="setColorVerified(item.is_verified)"
                 class="text-capitalize chips--weight"
+                text-color="white"
               >
                 {{
                   item.is_verified === 1
@@ -400,6 +418,51 @@
       clickImg (item) {
         this.$refs.fileUpload.click()
         this.instructor_id = item.id
+      },
+      clickImgPicture (item) {
+        this.$refs.upload.click()
+        this.instructor_id = item.id
+      },
+      uploadPictProfile (event) {
+        const files = event.target.files
+        const filename = files[0].name
+        console.log(filename)
+        const fileReader = new FileReader()
+        fileReader.addEventListener("load", () => {
+          this.imageUrl = fileReader.result
+        //   console.log(this.imageUrl)
+        })
+        fileReader.readAsDataURL(files[0])
+        this.files = files[0]
+
+        if (this.files.size > 2000000) {
+          console.log("too big")
+          const Toast = this.$swal.mixin({
+            toast: true,
+            position: "bottom-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: toast => {
+              toast.addEventListener("mouseenter", this.$swal.stopTimer)
+              toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+            },
+            popup: "swal2-show",
+            backdrop: "swal2-backdrop-show",
+            icon: "swal2-icon-show",
+          })
+          Toast.fire({
+            icon: "error",
+            title: "file too big",
+          })
+        } else {
+          this.$emit("pict", {
+            item: {
+              files: this.files,
+              id: this.instructor_id,
+            },
+          })
+        }
       },
       changePictProfile (event) {
         const files = event.target.files
