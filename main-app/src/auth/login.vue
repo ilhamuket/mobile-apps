@@ -1,6 +1,9 @@
 <template>
   <v-app v-if="imgUrl">
-    <v-container fluid>
+    <v-container
+      class="container--custome"
+      fluid
+    >
       <v-row
         dense
         class="d-flex flex-row-reverse"
@@ -36,7 +39,7 @@
             >
               Selamat Datang Di EnsikloTari 👋
             </v-card-title> -->
-            <v-card-text class="mb-2 secondary--text font-subtitle">
+            <v-card-text class="mb-2 secondary--text font-spartan mt-5">
               Masuk Dengan Akun Mu Dan Mulai Pertualangan Mu
             </v-card-text>
 
@@ -44,16 +47,22 @@
               dense
               text
               color="secondary"
+              class="mt-12"
             >
               <p
-                class="font-spartan-small text-lowercase third--text text-custome-2"
+                class="
+                  font-spartan-small
+                  text-lowercase
+                  third--text
+                  text-custome-2
+                "
               >
                 The Key To Happiness Is Login To Life, As a Guest And Not as An
                 Administartor
               </p>
               - Chintoo Agl
             </v-alert>
-            <v-card-text class="">
+            <v-card-text class="card--margin">
               <v-form @submit.prevent.enter="login">
                 <v-text-field
                   v-model="email"
@@ -93,9 +102,7 @@
                       color="transparent"
                       text-color="red"
                     >
-                      <span class="font-spartan-small">
-                        Lupa Password ?
-                      </span>
+                      <span class="font-spartan-small"> Lupa Password ? </span>
                     </v-chip>
                   </div>
                 </div>
@@ -104,7 +111,7 @@
                   <br>
                   <a
                     class="color-a"
-                    style="text-decoration:underline"
+                    style="text-decoration: underline"
                     @click="pushToRegister"
                   >
                     <span>&nbsp;Daftar Sekarang</span>
@@ -112,38 +119,6 @@
                 </div>
               </v-form>
             </v-card-text>
-            <!-- <div class="d-flex flex-row mt-2 justify-center">
-              <div class="d-flex flex-column">
-                <p class="font-title-rampart-one-small">
-                  Or
-                </p>
-              </div>
-            </div>
-
-            <div class="d-flex flex-row justify-center mt-1">
-              <div class="d-flex flex-column">
-                <v-btn
-                  small
-                  outlined
-                  color="primary"
-                >
-                  <v-icon color="">
-                    mdi-google
-                  </v-icon>
-                </v-btn>
-              </div>
-              <div class="d-flex flex-column ml-2">
-                <v-btn
-                  small
-                  outlined
-                  color="primary"
-                >
-                  <v-icon color="blue">
-                    mdi-facebook
-                  </v-icon>
-                </v-btn>
-              </div>
-            </div> -->
           </v-col>
         </v-col>
       </v-row>
@@ -175,9 +150,9 @@
             email: this.email,
             password: this.password,
           })
-          .then(response => {
+          .then((response) => {
             if (response.data.meta.status === true) {
-              this.$store.dispatch("user/me").then(res => {
+              this.$store.dispatch("user/me").then((res) => {
                 if (res.data.data.isVerified === 0) {
                   this.$router.push("/waiting-email")
                 } else {
@@ -194,7 +169,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -251,4 +226,6 @@
   color: #2E4DA7 !important
 .text-custome-2
   color: #2E4DA7 !important
+.card--margin
+ margin-top: 10% !important
 </style>

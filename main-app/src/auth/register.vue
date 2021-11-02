@@ -51,7 +51,7 @@
               - Chintoo Agl
             </v-alert> -->
             <v-card-text
-              class=""
+              class="card--margin"
               color="transparent"
             >
               <validation-observer
@@ -147,7 +147,7 @@
                     />
                   </validation-provider>
 
-                  <div class="d-flex flex-row justify-center ml-8 mt-4">
+                  <div class="d-flex flex-row justify-center ml-8 mt-12">
                     <div class="d-flex flex-coloumn">
                       <v-btn
                         color="pallet1"
@@ -160,7 +160,7 @@
                     </div>
                   </div>
 
-                  <div class="text-center font-spartan mt-6">
+                  <div class="text-center font-spartan mt-8">
                     <span class="font-spartan">Sudah Punya Akun ? </span>
                     <a
                       class="color-a"
@@ -360,4 +360,6 @@
   color: #2E4DA7 !important
 .text-custome-2
   color: #2E4DA7 !important
+.card--margin
+  margin-top: 10% !important
 </style>
