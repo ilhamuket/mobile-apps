@@ -13,6 +13,22 @@ use Modules\StudioOwners\Entities\StudioClassVidio;
 
 class StudioClassVidiosController extends Controller
 {
+    public function forAll(Request $request)
+    {
+        try {
+            $master = StudioClassVidios::entities($request->entities)
+                ->where('is_verified', true)
+                ->paginate($request->input("paginate", 6));
+
+            return Json::response(($master));
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     /**
      * Display a listing of the resource.
      * @return Renderable
