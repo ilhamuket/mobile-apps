@@ -24,9 +24,7 @@
                     Masih Ragu ?
                   </h3>
                   <p>
-                    You can relay on our amazing features list and also our
-                    customer services will be great experience. You will love it
-                    for sure.
+                    Daftar yuk, bergabung bersama kami di EnsikloTari
                   </p>
                   <v-btn
                     color="error"

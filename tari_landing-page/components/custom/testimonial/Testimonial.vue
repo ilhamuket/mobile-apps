@@ -11,11 +11,11 @@
               <h2 class="section-title font-weight-medium">
                 Apa yang di katakan Mereka ?
               </h2>
-              <p>
+              <!-- <p>
                 You can relay on our amazing features list and also our customer
                 services will be great experience for you without doubt and in
                 no-time
-              </p>
+              </p> -->
             </div>
           </v-col>
         </v-row>
@@ -31,8 +31,8 @@
             <v-card class="testimonial-card card-shadow">
               <v-card-text>
                 <p class="font-weight-light mb-15">
-                  “Cum sociis natoque penatibus et magnis dis parturient montes,
-                  nascetur ridiculus mus. Cras venene veliel vestibulum.”
+                  “Keren pembelajaran nya menarik yang membuat saya ketagihan
+                  dalam menari, Terima Kasih EnsikloTari”
                 </p>
                 <div class="bottom-bar d-flex align-center">
                   <img
@@ -70,8 +70,8 @@
             <v-card class="testimonial-card card-shadow">
               <v-card-text>
                 <p class="font-weight-light mb-15">
-                  “Cum sociis natoque penatibus et magnis dis parturient montes,
-                  nascetur ridiculus mus. Cras venene veliel vestibulum.”
+                  “Keren pembelajaran nya menarik yang membuat saya ketagihan
+                  dalam menari, Terima Kasih EnsikloTari”
                 </p>
                 <div class="bottom-bar d-flex align-center">
                   <img
@@ -109,8 +109,8 @@
             <v-card class="testimonial-card card-shadow">
               <v-card-text>
                 <p class="font-weight-light mb-15">
-                  “Cum sociis natoque penatibus et magnis dis parturient montes,
-                  nascetur ridiculus mus. Cras venene veliel vestibulum.”
+                  “Keren pembelajaran nya menarik yang membuat saya ketagihan
+                  dalam menari, Terima Kasih EnsikloTari”
                 </p>
                 <div class="bottom-bar d-flex align-center">
                   <img

@@ -13,9 +13,8 @@
               </v-chip>
               <h2 class="section-title font-weight-medium">2 Type Kelas</h2>
               <p>
-                You can relay on our amazing features list and also our customer
-                services will be great experience for you without doubt and in
-                no-time
+                EnsikloTari Memiliki 2 Type Kelas Yaitu EnsikloLive Dan
+                EnsikloVidio
               </p>
             </div>
           </v-col>
@@ -37,10 +36,9 @@
                 </div>
                 <h5 class="font-weight-medium font-18">EnsikloLive</h5>
                 <p class="mt-10 mb-8">
-                  You can relay on our amazing features list and also our
-                  customer services will be great experience. Lorem ipsum dolor
-                  sit amet, consectetur adipiscing elit. Praesent tristique
-                  pellentesque ipsum.
+                  EnsikloLive Adalah salah satu type kelas di
+                  EnsikloTari.EnsikloLive yaitu pengajaran tari dengan cara live
+                  Melalui Zoom Aplikasi
                 </p>
                 <a
                   href="#live"
@@ -65,10 +63,9 @@
                 </div>
                 <h5 class="font-weight-medium font-18">EnsikloVidio</h5>
                 <p class="mt-10 mb-8">
-                  You can relay on our amazing features list and also our
-                  customer services will be great experience. Lorem ipsum dolor
-                  sit amet, consectetur adipiscing elit. Praesent tristique
-                  pellentesque ipsum.
+                  EnsikloVidio Adalah salah satu type kelas di ensiklotari,
+                  EnsikloVidio yaitu pengajaran tari berupa vidio atau kelas
+                  streaming
                 </p>
                 <a
                   href="#vidio"

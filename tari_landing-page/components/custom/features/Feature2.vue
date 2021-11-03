@@ -14,11 +14,11 @@
               <h2 class="section-title font-weight-medium">
                 Memiliki Instructor yang unggul
               </h2>
-              <p>
+              <!-- <p>
                 You can relay on our amazing features list and also our customer
                 services will be great experience for you without doubt and in
                 no-time
-              </p>
+              </p> -->
             </div>
           </v-col>
         </v-row>
