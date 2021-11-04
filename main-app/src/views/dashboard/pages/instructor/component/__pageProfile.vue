@@ -6,12 +6,19 @@
           <v-card-text>
             <div class="d-flex flex-row">
               <div class="d-flex flex-column">
-                <span class="font-spartan-small"> FullName : Mahardika </span>
+                <span class="font-spartan-small">
+                  FullName : {{ data.name }}
+                </span>
               </div>
             </div>
             <div class="d-flex flex-row mt-1">
               <div class="d-flex flex-column">
-                <span class="font-spartan-small"> Studio : EnsikloStudio </span>
+                <span
+                  v-if="data.studio"
+                  class="font-spartan-small"
+                >
+                  Studio : {{ data.studio.name }}
+                </span>
               </div>
             </div>
             <div class="d-flex flex-row mt-4">

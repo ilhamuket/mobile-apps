@@ -22,7 +22,7 @@
             />
           </v-avatar>
           <div class="margin--span_name">
-            <span class="font-spartan font-weight-bold white--text">
+            <span class="font-spartan font-weight-bold grey--text">
               {{ data.name }}
             </span>
           </div>
