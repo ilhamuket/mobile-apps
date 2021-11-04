@@ -9,7 +9,7 @@
           <v-col cols="12" sm="10" md="9" lg="7">
             <div class="text-center">
               <h2 class="section-title font-weight-medium">
-                EnsikloVidio
+                EnsikloVideo
               </h2>
               <!-- <p>
                 You can relay on our amazing features list and also our customer
