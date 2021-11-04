@@ -49,7 +49,7 @@
               </span>
               <span
                 v-else
-                class="font-spartan white--text"
+                class="font-spartan-small white--text"
               >instagram</span>
             </v-tooltip>
             <v-tooltip
