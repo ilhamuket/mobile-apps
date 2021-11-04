@@ -11,11 +11,11 @@
               <h2 class="section-title font-weight-medium">
                 EnsikloVidio
               </h2>
-              <p>
+              <!-- <p>
                 You can relay on our amazing features list and also our customer
                 services will be great experience for you without doubt and in
                 no-time
-              </p>
+              </p> -->
             </div>
           </v-col>
         </v-row>
@@ -132,8 +132,22 @@
 export default {
   name: "Portfolio",
   data() {
-    return {};
+    return {
+      data: {
+        meta: {},
+        data: []
+      }
+    };
   },
-  methods: {},
+  mounted () {
+    this.getDataClassVidio()
+  },
+  methods: {
+    async getDataClassVidio () {
+      this.data = await this.$axios.$get('all/ensiklo-vidio', {})
+      console.log(this.data);
+      localStorage.setItem('class-vidio', JSON.stringify(this.data))
+    },
+  },
 };
 </script>
