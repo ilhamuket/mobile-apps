@@ -30,7 +30,7 @@
               color="primary"
               bottom
             >
-              <template #activator="{on, attrs}">
+              <template #activator="{ on, attrs }">
                 <v-icon
                   v-bind="attrs"
                   color="size__icon_refresh"
@@ -75,9 +75,7 @@
               <v-list>
                 <v-list-item-group>
                   <v-list-item>
-                    <v-list-item-title>
-                      Export
-                    </v-list-item-title>
+                    <v-list-item-title> Export </v-list-item-title>
                   </v-list-item>
                 </v-list-item-group>
               </v-list>
@@ -89,9 +87,7 @@
             class="ml-2"
             @click="createTeachers"
           >
-            <v-icon>
-              mdi-plus
-            </v-icon>
+            <v-icon> mdi-plus </v-icon>
             Add instructor
           </v-btn>
 
@@ -102,9 +98,7 @@
             color="blue"
             @click="popUpApprove(selected)"
           >
-            <v-icon>
-              mdi-check-decagram
-            </v-icon>
+            <v-icon> mdi-check-decagram </v-icon>
             Approve {{ selected.length }} item
           </v-btn>
           <v-btn
@@ -113,9 +107,7 @@
             color="red"
             @click="popDelete(selected)"
           >
-            <v-icon>
-              mdi-delete-empty-outline
-            </v-icon>
+            <v-icon> mdi-delete-empty-outline </v-icon>
             Delete {{ selected.length }} item
           </v-btn>
         </v-col>
@@ -161,7 +153,7 @@
             </template>
 
             <!-- Item -->
-            <template #[`item.#`]="{item}">
+            <template #[`item.#`]="{ item }">
               <v-hover
                 v-if="item.img"
                 v-slot="{ hover }"
@@ -175,7 +167,7 @@
                     height="100"
                     :src="item.img.url"
                     gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
-                    style="cursor:pointer"
+                    style="cursor: pointer"
                     @click="clickImg(item)"
                   />
                   <input
@@ -199,7 +191,7 @@
                     width="100"
                     src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/zeus/kratos/62cb37c4.png"
                     gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
-                    style="cursor:pointer"
+                    style="cursor: pointer"
                     @click="clickImgPicture(item)"
                   />
                   <input
@@ -212,14 +204,14 @@
                 </v-card>
               </v-hover>
             </template>
-            <template #[`item.name`]="{item}">
+            <template #[`item.name`]="{ item }">
               <div class="mt-6">
                 <v-tooltip
                   v-if="item.name.length > 9"
                   bottom
                   color="blue"
                 >
-                  <template #activator="{on, attrs}">
+                  <template #activator="{ on, attrs }">
                     <span
                       v-bind="attrs"
                       v-on="on"
@@ -243,7 +235,7 @@
                           bottom
                           color="primary"
                         >
-                          <template #activator="{on,attrs}">
+                          <template #activator="{ on, attrs }">
                             <v-icon
                               v-bind="attrs"
                               small
@@ -254,9 +246,35 @@
                               mdi-pencil
                             </v-icon>
                           </template>
-                          <span class="font-spartan-small">
-                            Edit
-                          </span>
+                          <span class="font-spartan-small"> Edit </span>
+                        </v-tooltip>
+                      </a>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="d-flex flex-column flex-nowrap mt-2">
+                      <a
+                        class="font-a d-flex flex-nowrap"
+                        @click="uploadVidioPrifle(item)"
+                      >
+                        <v-tooltip
+                          bottom
+                          color="primary"
+                        >
+                          <template #activator="{ on, attrs }">
+                            <v-icon
+                              v-bind="attrs"
+                              small
+                              color="blue"
+                              class="mr-1"
+                              v-on="on"
+                            >
+                              mdi-youtube-subscription
+                            </v-icon>
+                          </template>
+                          <span
+                            class="font-spartan-small white--text"
+                          >Upload Vidio Profile</span>
                         </v-tooltip>
                       </a>
                     </div>
@@ -271,7 +289,7 @@
                           bottom
                           color="primary"
                         >
-                          <template #activator="{on,attrs}">
+                          <template #activator="{ on, attrs }">
                             <v-icon
                               color="red"
                               small
@@ -298,7 +316,7 @@
                           bottom
                           color="primary"
                         >
-                          <template #activator="{on,attrs}">
+                          <template #activator="{ on, attrs }">
                             <v-icon
                               color="red"
                               small
@@ -318,7 +336,7 @@
                 </div>
               </div>
             </template>
-            <template #[`item.is_verified`]="{item}">
+            <template #[`item.is_verified`]="{ item }">
               <v-chip
                 :color="setColorVerified(item.is_verified)"
                 class="text-capitalize chips--weight"
@@ -443,7 +461,7 @@
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
-            didOpen: toast => {
+            didOpen: (toast) => {
               toast.addEventListener("mouseenter", this.$swal.stopTimer)
               toast.addEventListener("mouseleave", this.$swal.resumeTimer)
             },
@@ -484,7 +502,7 @@
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
-            didOpen: toast => {
+            didOpen: (toast) => {
               toast.addEventListener("mouseenter", this.$swal.stopTimer)
               toast.addEventListener("mouseleave", this.$swal.resumeTimer)
             },
@@ -507,6 +525,9 @@
       },
       deactive (item) {
         this.$emit("deactive", { item: item })
+      },
+      uploadVidioPrifle (item) {
+        this.$emit("vidioProfile", { item: item })
       },
     },
   }

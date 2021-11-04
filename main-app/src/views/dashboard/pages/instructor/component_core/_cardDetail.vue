@@ -7,7 +7,16 @@
           hidden
           color="transparent"
         >
-          <v-avatar size="120">
+          <v-avatar
+            v-if="data.img"
+            size="120"
+          >
+            <v-img :src="data.img.url" />
+          </v-avatar>
+          <v-avatar
+            v-else
+            size="120"
+          >
             <v-img
               src="https://steezy.imgix.net/choreographers/abey-cabrera.png?auto=compress"
             />
@@ -33,28 +42,72 @@
                 </v-icon>
               </template>
               <span
-                v-if="ig"
+                v-if="data.username_ig"
                 class="font-spartan-small white--text text-capitalize"
               >
-                instagram
+                {{ data.username_ig }}
               </span>
               <span
                 v-else
                 class="font-spartan white--text"
-              > harimau </span>
+              >instagram</span>
             </v-tooltip>
-            <v-icon
-              class="ml-1"
+            <v-tooltip
               color="blue"
+              bottom
             >
-              mdi-facebook
-            </v-icon>
-            <v-icon
-              class="ml-1"
+              <template #activator="{ on, attrs }">
+                <v-icon
+                  v-bind="attrs"
+                  class="ml-1"
+                  color="blue"
+                  style="cursor: pointer"
+                  v-on="on"
+                >
+                  mdi-facebook
+                </v-icon>
+              </template>
+              <span
+                v-if="data.username_fb"
+                class="font-spartan-small white--text"
+              >
+                {{ data.username_fb }}
+              </span>
+              <span
+                v-else
+                class="font-spartan-small white--text"
+              >
+                facebook
+              </span>
+            </v-tooltip>
+            <v-tooltip
               color="blue"
+              bottom
             >
-              mdi-twitter
-            </v-icon>
+              <template #activator="{ on, attrs }">
+                <v-icon
+                  v-bind="attrs"
+                  class="ml-1"
+                  color="blue"
+                  style="cursor: pointer"
+                  v-on="on"
+                >
+                  mdi-twitter
+                </v-icon>
+              </template>
+              <span
+                v-if="data.username_tw"
+                class="font-spartan-small white--text"
+              >
+                {{ data.username_tw }}
+              </span>
+              <span
+                v-else
+                class="font-spartan-small white--text"
+              >
+                Twitter
+              </span>
+            </v-tooltip>
             <v-icon
               class="ml-1"
               color="blue"

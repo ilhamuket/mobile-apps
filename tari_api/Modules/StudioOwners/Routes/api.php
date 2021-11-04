@@ -13,6 +13,7 @@ use Modules\StudioOwners\Http\Controllers\DiscussController;
 use Modules\StudioOwners\Http\Controllers\ImagesStudioController;
 use Modules\StudioOwners\Http\Controllers\ImgClassesController;
 use Modules\StudioOwners\Http\Controllers\ImgListClassController;
+use Modules\StudioOwners\Http\Controllers\InstructorProfileVidioController;
 use Modules\StudioOwners\Http\Controllers\ReviewOwnerController;
 use Modules\StudioOwners\Http\Controllers\StudioClassVidioController;
 use Modules\StudioOwners\Http\Controllers\StudioOwnerCategoryController;
@@ -77,6 +78,9 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
         Route::prefix('file')->group(function () {
             Route::post('', [StudioTeacherController::class, 'uploadImg']);
             Route::post('{id}', [StudioTeacherController::class, 'changeImg']);
+        });
+        Route::prefix('vidio-profile')->group(function () {
+            Route::post('create', [InstructorProfileVidioController::class, 'store']);
         });
         Route::patch('edit/{id}', [StudioTeacherController::class, 'update']);
         Route::patch('deactive/{id}', [StudioTeacherController::class, 'deactive']);

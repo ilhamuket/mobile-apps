@@ -13,7 +13,7 @@
           :value="String(cumputedSummary.all)"
           sub-icon="mdi-tag"
           sub-text="Tracked from Google Analytics"
-          style="cursor:pointer"
+          style="cursor: pointer"
           @click.native="orderBySummary('all')"
         />
       </v-col>
@@ -29,7 +29,7 @@
           :value="String(cumputedSummary.approved)"
           sub-icon="mdi-tag"
           sub-text="Tracked from Google Analytics"
-          style="cursor:pointer"
+          style="cursor: pointer"
           @click.native="orderBySummary('approved')"
         />
       </v-col>
@@ -45,7 +45,7 @@
           :value="String(cumputedSummary.non_approved)"
           sub-icon="mdi-tag"
           sub-text="Tracked from Google Analytics"
-          style="cursor:pointer"
+          style="cursor: pointer"
           @click.native="orderBySummary('non_approved')"
         />
       </v-col>
@@ -61,7 +61,7 @@
           :value="String(cumputedSummary.new)"
           sub-icon="mdi-tag"
           sub-text="Tracked from Google Analytics"
-          style="cursor:pointer"
+          style="cursor: pointer"
           @click.native="orderBySummary('new')"
         />
       </v-col>
@@ -77,6 +77,7 @@
           @change="changePictProfile"
           @deactive="upDeactive"
           @pict="uploadPictProfile"
+          @vidioProfile="popUpYoutube"
         />
       </v-col>
     </v-row>
@@ -128,6 +129,10 @@
       color-button2="primary"
       @input="deactiveDataTeachers"
     />
+    <app-dialog-yt
+      :dialog="dialogUploadYt"
+      @input="addDataVidioUrl"
+    />
   </v-container>
 </template>
 
@@ -136,6 +141,7 @@
   import dialogForm from "./component/__dialogForm.vue"
   import dialogEdit from "./component/__dialogEdit.vue"
   import dialogNotice from "./component/__dialogNotice.vue"
+  import dialogYt from "./component/__dialogUploadYt.vue"
 
   export default {
     components: {
@@ -143,6 +149,7 @@
       "app-dialog-form": dialogForm,
       "app-dialog-edit": dialogEdit,
       "app-dialog-notice": dialogNotice,
+      "app-dialog-yt": dialogYt,
     },
     data: () => ({
       summary: "",
@@ -181,6 +188,10 @@
         id: 0,
         name: "",
       },
+      dialogUploadYt: {
+        open: false,
+        data: {},
+      },
     }),
     computed: {
       computedInstructor () {
@@ -218,7 +229,7 @@
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
-          didOpen: toast => {
+          didOpen: (toast) => {
             toast.addEventListener("mouseenter", this.$swal.stopTimer)
             toast.addEventListener("mouseleave", this.$swal.resumeTimer)
           },
@@ -279,7 +290,7 @@
             contact: item.contact,
             about: item.about,
           })
-          .then(res => {
+          .then((res) => {
             console.log(res)
             if (res.data.meta.status) {
               item.name = null
@@ -295,7 +306,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -325,7 +336,7 @@
             username_tw: item.username_tw,
             username_ig: item.username_ig,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.edit.open = false
               const Toast = this.$swal.mixin({
@@ -334,7 +345,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -353,7 +364,7 @@
         console.log(item)
         this.$store
           .dispatch("studioInstructor/approveDataTeacherStudioBoadCast", item)
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.approve.open = false
               const Toast = this.$swal.mixin({
@@ -362,7 +373,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -380,7 +391,7 @@
       deletesDataTeacherStudioBroadCast ({ item }) {
         this.$store
           .dispatch("studioInstructor/deletesDataTeacherStudioBroadCast", item)
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.deleted.open = false
               const Toast = this.$swal.mixin({
@@ -389,7 +400,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -409,7 +420,7 @@
           .dispatch("studioInstructor/deleteDataTeacherStudioById", {
             id: item.id,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.dialogDeleteById.open = false
               const Toast = this.$swal.mixin({
@@ -418,7 +429,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -439,7 +450,7 @@
             files: item.files,
             instructor_id: item.id,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               const Toast = this.$swal.mixin({
                 toast: true,
@@ -447,7 +458,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -469,7 +480,7 @@
             files: item.files,
             instructor_id: item.id,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               const Toast = this.$swal.mixin({
                 toast: true,
@@ -477,7 +488,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -503,7 +514,7 @@
           .dispatch("studioInstructor/deactiveDataTeachers", {
             id: item.id,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.dialogDeactive.open = false
               const Toast = this.$swal.mixin({
@@ -512,7 +523,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -523,6 +534,42 @@
               Toast.fire({
                 icon: "success",
                 title: "Data Teachers Deactive Successfully",
+              })
+            }
+          })
+      },
+      popUpYoutube ({ item }) {
+        this.dialogUploadYt.open = true
+        this.dialogUploadYt.data = item
+      },
+      addDataVidioUrl ({ item, id }) {
+        const arr = item.map((x) => x.url)
+        console.log(arr)
+        this.$store
+          .dispatch("vidioInstructor/addDataVidioUrl", {
+            url: arr,
+            instructor_id: id,
+          })
+          .then((res) => {
+            if (res.data.meta.status) {
+              this.dialogUploadYt.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Data Teachers vidio profile Successfully",
               })
             }
           })

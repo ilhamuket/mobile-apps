@@ -4,6 +4,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 // use Illuminate\Routing\Route;
 use Modules\Studio\Entities\ClassesScheduleStudio;
+use Modules\Studio\Entities\InstructorProfieVidio;
 use Modules\Studio\Entities\StudioClass;
 use Modules\Studio\Http\Controllers\CartClassController;
 use Modules\Studio\Http\Controllers\CategoryController;
@@ -12,6 +13,7 @@ use Modules\Studio\Http\Controllers\CommentStudioVidioController;
 use Modules\Studio\Http\Controllers\DiscussController;
 use Modules\Studio\Http\Controllers\FollowStudioController;
 use Modules\Studio\Http\Controllers\ImagesStudioController;
+use Modules\Studio\Http\Controllers\InstructorProfileVidioController;
 use Modules\Studio\Http\Controllers\LikeStudioController;
 use Modules\Studio\Http\Controllers\ReviewController;
 use Modules\Studio\Http\Controllers\RoomController;
@@ -46,6 +48,10 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
     Route::prefix('instructor')->group(function () {
         Route::get('', [StudioInstructorController::class, 'index']);
         Route::get('{slug}', [StudioInstructorController::class, 'show']);
+        Route::prefix('vidio-profile')->group(function () {
+            Route::get('{slug}', [InstructorProfileVidioController::class, 'index']);
+            Route::get('auto-play/{slug}', [InstructorProfileVidioController::class, 'autoPlay']);
+        });
     });
     // u
     Route::prefix('u')->group(function () {
@@ -148,5 +154,5 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
 });
 Route::prefix('all')->group(function () {
     Route::get('live', [StudioClassController::class, 'forAll']);
-    Route::get('vidio', [StudioClassVidioController::class, 'forAll']);
+    Route::get('ensiklo-vidio', [StudioClassVidiosController::class, 'forAll']);
 });
