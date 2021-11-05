@@ -3,17 +3,18 @@
     <v-container fluid>
       <app-row-detail-img />
     </v-container>
-    <v-container class="d-flex justify-center container--profile">
-      <v-row>
-        <v-col>
-          <v-card
-            height="120"
-            hidden
-            color="transparent"
-          >
+    <v-card
+      height="120"
+      hidden
+      color="transparent"
+      class="d-flex justify-center container--profile"
+    >
+      <v-container>
+        <v-row>
+          <v-col>
             <v-avatar
               v-if="computedDetail.img"
-              size="120"
+              size="100"
             >
               <v-img :src="computedDetail.img.url" />
             </v-avatar>
@@ -122,10 +123,10 @@
                 {{ computedDetail.region }}
               </span>
             </div>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-card>
     <v-container>
       <v-row>
         <v-col cols="12">
@@ -221,11 +222,13 @@
 <style lang="sass">
 .container--profile
     width: 70%
+    height: 86%
     margin-top: -9%
+    margin-left: 18%
     .margin--span_name
-        margin-top: -10%
-        margin-left: 14%
+        margin-top: -8%
+        margin-left: 13%
     .margin--span__atribute
-        margin-left: 14%
-        margin-top: 1%
+        margin-left: 12%
+        margin-top: 2%
 </style>
