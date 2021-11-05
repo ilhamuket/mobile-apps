@@ -2,13 +2,9 @@
   <div>
     <v-container fluid>
       <app-row-detail-img />
+      <app-card-detail-profile :data="computedDetail" />
     </v-container>
     <v-container>
-      <v-row>
-        <v-col cols="12">
-          <app-card-detail-profile :data="computedDetail" />
-        </v-col>
-      </v-row>
       <v-row>
         <v-col cols="12">
           <v-row>

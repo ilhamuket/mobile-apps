@@ -1,5 +1,5 @@
 <template>
-  <v-container class="container--profile">
+  <v-container class="d-flex justify-center container--profile">
     <v-row>
       <v-col>
         <v-card
@@ -22,7 +22,7 @@
             />
           </v-avatar>
           <div class="margin--span_name">
-            <span class="font-spartan font-weight-bold grey--text">
+            <span class="font-spartan font-weight-bold grey --text">
               {{ data.name }}
             </span>
           </div>
@@ -138,11 +138,12 @@
 
 <style lang="sass">
 .container--profile
+    width: 70%
     margin-top: -9%
     .margin--span_name
         margin-top: -8%
-        margin-left: 12%
+        margin-left: 14%
     .margin--span__atribute
-        margin-left: 12%
+        margin-left: 14%
         margin-top: 1%
 </style>
