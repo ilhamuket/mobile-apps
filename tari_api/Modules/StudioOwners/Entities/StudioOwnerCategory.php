@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\File;
 
 class StudioOwnerCategory extends Model
 {
@@ -52,7 +53,10 @@ class StudioOwnerCategory extends Model
                 $items->delete(); // <-- direct deletion
             });
             $categories->img()->each(function ($items) {
-                dd($items->url);
+                $item->url;
+                if (File::exists(item)) {
+                    # code...
+                }
             });
         });
     }

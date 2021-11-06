@@ -44,6 +44,7 @@
   "wizard": "Wizard",
   "Lihat Sanggar": "Detail",
   "Studio": "Studio",
+  "vidio-instructor": "Video Instructor",
   "studioPage": {
     "card_detail": {
       "folowers": "Folowers",
@@ -72,7 +73,7 @@
       "del": "Are you sure want to delete reviews with content",
       "hide": "Are you sure want to hide reviews with content"
     },
-    "hide":"Are you sure want to hide class ",
+    "hide": "Are you sure want to hide class ",
     "delete_class_vidio": "Are you sure want to delete class vidio",
     "publish_class": "Are you sure want to publish class vidio"
   },
@@ -156,12 +157,12 @@
       }
     },
     "bank": {
-        "th": {
-            "name": "A/n",
-            "noRek": "No.Rek",
-            "name_bank": "Bank Name",
-            "status": "Status"
-        }
+      "th": {
+        "name": "A/n",
+        "noRek": "No.Rek",
+        "name_bank": "Bank Name",
+        "status": "Status"
+      }
     }
   },
   "reviews": "Reviews",

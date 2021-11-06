@@ -81,6 +81,10 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
         });
         Route::prefix('vidio-profile')->group(function () {
             Route::post('create', [InstructorProfileVidioController::class, 'store']);
+            Route::post('approved', [InstructorProfileVidioController::class, 'approvedItems']);
+            Route::post('create-vidio-profile', [InstructorProfileVidioController::class, 'storeVidioProfile']);
+            Route::delete('{slug}', [InstructorProfileVidioController::class, 'destroy']);
+            Route::get('instructor/{slug}', [InstructorProfileVidioController::class, 'index']);
         });
         Route::patch('edit/{id}', [StudioTeacherController::class, 'update']);
         Route::patch('deactive/{id}', [StudioTeacherController::class, 'deactive']);

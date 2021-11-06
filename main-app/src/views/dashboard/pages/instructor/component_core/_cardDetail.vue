@@ -1,28 +1,29 @@
 <template>
-  <v-container class="d-flex justify-center container--profile">
-    <v-row>
-      <v-col>
-        <v-card
-          height="120"
-          hidden
-          color="transparent"
-        >
+  <v-card
+    height="120"
+    hidden
+    color="transparent"
+    class="d-flex justify-center container--profile"
+  >
+    <v-container>
+      <v-row>
+        <v-col>
           <v-avatar
             v-if="data.img"
-            size="120"
+            size="100"
           >
             <v-img :src="data.img.url" />
           </v-avatar>
           <v-avatar
             v-else
-            size="120"
+            size="100"
           >
             <v-img
               src="https://steezy.imgix.net/choreographers/abey-cabrera.png?auto=compress"
             />
           </v-avatar>
           <div class="margin--span_name">
-            <span class="font-spartan font-weight-bold grey --text">
+            <span class="font-spartan font-weight-bold white--text">
               {{ data.name }}
             </span>
           </div>
@@ -114,12 +115,14 @@
             >
               mdi-map-marker
             </v-icon>
-            <span class="font-spartan-small"> {{ data.region }} </span>
+            <span class="font-spartan-small">
+              {{ data.region }}
+            </span>
           </div>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-card>
 </template>
 
 <script>
@@ -138,12 +141,14 @@
 
 <style lang="sass">
 .container--profile
-    width: 70%
-    margin-top: -9%
+    width: 80%
+    height: 86%
+    margin-top: -7%
+    margin-left: 10%
     .margin--span_name
         margin-top: -8%
-        margin-left: 14%
+        margin-left: 13%
     .margin--span__atribute
-        margin-left: 14%
-        margin-top: 1%
+        margin-left: 12%
+        margin-top: 2%
 </style>

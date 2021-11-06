@@ -214,14 +214,22 @@
                   <template #activator="{ on, attrs }">
                     <span
                       v-bind="attrs"
+                      style="cursor: pointer"
                       v-on="on"
+                      @click="navigate(item)"
                     >
                       {{ item.name.substr(0, 9) + ".." }}
                     </span>
                   </template>
                   <span>{{ item.name }}</span>
                 </v-tooltip>
-                <span v-else>{{ item.name }}</span>
+                <span
+                  v-else
+                  style="cursor: pointer"
+                  @click="navigate(item)"
+                >{{
+                  item.name
+                }}</span>
               </div>
               <div class="bg-hover">
                 <div class="d-flex flex-row flex-nowrap">
@@ -528,6 +536,9 @@
       },
       uploadVidioPrifle (item) {
         this.$emit("vidioProfile", { item: item })
+      },
+      navigate (link) {
+        this.$router.push(`/instructor/vidio-profile/${link.slug}`)
       },
     },
   }

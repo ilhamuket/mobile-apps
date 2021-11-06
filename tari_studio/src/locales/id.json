@@ -1,194 +1,195 @@
 {
-    "avatar": "Vuetify MD",
-    "buttons": "Buttons",
-    "calendar": "Calendar",
-    "charts": "Charts",
-    "components": "Components",
-    "ct": "CT",
-    "dashboard": "Dashbor",
-    "dtables": "Data Tables",
-    "eforms": "Extended Forms",
-    "error": "Error Page",
-    "etables": "Extended Tables",
-    "example": "Example",
-    "forms": "Forms",
-    "fullscreen": "Full Screen Map",
-    "google": "Google Maps",
-    "grid": "Grid System",
-    "icons": "Icons",
-    "lock": "Lock Screen Page",
-    "login": "Login Page",
-    "maps": "Maps",
-    "multi": "Multi Level Collapse",
-    "notifications": "Notifikasi",
-    "pages": "Pages",
-    "plan": "Choose Plan",
-    "pricing": "Pricing",
-    "my-profile": "My Profile",
-    "edit-profile": "Edit Profile",
-    "register": "Register Page",
-    "rforms": "Regular Forms",
-    "rtables": "Regular Tables",
-    "rtl": "RTL Support",
-    "search": "Cari",
-    "settings": "Settings",
-    "tables": "Tables",
-    "tabs": "Tabs",
-    "tim": "Creative Tim",
-    "timeline": "Timeline",
-    "typography": "Typography",
-    "upgrade": "Upgrade To PRO",
-    "user": "User Profile",
-    "vforms": "Validation Forms",
-    "widgets": "Widgets",
-    "wizard": "Wizard",
-    "Lihat Sanggar": "Detail",
-    "Studio": "Sanggar",
-    "studioPage": {
-        "card_detail": {
-            "folowers": "Pengikut",
-            "likes": "Suka",
-            "btn": {
-                "folow": "Ikut"
-            }
-        }
+  "avatar": "Vuetify MD",
+  "buttons": "Buttons",
+  "calendar": "Calendar",
+  "charts": "Charts",
+  "components": "Components",
+  "ct": "CT",
+  "dashboard": "Dashbor",
+  "dtables": "Data Tables",
+  "eforms": "Extended Forms",
+  "error": "Error Page",
+  "etables": "Extended Tables",
+  "example": "Example",
+  "forms": "Forms",
+  "fullscreen": "Full Screen Map",
+  "google": "Google Maps",
+  "grid": "Grid System",
+  "icons": "Icons",
+  "lock": "Lock Screen Page",
+  "login": "Login Page",
+  "maps": "Maps",
+  "multi": "Multi Level Collapse",
+  "notifications": "Notifikasi",
+  "pages": "Pages",
+  "plan": "Choose Plan",
+  "pricing": "Pricing",
+  "my-profile": "My Profile",
+  "edit-profile": "Edit Profile",
+  "register": "Register Page",
+  "rforms": "Regular Forms",
+  "rtables": "Regular Tables",
+  "rtl": "RTL Support",
+  "search": "Cari",
+  "settings": "Settings",
+  "tables": "Tables",
+  "tabs": "Tabs",
+  "tim": "Creative Tim",
+  "timeline": "Timeline",
+  "typography": "Typography",
+  "upgrade": "Upgrade To PRO",
+  "user": "User Profile",
+  "vforms": "Validation Forms",
+  "widgets": "Widgets",
+  "wizard": "Wizard",
+  "Lihat Sanggar": "Detail",
+  "Studio": "Sanggar",
+  "vidio-instructor": "Vidio Instruktur",
+  "studioPage": {
+    "card_detail": {
+      "folowers": "Pengikut",
+      "likes": "Suka",
+      "btn": {
+        "folow": "Ikut"
+      }
+    }
+  },
+  "index_class": "Index Kelas",
+  "classes": "Kelas",
+  "subject": "Materi",
+  "sub_class_create": "Buat SubKelas",
+  "instrucktur": "Pengajar",
+  "studio": "Sanggar",
+  "card_notice": {
+    "text": "Apakah kamu yakin ingin menghapus dan semua yang berkaitan akan terhapus juga",
+    "textById": "Apakah Kamu yakin Ingin Menghapus Yang Judul",
+    "deactive": "Apakah kamu yakin ingin menonatikfkan Instructor ",
+    "approved": "Apakah Kamu Yakin Ingin Menyetujui",
+    "discuss": {
+      "del": "Apakah Kamu Yakin Ingin Mengapus Diskusi Dengan Konten",
+      "hide": "Apakah Kamu Yakin Ingin Menyembunyikan Diskusi Dengan Konten"
     },
-    "index_class": "Index Kelas",
-    "classes": "Kelas",
-    "subject": "Materi",
-    "sub_class_create": "Buat SubKelas",
-    "instrucktur": "Pengajar",
-    "studio": "Sanggar",
-    "card_notice": {
-        "text": "Apakah kamu yakin ingin menghapus dan semua yang berkaitan akan terhapus juga",
-        "textById": "Apakah Kamu yakin Ingin Menghapus Yang Judul",
-        "deactive": "Apakah kamu yakin ingin menonatikfkan Instructor ",
-        "approved": "Apakah Kamu Yakin Ingin Menyetujui",
-        "discuss": {
-            "del": "Apakah Kamu Yakin Ingin Mengapus Diskusi Dengan Konten",
-            "hide": "Apakah Kamu Yakin Ingin Menyembunyikan Diskusi Dengan Konten"
-        },
-        "reviews": {
-            "del": "Apakah kamu yakin ingin mengapus ulasan dengan konten",
-            "hide": "Apakah Kamu Yakin Ingin Menyembunyikan Ulasan Dengan Konten"
-        },
-        "hide":"Apakah Kamu Yakin Ingin Menyembunyikan Kelas",
-        "delete_class_vidio": "Apakah kamu yakin ingin menghapus kelas vidio",
-        "publish_class": "Apakah anda yakin ingin mengpublish kelas vidio"
+    "reviews": {
+      "del": "Apakah kamu yakin ingin mengapus ulasan dengan konten",
+      "hide": "Apakah Kamu Yakin Ingin Menyembunyikan Ulasan Dengan Konten"
     },
-    "table": {
+    "hide": "Apakah Kamu Yakin Ingin Menyembunyikan Kelas",
+    "delete_class_vidio": "Apakah kamu yakin ingin menghapus kelas vidio",
+    "publish_class": "Apakah anda yakin ingin mengpublish kelas vidio"
+  },
+  "table": {
+    "approved": "Disetujui",
+    "non_approved": "Tidak Disetujui",
+    "class": {
+      "th": {
+        "name": "Nama",
+        "levels": "Level",
+        "studio": "Sanggar",
+        "created_at": "Di Buat Pada",
+        "author": "Pembuat",
+        "status": "Status",
+        "capacity": "Kapsitas",
+        "price": "Harga",
+        "duration": "Durasi (Menit)",
+        "keyword": "Keyword",
+        "category": "Kategory",
+        "prefix": "prefix",
+        "status_time": "Status Waktu"
+      }
+    },
+    "sub-class": {
+      "th": {
+        "title": "Judul",
+        "levels": "Level",
+        "class": "Kelas",
+        "status": "Status",
+        "started": "Mulai",
         "approved": "Disetujui",
-        "non_approved": "Tidak Disetujui",
-        "class": {
-            "th": {
-                "name": "Nama",
-                "levels": "Level",
-                "studio": "Sanggar",
-                "created_at": "Di Buat Pada",
-                "author": "Pembuat",
-                "status": "Status",
-                "capacity": "Kapsitas",
-                "price": "Harga",
-                "duration": "Durasi (Menit)",
-                "keyword": "Keyword",
-                "category": "Kategory",
-                "prefix": "prefix",
-                "status_time": "Status Waktu"
-            }
-        },
-        "sub-class": {
-            "th": {
-                "title": "Judul",
-                "levels": "Level",
-                "class": "Kelas",
-                "status": "Status",
-                "started": "Mulai",
-                "approved": "Disetujui",
-                "Ended": "Selesai"
-            }
-        },
-        "teachers": {
-            "th": {
-                "fullName": "Nama Lengkap",
-                "email": "E-mail",
-                "region": "Regional",
-                "contact": "Kontak",
-                "profession": "Professi",
-                "approved": "persetujuan"
-            }
-        },
-        "vidio": {
-            "th": {
-                "title": "Judul Vidio",
-                "status": "Status",
-                "comments": "Comment",
-                "author": "Pembuat"
-            }
-        },
-        "category": {
-            "th": {
-                "name": "Nama",
-                "display_name": "Nama Tampilan",
-                "status": "Status",
-                "created_at": "Dibuat Pada",
-                "class": "Total Kelas",
-                "follow": "Pengikut",
-                "likes": "Menyukai"
-            }
-        },
-        "discusses": {
-            "th": {
-                "name_class": "Kelas",
-                "body": "Isi Diskusi",
-                "author": "Pengirim",
-                "comments": "Balasan",
-                "like": "Suka"
-            }
-        },
-        "reviews": {
-            "th": {
-                "name_class": "EnsikloLive",
-                "name_class_vidio": "EnsikloVidio",
-                "body": "Kontent",
-                "author": "Pengirim",
-                "ratings": "Nilai",
-                "status": "Status"
-            }
-        },
-        "bank": {
-            "th": {
-                "name": "A/n",
-                "noRek": "No.Rek",
-                "name_bank": "Nama Bank",
-                "status": "Status"
-            }
-        }
+        "Ended": "Selesai"
+      }
     },
-    "reviews": "Ulasan",
-    "discusses": "Diskusi",
-    "vidio_name": "Index Vidio",
-    "vidio_name_page": "Vidio Profil",
-    "index_class_data_table": "Kelas",
-    "category": "Kategori",
-    "history_class": "Riwayat Kelas",
-    "myaccount": "Akun Ku",
-    "logout": "Logout",
-    "Register": "Register",
-    "belum ditanggapi": "Belum Ditanggapi",
-    "ditanggapi": "Ditanggapi",
-    "sembunyikan": "Disembunyikan",
-    "type": "Ketik Sesuatu ...",
-    "Segarkan": "Segarkan",
-    "class_vidio": "Class Vidio",
-    "active": "Aktif",
-    "not active": "Tidak Aktif",
-    "bank_account": "Rekening Bank",
-    "hide_class": "Sembunyikan Kelas",
-    "update_class": "Sunting Kelass",
-    "Delete": "Hapus",
-    "Publish Class": "Publish Kelas",
-    "hide": "Disembunyikan",
-    "publish": "Publish",
-    "draft": "Draft",
-    "concept": "Konsep"
+    "teachers": {
+      "th": {
+        "fullName": "Nama Lengkap",
+        "email": "E-mail",
+        "region": "Regional",
+        "contact": "Kontak",
+        "profession": "Professi",
+        "approved": "persetujuan"
+      }
+    },
+    "vidio": {
+      "th": {
+        "title": "Judul Vidio",
+        "status": "Status",
+        "comments": "Comment",
+        "author": "Pembuat"
+      }
+    },
+    "category": {
+      "th": {
+        "name": "Nama",
+        "display_name": "Nama Tampilan",
+        "status": "Status",
+        "created_at": "Dibuat Pada",
+        "class": "Total Kelas",
+        "follow": "Pengikut",
+        "likes": "Menyukai"
+      }
+    },
+    "discusses": {
+      "th": {
+        "name_class": "Kelas",
+        "body": "Isi Diskusi",
+        "author": "Pengirim",
+        "comments": "Balasan",
+        "like": "Suka"
+      }
+    },
+    "reviews": {
+      "th": {
+        "name_class": "EnsikloLive",
+        "name_class_vidio": "EnsikloVidio",
+        "body": "Kontent",
+        "author": "Pengirim",
+        "ratings": "Nilai",
+        "status": "Status"
+      }
+    },
+    "bank": {
+      "th": {
+        "name": "A/n",
+        "noRek": "No.Rek",
+        "name_bank": "Nama Bank",
+        "status": "Status"
+      }
+    }
+  },
+  "reviews": "Ulasan",
+  "discusses": "Diskusi",
+  "vidio_name": "Index Vidio",
+  "vidio_name_page": "Vidio Profil",
+  "index_class_data_table": "Kelas",
+  "category": "Kategori",
+  "history_class": "Riwayat Kelas",
+  "myaccount": "Akun Ku",
+  "logout": "Logout",
+  "Register": "Register",
+  "belum ditanggapi": "Belum Ditanggapi",
+  "ditanggapi": "Ditanggapi",
+  "sembunyikan": "Disembunyikan",
+  "type": "Ketik Sesuatu ...",
+  "Segarkan": "Segarkan",
+  "class_vidio": "Class Vidio",
+  "active": "Aktif",
+  "not active": "Tidak Aktif",
+  "bank_account": "Rekening Bank",
+  "hide_class": "Sembunyikan Kelas",
+  "update_class": "Sunting Kelass",
+  "Delete": "Hapus",
+  "Publish Class": "Publish Kelas",
+  "hide": "Disembunyikan",
+  "publish": "Publish",
+  "draft": "Draft",
+  "concept": "Konsep"
 }
