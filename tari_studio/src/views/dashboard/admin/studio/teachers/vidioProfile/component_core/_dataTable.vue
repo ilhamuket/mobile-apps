@@ -70,6 +70,14 @@
           >
             Delete {{ selected.length }} item
           </v-btn>
+          <v-btn
+            :disabled="computedDisableApprove"
+            outlined
+            color="blue"
+            class="mr-2"
+          >
+            approved {{ selected.length }} item
+          </v-btn>
         </v-col>
         <v-col cols="12">
           <v-data-table
@@ -78,7 +86,7 @@
             :items="data"
             show-expand
             show-select
-            items-per-page="5"
+            :items-per-page="5"
           >
             <template v-slot:expanded-item="{ headers, item }">
               <td :colspan="headers.length">
@@ -322,8 +330,21 @@
         },
       ],
     }),
-    computed: {},
-    mounted () {},
+    computed: {
+      computedDisableApprove () {
+        let bool = true
+        const nonPublish = this.selected.some((x) => x.status === "publish")
+        if (this.selected.length !== 0 && nonPublish) {
+          bool = true
+        } else if (this.selected.length !== 0 && !nonPublish) {
+          bool = false
+        }
+        return bool
+      },
+    },
+    mounted () {
+      console.log(this.computedDisableApprove)
+    },
     methods: {
       setColor (status) {
         if (status === "draft") return "secondary"

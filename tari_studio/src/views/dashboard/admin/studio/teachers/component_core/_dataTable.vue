@@ -212,24 +212,35 @@
                   color="blue"
                 >
                   <template #activator="{ on, attrs }">
-                    <span
-                      v-bind="attrs"
-                      style="cursor: pointer"
-                      v-on="on"
-                      @click="navigate(item)"
-                    >
-                      {{ item.name.substr(0, 9) + ".." }}
-                    </span>
+                    <v-hover v-slot="{ hover }">
+                      <v-chip
+                        v-bind="attrs"
+                        :text-color="hover ? 'btn_primary' : 'black'"
+                        color="transparent"
+                        style="cursor: pointer"
+                        v-on="on"
+                        @click="navigate(item)"
+                      >
+                        {{ item.name.substr(0, 9) + ".." }}
+                      </v-chip>
+                    </v-hover>
                   </template>
                   <span>{{ item.name }}</span>
                 </v-tooltip>
-                <span
+                <v-hover
                   v-else
-                  style="cursor: pointer"
-                  @click="navigate(item)"
-                >{{
-                  item.name
-                }}</span>
+                  v-slot="{ hover }"
+                >
+                  <v-chip
+                    :text-color="hover ? 'btn_primary' : 'black'"
+                    color="transparent"
+                    style="cursor: pointer"
+                    class="font-spartan-small font-weight-bold"
+                    @click="navigate(item)"
+                  >
+                    {{ item.name }}
+                  </v-chip>
+                </v-hover>
               </div>
               <div class="bg-hover">
                 <div class="d-flex flex-row flex-nowrap">

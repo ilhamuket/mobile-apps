@@ -73,20 +73,37 @@
       :dialog="addVidio"
       @input="saveFormUrl"
     />
+    <app-dialog-approve-selected
+      :dialog="approvedSelected"
+      icon="mdi-check"
+      :text="'Are You sure want to Approved Videos'"
+      title="Approved"
+    />
+    <app-dialog-approve :dialog="approveById" />
   </v-container>
 </template>
 
 <script>
   import dataTable from "./component_core/_dataTable.vue"
   import dialogForm from "./component/__dialogForm.vue"
+  import dialogNotice from "./component/__dialogNotice.vue"
   export default {
     components: {
       "app-data-table": dataTable,
       "app-dialog-form": dialogForm,
+      "app-dialog-approve-selected": dialogNotice,
+      "app-dialog-approve": dialogNotice,
     },
     data: () => ({
       addVidio: {
         open: false,
+      },
+      approveById: {
+        open: false,
+      },
+      approvedSelected: {
+        open: false,
+        data: [],
       },
       instructor_id: 0,
     }),
@@ -164,6 +181,7 @@
           entities: "instructor.img,instructor.studio",
         })
       },
+      approveDataVidioProfileSelected ({ item }) {},
     },
   }
 </script>

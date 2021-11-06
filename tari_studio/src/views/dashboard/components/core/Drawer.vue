@@ -208,7 +208,7 @@
       },
     },
     mounted () {
-      console.log(this.$vuetify.breakpoint.mdAndDown)
+      this.getStudioMe()
     },
 
     methods: {
@@ -221,6 +221,17 @@
       },
       drawerBtn () {
         this.$store.state.drawer = !this.$store.state.drawer
+      },
+      getStudioMe () {
+        this.$store
+          .dispatch("studio/getDataMeStudio", {
+            entities: "likes,followers,img",
+          })
+          .then((res) => {
+            if (res.data.meta.status) {
+              this.is_load = false
+            }
+          })
       },
     },
   }

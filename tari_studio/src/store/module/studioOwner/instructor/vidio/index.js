@@ -13,6 +13,19 @@ export default {
       url.unshift(payload)
       state.data = url
     },
+    APPROVE_DATA_SELECTED: (state, payload) => {
+      // eslint-disable-next-line no-unused-vars
+      for (const item in payload) {
+        if (Object.hasOwnProperty.call(payload, item)) {
+          const vidio = payload[item]
+          const indexVidio = state.data.findIndex((x) => x.id === vidio.id)
+          if (indexVidio !== -1) {
+            state.data[indexVidio].is_verified = 1
+            state.data[indexVidio].status = "publish"
+          }
+        }
+      }
+    },
   },
   actions: {
     getDataVidioProfile: ({ commit }, payload) => {
@@ -64,6 +77,24 @@ export default {
           })
           .then((res) => {
             commit("ADD_URL", payload)
+            resolve(res)
+          })
+          .catch((e) => {
+            reject(e)
+          })
+      })
+    },
+    approveDataVidioProfileSelected: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        "Bearer " + localStorage.getItem("access_token")
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        const params = payload.map((x) => x.id)
+        axios
+          .post("owner/instructor/vidio-profile", { id: params })
+          .then((res) => {
+            commit("APPROVE_DATA_SELECTED", payload)
             resolve(res)
           })
           .catch((e) => {
