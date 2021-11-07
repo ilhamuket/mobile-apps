@@ -8,7 +8,7 @@
       >
         <base-material-stats-card
           color="info"
-          icon="mdi-twitter"
+          icon="mdi-all-inclusive"
           title="All"
           :value="String(summary.all)"
           sub-icon="mdi-clock"
@@ -24,7 +24,7 @@
       >
         <base-material-stats-card
           color="info"
-          icon="mdi-twitter"
+          icon="mdi-publish"
           title="Publish"
           :value="String(summary.publish)"
           sub-icon="mdi-clock"
@@ -40,7 +40,7 @@
       >
         <base-material-stats-card
           color="info"
-          icon="mdi-twitter"
+          icon="mdi-publish-off"
           title="Concept"
           :value="String(summary.concept)"
           sub-icon="mdi-clock"
@@ -56,7 +56,7 @@
       >
         <base-material-stats-card
           color="info"
-          icon="mdi-twitter"
+          icon="mdi-file"
           title="draft"
           :value="String(summary.draft)"
           sub-icon="mdi-clock"

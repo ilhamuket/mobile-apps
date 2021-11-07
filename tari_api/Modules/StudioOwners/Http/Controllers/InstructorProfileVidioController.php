@@ -14,6 +14,101 @@ use Modules\StudioOwners\Entities\StudioTeacher;
 
 class InstructorProfileVidioController extends Controller
 {
+    public function summary(Request $request, $slug)
+    {
+        try {
+            $data = [
+                "all" => 0,
+                "publish" => 0,
+                "draft" => 0,
+                "new" => 0
+            ];
+
+            $data['all'] = InstructorProfileVidio::whereHas('instructor', function (Builder $query) use ($slug) {
+                $query->where('slug', $slug);
+            })->count();
+            $data['publish'] = InstructorProfileVidio::whereHas('instructor', function (Builder $query) use ($slug) {
+                $query->where('slug', $slug);
+            })
+                ->where('status', 'publish')
+                ->count();
+            $data['draft'] = InstructorProfileVidio::whereHas('instructor', function (Builder $query) use ($slug) {
+                $query->where('slug', $slug);
+            })
+                ->where('status', 'draft')
+                ->count();
+            $data['new'] = InstructorProfileVidio::whereHas('instructor', function (Builder $query) use ($slug) {
+                $query->where('slug', $slug);
+            })
+                ->whereDate('created_at', now())
+                ->count();
+
+            return Json::response($data);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+
+    public function deactive(Request $request)
+    {
+        try {
+            $master = InstructorProfileVidio::findOrFil($id);
+            $master->is_verified = false;
+            $master->status = "sembunyikan";
+            $master->save();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+
+    public function destroyArr(Request $request)
+    {
+        try {
+            if (is_array($request->id)) {
+                foreach ($request->id as $id) {
+                    $master = InstructorProfileVidio::findOrFail($id);
+                    $master->delete();
+                }
+            } else {
+                return Json::exception('data not array');
+            }
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+    public function approvedById(Request $request, $id)
+    {
+        try {
+            $master = InstructorProfileVidio::findOrFail($id);
+            $master->status = 'publish';
+            $master->is_verified = true;
+            $master->save();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     public function approvedItems(Request $request)
     {
         try {
@@ -21,6 +116,7 @@ class InstructorProfileVidioController extends Controller
                 foreach ($request->id as $id) {
                     $master = InstructorProfileVidio::findOrFail($id);
                     $master->is_verified = true;
+                    $master->status = 'publish';
                     $master->save();
                 }
 
@@ -47,6 +143,7 @@ class InstructorProfileVidioController extends Controller
             $master = InstructorProfileVidio::whereHas('instructor', function (Builder $query) use ($slug) {
                 $query->where('slug', $slug);
             })->entities($request->entities)
+                ->summary($request->summary)
                 ->get();
 
             return Json::response($master);

@@ -7,10 +7,10 @@
         lg="3"
       >
         <base-material-stats-card
-          color="orange"
+          color="btn_primary"
           icon="mdi-sofa"
-          title="Bookings"
-          value="184"
+          title="All"
+          :value="String(summary.all)"
           sub-icon="mdi-alert"
           sub-icon-color="red"
           sub-text="Get More Space..."
@@ -22,10 +22,10 @@
         lg="3"
       >
         <base-material-stats-card
-          color="orange"
+          color="btn_primary"
           icon="mdi-sofa"
-          title="Bookings"
-          value="184"
+          title="Publish"
+          :value="String(summary.publish)"
           sub-icon="mdi-alert"
           sub-icon-color="red"
           sub-text="Get More Space..."
@@ -37,10 +37,10 @@
         lg="3"
       >
         <base-material-stats-card
-          color="orange"
+          color="primary"
           icon="mdi-sofa"
-          title="Bookings"
-          value="184"
+          title="Draft"
+          :value="String(summary.draft)"
           sub-icon="mdi-alert"
           sub-icon-color="red"
           sub-text="Get More Space..."
@@ -52,10 +52,10 @@
         lg="3"
       >
         <base-material-stats-card
-          color="orange"
+          color="third"
           icon="mdi-sofa"
-          title="Bookings"
-          value="184"
+          title="New"
+          :value="String(summary.new)"
           sub-icon="mdi-alert"
           sub-icon-color="red"
           sub-text="Get More Space..."
@@ -66,6 +66,10 @@
           :data="computedVidioInstructor"
           @add="upAddForm"
           @refresh="refresh"
+          @approves="upApproveSelected"
+          @approve="upApproved"
+          @deleteSelected="upDeletes"
+          @deleteById="upDelete"
         />
       </v-col>
     </v-row>
@@ -78,8 +82,47 @@
       icon="mdi-check"
       :text="'Are You sure want to Approved Videos'"
       title="Approved"
+      :text-btn1="'Approved'"
+      :text-btn2="'Cancel'"
+      @input="approveDataVidioProfileSelected"
     />
-    <app-dialog-approve :dialog="approveById" />
+    <app-dialog-approve
+      :dialog="approveById"
+      :icon="'mdi-check'"
+      :by-id="true"
+      text="Are you sure want to Approved Video"
+      title="Approved"
+      text-btn1="Approved"
+      :text-btn2="'Cancel'"
+      @input="approveDataVidioById"
+    />
+    <app-dialog-delete
+      :dialog="deleteSelected"
+      :icon="'mdi-delete-empty'"
+      :text="'Are you sure want to deleted Video'"
+      title="Deleted"
+      :text-btn1="'Delete'"
+      :color-btn1="'red'"
+      :text-btn2="'Cancel'"
+      :color-btn2="'btn_primary'"
+      :outline1="true"
+      :outline2="false"
+      @input="deleteDataVidioProfileSelected"
+    />
+    <app-dialog-delete-by-id
+      :dialog="deleteById"
+      :by-id="true"
+      :icon="'mdi-delete-empty'"
+      :text="'Are you sure want to deleted Video'"
+      title="Deleted"
+      :text-btn1="'Delete'"
+      :color-btn1="'red'"
+      :text-btn2="'Cancel'"
+      :color-btn2="'btn_primary'"
+      :outline1="true"
+      :outline2="false"
+      @input="deleteDataVidioProfileById"
+    />
   </v-container>
 </template>
 
@@ -93,6 +136,8 @@
       "app-dialog-form": dialogForm,
       "app-dialog-approve-selected": dialogNotice,
       "app-dialog-approve": dialogNotice,
+      "app-dialog-delete": dialogNotice,
+      "app-dialog-delete-by-id": dialogNotice,
     },
     data: () => ({
       addVidio: {
@@ -100,25 +145,44 @@
       },
       approveById: {
         open: false,
+        data: {},
       },
       approvedSelected: {
         open: false,
         data: [],
       },
+      deleteById: {
+        open: false,
+        data: {},
+      },
+      deleteSelected: {
+        open: false,
+        data: [],
+      },
       instructor_id: 0,
+      instructor: {},
     }),
     computed: {
       computedVidioInstructor () {
         return this.$store.state.vidioInstructor.data
       },
+      summary () {
+        return this.$store.state.vidioInstructor.summary
+      },
     },
     mounted () {
       this.getDataVidioProfile()
-      console.log(this.computedVidioInstructor)
+      this.showData()
+      this.getDataSummaryVideoProfile()
     },
     methods: {
       upAddForm () {
         this.addVidio.open = true
+      },
+      getDataSummaryVideoProfile () {
+        this.$store.dispatch("vidioInstructor/getDataSummaryVideoProfile", {
+          slug: this.$route.params.slug,
+        })
       },
       refresh () {
         this.getDataVidioProfile()
@@ -143,7 +207,6 @@
       },
       saveFormUrl ({ item }) {
         const arr = item.map((x) => x.option)
-        console.log(arr)
         this.$store
           .dispatch("vidioInstructor/addDataVidioUrlVidioUrl", {
             url: arr,
@@ -171,7 +234,7 @@
                 icon: "success",
                 title: "Data Teachers vidio profile Successfully",
               })
-              this.getDataVidioProfile()
+            // this.getDataVidioProfile()
             }
           })
       },
@@ -181,7 +244,143 @@
           entities: "instructor.img,instructor.studio",
         })
       },
-      approveDataVidioProfileSelected ({ item }) {},
+      showData () {
+        this.$store
+          .dispatch("vidioInstructor/showData", {
+            slug: this.$route.params.slug,
+          })
+          .then((res) => {
+            localStorage.setItem("instructor", res.data.data.name)
+          })
+      },
+      upApproveSelected ({ item }) {
+        this.approvedSelected.open = true
+        this.approvedSelected.data = item
+      },
+      approveDataVidioProfileSelected ({ item }) {
+        this.$store
+          .dispatch("vidioInstructor/approveDataVidioProfileSelected", item)
+          .then((res) => {
+            if (res.data.meta.status) {
+              this.approvedSelected.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Data Teachers vidio profile Successfully",
+              })
+            }
+          })
+      },
+      upApproved ({ item }) {
+        this.approveById.open = true
+        this.approveById.data = item
+      },
+      approveDataVidioById ({ item }) {
+        this.$store
+          .dispatch("vidioInstructor/approveDataVidioById", {
+            id: item.id,
+          })
+          .then((res) => {
+            if (res.data.meta.status) {
+              this.approveById.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Data Teachers vidio profile Approved Successfully",
+              })
+            }
+          })
+      },
+      upDeletes ({ item }) {
+        this.deleteSelected.open = true
+        this.deleteSelected.data = item
+      },
+      deleteDataVidioProfileSelected ({ item }) {
+        this.$store
+          .dispatch("vidioInstructor/deleteDataVidioProfileSelected", item)
+          .then((res) => {
+            if (res.data.meta.status) {
+              this.deleteSelected.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Data Teachers vidio profile deleted Successfully",
+              })
+            }
+          })
+      },
+      upDelete ({ item }) {
+        this.deleteById.open = true
+        this.deleteById.data = item
+      },
+      deleteDataVidioProfileById ({ item }) {
+        this.$store
+          .dispatch("vidioInstructor/deleteDataVidioProfileById", {
+            id: item.id,
+          })
+          .then((res) => {
+            if (res.data.meta.status) {
+              this.deleteById.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Data Teachers vidio profile deleted Successfully",
+              })
+            }
+          })
+      },
     },
   }
 </script>

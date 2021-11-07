@@ -44,4 +44,13 @@ class InstructorProfileVidio extends Model
 
         return $query;
     }
+
+    public function scopeSummary($query, $summary)
+    {
+        if ($summary != '' || $summary != null) {
+            $query->where('status', $summary);
+        }
+
+        return $query;
+    }
 }

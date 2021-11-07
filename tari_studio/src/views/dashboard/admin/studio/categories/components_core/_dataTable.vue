@@ -1,5 +1,8 @@
 <template>
-  <base-material-card icon="mdi-playlist-check">
+  <base-material-card
+    color="btn_primary"
+    icon="mdi-playlist-check"
+  >
     <template #after-heading>
       <span class="text-h3 btn_primary--text font-spartan">
         {{ cumputedName }}
@@ -21,7 +24,7 @@
               color="primary"
               bottom
             >
-              <template #activator="{on, attrs}">
+              <template #activator="{ on, attrs }">
                 <v-icon
                   v-bind="attrs"
                   color="size__icon_refresh"
@@ -109,7 +112,7 @@
             </template>
 
             <!-- Items -->
-            <template #[`item.img.url`]="{item}">
+            <template #[`item.img.url`]="{ item }">
               <v-hover v-slot="{ hover }">
                 <v-card
                   :elevation="hover ? 12 : 2"
@@ -122,7 +125,7 @@
                     width="140"
                     height="100"
                     gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
-                    style="cursor:pointer"
+                    style="cursor: pointer"
                     :src="item.img.url"
                     class="img__hover"
                     @click="changePicture(item)"
@@ -159,7 +162,10 @@
                     width="140"
                     height="100"
                     gradient="to top right, rgba(0, 0, 0, 0.05), rgba(20, 20, 20, 0.05)"
-                    style="background-color:rgba(0, 0, 0, 0.05); cursor:pointer"
+                    style="
+                      background-color: rgba(0, 0, 0, 0.05);
+                      cursor: pointer;
+                    "
                     @click="postPicture(item)"
                   />
                   <input
@@ -179,7 +185,7 @@
                 </v-card>
               </v-hover>
             </template>
-            <template #[`item.name`]="{item}">
+            <template #[`item.name`]="{ item }">
               <div class="mt-6">
                 {{ item.name }}
               </div>
@@ -195,7 +201,7 @@
                           color="primary"
                           bottom
                         >
-                          <template #activator="{on, attrs}">
+                          <template #activator="{ on, attrs }">
                             <v-icon
                               v-bind="attrs"
                               small
@@ -222,7 +228,7 @@
                           bottom
                           color="primary"
                         >
-                          <template #activator="{on, attrs}">
+                          <template #activator="{ on, attrs }">
                             <v-icon
                               v-bind="attrs"
                               small
@@ -250,7 +256,7 @@
                           color="primary"
                           bottom
                         >
-                          <template #activator="{on, attrs}">
+                          <template #activator="{ on, attrs }">
                             <v-icon
                               v-bind="attrs"
                               small
@@ -278,7 +284,7 @@
                           color="primary"
                           bottom
                         >
-                          <template #activator="{on, attrs}">
+                          <template #activator="{ on, attrs }">
                             <v-icon
                               v-bind="attrs"
                               small
@@ -297,7 +303,7 @@
                 </div>
               </div>
             </template>
-            <template #[`item.status`]="{item}">
+            <template #[`item.status`]="{ item }">
               <v-chip
                 label
                 :color="setColorStatus(item.status)"
@@ -306,16 +312,16 @@
                 {{ item.status }}
               </v-chip>
             </template>
-            <template #[`item.created_at`]="{item}">
+            <template #[`item.created_at`]="{ item }">
               {{ item.created_at | moment("MMMM Do YYYY") }}
             </template>
-            <template #[`item.class`]="{item}">
+            <template #[`item.class`]="{ item }">
               <span> {{ item.class ? item.class.length : "0" }}</span>
             </template>
-            <template #[`item.follow`]="{item}">
+            <template #[`item.follow`]="{ item }">
               <span>{{ item.follow ? item.follow.length : "0" }}</span>
             </template>
-            <template #[`item.likes`]="{item}">
+            <template #[`item.likes`]="{ item }">
               <span> {{ item.likes ? item.likes.length : "0" }}</span>
             </template>
           </v-data-table>
@@ -386,7 +392,7 @@
     computed: {
       disableApproveBtn () {
         let bool = true
-        const nonPublish = this.selected.some(x => x.status === "publish")
+        const nonPublish = this.selected.some((x) => x.status === "publish")
         if (this.selected.length !== 0 && nonPublish) {
           bool = true
         } else if (this.selected.length !== 0 && !nonPublish) {
@@ -460,7 +466,7 @@
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
-            didOpen: toast => {
+            didOpen: (toast) => {
               toast.addEventListener("mouseenter", this.$swal.stopTimer)
               toast.addEventListener("mouseleave", this.$swal.resumeTimer)
             },
@@ -501,7 +507,7 @@
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
-            didOpen: toast => {
+            didOpen: (toast) => {
               toast.addEventListener("mouseenter", this.$swal.stopTimer)
               toast.addEventListener("mouseleave", this.$swal.resumeTimer)
             },

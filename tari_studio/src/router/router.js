@@ -202,7 +202,16 @@ const router = new Router({
             import("@/views/dashboard/admin/studio/teachers/vidioProfile/"),
           meta: {
             requiresAuth: true,
-            breadcumbs: [{}],
+            breadcumbs: [
+              {
+                text: "Instructor",
+                to: "/instructor",
+              },
+              {
+                text: localStorage.getItem("instructor"),
+                disabled: true,
+              },
+            ],
           },
         },
         // Categoories

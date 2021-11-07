@@ -9,8 +9,8 @@
         <base-material-stats-card
           color="info"
           icon="mdi-twitter"
-          title="Followers"
-          value="+245"
+          title="All"
+          :value="String(summary.all)"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
         />
@@ -23,8 +23,8 @@
         <base-material-stats-card
           color="info"
           icon="mdi-twitter"
-          title="Followers"
-          value="+245"
+          title="Publish"
+          :value="String(summary.publish)"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
         />
@@ -37,8 +37,8 @@
         <base-material-stats-card
           color="info"
           icon="mdi-twitter"
-          title="Followers"
-          value="+245"
+          title="Draft"
+          :value="String(summary.draft)"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
         />
@@ -51,8 +51,8 @@
         <base-material-stats-card
           color="info"
           icon="mdi-twitter"
-          title="Followers"
-          value="+245"
+          title="New"
+          :value="String(summary.new)"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
         />
@@ -158,16 +158,23 @@
       computedCategories () {
         return this.$store.state.studioCategories.data
       },
+      summary () {
+        return this.$store.state.classVidio.summary
+      },
     },
     mounted () {
       this.getDataClassVidio()
       this.getDataStudioCategories()
+      this.getSummaryDataClassVidio()
     },
     methods: {
       getDataClassVidio () {
         this.$store.dispatch("classVidio/getDataClassVidio", {
           entities: "category",
         })
+      },
+      getSummaryDataClassVidio () {
+        this.$store.dispatch("classVidio/getSummaryDataClassVidio")
       },
       getDataStudioCategories () {
         this.$store.dispatch("studioCategories/getDataStudioCategories", {})
@@ -180,7 +187,7 @@
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
-          didOpen: toast => {
+          didOpen: (toast) => {
             toast.addEventListener("mouseenter", this.$swal.stopTimer)
             toast.addEventListener("mouseleave", this.$swal.resumeTimer)
           },
@@ -200,7 +207,7 @@
       publishDataClassVidio ({ item }) {
         this.$store
           .dispatch("classVidio/publishDataClassVidio", item)
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.publish.open = false
               const Toast = this.$swal.mixin({
@@ -209,7 +216,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -234,7 +241,7 @@
             status: "hide",
             id: item.id,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.hide.open = false
               const Toast = this.$swal.mixin({
@@ -243,7 +250,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -275,7 +282,7 @@
             note: item.note,
             category_id: item.category_id,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.update.open = false
               const Toast = this.$swal.mixin({
@@ -284,7 +291,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -310,7 +317,7 @@
       deleteDataClassVidioSelected ({ item }) {
         this.$store
           .dispatch("classVidio/deleteDataClassVidioSelected", item)
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.deleteSelected.open = false
               const Toast = this.$swal.mixin({
@@ -319,7 +326,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -339,7 +346,7 @@
           .dispatch("classVidio/deleteDataClassVidioById", {
             id: item.id,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.deleteById.open = false
               const Toast = this.$swal.mixin({
@@ -348,7 +355,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -378,7 +385,7 @@
             note: item.note,
             category_id: item.category_id,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.add.open = false
               item.url = null
@@ -394,7 +401,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },

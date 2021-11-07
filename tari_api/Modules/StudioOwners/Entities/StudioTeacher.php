@@ -68,6 +68,14 @@ class StudioTeacher extends Model
 
         return $query;
     }
+    public function scopeSlug($query, $name)
+    {
+        if ($name != null || $name != '') {
+            $query->where('slug', $name);
+        }
+
+        return $name;
+    }
 
     public function geturlIgAttribute()
     {

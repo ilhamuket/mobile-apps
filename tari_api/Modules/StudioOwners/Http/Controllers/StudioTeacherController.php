@@ -244,11 +244,12 @@ class StudioTeacherController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
+    public function show(Request $request, $slug)
     {
         try {
             $master = StudioTeacher::entities($request->entities)
-                ->findOrFail($id);
+                ->where('slug', $slug)
+                ->first();
 
 
             return Json::response($master);

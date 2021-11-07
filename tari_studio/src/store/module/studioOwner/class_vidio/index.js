@@ -4,6 +4,12 @@ export default {
   namespaced: true,
   state: {
     data: [],
+    summary: {
+      all: 0,
+      publish: 0,
+      draft: 0,
+      new: 0,
+    },
   },
   mutations: {
     GET_DATA: (state, payload) => (state.data = payload),
@@ -12,7 +18,7 @@ export default {
         if (Object.hasOwnProperty.call(payload, item)) {
           const classVidio = payload[item]
           const indexClassVidio = state.data.findIndex(
-            x => x.id === classVidio.id,
+            (x) => x.id === classVidio.id,
           )
           if (indexClassVidio !== -1) {
             state.data[indexClassVidio].status = "publish"
@@ -26,7 +32,7 @@ export default {
       state.data = classVidio
     },
     UPDATE_DATA: (state, payload) => {
-      const indexClassVidio = state.data.findIndex(x => x.id === payload.id)
+      const indexClassVidio = state.data.findIndex((x) => x.id === payload.id)
       console.log(indexClassVidio)
       if (indexClassVidio !== -1) {
         state.data[indexClassVidio].name = payload.name
@@ -41,7 +47,7 @@ export default {
       }
     },
     HIDE_DATA: (state, payload) => {
-      const indexClassVidio = state.data.findIndex(x => x.id === payload.id)
+      const indexClassVidio = state.data.findIndex((x) => x.id === payload.id)
       if (indexClassVidio !== -1) {
         state.data[indexClassVidio].status = "hide"
       }
@@ -51,7 +57,7 @@ export default {
         if (Object.hasOwnProperty.call(payload, item)) {
           const classVidio = payload[item]
           const indexClassVidio = state.data.findIndex(
-            x => x.id === classVidio.id,
+            (x) => x.id === classVidio.id,
           )
           console.log(indexClassVidio)
           if (indexClassVidio !== -1) {
@@ -61,11 +67,12 @@ export default {
       }
     },
     DELETE_DATA_BY_ID: (state, payload) => {
-      const indexClassVidio = state.data.findIndex(x => x.id === payload.id)
+      const indexClassVidio = state.data.findIndex((x) => x.id === payload.id)
       if (indexClassVidio !== -1) {
         state.data.splice(indexClassVidio, 1)
       }
     },
+    GET_DATA_SUMMARY: (state, payload) => (state.summary = payload),
   },
   actions: {
     getDataClassVidio: ({ commit }, payload) => {
@@ -77,11 +84,28 @@ export default {
         const params = { ...payload }
         axios
           .get("owner/class-vidio", { params: params })
-          .then(res => {
+          .then((res) => {
             commit("GET_DATA", res.data.data)
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
+            reject(e)
+          })
+      })
+    },
+    getSummaryDataClassVidio: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        "Bearer " + localStorage.getItem("access_token")
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        axios
+          .get("owner/class-vidio/summary")
+          .then((res) => {
+            commit("GET_DATA_SUMMARY", res.data.data)
+            resolve(res)
+          })
+          .catch((e) => {
             reject(e)
           })
       })
@@ -92,14 +116,14 @@ export default {
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
-        const params = payload.map(x => x.id)
+        const params = payload.map((x) => x.id)
         axios
           .post("owner/class-vidio/publish", { id: params })
-          .then(res => {
+          .then((res) => {
             resolve(res)
             commit("PUBLISH_DATA", payload)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })
@@ -114,11 +138,11 @@ export default {
           .patch(`owner/class-vidio/${payload.id}`, {
             ...payload,
           })
-          .then(res => {
+          .then((res) => {
             commit("HIDE_DATA", payload)
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })
@@ -131,11 +155,11 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .patch(`owner/class-vidio/${payload.id}`, { ...payload })
-          .then(res => {
+          .then((res) => {
             commit("UPDATE_DATA", payload)
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })
@@ -146,14 +170,14 @@ export default {
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
-        const params = payload.map(x => x.id)
+        const params = payload.map((x) => x.id)
         axios
           .post("owner/class-vidio/delete", { id: params })
-          .then(res => {
+          .then((res) => {
             commit("DELETE_DATA_SELECTED", payload)
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })
@@ -166,11 +190,11 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .delete(`owner/class-vidio/${payload.id}`)
-          .then(res => {
+          .then((res) => {
             commit("DELETE_DATA_BY_ID", payload)
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })
@@ -183,11 +207,11 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .post("owner/class-vidio/", { ...payload })
-          .then(res => {
+          .then((res) => {
             commit("INSERT_DATA", payload)
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })

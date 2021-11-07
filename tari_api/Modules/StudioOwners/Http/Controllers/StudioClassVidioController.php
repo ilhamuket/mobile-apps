@@ -15,6 +15,7 @@ class StudioClassVidioController extends Controller
     public function summary(Request $request)
     {
         try {
+            $studio = OwnerStudio::where('author_id', $request->user()->id)->first();
             $data = [
                 "all" => 0,
                 "publish" => 0,
@@ -22,9 +23,24 @@ class StudioClassVidioController extends Controller
                 "new" => 0
             ];
 
-            $data["all"] = StudioClassVidio::get();
-        } catch (\Throwable $th) {
-            //throw $th;
+            $data["all"] = StudioClassVidio::where('studio_id', $studio->id)->count();
+            $data['publish'] = StudioClassVidio::where('studio_id', $studio->id)
+                ->where('status', 'publish')
+                ->count();
+            $data['draft'] =  StudioClassVidio::where('studio_id', $studio->id)
+                ->where('status', 'draft')
+                ->count();
+            $data['new'] =  StudioClassVidio::where('studio_id', $studio->id)
+                ->whereDate('created_at', now())
+                ->count();
+
+            return Json::response($data);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         }
     }
     public function deleteBroadcast(Request $request)

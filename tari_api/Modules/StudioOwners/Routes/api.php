@@ -72,9 +72,13 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
 
     Route::prefix('instructor')->group(function () {
         Route::get('', [StudioTeacherController::class, 'index']);
+        Route::get('{slug}', [StudioTeacherController::class, 'show']);
         Route::post('', [StudioTeacherController::class, 'store']);
         Route::post('deletes', [StudioTeacherController::class, 'deletedBroadCast']);
         Route::post('approved', [StudioTeacherController::class, 'approvedBroadcast']);
+        Route::prefix('summary')->group(function () {
+            Route::get('index', [StudioTeacherController::class, 'summary']);
+        });
         Route::prefix('file')->group(function () {
             Route::post('', [StudioTeacherController::class, 'uploadImg']);
             Route::post('{id}', [StudioTeacherController::class, 'changeImg']);
@@ -82,16 +86,18 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
         Route::prefix('vidio-profile')->group(function () {
             Route::post('create', [InstructorProfileVidioController::class, 'store']);
             Route::post('approved', [InstructorProfileVidioController::class, 'approvedItems']);
+            Route::post('destroy', [InstructorProfileVidioController::class, 'destroyArr']);
             Route::post('create-vidio-profile', [InstructorProfileVidioController::class, 'storeVidioProfile']);
-            Route::delete('{slug}', [InstructorProfileVidioController::class, 'destroy']);
+            Route::delete('{id}', [InstructorProfileVidioController::class, 'destroy']);
+            Route::patch('approve/{id}', [InstructorProfileVidioController::class, 'approvedById']);
             Route::get('instructor/{slug}', [InstructorProfileVidioController::class, 'index']);
+            Route::prefix('summary')->group(function () {
+                Route::get('{slug}', [InstructorProfileVidioController::class, 'summary']);
+            });
         });
         Route::patch('edit/{id}', [StudioTeacherController::class, 'update']);
         Route::patch('deactive/{id}', [StudioTeacherController::class, 'deactive']);
         Route::delete('delete/{id}', [StudioTeacherController::class, 'destroy']);
-        Route::prefix('summary')->group(function () {
-            Route::get('', [StudioTeacherController::class, 'summary']);
-        });
     });
 
     Route::prefix('vidio')->group(function () {
@@ -143,7 +149,11 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
         Route::post('publish', [StudioClassVidioController::class, 'setPublish']);
         Route::post('delete', [StudioClassVidioController::class, 'deleteBroadcast']);
         Route::patch('{id}', [StudioClassVidioController::class, 'update']);
+        Route::patch('hidden/{id}', [StudioClassVidioController::class, 'deactive']);
         Route::delete('{id}', [StudioClassVidioController::class, 'destroy']);
+        Route::prefix('summary')->group(function () {
+            Route::get('', [StudioClassVidioController::class, 'summary']);
+        });
     });
 
     Route::prefix('files')->group(function () {

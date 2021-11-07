@@ -46,6 +46,7 @@
           md="4"
         >
           <v-text-field
+            v-model="search"
             :placeholder="$t('search')"
             :label="$t('search')"
             append-icon="mdi-magnify"
@@ -67,6 +68,7 @@
             outlined
             color="red"
             class="mr-2"
+            @click="deleteSelected(selected)"
           >
             Delete {{ selected.length }} item
           </v-btn>
@@ -75,6 +77,7 @@
             outlined
             color="blue"
             class="mr-2"
+            @click="approvedSelected(selected)"
           >
             approved {{ selected.length }} item
           </v-btn>
@@ -85,7 +88,9 @@
             :headers="headers"
             :items="data"
             show-expand
+            :search="search"
             show-select
+            mobile-breakpoint="0"
             :items-per-page="5"
           >
             <template v-slot:expanded-item="{ headers, item }">
@@ -189,7 +194,7 @@
                     <div class="d-flex flex-column flex-nowrap mt-2">
                       <a
                         class="font-a d-flex flex-nowrap"
-                        @click="uploadVidioPrifle(item)"
+                        @click="approvedItem(item)"
                       >
                         <v-tooltip
                           bottom
@@ -203,7 +208,7 @@
                               class="mr-1"
                               v-on="on"
                             >
-                              mdi-youtube-subscription
+                              mdi-check-underline-circle-outline
                             </v-icon>
                           </template>
                           <span
@@ -230,7 +235,7 @@
                               v-bind="attrs"
                               v-on="on"
                             >
-                              mdi-delete
+                              mdi-delete-empty
                             </v-icon>
                           </template>
                           <span class="font-spartan-small red--text">
@@ -309,6 +314,7 @@
     },
     data: () => ({
       selected: [],
+      search: "",
       headers: [
         {
           text: "#",
@@ -343,7 +349,7 @@
       },
     },
     mounted () {
-      console.log(this.computedDisableApprove)
+    // console.log(this.computedDisableApprove)
     },
     methods: {
       setColor (status) {
@@ -354,6 +360,12 @@
       setColorStatus (status) {
         if (status === 1) return "btn_primary"
         else return "red"
+      },
+      approvedSelected (item) {
+        this.$emit("approves", { item: item })
+      },
+      approvedItem (item) {
+        this.$emit("approve", { item: item })
       },
       refreshClick () {
         this.$emit("refresh")
@@ -414,8 +426,15 @@
         }
         return time
       },
+      deleteByIdPopUp (item) {
+        this.$emit("deleteById", { item: item })
+      },
       addVidio () {
         this.$emit("add")
+      },
+      deleteSelected (item) {
+        this.$emit("deleteSelected", { item: item })
+        this.selected = []
       },
     },
   }
