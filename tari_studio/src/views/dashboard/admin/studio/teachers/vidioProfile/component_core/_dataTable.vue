@@ -281,7 +281,7 @@
                 text-color="white"
                 class="text-capitalize"
               >
-                {{ item.status }}
+                {{ $t(item.status) }}
               </v-chip>
             </template>
             <template #[`item.is_verified`]="{ item }">

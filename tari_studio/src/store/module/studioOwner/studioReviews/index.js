@@ -9,7 +9,7 @@ export default {
   mutations: {
     GET_DATA: (state, payload) => (state.data = payload),
     DELETE_DATA_BY_ID: (state, payload) => {
-      const indexReviews = state.data.findIndex(x => x.id === payload.id)
+      const indexReviews = state.data.findIndex((x) => x.id === payload.id)
       if (indexReviews !== -1) {
         state.data.splice(indexReviews, 1)
       }
@@ -18,7 +18,7 @@ export default {
       for (const item in payload) {
         if (Object.hasOwnProperty.call(payload, item)) {
           const reviews = payload[item]
-          const indexReviews = state.data.findIndex(x => x.id === reviews)
+          const indexReviews = state.data.findIndex((x) => x.id === reviews)
           if (indexReviews !== -1) {
             state.data.splice(indexReviews, 1)
           }
@@ -29,7 +29,7 @@ export default {
       for (const item in payload) {
         if (Object.hasOwnProperty.call(payload, item)) {
           const reviews = payload[item]
-          const indexReviews = state.data.findIndex(x => x.id === reviews)
+          const indexReviews = state.data.findIndex((x) => x.id === reviews)
           if (indexReviews !== -1) {
             state.data[indexReviews].status = "sembunyikan"
           }
@@ -40,7 +40,7 @@ export default {
       for (const item in payload) {
         if (Object.hasOwnProperty.call(payload, item)) {
           const reviews = payload[item]
-          const indexReviews = state.data.findIndex(x => x.id === reviews)
+          const indexReviews = state.data.findIndex((x) => x.id === reviews)
           if (indexReviews !== -1) {
             if (state.data[indexReviews].is_response === true) {
               state.data[indexReviews].status = "ditanggapai"
@@ -52,7 +52,7 @@ export default {
       }
     },
     SEND_REPLIES: (state, payload) => {
-      const indexReviews = state.data.findIndex(x => x.id === payload.id)
+      const indexReviews = state.data.findIndex((x) => x.id === payload.id)
       if (indexReviews !== -1) {
         state.data[indexReviews].status = "ditanggapi"
       }
@@ -68,11 +68,11 @@ export default {
         const params = { ...payload }
         axios
           .get("owner/reviews", { params: params })
-          .then(res => {
+          .then((res) => {
             commit("GET_DATA", res.data.data)
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })
@@ -85,11 +85,11 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .delete(`owner/reviews/${payload.id}`)
-          .then(res => {
+          .then((res) => {
             commit("DELETE_DATA_BY_ID", payload)
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })
@@ -100,14 +100,14 @@ export default {
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
-        const params = payload.map(x => x.id)
+        const params = payload.map((x) => x.id)
         axios
           .post("owner/reviews/delete", { id: params })
-          .then(res => {
+          .then((res) => {
             commit("DELETE_REVIEW_SELECTED", params)
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })
@@ -118,14 +118,14 @@ export default {
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
-        const params = payload.map(x => x.id)
+        const params = payload.map((x) => x.id)
         axios
           .post("owner/reviews/hide", { id: params })
-          .then(res => {
+          .then((res) => {
             commit("HIDE_REVIEWS_SELECTED", params)
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })
@@ -136,14 +136,14 @@ export default {
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
-        const params = payload.map(x => x.id)
+        const params = payload.map((x) => x.id)
         axios
           .post("owner/reviews/show", { id: params })
-          .then(res => {
+          .then((res) => {
             commit("SHOW_REVIEWS_SELECTED", params)
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })
@@ -156,11 +156,11 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .post(`owner/reviews/reply/${payload.id}`, { ...payload })
-          .then(res => {
+          .then((res) => {
             commit("SEND_REPLIES", payload)
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })

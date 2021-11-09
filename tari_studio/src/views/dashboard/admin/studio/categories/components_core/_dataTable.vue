@@ -87,6 +87,7 @@
             show-select
             :search="search"
             :items-per-page="5"
+            show-expand
           >
             <!-- Header -->
             <template #[`header.name`]="{ header }">
@@ -369,20 +370,20 @@
           sortable: false,
           value: "status",
         },
-        {
-          text: "table.category.th.class",
-          align: "start",
-          sortable: false,
-          value: "class",
-        },
-        {
-          text: "table.category.th.follow",
-          value: "follow",
-        },
-        {
-          text: "table.category.th.likes",
-          value: "likes",
-        },
+      // {
+      //   text: "table.category.th.class",
+      //   align: "start",
+      //   sortable: false,
+      //   value: "class",
+      // },
+      // {
+      //   text: "table.category.th.follow",
+      //   value: "follow",
+      // },
+      // {
+      //   text: "table.category.th.likes",
+      //   value: "likes",
+      // },
       ],
       selected: [],
       search: "",

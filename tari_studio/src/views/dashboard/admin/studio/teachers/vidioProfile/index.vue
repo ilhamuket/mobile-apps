@@ -8,12 +8,11 @@
       >
         <base-material-stats-card
           color="btn_primary"
-          icon="mdi-sofa"
+          icon="mdi-all-inclusive"
           title="All"
           :value="String(summary.all)"
-          sub-icon="mdi-alert"
-          sub-icon-color="red"
-          sub-text="Get More Space..."
+          style="cursor: pointer"
+          @click.native="setSummary('')"
         />
       </v-col>
       <v-col
@@ -23,12 +22,11 @@
       >
         <base-material-stats-card
           color="btn_primary"
-          icon="mdi-sofa"
+          icon="mdi-publish"
           title="Publish"
           :value="String(summary.publish)"
-          sub-icon="mdi-alert"
-          sub-icon-color="red"
-          sub-text="Get More Space..."
+          style="cursor: pointer"
+          @click.native="setSummary('publish')"
         />
       </v-col>
       <v-col
@@ -38,12 +36,11 @@
       >
         <base-material-stats-card
           color="primary"
-          icon="mdi-sofa"
+          icon="mdi-publish-off"
           title="Draft"
           :value="String(summary.draft)"
-          sub-icon="mdi-alert"
-          sub-icon-color="red"
-          sub-text="Get More Space..."
+          style="cursor: pointer"
+          @click.native="setSummary('draft')"
         />
       </v-col>
       <v-col
@@ -53,12 +50,11 @@
       >
         <base-material-stats-card
           color="third"
-          icon="mdi-sofa"
+          icon="mdi-autorenew"
           title="New"
           :value="String(summary.new)"
-          sub-icon="mdi-alert"
-          sub-icon-color="red"
-          sub-text="Get More Space..."
+          style="cursor: pointer"
+          @click.native="setSummary('new')"
         />
       </v-col>
       <v-col cols="12">
@@ -192,6 +188,7 @@
       },
       instructor_id: 0,
       instructor: {},
+      summaryText: "",
     }),
     computed: {
       computedVidioInstructor () {
@@ -199,6 +196,14 @@
       },
       summary () {
         return this.$store.state.vidioInstructor.summary
+      },
+    },
+    watch: {
+      summaryText (val) {
+        this.$router.push({ query: { ...this.$route.query, summary: val } })
+      },
+      "$route.query.summary": function (newVal) {
+        this.summaryText = newVal
       },
     },
     mounted () {
@@ -216,6 +221,7 @@
         })
       },
       refresh () {
+        this.getDataSummaryVideoProfile()
         this.getDataVidioProfile()
         const Toast = this.$swal.mixin({
           toast: true,
@@ -273,6 +279,7 @@
         this.$store.dispatch("vidioInstructor/getDataVidioProfile", {
           slug: this.$route.params.slug,
           entities: "instructor.img,instructor.studio",
+          summary: this.summaryText,
         })
       },
       showData () {
@@ -283,6 +290,10 @@
           .then((res) => {
             localStorage.setItem("instructor", res.data.data.name)
           })
+      },
+      setSummary (item) {
+        this.summaryText = item
+        this.getDataVidioProfile()
       },
       upApproveSelected ({ item }) {
         this.approvedSelected.open = true
