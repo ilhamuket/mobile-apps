@@ -179,9 +179,7 @@
         cols="12"
         class="d-flex justify-center"
       >
-        <span class="font-spartan font-capitalize">
-          data not available
-        </span>
+        <span class="font-spartan font-capitalize"> data not available </span>
       </v-col>
     </v-row>
   </v-container>
@@ -208,7 +206,7 @@
         const finalBool = []
         let boolFoll = false
         if (this.data.length > 0) {
-          booleanArr = this.data.filter(x => x.follow)
+          booleanArr = this.data.filter((x) => x.follow)
           /* eslint-disable no-unused-vars */
           for (const item in booleanArr) {
             if (Object.hasOwnProperty.call(booleanArr, item)) {
@@ -233,15 +231,13 @@
         return finalBool
       },
     },
-    mounted () {
-      console.log(this.isFollowYouComputed)
-    },
+    mounted () {},
     methods: {
       isFollowingYou (item) {
         let boolean = false
 
         if (item.follow !== undefined) {
-          boolean = item.follow.some(x => x.id === this.me.id)
+          boolean = item.follow.some((x) => x.id === this.me.id)
         }
 
         return boolean
@@ -251,7 +247,7 @@
       },
       followCategory (item) {
         this.$emit("follow", { item: item })
-        const indexCategory = this.data.findIndex(x => x.id === item.id)
+        const indexCategory = this.data.findIndex((x) => x.id === item.id)
         // console.log(indexCategory)
         if (indexCategory !== -1) {
           this.isFollowYouComputed.splice(indexCategory, 1, true)
@@ -259,7 +255,8 @@
       },
       unFollowCategory (item) {
         this.$emit("unfollow", { item: item })
-        const indexCategory = this.data.findIndex(x => x.id === item.id)
+        const indexCategory = this.data.findIndex((x) => x.id === item.id)
+        // console.log(indexCategory)
         if (indexCategory !== -1) {
           this.isFollowYouComputed.splice(indexCategory, 1, false)
         }

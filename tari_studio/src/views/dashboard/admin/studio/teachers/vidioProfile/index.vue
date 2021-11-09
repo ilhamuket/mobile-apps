@@ -70,6 +70,8 @@
           @approve="upApproved"
           @deleteSelected="upDeletes"
           @deleteById="upDelete"
+          @edit="upEdit"
+          @deactive="deactive"
         />
       </v-col>
     </v-row>
@@ -123,6 +125,24 @@
       :outline2="false"
       @input="deleteDataVidioProfileById"
     />
+    <app-dialog-edit
+      :dialog="edit"
+      @input="updateVidioProfile"
+    />
+    <app-dialog-hidden
+      :dialog="hidden"
+      :by-id="true"
+      :icon="'mdi-eye-off'"
+      :text="'Are you sure want to Hiden Video'"
+      title="Hiden"
+      :text-btn1="'Hiden'"
+      :color-btn1="'red'"
+      :text-btn2="'Cancel'"
+      :color-btn2="'btn_primary'"
+      :outline1="true"
+      :outline2="false"
+      @input="hidenDataProfileVidio"
+    />
   </v-container>
 </template>
 
@@ -130,6 +150,7 @@
   import dataTable from "./component_core/_dataTable.vue"
   import dialogForm from "./component/__dialogForm.vue"
   import dialogNotice from "./component/__dialogNotice.vue"
+  import dialogEdit from "./component/__dialogEdit.vue"
   export default {
     components: {
       "app-data-table": dataTable,
@@ -138,6 +159,8 @@
       "app-dialog-approve": dialogNotice,
       "app-dialog-delete": dialogNotice,
       "app-dialog-delete-by-id": dialogNotice,
+      "app-dialog-hidden": dialogNotice,
+      "app-dialog-edit": dialogEdit,
     },
     data: () => ({
       addVidio: {
@@ -158,6 +181,14 @@
       deleteSelected: {
         open: false,
         data: [],
+      },
+      edit: {
+        open: false,
+        data: {},
+      },
+      hidden: {
+        open: false,
+        data: {},
       },
       instructor_id: 0,
       instructor: {},
@@ -377,6 +408,73 @@
               Toast.fire({
                 icon: "success",
                 title: "Data Teachers vidio profile deleted Successfully",
+              })
+            }
+          })
+      },
+      upEdit ({ item }) {
+        this.edit.open = true
+        this.edit.data = item
+      },
+      updateVidioProfile ({ item }) {
+        this.$store
+          .dispatch("vidioInstructor/updateVidioProfile", {
+            title: item.title,
+            id: item.id,
+          })
+          .then((res) => {
+            if (res.data.meta.status) {
+              this.edit.open = false
+              const Toast = this.swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Vidio Profile Intructor Edited Successfully",
+              })
+            }
+          })
+      },
+      deactive ({ item }) {
+        this.hidden.open = true
+        this.hidden.data = item
+      },
+      hidenDataProfileVidio ({ item }) {
+        this.$store
+          .dispatch("vidioInstructor/hidenDataProfileVidio", {
+            id: item.id,
+          })
+          .then((res) => {
+            if (res.data.meta.status) {
+              this.hidden.open = false
+              const Toast = this.swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Fetch Data",
               })
             }
           })

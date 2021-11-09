@@ -53,10 +53,10 @@ class InstructorProfileVidioController extends Controller
         }
     }
 
-    public function deactive(Request $request)
+    public function deactive(Request $request, $id)
     {
         try {
-            $master = InstructorProfileVidio::findOrFil($id);
+            $master = InstructorProfileVidio::findOrFail($id);
             $master->is_verified = false;
             $master->status = "sembunyikan";
             $master->save();
@@ -276,7 +276,7 @@ class InstructorProfileVidioController extends Controller
      */
     public function edit($id)
     {
-        return view('studioowners::edit');
+        // 
     }
 
     /**
@@ -287,7 +287,19 @@ class InstructorProfileVidioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $master = InstructorProfileVidio::findOrFail($id);
+            $master->title = $request->title;
+            $master->save();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**

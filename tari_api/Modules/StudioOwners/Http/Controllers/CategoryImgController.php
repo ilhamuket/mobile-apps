@@ -24,8 +24,8 @@ class CategoryImgController extends Controller
 
             if (File::exists($image_path)) {
                 File::delete($image_path);
-                $categoryImg->delete();
             }
+            $categoryImg->delete();
 
             $master = new CategoryImg();
             $path = $request->img->store('images/category');

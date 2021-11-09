@@ -59,6 +59,19 @@ export default {
         state.data.splice(indexVidio, 1)
       }
     },
+    UPDATE_DATA: (state, payload) => {
+      const indexVidio = state.data.findIndex((x) => x.id === payload.id)
+      if (indexVidio !== -1) {
+        state.data[indexVidio].title = payload.title
+      }
+    },
+    HIDEN_DATA: (state, payload) => {
+      const indexVidio = state.data.findIndex((x) => x.id === payload.id)
+      if (indexVidio !== -1) {
+        state.data[indexVidio].is_verified = false
+        state.data[indexVidio].status = "sembunyikan"
+      }
+    },
   },
   actions: {
     // SummarY
@@ -90,6 +103,23 @@ export default {
         axios
           .get(`owner/instructor/${payload.slug}`, { params: params })
           .then((res) => {
+            resolve(res)
+          })
+          .catch((e) => {
+            reject(e)
+          })
+      })
+    },
+    updateVidioProfile: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        "Bearer " + localStorage.getItem("access_token")
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        axios
+          .patch(`owner/instructor/vidio-profile/${payload.id}`, { ...payload })
+          .then((res) => {
+            commit("UPDATE_DATA", payload)
             resolve(res)
           })
           .catch((e) => {
@@ -216,6 +246,23 @@ export default {
           .delete(`owner/instructor/vidio-profile/${payload.id}`)
           .then((res) => {
             commit("DELETE_DATA_BYID", payload)
+            resolve(res)
+          })
+          .catch((e) => {
+            reject(e)
+          })
+      })
+    },
+    hidenDataProfileVidio: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        "Bearer " + localStorage.getItem("access_token")
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        axios
+          .patch(`owner/instructor/vidio-profile/hidden/${payload.id}`)
+          .then((res) => {
+            commit("HIDEN_DATA", payload)
             resolve(res)
           })
           .catch((e) => {

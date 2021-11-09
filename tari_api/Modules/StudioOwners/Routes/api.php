@@ -88,7 +88,9 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
             Route::post('approved', [InstructorProfileVidioController::class, 'approvedItems']);
             Route::post('destroy', [InstructorProfileVidioController::class, 'destroyArr']);
             Route::post('create-vidio-profile', [InstructorProfileVidioController::class, 'storeVidioProfile']);
+            Route::patch('{id}', [InstructorProfileVidioController::class, 'update']);
             Route::delete('{id}', [InstructorProfileVidioController::class, 'destroy']);
+            Route::patch('hidden/{id}', [InstructorProfileVidioController::class, 'deactive']);
             Route::patch('approve/{id}', [InstructorProfileVidioController::class, 'approvedById']);
             Route::get('instructor/{slug}', [InstructorProfileVidioController::class, 'index']);
             Route::prefix('summary')->group(function () {

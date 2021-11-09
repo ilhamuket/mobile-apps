@@ -370,6 +370,9 @@
       refreshClick () {
         this.$emit("refresh")
       },
+      popEditForm (item) {
+        this.$emit("edit", { item: item })
+      },
       timeSince (time) {
         switch (typeof time) {
           case "number":
@@ -435,6 +438,9 @@
       deleteSelected (item) {
         this.$emit("deleteSelected", { item: item })
         this.selected = []
+      },
+      deactive (item) {
+        this.$emit("deactive", { item: item })
       },
     },
   }
