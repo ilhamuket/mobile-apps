@@ -16,13 +16,20 @@
         <v-col class="d-flex justify-center" cols="12" md="7">
           <v-row>
             <v-col cols="12">
-              <span class="font-spartan-text font-weight-bold primary--text1 text-h1 mt-6">
+              <span
+                class="
+                  font-spartan-text font-weight-bold
+                  primary--text1
+                  text-h1
+                  mt-6
+                "
+              >
                 Apa Itu EnsikloTari
               </span>
               <br />
               <br />
               <div class="overflow-scroll">
-                <span class="font-spartan-text text-h6 mt-6">
+                <span class="font-spartan-text text-h6 mt-6 grey--text">
                   Seni Tari selalu identik sebagai bukti keragaman budaya
                   Nusantara. Dari Sabang sampai Merauke, masyarakat Indonesia
                   berekspresi melalui berbagai gerak tari yang atraktif dan

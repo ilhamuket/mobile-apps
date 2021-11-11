@@ -8,9 +8,7 @@
         <v-row justify="center">
           <v-col cols="12" sm="10" md="9" lg="7">
             <div class="text-center">
-              <h2 class="section-title font-weight-medium">
-                EnsikloVideo
-              </h2>
+              <h2 class="section-title font-weight-medium">EnsikloVideo</h2>
               <!-- <p>
                 You can relay on our amazing features list and also our customer
                 services will be great experience for you without doubt and in
@@ -27,7 +25,13 @@
             Start Portfolio
         ----------------------------------------------- -->
         <v-row class="mt-13">
-          <v-col v-for="(item, i) in data.data" :key="i" cols="12" md="6" lg="4">
+          <v-col
+            v-for="(item, i) in data.data"
+            :key="i"
+            cols="12"
+            md="6"
+            lg="4"
+          >
             <v-card class="portfolio-card overflow-hidden">
               <div class="portfolio-img">
                 <img
@@ -38,10 +42,24 @@
               </div>
               <v-card-text>
                 <h5 class="font-weight-medium font-18">
-                  {{item.name.substr(0,30) + '..'}}
+                  {{ item.name.substr(0, 30) + ".." }}
                 </h5>
                 <p class="font-14 mb-0">Digital Marketing</p>
               </v-card-text>
+              <v-card-actions>
+                <v-btn
+                  color="#9DC4D1"
+                  class="btn-custom-lg linking mt-10 btn-arrow white--text"
+                  nuxt
+                  small
+                  :href="`https://app.ensiklotari.com/detail/class/live/ensiklo-studio/${item.slug}`"
+                  target="__blank"
+                  elevation="0"
+                >
+                  <span>Lihat Kelas</span>
+                  <i class="mdi mdi-arrow-right"></i>
+                </v-btn>
+              </v-card-actions>
             </v-card>
           </v-col>
           <!-- <v-col cols="12" md="6" lg="4">
@@ -135,18 +153,18 @@ export default {
     return {
       data: {
         meta: {},
-        data: []
-      }
+        data: [],
+      },
     };
   },
-  mounted () {
-    this.getDataClassVidio()
+  mounted() {
+    this.getDataClassVidio();
   },
   methods: {
-    async getDataClassVidio () {
-      this.data = await this.$axios.$get('all/ensiklo-vidio', {})
+    async getDataClassVidio() {
+      this.data = await this.$axios.$get("all/ensiklo-vidio", {});
       console.log(this.data);
-      localStorage.setItem('class-vidio', JSON.stringify(this.data))
+      localStorage.setItem("class-vidio", JSON.stringify(this.data));
     },
   },
 };

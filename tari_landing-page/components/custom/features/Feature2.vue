@@ -8,11 +8,11 @@
         <v-row justify="center">
           <v-col cols="12" md="10" lg="7">
             <div class="text-center">
-              <v-chip small color="primary" text-color="white">
+              <v-chip small color="#4CAF50" text-color="white">
                 Feature 2
               </v-chip>
-              <h2 class="section-title font-weight-medium">
-                Memiliki Instrktur yang unggul
+              <h2 class="section-title font-weight-bold primary--text1">
+                Memiliki Instruktur yang unggul
               </h2>
               <!-- <p>
                 You can relay on our amazing features list and also our customer
@@ -61,8 +61,8 @@
                   <v-btn
                     block
                     depressed
-                    color="info"
-                    class="linking feature2-action-btn"
+                    color="#9DC4D1"
+                    class="linking feature2-action-btn white--text"
                   >
                     Lihat <i class="mdi mdi-arrow-right"></i>
                   </v-btn>
@@ -101,8 +101,8 @@
                   <v-btn
                     block
                     depressed
-                    color="info"
-                    class="linking feature2-action-btn"
+                    color="#9DC4D1"
+                    class="linking feature2-action-btn white--text"
                   >
                     Lihat <i class="mdi mdi-arrow-right"></i>
                   </v-btn>
@@ -130,7 +130,7 @@
                           class="px-md-0 d-flex align-center"
                         >
                           <h4 class="font-weight-medium font-18">
-                           Epul J - Dancer
+                            Epul J - Dancer
                           </h4>
                         </v-col>
                       </v-row>
@@ -141,8 +141,8 @@
                   <v-btn
                     block
                     depressed
-                    color="info"
-                    class="linking feature2-action-btn"
+                    color="#9DC4D1"
+                    class="linking feature2-action-btn white--text"
                   >
                     Lihat <i class="mdi mdi-arrow-right"></i>
                   </v-btn>
@@ -170,7 +170,7 @@
                           class="px-md-0 d-flex align-center"
                         >
                           <h4 class="font-weight-medium font-18">
-                           Epul J - Dancer
+                            Epul J - Dancer
                           </h4>
                         </v-col>
                       </v-row>
@@ -181,8 +181,8 @@
                   <v-btn
                     block
                     depressed
-                    color="info"
-                    class="linking feature2-action-btn"
+                    color="#9DC4D1"
+                    class="linking feature2-action-btn white--text"
                   >
                     Lihat <i class="mdi mdi-arrow-right"></i>
                   </v-btn>

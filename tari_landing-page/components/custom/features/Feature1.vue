@@ -8,14 +8,13 @@
         <v-row justify="center">
           <v-col cols="12" md="10" lg="7">
             <div class="text-center">
-              <v-chip small color="error" text-color="white">
+              <v-chip small color="#4CAF50" text-color="white">
                 Feature 1
               </v-chip>
-              <h2 class="section-title font-weight-medium">2 Type Kelas</h2>
-              <p>
-                EnsikloTari Memiliki 2 Type Kelas Yaitu EnsikloLive Dan
-                EnsikloVidio
-              </p>
+              <h2 class="section-title font-weight-bold primary--text1 text-h1">
+                Type Kelas
+              </h2>
+              <p>EnsikloLive & EnsikloVideo</p>
             </div>
           </v-col>
         </v-row>
@@ -34,7 +33,9 @@
                 <div class="icon-round bg-light-info">
                   <i class="mdi mdi-star"></i>
                 </div>
-                <h5 class="font-weight-medium font-18">EnsikloLive</h5>
+                <h5 class="font-weight-bold font-18 primary--text1">
+                  EnsikloLive
+                </h5>
                 <p class="mt-10 mb-8">
                   EnsikloLive Adalah salah satu type kelas di
                   EnsikloTari.EnsikloLive yaitu pengajaran tari dengan cara live
@@ -47,6 +48,7 @@
                     linking
                     text-decoration-none
                     d-flex
+                    primary--text1
                     align-center
                   "
                 >
@@ -61,7 +63,9 @@
                 <div class="icon-round bg-light-info">
                   <i class="mdi mdi-check-circle"></i>
                 </div>
-                <h5 class="font-weight-medium font-18">EnsikloVidio</h5>
+                <h5 class="font-weight-bold font-18 primary--text1">
+                  EnsikloVidio
+                </h5>
                 <p class="mt-10 mb-8">
                   EnsikloVidio Adalah salah satu type kelas di ensiklotari,
                   EnsikloVidio yaitu pengajaran tari berupa vidio atau kelas
@@ -74,6 +78,7 @@
                     linking
                     text-decoration-none
                     d-flex
+                    primary--text1
                     align-center
                   "
                 >

@@ -17,18 +17,16 @@
             <v-card class="card-shadow">
               <v-card-text>
                 <div class="pa-10 text-center">
-                  <v-chip small color="info" text-color="white">
+                  <v-chip small color="#4CAF50" text-color="white">
                     Daftar
                   </v-chip>
-                  <h3 class="feature3-title font-weight-medium">
+                  <h3 class="feature3-title font-weight-bold primary--text1">
                     Masih Ragu ?
                   </h3>
-                  <p>
-                    Daftar yuk, bergabung bersama kami di EnsikloTari
-                  </p>
+                  <p>Daftar yuk, bergabung bersama kami di EnsikloTari</p>
                   <v-btn
-                    color="error"
-                    class="btn-custom-lg linking mt-10 btn-arrow"
+                    color="#9DC4D1"
+                    class="btn-custom-lg white--text linking mt-10 btn-arrow"
                     nuxt
                     large
                     href="https://app.ensiklotari.com/classes/register"

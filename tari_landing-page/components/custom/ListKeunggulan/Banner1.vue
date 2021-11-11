@@ -8,8 +8,8 @@
         <v-row justify="center">
           <v-col cols="12" md="7" lg="6" class="d-flex align-center">
             <div class="text-center text-md-left">
-              <v-chip small class="bg-dark" text-color="white">
-               Sangar-Sanggar
+              <v-chip  class="" color="#4CAF50" text-color="white">
+                Sangar-Sanggar
               </v-chip>
               <h2
                 class="
@@ -22,7 +22,8 @@
                 Sanggar Sanggar EnsikloTari
               </h2>
               <p class="white--text op-8 font-weight-regular">
-                Mengangkat budaya menari di indonesia dengan sanggar - sanggar EnsikloTari
+                Mengangkat budaya menari di indonesia dengan sanggar - sanggar
+                EnsikloTari
               </p>
               <div class="mt-16 pt-2">
                 <v-btn
@@ -36,7 +37,7 @@
                   color="white"
                   elevation="0"
                 >
-                  Ingin Gabung Menjadi Sanggar ? 
+                  Ingin Gabung Menjadi Sanggar ?
                 </v-btn>
               </div>
             </div>
@@ -62,6 +63,6 @@ export default {
   data() {
     return {};
   },
-  methods: {}
+  methods: {},
 };
 </script>

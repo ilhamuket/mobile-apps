@@ -31,7 +31,7 @@
                 href="#what"
                 class="headers__sanggar font-weight-bold primary--text1"
               >
-                Sanggar
+                EnsikloTari
               </a>
             </li>
             <li>

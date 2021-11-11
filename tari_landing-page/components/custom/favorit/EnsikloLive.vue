@@ -40,7 +40,7 @@
                   class="img-fluid"
                   alt="portfolio"
                   width="520"
-                  height="200"             
+                  height="200"
                 />
               </div>
               <v-card-text>
@@ -51,28 +51,31 @@
                   {{ item.studio.name }}
                 </p>
                 <p v-if="item.studio" class="font-spartan-small">
-                  {{ item.studio.reviews ? item.studio.reviews.length : 0 }} ulasan
+                  {{ item.studio.reviews ? item.studio.reviews.length : 0 }}
+                  ulasan
                 </p>
                 <v-rating
                   class="ratings--ensikloive"
                   :value="computedValue[i]"
                   readonly
                   small
+                  background-color="red"
+                  color="green"
                 />
               </v-card-text>
               <v-card-actions>
                 <v-btn
-                    color="error"
-                    class="btn-custom-lg linking mt-10 btn-arrow"
-                    nuxt
-                    small
-                    :href="`https://app.ensiklotari.com/detail/class/live/ensiklo-studio/${item.slug}`"
-                    target="__blank"
-                    elevation="0"
-                  >
-                    <span>Lihat Kelas</span>
-                    <i class="mdi mdi-arrow-right"></i>
-                  </v-btn>
+                  color="#9DC4D1"
+                  class="btn-custom-lg linking mt-10 btn-arrow white--text"
+                  nuxt
+                  small
+                  :href="`https://app.ensiklotari.com/detail/class/live/ensiklo-studio/${item.slug}`"
+                  target="__blank"
+                  elevation="0"
+                >
+                  <span>Lihat Kelas</span>
+                  <i class="mdi mdi-arrow-right"></i>
+                </v-btn>
               </v-card-actions>
             </v-card>
           </v-col>

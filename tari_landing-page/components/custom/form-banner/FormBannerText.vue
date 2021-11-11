@@ -8,11 +8,19 @@
         <v-row justify="center">
           <v-col cols="12" sm="10" md="9" lg="7">
             <div class="text-center">
-              <h2 class="ui-title font-weight-bold font-spartan-text text-h3">Biaya Terjangkau</h2>
+              <h2
+                class="
+                  ui-title
+                  font-weight-bold font-spartan-text
+                  primary--text1
+                  text-h2
+                "
+              >
+                Biaya Terjangkau
+              </h2>
               <p>
-                Here you can check Demos we created you can easily use it. Its
-                quite easy to Create your own dream website & dashboard in
-                No-time.
+                Biaya terjangkau untuk paket paket di
+                <span class="font-weight-bold">EnsikloTari</span>
               </p>
             </div>
           </v-col>

@@ -4,7 +4,7 @@
     Header
     ----------------------------------------------- -->
     <app-what id="what" />
-    <HeaderText id="keunggulan" />
+    <keunggulan id="keunggulan" />
     <!-- <Header1 /> -->
     <!-- <Header2 /> -->
     <!-- -----------------------------------------------
@@ -41,8 +41,8 @@
     <!-- -----------------------------------------------
     Portfolio
     ----------------------------------------------- -->
-    <PortfolioText />
-    <Portfolio id="live" />
+    <Favorit />
+    <live id="live" />
     <vidio id="vidio" />
     <!-- -----------------------------------------------
     ./ Portfolio
@@ -102,7 +102,7 @@ export default {
     return {};
   },
   components: {
-    HeaderText: () => import("@/components/custom/Keunggulan/Keunggulan"),
+    keunggulan: () => import("@/components/custom/Keunggulan/Keunggulan"),
     BannerText: () => import("@/components/custom/ListKeunggulan/BannerText"),
     FeatureText: () => import("@/components/custom/features/FeatureText"),
     PricingText: () => import("@/components/custom/pricing/PricingText"),
@@ -111,7 +111,7 @@ export default {
     TestimonialText: () =>
       import("@/components/custom/testimonial/TestimonialText"),
     C2aText: () => import("@/components/custom/c2a/C2aText"),
-    PortfolioText: () => import("@/components/custom/favorit/Favorit"),
+    Favorit: () => import("@/components/custom/favorit/Favorit"),
     FormBannerText: () =>
       import("@/components/custom/form-banner/FormBannerText"),
     Header1: () => import("@/components/custom/Keunggulan/Header1"),
@@ -122,7 +122,7 @@ export default {
     Feature2: () => import("@/components/custom/features/Feature2"),
     Feature3: () => import("@/components/custom/features/Feature3"),
     FormBanner1: () => import("@/components/custom/form-banner/FormBanner1"),
-    Portfolio: () => import("@/components/custom/favorit/EnsikloLive"),
+    Live: () => import("@/components/custom/favorit/EnsikloLive"),
     vidio: () => import("@/components/custom/favorit/EnsikloVidio"),
     Pricing: () => import("@/components/custom/pricing/Pricing"),
     Team: () => import("@/components/custom/team/Team"),

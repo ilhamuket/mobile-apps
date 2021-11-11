@@ -8,7 +8,7 @@
         <v-row justify="center">
           <v-col cols="12" sm="10" md="9" lg="7">
             <div class="text-center">
-              <h2 class="ui-title font-weight-bold">Keunggulan EnsikloTari</h2>
+              <h2 class="ui-title font-weight-bold primary--text1">Keunggulan EnsikloTari</h2>
               <p>
               EnsikloTari memiliki keunggulan yaitu
               </p>

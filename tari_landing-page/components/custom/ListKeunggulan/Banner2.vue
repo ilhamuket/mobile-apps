@@ -8,7 +8,7 @@
         <v-row justify="center">
           <v-col cols="12" md="8" class="d-flex align-center">
             <div class="text-center">
-              <h2 class="banner2-title font-weight-light">
+              <h2 class="banner2-title font-weight-light primary--text1">
                 Belajar Tari
                 <span class="font-weight-bold">
                   Dimanapun & Kapanpun
@@ -25,9 +25,9 @@
                   large
                   href="https://app.ensiklotari.com/classes"
                   target="__blank"
-                  class="btn-custom-lg btn-arrow"
+                  class="btn-custom-lg btn-arrow white--text"
                   depressed
-                  color="error"
+                  color="#9DC4D1"
                   elevation="0"
                 >
                   <span>Lihat Kelas Tari</span>

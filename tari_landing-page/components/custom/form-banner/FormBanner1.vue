@@ -8,7 +8,7 @@
         <v-row justify="center">
           <v-col cols="12" md="7" lg="5" class="d-flex align-center">
             <div class="text-center text-md-left">
-              <h2 class="formbanner1-title font-weight-bold">
+              <h2 class="formbanner1-title font-weight-bold primary--text1">
                 Belajar Tari Dimanapun & kapanpun
               </h2>
               <p class="mt-16 pt-4">
@@ -21,9 +21,9 @@
                   width="300"
                   href="https://app.ensiklotari.com/class-vidio"
                   target="__blank"
-                  class="btn-custom-lg btn-arrow"
+                  class="btn-custom-lg btn-arrow white--text"
                   depressed
-                  color="error"
+                  color="#9DC4D1"
                   elevation="0"
                 >
                   <span>Lihat Kelas Tari</span>

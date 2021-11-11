@@ -8,7 +8,7 @@
         <v-row justify="center">
           <v-col cols="12" sm="10" md="9" lg="7">
             <div class="text-center">
-              <h2 class="ui-title text-h3 font-spartan-text font-weight-bold">
+              <h2 class="ui-title text-h3 font-spartan-text font-weight-bold primary--text1">
                 Terdapat Banyak Sanggar - Sanggar
               </h2>
               <p>
