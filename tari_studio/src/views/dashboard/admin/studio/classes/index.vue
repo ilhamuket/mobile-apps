@@ -361,7 +361,7 @@
       },
       getDataClassesStudio () {
         this.$store.dispatch("ownerStudioClasses/getDataClassesStudio", {
-          entities: "studio, author, instructor, img, category,listImg",
+          entities: "studio, author, instructor, img, category,listImg,student",
           summary: this.summary,
         })
       },

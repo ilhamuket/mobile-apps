@@ -32,15 +32,15 @@
             md="6"
             lg="4"
           >
-            <v-card height="400" class="portfolio-card overflow-hidden">
+            <v-card class="portfolio-card overflow-hidden">
               <div class="portfolio-img">
                 <img
                   v-if="item.img"
                   :src="item.img.url"
                   class="img-fluid"
                   alt="portfolio"
-                  width="420"
-                
+                  width="520"
+                  height="200"             
                 />
               </div>
               <v-card-text>
@@ -60,6 +60,20 @@
                   small
                 />
               </v-card-text>
+              <v-card-actions>
+                <v-btn
+                    color="error"
+                    class="btn-custom-lg linking mt-10 btn-arrow"
+                    nuxt
+                    small
+                    :href="`https://app.ensiklotari.com/detail/class/live/ensiklo-studio/${item.slug}`"
+                    target="__blank"
+                    elevation="0"
+                  >
+                    <span>Lihat Kelas</span>
+                    <i class="mdi mdi-arrow-right"></i>
+                  </v-btn>
+              </v-card-actions>
             </v-card>
           </v-col>
         </v-row>

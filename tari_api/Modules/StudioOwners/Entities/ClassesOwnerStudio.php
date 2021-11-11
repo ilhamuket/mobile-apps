@@ -57,6 +57,11 @@ class ClassesOwnerStudio extends Model
         return $this->hasMany(ImgListClass::class, 'class_id');
     }
 
+    public function student()
+    {
+        return $this->belongsToMany(User::class, 'has_class', 'class_id', 'user_id');
+    }
+
     // ==== Scope === //
     public function scopeEntities($query, $entities)
     {

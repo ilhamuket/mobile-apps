@@ -205,11 +205,11 @@ const router = new Router({
             breadcumbs: [
               {
                 text: "Instructor",
-                to: "/instructor",
+                disabled: false,
+                to: "/",
               },
               {
                 text: localStorage.getItem("instructor"),
-                disabled: true,
               },
             ],
           },

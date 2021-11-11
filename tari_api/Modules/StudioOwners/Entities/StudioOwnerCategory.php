@@ -25,6 +25,11 @@ class StudioOwnerCategory extends Model
         return $this->hasMany(ClassesOwnerStudio::class, 'category_id');
     }
 
+    public function classVidio()
+    {
+        return $this->hasMany(StudioClassVidio::class, 'category_id');
+    }
+
     public function studio()
     {
         return $this->belongsTo(OwnerStudio::class, 'studio_id');

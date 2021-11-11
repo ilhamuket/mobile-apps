@@ -1,5 +1,5 @@
 <template>
-  <base-material-card icon="mdi-clipboard-outline">
+  <base-material-card icon="mdi-account-group-outline">
     <template #after-heading>
       <span
         :class="
@@ -28,7 +28,7 @@
               color="primary"
               bottom
             >
-              <template #activator="{on, attrs}">
+              <template #activator="{ on, attrs }">
                 <v-icon
                   v-bind="attrs"
                   color="size__icon_refresh"
@@ -101,9 +101,7 @@
             class="ml-2"
             @click="upDialog"
           >
-            <v-icon>
-              mdi-plus
-            </v-icon>
+            <v-icon> mdi-plus </v-icon>
             Add Class
           </v-btn>
 
@@ -114,9 +112,7 @@
             color="blue"
             @click="upDialogApproves(selected)"
           >
-            <v-icon>
-              mdi-check-decagram
-            </v-icon>
+            <v-icon> mdi-check-decagram </v-icon>
             Approve {{ selected.length }} item
           </v-btn>
           <v-btn
@@ -125,9 +121,7 @@
             color="red"
             @click="upDialogDeletes(selected)"
           >
-            <v-icon>
-              mdi-delete-empty-outline
-            </v-icon>
+            <v-icon> mdi-delete-empty-outline </v-icon>
             Delete {{ selected.length }} item
           </v-btn>
         </v-col>
@@ -139,7 +133,79 @@
             :headers="headers"
             :items="data"
             mobile-breakpoint="0"
+            show-expand
           >
+            <!-- Expand -->
+            <template #expanded-item="{ headers, item }">
+              <td :colspan="headers.length">
+                <v-container>
+                  <v-row>
+                    <v-col
+                      cols="12"
+                      class="d-flex flex-row-reverse"
+                    >
+                      <v-icon color="blue">
+                        mdi-share-variant
+                      </v-icon>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      md="3"
+                    >
+                      <base-material-stats-card
+                        v-if="item.student"
+                        color="info"
+                        icon="mdi-account-multiple-plus-outline"
+                        title="Registrant"
+                        :value="String(item.student.length)"
+                        sub-icon="mdi-clock"
+                        sub-text="Just Updated"
+                      />
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      md="3"
+                    >
+                      <base-material-stats-card
+                        color="info"
+                        icon="mdi-twitter"
+                        title="Followers"
+                        value="+245"
+                        sub-icon="mdi-clock"
+                        sub-text="Just Updated"
+                      />
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      md="3"
+                    >
+                      <base-material-stats-card
+                        color="info"
+                        icon="mdi-twitter"
+                        title="Followers"
+                        value="+245"
+                        sub-icon="mdi-clock"
+                        sub-text="Just Updated"
+                      />
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      md="3"
+                    >
+                      <base-material-stats-card
+                        color="info"
+                        icon="mdi-twitter"
+                        title="Followers"
+                        value="+245"
+                        sub-icon="mdi-clock"
+                        sub-text="Just Updated"
+                      />
+                    </v-col>
+                  </v-row>
+                </v-container>
+                Helo {{ item.name }}
+              </td>
+            </template>
             <!-- Header -->
             <template #[`header.name`]="{ header }">
               {{ $t(header.text) }}
@@ -156,12 +222,12 @@
             <template #[`header.category.display_name`]="{ header }">
               {{ $t(header.text) }}
             </template>
-            <template #[`header.status_kelas`]="{header}">
+            <template #[`header.status_kelas`]="{ header }">
               {{ $t(header.text) }}
             </template>
 
             <!-- Item -->
-            <template #[`item.img.url`]="{item}">
+            <template #[`item.img.url`]="{ item }">
               <v-hover v-slot="{ hover }">
                 <v-card
                   :elevation="hover ? 12 : 2"
@@ -175,7 +241,7 @@
                     width="140"
                     height="100"
                     gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
-                    style="cursor:pointer"
+                    style="cursor: pointer"
                     @click="changePict(item)"
                   >
                     <v-container>
@@ -207,7 +273,7 @@
                     width="140"
                     height="100"
                     gradient="to top right, rgba(0, 0, 0, 0.05), rgba(20, 20, 20, 0.05)"
-                    style="background-color:rgba(0, 0, 0, 0.05);"
+                    style="background-color: rgba(0, 0, 0, 0.05)"
                   />
                   <input
                     ref="fileUpload"
@@ -219,7 +285,7 @@
                 </v-card>
               </v-hover>
             </template>
-            <template #[`item.name`]="{item}">
+            <template #[`item.name`]="{ item }">
               <div class="mt-6">
                 {{ item.name }}
               </div>
@@ -235,7 +301,7 @@
                           bottom
                           color="blue"
                         >
-                          <template #activator="{on, attrs}">
+                          <template #activator="{ on, attrs }">
                             <v-icon
                               small
                               color="blue"
@@ -246,9 +312,7 @@
                               mdi-pencil
                             </v-icon>
                           </template>
-                          <span class="font-spartan-small">
-                            Edit
-                          </span>
+                          <span class="font-spartan-small"> Edit </span>
                         </v-tooltip>
                       </a>
                     </div>
@@ -263,7 +327,7 @@
                           color="blue"
                           bottom
                         >
-                          <template #activator="{on, attrs}">
+                          <template #activator="{ on, attrs }">
                             <v-icon
                               v-bind="attrs"
                               color="blue"
@@ -273,9 +337,7 @@
                               mdi-eye
                             </v-icon>
                           </template>
-                          <span class="font-spartan-small">
-                            Info
-                          </span>
+                          <span class="font-spartan-small"> Info </span>
                         </v-tooltip>
                       </a>
                     </div>
@@ -290,7 +352,7 @@
                           color="btn_primary"
                           bottom
                         >
-                          <template #activator="{on,attrs}">
+                          <template #activator="{ on, attrs }">
                             <v-icon
                               v-bind="attrs"
                               color="btn_primary"
@@ -300,9 +362,7 @@
                               mdi-camera
                             </v-icon>
                           </template>
-                          <span class="font-spartan-small">
-                            Upload
-                          </span>
+                          <span class="font-spartan-small"> Upload </span>
                         </v-tooltip>
                       </a>
                     </div>
@@ -317,17 +377,17 @@
                           color="red"
                           bottom
                         >
-                          <template #activator="{on,attrs}">
+                          <template #activator="{ on, attrs }">
                             <v-icon
                               v-bind="attrs"
-                              color="btn_primary"
+                              color="red"
                               small
                               v-on="on"
                             >
                               mdi-eye-off
                             </v-icon>
                           </template>
-                          <span class="font-spartan-small">
+                          <span class="font-spartan-small white--text">
                             Hided
                           </span>
                         </v-tooltip>
@@ -337,7 +397,7 @@
                 </div>
               </div>
             </template>
-            <template #[`item.levels`]="{item}">
+            <template #[`item.levels`]="{ item }">
               <v-chip
                 label
                 text-color="white"
@@ -347,7 +407,7 @@
                 {{ item.levels }}
               </v-chip>
             </template>
-            <template #[`item.status`]="{item}">
+            <template #[`item.status`]="{ item }">
               <v-chip
                 :color="setColorStatus(item.status)"
                 label
@@ -357,15 +417,16 @@
                 {{ $t(item.status) }}
               </v-chip>
             </template>
-            <template #[`item.kapasitas`]="{item}">
+            <template #[`item.kapasitas`]="{ item }">
               <v-chip
                 label
                 color="primary"
               >
-                0 / {{ item.kapasitas }}
+                {{ item.student ? item.student.length : "0" }} /
+                {{ item.kapasitas }}
               </v-chip>
             </template>
-            <template #[`item.status_kelas`]="{item}">
+            <template #[`item.status_kelas`]="{ item }">
               <v-chip
                 label
                 :color="setStatusClass(item.status_kelas)"
@@ -519,7 +580,7 @@
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
-            didOpen: toast => {
+            didOpen: (toast) => {
               toast.addEventListener("mouseenter", this.$swal.stopTimer)
               toast.addEventListener("mouseleave", this.$swal.resumeTimer)
             },

@@ -1,7 +1,7 @@
 <template>
   <div class="bg--what">
     <v-container class="">
-      <v-row>
+      <v-row class="container--what">
         <v-col cols="12" md="5">
           <v-carousel class="rounded-lg" v-model="model">
             <v-carousel-item
@@ -16,7 +16,7 @@
         <v-col class="d-flex justify-center" cols="12" md="7">
           <v-row>
             <v-col cols="12">
-              <span class="font-spartan-text text-h1 mt-6">
+              <span class="font-spartan-text font-weight-bold primary--text1 text-h1 mt-6">
                 Apa Itu EnsikloTari
               </span>
               <br />
@@ -68,9 +68,15 @@ export default {
 <style lang="sass">
 .overflow-scroll
   height: 450px !important
-  overflow-y: scroll
+  overflow-y: auto
   text-justify: justify
   text-align: justify
+  width: 120%
 .bg--what
   background-color: #F4F8FA
+.container--what
+  margin-top: 2%
+  margin-bottom: 2%
+.primary--text1
+  color: #9DC5D1 !important
 </style>>

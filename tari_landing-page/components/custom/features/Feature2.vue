@@ -12,7 +12,7 @@
                 Feature 2
               </v-chip>
               <h2 class="section-title font-weight-medium">
-                Memiliki Instructor yang unggul
+                Memiliki Instrktur yang unggul
               </h2>
               <!-- <p>
                 You can relay on our amazing features list and also our customer

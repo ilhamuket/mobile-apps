@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Modules\StudioOwners\Entities\ClassesOwnerStudio;
 use Modules\StudioOwners\Entities\StudioTeacher;
 use Modules\StudioOwners\Entities\SubClassOwnerStudio;
+use Modules\StudioOwners\Entities\UserHaveClass;
 use Modules\StudioOwners\Http\Controllers\BankAccountController;
 use Modules\StudioOwners\Http\Controllers\CategoryImgController;
 use Modules\StudioOwners\Http\Controllers\ClassesOwnerStudioController;
@@ -21,6 +22,7 @@ use Modules\StudioOwners\Http\Controllers\StudioOwnersController;
 use Modules\StudioOwners\Http\Controllers\StudioOwnerVidioController;
 use Modules\StudioOwners\Http\Controllers\StudioTeacherController;
 use Modules\StudioOwners\Http\Controllers\SubClassOwnerStudioController;
+use Modules\StudioOwners\Http\Controllers\UserHaveClassController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +45,10 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
         Route::get('me', [StudioOwnersController::class, 'meStudio']);
         Route::post('update', [StudioOwnersController::class, 'update']);
         Route::get('responses', [StudioOwnersController::class, 'response']);
+    });
+    // Student have Class
+    Route::prefix('have-class')->group(function () {
+        Route::get('{id}', [UserHaveClassController::class, 'index']);
     });
     // Classes
     Route::prefix('classes')->group(function () {

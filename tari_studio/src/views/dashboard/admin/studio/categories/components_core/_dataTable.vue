@@ -55,7 +55,6 @@
         >
           <v-btn
             color="btn_primary"
-            outlined
             @click="popUpCreateCategory"
           >
             Create category
@@ -88,7 +87,123 @@
             :search="search"
             :items-per-page="5"
             show-expand
+            mobile-breakpoint="0"
           >
+            <!-- Expand -->
+            <template v-slot:expanded-item="{ headers, item }">
+              <td :colspan="headers.length">
+                <v-container>
+                  <v-row>
+                    <v-col
+                      cols="12"
+                      md="6"
+                    >
+                      <v-container>
+                        <v-row>
+                          <v-col
+                            cols="12"
+                            md="12"
+                            class="cols__item-class"
+                          >
+                            <v-hover v-slot="{ hover }">
+                              <v-card :elevation="hover ? '12' : 3">
+                                <v-img
+                                  v-if="item.img"
+                                  height="360"
+                                  gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
+                                  :src="item.img.url"
+                                >
+                                  <v-container>
+                                    <v-row>
+                                      <v-col class="d-flex flex-row-reverse">
+                                        <v-icon
+                                          style="cursor: pointer"
+                                          color="white"
+                                        >
+                                          mdi-share-variant
+                                        </v-icon>
+                                      </v-col>
+                                    </v-row>
+                                    <v-row class="rows__item--class">
+                                      <v-col>
+                                        <span class="font-spartan white--text">
+                                          {{ item.display_name }}
+                                        </span>
+                                      </v-col>
+                                    </v-row>
+                                  </v-container>
+                                </v-img>
+                              </v-card>
+                            </v-hover>
+                            <base-material-stats-card
+                              v-if="item.class_vidio"
+                              class="mt-12"
+                              color="btn_primary"
+                              icon="mdi-twitter"
+                              title="Video Classes"
+                              :value="String(item.class_vidio.length)"
+                              sub-icon="mdi-heart-outline"
+                              sub-text="EnsikloTari"
+                            />
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      md="6"
+                    >
+                      <v-col cols="12">
+                        <base-material-stats-card
+                          v-if="item.class"
+                          color="btn_primary"
+                          icon="mdi-account-group-outline"
+                          title="Classes"
+                          :value="String(item.class.length)"
+                          sub-icon="mdi-heart-outline"
+                          sub-text="EnsikloTari"
+                          style="cursor: pointer"
+                          @click.native="is_class = !is_class"
+                        />
+                      </v-col>
+                      <v-col cols="12">
+                        <base-material-stats-card
+                          v-if="item.follow"
+                          color="btn_primary"
+                          icon="mdi-twitter"
+                          title="Followers"
+                          :value="String(item.follow.length)"
+                          sub-icon="mdi-heart-outline"
+                          sub-text="EnsikloTari"
+                        />
+                      </v-col>
+                      <v-col cols="12">
+                        <base-material-stats-card
+                          v-if="item.likes"
+                          color="btn_primary"
+                          icon="mdi-heart"
+                          title="Likes"
+                          :value="String(item.likes.length)"
+                          sub-icon="mdi-heart-outline"
+                          sub-text="EnsikloTari"
+                        />
+                      </v-col>
+                      <!-- <v-col cols="12">
+                        <base-material-stats-card
+                          v-if="item.class_vidio"
+                          color="btn_primary"
+                          icon="mdi-twitter"
+                          title="Video Classes"
+                          :value="String(item.class_vidio.length)"
+                          sub-icon="mdi-heart-outline"
+                          sub-text="EnsikloTari"
+                        />
+                      </v-col> -->
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </td>
+            </template>
             <!-- Header -->
             <template #[`header.name`]="{ header }">
               {{ $t(header.text) }}
@@ -309,6 +424,7 @@
                 label
                 :color="setColorStatus(item.status)"
                 class="text-capitalize"
+                text-color="white"
               >
                 {{ item.status }}
               </v-chip>
@@ -385,6 +501,7 @@
       //   value: "likes",
       // },
       ],
+      is_class: false,
       selected: [],
       search: "",
       files: null,
@@ -538,4 +655,8 @@
   &:hover
     .show-btn
       color: white !important
+.cols__item-class
+  margin-top: -3%
+.rows__item--class
+  margin-top: 59% !important
 </style>
