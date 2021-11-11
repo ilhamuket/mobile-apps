@@ -10,6 +10,22 @@ use Modules\StudioOwners\Entities\StudioTeacher;
 
 class StudioInstructorController extends Controller
 {
+
+    public function forAll(Request $request)
+    {
+        try {
+            $master = StudioTeacher::entities($request->entities)->where('is_verified', 1)
+                ->paginate($request->input('paginate', 6));
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     /**
      * Display a listing of the resource.
      * @return Renderable
