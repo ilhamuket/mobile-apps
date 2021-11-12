@@ -28,7 +28,7 @@ export default {
     },
     INSERT_DATA: (state, payload) => {
       const classVidio = state.data
-      classVidio.unshift(payload)
+      classVidio.push(payload)
       state.data = classVidio
     },
     UPDATE_DATA: (state, payload) => {

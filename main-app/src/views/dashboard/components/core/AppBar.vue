@@ -454,8 +454,8 @@
           })
           .then((res) => {
             if (res.data.meta.status) {
-              const index = this.items.findIndex((x) => x.text === "cart")
-              this.items[index].content = res.data.data.length
+            // const index = this.items.findIndex((x) => x.text === "cart")
+            // this.items[index].content = res.data.data.length
             }
           })
       },
@@ -474,6 +474,7 @@
           .then((res) => {
             if (res.data.meta.status) {
               this.dataUser = res.data.data
+
               const index = this.items.findIndex((x) => x.text === "cart")
               this.items[index].content = this.dataUser.cart.length
 

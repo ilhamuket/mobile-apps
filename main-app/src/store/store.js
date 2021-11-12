@@ -31,6 +31,7 @@ import etc from "./module/etc"
 import instructor from "./module/instructor"
 import instructorVidioProfile from "./module/instructor/vidio-profile/index"
 import myclass from "./module/myclass/index"
+import invoice from "./module/invoice"
 
 Vue.use(Vuex)
 
@@ -57,6 +58,7 @@ export default new Vuex.Store({
     instructor: instructor,
     instructorVidio: instructorVidioProfile,
     my_class: myclass,
+    invoice: invoice,
   },
   state: {
     barColor: "rgba(0, 0, 0, .8), rgba(0, 0, 0, .8)",

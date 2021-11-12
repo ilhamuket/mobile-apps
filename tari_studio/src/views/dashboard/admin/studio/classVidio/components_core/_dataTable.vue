@@ -27,7 +27,7 @@
               color="primary"
               bottom
             >
-              <template #activator="{on, attrs}">
+              <template #activator="{ on, attrs }">
                 <v-icon
                   v-bind="attrs"
                   color="size__icon_refresh"
@@ -92,21 +92,24 @@
             show-select
           >
             <!-- Items -->
-            <template #[`item.id`]="{item}">
+            <template #[`item.id`]="{ item }">
               <v-img
                 :src="item.url_thumbnail"
                 width="140"
                 height="100"
               />
             </template>
-            <template #[`item.name`]="{item}">
-              <div class="mt-6">
+            <template #[`item.name`]="{ item }">
+              <div
+                v-if="item.name"
+                class="mt-6"
+              >
                 <v-tooltip
                   v-if="item.name.length > 9"
                   bottom
                   color="blue"
                 >
-                  <template #activator="{on, attrs}">
+                  <template #activator="{ on, attrs }">
                     <span
                       v-bind="attrs"
                       v-on="on"
@@ -130,7 +133,7 @@
                           color="primary"
                           bottom
                         >
-                          <template #activator="{on, attrs}">
+                          <template #activator="{ on, attrs }">
                             <v-icon
                               v-bind="attrs"
                               small
@@ -158,7 +161,7 @@
                           color="primary"
                           bottom
                         >
-                          <template #activator="{on, attrs}">
+                          <template #activator="{ on, attrs }">
                             <v-icon
                               v-bind="attrs"
                               color="blue"
@@ -185,7 +188,7 @@
                           color="primary"
                           bottom
                         >
-                          <template #activator="{on, attrs}">
+                          <template #activator="{ on, attrs }">
                             <v-icon
                               v-bind="attrs"
                               color="red"
@@ -212,7 +215,7 @@
                           color="primary"
                           bottom
                         >
-                          <template #activator="{on, attrs}">
+                          <template #activator="{ on, attrs }">
                             <v-icon
                               v-bind="attrs"
                               small
@@ -231,7 +234,7 @@
                 </div>
               </div>
             </template>
-            <template #[`item.levels`]="{item}">
+            <template #[`item.levels`]="{ item }">
               <v-chip
                 class="text-capitalize"
                 text-color="white"
@@ -240,7 +243,7 @@
                 {{ item.levels }}
               </v-chip>
             </template>
-            <template #[`item.status`]="{item}">
+            <template #[`item.status`]="{ item }">
               <v-chip
                 :color="setColorStatus(item.status)"
                 class="text-capitalize"
@@ -298,7 +301,7 @@
       computedIsPublish () {
         let bool = false
         if (this.selected.length !== 0) {
-          bool = this.selected.some(x => x.status === "publish")
+          bool = this.selected.some((x) => x.status === "publish")
         }
         return bool
       },

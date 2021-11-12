@@ -1,11 +1,8 @@
 <template>
   <v-app>
     <v-container fluid>
-      <v-row
-        dense
-        class="d-flex flex-row-reverse justify-space-around"
-      >
-        <v-col
+      <v-row dense>
+        <!-- <v-col
           cols="12"
           md="8"
           class="d-flex flex-column bg-img"
@@ -19,27 +16,28 @@
               />
             </v-col>
           </v-row>
-        </v-col>
+        </v-col> -->
         <v-col
           cols="12"
           md="4"
-          class="d-flex flex-column dense"
+          class="cols__form"
         >
           <v-col
             cols="12"
             class="bg-auth"
           >
-            <v-card-title
-              class="font-spartan"
-              title-tag="h2"
-            >
-              Welcome to EnsikloTari! 👋
-            </v-card-title>
-            <v-card-text class="mb-2 font-subtitle">
-              Please sign-Up to your account and start the adventure
-            </v-card-text>
+            <v-card>
+              <v-card-title
+                class="font-spartan"
+                title-tag="h2"
+              >
+                Welcome to EnsikloTari! 👋
+              </v-card-title>
+              <v-card-text class="mb-2 font-subtitle">
+                Please sign-Up to your account and start the adventure
+              </v-card-text>
 
-            <!-- <v-alert
+              <!-- <v-alert
               dense
               text
               color="#2E4DA7"
@@ -50,141 +48,140 @@
               </p>
               - Chintoo Agl
             </v-alert> -->
-            <v-card-text
-              class="card--margin"
-              color="transparent"
-            >
-              <validation-observer
-                ref="observer"
-                v-slot="{ invalid }"
+              <v-card-text
+                class="card--margin"
+                color="transparent"
               >
-                <v-form @submit.prevent.enter="register">
-                  <validation-provider
-                    v-slot="{ errors }"
-                    name="UserName"
-                    rules="required|max:20"
-                  >
-                    <v-text-field
-                      v-model="username"
-                      label="UserName"
-                      placeholder="UserName"
-                      outlined
-                      :error-messages="errors"
-                      dense
-                      prepend-icon="mdi-account-box"
-                    />
-                  </validation-provider>
-                  <validation-provider
-                    v-slot="{ errors }"
-                    name="phoneNumber"
-                    :rules="{
-                      required: true,
-                      digits: 12,
-                    }"
-                  >
-                    <v-text-field
-                      v-model="phoneNumber"
-                      label="Phone Number"
-                      placeholder="Phone Number"
-                      outlined
-                      :error-messages="errors"
-                      type="text"
-                      dense
-                      prepend-icon="mdi-cellphone-settings"
-                    />
-                  </validation-provider>
-                  <validation-provider
-                    v-slot="{ errors }"
-                    name="email"
-                    rules="required|email"
-                  >
-                    <v-text-field
-                      v-model="email"
-                      label="E-mail"
-                      placeholder="E-mail"
-                      :error-messages="errors"
-                      outlined
-                      dense
-                      prepend-icon="mdi-at"
-                    />
-                  </validation-provider>
-                  <validation-provider
-                    v-slot="{ errors }"
-                    name="Password"
-                    rules="required"
-                  >
-                    <v-text-field
-                      v-model="password"
-                      label="Password"
-                      placeholder="Password"
-                      outlined
-                      :error-messages="errors"
-                      dense
-                      prepend-icon="mdi-lock"
-                      :append-icon="!show ? 'mdi-eye' : 'mdi-eye-off'"
-                      :type="show ? 'text' : 'password'"
-                      @click:append="show = !show"
-                    />
-                  </validation-provider>
-                  <validation-provider
-                    v-slot="{ errors }"
-                    name="Password"
-                    rules="required"
-                  >
-                    <v-text-field
-                      v-model="confirmPassword"
-                      label="Confirm Password"
-                      placeholder="Confirm Password"
-                      outlined
-                      :rules="[rules.required, passwordMatch]"
-                      dense
-                      :error-messages="errors"
-                      required
-                      prepend-icon="mdi-lock"
-                      :append-icon="!show ? 'mdi-eye' : 'mdi-eye-off'"
-                      :type="show ? 'text' : 'password'"
-                      @click:append="show = !show"
-                    />
-                  </validation-provider>
-
-                  <div class="d-flex flex-row justify-center ml-8 mt-12">
-                    <div class="d-flex flex-coloumn">
-                      <v-btn
-                        color="pallet1"
-                        width="370"
-                        type="submit"
-                        :disabled="invalid"
-                      >
-                        Sign-Up
-                      </v-btn>
-                    </div>
-                  </div>
-
-                  <div class="text-center font-spartan mt-8">
-                    <span class="font-spartan">Sudah Punya Akun ? </span>
-                    <a
-                      class="color-a"
-                      @click="signIn"
+                <validation-observer
+                  ref="observer"
+                  v-slot="{ invalid }"
+                >
+                  <v-form @submit.prevent.enter="register">
+                    <validation-provider
+                      v-slot="{ errors }"
+                      name="UserName"
+                      rules="required|max:20"
                     >
-                      <span>&nbsp;Masuk</span>
-                    </a>
-                  </div>
+                      <v-text-field
+                        v-model="username"
+                        label="UserName"
+                        placeholder="UserName"
+                        outlined
+                        :error-messages="errors"
+                        dense
+                        prepend-icon="mdi-account-box"
+                      />
+                    </validation-provider>
+                    <validation-provider
+                      v-slot="{ errors }"
+                      name="phoneNumber"
+                      :rules="{
+                        required: true,
+                        digits: 12,
+                      }"
+                    >
+                      <v-text-field
+                        v-model="phoneNumber"
+                        label="Phone Number"
+                        placeholder="Phone Number"
+                        outlined
+                        :error-messages="errors"
+                        type="text"
+                        dense
+                        prepend-icon="mdi-cellphone-settings"
+                      />
+                    </validation-provider>
+                    <validation-provider
+                      v-slot="{ errors }"
+                      name="email"
+                      rules="required|email"
+                    >
+                      <v-text-field
+                        v-model="email"
+                        label="E-mail"
+                        placeholder="E-mail"
+                        :error-messages="errors"
+                        outlined
+                        dense
+                        prepend-icon="mdi-at"
+                      />
+                    </validation-provider>
+                    <validation-provider
+                      v-slot="{ errors }"
+                      name="Password"
+                      rules="required"
+                    >
+                      <v-text-field
+                        v-model="password"
+                        label="Password"
+                        placeholder="Password"
+                        outlined
+                        :error-messages="errors"
+                        dense
+                        prepend-icon="mdi-lock"
+                        :append-icon="!show ? 'mdi-eye' : 'mdi-eye-off'"
+                        :type="show ? 'text' : 'password'"
+                        @click:append="show = !show"
+                      />
+                    </validation-provider>
+                    <validation-provider
+                      v-slot="{ errors }"
+                      name="Password"
+                      rules="required"
+                    >
+                      <v-text-field
+                        v-model="confirmPassword"
+                        label="Confirm Password"
+                        placeholder="Confirm Password"
+                        outlined
+                        :rules="[rules.required, passwordMatch]"
+                        dense
+                        :error-messages="errors"
+                        required
+                        prepend-icon="mdi-lock"
+                        :append-icon="!show ? 'mdi-eye' : 'mdi-eye-off'"
+                        :type="show ? 'text' : 'password'"
+                        @click:append="show = !show"
+                      />
+                    </validation-provider>
 
-                  <div class="d-flex flex-row justify-center mt-2">
-                    <div class="d-flex flex-column">
-                      <v-chip
-                        color="transparent"
-                        text-color="red"
-                      >
-                        <h4>
-                          Lupa Password
-                        </h4>
-                      </v-chip>
+                    <div class="d-flex flex-row justify-center ml-8 mt-12">
+                      <div class="d-flex flex-coloumn">
+                        <v-btn
+                          color="pallet1"
+                          width="370"
+                          type="submit"
+                          :disabled="invalid"
+                        >
+                          Sign-Up
+                        </v-btn>
+                      </div>
                     </div>
-                  </div>
-                </v-form>
-              </validation-observer>
-            </v-card-text>
+
+                    <div class="text-center font-spartan mt-8">
+                      <span class="font-spartan">Sudah Punya Akun ? </span>
+                      <a
+                        class="color-a"
+                        @click="signIn"
+                      >
+                        <span>&nbsp;Masuk</span>
+                      </a>
+                    </div>
+
+                    <div class="d-flex flex-row justify-center mt-2">
+                      <div class="d-flex flex-column">
+                        <v-chip
+                          color="transparent"
+                          text-color="red"
+                        >
+                          <h4>Lupa Password</h4>
+                        </v-chip>
+                      </div>
+                    </div>
+                  </v-form>
+                </validation-observer>
+              </v-card-text>
+            </v-card>
           </v-col>
         </v-col>
       </v-row>
@@ -241,8 +238,8 @@
       password: "",
       confirmPassword: "",
       rules: {
-        required: value => !!value || "Required.",
-        min: v => (v && v.length >= 8) || "Min 8 characters",
+        required: (value) => !!value || "Required.",
+        min: (v) => (v && v.length >= 8) || "Min 8 characters",
       },
     }),
     computed: {
@@ -280,9 +277,9 @@
             nickName: this.username,
             noHp: this.phoneNumber,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status === true) {
-              this.$store.dispatch("user/me").then(res => {
+              this.$store.dispatch("user/me").then((res) => {
                 if (res.data.data.isVerified === 0) {
                   this.$router.push("/waiting-email")
                 } else {
@@ -298,7 +295,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -362,4 +359,7 @@
   color: #2E4DA7 !important
 .card--margin
   margin-top: 10% !important
+.cols__form
+  margin-top: -2%
+  margin-left: 30%
 </style>

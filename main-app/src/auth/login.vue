@@ -4,11 +4,8 @@
       class="container--custome"
       fluid
     >
-      <v-row
-        dense
-        class="d-flex flex-row-reverse"
-      >
-        <v-col
+      <v-row dense>
+        <!-- <v-col
           cols="12"
           md="8"
           class="d-flex flex-column bg-img"
@@ -22,103 +19,107 @@
               />
             </v-col>
           </v-row>
-        </v-col>
+        </v-col> -->
         <v-col
           cols="12"
           md="4"
           sm="12"
-          class="d-flex flex-column"
+          class="d-flex cols__form"
         >
           <v-col
             cols="12"
             class="bg-auth"
           >
-            <!-- <v-card-title
+            <v-card>
+              <!-- <v-card-title
               class="font-size-ather-roboto-mono primary--text text-custome mt-6"
               title-tag="h2"
             >
               Selamat Datang Di EnsikloTari 👋
             </v-card-title> -->
-            <v-card-text class="mb-2 secondary--text font-spartan mt-5">
-              Masuk Dengan Akun Mu Dan Mulai Pertualangan Mu
-            </v-card-text>
+              <v-card-text class="mb-2 secondary--text font-spartan">
+                Masuk dengan akun mu dan mulai pertualangan mu
+              </v-card-text>
 
-            <v-alert
-              dense
-              text
-              color="secondary"
-              class="mt-12"
-            >
-              <p
-                class="
-                  font-spartan-small
-                  text-lowercase
-                  third--text
-                  text-custome-2
-                "
+              <v-alert
+                dense
+                text
+                color="secondary"
+                class="mt-12"
               >
-                The Key To Happiness Is Login To Life, As a Guest And Not as An
-                Administartor
-              </p>
-              - Chintoo Agl
-            </v-alert>
-            <v-card-text class="card--margin">
-              <v-form @submit.prevent.enter="login">
-                <v-text-field
-                  v-model="email"
-                  label="Email Or Username *"
-                  color="btn_primary"
-                  placeholder="E-mail Or Username"
-                  outlined
-                  dense
-                />
-                <v-text-field
-                  v-model="password"
-                  label="Password *"
-                  placeholder="Password"
-                  outlined
-                  color="btn_primary"
-                  dense
-                  :append-icon="!show ? 'mdi-eye' : 'mdi-eye-off'"
-                  :type="show ? 'text' : 'password'"
-                  @click:append="show = !show"
-                />
+                <p
+                  class="
+                    font-spartan-small
+                    text-lowercase
+                    third--text
+                    text-custome-2
+                  "
+                >
+                  The Key To Happiness Is Login To Life, As a Guest And Not as
+                  An Administartor
+                </p>
+                - Chintoo Agl
+              </v-alert>
+              <v-card-text class="card--margin">
+                <v-form @submit.prevent.enter="login">
+                  <v-text-field
+                    v-model="email"
+                    label="Email Or Username *"
+                    color="btn_primary"
+                    placeholder="E-mail Or Username"
+                    outlined
+                    dense
+                  />
+                  <v-text-field
+                    v-model="password"
+                    label="Password *"
+                    placeholder="Password"
+                    outlined
+                    color="btn_primary"
+                    dense
+                    :append-icon="!show ? 'mdi-eye' : 'mdi-eye-off'"
+                    :type="show ? 'text' : 'password'"
+                    @click:append="show = !show"
+                  />
 
-                <div class="d-flex flex-row justify-center ml-8 mt-7">
-                  <div class="d-flex flex-coloumn">
-                    <v-btn
-                      color="btn_primary"
-                      width="370"
-                      type="submit"
-                    >
-                      Masuk
-                    </v-btn>
+                  <div class="d-flex flex-row justify-center ml-8 mt-7">
+                    <div class="d-flex flex-coloumn">
+                      <v-btn
+                        color="btn_primary"
+                        width="370"
+                        type="submit"
+                      >
+                        Masuk
+                      </v-btn>
+                    </div>
                   </div>
-                </div>
 
-                <div class="d-flex flex-row justify-center mt-4">
-                  <div class="d-flex flex-column">
-                    <v-chip
-                      color="transparent"
-                      text-color="red"
-                    >
-                      <span class="font-spartan-small"> Lupa Password ? </span>
-                    </v-chip>
+                  <div class="d-flex flex-row justify-center mt- 4">
+                    <div class="d-flex flex-column">
+                      <v-chip
+                        color="transparent"
+                        text-color="red"
+                      >
+                        <span class="font-spartan-small">
+                          Lupa Password ?
+                        </span>
+                      </v-chip>
+                    </div>
                   </div>
-                </div>
-                <div class="text-center font-questions mt-8">
-                  <span class="color-black-2">Baru Di Platform Kami? </span>
-                  <br>
-                  <a
-                    class="color-a"
-                    style="text-decoration: underline"
-                    @click="pushToRegister"
-                  >
-                    <span>&nbsp;Daftar Sekarang</span>
-                  </a>
-                </div>
-              </v-form>
-            </v-card-text>
+                  <div class="text-center font-questions mt-8">
+                    <span class="color-black-2">Baru Di Platform Kami? </span>
+                    <br>
+                    <a
+                      class="color-a"
+                      style="text-decoration: underline"
+                      @click="pushToRegister"
+                    >
+                      <span>&nbsp;Daftar Sekarang</span>
+                    </a>
+                  </div>
+                </v-form>
+              </v-card-text>
+            </v-card>
           </v-col>
         </v-col>
       </v-row>
@@ -228,4 +229,7 @@
   color: #2E4DA7 !important
 .card--margin
  margin-top: 10% !important
+.cols__form
+  margin-top: -1%
+  margin-left:33%
 </style>

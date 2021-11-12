@@ -2,6 +2,7 @@
 
 namespace Modules\StudioOwners\Entities;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -32,5 +33,20 @@ class FormRegister extends Model
     public function cart()
     {
         return $this->belongsTo(CartClass::class, 'cart_id');
+    }
+
+    // === scope === //
+    public function scopeEntities($query, $entities)
+    {
+        if ($entities != null || $entities != '') {
+            $entities = str_replace(' ', '', $entities);
+            $entities = explode(',', $entities);
+
+            try {
+                return $query = $query->with($entities);
+            } catch (\Throwable $th) {
+                return Json::exception(null, validator()->errors());
+            }
+        }
     }
 }

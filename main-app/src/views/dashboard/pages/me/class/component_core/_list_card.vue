@@ -77,23 +77,48 @@
                 </v-row>
                 <v-row class="row__list--myclass">
                   <v-col cols="12">
-                    <span class="font-spartan white--text font-weight-bold">
+                    <span
+                      class="font-spartan white--text font-weight-bold mb-2"
+                    >
                       {{ item.classes.name }}
                     </span>
                     <br>
-
+                    <br>
                     <v-btn
                       color="btn_primary"
                       small
                       :href="item.classes.url_meets"
                       target="__blank"
+                      width="200"
                     >
-                      enter zoom room
+                      <v-tooltip
+                        color="primary"
+                        bottom
+                      >
+                        <template #activator="{ on, attrs }">
+                          <v-icon
+                            v-bind="attrs"
+                            color="white"
+                            v-on="on"
+                          >
+                            mdi-video-check-outline
+                          </v-icon>
+                        </template>
+                        <span
+                          class="
+                            font-spartan-small
+                            white--text
+                            font-weight-bold
+                          "
+                        >
+                          Enter Zoom Class
+                        </span>
+                      </v-tooltip>
                     </v-btn>
                     <v-btn
                       color="btn_primary"
                       small
-                      width="150"
+                      width="90"
                       class="mr-2"
                     >
                       See Detail
@@ -122,5 +147,5 @@
 
 <style lang="sass">
 .row__list--myclass
-    margin-top: 45% !important
+    margin-top: 42% !important
 </style>

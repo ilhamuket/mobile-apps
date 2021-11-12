@@ -148,7 +148,7 @@
     computed: {},
     methods: {
       navigate (link) {
-        console.log(link)
+        this.$router.push(`/cart/detail/${link.id}`)
       },
       computedDateFormattedMomentjs (date) {
         return date ? moment(date).format("dddd, MMMM Do YYYY") : ""
