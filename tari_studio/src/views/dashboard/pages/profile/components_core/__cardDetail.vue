@@ -39,7 +39,11 @@
               label
               small
               color="btn_primary"
-              class="font-spartan-small text-capitalize margin__title__user__detail__type"
+              class="
+                font-spartan-small
+                text-capitalize
+                margin__title__user__detail__type
+              "
             >
               {{ studio.type }}
             </v-chip>
@@ -95,7 +99,7 @@
         </div>
         <div class="d-flex flex-row">
           <div class="d-flex flex-column margin__value">
-            <span class="font-spartan-small "> ({{ computedRatings }}) </span>
+            <span class="font-spartan-small"> ({{ computedRatings }}) </span>
           </div>
           <div class="d-flex flex-column">
             <v-rating
@@ -108,7 +112,7 @@
             />
           </div>
           <div class="d-flex flex-column margin__value-people ml-2">
-            <span class="font-spartan-small ">
+            <span class="font-spartan-small">
               ({{ ratings.length }} Reviews)
             </span>
           </div>
@@ -137,9 +141,9 @@
       computedRatings () {
         let value = 0.0
         if (this.ratings) {
-          const a = this.ratings.map(x => x.ratings)
+          const a = this.ratings.map((x) => x.ratings)
           if (a.length > 0) {
-            const sum = a.filter(x => x > 0).reduce((x, y) => x + y)
+            const sum = a.filter((x) => x > 0).reduce((x, y) => x + y)
             value = sum / this.ratings.length
           }
         }

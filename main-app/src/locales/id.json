@@ -118,5 +118,7 @@
   "type": "Ketik Sesuatu",
   "instructor": "Instructor",
   "auth-register": "Daftar",
-  "profil_instrutors": "Profil Instruktur"
+  "profil_instrutors": "Profil Instruktur",
+  "my_class": "Kelas ku",
+  "detail_cart": "Detail Faktur"
 }

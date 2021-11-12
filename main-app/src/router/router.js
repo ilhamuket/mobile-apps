@@ -103,6 +103,26 @@ const router = new Router({
           path: "upgrade",
           component: () => import("@/views/dashboard/Upgrade"),
         },
+        // MyClass
+        {
+          name: "my_class",
+          path: "/me/class",
+          component: () => import("@/views/dashboard/pages/me/class/index"),
+          meta: {
+            requiresAuth: true,
+            breadcumbs: [
+              {
+                text: "Dashboard",
+                disabled: false,
+                to: "/instructor",
+              },
+              {
+                text: "MyCLASS",
+                disabled: true,
+              },
+            ],
+          },
+        },
         // Studio
         {
           name: "Studio",
@@ -241,6 +261,7 @@ const router = new Router({
             requiresAuth: true,
           },
         },
+        // Cart
         {
           name: "cart",
           path: "cart",
@@ -250,6 +271,21 @@ const router = new Router({
               {
                 text: "Dashboard",
                 to: "/",
+              },
+            ],
+            requiresAuth: true,
+          },
+        },
+        // Detail Card
+        {
+          name: "detail_cart",
+          path: "/cart/detail/:id",
+          component: () => import("@/views/dashboard/pages/cart/detailCart"),
+          meta: {
+            breadcumbs: [
+              {
+                text: "cart",
+                to: "/cart",
               },
             ],
             requiresAuth: true,
@@ -332,6 +368,12 @@ const router = new Router({
             breadcumbs: [
               {
                 text: "Dashboard",
+                disabled: false,
+                to: "/instructor",
+              },
+              {
+                text: "Dashboard",
+                disabled: true,
                 to: "/",
               },
             ],

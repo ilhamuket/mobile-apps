@@ -30,7 +30,7 @@ class CartClassController extends Controller
             $master = new CartClass();
             $master->class_id = $request->class_id;
             $master->user_id = $request->user()->id;
-            $master->type = $request->type;
+            $master->type = 'EnsikloLive';
             $master->save();
             $master->user;
             $master->class;

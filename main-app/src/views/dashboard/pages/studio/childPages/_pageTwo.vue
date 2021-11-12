@@ -40,7 +40,6 @@
           <v-date-picker
             ref="picker"
             v-model="date"
-            :min="min"
             :events="allowedDates"
             show-current="false"
             event-color="btn_primary"
@@ -63,9 +62,10 @@
             <v-img
               v-if="item.img"
               :src="item.img.url"
-              width="400"
-              height="300"
-              style="cursor: pointer"
+              width="450"
+              height="276"
+              gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
+              style="background-color: grey; cursor: pointer"
               @click="toPush(item)"
             >
               <v-container>
@@ -75,6 +75,7 @@
                       label
                       text-color="white"
                       :color="setColorStatus(item.status_kelas)"
+                      class="text-capitalize"
                     >
                       {{ item.status_kelas }}
                     </v-chip>

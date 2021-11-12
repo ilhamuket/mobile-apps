@@ -98,6 +98,7 @@
               <v-btn
                 color="btn_primary"
                 class="mr-12"
+                @click="openDialogRegister"
               >
                 Register Class
               </v-btn>
@@ -118,7 +119,7 @@
                 bottom
                 color="btn_primary"
               >
-                <template #activator="{on, attrs}">
+                <template #activator="{ on, attrs }">
                   <v-btn
                     v-bind="attrs"
                     class="size__icon"
@@ -140,7 +141,7 @@
                 bottom
                 color="btn_primary"
               >
-                <template #activator="{on, attrs}">
+                <template #activator="{ on, attrs }">
                   <v-btn
                     v-bind="attrs"
                     class="size__icon"
@@ -155,13 +156,13 @@
                     </v-icon>
                   </v-btn>
                 </template>
-                <span class="font-spartan-small ">Cancel on wish list</span>
+                <span class="font-spartan-small">Cancel on wish list</span>
               </v-tooltip>
               <v-tooltip
                 bottom
                 color="btn_primary"
               >
-                <template #activator="{on, attrs}">
+                <template #activator="{ on, attrs }">
                   <v-btn
                     v-bind="attrs"
                     color="btn_primary"
@@ -232,7 +233,7 @@
 
               <div class="d-flex flex-row mt-12">
                 <div class="d-flex flex-column">
-                  <span class="font-spartan-about font-weight-bold ">
+                  <span class="font-spartan-about font-weight-bold">
                     {{ $t("ensiklolive.about") }}
                   </span>
                   <span class="font-spartan-about-text mt-2">
@@ -243,7 +244,7 @@
 
               <div class="d-flex flex-row mt-12">
                 <div class="d-flex flex-column">
-                  <span class="font-spartan-about font-weight-bold ">
+                  <span class="font-spartan-about font-weight-bold">
                     {{ $t("ensiklolive.note") }}
                   </span>
                   <span class="font-spartan-about-text mt-2">
@@ -264,14 +265,21 @@
       @send="replyDataDiscusses"
       @sendReply="replyDataDiscussesParent"
     />
+    <app-dialog-form
+      :dialog="register"
+      :user="users"
+      @input="submit"
+    />
   </div>
 </template>
 
 <script>
   import discuss from "./components_core/_discuss.vue"
+  import dialogForm from "./components/__dialogForm.vue"
   export default {
     components: {
       "app-discuss": discuss,
+      "app-dialog-form": dialogForm,
     },
     data () {
       return {
@@ -280,12 +288,16 @@
           data: [],
           links: {},
         },
+        register: {
+          open: false,
+        },
         page: 1,
         picker: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
           .toISOString()
           .substr(0, 10),
         state_load: false,
         user: {},
+        class_id: 0,
       }
     },
     computed: {
@@ -304,7 +316,7 @@
         let bool = false
         if (this.classes) {
           if (this.classes.wishlist) {
-            bool = this.classes.wishlist.some(x => x.id === this.user.id)
+            bool = this.classes.wishlist.some((x) => x.id === this.user.id)
             console.log("bool : ", bool)
           }
         }
@@ -317,7 +329,7 @@
       this.scroll()
       this.getMe()
 
-      console.log(this.yourWishlist)
+      console.log(this.classes.id, "my ID")
     },
     methods: {
       time (val) {
@@ -327,6 +339,46 @@
           const newName = nameArray.join(":")
           return newName
         }
+      },
+
+      openDialogRegister () {
+        this.register.open = true
+      },
+
+      submit ({ item }) {
+        console.log(item)
+        this.$store
+          .dispatch("my_class/formRegister", {
+            name: item.fullname,
+            contact: item.contact,
+            email: item.email,
+            ttl: item.ttl,
+            address: item.address,
+            class_id: this.class_id,
+          })
+          .then((res) => {
+            if (res.data.meta.status) {
+              this.$router.push("/cart")
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Process",
+              })
+            }
+          })
       },
 
       scroll () {
@@ -357,7 +409,7 @@
           .dispatch("user/me", {
             entities: "wishlist",
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.user = res.data.data
             // console.log(this.user)
@@ -373,11 +425,15 @@
       },
 
       getDataClassesBySlug () {
-        this.$store.dispatch("classes/getDataClassesBySlug", {
-          entities: "listImg,img,studio.followers,category,wishlist",
-          slug: this.$route.params.class_slug,
-          studio_slug: this.$route.params.studio_slug,
-        })
+        this.$store
+          .dispatch("classes/getDataClassesBySlug", {
+            entities: "listImg,img,studio.followers,category,wishlist",
+            slug: this.$route.params.class_slug,
+            studio_slug: this.$route.params.studio_slug,
+          })
+          .then((res) => {
+            this.class_id = res.data.data.id
+          })
       },
       getDataDiscuss (page) {
         this.$store
@@ -387,7 +443,7 @@
               "class,user.img,child.user.img, child.class,child.user.studio.img",
             page: page,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.state_load = true
               this.discuss.meta = res.data.meta
@@ -411,7 +467,7 @@
             body: item,
             slug: this.$route.params.class_slug,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               item = ""
               this.discuss.data.unshift(res.data.data)
@@ -425,7 +481,7 @@
             slug: this.$route.params.class_slug,
             parent_id: item.data.id,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.getDataDiscuss()
               item.content = null
@@ -437,7 +493,7 @@
           .dispatch("etc/pushWishlist", {
             id: item.id,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               const Toast = this.$swal.mixin({
                 toast: true,
@@ -445,7 +501,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -467,7 +523,7 @@
           .dispatch("etc/deleteFromWishlist", {
             id: item.id,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               const Toast = this.$swal.mixin({
                 toast: true,
@@ -475,7 +531,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },

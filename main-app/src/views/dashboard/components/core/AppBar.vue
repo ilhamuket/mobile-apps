@@ -354,13 +354,11 @@
       lenguage: [
         {
           name: "en",
-          img:
-            "https://media.istockphoto.com/vectors/flag-of-great-britain-vector-id497118178?s=612x612",
+          img: "https://media.istockphoto.com/vectors/flag-of-great-britain-vector-id497118178?s=612x612",
         },
         {
           name: "id",
-          img:
-            "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg",
+          img: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg",
         },
       ],
       items: [
@@ -378,9 +376,9 @@
           content: "0",
         },
         {
-          icon: "mdi-cart",
-          text: "your_class",
-          to: "/cart",
+          icon: "mdi-cart-variant",
+          text: "my_class",
+          to: "/me/class",
           badge: true,
           content: "0",
         },
@@ -454,9 +452,9 @@
             entities: "user,class.studio, class.category, class.img",
             type: "cart",
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
-              const index = this.items.findIndex(x => x.text === "cart")
+              const index = this.items.findIndex((x) => x.text === "cart")
               this.items[index].content = res.data.data.length
             }
           })
@@ -471,13 +469,18 @@
       getMe () {
         this.$store
           .dispatch("user/me", {
-            entities: "cart.img",
+            entities: "cart,myClass",
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.dataUser = res.data.data
-              const index = this.items.findIndex(x => x.text === "cart")
+              const index = this.items.findIndex((x) => x.text === "cart")
               this.items[index].content = this.dataUser.cart.length
+
+              const findMyClass = this.items.findIndex(
+                (x) => x.text === "my_class",
+              )
+              this.items[findMyClass].content = this.dataUser.my_class.length
             }
           })
       },

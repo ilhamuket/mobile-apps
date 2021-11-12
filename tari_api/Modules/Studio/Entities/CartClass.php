@@ -5,6 +5,7 @@ namespace Modules\Studio\Entities;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\StudioOwners\Entities\FormRegister;
 
 class CartClass extends Model
 {
@@ -25,6 +26,11 @@ class CartClass extends Model
     public function user()
     {
         return $this->belongsTo(User::class,  'user_id');
+    }
+
+    public function form()
+    {
+        return $this->hasOne(FormRegister::class, 'cart_id');
     }
 
     // === Scope === //

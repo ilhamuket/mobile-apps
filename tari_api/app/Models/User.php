@@ -62,10 +62,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Role::class, 'model_has_roles', 'model_id', 'role_id');
     }
 
-    public function myClass()
-    {
-        return $this->belongsToMany(ClassesScheduleStudio::class, 'room_student', 'user_id', 'sub_class_id');
-    }
+    // public function myClass()
+    // {
+    //     return $this->belongsToMany(ClassesScheduleStudio::class, 'room_student', 'user_id', 'sub_class_id');
+    // }
 
     public function cart()
     {
@@ -109,6 +109,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function wishlist()
     {
         return $this->belongsToMany(StudioClass::class, 'user_wishlist_live', "user_id", "class_id");
+    }
+
+    public function myClass()
+    {
+        return $this->belongsToMany(ClassesOwnerStudio::class, 'has_class', 'user_id', 'class_id');
     }
 
     public function scopeByRole($query, $role_id)

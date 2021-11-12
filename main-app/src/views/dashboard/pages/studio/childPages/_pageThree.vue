@@ -19,13 +19,24 @@
             >
               <v-card-text class="">
                 <span
-                  class="font-spartan ratings__modified primary--text d-flex justify-center"
+                  class="
+                    font-spartan
+                    ratings__modified
+                    btn_primary--text
+                    d-flex
+                    justify-center
+                  "
                 >
                   {{ computedCount }}
                 </span>
                 <br>
                 <span
-                  class="font-spartan font__users_rating primary--text d-flex justify-center"
+                  class="
+                    font-spartan font__users_rating
+                    btn_primary--text
+                    d-flex
+                    justify-center
+                  "
                 >
                   {{ reviews.length }} User
                 </span>
@@ -254,9 +265,7 @@
             md="4"
             class="ml-4"
           >
-            <span>
-              Filter
-            </span>
+            <span> Filter </span>
 
             <v-row class="btn__filter">
               <v-col cols="6">
@@ -348,12 +357,14 @@
               v-if="item.user"
               class="ml-4"
             >{{ item.user.nickName }}</span>-
-            <span class="font__date">{{ timeSince(item.created_at) }}</span>
+            <span class="font__date font-spartan-small">{{
+              timeSince(item.created_at)
+            }}</span>
             <v-card-text>
               <v-rating
                 :value="item.ratings"
-                color="orange"
-                background-color="grey"
+                color="btn_primary"
+                background-color="primary"
                 class="ratings__users__reviews"
                 half-increments
                 readonly
@@ -389,9 +400,7 @@
                     :key="x"
                     cols="12"
                   >
-                    <span class="font-spartan-small">
-                      Seller Response:
-                    </span>
+                    <span class="font-spartan-small"> Studio Response: </span>
                     <br>
                     <span class="font-spartan-small">
                       {{ response.body }}
@@ -410,9 +419,7 @@
             cols="12"
             class="d-flex justify-center"
           >
-            <span class="font-spartan text-center">
-              No Reviews yet
-            </span>
+            <span class="font-spartan text-center"> No Reviews yet </span>
           </v-col>
         </v-row>
       </v-container>
@@ -513,8 +520,8 @@
         let array = []
         let avarage = 0.0
         if (this.reviews.length !== 0) {
-          array = this.reviews.map(x => x.ratings)
-          const sum = array.filter(x => x > 0).reduce((x, y) => x + y)
+          array = this.reviews.map((x) => x.ratings)
+          const sum = array.filter((x) => x > 0).reduce((x, y) => x + y)
           avarage = sum / this.reviews.length
         }
         const x = parseFloat(avarage.toFixed(2))

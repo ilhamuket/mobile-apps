@@ -38,7 +38,7 @@
         />
       </v-col>
       <v-col cols="12">
-        <app-data-table />
+        <app-data-table :data="cart" />
       </v-col>
     </v-row>
   </v-container>
@@ -50,9 +50,11 @@
     components: {
       "app-data-table": dataTable,
     },
-    data: () => ({}),
+    data: () => ({
+      cart: [],
+    }),
     computed: {
-      cart () {
+      computedCart () {
         return this.$store.state.cart.data
       },
     },
@@ -61,10 +63,13 @@
     },
     methods: {
       getDataCart () {
-        this.$store.dispatch("cart/getDataCart", {
-          entities: "user,class.studio, class.category, class.img",
-          type: "cart",
-        })
+        this.$store
+          .dispatch("cart/getDataCart", {
+            entities: "user,class.studio, class.category, class.img,form",
+          })
+          .then((res) => {
+            this.cart = res.data.data
+          })
       },
     },
   }

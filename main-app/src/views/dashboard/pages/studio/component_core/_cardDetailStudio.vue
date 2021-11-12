@@ -4,7 +4,8 @@
       <v-row>
         <v-col
           class="border-right"
-          cols="6"
+          cols="12"
+          md="6"
         >
           <v-row>
             <v-col cols="3">
@@ -21,7 +22,10 @@
                 src="https://ecs7.tokopedia.net/img/cache/300/default_picture_user/default_toped-22.jpg"
               />
             </v-col>
-            <v-col cols="9">
+            <v-col
+              cols="12"
+              md="9"
+            >
               <v-row>
                 <v-col class="mt-1">
                   <div class="d-flex flex-row justify-start mr-12">
@@ -44,7 +48,7 @@
                         {{ data.type }}
                       </v-chip>
                     </div>
-                    <div class="d-flex flex-column flex-nowrap ">
+                    <div class="d-flex flex-column flex-nowrap">
                       <v-icon color="blue">
                         mdi-map-marker
                       </v-icon>
@@ -105,9 +109,22 @@
                       class="mb-2"
                       @click="unfoll(data)"
                     >
-                      <v-icon>
-                        mdi-account-check
-                      </v-icon>
+                      <v-tooltip
+                        color="btn_primary"
+                        bottom
+                      >
+                        <template #activator="{ on, attrs }">
+                          <v-icon
+                            v-bind="attrs"
+                            v-on="on"
+                          >
+                            mdi-account-check
+                          </v-icon>
+                        </template>
+                        <span class="font-spartan-small white--text">
+                          Unfollow
+                        </span>
+                      </v-tooltip>
                     </v-btn>
                   </div>
 
@@ -121,9 +138,22 @@
                       class="mb-2"
                       @click="likes(data)"
                     >
-                      <v-icon>
-                        mdi-heart-outline
-                      </v-icon>
+                      <v-tooltip
+                        color="red"
+                        bottom
+                      >
+                        <template #activator="{ on, attrs }">
+                          <v-icon
+                            v-bind="attrs"
+                            v-on="on"
+                          >
+                            mdi-heart-outline
+                          </v-icon>
+                        </template>
+                        <span class="font-spartan-small white--text">
+                          like
+                        </span>
+                      </v-tooltip>
                     </v-btn>
                     <v-btn
                       v-else
@@ -134,9 +164,23 @@
                       class="mb-2"
                       @click="unLike(data)"
                     >
-                      <v-icon color="red">
-                        mdi-heart
-                      </v-icon>
+                      <v-tooltip
+                        color="red"
+                        bottom
+                      >
+                        <template #activator="{ on, attrs }">
+                          <v-icon
+                            v-bind="attrs"
+                            color="red"
+                            v-on="on"
+                          >
+                            mdi-heart
+                          </v-icon>
+                        </template>
+                        <span class="font-spartan-small white--text">
+                          Unlike
+                        </span>
+                      </v-tooltip>
                     </v-btn>
                   </div>
                   <div class="d-flex flex-column ml-3">
@@ -147,9 +191,7 @@
                       outlined
                       small
                     >
-                      <v-icon>
-                        mdi-information-variant
-                      </v-icon>
+                      <v-icon> mdi-information-variant </v-icon>
                     </v-btn>
                   </div>
                 </div>
@@ -157,7 +199,10 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="6">
+        <v-col
+          cols="12"
+          md="6"
+        >
           <v-row class="ml-12">
             <!-- <v-col cols="12">
               <span class="font-spartan">
@@ -178,9 +223,10 @@
 
               <v-rating
                 :value="count"
-                color="amber"
+                color="btn_primary"
                 dense
                 half-increments
+                background-color="primary"
                 readonly
                 class="mt-3 mr-2"
                 size="35"
@@ -264,7 +310,7 @@
       isFollowYou () {
         let boolean = false
         if (this.data.followers !== undefined) {
-          boolean = this.data.followers.some(x => x.id === this.me.id)
+          boolean = this.data.followers.some((x) => x.id === this.me.id)
         }
 
         return boolean
@@ -272,7 +318,7 @@
       isLikesYou () {
         let boolean = false
         if (this.data.likes !== undefined) {
-          boolean = this.data.likes.some(x => x.id === this.me.id)
+          boolean = this.data.likes.some((x) => x.id === this.me.id)
         }
 
         return boolean
@@ -280,10 +326,10 @@
       count () {
         let value = 0
         if (this.dataReviews) {
-          const a = this.dataReviews.map(x => x.ratings)
+          const a = this.dataReviews.map((x) => x.ratings)
 
           if (a.length > 0) {
-            const sum = a.filter(x => x > 0).reduce((x, y) => x + y)
+            const sum = a.filter((x) => x > 0).reduce((x, y) => x + y)
             value = sum / this.dataReviews.length
           }
         }
