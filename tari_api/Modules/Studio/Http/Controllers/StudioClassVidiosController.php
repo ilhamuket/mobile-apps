@@ -18,7 +18,7 @@ class StudioClassVidiosController extends Controller
         try {
             $master = StudioClassVidios::entities($request->entities)
                 ->where('is_verified', true)
-                ->where('deleted_at', '!=', null)
+                ->where('deleted_at', '==', null)
                 ->paginate($request->input("paginate", 6));
 
             return Json::response(($master));
