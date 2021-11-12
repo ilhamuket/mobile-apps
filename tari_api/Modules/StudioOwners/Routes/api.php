@@ -11,6 +11,7 @@ use Modules\StudioOwners\Http\Controllers\BankAccountController;
 use Modules\StudioOwners\Http\Controllers\CategoryImgController;
 use Modules\StudioOwners\Http\Controllers\ClassesOwnerStudioController;
 use Modules\StudioOwners\Http\Controllers\DiscussController;
+use Modules\StudioOwners\Http\Controllers\FormRegisterController;
 use Modules\StudioOwners\Http\Controllers\ImagesStudioController;
 use Modules\StudioOwners\Http\Controllers\ImgClassesController;
 use Modules\StudioOwners\Http\Controllers\ImgListClassController;
@@ -48,7 +49,12 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
     });
     // Student have Class
     Route::prefix('have-class')->group(function () {
+        Route::get('user', [UserHaveClassController::class, 'userHasClass']);
         Route::get('{id}', [UserHaveClassController::class, 'index']);
+    });
+    // Form Register
+    Route::prefix('form-register')->group(function () {
+        Route::post('', [FormRegisterController::class, 'store']);
     });
     // Classes
     Route::prefix('classes')->group(function () {

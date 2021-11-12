@@ -11,6 +11,21 @@ use Modules\StudioOwners\Entities\UserHaveClass;
 
 class UserHaveClassController extends Controller
 {
+    public function userHasClass(Request $request)
+    {
+        try {
+            $master = UserHaveClass::entities($request->entities)
+                ->where('user_id', $request->user()->id)->get();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     /**
      * Display a listing of the resource.
      * @return Renderable
