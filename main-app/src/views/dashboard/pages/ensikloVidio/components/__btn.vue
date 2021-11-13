@@ -44,6 +44,7 @@
             width="183"
             small
             color="btn_primary"
+            @click="openDialogShare"
           >
             <v-icon class="mr-2">
               mdi-share-variant
@@ -53,11 +54,27 @@
         </v-col>
       </v-row>
     </v-col>
+    <app-dialog-share :dialog="share" />
   </v-row>
 </template>
 
 <script>
-  export default {}
+  import noticeShare from "./__dialogNoticeShare.vue"
+  export default {
+    components: {
+      "app-dialog-share": noticeShare,
+    },
+    data: () => ({
+      share: {
+        open: false,
+      },
+    }),
+    methods: {
+      openDialogShare () {
+        this.share.open = true
+      },
+    },
+  }
 </script>
 
 <style lang="sass" scoped>

@@ -123,6 +123,16 @@ const router = new Router({
             ],
           },
         },
+        // myVideo
+        {
+          name: "me_ensiklovidio",
+          path: "me/ensiklovideo",
+          component: () => import("@/views/dashboard/pages/me/ensiklovideo"),
+          meta: {
+            breadcumbs: [],
+            requiresAuth: true,
+          },
+        },
         // Studio
         {
           name: "Studio",

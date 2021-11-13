@@ -5,22 +5,23 @@
         <v-col
           cols="12"
           md="4"
-          class="d-flex flex-column dense"
+          class="d-flex flex-column dense cord--login"
         >
           <v-col
             cols="12"
             class="bg-auth"
           >
-            <v-card-title
-              class="font-spartan text-h5 primary--text mt-12 text-nowrap"
-            >
-              Selamat datang di Studio EnsikloTari! 👋
-            </v-card-title>
-            <v-card-text class="mb-2 font-spartan customize--subtitle">
-              Masuk Dan Jelajahi Bersama Kami
-            </v-card-text>
+            <v-card>
+              <v-card-title
+                class="font-spartan text-h5 primary--text mt-12 text-nowrap"
+              >
+                Selamat datang di Studio EnsikloTari! 👋
+              </v-card-title>
+              <v-card-text class="mb-2 font-spartan customize--subtitle">
+                Masuk Dan Jelajahi Bersama Kami
+              </v-card-text>
 
-            <!-- <v-alert
+              <!-- <v-alert
               dense
               text
               color="transparent"
@@ -31,106 +32,74 @@
                 Administartor
               </p>
             </v-alert> -->
-            <v-card-text
-              class="mt-6"
-              color="transparent"
-            >
-              <v-form @submit.prevent.enter="login">
-                <v-col cols="12">
-                  <v-text-field
-                    v-model="email"
-                    label="Email Or Username"
-                    placeholder="E-mail Or Username"
-                    outlined
-                    dense
-                  />
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field
-                    v-model="password"
-                    label="Password"
-                    placeholder="Password"
-                    outlined
-                    dense
-                    :append-icon="!show ? 'mdi-eye' : 'mdi-eye-off'"
-                    :type="show ? 'text' : 'password'"
-                    @click:append="show = !show"
-                  />
-                </v-col>
-
-                <v-col cols="12">
-                  <div class="d-flex flex-row justify-center ml-8">
-                    <div class="d-flex flex-coloumn">
-                      <v-btn
-                        color="btn_primary"
-                        width="370"
-                        type="submit"
-                      >
-                        Masuk
-                      </v-btn>
-                    </div>
-                  </div>
-                </v-col>
-                <v-col cols="12">
-                  <div class="d-flex flex-row justify-center mt-2">
-                    <div class="d-flex flex-column">
-                      <v-chip
-                        color="transparent"
-                        style="cursor:pointer"
-                      >
-                        <span class="font-spartan-small">
-                          Lupa Password ?
-                        </span>
-                      </v-chip>
-                    </div>
-                  </div>
-                </v-col>
-                <div class="text-center font-questions mt-12">
-                  <!-- <span class="color-black-2">New on our platform? </span> -->
-                  <a
-                    class="color-a"
-                    style="text-decoration:underline"
-                    @click="signUp"
-                  >
-                    <span>&nbsp;Daftar Sekarang</span>
-                  </a>
-                </div>
-              </v-form>
-            </v-card-text>
-          </v-col>
-        </v-col>
-        <v-col
-          cols="12"
-          md="8"
-          class="d-flex flex-column bg-img"
-        >
-          <v-row>
-            <v-col>
-              <v-img
-                class="ml-2"
-                width="1200"
-                :src="imgUrl"
+              <v-card-text
+                class="mt-6"
+                color="transparent"
               >
-                <!-- <v-app-bar
-                  absolute
-                  color="#F8F8F8"
-                  elevate-on-scroll
-                >
-                  <v-toolbar-title
-                    class="mr-12"
-                    dark
-                  >
-                    <v-img
-                      src="@/assets/logo-e-color (2).png"
-                      width="200"
-                      class="mr-12"
+                <v-form @submit.prevent.enter="login">
+                  <v-col cols="12">
+                    <v-text-field
+                      v-model="email"
+                      label="Email Or Username"
+                      placeholder="E-mail Or Username"
+                      outlined
+                      dense
                     />
-                  </v-toolbar-title>
-                </v-app-bar> -->
-                <!-- <v-container fluid /> -->
-              </v-img>
-            </v-col>
-          </v-row>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-text-field
+                      v-model="password"
+                      label="Password"
+                      placeholder="Password"
+                      outlined
+                      dense
+                      :append-icon="!show ? 'mdi-eye' : 'mdi-eye-off'"
+                      :type="show ? 'text' : 'password'"
+                      @click:append="show = !show"
+                    />
+                  </v-col>
+
+                  <v-col cols="12">
+                    <div class="d-flex flex-row justify-center ml-8">
+                      <div class="d-flex flex-coloumn">
+                        <v-btn
+                          color="btn_primary"
+                          width="370"
+                          type="submit"
+                        >
+                          Masuk
+                        </v-btn>
+                      </div>
+                    </div>
+                  </v-col>
+                  <v-col cols="12">
+                    <div class="d-flex flex-row justify-center mt-2">
+                      <div class="d-flex flex-column">
+                        <v-chip
+                          color="transparent"
+                          style="cursor: pointer"
+                        >
+                          <span class="font-spartan-small">
+                            Lupa Password ?
+                          </span>
+                        </v-chip>
+                      </div>
+                    </div>
+                  </v-col>
+                  <div class="text-center font-questions mt-12">
+                    <!-- <span class="color-black-2">New on our platform? </span> -->
+                    <a
+                      class="color-a"
+                      style="text-decoration: underline"
+                      @click="signUp"
+                    >
+                      <span>&nbsp;Daftar Sekarang</span>
+                    </a>
+                  </div>
+                </v-form>
+              </v-card-text>
+            </v-card>
+          </v-col>
         </v-col>
       </v-row>
     </v-container>
@@ -161,9 +130,9 @@
             email: this.email,
             password: this.password,
           })
-          .then(res => {
+          .then((res) => {
             if (res.meta.status) {
-              this.$store.dispatch("user/me").then(response => {
+              this.$store.dispatch("user/me").then((response) => {
                 if (response.data.data.isVerified === 0) {
                   this.$router.push("/waiting-email")
                 } else {
@@ -176,7 +145,7 @@
                     showConfirmButton: false,
                     timer: 3000,
                     timerProgressBar: true,
-                    didOpen: toast => {
+                    didOpen: (toast) => {
                       toast.addEventListener("mouseenter", this.$swal.stopTimer)
                       toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                     },
@@ -200,7 +169,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -260,4 +229,6 @@
   opacity: 0
 .v-label
   font-family: 'Spartan', sans-serif !important
+.cord--login
+  margin-left: 33% !important
 </style>

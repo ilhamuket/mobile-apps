@@ -377,6 +377,13 @@
         },
         {
           icon: "mdi-cart-variant",
+          text: "me_ensiklovidio",
+          to: "/me/ensiklovideo",
+          badge: true,
+          content: "0",
+        },
+        {
+          icon: "mdi-cart-variant",
           text: "my_class",
           to: "/me/class",
           badge: true,

@@ -8,5 +8,6 @@
     "Studio": true,
     "Migration": true,
     "StudioOwners": true,
-    "Room": true
+    "Room": true,
+    "Payment": true
 }

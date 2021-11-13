@@ -136,6 +136,15 @@
             <v-divider class="mt-2 mb-2" />
             <v-row>
               <v-col cols="12">
+                <v-select
+                  v-model="methods"
+                  :items="items"
+                />
+              </v-col>
+            </v-row>
+            <v-divider class="mt-2 mb-2" />
+            <v-row>
+              <v-col cols="12">
                 <span
                   v-if="computedInvoice.class"
                   class="font-spartan-text grey--text"
@@ -190,6 +199,10 @@
 
 <script>
   export default {
+    data: () => ({
+      items: ["AlfaMart", "VA BCA"],
+      methods: "VA BCA",
+    }),
     computed: {
       computedInvoice () {
         return this.$store.state.invoice.data

@@ -10,6 +10,7 @@ export default {
     GET_DATA: (state, payload) => (state.data = payload),
   },
   actions: {
+    // EnsikloLive
     getDataMyClass: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
         "Bearer " + localStorage.getItem("access_token")
@@ -44,5 +45,6 @@ export default {
           })
       })
     },
+    // EnsikloVideo
   },
 }

@@ -4,9 +4,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 // use Illuminate\Routing\Route;
 use Modules\Studio\Entities\ClassesScheduleStudio;
+use Modules\Studio\Entities\FormRegisterEnsiklovideo;
 use Modules\Studio\Entities\InstructorProfieVidio;
 use Modules\Studio\Entities\StudioClass;
 use Modules\Studio\Http\Controllers\CartClassController;
+use Modules\Studio\Http\Controllers\CartVideoController;
 use Modules\Studio\Http\Controllers\CategoryController;
 use Modules\Studio\Http\Controllers\ClassesScheduleStudioController;
 use Modules\Studio\Http\Controllers\CommentStudioVidioController;
@@ -23,6 +25,7 @@ use Modules\Studio\Http\Controllers\StudioClassVidiosController;
 use Modules\Studio\Http\Controllers\StudioController;
 use Modules\Studio\Http\Controllers\StudioInstructorController;
 use Modules\Studio\Http\Controllers\StudioVidioController;
+use Modules\Studio\Http\Controllers\FormRegisterEnsiklovideoController;
 use Modules\StudioOwners\Http\Controllers\ReviewOwnerController;
 use Modules\StudioOwners\Http\Controllers\StudioClassVidioController;
 
@@ -108,10 +111,16 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
             Route::get("{slug}", [StudioClassVidiosController::class, 'show']);
         });
     });
+    Route::prefix('form-register-ensiklovidio')->group(function () {
+        Route::post('', [FormRegisterEnsiklovideoController::class, 'store']);
+    });
     Route::prefix('cart')->group(function () {
         Route::post('', [CartClassController::class, 'storeWistlist']);
         Route::get('', [CartClassController::class, 'index']);
         Route::get('user', [CartClassController::class, 'indexUser']);
+        Route::prefix('video')->group(function () {
+            Route::get('', [CartVideoController::class, 'index']);
+        });
     });
     Route::prefix('reviews')->group(function () {
         Route::post('class', [ReviewController::class, 'store']);

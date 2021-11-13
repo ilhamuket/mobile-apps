@@ -1,7 +1,6 @@
 <template>
   <v-container
     id="google-maps"
-    fluid
     tag="section"
   >
     <v-row>
@@ -18,7 +17,7 @@
                 width="100%"
                 height="450"
                 frameborder="0"
-                style="border:0"
+                style="border: 0"
                 allowfullscreen
               />
             </v-sheet>
@@ -42,7 +41,7 @@
                 width="100%"
                 height="450"
                 frameborder="0"
-                style="border:0"
+                style="border: 0"
                 allowfullscreen
               />
             </v-sheet>
@@ -66,7 +65,7 @@
                 width="100%"
                 height="450"
                 frameborder="0"
-                style="border:0"
+                style="border: 0"
                 allowfullscreen
               />
             </v-sheet>
