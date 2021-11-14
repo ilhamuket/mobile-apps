@@ -179,6 +179,7 @@
                 <v-btn
                   color="btn_primary"
                   small
+                  @click="paymentData"
                 >
                   Pay Now
                   <v-icon
@@ -217,6 +218,39 @@
           id: this.$route.params.id,
           entities: "cart, class.category,class.img",
         })
+      },
+      paymentData () {
+        this.$store
+          .dispatch("payment/paymentData", {
+            check: "ensiklo-live",
+            class_id: this.computedInvoice.class.id,
+            methods: this.methods,
+            cart_id: this.$route.params.id,
+          })
+          .then((res) => {
+            console.log(res)
+            if (res.data.meta.status) {
+              this.$router.push("/cart")
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Fetch Data",
+              })
+            }
+          })
       },
     },
   }

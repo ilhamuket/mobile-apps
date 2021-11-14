@@ -34,7 +34,7 @@
                       color="red"
                       text-color="white"
                     >
-                      {{ item.classes.status_kelas }}
+                      {{ item.status }}
                     </v-chip>
                     <v-tooltip
                       color="btn_primary"

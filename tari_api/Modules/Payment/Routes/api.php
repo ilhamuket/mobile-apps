@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
+use Modules\Payment\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +17,8 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->get('/payment', function (Request $request) {
     return $request->user();
+});
+
+Route::prefix("payments")->middleware(['auth:sanctum'])->group(function () {
+    Route::post('pay', [PaymentController::class, 'store']);
 });

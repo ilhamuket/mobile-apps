@@ -2,6 +2,7 @@
 
 namespace Modules\Payment\Http\Controllers;
 
+use App\Models\User;
 use Brryfrmnn\Transformers\Json;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Modules\Payment\Entities\Payment;
 use Modules\Studio\Entities\CartClass;
 use Modules\Studio\Entities\CartVideo;
+use Modules\StudioOwners\Entities\UserHaveClass;
 
 class PaymentController extends Controller
 {
@@ -46,39 +48,47 @@ class PaymentController extends Controller
             DB::beginTransaction();
             $check = $request->check;
 
-            if ($check === 'ensiklo-live') {
-                $cart = new CartClass();
-                $cart->type = 'ensiklo-live';
+            if ($check == 'ensiklo-live') {
+                $cart = CartClass::findOrFail($request->cart_id);
                 $cart->status = 'paid';
-                $cart->class_id = $request->class_id;
-                $cart->user_id  = $request->user()->id;
                 $cart->save();
             }
-            if ($check === 'ensiklo-video') {
-                $cart = new CartVideo();
+            if ($check == 'ensiklo-video') {
+                $cart = CartVideo::findOrFail($request->cart_id);
                 $cart->status = 'paid';
-                $cart->type = $request->type;
-                $cart->user_id = $request->user()->id;
-                $cart->video_id = $request->video_id;
                 $cart->save();
             }
-            $master = new Payment();;
+            $master = new Payment();
             $master->status = 'paid';
             $master->type = $request->type;
             $master->methods = $request->methods;
             $master->user_id = $request->user()->id;
             $master->class_id = $request->class_id;
             $master->video_id = $request->video_id;
-            $master->cart_class_id = $cart->id;
-            $master->cart_video_id = $cart->id;
+            if ($check == 'ensiklo-live') {
+                $master->cart_class_id = $cart->id;
+                $user_has = new UserHaveClass();
+                $user_has->status = 'waiting';
+                $user_has->user_id = $request->user()->id;
+                $user_has->class_id = $request->class_id;
+                $user_has->save();
+                $me = User::findOrFail($request->user()->id);
+                $me->myClass()->attach($request->class_id);
+            } else {
+                $master->cart_video_id = $cart->id;
+            }
             $master->save();
-
+            DB::commit();
+            // $me = User::findOrFail($request->user()->id);
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         } catch (\ErrorException $e) {
+            DB::rollBack();
             return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         }
     }
