@@ -118,6 +118,9 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
         Route::post('', [CartClassController::class, 'storeWistlist']);
         Route::get('', [CartClassController::class, 'index']);
         Route::get('user', [CartClassController::class, 'indexUser']);
+        Route::prefix('summary')->group(function () {
+            Route::get('', [CartClassController::class, 'summary']);
+        });
         Route::prefix('video')->group(function () {
             Route::get('', [CartVideoController::class, 'index']);
         });

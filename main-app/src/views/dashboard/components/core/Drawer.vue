@@ -167,6 +167,18 @@
           to: "/class-vidio",
         },
         {
+          title: "tutorial",
+          icon: "mdi-clipboard-outline",
+        },
+        {
+          title: "tutorial",
+          icon: "mdi-clipboard-outline",
+        },
+        {
+          title: "tutorial",
+          icon: "mdi-clipboard-outline",
+        },
+        {
           title: "google",
           icon: "mdi-map-marker",
           to: "/maps/google-maps",

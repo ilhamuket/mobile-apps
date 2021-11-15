@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Modules\Payment\Entities\Payment;
 use Modules\Studio\Entities\CartClass;
 use Modules\Studio\Entities\CartVideo;
+use Modules\Studio\Entities\UserHasVideo;
 use Modules\StudioOwners\Entities\UserHaveClass;
 
 class PaymentController extends Controller
@@ -76,6 +77,12 @@ class PaymentController extends Controller
                 $me->myClass()->attach($request->class_id);
             } else {
                 $master->cart_video_id = $cart->id;
+                $user_has = new UserHasVideo();
+                $user_has->status = 'waiting';
+                $user_has->type = $request->type;
+                $user_has->user_id = $request->user()->id;
+                $user_has->video_id = $request->video_id;
+                $user_has->save();
             }
             $master->save();
             DB::commit();

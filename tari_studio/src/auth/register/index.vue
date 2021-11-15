@@ -173,7 +173,7 @@
             "Content-Type": "image/png",
           },
         }
-        axios.post(URL, data, config).then(response => {
+        axios.post(URL, data, config).then((response) => {
           if (response.data.meta.status) {
             this.upload_state = false
             this.disable_state = false
@@ -195,11 +195,11 @@
               email: this.studio.data.item2.email,
               nickName: this.studio.data.item2.userName,
               prefix: this.studio.data.prefix,
-              // name_studio: this.studio.data.fullnameStudio,
+              name_studio: this.studio.data.item1.data.name,
               about: this.studio.data.item1.data.about,
               url: this.studio.data.item1.data.options,
             })
-            .then(res => {
+            .then((res) => {
               // this.$router.push('/')
               if (res.data.meta.status) {
                 this.isYet = true
@@ -210,7 +210,7 @@
                   showConfirmButton: false,
                   timer: 3000,
                   timerProgressBar: true,
-                  didOpen: toast => {
+                  didOpen: (toast) => {
                     toast.addEventListener("mouseenter", this.$swal.stopTimer)
                     toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                   },
@@ -232,7 +232,7 @@
                   showConfirmButton: false,
                   timer: 3000,
                   timerProgressBar: true,
-                  didOpen: toast => {
+                  didOpen: (toast) => {
                     toast.addEventListener("mouseenter", this.$swal.stopTimer)
                     toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                   },

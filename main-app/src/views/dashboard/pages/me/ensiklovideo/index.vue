@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col cols="12">
-        <app-list-video />
+        <app-list-video :data="data" />
       </v-col>
     </v-row>
   </v-container>
@@ -14,6 +14,9 @@
     components: {
       "app-list-video": listVideo,
     },
+    data: () => ({
+      data: [],
+    }),
     methods: {},
   }
 </script>

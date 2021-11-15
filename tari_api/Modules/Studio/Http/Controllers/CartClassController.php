@@ -10,10 +10,32 @@ use Modules\Studio\Entities\CartClass;
 
 class CartClassController extends Controller
 {
+    public function summary(Request $request)
+    {
+        try {
+            $data = [
+                "all" => 0,
+                "paid" => 0,
+                "pending" => 0,
+            ];
+
+            $data["all"] = CartClass::where('user_id', $request->user()->id)->count();
+            $data['paid'] = CartClass::where('user_id', $request->user()->id)->where('status', 'paid')->count();
+            $data['pending'] = CartClass::where('user_id', $request->user()->id)->where('status', 'pending')->count();
+
+            return Json::response($data);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     public function indexUser(Request $request)
     {
         try {
-            $master = CartClass::where("user_id", $request->user()->id)->get();
+            $master = CartClass::where("user_id", $request->user()->id)->summary($request->summary)->get();
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
@@ -53,6 +75,8 @@ class CartClassController extends Controller
         try {
             $master = CartClass::entities($request->entities)
                 ->type($request->type)
+                ->where('user_id', $request->user()->id)
+                ->summary($request->summary)
                 ->get();
 
             return Json::response($master);

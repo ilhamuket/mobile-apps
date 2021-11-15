@@ -281,7 +281,7 @@
         <v-list-item-group
           v-model="model"
           active-class="border"
-          color="indigo"
+          color="red"
         >
           <v-list-item
             v-for="(item, i) in items"
@@ -367,6 +367,13 @@
           text: "myaccount",
           to: "/pages/user",
           badge: false,
+        },
+        {
+          icon: "mdi-cart",
+          text: "cart_video",
+          to: "/cart",
+          badge: true,
+          content: "0",
         },
         {
           icon: "mdi-cart",

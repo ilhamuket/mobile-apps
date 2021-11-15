@@ -359,6 +359,7 @@
           .then((res) => {
             if (res.data.meta.status) {
               this.$router.push("/cart")
+              this.register.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
                 position: "bottom-end",

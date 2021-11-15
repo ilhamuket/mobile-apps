@@ -3,6 +3,14 @@
     <v-form v-model="invalid">
       <v-row>
         <v-col cols="12">
+          <v-text-field
+            v-model="step2.data.name"
+            label="Name Studio"
+            :rules="[rules.required]"
+            prepend-icon="mdi-alpha-p-circle-outline"
+          />
+        </v-col>
+        <v-col cols="12">
           <v-textarea
             v-model="step2.data.about"
             :rules="[rules.required]"
@@ -49,29 +57,30 @@
       data: {
         type: Object,
         default: () => ({
-          firstName: 'Studio',
-          lastName: 'Bagus',
+          firstName: "Studio",
+          lastName: "Bagus",
         }),
       },
     },
     data: () => ({
       step2: {
         data: {
-          about: '',
+          name: "",
+          about: "",
 
           options: [
             {
-              option: '',
+              option: "",
             },
           ],
         },
       },
       rules: {
-        required: value => !!value || 'Required.',
-        min: v => (v && v.length >= 8) || 'Min 8 characters',
-        emailRules: v =>
+        required: (value) => !!value || "Required.",
+        min: (v) => (v && v.length >= 8) || "Min 8 characters",
+        emailRules: (v) =>
           /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
-          'E-mail must be valid',
+          "E-mail must be valid",
       },
       invalid: true,
       upload_state: false,
@@ -81,21 +90,21 @@
     computed: {
       fullNameStudio: {
         get () {
-          return this.data.firstName + ' ' + this.data.lastName
+          return this.data.firstName + " " + this.data.lastName
         },
         set (val) {
           return val
         },
       },
       prefixStudio () {
-        const fullname = this.fullNameStudio.split(' ')
+        const fullname = this.fullNameStudio.split(" ")
         const prefix = fullname.shift().charAt(0) + fullname.pop().charAt(0)
         return prefix
       },
     },
     methods: {
       nextStep () {
-        this.$emit('next', {
+        this.$emit("next", {
           item: {
             data: {
               item1: this.step2,
@@ -109,20 +118,20 @@
       createNewInput (index) {
         if (index > 0 && this.step2.data.options.length > 1) {
           if (this.step2.data.options.length === index + 1) {
-            this.step2.data.options.push({ option: '' })
+            this.step2.data.options.push({ option: "" })
           } else if (
-            this.step2.data.options[index + 1].option !== '' &&
+            this.step2.data.options[index + 1].option !== "" &&
             this.step2.data.options.length === index + 1
           ) {
-            this.step2.data.options.push({ option: '' })
+            this.step2.data.options.push({ option: "" })
           }
         } else if (index >= 0 && this.step2.data.options.length === 1) {
-          this.step2.data.options.push({ option: '' })
+          this.step2.data.options.push({ option: "" })
         }
       },
       theFirst () {
         if (this.step2.data.options.length === 0) {
-          this.step2.data.options.push({ option: '' })
+          this.step2.data.options.push({ option: "" })
         }
       },
       deleteInput (index) {
@@ -137,7 +146,7 @@
           return 1
         }
         console.log(this.files)
-        this.$emit('inputFiles', { item: files })
+        this.$emit("inputFiles", { item: files })
       },
     },
   }

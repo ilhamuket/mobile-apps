@@ -23,7 +23,7 @@
                   />
                 </v-tab-item>
                 <v-tab-item>
-                  <!--  -->
+                  <app-page-fix />
                 </v-tab-item>
               </v-tabs-items>
             </v-col>
@@ -38,11 +38,13 @@
   import rowDetail from "./component_core/_rowDetail.vue"
   import cardDetail from "./component_core/_cardDetail.vue"
   import pageProfile from "./component/__pageProfile.vue"
+  import fix from "./component_core/_class.vue"
   export default {
     components: {
       "app-row-detail-img": rowDetail,
       "app-card-detail-profile": cardDetail,
       "app-page-profile": pageProfile,
+      "app-page-fix": fix,
     },
     data: () => ({
       tabs: null,

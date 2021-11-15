@@ -96,6 +96,21 @@ class StudioClass extends Model
         return $status;
     }
 
+    public function getTimeStatusAttribute()
+    {
+        $status = '';
+
+        if ($this->end_at  == now()->toDateString()) {
+            $status = 'ongoing';
+        } else if ($this->start_at > now()->toDateString()) {
+            $status = 'upcoming';
+        } else if ($this->start_at < now()->toDateString()) {
+            $status = 'missed';
+        }
+
+        return $status;
+    }
+
     public function scopeEntities($query, $entities)
     {
         if ($entities != null || $entities != '') {

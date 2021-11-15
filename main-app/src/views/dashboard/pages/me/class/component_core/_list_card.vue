@@ -29,12 +29,13 @@
                     class="d-flex flex-row-reverse"
                   >
                     <v-chip
+                      v-if="item.classes"
                       small
                       class="ml-2 text-capitalize"
                       color="red"
                       text-color="white"
                     >
-                      {{ item.status }}
+                      {{ item.classes.time_status }}
                     </v-chip>
                     <v-tooltip
                       color="btn_primary"
@@ -140,6 +141,13 @@
       data: {
         type: Array,
         default: null,
+      },
+    },
+    methods: {
+      setColorStatus (status) {
+        if (status === "ongoing") return "btn_primary"
+        if (status === "upcomming") return "secondary"
+        else return "red"
       },
     },
   }

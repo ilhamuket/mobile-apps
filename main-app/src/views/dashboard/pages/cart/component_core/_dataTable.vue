@@ -92,6 +92,15 @@
               </v-card>
             </v-hover>
           </template>
+          <template #[`item.status`]="{ item }">
+            <v-chip
+              :color="setStatusColor(item.status)"
+              class="text-capitalize"
+              text-color="white"
+            >
+              {{ item.status }}
+            </v-chip>
+          </template>
           <template #[`item.actions`]="{ item }">
             <v-btn
               color="btn_primary"
@@ -161,6 +170,11 @@
         const newText = arry[0] + " Years Old"
 
         return newText
+      },
+      setStatusColor (status) {
+        if (status === "paid") {
+          return "btn_primary"
+        } else return "red"
       },
     },
   }

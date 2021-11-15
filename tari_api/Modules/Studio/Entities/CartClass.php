@@ -57,4 +57,13 @@ class CartClass extends Model
 
         return $query;
     }
+
+    public function scopeSummary($query, $status)
+    {
+        if ($status != null || $status != '') {
+            $query->where("status", $status);
+        }
+
+        return $query;
+    }
 }

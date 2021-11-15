@@ -29,6 +29,7 @@ class UserHaveClass extends Model
         return $this->belongsTo(ClassesOwnerStudio::class, 'class_id');
     }
 
+
     public function scopeEntities($query, $entities)
     {
         if ($entities != null || $entities != '') {
