@@ -5,7 +5,9 @@
       :class="!drawer ? 'ml-4' : 'mr-2'"
     >
       <div class="d-flex flex-column mt">
-        <span class="ml-7 font-spartan text-h3">{{ $t($route.name) }} |</span>
+        <span
+          class="ml-7 font-spartan text-h3"
+        >{{ $t($route.name) }} <v-icon>mdi-chevron-right</v-icon></span>
       </div>
 
       <div class="d-flex flex-column">
@@ -27,15 +29,15 @@
 </template>
 
 <script>
-  import { mapState, mapMutations } from 'vuex'
+  import { mapState, mapMutations } from "vuex"
   export default {
-    name: 'DashboardCoreView',
+    name: "DashboardCoreView",
 
     // components: {
     //   DashboardCoreFooter: () => import('./Footer'),
     // },
     computed: {
-      ...mapState(['drawer']),
+      ...mapState(["drawer"]),
       cumputedStore () {
         return this.$store.state.auth.token
       },
@@ -45,7 +47,7 @@
     },
     methods: {
       ...mapMutations({
-        setDrawer: 'SET_DRAWER',
+        setDrawer: "SET_DRAWER",
       }),
     },
   }

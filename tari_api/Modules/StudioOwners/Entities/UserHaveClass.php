@@ -29,6 +29,11 @@ class UserHaveClass extends Model
         return $this->belongsTo(ClassesOwnerStudio::class, 'class_id');
     }
 
+    public function form()
+    {
+        return $this->belongsTo(FormRegister::class, 'form_id');
+    }
+
 
     public function scopeEntities($query, $entities)
     {
@@ -42,5 +47,16 @@ class UserHaveClass extends Model
                 return Json::exception(null, validator()->errors());
             }
         }
+    }
+
+    public function scopeSummary($query, $summary)
+    {
+        if ($summary == 'present') {
+            $query->where('absent', true);
+        } else if ($summary == 'miss_absent') {
+            $query->where('absent', false);
+        }
+
+        return $query;
     }
 }

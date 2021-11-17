@@ -167,16 +167,19 @@
           to: "/class-vidio",
         },
         {
-          title: "tutorial",
-          icon: "mdi-clipboard-outline",
+          title: "article",
+          icon: "mdi-book-plus-multiple-outline",
+          to: "/article",
         },
         {
           title: "tutorial",
-          icon: "mdi-clipboard-outline",
+          icon: "mdi-cast-education",
+          to: "/tutorial",
         },
         {
-          title: "tutorial",
-          icon: "mdi-clipboard-outline",
+          title: "shop",
+          icon: "mdi-cart",
+          to: "/store",
         },
         {
           title: "google",

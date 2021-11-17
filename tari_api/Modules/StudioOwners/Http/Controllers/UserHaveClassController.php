@@ -11,6 +11,59 @@ use Modules\StudioOwners\Entities\UserHaveClass;
 
 class UserHaveClassController extends Controller
 {
+    public function summary(Request $request)
+    {
+        try {
+            $data = [
+                "all" => 0,
+                "present" => 0,
+                "miss_absent" => 0
+            ];
+
+            $class_slug = $request->class_slug;
+
+            $data["all"] = UserHaveClass::whereHas('classes', function (Builder $query) use ($class_slug) {
+                $query->where('slug', $class_slug);
+            })->count();
+            $data["present"] = UserHaveClass::whereHas('classes', function (Builder $query) use ($class_slug) {
+                $query->where('slug', $class_slug);
+            })
+                ->where('absent', true)
+                ->count();
+            $data["miss_absent"] =  UserHaveClass::whereHas('classes', function (Builder $query) use ($class_slug) {
+                $query->where('slug', $class_slug);
+            })
+                ->where('absent', false)
+                ->count();
+
+            return Json::response($data);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+    public function classHasUser(Request $request, $slug)
+    {
+        try {
+            $master = userHaveClass::whereHas("classes", function (Builder $query) use ($slug) {
+                $query->where('slug', $slug);
+            })
+                ->entities($request->entities)
+                ->summary($request->summary)
+                ->get();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     public function userHasClass(Request $request)
     {
         try {
@@ -53,9 +106,21 @@ class UserHaveClassController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function absent(Request $request)
     {
-        return view('studioowners::create');
+        try {
+            $master = UserHaveClass::findOrFail($request->id);
+            $master->absent = $request->value;
+            $master->save();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**
@@ -63,9 +128,26 @@ class UserHaveClassController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function sendAReviews(Request $request)
     {
-        //
+        try {
+            if (is_array($request->id)) {
+                foreach ($request->id as $id) {
+                    $master = UserHaveClass::findOrFail($id);
+                    $master->status_responded = 'pending';
+                    $master->save();
+                }
+                return Json::response($master);
+            } else {
+                return Json::exception("data not found");
+            }
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**
@@ -106,6 +188,17 @@ class UserHaveClassController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $master = UserHaveClass::findOrFail($id);
+            $master->delete();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 }

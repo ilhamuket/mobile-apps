@@ -8,10 +8,10 @@
     >
       <span
         class="text-center text-capitalize"
-      ><v-icon class="mr-2">mdi-label-multiple</v-icon>Vidio</span>
+      ><v-icon class="mr-2">mdi-label-multiple</v-icon>Video</span>
     </v-chip>
     <v-card-title>
-      <span class="font-spartan font-weight-bold">
+      <span class="font-spartan-text font-weight-bold btn_primary--text">
         {{ data.name }}
       </span>
     </v-card-title>
@@ -22,17 +22,13 @@
       {{ data.studio.name }}
     </v-card-subtitle>
     <v-card-text>
-      <span class="font-spartan-small font__customize__price">
+      <span class="font-spartan-small font__customize__price primary--text">
         Rp{{ data.price }}
       </span>
       <v-divider class="mt-2 mb-2" />
       <v-tabs v-model="tabs">
-        <v-tab>
-          Detail
-        </v-tab>
-        <v-tab>
-          Info
-        </v-tab>
+        <v-tab> Detail </v-tab>
+        <v-tab> Info </v-tab>
       </v-tabs>
       <v-tabs-items v-model="tabs">
         <v-tab-item class="font-spartan font__customize mt-4 ml-2">
@@ -61,7 +57,7 @@
       <p
         v-if="data.studio"
         class="ml-2 font-spartan font__studio__title"
-        style="cursor:pointer"
+        style="cursor: pointer"
         @click="toPush(data.studio)"
       >
         {{ data.studio.name }}
@@ -133,10 +129,10 @@
         let value = 0
         if (this.data.studio) {
           if (this.data.studio.reviews) {
-            const a = this.data.studio.reviews.map(x => x.ratings)
+            const a = this.data.studio.reviews.map((x) => x.ratings)
 
             if (a.length > 0) {
-              const sum = a.filter(x => x > 0).reduce((x, y) => x + y)
+              const sum = a.filter((x) => x > 0).reduce((x, y) => x + y)
               value = sum / this.data.studio.reviews.length
             }
           }
@@ -149,7 +145,7 @@
         let bool = false
         if (this.data.studio) {
           if (this.data.studio.followers) {
-            bool = this.data.studio.followers.some(x => x.id === this.user.id)
+            bool = this.data.studio.followers.some((x) => x.id === this.user.id)
           }
         }
         return bool

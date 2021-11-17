@@ -22,11 +22,6 @@ const router = new Router({
           meta: {
             breadcumbs: [
               {
-                text: "Studio",
-                disabled: false,
-                to: "/studio",
-              },
-              {
                 text: "Classes",
                 disabled: false,
                 to: "/classes",
@@ -327,8 +322,45 @@ const router = new Router({
                 text: "Dashboard",
                 to: "/",
               },
+              {
+                text: localStorage.getItem("name_ensiklovidio"),
+              },
             ],
             requiresAuth: true,
+          },
+        },
+        // Article
+        {
+          name: "article",
+          path: "/article",
+          component: () => import("@/views/dashboard/pages/article/index"),
+          meta: {
+            breadcumbs: [
+              {
+                text: "Studio",
+                to: "/studio",
+              },
+            ],
+            requiresAuth: true,
+          },
+        },
+        // Tutorial
+        {
+          name: "tutorial",
+          path: "/tutorial",
+          component: () => import("@/views/dashboard/pages/tutorial/index"),
+          meta: {
+            requiresAuth: true,
+            breadcumbs: [],
+          },
+        },
+        {
+          name: "shop",
+          path: "/store",
+          component: () => import("@/views/dashboard/pages/shop/index"),
+          meta: {
+            requiresAuth: true,
+            breadcumbs: [],
           },
         },
         {

@@ -191,5 +191,6 @@
   "publish": "Publish",
   "draft": "Draft",
   "concept": "Concept",
-  "bank_account": "Bank Account"
+  "bank_account": "Bank Account",
+  "student": "Student"
 }

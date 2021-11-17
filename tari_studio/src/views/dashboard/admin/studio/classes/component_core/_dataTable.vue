@@ -1,5 +1,8 @@
 <template>
-  <base-material-card icon="mdi-account-group-outline">
+  <base-material-card
+    color="btn_primary"
+    icon="mdi-account-group-outline"
+  >
     <template #after-heading>
       <span
         :class="
@@ -53,7 +56,7 @@
           <v-text-field
             v-model="search"
             append-icon="mdi-magnify"
-            color="pallet1"
+            color="primary"
             dense
           />
         </v-col>
@@ -286,9 +289,18 @@
               </v-hover>
             </template>
             <template #[`item.name`]="{ item }">
-              <div class="mt-6">
-                {{ item.name }}
-              </div>
+              <v-hover v-slot="{ hover }">
+                <v-chip
+                  color="transparent"
+                  :class="{ 'on-hover': hover }"
+                  :text-color="hover ? 'btn_primary' : 'black'"
+                  style="cursor: pointer"
+                  class="mt-6"
+                  @click="navigate(`/class/${item.slug}/student`)"
+                >
+                  {{ item.name }}
+                </v-chip>
+              </v-hover>
               <div class="bg-hover">
                 <div class="d-flex flex-row flex-nowrap">
                   <div>
@@ -420,7 +432,7 @@
             <template #[`item.kapasitas`]="{ item }">
               <v-chip
                 label
-                color="primary"
+                color="btn_primary"
               >
                 {{ item.student ? item.student.length : "0" }} /
                 {{ item.kapasitas }}
@@ -559,6 +571,9 @@
       changePict (item) {
         this.$refs.fileUpload.click()
         this.dataItem = item
+      },
+      navigate (link) {
+        this.$router.push(link)
       },
       changePictProfile (event) {
         const files = event.target.files

@@ -74,7 +74,7 @@
         },
         {
           text: "mdi-whatsapp",
-          color: "blue",
+          color: "green",
         },
       ],
     }),

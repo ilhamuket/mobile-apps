@@ -47,6 +47,7 @@ import classVidio from "./module/studioOwner/class_vidio/index"
 
 // Vidio instructor
 import vidioInstructor from "./module/studioOwner/instructor/vidio"
+import student from "./module/student"
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -76,6 +77,7 @@ export default new Vuex.Store({
     bank_account: BankAccount,
     classVidio: classVidio,
     vidioInstructor: vidioInstructor,
+    student: student,
   },
   state: {
     barColor: "rgba(0, 0, 0, .8), rgba(0, 0, 0, .8)",

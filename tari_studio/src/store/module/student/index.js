@@ -1,21 +1,40 @@
 import axios from "axios"
+
 export default {
   namespaced: true,
   state: {
     data: [],
-    show: {},
-    value: {},
-    reviews: [],
+    summary: {
+      all: 4,
+      present: 1,
+      miss_absent: 3,
+    },
   },
   getters: {},
   mutations: {
     GET_DATA: (state, payload) => (state.data = payload),
-    SHOW_DATA: (state, payload) => (state.show = payload),
-    GET_VALUE: (state, payoad) => (state.value = payoad),
-    GET_DATA_REVIEWS: (state, payload) => (state.reviews = payload),
+    GET_SUMMARY: (state, payload) => (state.summary = payload),
+    ABSENT: (state, payload) => {
+      const indexStudent = state.data.findIndex((x) => x.id === payload.id)
+      if (indexStudent != -1) {
+        state.data[indexStudent].absent = payload.absent
+      }
+    },
+    SEND_REVIEWS: (state, payload) => {
+      // eslint-disable-next-line no-unused-vars
+      for (const item in payload) {
+        if (Object.hasOwnProperty.call(payload, item)) {
+          const student = payload[item]
+          const indexStudent = state.data.findIndex((x) => x.id === student.id)
+          if (indexStudent !== -1) {
+            state.data[indexStudent].status_responded = "pending"
+          }
+        }
+      }
+    },
   },
   actions: {
-    getDataEnsikloVidio: ({ commit }, payload) => {
+    getDataStudent: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
         "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
@@ -23,7 +42,9 @@ export default {
       return new Promise((resolve, reject) => {
         const params = { ...payload }
         axios
-          .get("studio/u/classes/vidio", { params: params })
+          .get(`owner/have-class/student/${payload.slug}/class`, {
+            params: params,
+          })
           .then((res) => {
             commit("GET_DATA", res.data.data)
             resolve(res)
@@ -33,7 +54,7 @@ export default {
           })
       })
     },
-    showDataEnsikloVidio: ({ commit }, payload) => {
+    getDataStudentSummary: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
         "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
@@ -41,10 +62,9 @@ export default {
       return new Promise((resolve, reject) => {
         const params = { ...payload }
         axios
-          .get(`studio/u/class-vidio/${payload.slug}`, { params: params })
+          .get("owner/have-class/summary", { params: params })
           .then((res) => {
-            commit("SHOW_DATA", res.data.data)
-            localStorage.setItem("name_ensiklovidio", res.data.data.name)
+            commit("GET_SUMMARY", res.data.data)
             resolve(res)
           })
           .catch((e) => {
@@ -52,16 +72,16 @@ export default {
           })
       })
     },
-    getValueReviewsEnsiloVidio: ({ commit }, payload) => {
+    getAbsentDataStudent: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
         "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         axios
-          .get(`owner/reviews/summary-class/${payload.class_id}`)
+          .post("owner/have-class/student/absent", { ...payload })
           .then((res) => {
-            commit("GET_VALUE", res.data.data)
+            // commit("ABSENT", payload)
             resolve(res)
           })
           .catch((e) => {
@@ -69,19 +89,18 @@ export default {
           })
       })
     },
-    getDataEnsikloVidioReviews: ({ commit }, payload) => {
+    sendReviewsDataStudent: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
         "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
-        const params = { ...payload }
+        const id = payload.map((x) => x.id)
         axios
-          .get(`studio/reviews/class-vidio/${payload.class_slug}`, {
-            params: params,
-          })
+          .post("owner/have-class/send-reviews", { id: id })
           .then((res) => {
-            commit("GET_DATA_REVIEWS", res.data.data)
+            commit("SEND_REVIEWS", payload)
+            resolve(res)
           })
           .catch((e) => {
             reject(e)

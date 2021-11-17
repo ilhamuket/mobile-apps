@@ -50,7 +50,15 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
     // Student have Class
     Route::prefix('have-class')->group(function () {
         Route::get('user', [UserHaveClassController::class, 'userHasClass']);
+        Route::prefix('summary')->group(function () {
+            Route::get('', [UserHaveClassController::class, 'summary']);
+        });
+        Route::get('send-reviews', [UserHaveClassController::class, 'sendAReviews']);
         Route::get('{id}', [UserHaveClassController::class, 'index']);
+        // classes has user
+        Route::get('student/{slug}/class', [UserHaveClassController::class, 'classHasUser']);
+        Route::post('student/absent', [UserHaveClassController::class, 'absent']);
+        // Summary
     });
     // Form Register
     Route::prefix('form-register')->group(function () {

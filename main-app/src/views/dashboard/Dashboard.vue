@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row v-if="is_load">
+    <v-row v-if="$store.state.studioPopuler.load_data">
       <!-- <loader
         object="#ff9633"
         color1="#ffffff"
@@ -53,7 +53,7 @@
                   class="white--text align-end"
                   height="200px"
                   :src="item.img.url"
-                  style="cursor:pointer"
+                  style="cursor: pointer"
                   gradient="to top right, rgba(0, 0, 0, 0.05), rgba(20, 20, 20, 0.05)"
                   @click="toPush(`${item.slug}/home`)"
                 >
@@ -77,7 +77,7 @@
                   class="white--text align-end"
                   height="200px"
                   src="https://myars.ars.ac.id/media/logo.png"
-                  style="cursor:pointer"
+                  style="cursor: pointer"
                   gradient="to top right, rgba(0, 0, 0, 0.05), rgba(20, 20, 20, 0.05)"
                   @click="toPush(`${item.slug}/home`)"
                 >
@@ -148,7 +148,7 @@
                           bottom
                           color="primary"
                         >
-                          <template #activator="{on, attrs}">
+                          <template #activator="{ on, attrs }">
                             <v-icon
                               v-bind="attrs"
                               :color="$vuetify.theme.dark ? 'white' : 'orange'"
@@ -158,9 +158,7 @@
                               mdi-account-check
                             </v-icon>
                           </template>
-                          <span class="font-spartan-small">
-                            Following
-                          </span>
+                          <span class="font-spartan-small"> Following </span>
                         </v-tooltip>
 
                         {{ item.followers.length }}
@@ -230,7 +228,7 @@
               class="d-flex justify-end"
             >
               <span
-                style="cursor:pointer"
+                style="cursor: pointer"
                 class="font-spartan-small hover--text font-weight-bold"
                 @click="toPush('/studio')"
               >
@@ -266,7 +264,7 @@
                   class="white--text align-end"
                   height="200px"
                   :src="item.img.url"
-                  style="cursor:pointer"
+                  style="cursor: pointer"
                   gradient="to top right, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)"
                 >
                   <v-row
@@ -307,7 +305,7 @@
                   class="white--text align-end"
                   height="200"
                   src="http://localhost:8081/img/et.7701c625.png"
-                  style="cursor:pointer"
+                  style="cursor: pointer"
                   gradient="to top right, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)"
                 >
                   <v-row
@@ -353,9 +351,7 @@
                   </div>
                   <div class="d-flex flex-row">
                     <div class="d-flex flex-column">
-                      <span class="font-spartan font__price">
-                        Rp2000
-                      </span>
+                      <span class="font-spartan font__price"> Rp2000 </span>
                     </div>
                   </div>
                   <div class="d-flex flex-row mt-2">
@@ -409,7 +405,7 @@
             >
               <span
                 class="font-spartan-small hover--text font-weight-bold"
-                style="cursor:pointer"
+                style="cursor: pointer"
                 @click="toPush('/classes')"
               >
                 {{ $t("dahsboard.see") }} <v-icon>mdi-chevron-right</v-icon>
@@ -451,9 +447,10 @@
           .dispatch("studioPopuler/getDataMostPopuler", {
             entities: "img, followers, likes",
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.is_load = false
+              this.$store.commit("studioPopuler/LOAD")
             }
           })
       },

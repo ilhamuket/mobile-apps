@@ -139,6 +139,24 @@ const router = new Router({
             requiresAuth: true,
           },
         },
+        {
+          name: "student",
+          path: "/class/:slug/student",
+          component: () =>
+            import("@/views/dashboard/admin/studio/student/index"),
+          meta: {
+            breadcumbs: [
+              {
+                text: "Class",
+                to: "/class",
+              },
+              {
+                text: localStorage.getItem("class_name"),
+              },
+            ],
+            requiresAuth: true,
+          },
+        },
         // Vidio
         {
           name: "vidio_name",

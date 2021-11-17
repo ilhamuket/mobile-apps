@@ -35,8 +35,8 @@
           contain
         >
           <v-img
-            src="https://demos.creative-tim.com/vuetify-material-dashboard/favicon.ico"
-            max-height="30"
+            :src="require('@/assets/img/etmark (1).png')"
+            width="8"
           />
         </v-list-item-avatar>
 
@@ -203,7 +203,7 @@
       profile () {
         return {
           avatar: true,
-          title: this.$t("avatar"),
+          title: "EnsikloTari Beta",
         }
       },
     },

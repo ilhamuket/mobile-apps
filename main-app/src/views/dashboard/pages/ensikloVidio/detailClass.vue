@@ -68,10 +68,12 @@
     },
     methods: {
       showDataEnsikloVidio () {
-        this.$store.dispatch("ensikloVidio/showDataEnsikloVidio", {
-          slug: this.$route.params.slug,
-          entities: "category,studio.img,studio.reviews,studio.followers",
-        })
+        this.$store
+          .dispatch("ensikloVidio/showDataEnsikloVidio", {
+            slug: this.$route.params.slug,
+            entities: "category,studio.img,studio.reviews,studio.followers",
+          })
+          .then((res) => {})
       },
       getValueReviewsEnsiloVidio () {
         this.$store.dispatch("ensikloVidio/getValueReviewsEnsiloVidio", {
