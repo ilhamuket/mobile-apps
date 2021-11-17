@@ -3,7 +3,7 @@
     <v-col cols="6">
       <v-btn
         width="185"
-        color="btn_primary"
+        color="primary"
       >
         <v-icon class="mr-1">
           mdi-cart
@@ -15,7 +15,7 @@
       <v-btn
         width="185"
         outlined
-        color="btn_primary"
+        color="primary"
       >
         <v-icon>mdi-cart-check</v-icon>
         Buy Now
@@ -31,7 +31,7 @@
             width="183"
             small
             outlined
-            color="btn_primary"
+            color="primary"
           >
             <v-icon class="mr-2">
               mdi-heart
@@ -43,7 +43,7 @@
           <v-btn
             width="183"
             small
-            color="btn_primary"
+            color="primary"
             @click="openDialogShare"
           >
             <v-icon class="mr-2">

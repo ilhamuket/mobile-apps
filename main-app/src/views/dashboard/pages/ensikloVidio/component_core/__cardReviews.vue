@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card-title class="font-spartan btn_primary--text font-weight-bold">
+    <v-card-title class="font-spartan primary--text font-weight-bold">
       Reviews
     </v-card-title>
     <v-row class="ml-2">
@@ -15,13 +15,24 @@
         >
           <v-card-text class="">
             <span
-              class="font-spartan ratings__modified btn_primary--text d-flex justify-center"
+              class="
+                font-spartan
+                ratings__modified
+                primary--text
+                d-flex
+                justify-center
+              "
             >
               {{ computedCount }}
             </span>
             <br>
             <span
-              class="font-spartan font__users_rating btn_primary--text d-flex justify-center"
+              class="
+                font-spartan font__users_rating
+                primary--text
+                d-flex
+                justify-center
+              "
             >
               {{ value.all }} User
             </span>
@@ -36,14 +47,14 @@
         <div>
           <v-rating
             :value="5"
-            color="btn_primary"
+            color="primary"
             length="1"
             half-increments
             readonly
           >
             <template v-slot:item="props">
               <v-icon
-                :color="'btn_primary'"
+                :color="'primary'"
                 medium
                 @click="props.click"
               >
@@ -55,12 +66,12 @@
           <v-progress-linear
             class="progres--ratings"
             :value="computedFive"
-            color="btn_primary"
+            color="primary"
             height="12"
             readonly
             rounded
           >
-            <span class="font-progresss font-weight-bold btn_primary--text">{{
+            <span class="font-progresss font-weight-bold primary--text">{{
               value.five
             }}</span>
           </v-progress-linear>
@@ -69,14 +80,14 @@
 
           <v-rating
             :value="5"
-            color="btn_primary"
+            color="primary"
             length="1"
             half-increments
             readonly
           >
             <template v-slot:item="props">
               <v-icon
-                :color="'btn_primary'"
+                :color="'primary'"
                 medium
                 @click="props.click"
               >
@@ -88,12 +99,12 @@
           <v-progress-linear
             class="progres--ratings"
             :value="computedFour"
-            color="btn_primary"
+            color="primary"
             height="12"
             readonly
             rounded
           >
-            <span class="font-progresss font-weight-bold btn_primary--text">{{
+            <span class="font-progresss font-weight-bold primary--text">{{
               value.four
             }}</span>
           </v-progress-linear>
@@ -102,14 +113,14 @@
 
           <v-rating
             :value="5"
-            color="btn_primary"
+            color="primary"
             length="1"
             half-increments
             readonly
           >
             <template v-slot:item="props">
               <v-icon
-                :color="'btn_primary'"
+                :color="'primary'"
                 medium
                 @click="props.click"
               >
@@ -121,12 +132,12 @@
           <v-progress-linear
             class="progres--ratings"
             :value="computedThird"
-            color="btn_primary"
+            color="primary"
             height="12"
             readonly
             rounded
           >
-            <span class="font-progresss font-weight-bold btn_primary--text">{{
+            <span class="font-progresss font-weight-bold primary--text">{{
               value.third
             }}</span>
           </v-progress-linear>
@@ -135,14 +146,14 @@
 
           <v-rating
             :value="5"
-            color="btn_primary"
+            color="primary"
             length="1"
             half-increments
             readonly
           >
             <template v-slot:item="props">
               <v-icon
-                :color="'btn_primary'"
+                :color="'primary'"
                 medium
                 @click="props.click"
               >
@@ -154,12 +165,12 @@
           <v-progress-linear
             class="progres--ratings"
             :value="computedTwo"
-            color="btn_primary"
+            color="primary"
             height="12"
             readonly
             rounded
           >
-            <span class="font-progresss font-weight-bold btn_primary--text">{{
+            <span class="font-progresss font-weight-bold primary--text">{{
               value.two
             }}</span>
           </v-progress-linear>
@@ -168,14 +179,14 @@
 
           <v-rating
             :value="5"
-            color="btn_primary"
+            color="primary"
             length="1"
             half-increments
             readonly
           >
             <template v-slot:item="props">
               <v-icon
-                :color="'btn_primary'"
+                :color="'primary'"
                 medium
                 @click="props.click"
               >
@@ -187,7 +198,7 @@
           <v-progress-linear
             class="progres--ratings"
             :value="computedOne"
-            color="btn_primary"
+            color="primary"
             height="12"
             readonly
             rounded
@@ -205,9 +216,7 @@
         md="4"
         class="ml-4"
       >
-        <span>
-          Filter
-        </span>
+        <span> Filter </span>
 
         <v-row class="btn__filter">
           <v-col cols="6">
@@ -329,9 +338,7 @@
                 :key="x"
                 cols="12"
               >
-                <span class="font-spartan-small">
-                  Seller Response:
-                </span>
+                <span class="font-spartan-small"> Seller Response: </span>
                 <br>
                 <span class="font-spartan-small">
                   {{ response.body }}
@@ -344,9 +351,7 @@
     </v-row>
     <v-row v-else>
       <v-col cols="12">
-        <span class="font-spartan d-flex justify-center">
-          Belum Ada
-        </span>
+        <span class="font-spartan d-flex justify-center"> Belum Ada </span>
       </v-col>
     </v-row>
   </v-container>
@@ -373,7 +378,7 @@
         {
           name: "All",
           icon: "mdi-account",
-          color: "btn_primary",
+          color: "primary",
         },
         {
           name: "5",
@@ -440,9 +445,9 @@
       },
       computedCount () {
         let value = 0.0
-        const a = this.reviews.map(x => x.ratings)
+        const a = this.reviews.map((x) => x.ratings)
         if (a.length > 0) {
-          const sum = a.filter(x => x > 0).reduce((x, y) => x + y)
+          const sum = a.filter((x) => x > 0).reduce((x, y) => x + y)
           value = sum / this.reviews.length
         }
         const x = parseFloat(value.toFixed(2))

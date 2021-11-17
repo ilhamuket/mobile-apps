@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-chip
-      color="btn_primary"
+      color="primary"
       text-color="white"
       label
       class="bg--title text-center"
@@ -11,7 +11,7 @@
       ><v-icon class="mr-2">mdi-label-multiple</v-icon>Video</span>
     </v-chip>
     <v-card-title>
-      <span class="font-spartan-text font-weight-bold btn_primary--text">
+      <span class="font-spartan-text font-weight-bold primary--text">
         {{ data.name }}
       </span>
     </v-card-title>
@@ -22,7 +22,7 @@
       {{ data.studio.name }}
     </v-card-subtitle>
     <v-card-text>
-      <span class="font-spartan-small font__customize__price primary--text">
+      <span class="font-spartan-small font__customize__price btn_primary--text">
         Rp{{ data.price }}
       </span>
       <v-divider class="mt-2 mb-2" />
@@ -86,7 +86,7 @@
         v-if="computedIsFollowing"
         class="btn__studio"
         small
-        color="btn_primary"
+        color="primary"
       >
         Following
       </v-btn>
