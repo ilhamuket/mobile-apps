@@ -31,10 +31,10 @@
                 class="font-spartan"
                 title-tag="h2"
               >
-                Welcome to EnsikloTari! 👋
+                Daftar EnsikloTari! 👋
               </v-card-title>
               <v-card-text class="mb-2 font-subtitle">
-                Please sign-Up to your account and start the adventure
+                Daftarkan diri dan mulai pertualanganmu
               </v-card-text>
 
               <!-- <v-alert

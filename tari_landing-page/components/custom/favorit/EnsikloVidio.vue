@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="portfolio-component mini-spacer">
+    <div class="portfolio-component bg--fitur1 mini-spacer">
       <v-container>
         <!-- -----------------------------------------------
             Start Portfolio Text
@@ -8,7 +8,16 @@
         <v-row justify="center">
           <v-col cols="12" sm="10" md="9" lg="7">
             <div class="text-center">
-              <h2 class="section-title font-weight-medium">EnsikloVideo</h2>
+              <h2
+                class="
+                  section-title
+                  font-weight-medium
+                  primary--text1
+                  font-weight-bold
+                "
+              >
+                EnsikloVideo
+              </h2>
               <!-- <p>
                 You can relay on our amazing features list and also our customer
                 services will be great experience for you without doubt and in
@@ -38,21 +47,29 @@
                   :src="item.url_thumbnail"
                   class="img-fluid"
                   alt="portfolio"
+                  width="520"
+                  height="200"
                 />
               </div>
               <v-card-text>
                 <h5 class="font-weight-medium font-18">
-                  {{ item.name.substr(0, 30) + ".." }}
+                  {{ item.name.substr(0, 20) + ".." }}
                 </h5>
-                <p class="font-14 mb-0">Digital Marketing</p>
+                <p class="font-14 mb-0" v-if="item.studio">{{item.studio.name}}</p>
+                <br>
+                <p class="">Level : {{item.levels}}</p>
+                <p>Durasi : {{ item.duration }} Menit</p>
+                <p class="font-rp font-weight-bold">
+                  Rp {{item.price}}
+                </p>
               </v-card-text>
               <v-card-actions>
                 <v-btn
-                  color="#9DC4D1"
-                  class="btn-custom-lg linking mt-10 btn-arrow white--text"
+                  color="#4CAF50"
+                  class="btn-custom-lg btn--margin linking btn-arrow white--text"
                   nuxt
                   small
-                  :href="`https://app.ensiklotari.com/detail/class/live/ensiklo-studio/${item.slug}`"
+                  :href="`https://app.ensiklotari.com/class-vidio/detail/${item.slug}`"
                   target="__blank"
                   elevation="0"
                 >
@@ -162,7 +179,11 @@ export default {
   },
   methods: {
     async getDataClassVidio() {
-      this.data = await this.$axios.$get("all/ensiklo-vidio", {});
+      const params = {
+        entities: "studio.reviews,category",
+      };
+
+      this.data = await this.$axios.$get("all/ensiklo-vidio", {params:params});
       console.log(this.data);
       localStorage.setItem("class-vidio", JSON.stringify(this.data));
     },

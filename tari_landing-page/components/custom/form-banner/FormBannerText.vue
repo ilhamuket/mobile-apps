@@ -5,7 +5,7 @@
         <!-- -----------------------------------------------
             Start Form Banner Text
         ----------------------------------------------- -->
-        <v-row justify="center">
+        <!-- <v-row justify="center">
           <v-col cols="12" sm="10" md="9" lg="7">
             <div class="text-center">
               <h2
@@ -24,7 +24,7 @@
               </p>
             </div>
           </v-col>
-        </v-row>
+        </v-row> -->
 
         <!-- -----------------------------------------------
             End Form Banner Text

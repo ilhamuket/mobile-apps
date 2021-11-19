@@ -1,6 +1,14 @@
 <template>
   <v-container>
-    <v-row>
+    <v-row v-if="$store.state.studioReviews.load_page_tabs">
+      <v-col class="d-flex justify-center">
+        <v-progress-circular
+          indeterminate
+          color="primary"
+        />
+      </v-col>
+    </v-row>
+    <v-row v-else>
       <v-col
         v-for="(item, i) in data.data"
         :key="i"

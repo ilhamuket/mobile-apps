@@ -9,10 +9,10 @@
           <v-col cols="12" sm="10" md="9" lg="7">
             <div class="text-center">
               <h2 class="ui-title text-h3 font-spartan-text font-weight-bold primary--text1">
-                Terdapat Banyak Sanggar - Sanggar
+                Pilihan sanggar yang luas
               </h2>
               <p>
-                EnsikloTari Bermitra Dengan Berbagai Sanggar Sanggar Seluruh Indonesia
+                EnsikloTari bermitra dengan berbagai sanggar tari di seluruh Indonesia
               </p>
             </div>
           </v-col>

@@ -1,5 +1,5 @@
 <template>
-  <div id="ensiklovile" ref="live">
+  <div id="ensiklolive" class="bg--fitur1" ref="live">
     <div class="portfolio-component mini-spacer">
       <v-container>
         <!-- -----------------------------------------------
@@ -8,7 +8,7 @@
         <v-row justify="center">
           <v-col cols="12" sm="10" md="9" lg="7">
             <div class="text-center">
-              <h2 class="section-title font-weight-medium">EnsikloLive</h2>
+              <h2 class="section-title font-weight-medium primary--text1 font-weight-bold">EnsikloLive</h2>
               <!-- <p>
                 You can relay on our amazing features list and also our customer
                 services will be great experience for you without doubt and in
@@ -50,7 +50,17 @@
                 <p v-if="item.studio" class="font-14 mb-0">
                   {{ item.studio.name }}
                 </p>
-                <p v-if="item.studio" class="font-spartan-small">
+                <br>
+                <P v-if="item.category">
+                  Level : {{ item.levels }}
+                </P>
+                <p>
+                  Durasi : {{ item.durasi }} Menit
+                </p>
+                <p class="font-rp font-weight-bold">
+                  Rp {{item.harga}}
+                </p>
+                <!-- <p v-if="item.studio" class="font-spartan-small">
                   {{ item.studio.reviews ? item.studio.reviews.length : 0 }}
                   ulasan
                 </p>
@@ -61,12 +71,12 @@
                   small
                   background-color="red"
                   color="green"
-                />
+                /> -->
               </v-card-text>
               <v-card-actions>
                 <v-btn
-                  color="#9DC4D1"
-                  class="btn-custom-lg linking mt-10 btn-arrow white--text"
+                  color="#4CAF50"
+                  class="btn-custom-lg linking btn--margin btn-arrow white--text"
                   nuxt
                   small
                   :href="`https://app.ensiklotari.com/detail/class/live/ensiklo-studio/${item.slug}`"
@@ -130,7 +140,7 @@ export default {
   methods: {
     async getDataClassAll() {
       const params = {
-        entities: "img,studio.reviews",
+        entities: "img,studio.reviews,category",
       };
       const data = await this.$axios.$get("all/live", { params: params });
       this.data = data;
@@ -145,4 +155,10 @@ export default {
   font-size: 13px
   margin-left: 162px
   margin-bottom: -27px !important
+.font-rp
+  font-size: 21px
+  color: #4CAF50
+  margin-top: 20px
+.btn--margin
+  margin-top: -6%
 </style>

@@ -8,16 +8,13 @@
         <v-row justify="center">
           <v-col cols="12" md="8" class="d-flex align-center">
             <div class="text-center">
-              <h2 class="banner2-title font-weight-light primary--text1">
-                Belajar Tari
-                <span class="font-weight-bold">
-                  Dimanapun & Kapanpun
-                </span>
-              </h2>
+              <span class="banner2-title font-weight-light font-weight-bold text--h4 text-nowrap primary--text1">
+                Belajar Tari  Di mana pun dan Kapan pun
+              </span>
 
-              <p class="font-spartan-text text-h4 grey--text fonts">
-                Belajar Dimanapun & Kapanpun, di EnsikloTari anda bisa belajar tari Dimanapun dengan sangat mudah
-              </p>
+              <!-- <p class="font-spartan-text text-h4 grey--text fonts">
+                Belajar Di mana pun dan Kapan pun, di EnsikloTari anda bisa belajar tari dimana pun dengan sangat mudah
+              </p> -->
 
               <div class="mt-16 pt-2">
                 <v-btn
@@ -30,7 +27,7 @@
                   color="#9DC4D1"
                   elevation="0"
                 >
-                  <span>Lihat Kelas Tari</span>
+                  <span>Pilih Kelas Tari</span>
                   <i class="mdi mdi-arrow-right"></i>
                 </v-btn>
               </div>
@@ -57,4 +54,6 @@ export default {
 <style lang="sass">
 .fonts
   line-height: 20px !important
+.text-nowrap
+  white-space: nowrap
 </style>

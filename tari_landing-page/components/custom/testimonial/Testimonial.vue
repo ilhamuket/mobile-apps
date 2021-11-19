@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="testimonial-component mini-spacer bg-extra-light">
+  <div class="bg--fitur1">
+    <div class="testimonial-component mini-spacer bg--fitur1">
       <v-container>
         <!-- -----------------------------------------------
             Start Testimonial Text
@@ -9,7 +9,7 @@
           <v-col cols="12" sm="10" md="9" lg="7">
             <div class="text-center">
               <h2 class="section-title font-weight-medium">
-                Apa yang di katakan Mereka ?
+                Apa yang di katakan mereka ?
               </h2>
               <!-- <p>
                 You can relay on our amazing features list and also our customer

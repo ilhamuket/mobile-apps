@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="mini-spacer bg-extra-light">
+  <div class="bg--fitur1">
+    <div class="mini-spacer bg--fitur1">
       <v-container>
         <!-- -----------------------------------------------
             Start Team

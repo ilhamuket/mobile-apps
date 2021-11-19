@@ -1,6 +1,14 @@
 <template>
   <v-container id="user-profile">
-    <v-row>
+    <v-row v-if="$store.state.studioReviews.load_data">
+      <v-col class="d-flex justify-center">
+        <v-progress-circular
+          indeterminate
+          color="primary"
+        />
+      </v-col>
+    </v-row>
+    <v-row v-else>
       <v-col
         cols="12"
         md="3"
@@ -151,6 +159,7 @@
     mounted () {
       this.getMe()
       this.getDataNeedReviews()
+      this.firstLoad()
     },
     methods: {
       getMe () {
@@ -163,6 +172,15 @@
               this.isLoader = false
             }
           })
+      },
+      firstLoad () {
+        if (this.$route.params.folder === "profile") {
+          this.tabs = 0
+        } else if (this.$route.params.folder === "waiting-reviews") {
+          this.tabs = 1
+        } else if (this.$route.params.folder === "my-reviews") {
+          this.tabs = 2
+        }
       },
       popUpDialog ({ item }) {
         this.dialogEdit.open = true
@@ -283,7 +301,12 @@
             entities:
               "classes.studio.img,classes.img,classes.category,classes.studio.reviews",
           })
-          .then((res) => {})
+          .then((res) => {
+            if (res.data.meta.status) {
+              this.$store.commit("studioReviews/LOAD")
+              this.$store.commit("studioReviews/LOAD_PAGE")
+            }
+          })
       },
       changePaginate ({ item }) {
         console.log(item)

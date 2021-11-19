@@ -12,12 +12,16 @@ export default {
       all: 0,
     },
     need_reviews: {},
+    load_data: true,
+    load_page_tabs: true,
   },
   getters: {},
   mutations: {
     GET_DATA: (state, payload) => (state.data = payload),
     GET_VALUE: (state, payload) => (state.value = payload),
     GET_DATA_NEED_REVIEWS: (state, payload) => (state.need_reviews = payload),
+    LOAD: (state) => (state.load_data = false),
+    LOAD_PAGE: (state) => (state.load_page_tabs = false),
   },
   actions: {
     getDataReviewsStudio: ({ commit }, payload) => {

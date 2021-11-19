@@ -9,7 +9,7 @@
           <v-col cols="12" md="7" lg="6" class="d-flex align-center">
             <div class="text-center text-md-left">
               <v-chip  class="" color="#4CAF50" text-color="white">
-                Sangar-Sanggar
+                Daftar Sanggar
               </v-chip>
               <h2
                 class="
@@ -19,11 +19,10 @@
                   white--text
                 "
               >
-                Sanggar Sanggar EnsikloTari
+                Bergabung Bersama EnsikloTari
               </h2>
               <p class="white--text op-8 font-weight-regular">
-                Mengangkat budaya menari di indonesia dengan sanggar - sanggar
-                EnsikloTari
+                Mengangkat budaya seni tari Indonesia melalui platform pembelajaran digital              
               </p>
               <div class="mt-16 pt-2">
                 <v-btn
@@ -37,13 +36,14 @@
                   color="white"
                   elevation="0"
                 >
-                  Ingin Gabung Menjadi Sanggar ?
+                  Daftar sanggar tari Anda disin
                 </v-btn>
               </div>
             </div>
           </v-col>
           <v-col cols="12" md="5" lg="5">
             <v-img
+            class="bg--img"
               :src="require('@/assets/images/banner/banner1.jpg')"
               alt="banner"
             />
@@ -66,3 +66,7 @@ export default {
   methods: {},
 };
 </script>
+<style lang="sass">
+.bg--img
+  background-image: red !important
+</style>

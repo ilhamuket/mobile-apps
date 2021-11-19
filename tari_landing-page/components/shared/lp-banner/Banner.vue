@@ -8,7 +8,7 @@
         <v-col cols="12" md="7" lg="6" class="d-flex align-center">
           <div class="text-center text-md-left">
             <h1 class="banner-title font-spartan font-weight-bold primary--text1">
-              Selamat Datang <br> Di EnsikloTari
+              Selamat datang <br> di EnsikloTari
             </h1>
             <!-- <h4 class="banner-subtitle white--text font-weight-regular">
               Free Vuetify UI Kit with Lots of Ready to Use Sections

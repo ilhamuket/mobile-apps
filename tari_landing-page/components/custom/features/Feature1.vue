@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg--fitur1">
     <div class="feature1-component mini-spacer">
       <v-container>
         <!-- -----------------------------------------------
@@ -8,11 +8,11 @@
         <v-row justify="center">
           <v-col cols="12" md="10" lg="7">
             <div class="text-center">
-              <v-chip small color="#4CAF50" text-color="white">
-                Feature 1
-              </v-chip>
+              <!-- <v-chip small color="#4CAF50" text-color="white">
+                Fitur A
+              </v-chip> -->
               <h2 class="section-title font-weight-bold primary--text1 text-h1">
-                Type Kelas
+                Tipe Kelas
               </h2>
               <p>EnsikloLive & EnsikloVideo</p>
             </div>
@@ -28,18 +28,17 @@
 
         <v-row justify="center" class="mt-13">
           <v-col cols="12" md="6">
-            <v-card elevation="0">
+            <v-card color="#E9F3F8" elevation="0">
               <v-card-text>
                 <div class="icon-round bg-light-info">
-                  <i class="mdi mdi-star"></i>
+                  <i class="mdi mdi-youtube"></i>
                 </div>
                 <h5 class="font-weight-bold font-18 primary--text1">
                   EnsikloLive
                 </h5>
                 <p class="mt-10 mb-8">
-                  EnsikloLive Adalah salah satu type kelas di
-                  EnsikloTari.EnsikloLive yaitu pengajaran tari dengan cara live
-                  Melalui Zoom Aplikasi
+                  EnsikloLive yaitu
+                  pengajaran tari dengan cara live melalui Zoom Aplikasi
                 </p>
                 <a
                   href="#live"
@@ -58,18 +57,17 @@
             </v-card>
           </v-col>
           <v-col cols="12" md="6">
-            <v-card elevation="0">
+            <v-card color="#E9F3F8" elevation="0">
               <v-card-text>
                 <div class="icon-round bg-light-info">
                   <i class="mdi mdi-check-circle"></i>
                 </div>
                 <h5 class="font-weight-bold font-18 primary--text1">
-                  EnsikloVidio
+                  EnsikloVideo
                 </h5>
                 <p class="mt-10 mb-8">
-                  EnsikloVidio Adalah salah satu type kelas di ensiklotari,
-                  EnsikloVidio yaitu pengajaran tari berupa vidio atau kelas
-                  streaming
+                  EnsikloVideo yaitu
+                  pengajaran tari melalui sebuah video atau kelas streaming
                 </p>
                 <a
                   href="#vidio"
@@ -105,3 +103,7 @@ export default {
   methods: {},
 };
 </script>
+<style lang="sass">
+.bg--fitur1
+  background-color: #E9F3F8 !important
+</style>

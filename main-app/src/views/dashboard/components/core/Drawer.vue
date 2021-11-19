@@ -31,7 +31,7 @@
         <v-list-item-avatar v-if="users.img">
           <v-img
             :src="require('@/assets/img/etmark (1).png')"
-            width="8"
+            width="12"
           />
         </v-list-item-avatar>
 

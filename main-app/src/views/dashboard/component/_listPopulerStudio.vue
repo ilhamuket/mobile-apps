@@ -106,9 +106,10 @@
                   <div class="d-flex flex-row mt-2">
                     <div class="d-flex flex-column">
                       <v-rating
-                        :value="4.5"
+                        :value="computedList[i]"
                         color="amber"
                         dense
+                        background-color="primary"
                         half-increments
                         readonly
                         size="20"
@@ -116,12 +117,12 @@
                     </div>
                     <div class="d-flex flex-column font-size-small mr-4">
                       <v-chip
-                        color="amber"
+                        :color="item.reviews.length > 0 ? 'amber' : 'primary'"
                         small
                         label
                         outlined
                       >
-                        (200 Review)
+                        ({{ item.reviews.length }} Review)
                       </v-chip>
                     </div>
                   </div>

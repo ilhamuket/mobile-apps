@@ -7,8 +7,9 @@
       elevate-on-scroll
       scroll-target="#scrolling-techniques-7"
       app
+      color="#F8EAE7"
       absolute
-      class="app-header"
+      class="app-header bg--fitur1"
       flat
     >
       <v-container class="py-0 fill-height">
@@ -70,6 +71,14 @@
                   </v-list-item-group>
                 </v-list>
               </v-menu>
+            </li>
+            <li>
+              <a
+                href="#what"
+                class="headers__sanggar font-weight-bold primary--text1"
+              >
+                Cara Pendaftaran
+              </a>
             </li>
             <li>
               <v-menu>

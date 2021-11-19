@@ -16,7 +16,7 @@
               v-if="item.img"
               :src="item.img.url"
               width="400"
-              height="276"
+              height="400"
               gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
               style="background-color: grey"
             >
@@ -102,7 +102,7 @@
                         color="primary"
                         bottom
                       >
-                        <template #activator="{on, attrs}">
+                        <template #activator="{ on, attrs }">
                           <v-icon
                             v-bind="attrs"
                             v-on="on"
@@ -110,9 +110,7 @@
                             mdi-account-check
                           </v-icon>
                         </template>
-                        <span class="font-spartan-small">
-                          Un Follow
-                        </span>
+                        <span class="font-spartan-small"> Un Follow </span>
                       </v-tooltip>
                     </v-btn>
                   </v-col>
@@ -123,7 +121,7 @@
               v-else
               src="https://ecs7.tokopedia.net/img/cache/300/default_picture_user/default_toped-22.jpg"
               width="400"
-              height="276"
+              height="400"
               gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
               style="background-color: grey"
             >
@@ -209,7 +207,7 @@
                         color="primary"
                         bottom
                       >
-                        <template #activator="{on, attrs}">
+                        <template #activator="{ on, attrs }">
                           <v-icon
                             v-bind="attrs"
                             v-on="on"
@@ -217,9 +215,7 @@
                             mdi-account-check
                           </v-icon>
                         </template>
-                        <span class="font-spartan-small">
-                          Un Follow
-                        </span>
+                        <span class="font-spartan-small"> Un Follow </span>
                       </v-tooltip>
                     </v-btn>
                   </v-col>
@@ -254,9 +250,9 @@
             const studio = this.data[item]
             let newReviews = []
             newReviews = studio.reviews
-            const count = newReviews.map(x => x.ratings)
+            const count = newReviews.map((x) => x.ratings)
             if (count.length !== 0) {
-              const sum = count.filter(x => x > 0).reduce((x, y) => x + y)
+              const sum = count.filter((x) => x > 0).reduce((x, y) => x + y)
               const avarage = sum / count.length
 
               arrayReviews.push(avarage)
@@ -271,7 +267,7 @@
         let boolFoll = false
 
         if (this.data.length > 0) {
-          booleanArr = this.data.filter(x => x.followers)
+          booleanArr = this.data.filter((x) => x.followers)
           //   console.log(booleanArr)
 
           // eslint-disable-next-line no-unused-vars
@@ -306,7 +302,7 @@
         const finalBool = []
         let boolFoll = false
         if (this.data.length > 0) {
-          dataStudioFilter = this.data.filter(x => x.likes)
+          dataStudioFilter = this.data.filter((x) => x.likes)
 
           // eslint-disable-next-line no-unused-vars
           for (const item in dataStudioFilter) {
@@ -339,14 +335,14 @@
     methods: {
       like (item) {
         this.$emit("like", { item: item })
-        const index = this.data.findIndex(x => x.id === item.id)
+        const index = this.data.findIndex((x) => x.id === item.id)
         if (index !== -1) {
           this.computedIsLikeYou.splice(index, 1, true)
         }
       },
       unLike (item) {
         this.$emit("unLike", { item: item })
-        const index = this.data.findIndex(x => x.id === item.id)
+        const index = this.data.findIndex((x) => x.id === item.id)
         if (index !== -1) {
           this.computedIsLikeYou.splice(index, 1, false)
         }
@@ -359,14 +355,14 @@
       },
       follow (item) {
         this.$emit("follow", { item: item })
-        const indexStudio = this.data.findIndex(x => x.id === item.id)
+        const indexStudio = this.data.findIndex((x) => x.id === item.id)
         if (indexStudio !== -1) {
           this.computedIsFollowingYou.splice(indexStudio, 1, true)
         }
       },
       unFolow (item) {
         this.$emit("unFollow", { item: item })
-        const indexStudio = this.data.findIndex(x => x.id === item.id)
+        const indexStudio = this.data.findIndex((x) => x.id === item.id)
         if (indexStudio !== -1) {
           this.computedIsFollowingYou.splice(indexStudio, 1, false)
         }
@@ -377,7 +373,7 @@
 
 <style lang="sass">
 .cols_list_studio
-    margin-top: 100px !important
+    margin-top: 213px !important
 .btn-expolore-studio
     margin-left: -2px
     // &:hover

@@ -9,25 +9,27 @@
           <v-col cols="12" md="7" lg="5" class="d-flex align-center">
             <div class="text-center text-md-left">
               <h2 class="formbanner1-title font-weight-bold primary--text1">
-                Belajar Tari Dimanapun & kapanpun
+                EnsikloTari & Sanggar
               </h2>
-              <p class="mt-16 pt-4">
-                To accomplish great things, we must not only act, but also
-                dream; not only plan, but also believe.
+              <p class="mt-16 pt-4 text-justify">
+                Platform EnsikloTari memungkinkan para pemilik sanggar untuk
+                memperluas jaringan kelasnya, berkolaborasi, dan berbagi dengan
+                siapa pun, di mana pun. Tidak Sekedar meningkatkan pendapatan
+                mereka, tetapi mengharumkan nama bangsa
               </p>
               <div class="mt-16 pt-2">
                 <v-btn
                   nuxt
                   width="300"
-                  href="https://app.ensiklotari.com/class-vidio"
-                  target="__blank"
-                  class="btn-custom-lg btn-arrow white--text"
+                  class="btn-custom-lg white--text"
+                  href="https://app.ensiklotari.com/studio"
+                  target="__blank" 
                   depressed
-                  color="#9DC4D1"
+                  color="#4CAF50"
                   elevation="0"
                 >
-                  <span>Lihat Kelas Tari</span>
-                  <i class="mdi mdi-arrow-right"></i>
+                  <span>Lihat sanggar yang tersedia</span>
+                  <i class="mdi mdi-arrow-right ml-2"></i>
                 </v-btn>
               </div>
             </div>
@@ -56,3 +58,7 @@ export default {
   methods: {},
 };
 </script>
+<style lang="sass">
+.text-justify
+  text-align: justify
+</style>

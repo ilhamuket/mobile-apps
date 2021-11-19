@@ -225,12 +225,12 @@
           v-on="on"
         >
           <v-list-item-avatar
-            v-if="user.img"
+            v-if="dataUser.img"
             size="36"
           >
             <v-img
               class="bg-img"
-              :src="user.img.url"
+              :src="dataUser.img.url"
             />
           </v-list-item-avatar>
           <v-list-item-avatar
@@ -248,8 +248,8 @@
 
       <v-list>
         <v-list-item class="d-flex justify-center">
-          <v-list-item-avatar v-if="user.img">
-            <v-img :src="user.img.url" />
+          <v-list-item-avatar v-if="dataUser.img">
+            <v-img :src="dataUser.img.url" />
           </v-list-item-avatar>
           <v-list-item-avatar
             v-else

@@ -29,7 +29,9 @@
               <br />
               <br />
               <div class="overflow-scroll">
-                <span class="font-spartan-text width--text text-h6 mt-6 grey--text">
+                <span
+                  class="font-spartan-text width--text text-h6 mt-6 grey--text"
+                >
                   Seni Tari selalu identik sebagai bukti keragaman budaya
                   Nusantara. Dari Sabang sampai Merauke, masyarakat Indonesia
                   berekspresi melalui berbagai gerak tari yang atraktif dan
@@ -37,16 +39,32 @@
                   membawa banyak manfaat untuk kesehatan jasmani dan rohani.
                   Tapi sejujurnya, sejauh apa kita mengenal ragam gerak tari
                   Indonesia ? EnsikloTari akan membawa Anda dalam perjalanan
-                  untuk mengembalikan "The Joy Of Dancing".Menemukan ketenangan,
-                  that it's OK to not be OK. Para pemula dapat belajar sesuai
-                  dengan kecepatan mereka sendiri. Tanpa malu, tanpa ragu. Pintu
-                  sanggar terbuka lebar. Anda dapat belajar dari sanggar mana
-                  pun, di mana pun, dan di waktu yang Anda mau. </span>
+                  untuk mengembalikan
+                  <span class="font-italic">The Joy Of Dancing</span>.Menemukan
+                  ketenangan,
+                  <span class="font-italic">that it's OK to not be OK.</span>
+                  Para pemula dapat belajar sesuai dengan kecepatan mereka
+                  sendiri. Tanpa malu, tanpa ragu. Pintu sanggar terbuka lebar.
+                  Anda dapat belajar dari sanggar mana pun, di mana pun, dan di
+                  waktu yang Anda mau.
+                </span>
               </div>
             </v-col>
           </v-row>
         </v-col>
       </v-row>
+      <!-- <v-row>
+        <v-col cols="12" md="4">
+          <v-card>
+            <v-avatar>
+              <v-img />
+            </v-avatar>
+            <v-card-text>
+              
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row> -->
     </v-container>
   </div>
 </template>
@@ -79,25 +97,22 @@ export default {
   text-align: justify
   width: 120%
   /* width */
-::-webkit-scrollbar 
+::-webkit-scrollbar
   width: 6px
 
-
 /* Track */
-::-webkit-scrollbar-track 
+::-webkit-scrollbar-track
   background: #f1f1f1
 
- 
 /* Handle */
-::-webkit-scrollbar-thumb 
+::-webkit-scrollbar-thumb
   background: #888
 
-
 /* Handle on hover */
-::-webkit-scrollbar-thumb:hover 
+::-webkit-scrollbar-thumb:hover
   background: #555
   .width--text
-    width: 100% !important 
+    width: 100% !important
 .bg--what
   background-color: #F4F8FA
 .container--what
@@ -105,4 +120,6 @@ export default {
   margin-bottom: 2%
 .primary--text1
   color: #9DC5D1 !important
+.font-italic
+  font-style: italic
 </style>>
