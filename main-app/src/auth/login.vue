@@ -38,7 +38,7 @@
               Selamat Datang Di EnsikloTari 👋
             </v-card-title> -->
               <v-card-text class="mb-2 secondary--text font-spartan">
-                Masuk dengan akun mu dan mulai pertualangan mu
+                Daftarkan diri dan mulai pertualanganmu
               </v-card-text>
 
               <v-alert
