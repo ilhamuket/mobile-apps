@@ -288,7 +288,15 @@
             slug: this.$route.params.slug,
           })
           .then((res) => {
-            localStorage.setItem("instructor", res.data.data.name)
+            localStorage.removeItem("instructor")
+            if (res.data.meta.status) {
+              localStorage.setItem("instructor", res.data.data.name)
+              this.$store.commit("studios/SET_INSTRUCTOR", {
+                instructor: res.data.data.name,
+              })
+              console.log(this.$store.state.studios.instructor)
+            }
+            console.log("Local : ", localStorage.getItem("instructor"))
           })
       },
       setSummary (item) {

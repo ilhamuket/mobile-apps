@@ -33,7 +33,7 @@ const router = new Router({
         // Pages
         {
           name: "User Profile",
-          path: "pages/user",
+          path: "pages/user/:folder",
           component: () => import("@/views/dashboard/pages/users/index"),
           meta: {
             breadcumbs: [

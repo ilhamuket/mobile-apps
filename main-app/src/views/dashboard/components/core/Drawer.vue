@@ -29,22 +29,13 @@
     <v-list nav>
       <v-list-item>
         <v-list-item-avatar v-if="users.img">
-          <v-img :src="users.img.url" />
-        </v-list-item-avatar>
-        <v-list-item-avatar
-          v-else
-          class="align-self-center"
-          :color="$vuetify.theme.dark ? 'primary' : 'third'"
-          contain
-        >
-          <!-- <v-img
-            src="@/assets/logo-e-color (1).png"
-            max-height="30"
-          /> -->
-          <span class="text-capitalize">{{ users.nickName.charAt(0) }}</span>
+          <v-img
+            :src="require('@/assets/img/etmark (1).png')"
+            width="8"
+          />
         </v-list-item-avatar>
 
-        <v-list-item-content>
+        <!-- <v-list-item-content>
           <v-list-item-title class="font-spartan-small">
             <h3>
               {{ users.nickName }}
@@ -54,6 +45,9 @@
             class="font-spartan-small custome-font"
             v-text="users.email"
           />
+        </v-list-item-content> -->
+        <v-list-item-content>
+          <v-list-item-title v-text="profile.title" />
         </v-list-item-content>
 
         <v-btn
@@ -152,7 +146,7 @@
           to: "/category",
         },
         {
-          icon: "mdi-account-group-outline",
+          icon: "mdi-access-point",
           title: "ensiklo_live",
           to: "/classes",
         },
@@ -211,7 +205,7 @@
       profile () {
         return {
           avatar: true,
-          title: "EnsikloTari",
+          title: "EnsikloTari Beta",
         }
       },
     },

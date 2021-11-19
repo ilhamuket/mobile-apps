@@ -79,9 +79,7 @@
             slug: this.$route.params.slug,
             entities: "instructor.studio",
           })
-          .then((res) => {
-            console.log(res.data.data)
-          })
+          .then((res) => {})
       },
       getDataAutoPlay (id) {
         this.$store.dispatch("instructorVidio/getDataAutoPlay", {

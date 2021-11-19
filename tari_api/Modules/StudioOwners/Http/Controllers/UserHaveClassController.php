@@ -155,9 +155,22 @@ class UserHaveClassController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
+    public function needReviews(Request $request)
     {
-        return view('studioowners::show');
+        try {
+            $master = UserHaveClass::entities($request->entities)
+                ->where('status_responded', 'pending')
+                ->where('user_id', $request->user()->id)
+                ->paginate($request->input('paginate', 3));
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**

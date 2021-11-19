@@ -15,7 +15,7 @@
       <v-btn
         width="185"
         outlined
-        color="primary"
+        color="btn_primary"
       >
         <v-icon>mdi-cart-check</v-icon>
         Buy Now
@@ -31,7 +31,7 @@
             width="183"
             small
             outlined
-            color="primary"
+            color="red"
           >
             <v-icon class="mr-2">
               mdi-heart

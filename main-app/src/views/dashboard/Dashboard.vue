@@ -38,189 +38,7 @@
         <v-divider class="divider--opacity mt-2 mb-2" />
         <v-card-text>
           <v-row class="ml-6">
-            <v-col
-              v-for="(item, i) in studio"
-              :key="i"
-              cols="12"
-              md="4"
-            >
-              <v-card
-                class="mx-auto"
-                max-width="400"
-              >
-                <v-img
-                  v-if="item.img"
-                  class="white--text align-end"
-                  height="200px"
-                  :src="item.img.url"
-                  style="cursor: pointer"
-                  gradient="to top right, rgba(0, 0, 0, 0.05), rgba(20, 20, 20, 0.05)"
-                  @click="toPush(`${item.slug}/home`)"
-                >
-                  <v-row class="fill-height mt-g text-right">
-                    <v-col cols="12">
-                      <v-chip
-                        label
-                        class="font-spartan mr-1 text-uppercase"
-                        color="primary"
-                        text-color="white"
-                        small
-                        @click.stop=""
-                      >
-                        {{ item.views ? item.views : "0" }} Visited
-                      </v-chip>
-                    </v-col>
-                  </v-row>
-                </v-img>
-                <v-img
-                  v-else
-                  class="white--text align-end"
-                  height="200px"
-                  src="https://myars.ars.ac.id/media/logo.png"
-                  style="cursor: pointer"
-                  gradient="to top right, rgba(0, 0, 0, 0.05), rgba(20, 20, 20, 0.05)"
-                  @click="toPush(`${item.slug}/home`)"
-                >
-                  <v-row class="fill-height mt-g text-right">
-                    <v-col cols="12">
-                      <v-chip
-                        label
-                        class="font-spartan mr-1 text-uppercase"
-                        color="primary"
-                        text-color="white"
-                        small
-                        @click.stop=""
-                      >
-                        {{ item.views ? item.views : "0" }} Visited
-                      </v-chip>
-                    </v-col>
-                  </v-row>
-                </v-img>
-
-                <v-card-subtitle style="text-transform: capitalize">
-                  <div class="d-flex flex-row mb-2">
-                    <!-- <div
-                        v-if="list.name.length > 26"
-                        class="d-flex flex-column"
-                      >
-                        <v-tooltip
-                          bottom
-                          color="primary"
-                        >
-                          <template #activator="{on,attrs}">
-                            <h3
-                              v-bind="attrs"
-                              v-on="on"
-                            >
-                              {{ list.name.substr(0, 26) + ' .. ' }}
-                            </h3>
-                          </template>
-                          <span>{{ list.name }}</span>
-                        </v-tooltip>
-                      </div> -->
-                    <div class="d-flex flex-column">
-                      <h3>
-                        {{ item.name }}
-                      </h3>
-                    </div>
-                  </div>
-                  <div class="d-flex flex-row">
-                    <div class="d-flex flex-column">
-                      <v-chip
-                        outlined
-                        label
-                        small
-                        color="primary"
-                        class="text-capitalize"
-                      >
-                        {{ item.type }}
-                      </v-chip>
-                    </div>
-
-                    <div class="d-flex flex-column ml-2">
-                      <v-chip
-                        color="primary"
-                        small
-                        label
-                        outlined
-                      >
-                        <v-tooltip
-                          bottom
-                          color="primary"
-                        >
-                          <template #activator="{ on, attrs }">
-                            <v-icon
-                              v-bind="attrs"
-                              :color="$vuetify.theme.dark ? 'white' : 'orange'"
-                              class="mr-1"
-                              v-on="on"
-                            >
-                              mdi-account-check
-                            </v-icon>
-                          </template>
-                          <span class="font-spartan-small"> Following </span>
-                        </v-tooltip>
-
-                        {{ item.followers.length }}
-                      </v-chip>
-                    </div>
-
-                    <div class="d-flex flex-column ml-2">
-                      <v-chip
-                        color="primary"
-                        small
-                        label
-                        outlined
-                      >
-                        <v-icon
-                          color="red"
-                          class="mr-1"
-                        >
-                          mdi-heart
-                        </v-icon>
-                        {{ item.likes.length }}
-                      </v-chip>
-                    </div>
-                  </div>
-                  <div class="d-flex flex-row mt-2">
-                    <div class="d-flex flex-column">
-                      <v-rating
-                        :value="4.5"
-                        color="amber"
-                        dense
-                        half-increments
-                        readonly
-                        size="20"
-                      />
-                    </div>
-                    <div class="d-flex flex-column font-size-small mr-4">
-                      <v-chip
-                        color="amber"
-                        small
-                        label
-                        outlined
-                      >
-                        (200 Review)
-                      </v-chip>
-                    </div>
-                  </div>
-
-                  <!-- <div class="grey--text ms-4">
-                  4.5 (413)
-                </div> -->
-                </v-card-subtitle>
-
-                <v-card-actions>
-                  <v-btn
-                    color="orange"
-                    text
-                    @click="toPush(`${item.slug}/home`)"
-                  >
-                    {{ $t("dahsboard.sxp") }}
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-col>
+            <app-list-populer-studio :studio="studio" />
           </v-row>
           <v-row>
             <v-col
@@ -252,151 +70,7 @@
         <v-divider class="divider--opacity mt-2 mb-2" />
         <v-card-text>
           <v-row class="ml-6">
-            <v-col
-              v-for="(item, i) in classes"
-              :key="i"
-              cols="12"
-              md="4"
-            >
-              <v-card>
-                <v-img
-                  v-if="item.img"
-                  class="white--text align-end"
-                  height="200px"
-                  :src="item.img.url"
-                  style="cursor: pointer"
-                  gradient="to top right, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)"
-                >
-                  <v-row
-                    v-if="item.category"
-                    class="fill-height mt-g text-right"
-                  >
-                    <v-col cols="12">
-                      <v-chip
-                        label
-                        class="font-spartan mr-1 text-uppercase"
-                        color="btn_primary"
-                        text-color="white"
-                        small
-                        @click.stop=""
-                      >
-                        Class Zoom
-                      </v-chip>
-                    </v-col>
-                    <v-col
-                      class="col__"
-                      cols="12"
-                    >
-                      <v-chip
-                        label
-                        class="font-spartan mr-1 text-uppercase"
-                        color="btn_primary"
-                        text-color="white"
-                        small
-                        @click.stop=""
-                      >
-                        {{ item.category.name }}
-                      </v-chip>
-                    </v-col>
-                  </v-row>
-                </v-img>
-                <v-img
-                  v-else
-                  class="white--text align-end"
-                  height="200"
-                  src="http://localhost:8081/img/et.7701c625.png"
-                  style="cursor: pointer"
-                  gradient="to top right, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)"
-                >
-                  <v-row
-                    v-if="item.category"
-                    class="fill-height mt-g text-right"
-                  >
-                    <v-col cols="12">
-                      <v-chip
-                        label
-                        class="font-spartan mr-1 text-uppercase"
-                        color="btn_primary"
-                        text-color="white"
-                        small
-                        @click.stop=""
-                      >
-                        Class Zoom
-                      </v-chip>
-                    </v-col>
-                    <v-col
-                      class="col__"
-                      cols="12"
-                    >
-                      <v-chip
-                        label
-                        class="font-spartan mr-1 text-uppercase"
-                        color="btn_primary"
-                        text-color="white"
-                        small
-                        @click.stop=""
-                      >
-                        {{ item.category.name }}
-                      </v-chip>
-                    </v-col>
-                  </v-row>
-                </v-img>
-                <v-card-subtitle style="text-transform: capitalize">
-                  <div class="d-flex flex-row mb-2">
-                    <div class="d-flex flex-column">
-                      <h3 class="">
-                        {{ item.name }}
-                      </h3>
-                    </div>
-                  </div>
-                  <div class="d-flex flex-row">
-                    <div class="d-flex flex-column">
-                      <span class="font-spartan font__price"> Rp2000 </span>
-                    </div>
-                  </div>
-                  <div class="d-flex flex-row mt-2">
-                    <div class="d-flex flex-column">
-                      <v-rating
-                        :value="4.5"
-                        color="amber"
-                        dense
-                        half-increments
-                        readonly
-                        size="20"
-                      />
-                    </div>
-                    <div class="d-flex flex-column font-size-small mr-4">
-                      <v-chip
-                        color="amber"
-                        small
-                        label
-                        outlined
-                      >
-                        (200 Review)
-                      </v-chip>
-                    </div>
-                  </div>
-
-                  <!-- <div class="grey--text ms-4">
-                  4.5 (413)
-                </div> -->
-                </v-card-subtitle>
-
-                <v-card-actions v-if="item.studio">
-                  <v-btn
-                    color="orange"
-                    text
-                    @click="
-                      toPush(
-                        `detail/class/live/${item.studio.slug}/${item.slug}`
-                      )
-                    "
-                  >
-                    {{ $t("dahsboard.cxp") }}
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-col>
+            <app-list-populer-ensiklolive :classes="classes" />
           </v-row>
           <v-row>
             <v-col
@@ -419,7 +93,13 @@
 </template>
 
 <script>
+  import listSTudio from "./component/_listPopulerStudio.vue"
+  import listEnsikloLive from "./component/_listPopulerEnsiklolive.vue"
   export default {
+    components: {
+      "app-list-populer-studio": listSTudio,
+      "app-list-populer-ensiklolive": listEnsikloLive,
+    },
     data: () => ({
       is_load: true,
     }),
@@ -445,7 +125,7 @@
       getDataMostPopuler () {
         this.$store
           .dispatch("studioPopuler/getDataMostPopuler", {
-            entities: "img, followers, likes",
+            entities: "img, followers, likes,reviews",
           })
           .then((res) => {
             if (res.data.meta.status) {

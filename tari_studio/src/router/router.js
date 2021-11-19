@@ -3,6 +3,7 @@ import Router from "vue-router"
 import auth from "../store/module/auth"
 // import t from '../i18n'
 import i18n from "@/i18n"
+// import store from "../store/store"
 
 Vue.use(Router)
 

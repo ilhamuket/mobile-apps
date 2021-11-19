@@ -134,7 +134,7 @@
           to: "/category",
         },
         {
-          icon: "mdi-account-group-outline",
+          icon: "mdi-access-point",
           title: "classes",
           to: "/class",
         },

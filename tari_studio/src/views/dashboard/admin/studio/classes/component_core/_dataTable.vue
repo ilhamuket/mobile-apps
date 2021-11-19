@@ -433,6 +433,7 @@
               <v-chip
                 label
                 color="btn_primary"
+                text-color="white"
               >
                 {{ item.student ? item.student.length : "0" }} /
                 {{ item.kapasitas }}

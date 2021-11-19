@@ -28,6 +28,7 @@ use Modules\Studio\Http\Controllers\StudioVidioController;
 use Modules\Studio\Http\Controllers\FormRegisterEnsiklovideoController;
 use Modules\StudioOwners\Http\Controllers\ReviewOwnerController;
 use Modules\StudioOwners\Http\Controllers\StudioClassVidioController;
+use Modules\StudioOwners\Http\Controllers\UserHaveClassController;
 
 /*
 |--------------------------------------------------------------------------
@@ -127,6 +128,9 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
     });
     Route::prefix('reviews')->group(function () {
         Route::post('class', [ReviewController::class, 'store']);
+        Route::prefix('need-reviews')->group(function () {
+            Route::get('', [UserHaveClassController::class, 'needReviews']);
+        });
         Route::get('class/{slug}', [ReviewController::class, 'byClass']);
         Route::get('avarage/{slug}', [ReviewController::class, 'avarage']);
         Route::get('studio/{slug}', [ReviewController::class, 'reviewsStudio']);

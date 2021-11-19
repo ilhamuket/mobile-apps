@@ -10,8 +10,8 @@
           icon="mdi-twitter"
           :title="$t('classes')"
           :value="String(summary.classes)"
-          sub-icon="mdi-clock"
-          sub-text="Just Updated"
+          sub-icon="mdi-heart-outline"
+          sub-text="EnsikloTari"
           style="cursor:pointer"
           @click.native="toNavigate('/class')"
         />

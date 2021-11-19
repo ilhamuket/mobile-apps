@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row v-if="is_load">
+    <v-row v-if="$store.state.studios.is_load">
       <!-- <loader
         object="#ff9633"
         color1="#ffffff"
@@ -391,9 +391,10 @@
           .dispatch("user/me", {
             entities: "studio",
           })
-          .then(res => {
+          .then((res) => {
             this.users = res.data.data
             this.is_load = false
+            this.$store.commit("studios/LOAD")
           })
       },
       onResize () {
@@ -405,7 +406,7 @@
           .dispatch("studio/getDataMeStudio", {
             entities: "likes,followers,img",
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.is_load = false
             }
@@ -422,7 +423,7 @@
             address: item.address,
             about: item.about,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.dialogEditProfile.open = false
               const Toast = this.$swal.mixin({
@@ -431,7 +432,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -458,7 +459,7 @@
       hideDataDiscussesSelected ({ item }) {
         this.$store
           .dispatch("studioDiscusses/hideDataDiscussesSelected", item)
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.dialogHideDiscussesAll.open = false
               const Toast = this.$swal.mixin({
@@ -467,7 +468,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -525,7 +526,7 @@
             parent_id: item.data.id,
             id: item.data.class_id,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.reply.open = false
               item = null
@@ -535,7 +536,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -562,7 +563,7 @@
           .dispatch("studioDiscusses/deleteDataDiscusses", {
             id: item.id,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.deleteDiscuss.open = false
               const Toast = this.$swal.mixin({
@@ -571,7 +572,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -590,7 +591,7 @@
       deleteDataDiscussesSelected ({ item }) {
         this.$store
           .dispatch("studioDiscusses/deleteDataDiscussesSelected", item)
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               item = []
               this.dialogDeleteDiscussBroadcast.open = false
@@ -600,7 +601,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -622,7 +623,7 @@
       hideReviewSelected ({ item }) {
         this.$store
           .dispatch("studioReviews/hideReviewSelected", item)
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               const Toast = this.$swal.mixin({
                 toast: true,
@@ -630,7 +631,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -652,7 +653,7 @@
       deleteReviewSelected ({ item }) {
         this.$store
           .dispatch("studioReviews/deleteReviewSelected", item)
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.dialogDeleteReviewsAll.open = false
               const Toast = this.$swal.mixin({
@@ -661,7 +662,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -682,7 +683,7 @@
             id: item.data.id,
             body: item.content,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.replyReviews.open = false
               item.content = ""
@@ -692,7 +693,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -715,7 +716,7 @@
             tw: item.username_tw,
             fb: item.username_fb,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.$route.params.params = "profile"
               this.firstLoad()
@@ -734,7 +735,7 @@
             files: item.files,
             studio_id: item.id,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               const Toast = this.$swal.mixin({
                 toast: true,
@@ -742,7 +743,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -764,7 +765,7 @@
             files: item.files,
             studio_id: item.id,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               const Toast = this.$swal.mixin({
                 toast: true,
@@ -772,7 +773,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -803,7 +804,7 @@
             bank_name: item.bank_name,
             status: item.status,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.dialogAddBankAccount.open = false
               const Toast = this.$swal.mixin({
@@ -812,7 +813,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -839,7 +840,7 @@
             name: item.name,
             no_rek: item.no_rek,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.dataDialogEditBankAccount.open = false
               const Toast = this.$swal.mixin({
@@ -848,7 +849,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -876,7 +877,7 @@
           .dispatch("bank_account/deleteDataBankAccountById", {
             id: item.id,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.dalogBankDeleteById.open = false
               const Toast = this.$swal.mixin({
@@ -885,7 +886,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -908,7 +909,7 @@
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
-          didOpen: toast => {
+          didOpen: (toast) => {
             toast.addEventListener("mouseenter", this.$swal.stopTimer)
             toast.addEventListener("mouseleave", this.$swal.resumeTimer)
           },
@@ -929,7 +930,7 @@
         console.log(item, "asas")
         this.$store
           .dispatch("bank_account/activatedDataBankAccount", item)
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.activatedBankAccount.open = false
               const Toast = this.$swal.mixin({
@@ -938,7 +939,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },

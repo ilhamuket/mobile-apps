@@ -13,7 +13,7 @@
             ></v-carousel-item>
           </v-carousel>
         </v-col>
-        <v-col class="d-flex justify-center" cols="12" md="7">
+        <v-col class="d-flex justify-center" cols="12" md="6">
           <v-row>
             <v-col cols="12">
               <span
@@ -29,7 +29,7 @@
               <br />
               <br />
               <div class="overflow-scroll">
-                <span class="font-spartan-text text-h6 mt-6 grey--text">
+                <span class="font-spartan-text width--text text-h6 mt-6 grey--text">
                   Seni Tari selalu identik sebagai bukti keragaman budaya
                   Nusantara. Dari Sabang sampai Merauke, masyarakat Indonesia
                   berekspresi melalui berbagai gerak tari yang atraktif dan
@@ -41,8 +41,7 @@
                   that it's OK to not be OK. Para pemula dapat belajar sesuai
                   dengan kecepatan mereka sendiri. Tanpa malu, tanpa ragu. Pintu
                   sanggar terbuka lebar. Anda dapat belajar dari sanggar mana
-                  pun, di mana pun, dan di waktu yang Anda mau.
-                </span>
+                  pun, di mana pun, dan di waktu yang Anda mau. </span>
               </div>
             </v-col>
           </v-row>
@@ -79,6 +78,26 @@ export default {
   text-justify: justify
   text-align: justify
   width: 120%
+  /* width */
+::-webkit-scrollbar 
+  width: 6px
+
+
+/* Track */
+::-webkit-scrollbar-track 
+  background: #f1f1f1
+
+ 
+/* Handle */
+::-webkit-scrollbar-thumb 
+  background: #888
+
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover 
+  background: #555
+  .width--text
+    width: 100% !important 
 .bg--what
   background-color: #F4F8FA
 .container--what

@@ -17,7 +17,7 @@
         <v-card>
           <v-tabs
             v-model="tabs"
-            color="btn_primary"
+            color="primary"
             class="tabs-profile"
           >
             <v-tab class="font-spartan-small">
@@ -27,6 +27,24 @@
               >
                 mdi-account
               </v-icon>Profile
+            </v-tab>
+            <v-tab>
+              <v-icon
+                color="grey"
+                class="mr-1"
+              >
+                mdi-mail
+              </v-icon> waiting for
+              the review
+            </v-tab>
+            <v-tab>
+              <v-icon
+                color="grey"
+                class="mr-1"
+              >
+                mdi-message-draw
+              </v-icon>
+              My Reviews
             </v-tab>
           </v-tabs>
           <v-tabs-items v-model="tabs">
@@ -39,6 +57,15 @@
                 @editContact="popDialogEditContact"
                 @updateSocmed="popDialogEditSocmed"
               />
+            </v-tab-item>
+            <v-tab-item>
+              <app-tabs-waiting
+                :data="computedReviews"
+                @paginate="changePaginate"
+              />
+            </v-tab-item>
+            <v-tab-item>
+              <app-tabs-myreviews />
             </v-tab-item>
           </v-tabs-items>
         </v-card>
@@ -65,6 +92,8 @@
   import profile from "./component_core/_profile.vue"
   import cardEdit from "./component/__change.vue"
   import editContact from "./component/__changeContact.vue"
+  import waiting from "./component_core/_waitingForReviews.vue"
+  import myreviews from "./component_core/_myReviews.vue"
 
   // import dialogEditProfile from "./component/_dialogEdit.vue"
   export default {
@@ -75,6 +104,8 @@
       "app-profile": profile,
       "app-card-edit": cardEdit,
       "app-edit-contact": editContact,
+      "app-tabs-waiting": waiting,
+      "app-tabs-myreviews": myreviews,
     },
     data: () => ({
       isLoader: true,
@@ -96,9 +127,30 @@
       cumputedMe () {
         return this.$store.state.user.me
       },
+      computedReviews () {
+        return this.$store.state.studioReviews.need_reviews
+      },
+    },
+    watch: {
+      tabs () {
+        if (this.tabs === 0) {
+          const folder = "profile"
+          const params = (this.$route.params.folder = folder)
+          this.$router.push(params).catch(() => {})
+        } else if (this.tabs === 1) {
+          const folder = "waiting-reviews"
+          const params = (this.$route.params.folder = folder)
+          this.$router.push(params).catch(() => {})
+        } else if (this.tabs === 2) {
+          const folder = "my-reviews"
+          const params = (this.$route.params.folder = folder)
+          this.$router.push(params).catch(() => {})
+        }
+      },
     },
     mounted () {
       this.getMe()
+      this.getDataNeedReviews()
     },
     methods: {
       getMe () {
@@ -106,7 +158,7 @@
           .dispatch("user/me", {
             entities: "followingStudio.followers,followingStudio.likes, img",
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.isLoader = false
             }
@@ -140,7 +192,7 @@
             fb: item.username_fb,
             tw: item.username_tw,
           })
-          .then(res => {
+          .then((res) => {
             this.dialogEdit.open = false
             if (res.data.meta.status) {
               this.dialogEdit.open = false
@@ -151,7 +203,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -171,7 +223,7 @@
           .dispatch("user/choosePicture", {
             files: item.files,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               const Toast = this.$swal.mixin({
                 toast: true,
@@ -179,7 +231,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -200,7 +252,7 @@
           .dispatch("user/changePicture", {
             files: item.files,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               const Toast = this.$swal.mixin({
                 toast: true,
@@ -208,7 +260,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -223,6 +275,19 @@
               this.getMe()
             }
           })
+      },
+      getDataNeedReviews (page) {
+        this.$store
+          .dispatch("studioReviews/getDataNeedReviews", {
+            page: page,
+            entities:
+              "classes.studio.img,classes.img,classes.category,classes.studio.reviews",
+          })
+          .then((res) => {})
+      },
+      changePaginate ({ item }) {
+        console.log(item)
+        this.getDataNeedReviews(item)
       },
     },
   }
@@ -243,4 +308,6 @@
             text-transform: capitalize
             font-family: "Spartan", sans-serif
             font-size: 14px
+        .v-tab--active
+          color: black !important
 </style>

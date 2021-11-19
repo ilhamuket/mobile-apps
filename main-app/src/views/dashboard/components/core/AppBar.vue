@@ -225,12 +225,12 @@
           v-on="on"
         >
           <v-list-item-avatar
-            v-if="users.img"
+            v-if="user.img"
             size="36"
           >
             <v-img
               class="bg-img"
-              :src="users.img.url"
+              :src="user.img.url"
             />
           </v-list-item-avatar>
           <v-list-item-avatar
@@ -347,6 +347,7 @@
       ],
       dataUser: {
         cart: [],
+        img: {},
       },
       notify: false,
       model: null,
@@ -365,7 +366,7 @@
         {
           icon: "mdi-account-outline",
           text: "myaccount",
-          to: "/pages/user",
+          to: "/pages/user/profile",
           badge: false,
         },
         {
@@ -399,6 +400,12 @@
         {
           icon: "mdi-account-group-outline",
           text: "history_class",
+
+          badge: false,
+        },
+        {
+          icon: "mdi-mail",
+          text: "review",
 
           badge: false,
         },
@@ -483,7 +490,7 @@
       getMe () {
         this.$store
           .dispatch("user/me", {
-            entities: "cart,myClass",
+            entities: "cart,myClass,img",
           })
           .then((res) => {
             if (res.data.meta.status) {
