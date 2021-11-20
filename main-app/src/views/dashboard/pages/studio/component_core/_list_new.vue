@@ -64,6 +64,7 @@
                     <v-rating
                       :value="computedList[i]"
                       readonly
+                      half-increments
                       background-color="grey"
                       color="orange"
                       size="20"

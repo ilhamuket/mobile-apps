@@ -86,6 +86,7 @@
                     <br>
                     <br>
                     <v-btn
+                      v-if="item.status_responded === null"
                       color="btn_primary"
                       small
                       :href="item.classes.url_meets"
@@ -115,6 +116,16 @@
                           Enter Zoom Class
                         </span>
                       </v-tooltip>
+                    </v-btn>
+                    <v-btn
+                      v-else
+                      color="btn_primary"
+                      small
+                      target="__blank"
+                      width="200"
+                      @click="toReviews('/pages/user/waiting-reviews')"
+                    >
+                      Reviews
                     </v-btn>
                     <v-btn
                       color="btn_primary"
@@ -148,6 +159,9 @@
         if (status === "ongoing") return "btn_primary"
         if (status === "upcomming") return "secondary"
         else return "red"
+      },
+      toReviews (link) {
+        this.$router.push(link)
       },
     },
   }

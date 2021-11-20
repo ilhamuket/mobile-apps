@@ -7,6 +7,8 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
+use Modules\Studio\Entities\Reviews;
 use Modules\StudioOwners\Entities\UserHaveClass;
 
 class UserHaveClassController extends Controller
@@ -68,7 +70,9 @@ class UserHaveClassController extends Controller
     {
         try {
             $master = UserHaveClass::entities($request->entities)
-                ->where('user_id', $request->user()->id)->get();
+                ->where('user_id', $request->user()->id)
+                ->where('status_responded', '!=', 'responded')
+                ->get();
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
@@ -178,9 +182,36 @@ class UserHaveClassController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function userGiveReviews(Request $request, $id)
     {
-        return view('studioowners::edit');
+        try {
+            DB::beginTransaction();
+            $reviews = new Reviews();
+            $reviews->body = $request->body;
+            $reviews->studio_id = $request->studio_id;
+            $reviews->class_id = $request->class_id;
+            $reviews->class_vidio_id = $request->video_id;
+            $reviews->ratings = $request->ratings;
+            $reviews->user_id = $request->user()->id;
+            $reviews->save();
+
+            $userHave = UserHaveClass::findOrFail($id);
+            $userHave->review_id = $reviews->id;
+            $userHave->status_responded = 'not respon';
+            $userHave->save();
+
+            DB::commit();
+            return Json::response($reviews);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            DB::rollBack();
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**

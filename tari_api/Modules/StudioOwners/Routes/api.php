@@ -53,7 +53,7 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
         Route::prefix('summary')->group(function () {
             Route::get('', [UserHaveClassController::class, 'summary']);
         });
-        Route::get('send-reviews', [UserHaveClassController::class, 'sendAReviews']);
+        Route::post('send-reviews', [UserHaveClassController::class, 'sendAReviews']);
         Route::get('{id}', [UserHaveClassController::class, 'index']);
         // classes has user
         Route::get('student/{slug}/class', [UserHaveClassController::class, 'classHasUser']);

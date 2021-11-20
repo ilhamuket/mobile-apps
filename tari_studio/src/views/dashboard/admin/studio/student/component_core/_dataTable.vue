@@ -49,7 +49,11 @@
           md="8"
           class="d-flex flex-row-reverse"
         >
-          <v-btn color="btn_primary">
+          <v-btn
+            :disabled="computedDisable"
+            color="btn_primary"
+            @click="sendRequest(selected)"
+          >
             Send {{ selected.length }} Review
           </v-btn>
         </v-col>
@@ -75,8 +79,9 @@
               <v-chip
                 :color="setColorStatus(item.status_responded)"
                 text-color="white"
+                class="text-capitalize"
               >
-                {{ item.status_responded ? item.status_responded : "-" }}
+                {{ item.status_responded ? item.status_responded : "-----" }}
               </v-chip>
             </template>
             <template #[`item.absent`]="{ item }">
@@ -151,7 +156,20 @@
         },
       ],
     }),
-    computed: {},
+    computed: {
+      computedDisable () {
+        let bool = true
+        const nonPublish = this.selected.some(
+          (x) => x.status_responded === "pending",
+        )
+        if (this.selected.length !== 0 && nonPublish) {
+          bool = true
+        } else if (this.selected.length !== 0 && !nonPublish) {
+          bool = false
+        }
+        return bool
+      },
+    },
     methods: {
       setColorStatus (status) {
         if (status === "ongoing") return "btn_primary"
@@ -161,6 +179,9 @@
       },
       absent (item) {
         this.$emit("absent", { item: item })
+      },
+      sendRequest (item) {
+        this.$emit("sendRequest", { item: item })
       },
     },
   }

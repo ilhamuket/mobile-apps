@@ -2,13 +2,12 @@
   <div class="video__class">
     <v-container>
       <v-row>
-        <v-col cols="12"></v-col>
       <v-col cols="12">
         <v-container>
           <v-row>
             <v-col cols="12" class="d-flex justify-center">
               <iframe
-                width="800"
+                width="1100"
                 height="445"
                 src="https://www.youtube.com/embed/kRR-MvDMxIg"
               >

@@ -73,7 +73,11 @@
               />
             </v-tab-item>
             <v-tab-item>
-              <app-tabs-myreviews />
+              <app-tabs-myreviews
+                :data="computedMyReviews"
+                :meta="dataMyReviews.meta"
+                @paginate="pagePagination"
+              />
             </v-tab-item>
           </v-tabs-items>
         </v-card>
@@ -130,6 +134,9 @@
         data: {},
       },
       tabs: null,
+      dataMyReviews: {
+        meta: {},
+      },
     }),
     computed: {
       cumputedMe () {
@@ -137,6 +144,9 @@
       },
       computedReviews () {
         return this.$store.state.studioReviews.need_reviews
+      },
+      computedMyReviews () {
+        return this.$store.state.studioReviews.my_reviews
       },
     },
     watch: {
@@ -160,6 +170,7 @@
       this.getMe()
       this.getDataNeedReviews()
       this.firstLoad()
+      this.getDataMyReviews()
     },
     methods: {
       getMe () {
@@ -311,6 +322,19 @@
       changePaginate ({ item }) {
         console.log(item)
         this.getDataNeedReviews(item)
+      },
+      getDataMyReviews (page) {
+        this.$store
+          .dispatch("studioReviews/getDataMyReviews", {
+            entities: "class.img,user",
+            page: page,
+          })
+          .then((res) => {
+            this.dataMyReviews.meta = res.data.meta
+          })
+      },
+      pagePagination ({ item }) {
+        this.getDataMyReviews(item)
       },
     },
   }

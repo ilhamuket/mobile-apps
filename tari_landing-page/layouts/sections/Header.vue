@@ -7,9 +7,8 @@
       elevate-on-scroll
       scroll-target="#scrolling-techniques-7"
       app
-      color="#F8EAE7"
       absolute
-      class="app-header bg--fitur1"
+      class="app-header"
       flat
     >
       <v-container class="py-0 fill-height">
@@ -27,13 +26,31 @@
           @click="isActive = !isActive"
         >
           <ul class="navbar-nav">
-            <li class="nav-item" text>
+            <li v-if="$route.path === '/'" class="nav-item" text>
               <a
                 href="#what"
                 class="headers__sanggar font-weight-bold primary--text1"
               >
                 EnsikloTari
               </a>
+            </li>
+            <li v-if="$route.path !== '/'" class="nav-item" text>
+              <nuxt-link
+                to="/"
+                class="headers__sanggar font-weight-bold primary--text1"
+              >
+                EnsikloTari
+              </nuxt-link>
+            </li>
+
+            <li>
+              <nuxt-link
+                to="/cara-pendaftaran"
+                text
+                class="headers__sanggar font-weight-bold primary--text1"
+              >
+                Tutorial
+              </nuxt-link>
             </li>
             <li>
               <v-menu>
@@ -74,27 +91,29 @@
             </li>
             <li>
               <a
-                href="#what"
-                class="headers__sanggar font-weight-bold primary--text1"
+              v-if="$route.path === '/'"
+                color="white"
+                href="#kontak"
+                dark
+                class="headers__sanggar primary--text1 font-weight-bold"
+                text
               >
-                Cara Pendaftaran
+                Kontak Kami
               </a>
-            </li>
-            <li>
-              <v-menu>
+              <nuxt-link
+              v-else
+                color="white"
+                to="/kontak-kami"
+                dark
+                class="headers__sanggar primary--text1 font-weight-bold"
+                text
+              >
+                Kontak Kami
+              </nuxt-link>
+              <!-- <v-menu>
                 <template v-slot:activator="{ on: menu, attrs }">
                   <v-tooltip bottom>
                     <template v-slot:activator="{ on: tooltip }">
-                      <a
-                        color="white"
-                        dark
-                        class="headers__sanggar primary--text1 font-weight-bold"
-                        v-bind="attrs"
-                        text
-                        v-on="{ ...tooltip, ...menu }"
-                      >
-                        Lainnya
-                      </a>
                     </template>
                     <span>Lainnya</span>
                   </v-tooltip>
@@ -110,7 +129,7 @@
                     </v-list-item>
                   </v-list-item-group>
                 </v-list>
-              </v-menu>
+              </v-menu> -->
             </li>
           </ul>
         </div>
@@ -157,6 +176,7 @@ export default {
       hints: true,
     };
   },
+
   methods: {
     toggleClass: function (event) {
       this.isActive = !this.isActive;
@@ -170,4 +190,6 @@ export default {
   color: white !important
   text-decoration: none
   margin-left: 20px
+.bg-collor
+  color: transparent !important
 </style>

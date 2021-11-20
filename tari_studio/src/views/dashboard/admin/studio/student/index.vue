@@ -45,20 +45,31 @@
         <app-data-table
           :data="computedStudent"
           @absent="getAbsentDataStudent"
+          @sendRequest="openDialogSendRequest"
         />
       </v-col>
     </v-row>
+    <app-dialog-reviews
+      :dialog="sendReviews"
+      @input="sendReviewsDataStudent"
+    />
   </v-container>
 </template>
 
 <script>
+  import __dialogReviewsVue from "./components/__dialogReviews.vue"
   import dataTable from "./component_core/_dataTable.vue"
   export default {
     components: {
       "app-data-table": dataTable,
+      "app-dialog-reviews": __dialogReviewsVue,
     },
     data: () => ({
       summary: "",
+      sendReviews: {
+        open: false,
+        data: [],
+      },
     }),
     computed: {
       computedStudent () {
@@ -129,6 +140,37 @@
               icon: "success",
               title: "Successfully",
             })
+          })
+      },
+      openDialogSendRequest ({ item }) {
+        this.sendReviews.open = true
+        this.sendReviews.data = item
+      },
+      sendReviewsDataStudent ({ item }) {
+        this.$store
+          .dispatch("student/sendReviewsDataStudent", item)
+          .then((res) => {
+            if (res.data.meta.status) {
+              this.sendReviews.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Send Request to reviews successfully",
+              })
+            }
           })
       },
     },

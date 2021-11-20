@@ -24,19 +24,12 @@
 
     <!-- <v-divider class="mb-1" /> -->
 
-    <v-list
-      dense
-      nav
-    >
+    <v-list nav>
       <v-list-item>
-        <v-list-item-avatar
-          class="align-self-center"
-          color="white"
-          contain
-        >
+        <v-list-item-avatar class="align-self-center">
           <v-img
-            :src="require('@/assets/img/etmark (1).png')"
-            width="8"
+            :src="require('@/assets/img/logoEnsiklo.png')"
+            width="12"
           />
         </v-list-item-avatar>
 

@@ -4,38 +4,11 @@
     class="modified"
     absolute
     app
-    color="pallet1"
+    color="#E8F0F3"
     flat
     height="75"
+    elevation="3"
   >
-    <!-- :color="$vuetify.theme.dark ? '#283046' : '#ffff'" -->
-    <!-- :color="$vuetify.theme.dark ? 'secondary' : 'pallet1'" -->
-    <!-- <v-btn
-      v-if="$vuetify.breakpoint.mdAndDown && !drawer"
-      outlined
-      elevation="1"
-      :color="$vuetify.theme.dark ? '' : 'primary'"
-      fab
-      small
-      @click="setDrawer(!drawer)"
-    >
-      <v-icon v-if="value">
-        mdi-view-quilt
-      </v-icon>
-
-      <v-icon v-else>
-        mdi-dots-vertical
-      </v-icon>
-    </v-btn>
-    <div class="mr-2" />
-
-    <v-toolbar-title
-      class="hidden-sm-and-down font-spartan font-customize primary--text"
-      :class="!drawer ? 'ml-6' : ''"
-      v-text="$t($route.name)"
-    />
-
-    <v-spacer /> -->
     <v-toolbar-title
       class="mr-12"
       dark
@@ -45,11 +18,6 @@
         width="120"
         class="bg-red mr-12"
       />
-      <!-- <v-list-item-title class="font-title-rampart-one custome-brad">
-        <h3>
-          ENSIKLOTARI
-        </h3>
-      </v-list-item-title> -->
     </v-toolbar-title>
     <v-spacer />
 
@@ -108,101 +76,6 @@
         </div>
       </div>
     </v-col>
-    <!--
-    <v-text-field
-      :label="$t('search')"
-      color="secondary"
-      hide-details
-      style="max-width: 165px;"
-    >
-      <template
-        v-if="$vuetify.breakpoint.mdAndUp"
-        v-slot:append-outer
-      >
-        <v-btn
-          class="mt-n2"
-          elevation="1"
-          fab
-          small
-        >
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
-      </template>
-    </v-text-field>
-
-    <div class="mx-3" />
-
-    <v-btn
-      class="ml-2"
-      min-width="0"
-      text
-      to="/"
-    >
-      <v-icon>mdi-view-dashboard</v-icon>
-    </v-btn> -->
-
-    <!-- <v-menu
-      bottom
-      left
-      offset-y
-      origin="top right"
-      transition="scale-transition"
-    >
-      <template v-slot:activator="{ attrs, on }">
-        <v-btn
-          class="ml-2"
-          min-width="0"
-          text
-          v-bind="attrs"
-          v-on="on"
-        >
-          <v-badge
-            color="red"
-            overlap
-            bordered
-          >
-            <template v-slot:badge>
-              <span>5</span>
-            </template>
-
-            <v-icon>mdi-bell</v-icon>
-          </v-badge>
-        </v-btn>
-      </template>
-
-      <v-list
-        :tile="false"
-        nav
-      >
-        <div>
-          <app-bar-item
-            v-for="(n, i) in notifications"
-            :key="`item-${i}`"
-          >
-            <v-list-item-title v-text="n" />
-          </app-bar-item>
-        </div>
-      </v-list>
-    </v-menu>
-
-    <v-btn
-      class="ml-2"
-      min-width="0"
-      text
-      to="/pages/user"
-    >
-      <v-icon>mdi-account</v-icon>
-    </v-btn> -->
-    <!-- <v-switch
-      v-model="$vuetify.theme.dark"
-      :prepend-icon="
-        $vuetify.theme.dark ? 'mdi-theme-light-dark' : 'mdi-white-balance-sunny'
-      "
-      class="ma-0 pa-0 ml-5 icon__swicth"
-      color="success"
-      hide-details
-      @click="toogle_dark_theme"
-    /> -->
 
     <v-menu
       bottom
@@ -218,7 +91,7 @@
         <v-chip
           class="ma-2"
           :color="$vuetify.theme.dark ? '#121212' : '#eeeeee'"
-          :text-color="$vuetify.theme.dark ? 'white' : 'white'"
+          :text-color="$vuetify.theme.dark ? 'white' : 'btn_primary'"
           outlined
           v-bind="attrs"
           style="text-transform: capitalize"

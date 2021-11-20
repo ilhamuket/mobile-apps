@@ -54,7 +54,7 @@ export default {
       import("@/components/custom/AllCustomComponents"),
     // Setting: () => import('@/components/Setting')
   },
-
+  
   methods: {},
 };
 </script>

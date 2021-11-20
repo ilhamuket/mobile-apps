@@ -73,6 +73,7 @@ class PaymentController extends Controller
                 $user_has->user_id = $request->user()->id;
                 $user_has->class_id = $request->class_id;
                 $user_has->form_id = $cart->form->id;
+                $user_has->absent = 0;
                 $user_has->save();
                 $me = User::findOrFail($request->user()->id);
                 $me->myClass()->attach($request->class_id);

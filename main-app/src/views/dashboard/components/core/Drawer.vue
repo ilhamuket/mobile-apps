@@ -30,22 +30,10 @@
       <v-list-item>
         <v-list-item-avatar v-if="users.img">
           <v-img
-            :src="require('@/assets/img/etmark (1).png')"
+            :src="require('@/assets/img/logoEnsiklo.png')"
             width="12"
           />
         </v-list-item-avatar>
-
-        <!-- <v-list-item-content>
-          <v-list-item-title class="font-spartan-small">
-            <h3>
-              {{ users.nickName }}
-            </h3>
-          </v-list-item-title>
-          <v-list-item-subtitle
-            class="font-spartan-small custome-font"
-            v-text="users.email"
-          />
-        </v-list-item-content> -->
         <v-list-item-content>
           <v-list-item-title v-text="profile.title" />
         </v-list-item-content>
@@ -69,8 +57,6 @@
       nav
       :class="$vuetify.theme.dark ? 'height-max' : 'height-max'"
     >
-      <!-- Style cascading bug  -->
-      <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
       <div />
 
       <template v-for="(item, i) in computedItems">
@@ -88,9 +74,6 @@
           :item="item"
         />
       </template>
-
-      <!-- Style cascading bug  -->
-      <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
       <div />
     </v-list>
 
@@ -281,7 +264,7 @@
         +rtl()
           margin-left: 8px
 .custumize-light
-  background-color: #fff !important
+  background-color: #E8F0F3 !important
   font-family: 'Roboto', sans-serif !important
   font-weight: bold
   font-size: 20px

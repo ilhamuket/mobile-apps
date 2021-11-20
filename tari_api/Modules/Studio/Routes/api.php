@@ -65,11 +65,12 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
         Route::get('classes/vidio', [StudioClassVidiosController::class, 'index']);
         Route::post('classes/vidio', [StudioClassVidiosController::class, 'store']);
 
-
         // describtion Classes
         Route::get('classes/populer', [StudioClassController::class, 'populer']);
         Route::post('class/describe/post', [StudioClassController::class, 'store']);
         Route::get('class/date', [StudioClassController::class, 'date']);
+        // Show Class By Slug
+        Route::get('classes/{slug}', [StudioClassController::class, 'showBySlug']);
         Route::get('classes/recomendation/{studio_slug}', [StudioClassController::class, 'recomendation']);
         Route::get('class/describe/{slug}', [StudioClassController::class, 'index']);
 
@@ -128,8 +129,10 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
     });
     Route::prefix('reviews')->group(function () {
         Route::post('class', [ReviewController::class, 'store']);
+        Route::get('my-reviews', [ReviewController::class, 'myReviews']);
         Route::prefix('need-reviews')->group(function () {
             Route::get('', [UserHaveClassController::class, 'needReviews']);
+            Route::post('reviews/{id}', [UserHaveClassController::class, 'userGiveReviews']);
         });
         Route::get('class/{slug}', [ReviewController::class, 'byClass']);
         Route::get('avarage/{slug}', [ReviewController::class, 'avarage']);

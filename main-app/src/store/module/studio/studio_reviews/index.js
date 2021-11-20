@@ -14,6 +14,7 @@ export default {
     need_reviews: {},
     load_data: true,
     load_page_tabs: true,
+    my_reviews: [],
   },
   getters: {},
   mutations: {
@@ -22,6 +23,12 @@ export default {
     GET_DATA_NEED_REVIEWS: (state, payload) => (state.need_reviews = payload),
     LOAD: (state) => (state.load_data = false),
     LOAD_PAGE: (state) => (state.load_page_tabs = false),
+    GET_MY_REVIEWS: (state, payload) => (state.my_reviews = payload),
+    GIVE_REVIEWS: (state, payload) => {
+      const reviews = state.data
+      reviews.push(payload)
+      state.data = reviews
+    },
   },
   actions: {
     getDataReviewsStudio: ({ commit }, payload) => {
@@ -74,6 +81,43 @@ export default {
           .get("studio/reviews/need-reviews/", { params: params })
           .then((res) => {
             commit("GET_DATA_NEED_REVIEWS", res.data)
+            resolve(res)
+          })
+          .catch((e) => {
+            reject(e)
+          })
+      })
+    },
+    getDataMyReviews: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        "Bearer " + localStorage.getItem("access_token")
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        const params = { ...payload }
+        axios
+          .get("studio/reviews/my-reviews", { params: params })
+          .then((res) => {
+            commit("GET_MY_REVIEWS", res.data.data)
+            resolve(res)
+          })
+          .catch((e) => {
+            reject(e)
+          })
+      })
+    },
+    insertUserReviews: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        "Bearer " + localStorage.getItem("access_token")
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        axios
+          .post(`studio/reviews/need-reviews/reviews/${payload.id}`, {
+            ...payload,
+          })
+          .then((res) => {
+            commit("GIVE_REVIEWS", payload)
             resolve(res)
           })
           .catch((e) => {

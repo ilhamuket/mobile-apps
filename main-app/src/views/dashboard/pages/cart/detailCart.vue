@@ -203,6 +203,9 @@
     data: () => ({
       items: ["AlfaMart", "VA BCA"],
       methods: "VA BCA",
+      invoice: {
+        class: {},
+      },
     }),
     computed: {
       computedInvoice () {
@@ -211,13 +214,19 @@
     },
     mounted () {
       this.getDataInvoice()
+      console.log(this.$route.params)
     },
     methods: {
       getDataInvoice () {
-        this.$store.dispatch("invoice/getDataInvoice", {
-          id: this.$route.params.id,
-          entities: "cart, class.category,class.img",
-        })
+        this.$store
+          .dispatch("invoice/getDataInvoice", {
+            id: this.$route.params.id,
+            entities: "cart, class.category,class.img",
+          })
+          .then((res) => {
+            this.invoice.class = res.data.data.class
+            console.log(this.invoice.class)
+          })
       },
       paymentData () {
         this.$store
@@ -225,7 +234,7 @@
             check: "ensiklo-live",
             class_id: this.computedInvoice.class.id,
             methods: this.methods,
-            cart_id: this.$route.params.id,
+            cart_id: this.computedInvoice.cart_id,
           })
           .then((res) => {
             console.log(res)

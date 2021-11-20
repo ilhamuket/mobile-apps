@@ -135,9 +135,21 @@ class ReviewController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function myReviews(Request $request)
     {
-        return view('studio::index');
+        try {
+            $master = Reviews::where('user_id', $request->user()->id)
+                ->entities($request->entities)
+                ->paginate($request->input("paginate", 2));
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**

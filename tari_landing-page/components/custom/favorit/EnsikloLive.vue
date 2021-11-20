@@ -8,7 +8,7 @@
         <v-row justify="center">
           <v-col cols="12" sm="10" md="9" lg="7">
             <div class="text-center">
-              <h2 class="section-title font-weight-medium primary--text1 font-weight-bold">EnsikloLive</h2>
+              <h2 class="section-title font-weight-medium font-weight-bold">EnsikloLive</h2>
               <!-- <p>
                 You can relay on our amazing features list and also our customer
                 services will be great experience for you without doubt and in

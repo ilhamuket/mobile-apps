@@ -93,9 +93,13 @@ class CartClassController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function detailCart(Request $request)
     {
-        return view('studio::create');
+        try {
+            //code...
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
     /**

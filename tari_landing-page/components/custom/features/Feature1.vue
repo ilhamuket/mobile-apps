@@ -11,9 +11,7 @@
               <!-- <v-chip small color="#4CAF50" text-color="white">
                 Fitur A
               </v-chip> -->
-              <h2 class="section-title font-weight-bold primary--text1 text-h1">
-                Tipe Kelas
-              </h2>
+              <h2 class="section-title font-weight-bold text-h1">Tipe Kelas</h2>
               <p>EnsikloLive & EnsikloVideo</p>
             </div>
           </v-col>
@@ -30,15 +28,13 @@
           <v-col cols="12" md="6">
             <v-card color="#E9F3F8" elevation="0">
               <v-card-text>
-                <div class="icon-round bg-light-info">
-                  <i class="mdi mdi-youtube"></i>
+                <div class="icon-round bg-primary">
+                  <i class="mdi mdi-video-wireless-outline"></i>
                 </div>
-                <h5 class="font-weight-bold font-18 primary--text1">
-                  EnsikloLive
-                </h5>
+                <h5 class="font-weight-bold font-18">EnsikloLive</h5>
                 <p class="mt-10 mb-8">
-                  EnsikloLive yaitu
-                  pengajaran tari dengan cara live melalui Zoom Aplikasi
+                  EnsikloLive yaitu pengajaran tari dengan cara live melalui
+                  Zoom Aplikasi
                 </p>
                 <a
                   href="#live"
@@ -47,7 +43,7 @@
                     linking
                     text-decoration-none
                     d-flex
-                    primary--text1
+                    primary--text
                     align-center
                   "
                 >
@@ -59,15 +55,13 @@
           <v-col cols="12" md="6">
             <v-card color="#E9F3F8" elevation="0">
               <v-card-text>
-                <div class="icon-round bg-light-info">
-                  <i class="mdi mdi-check-circle"></i>
+                <div class="icon-round bg-red">
+                  <i class="mdi mdi-youtube"></i>
                 </div>
-                <h5 class="font-weight-bold font-18 primary--text1">
-                  EnsikloVideo
-                </h5>
+                <h5 class="font-weight-bold font-18">EnsikloVideo</h5>
                 <p class="mt-10 mb-8">
-                  EnsikloVideo yaitu
-                  pengajaran tari melalui sebuah video atau kelas streaming
+                  EnsikloVideo yaitu pengajaran tari melalui sebuah video atau
+                  kelas streaming
                 </p>
                 <a
                   href="#vidio"
@@ -76,7 +70,7 @@
                     linking
                     text-decoration-none
                     d-flex
-                    primary--text1
+                    primary--text
                     align-center
                   "
                 >
@@ -106,4 +100,10 @@ export default {
 <style lang="sass">
 .bg--fitur1
   background-color: #E9F3F8 !important
+.bg-primary
+  .mdi
+    color: #4CAF50
+.bg-red
+  .mdi
+    color: red
 </style>

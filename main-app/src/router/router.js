@@ -354,6 +354,16 @@ const router = new Router({
             breadcumbs: [],
           },
         },
+        // Send Reviews
+        {
+          name: "send_reviews",
+          path: "/reviews/:studio_slug/detail/:class_slug/user-have/:id",
+          component: () => import("@/views/dashboard/pages/reviews/index"),
+          meta: {
+            breadcumbs: [],
+            requiresAuth: true,
+          },
+        },
         {
           name: "shop",
           path: "/store",

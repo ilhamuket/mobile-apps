@@ -1,10 +1,11 @@
 <template>
   <v-container>
-    <v-row v-if="$store.state.studioReviews.load_page_tabs">
-      <v-col class="d-flex justify-center">
-        <v-progress-circular
-          indeterminate
-          color="primary"
+    <v-row v-if="data.data.length === 0">
+      <v-col>
+        <v-img
+          width="400"
+          class="img--margin"
+          :src="require('@/assets/img/ensiklo-vidio-kosong.svg')"
         />
       </v-col>
     </v-row>
@@ -94,9 +95,11 @@
                     />
                     <br>
                     <v-btn
+                      v-if="item.classes"
                       class="btn--margin"
                       small
                       color="btn_primary"
+                      @click="sendReviews(item)"
                     >
                       Send A Review
                     </v-btn>
@@ -162,6 +165,11 @@
       changePage () {
         this.$emit("paginate", { item: this.page })
       },
+      sendReviews (item) {
+        this.$router.push(
+          `/reviews/${item.classes.studio.slug}/detail/${item.classes.slug}/user-have/${item.id}`,
+        )
+      },
     },
   }
 </script>
@@ -173,4 +181,6 @@
   margin-top: 35% !important
 .btn--margin
   margin-left: -41% !important
+.img--margin
+  margin-left: 20%
 </style>

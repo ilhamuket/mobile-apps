@@ -9,14 +9,14 @@
         First Column
       ----------------------------------------------- -->
         <v-col cols="12" sm="12" md="12" lg="3" class="px-xs-0">
-          <h4 class="font-weight-regular font-18">Address</h4>
+          <h4 class="font-weight-regular font-18">Alamat</h4>
           <p class="mt-10">Antapani, Jl. Terusan Sekolah No.1-2, Cicaheum, Kec. Kiaracondong, Kota Bandung, Jawa Barat 40282</p>
         </v-col>
         <!-- -----------------------------------------------
         Second Column
       ----------------------------------------------- -->
         <v-col cols="12" sm="12" md="12" lg="3" class="px-xs-0">
-          <h4 class="font-weight-regular font-18">Phone</h4>
+          <h4 class="font-weight-regular font-18">Kontak</h4>
           <p class="mt-10 mb-0">Reception : +205 123 4567</p>
           <p>Office : +207 235 7890</p>
         </v-col>
@@ -24,9 +24,11 @@
         Third Column
       ----------------------------------------------- -->
         <v-col cols="12" sm="12" md="12" lg="3" class="px-xs-0">
-          <h4 class="font-weight-regular font-18">Email</h4>
-          <p class="mt-10 mb-0">
-            Office : ensiklotari01@gmail.com
+          <h4 class="font-weight-regular font-18">E-mail</h4>
+          <p class="mt-10 mb-0 text-nowrap">
+            Office : <span class="font-weight-bold dark-link">
+              ensiklotari01@gmail.com
+            </span>
           </p>
           <p>
             Site :
@@ -64,7 +66,7 @@
         <div class="d-block d-md-flex align-center">
           <p>
             All Rights Reserved by
-            <a href="https://www.wrappixel.com/" class="link">wrappixel.com</a>
+            <a href="https://www.wrappixel.com/" class="link">EnsikloTari</a>
           </p>
           <div class="ml-auto">
             <div class="d-flex align-center">

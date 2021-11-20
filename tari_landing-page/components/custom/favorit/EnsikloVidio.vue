@@ -12,7 +12,6 @@
                 class="
                   section-title
                   font-weight-medium
-                  primary--text1
                   font-weight-bold
                 "
               >
