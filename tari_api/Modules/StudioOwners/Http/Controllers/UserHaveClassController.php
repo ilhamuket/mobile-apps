@@ -51,7 +51,7 @@ class UserHaveClassController extends Controller
     {
         try {
             $master = userHaveClass::whereHas("classes", function (Builder $query) use ($slug) {
-                $query->where('slug', $slug);
+                $query->where('keyword', $slug);
             })
                 ->entities($request->entities)
                 ->summary($request->summary)
@@ -71,7 +71,7 @@ class UserHaveClassController extends Controller
         try {
             $master = UserHaveClass::entities($request->entities)
                 ->where('user_id', $request->user()->id)
-                ->where('status_responded', '!=', 'responded')
+                ->orderBy('id', 'desc')
                 ->get();
 
             return Json::response($master);

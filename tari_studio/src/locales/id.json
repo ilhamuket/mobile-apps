@@ -115,7 +115,7 @@
         "region": "Regional",
         "contact": "Kontak",
         "profession": "Professi",
-        "approved": "persetujuan"
+        "approved": "Status"
       }
     },
     "vidio": {
@@ -180,6 +180,7 @@
   "sembunyikan": "Disembunyikan",
   "type": "Ketik Sesuatu ...",
   "Segarkan": "Segarkan",
+  "warn": "Informasi",
   "class_vidio": "Class Vidio",
   "active": "Aktif",
   "not active": "Tidak Aktif",

@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from "axios"
 
 export default {
   namespaced: true,
@@ -14,57 +14,60 @@ export default {
   actions: {
     getDataClasses: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
       return new Promise((resolve, reject) => {
         const params = { ...payload }
         axios
-          .get('studio/u/classes', { params: params })
-          .then(res => {
+          .get("studio/u/classes", { params: params })
+          .then((res) => {
             const data = res.data.data
-            commit('GET_DATA', data)
+            commit("GET_DATA", data)
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })
     },
     getDataClassesSearch: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
       return new Promise((resolve, reject) => {
         const params = { ...payload }
         axios
-          .get('studio/u/c/search', { params: params })
-          .then(res => {
+          .get("studio/u/c/search", { params: params })
+          .then((res) => {
             const data = res.data.data
-            commit('GET_DATA', data)
+            commit("GET_DATA", data)
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })
     },
     getDataClassesBySlug: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
-        'Bearer ' + localStorage.getItem('access_token')
+        "Bearer " + localStorage.getItem("access_token")
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
         const params = { ...payload }
         axios
-          .get(`studio/u/class/${payload.studio_slug}/${payload.slug}`, {
-            params: params,
-          })
-          .then(res => {
+          .get(
+            `studio/u/class/${payload.studio_slug}/${payload.slug}/${payload.keyword}`,
+            {
+              params: params,
+            },
+          )
+          .then((res) => {
             const data = res.data.data
-            commit('GET_DATA_BY_SLUG', data)
+            commit("GET_DATA_BY_SLUG", data)
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })

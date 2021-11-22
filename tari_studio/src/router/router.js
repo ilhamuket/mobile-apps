@@ -142,7 +142,7 @@ const router = new Router({
         },
         {
           name: "student",
-          path: "/class/:slug/student",
+          path: "/class/:slug/keyword/:keyword/student",
           component: () =>
             import("@/views/dashboard/admin/studio/student/index"),
           meta: {

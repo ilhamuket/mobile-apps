@@ -201,6 +201,10 @@ class InstructorProfileVidioController extends Controller
                     $master->is_verified = false;
                     $master->status = 'draft';
                     $master->save();
+
+                    $instructor = StudioTeacher::findOrFail($request->instructor_id);
+                    $instructor->is_verified = 1;
+                    $instructor->save();
                 }
             }
 

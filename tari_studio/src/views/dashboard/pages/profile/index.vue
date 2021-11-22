@@ -927,7 +927,6 @@
         this.activatedBankAccount.data = item
       },
       activatedDataBankAccount ({ item }) {
-        console.log(item, "asas")
         this.$store
           .dispatch("bank_account/activatedDataBankAccount", item)
           .then((res) => {

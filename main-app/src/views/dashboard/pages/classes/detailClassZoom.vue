@@ -431,6 +431,7 @@
             entities: "listImg,img,studio.followers,category,wishlist",
             slug: this.$route.params.class_slug,
             studio_slug: this.$route.params.studio_slug,
+            keyword: this.$route.params.keyword,
           })
           .then((res) => {
             this.class_id = res.data.data.id

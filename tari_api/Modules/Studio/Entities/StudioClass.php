@@ -4,6 +4,7 @@ namespace Modules\Studio\Entities;
 
 use App\Models\User;
 use Brryfrmnn\Transformers\Json;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -100,12 +101,12 @@ class StudioClass extends Model
     {
         $status = '';
 
-        if ($this->end_at  == now()->toDateString()) {
-            $status = 'ongoing';
-        } else if ($this->start_at > now()->toDateString()) {
+        if ($this->end_at > Carbon::today()) {
             $status = 'upcoming';
-        } else if ($this->start_at < now()->toDateString()) {
+        } else if ($this->end_at < Carbon::today()) {
             $status = 'missed';
+        } else if ($this->end_at == Carbon::today()) {
+            $status = 'ongoing';
         }
 
         return $status;

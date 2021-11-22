@@ -11,7 +11,7 @@
           v-if="item.img"
           :src="item.img.url"
           height="200px"
-          style="cursor:pointer"
+          style="cursor: pointer"
           gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
           @click="toPush(item)"
         >
@@ -52,7 +52,7 @@
           </v-row>
         </v-img>
 
-        <v-card-actions
+        <!-- <v-card-actions
           v-if="item.studio"
           class="font-spartan-small customize--font primary--text"
         >
@@ -60,12 +60,12 @@
             v-if="item.studio.name.length > 13"
             bottom
             color="primary"
-            style="cursor:pointer"
+            style="cursor: pointer"
           >
-            <template #activator="{on, attrs}">
+            <template #activator="{ on, attrs }">
               <span
                 v-bind="attrs"
-                style="cursor:pointer"
+                style="cursor: pointer"
                 @click="toPush(item)"
                 v-on="on"
               >
@@ -76,7 +76,7 @@
           </v-tooltip>
           <span
             v-else
-            style="cursor:pointer"
+            style="cursor: pointer"
             @click="toPush(item)"
           >
             {{ item.studio.name }}
@@ -94,7 +94,7 @@
             hover
             size="18"
           />
-        </v-card-actions>
+        </v-card-actions> -->
 
         <v-card-text class="text--primary">
           <v-chip
@@ -146,7 +146,7 @@
           </span>
           <br>
           <span class="font-spartan-small font-italic">
-            Rp.20000
+            Rp.{{ item.harga }}
           </span>
         </v-card-text>
 
@@ -239,7 +239,9 @@
         }
       },
       toPush (link) {
-        this.$router.push(`detail/class/live/${link.studio.slug}/${link.slug}`)
+        this.$router.push(
+          `/detail/class/live/${link.studio.slug}/${link.slug}/keyword/${link.keyword}`,
+        )
       },
       moreClass () {
         if (this.card.links.next) {

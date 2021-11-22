@@ -5,73 +5,85 @@
       width="70%"
     >
       <v-card>
-        <v-card-title class="text-h2 primary--text font-spartan">
-          Create Category
+        <v-system-bar
+          :color="$vuetify.theme.dark ? '#141C31' : '#F0F8FF'"
+          window
+          class="mb-2"
+        >
+          <v-toolbar-title
+            :class="$vuetify.theme.dark ? 'white--text' : ' black--text'"
+            class="font-size-ather-roboto-mono"
+          >
+            <v-icon :color="$vuetify.theme.dark ? 'white' : 'black'">
+              mdi-pencil
+            </v-icon>
+            Edit Class
+          </v-toolbar-title>
 
           <v-spacer />
 
-          <v-icon
-            aria-label="Close"
-            @click="dialog.open = false"
-          >
+          <v-icon @click="dialog.open = false">
             mdi-close
           </v-icon>
-        </v-card-title>
-        <v-container>
-          <v-form v-model="invalid">
-            <v-row>
-              <v-col cols="12">
-                <v-text-field
-                  v-model="form.name"
-                  :rules="[rules.required]"
-                  label="Name"
-                  placeholder="Input Name Category"
-                  prepend-icon="mdi-rename-box"
-                />
-              </v-col>
-              <v-col cols="12">
-                <v-text-field
-                  v-model="form.display_name"
-                  :rules="[rules.required]"
-                  label="Display Name"
-                  placeholder="Input Diplay Name"
-                  prepend-icon="mdi-alpha-d-box"
-                />
-              </v-col>
-              <v-col cols="12">
-                <v-select
-                  v-model="form.status"
-                  :rules="[rules.required]"
-                  prepend-icon="mdi-alpha-s-box"
-                  label="Status"
-                  placeholder="Input Status"
-                  :items="itemsStatus"
-                />
-              </v-col>
-            </v-row>
-            <div class="d-flex flex-row-reverse">
-              <div class="d-flex flex-column">
-                <v-btn
-                  color="primary"
-                  :disabled="!invalid"
-                  @click="createForm"
-                >
-                  Create
-                </v-btn>
-              </div>
+        </v-system-bar>
+        <v-card-text>
+          <v-container>
+            <v-form v-model="invalid">
+              <v-row>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="form.name"
+                    :rules="[rules.required]"
+                    label="Name"
+                    placeholder="Input Name Category"
+                    prepend-icon="mdi-rename-box"
+                  />
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="form.display_name"
+                    :rules="[rules.required]"
+                    label="Display Name"
+                    placeholder="Input Diplay Name"
+                    prepend-icon="mdi-alpha-d-box"
+                  />
+                </v-col>
+                <v-col cols="12">
+                  <v-select
+                    v-model="form.status"
+                    :rules="[rules.required]"
+                    prepend-icon="mdi-alpha-s-box"
+                    label="Status"
+                    placeholder="Input Status"
+                    item-color="red"
+                    :items="itemsStatus"
+                  />
+                </v-col>
+              </v-row>
+              <div class="d-flex flex-row-reverse">
+                <div class="d-flex flex-column">
+                  <v-btn
+                    color="btn_primary"
+                    :disabled="!invalid"
+                    @click="createForm"
+                  >
+                    Create
+                  </v-btn>
+                </div>
 
-              <div class="d-flex flex-column ml-1">
-                <v-btn
-                  color="red"
-                  text
-                  @click="dialog.open = false"
-                >
-                  Cancel
-                </v-btn>
+                <div class="d-flex flex-column ml-1">
+                  <v-btn
+                    color="red"
+                    text
+                    @click="dialog.open = false"
+                  >
+                    Cancel
+                  </v-btn>
+                </div>
               </div>
-            </div>
-          </v-form>
-        </v-container>
+            </v-form>
+          </v-container>
+        </v-card-text>
       </v-card>
     </v-dialog>
   </v-container>

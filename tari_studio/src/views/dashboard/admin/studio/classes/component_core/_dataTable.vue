@@ -296,7 +296,11 @@
                   :text-color="hover ? 'btn_primary' : 'black'"
                   style="cursor: pointer"
                   class="mt-6"
-                  @click="navigate(`/class/${item.slug}/student`)"
+                  @click="
+                    navigate(
+                      `/class/${item.slug}/keyword/${item.keyword}/student`
+                    )
+                  "
                 >
                   {{ item.name }}
                 </v-chip>

@@ -28,15 +28,6 @@
                     cols="12"
                     class="d-flex flex-row-reverse"
                   >
-                    <v-chip
-                      v-if="item.classes"
-                      small
-                      class="ml-2 text-capitalize"
-                      color="red"
-                      text-color="white"
-                    >
-                      {{ item.classes.time_status }}
-                    </v-chip>
                     <v-tooltip
                       color="btn_primary"
                       bottom
@@ -84,6 +75,12 @@
                       {{ item.classes.name }}
                     </span>
                     <br>
+                    <span
+                      v-if="item.classes.studio"
+                      class="font-spartan white--text font-weight-bold mb-2"
+                    >
+                      {{ item.classes.studio.name }}
+                    </span>
                     <br>
                     <v-btn
                       v-if="item.status_responded === null"
@@ -169,5 +166,5 @@
 
 <style lang="sass">
 .row__list--myclass
-    margin-top: 42% !important
+    margin-top: 40% !important
 </style>

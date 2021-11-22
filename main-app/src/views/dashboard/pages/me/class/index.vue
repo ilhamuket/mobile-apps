@@ -24,9 +24,13 @@
     },
     methods: {
       getDataMyClass () {
-        this.$store.dispatch("my_class/getDataMyClass", {
-          entities: "student,classes.img",
-        })
+        this.$store
+          .dispatch("my_class/getDataMyClass", {
+            entities: "student,classes.img,classes.studio",
+          })
+          .then((res) => {
+            console.log(res.data.data)
+          })
       },
     },
   }

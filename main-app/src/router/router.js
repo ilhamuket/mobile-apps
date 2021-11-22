@@ -217,7 +217,7 @@ const router = new Router({
         },
         {
           name: "detail_classes",
-          path: "/detail/class/live/:studio_slug/:class_slug",
+          path: "/detail/class/live/:studio_slug/:class_slug/keyword/:keyword",
           component: () =>
             import("@/views/dashboard/pages/classes/detailClassZoom.vue"),
           meta: {

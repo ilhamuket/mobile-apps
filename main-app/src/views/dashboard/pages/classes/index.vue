@@ -74,10 +74,12 @@
               />
             </div>
 
-            <app-card
-              v-if="classes.data.length !== 0"
-              :classes="classes.data"
-            />
+            <div v-if="classes.data">
+              <app-card
+                v-if="classes.data.length !== 0"
+                :classes="classes.data"
+              />
+            </div>
             <div
               v-else
               class="d-flex justify-center"
@@ -211,18 +213,14 @@
         window.onscroll = () => {
           const bottomOfWindow =
             document.documentElement.scrollTop + window.innerHeight >=
-            document.documentElement.offsetHeight
-          console.log(bottomOfWindow)
-          // console.log('heightOfsset : ', document.documentElement.offsetHeight)
-          // console.log(
-          //   'scroll : ',
-          //   document.documentElement.scrollTop + window.innerHeight,
-          // )
+            document.documentElement.offsetHeight - 150
+          // console.log(bottomOfWindow)
 
           // setTimeout(() => {
           if (bottomOfWindow) {
             // setTimeout(() => {
             this.moreClass()
+
           // this.resize()
           // }, 3000)
           }

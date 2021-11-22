@@ -370,7 +370,10 @@
               this.dataUser = res.data.data
 
               const index = this.items.findIndex((x) => x.text === "cart")
-              this.items[index].content = this.dataUser.cart.length
+              const cartActive = this.dataUser.cart.filter(
+                (x) => x.status !== "paid",
+              )
+              this.items[index].content = cartActive.length
 
               const findMyClass = this.items.findIndex(
                 (x) => x.text === "my_class",

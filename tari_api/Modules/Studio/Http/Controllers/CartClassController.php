@@ -35,7 +35,9 @@ class CartClassController extends Controller
     public function indexUser(Request $request)
     {
         try {
-            $master = CartClass::where("user_id", $request->user()->id)->summary($request->summary)->get();
+            $master = CartClass::where("user_id", $request->user()->id)
+                ->sort('status', 'pending')
+                ->summary($request->summary)->get();
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

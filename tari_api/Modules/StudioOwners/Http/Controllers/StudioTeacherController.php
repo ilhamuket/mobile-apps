@@ -222,7 +222,7 @@ class StudioTeacherController extends Controller
             $master->region = $request->region;
             $master->contact = $request->contact;
             $master->profession = $request->profession;
-            $master->about = $rePquest->about;
+            $master->about = $request->about;
             $master->studio_id = $studio->id;
             $master->slug =
                 \Str::slug($request->name);

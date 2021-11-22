@@ -154,6 +154,11 @@
           to: "/tutorial",
         },
         {
+          title: "my_class",
+          icon: "mdi-cart-variant",
+          to: "/me/class",
+        },
+        {
           title: "shop",
           icon: "mdi-cart",
           to: "/store",

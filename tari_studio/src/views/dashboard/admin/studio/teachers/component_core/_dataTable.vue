@@ -44,6 +44,32 @@
               </span>
             </v-tooltip>
           </v-btn>
+          <v-btn
+            class="mr-1"
+            rounded
+            small
+            dark
+            color="btn_primary"
+            @click="refreshClick"
+          >
+            <v-tooltip
+              color="primary"
+              bottom
+            >
+              <template #activator="{ on, attrs }">
+                <v-icon
+                  v-bind="attrs"
+                  color="size__icon_refresh"
+                  v-on="on"
+                >
+                  mdi-alert-decagram-outline
+                </v-icon>
+              </template>
+              <span class="font-spartan-small">
+                {{ $t("warn") }}
+              </span>
+            </v-tooltip>
+          </v-btn>
         </v-col>
       </v-row>
       <v-row>
@@ -91,7 +117,7 @@
             Add instructor
           </v-btn>
 
-          <v-btn
+          <!-- <v-btn
             :disabled="selected.length === 0"
             class="ml-2"
             outlined
@@ -100,7 +126,7 @@
           >
             <v-icon> mdi-check-decagram </v-icon>
             Approve {{ selected.length }} item
-          </v-btn>
+          </v-btn> -->
           <v-btn
             :disabled="selected.length === 0"
             outlined
@@ -361,11 +387,7 @@
                 class="text-capitalize chips--weight"
                 text-color="white"
               >
-                {{
-                  item.is_verified === 1
-                    ? $t("table.approved")
-                    : $t("table.non_approved")
-                }}
+                {{ item.is_verified === 1 ? "Publish" : "Draft" }}
               </v-chip>
             </template>
           </v-data-table>

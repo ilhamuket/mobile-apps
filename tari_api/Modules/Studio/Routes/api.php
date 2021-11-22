@@ -97,7 +97,7 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
 
         // article
         Route::get('article/{slug}', [StudioArticleController::class, 'index']);
-        Route::get('class/{studio_slug}/{slug}', [StudioClassController::class, 'indexBySlug']);
+        Route::get('class/{studio_slug}/{slug}/{keyword}', [StudioClassController::class, 'indexBySlug']);
 
         //  category
         Route::prefix('categories')->group(function () {

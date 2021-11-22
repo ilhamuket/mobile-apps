@@ -552,6 +552,7 @@
           })
           .then((res) => {
             if (res.data.meta.status) {
+              this.getDataTeacherStudio()
               this.dialogUploadYt.open = false
               const Toast = this.$swal.mixin({
                 toast: true,

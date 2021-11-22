@@ -127,18 +127,18 @@ class StudioClassController extends Controller
         // Now the IP chain contains only untrusted proxies and the client IP
         return $clientIps ? array_reverse($clientIps) : array($ip);
     }
-    public function indexBySlug(Request $request, $studio_slug, $slug)
+    public function indexBySlug(Request $request, $studio_slug, $slug, $keyword)
     {
         try {
             $me = $request->user();
             $master = StudioClass::whereHas('studio', function (Builder $query) use ($studio_slug) {
                 $query->where('slug', $studio_slug);
             })->where('slug', $slug)
+                ->where('keyword', $keyword)
                 ->entities($request->entities)
                 ->first();
             $bool = false;
             $master->lastSee()->attach($request->user()->id);
-
 
             if (Carbon::now()->toDateTimeString() && $bool == false) {
                 $master->increment('views');

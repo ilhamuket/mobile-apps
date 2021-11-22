@@ -16,6 +16,14 @@
           width="1200"
         >
           Please Fill in the Bank Account to create a class
+          <v-btn
+            small
+            color="btn_primary"
+            class="ml-6"
+            to="/dashboard/bank-account"
+          >
+            Let's go
+          </v-btn>
         </v-alert>
       </v-col>
     </v-row>
