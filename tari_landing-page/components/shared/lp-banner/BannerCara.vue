@@ -43,3 +43,7 @@ export default {
   methods: {}
 };
 </script>
+<style lang="sass">
+.text-nowrap
+  white-space: nowrap !important
+</style>

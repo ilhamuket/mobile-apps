@@ -1,19 +1,19 @@
 <template>
   <div>
-      <app-cara></app-cara>
-      <app-tutorial></app-tutorial>
+    <app-cara></app-cara>
+    <app-tutorial></app-tutorial>
   </div>
 </template>
 
 <script>
-import cara from '../components/shared/lp-banner/BannerCara.vue'
-import tutorial from '../components/Tutorial.vue'
+import cara from "../components/shared/lp-banner/BannerCara.vue";
+import tutorial from "../components/Tutorial.vue";
 export default {
-    components: {
-        'app-cara': cara,
-        'app-tutorial': tutorial
-    },
-    head() {
+  components: {
+    "app-cara": cara,
+    "app-tutorial": tutorial,
+  },
+  head() {
     return {
       title: "Cara Pendaftaran Dan Pembelian",
       meta: [
@@ -25,12 +25,9 @@ export default {
       ],
     };
   },
-    mounted () {
-    console.log(this.$route);
-  },
-}
+  mounted() {},
+};
 </script>
 
 <style>
-
 </style>
