@@ -21,12 +21,12 @@ class TutorialController extends Controller
             $video = Tutorial::first();
             if (is_object($video)) {
                 $master = Tutorial::entities($request->entities)
-                    ->where($request->input("id", $video->id))
+                    ->where('id', $request->input("id", $video->id))
                     ->first();
+                return Json::response($master);
             } else {
                 return Json::exception("Data Not Found");
             }
-            return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         } catch (\Illuminate\Database\QueryException $e) {
