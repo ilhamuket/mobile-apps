@@ -1,8 +1,8 @@
 <template>
   <v-container>
-    <v-row>
+    <v-row v-if="!isLoad">
       <v-col
-        v-for="(item, i) in data"
+        v-for="(item, i) in data.data"
         :key="i"
         cols="12"
         md="4"
@@ -17,7 +17,7 @@
             <v-img
               v-if="item.classes.img"
               width="450"
-              height="276"
+              height="400"
               gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
               style="background-color: grey"
               :src="item.classes.img.url"
@@ -140,6 +140,16 @@
         </v-hover>
       </v-col>
     </v-row>
+    <v-row v-else>
+      <v-col
+        class="d-flex justify-center"
+      >
+        <v-progress-circular
+          indeterminate
+          color="primary"
+        />
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -147,8 +157,12 @@
   export default {
     props: {
       data: {
-        type: Array,
+        type: Object,
         default: null,
+      },
+      isLoad: {
+        type: Boolean,
+        default: false,
       },
     },
     methods: {
@@ -166,5 +180,5 @@
 
 <style lang="sass">
 .row__list--myclass
-    margin-top: 40% !important
+    margin-top: 72% !important
 </style>

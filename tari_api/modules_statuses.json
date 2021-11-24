@@ -9,5 +9,6 @@
     "Migration": true,
     "StudioOwners": true,
     "Room": true,
-    "Payment": true
+    "Payment": true,
+    "Tutorial": true
 }

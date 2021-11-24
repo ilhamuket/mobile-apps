@@ -1,42 +1,31 @@
 <template>
-  <v-app>
-    <v-container fluid>
-      <v-row>
+  <v-app :class="!isMobile ? 'app-isMobile' : 'app-not--isMobile'">
+    <v-container>
+      <v-row class="d-flex justify-center mt-12">
         <v-col
           cols="12"
-          md="4"
-          class="d-flex flex-column dense cord--login"
+          md="5"
+          class="d-flex flex-column"
         >
-          <v-col
+          <!-- <v-col
+            v-resize="onResize"
             cols="12"
             class="bg-auth"
-          >
-            <v-card>
-              <v-card-title
-                class="font-spartan text-h5 primary--text mt-12 text-nowrap"
-              >
-                Selamat datang di Studio EnsikloTari! 👋
-              </v-card-title>
-              <v-card-text class="mb-2 font-spartan customize--subtitle">
-                Masuk Dan Jelajahi Bersama Kami
-              </v-card-text>
+          > -->
+          <v-card :width="isMobile ? '' : '900'">
+            <v-card-title class="font-spartan text-h6 mt-2 text-nowrap">
+              Selamat datang di Studio EnsikloTari!👋
+            </v-card-title>
+            <v-card-text class="mb-2 font-spartan customize--subtitle">
+              Masuk Dan Jelajahi Bersama Kami
+            </v-card-text>
 
-              <!-- <v-alert
-              dense
-              text
+            <v-card-text
+              class="mt-6"
               color="transparent"
-              class=""
             >
-              <p class="font-spartan customize--subtitle force--opacity">
-                The Key To Happiness Is Login To Life, As a Guest And Not as An
-                Administartor
-              </p>
-            </v-alert> -->
-              <v-card-text
-                class="mt-6"
-                color="transparent"
-              >
-                <v-form @submit.prevent.enter="login">
+              <v-form @submit.prevent.enter="login">
+                <v-row>
                   <v-col cols="12">
                     <v-text-field
                       v-model="email"
@@ -58,22 +47,29 @@
                       @click:append="show = !show"
                     />
                   </v-col>
+                </v-row>
 
-                  <v-col cols="12">
-                    <div class="d-flex flex-row justify-center ml-8">
-                      <div class="d-flex flex-coloumn">
-                        <v-btn
-                          color="btn_primary"
-                          width="370"
-                          type="submit"
-                        >
-                          Masuk
-                        </v-btn>
-                      </div>
-                    </div>
+                <v-row class="d-flex flex-row-reverse">
+                  <v-col
+                    v-resize="onResize"
+                    cols="12"
+                    sm="6"
+                  >
+                    <v-btn
+                      color="btn_primary"
+                      type="submit"
+                      :width="isMobile ? '298' : '100'"
+                      :class="isMobile ? '' : 'custom--margin--btn'"
+                      class="width--btn"
+                    >
+                      Masuk
+                    </v-btn>
                   </v-col>
-                  <v-col cols="12">
-                    <div class="d-flex flex-row justify-center mt-2">
+                  <v-col
+                    cols="12"
+                    sm="6"
+                  >
+                    <div class="d-flex flex-row justify-center">
                       <div class="d-flex flex-column">
                         <v-chip
                           color="transparent"
@@ -86,20 +82,21 @@
                       </div>
                     </div>
                   </v-col>
-                  <div class="text-center font-questions mt-12">
-                    <!-- <span class="color-black-2">New on our platform? </span> -->
-                    <a
-                      class="color-a"
-                      style="text-decoration: underline"
-                      @click="signUp"
-                    >
-                      <span>&nbsp;Daftar Sekarang</span>
-                    </a>
-                  </div>
-                </v-form>
-              </v-card-text>
-            </v-card>
-          </v-col>
+                </v-row>
+                <div class="text-center font-questions mt-12">
+                  <!-- <span class="color-black-2">New on our platform? </span> -->
+                  <a
+                    class="color-a"
+                    style="text-decoration: underline"
+                    @click="signUp"
+                  >
+                    <span>&nbsp;Daftar Sekarang</span>
+                  </a>
+                </div>
+              </v-form>
+            </v-card-text>
+          </v-card>
+          <!-- </v-col> -->
         </v-col>
       </v-row>
     </v-container>
@@ -112,6 +109,7 @@
       show: false,
       email: "",
       password: "",
+      isMobile: false,
     }),
     computed: {
       imgUrl () {
@@ -124,6 +122,10 @@
       this.$vuetify.theme.dark = false
     },
     methods: {
+      onResize () {
+        if (window.innerWidth < 769) this.isMobile = true
+        else this.isMobile = false
+      },
       login () {
         this.$store
           .dispatch("studioAuth/studioLogin", {
@@ -223,12 +225,41 @@
   color: #6B75AA !important
   font-weight: bold !important
   text-decoration: underline
-.customize--subtitle
-  font-size: 12px !important
 .force--opacity
   opacity: 0
 .v-label
   font-family: 'Spartan', sans-serif !important
 .cord--login
   margin-left: 33% !important
+.app-not--isMobile
+  background-color: #843839 !important
+.app-isMobile
+  height: 20% !important
+  background-color: #843839 !important
+.custom--margin--btn
+  margin-left: 28% !important
+  margin-top: -2%
+.width--btn
+    margin-left: 78px !important
+</style>
+<style>
+@media screen and (max-width: 322px) {
+  .width--btn {
+    margin-left: 10px !important;
+    width: 242px !important;
+  }
+}
+
+@media screen and (max-width: 412px) {
+  .width--btn {
+    width: 300px !important;
+    margin-left: 15px !important;
+  }
+}
+@media screen and (max-width: 415px) {
+  .width--btn {
+    width: 300px !important;
+    margin-left: 33px !important;
+  }
+}
 </style>

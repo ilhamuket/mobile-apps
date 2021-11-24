@@ -3,10 +3,11 @@
     <v-container>
       <v-row>
         <v-col cols="12">
-          <v-card>
+          <v-card class="rounded-lg">
             <iframe
               width="1100"
               height="545"
+              class="rounded-lg"
               src="https://www.youtube.com/embed/kRR-MvDMxIg"
             >
             </iframe>
@@ -159,6 +160,12 @@
 
 <script>
 export default {
+  props: {
+    data: {
+      type: Object,
+      default: null
+    }
+  },
   data: () => ({
     page: "",
     text: `Lorem ipsum dolor sit amet consectetur, adipisicing elit.

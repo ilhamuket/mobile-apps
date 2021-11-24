@@ -72,7 +72,7 @@ class UserHaveClassController extends Controller
             $master = UserHaveClass::entities($request->entities)
                 ->where('user_id', $request->user()->id)
                 ->orderBy('id', 'desc')
-                ->get();
+                ->paginate($request->input("paginate", 6));
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

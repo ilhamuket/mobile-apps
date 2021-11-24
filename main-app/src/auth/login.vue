@@ -1,10 +1,7 @@
 <template>
-  <v-app v-if="imgUrl">
-    <v-container
-      class="container--custome"
-      fluid
-    >
-      <v-row dense>
+  <v-app class="bg--login">
+    <v-container class="container--custome mt-12">
+      <v-row>
         <!-- <v-col
           cols="12"
           md="8"
@@ -20,67 +17,44 @@
             </v-col>
           </v-row>
         </v-col> -->
-        <v-col
-          cols="12"
-          md="4"
-          sm="12"
-          class="d-flex cols__form"
-        >
+        <v-col cols="12">
           <v-col
             cols="12"
-            class="bg-auth"
+            class="d-flex justify-center"
           >
             <v-card>
-              <!-- <v-card-title
-              class="font-size-ather-roboto-mono primary--text text-custome mt-6"
-              title-tag="h2"
-            >
-              Selamat Datang Di EnsikloTari 👋
-            </v-card-title> -->
-              <v-card-text class="mb-2 secondary--text font-spartan">
-                Daftarkan diri dan mulai pertualanganmu
+              <v-card-text class="mb-2">
+                <span class="font-spartan-title">
+                  Daftarkan diri dan mulai pertualanganmu 👋
+                </span>
               </v-card-text>
-
-              <v-alert
-                dense
-                text
-                color="secondary"
-                class="mt-12"
-              >
-                <p
-                  class="
-                    font-spartan-small
-                    text-lowercase
-                    third--text
-                    text-custome-2
-                  "
-                >
-                  The Key To Happiness Is Login To Life, As a Guest And Not as
-                  An Administartor
-                </p>
-                - Chintoo Agl
-              </v-alert>
               <v-card-text class="card--margin">
                 <v-form @submit.prevent.enter="login">
-                  <v-text-field
-                    v-model="email"
-                    label="Email Or Username *"
-                    color="btn_primary"
-                    placeholder="E-mail Or Username"
-                    outlined
-                    dense
-                  />
-                  <v-text-field
-                    v-model="password"
-                    label="Password *"
-                    placeholder="Password"
-                    outlined
-                    color="btn_primary"
-                    dense
-                    :append-icon="!show ? 'mdi-eye' : 'mdi-eye-off'"
-                    :type="show ? 'text' : 'password'"
-                    @click:append="show = !show"
-                  />
+                  <v-row>
+                    <v-col cols="12">
+                      <v-text-field
+                        v-model="email"
+                        label="Email Or Username *"
+                        color="btn_primary"
+                        placeholder="E-mail Or Username"
+                        outlined
+                        dense
+                      />
+                    </v-col>
+                    <v-col cols="12">
+                      <v-text-field
+                        v-model="password"
+                        label="Password *"
+                        placeholder="Password"
+                        outlined
+                        color="btn_primary"
+                        dense
+                        :append-icon="!show ? 'mdi-eye' : 'mdi-eye-off'"
+                        :type="show ? 'text' : 'password'"
+                        @click:append="show = !show"
+                      />
+                    </v-col>
+                  </v-row>
 
                   <div class="d-flex flex-row justify-center ml-8 mt-7">
                     <div class="d-flex flex-coloumn">
@@ -201,6 +175,8 @@
    border-color: white !important
 .bg-auth
   background-color: #fff
+.bg--login
+  background-color: #843839 !important
 // .bg-img
 //   background-color: #E1F3F9
 .tmp-opacity
@@ -229,7 +205,4 @@
   color: #2E4DA7 !important
 .card--margin
  margin-top: 10% !important
-.cols__form
-  margin-top: -1%
-  margin-left:33%
 </style>

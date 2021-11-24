@@ -159,10 +159,12 @@
           const folder = "waiting-reviews"
           const params = (this.$route.params.folder = folder)
           this.$router.push(params).catch(() => {})
+          document.title = `Waiting Reviews  - ${process.env.VUE_APP_TITLE}`
         } else if (this.tabs === 2) {
           const folder = "my-reviews"
           const params = (this.$route.params.folder = folder)
           this.$router.push(params).catch(() => {})
+          document.title = `My Reviews  - ${process.env.VUE_APP_TITLE}`
         }
       },
     },
