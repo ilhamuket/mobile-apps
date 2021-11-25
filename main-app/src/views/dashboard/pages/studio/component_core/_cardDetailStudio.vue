@@ -110,11 +110,12 @@
                       @click="unfoll(data)"
                     >
                       <v-tooltip
-                        color="btn_primary"
+                        color="primary"
                         bottom
                       >
                         <template #activator="{ on, attrs }">
                           <v-icon
+                            color="btn_primary"
                             v-bind="attrs"
                             v-on="on"
                           >

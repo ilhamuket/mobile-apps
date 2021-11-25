@@ -15,7 +15,7 @@
     Banner
     ----------------------------------------------- -->
     <!-- <BannerText /> -->
-    <Banner1 />
+    <!-- <Banner1 /> -->
     <!-- <Banner2 /> -->
     <!-- -----------------------------------------------
     ./ Banner
@@ -88,6 +88,7 @@
     Contact Text
     ----------------------------------------------- -->
     <!-- <ContactText /> -->
+    <patner />
     <Contact id="kontak"/>
     <!-- -----------------------------------------------
     ./ Contact Text
@@ -98,6 +99,7 @@
 <script>
 import what from "./what/what.vue";
 import video from "./video/index.vue";
+import patner from './patner/Patner.vue'
 export default {
   name: "AllCustomComponents",
 
@@ -105,6 +107,7 @@ export default {
     return {};
   },
   components: {
+    patner,
     keunggulan: () => import("@/components/custom/Keunggulan/Keunggulan"),
     BannerText: () => import("@/components/custom/ListKeunggulan/BannerText"),
     FeatureText: () => import("@/components/custom/features/FeatureText"),

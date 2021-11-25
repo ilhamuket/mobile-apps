@@ -26,20 +26,20 @@
           @click="isActive = !isActive"
         >
           <ul class="navbar-nav">
-            <li v-if="$route.path === '/'" class="nav-item" text>
+            <!-- <li v-if="$route.path === '/'" class="nav-item" text>
               <a
                 href="#what"
                 class="headers__sanggar font-weight-bold primary--text1"
               >
                 EnsikloTari
               </a>
-            </li>
-            <li v-if="$route.path !== '/'" class="nav-item" text>
+            </li> -->
+            <li class="nav-item" text>
               <nuxt-link
                 to="/"
                 class="headers__sanggar font-weight-bold primary--text1"
               >
-                EnsikloTari
+                Sanggar
               </nuxt-link>
             </li>
 

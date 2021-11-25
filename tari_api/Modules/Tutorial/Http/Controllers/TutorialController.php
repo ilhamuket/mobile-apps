@@ -8,6 +8,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Tutorial\Entities\Tutorial;
+use Illuminate\Support\Facades\Http;
 
 class TutorialController extends Controller
 {
@@ -98,9 +99,20 @@ class TutorialController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
+    public function listTutorial(Request $request)
     {
-        return view('tutorial::show');
+        try {
+            $master = Tutorial::entities($request->entities)
+                ->get();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**
@@ -108,9 +120,17 @@ class TutorialController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function scanMe(Request $request)
     {
-        return view('tutorial::edit');
+        // try {
+        $response = Http::post(
+            'https://qrickit.com/api/qr.php?d=https://ensiklotari.com'
+        );
+
+        return Json::response($response);
+        // } catch (\Throwable $th) {
+        //     //throw $th;
+        // }
     }
 
     /**
@@ -121,7 +141,19 @@ class TutorialController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $master = Tutorial::findOrFail($id);
+            $master->descriptions = $request->input('descriptions', $master->descriptions);
+            $master->save();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**

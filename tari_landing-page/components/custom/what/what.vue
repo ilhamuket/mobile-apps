@@ -1,5 +1,5 @@
 <template>
-  <div class="bg--what">
+  <div class="bg--fitur1">
     <v-container class="">
       <v-row class="container--what">
         <v-col cols="12" md="5">

@@ -30,7 +30,7 @@
 export default {
   head() {
     return {
-      title: "Introduce",
+      title: "Halo",
       meta: [
         {
           hid: "description",

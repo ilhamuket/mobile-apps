@@ -26,18 +26,19 @@
 
     <v-list nav>
       <v-list-item>
-        <v-list-item-avatar class="align-self-center">
+        <!-- <v-list-item-avatar class="align-self-center">
           <v-img
             :src="require('@/assets/img/logoEnsiklo.png')"
             width="12"
           />
-        </v-list-item-avatar>
+        </v-list-item-avatar> -->
 
-        <v-list-item-content>
+        <v-list-item-content v-if="drawer">
           <v-list-item-title v-text="profile.title" />
         </v-list-item-content>
 
         <v-btn
+          v-if="drawer"
           dark
           :color="$vuetify.theme.dark ? 'primary' : 'third'"
           icon

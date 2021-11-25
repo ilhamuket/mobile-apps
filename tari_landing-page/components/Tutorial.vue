@@ -8,7 +8,7 @@
               width="1100"
               height="545"
               class="rounded-lg"
-              src="https://www.youtube.com/embed/kRR-MvDMxIg"
+              :src="data.url"
             >
             </iframe>
             <v-card-text>
@@ -16,12 +16,12 @@
                 <v-row>
                   <v-col cols="12">
                     <span class="font-spartan-text text-capitalize">
-                      Cara Pendaftaran dan Pembelian kelas di ensiklotari
+                      {{data.title}}
                     </span>
                   </v-col>
                   <v-col cols="12"><span>Deskripsi</span></v-col>
-                  <v-col cols="12">{{
-                    boolean ? text.substr(0, 110) + "..." : text
+                  <v-col v-if="data.descriptions" cols="12">{{
+                    boolean ? data.descriptions.substr(0, 110) + "..." : data.descriptions
                   }}</v-col>
                   <v-col cols="12"
                     ><v-chip
@@ -64,10 +64,8 @@
             <v-row>
               <v-col cols="12"> Filter </v-col>
               <v-col ref="row" cols="12" class="cols__chips text-nowrap">
-                <v-chip>Tutorial bala</v-chip>
-                <v-chip>Tutorial bala</v-chip>
-                <v-chip>Tutorial bala</v-chip>
-                <v-chip>Tutorial bala</v-chip>
+                <v-chip>Tutorial</v-chip>
+                <v-chip>Pengenalan</v-chip>
               </v-col>
 
             </v-row>

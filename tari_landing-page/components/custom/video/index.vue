@@ -1,5 +1,5 @@
 <template>
-  <div class="video__class">
+  <div class="video__class bg--fitur1">
     <v-container>
       <v-row>
       <v-col cols="12">

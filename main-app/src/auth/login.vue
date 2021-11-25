@@ -85,7 +85,6 @@
                     <br>
                     <a
                       class="color-a"
-                      style="text-decoration: underline"
                       @click="pushToRegister"
                     >
                       <span>&nbsp;Daftar Sekarang</span>

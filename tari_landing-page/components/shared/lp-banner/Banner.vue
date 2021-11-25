@@ -4,9 +4,9 @@
       <!-- -----------------------------------------------
             Start Banner
         ----------------------------------------------- -->
-      <v-row justify="center">
-        <v-col cols="12" md="7" lg="6" class="d-flex align-center">
-          <div class="text-center text-md-left">
+      <v-row>
+        <v-col cols="12" md="6" class="d-flex align-center">
+          <div class="text-start">
             <h1 class="banner-title font-spartan font-weight-bold primary--text1">
               Selamat datang <br> di EnsikloTari
             </h1>
@@ -40,9 +40,10 @@
             </div>
           </div>
         </v-col>
-        <v-col cols="12" md="5" lg="6" class="">
+        <v-col cols="12" md="6" class="">
           <v-img
-            :src="require('@/assets/images/dance.svg')"
+          class="mt-8 ml-7"
+            :src="require('@/assets/images/ensiklo/icon_ensiklo.svg')"
             alt="banner"
           />
         </v-col>

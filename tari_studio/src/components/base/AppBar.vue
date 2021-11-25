@@ -8,32 +8,6 @@
     flat
     height="75"
   >
-    <!-- <v-btn
-      v-if="$vuetify.breakpoint.mdAndDown && !drawer"
-      outlined
-      elevation="1"
-      :color="$vuetify.theme.dark ? '' : 'pallet1'"
-      fab
-      small
-      @click="setDrawer(!drawer)"
-    >
-      <v-icon v-if="value">
-        mdi-view-quilt
-      </v-icon>
-
-      <v-icon v-else>
-        mdi-dots-vertical
-      </v-icon>
-    </v-btn>
-    <div class="mr-2" />
-
-    <v-toolbar-title
-      class="hidden-sm-and-down font-weight-light font-size-ather-roboto-mono-name-page"
-      :class="!drawer ? 'ml-6' : ''"
-      v-text="$t($route.name)"
-    />
-
-    <v-spacer /> -->
     <v-toolbar-title
       class="ml-12"
       dark
