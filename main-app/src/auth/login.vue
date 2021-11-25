@@ -20,6 +20,7 @@
         <v-col cols="12">
           <v-col
             cols="12"
+            md="6"
             class="d-flex justify-center"
           >
             <v-card>
