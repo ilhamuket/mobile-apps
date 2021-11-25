@@ -120,18 +120,18 @@ class TutorialController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function scanMe(Request $request)
-    {
-        // try {
-        $response = Http::post(
-            'https://qrickit.com/api/qr.php?d=https://ensiklotari.com'
-        );
+    // public function scanMe(Request $request)
+    // {
+    //     // try {
+    //     $response = Http::post(
+    //         'https://qrickit.com/api/qr.php?d=https://ensiklotari.com'
+    //     );
 
-        return Json::response($response);
-        // } catch (\Throwable $th) {
-        //     //throw $th;
-        // }
-    }
+    //     return Json::response($response);
+    //     // } catch (\Throwable $th) {
+    //     //     //throw $th;
+    //     // }
+    // }
 
     /**
      * Update the specified resource in storage.

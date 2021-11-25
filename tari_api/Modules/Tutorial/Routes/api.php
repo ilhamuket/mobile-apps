@@ -22,7 +22,7 @@ Route::prefix('tutorial-free')->group(function () {
     Route::post('video', [TutorialController::class, 'store'])->middleware(['auth:sanctum']);
     Route::get('video-auto', [TutorialController::class, 'autoPlay']);
     Route::get('list-video', [TutorialController::class, 'listTutorial']);
-    Route::get('scan', [TutorialController::class, 'scanMe']);
+    // Route::get('scan', [TutorialController::class, 'scanMe']);
     Route::patch('video/{id}', [TutorialController::class, 'update'])->middleware(['auth:sanctum']);
     Route::patch('video/{id}', [TutorialController::class, 'listTutorial'])->middleware(['auth:sanctum']);
 });
