@@ -69,7 +69,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
-        public_path('images') => storage_path('app/images'),
+        public_path('images') => storage_path('app/public/images'),
         public_path('images/list-class') => storage_path('app/public/images/list-class'),
         public_path('images/ensiklo-live') => storage_path('app/public/images/ensiklo-live'),
         public_path('images/category') => storage_path('app/public/images/category'),
