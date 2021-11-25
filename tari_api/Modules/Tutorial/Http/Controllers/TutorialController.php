@@ -20,6 +20,7 @@ class TutorialController extends Controller
     public function autoPlay(Request $request)
     {
         try {
+
             $video = Tutorial::first();
             if (is_object($video)) {
                 $master = Tutorial::entities($request->entities)

@@ -175,4 +175,5 @@ Route::prefix('all')->group(function () {
     Route::get('live', [StudioClassController::class, 'forAll']);
     Route::get('ensiklo-vidio', [StudioClassVidiosController::class, 'forAll']);
     Route::get('instructor', [StudioInstructorController::class, 'forAll']);
+    Route::get('studio', [StudioController::class, 'forAll']);
 });
