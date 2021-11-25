@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Tutorial\Entities\Tutorial;
 use Illuminate\Support\Facades\Http;
-use SimpleSoftwareIO\QrCode\QrCodeServiceProvider;
+// use SimpleSoftwareIO\QrCode\QrCodeServiceProvider;
 
 class TutorialController extends Controller
 {
