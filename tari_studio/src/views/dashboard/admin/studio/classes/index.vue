@@ -356,13 +356,13 @@
       this.scan()
     },
     methods: {
-      scan () {
-        axios
-          .get("https://qrickit.com/api/qr.php?d=https://ensiklotari.com")
-          .then((res) => {
-            console.log(res, "asa")
-          })
-      },
+      // scan () {
+      //   axios
+      //     .get("https://qrickit.com/api/qr.php?d=https://ensiklotari.com")
+      //     .then((res) => {
+      //       console.log(res, "asa")
+      //     })
+      // },
       getStudioMe () {
         this.$store
           .dispatch("studio/getDataMeStudio", {
