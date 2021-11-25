@@ -14,15 +14,13 @@ use Modules\Tutorial\Http\Controllers\TutorialController;
 |
 */
 
-Route::middleware('auth:api')->get('/tutorial', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/tutorial', function (Request $request) {
+//     return $request->user();
+// });
 
 Route::prefix('tutorial-free')->group(function () {
     Route::post('video', [TutorialController::class, 'store'])->middleware(['auth:sanctum']);
     Route::get('video-auto', [TutorialController::class, 'autoPlay']);
-    Route::get('list-video', [TutorialController::class, 'listTutorial']);
-    // Route::get('scan', [TutorialController::class, 'scanMe']);
+    Route::get('list-video', [TutorialController::class, 'listTutorialVideo']);
     Route::patch('video/{id}', [TutorialController::class, 'update'])->middleware(['auth:sanctum']);
-    // Route::get('video', [TutorialController::class, 'listTutorial'])->middleware(['auth:sanctum']);
 });

@@ -99,7 +99,7 @@ class TutorialController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function listTutorial(Request $request)
+    public function listTutorialVideo(Request $request)
     {
         try {
             $master = Tutorial::entities($request->entities)
