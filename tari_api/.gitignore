@@ -5,7 +5,7 @@
 /public/app/listImg
 /public/images
 /storage/*.key
-/vendor
+# /vendor\
 .env
 .env.backup
 .phpunit.result.cache

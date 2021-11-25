@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Tutorial\Entities\Tutorial;
 use Illuminate\Support\Facades\Http;
+use SimpleSoftwareIO\QrCode\QrCodeServiceProvider;
 
 class TutorialController extends Controller
 {
@@ -145,6 +146,7 @@ class TutorialController extends Controller
             $master = Tutorial::findOrFail($id);
             $master->descriptions = $request->input('descriptions', $master->descriptions);
             $master->save();
+            // QrCodeServiceProvider
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
