@@ -42,7 +42,7 @@ class ImagesStudioController extends Controller
             $studio = OwnerStudio::where('author_id', $request->user()->id)->first();
             $master = new ImagesStudio();
             $master->name_thumbnail = $request->name_thumbnail;
-            $path = $request->img->store('images/studio');
+            $path = $request->img->store('images');
             $master->url =  $path;
             $master->studio_id = $request->studio_id;
             $master->type = $request->type;
@@ -100,7 +100,7 @@ class ImagesStudioController extends Controller
             $studioImg->delete();
 
             $master = new ImagesStudio();
-            $path = $request->img->store('images/studio');
+            $path = $request->img->store('images');
             $master->name_thumbnail = 's';
             $master->url = $path;
             $master->studio_id = $request->studio_id;
