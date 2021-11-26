@@ -50,7 +50,7 @@ class ImgClassesController extends Controller
     {
         try {
             $master = new ImgClasses();
-            $path = $request->img->store('images');
+            $path = $request->img->store('storage');
             $master->url = $path;
             $master->class_id = $request->class_id;
             $master->save();
