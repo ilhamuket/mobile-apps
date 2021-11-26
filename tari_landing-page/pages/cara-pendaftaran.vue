@@ -1,12 +1,12 @@
 <template>
   <div>
     <app-cara></app-cara>
-    <app-tutorial :data="data.data"></app-tutorial>
+    <app-tutorial :data="data.data" :list="list"></app-tutorial>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 import cara from "../components/shared/lp-banner/BannerCara.vue";
 import tutorial from "../components/Tutorial.vue";
 export default {
@@ -30,9 +30,13 @@ export default {
     data: {
       data: {},
     },
+    list: {
+      data: [],
+    },
   }),
   mounted() {
-    this.getAutoPlay()
+    this.getAutoPlay();
+    this.listTutorial();
   },
   methods: {
     async getAutoPlay() {
@@ -41,11 +45,24 @@ export default {
       axios.defaults.baseURL = process.env.VUE_APP_API_URL;
 
       const params = {
-        entities: '',
-      }
-      const data = await this.$axios.get('/tutorial-free/video-auto', {params:params})
-      console.log(data.data);
-      this.data = data.data
+        entities: "",
+      };
+      const data = await this.$axios.get("/tutorial-free/video-auto", {
+        params: params,
+      });
+      this.data = data.data;
+    },
+    async listTutorial() {
+      axios.defaults.headers.common.Authorization =
+        "Bearer " + localStorage.getItem("access_token");
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL;
+
+      const params = {};
+      const data = await this.$axios.get("/tutorial-free/list-video", {
+        params: params,
+      });
+      this.list = data.data;
+      console.log(this.list);
     },
   },
 };

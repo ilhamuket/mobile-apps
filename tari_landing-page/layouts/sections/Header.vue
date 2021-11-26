@@ -36,7 +36,7 @@
             </li> -->
             <li class="nav-item" text>
               <nuxt-link
-                to="/"
+                to="/sanggar"
                 class="headers__sanggar font-weight-bold primary--text1"
               >
                 Sanggar
@@ -91,7 +91,7 @@
             </li>
             <li>
               <a
-              v-if="$route.path === '/'"
+                v-if="$route.path === '/'"
                 color="white"
                 href="#kontak"
                 dark
@@ -101,7 +101,7 @@
                 Kontak Kami
               </a>
               <nuxt-link
-              v-else
+                v-else
                 color="white"
                 to="/kontak-kami"
                 dark

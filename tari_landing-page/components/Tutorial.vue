@@ -16,12 +16,14 @@
                 <v-row>
                   <v-col cols="12">
                     <span class="font-spartan-text text-capitalize">
-                      {{data.title}}
+                      {{ data.title }}
                     </span>
                   </v-col>
                   <v-col cols="12"><span>Deskripsi</span></v-col>
                   <v-col v-if="data.descriptions" cols="12">{{
-                    boolean ? data.descriptions.substr(0, 110) + "..." : data.descriptions
+                    boolean
+                      ? data.descriptions.substr(0, 110) + "..."
+                      : data.descriptions
                   }}</v-col>
                   <v-col cols="12"
                     ><v-chip
@@ -67,78 +69,21 @@
                 <v-chip>Tutorial</v-chip>
                 <v-chip>Pengenalan</v-chip>
               </v-col>
-
             </v-row>
           </v-container>
           <v-list max-height="550" class="overflow-y-auto">
-            <v-list-item>
+            <v-list-item v-for="(item, i) in list.data" :key="i">
               <v-list-item-content>
                 <v-card>
-                  <v-img
-                    width="400"
-                    height="200"
-                    src="https://i.ytimg.com/vi/B1cDwfxs1VM/hqdefault.jpg"
-                  />
+                  <v-img width="400" height="200" :src="item.url_thumbnail" />
                   <div class="d-flex flex-row justify-start mt-4">
                     <div class="d-flex flex-column">
-                      <p class="ml-2">
-                        Lorem ipsum dolor sit amet consectetur adipisicing.
+                      <p class="ml-2 mb-5">
+                        {{ item.title }}
                       </p>
                     </div>
                   </div>
-                  <div class="d-flex flex-row justify-center ml-2">
-                    <div class="d-flex flex-column">
-                      <p class="grey--text">
-                        <v-icon class="mr-2">mdi-heart-outline</v-icon
-                        >EnsikloTari
-                      </p>
-                    </div>
-                  </div>
-                </v-card>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-content>
-                <v-card>
-                  <v-img
-                    width="400"
-                    height="200"
-                    src="https://i.ytimg.com/vi/B1cDwfxs1VM/hqdefault.jpg"
-                  />
-                  <div class="d-flex flex-row justify-start mt-4">
-                    <div class="d-flex flex-column">
-                      <p class="ml-2">
-                        Lorem ipsum dolor sit amet consectetur adipisicing.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="d-flex flex-row justify-center ml-2">
-                    <div class="d-flex flex-column">
-                      <p class="grey--text">
-                        <v-icon class="mr-2">mdi-heart-outline</v-icon
-                        >EnsikloTari
-                      </p>
-                    </div>
-                  </div>
-                </v-card>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-content>
-                <v-card>
-                  <v-img
-                    width="400"
-                    height="200"
-                    src="https://i.ytimg.com/vi/B1cDwfxs1VM/hqdefault.jpg"
-                  />
-                  <div class="d-flex flex-row justify-start mt-4">
-                    <div class="d-flex flex-column">
-                      <p class="ml-2">
-                        Lorem ipsum dolor sit amet consectetur adipisicing.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="d-flex flex-row justify-center ml-2">
+                  <div class="d-flex flex-row justify-center ml-2 mt-5">
                     <div class="d-flex flex-column">
                       <p class="grey--text">
                         <v-icon class="mr-2">mdi-heart-outline</v-icon
@@ -161,8 +106,12 @@ export default {
   props: {
     data: {
       type: Object,
-      default: null
-    }
+      default: null,
+    },
+    list: {
+      type: Object,
+      default: null,
+    },
   },
   data: () => ({
     page: "",
@@ -183,8 +132,7 @@ export default {
 
     boolean: true,
   }),
-  mounted() {
-  },
+  mounted() {},
 
   left() {
     this.$refs.row.scrollLeft - 20;

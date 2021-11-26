@@ -16,7 +16,7 @@ class StudioController extends Controller
     {
         try {
             $master = Studio::entities($request->entities)
-                ->get();
+                ->paginate($request->input('paginate', 6));
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
