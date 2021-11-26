@@ -69,12 +69,12 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
-        public_path('images') => storage_path('app/public/images'),
-        public_path('images/list-class') => storage_path('app/public/images/list-class'),
-        public_path('images/ensiklo-live') => storage_path('app/public/images/ensiklo-live'),
-        public_path('images/category') => storage_path('app/public/images/category'),
-        public_path('images/studio') => storage_path('app/public/images/studio'),
-        public_path('images/user') => storage_path('app/public/images/user')
+        public_path('app/images') => storage_path('app/public/images'),
+        public_path('app/images/list-class') => storage_path('app/public/images/list-class'),
+        public_path('app/images/ensiklo-live') => storage_path('app/public/images/ensiklo-live'),
+        public_path('app/images/category') => storage_path('app/public/images/category'),
+        public_path('app/images/studio') => storage_path('app/public/images/studio'),
+        public_path('app/images/user') => storage_path('app/public/images/user')
     ],
 
 ];
