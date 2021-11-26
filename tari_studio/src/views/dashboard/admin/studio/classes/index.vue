@@ -353,7 +353,6 @@
       this.getDataSummary()
       this.getDataStudioCategories()
       this.getStudioMe()
-      this.scan()
     },
     methods: {
       // scan () {
