@@ -28,7 +28,7 @@ class CategoryImgController extends Controller
             $categoryImg->delete();
 
             $master = new CategoryImg();
-            $path = $request->img->store('images/category');
+            $path = $request->img->store('images');
             $master->url = $path;
             $master->category_id = $categoryImg->category_id;
             $master->save();
@@ -53,7 +53,7 @@ class CategoryImgController extends Controller
     {
         try {
             $master = new CategoryImg();
-            $path = $request->img->store('images/category');
+            $path = $request->img->store('images');
             $master->url =  $path;
             $master->category_id = $request->category_id;
             $master->save();

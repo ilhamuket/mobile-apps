@@ -37,7 +37,7 @@ class ImgAllController extends Controller
     {
         try {
             $master = new ImgAlls();
-            $master->url = $request->img->store('images/category');
+            $master->url = $request->img->store('images');
             $master->save();
 
             return Json::response($master);

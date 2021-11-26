@@ -21,7 +21,7 @@ class ImgListClassController extends Controller
     {
         try {
             $master = new ImgListClass();
-            $path = $request->img->store('images/category');
+            $path = $request->img->store('images');
             $master->url = $path;
             $master->class_id = $request->class_id;
             $master->save();
@@ -56,7 +56,7 @@ class ImgListClassController extends Controller
             $listImg->delete();
 
             $master = new ImgListClass();
-            $path = $request->img->store('images/category');
+            $path = $request->img->store('images');
             $master->url = $path;
             $master->class_id = $listImg->class_id;
             $master->save();
