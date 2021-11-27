@@ -40,11 +40,11 @@ export default {
   methods: {
     async getAllStudio() {
       const params = {
-        entities: "img",
+        entities: "author,img,followers,likes,reviews",
       };
 
       const studio = await this.$axios.get("all/studio", { params: params });
-      console.log(studio.data);
+      // console.log(studio.data);
       this.data = studio.data;
     },
   },

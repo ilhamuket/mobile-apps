@@ -40,7 +40,7 @@
           .dispatch("studioReviews/insertUserReviews", {
             id: this.$route.params.id,
             body: item.body,
-            ratings: item.ratings,
+            ratings: item.rating,
             class_id: this.computedDataClasses.id,
             studio_id: this.computedDataClasses.studio_id,
           })

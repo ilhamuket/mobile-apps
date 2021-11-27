@@ -133,7 +133,7 @@
           to: "/class",
         },
         {
-          icon: "mdi-account-group-outline",
+          icon: "mdi-laptop",
           title: "class_vidio",
           to: "/class-vidio",
         },

@@ -2,7 +2,7 @@
   <div class="logo">
     <NLink to="/">
       <v-img
-        src="https://api.ensiklotari.com/images/category/2yWAsvcRa7gqGqBlvlVcgiyEfn1xuxvPMyRbWgZD.svg"
+        :src="require('@/assets/images/breadcumb/ensiklotariLogo.svg')"
         alt="logo"
         width="160"
       />

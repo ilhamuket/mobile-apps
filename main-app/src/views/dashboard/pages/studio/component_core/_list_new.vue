@@ -252,8 +252,9 @@
             let newReviews = []
             newReviews = studio.reviews
             const count = newReviews.map((x) => x.ratings)
-            if (count.length !== 0) {
-              const sum = count.filter((x) => x > 0).reduce((x, y) => x + y)
+            if (count.length > 0) {
+              console.log(count)
+              const sum = count.filter((x) => x > 0).reduce((x, y) => x + y, 0)
               const avarage = sum / count.length
 
               arrayReviews.push(avarage)
@@ -391,7 +392,6 @@
 }
 .v-card:hover {
   opacity: 0.9;
-  cursor: pointer;
 }
 
 .show-btns {

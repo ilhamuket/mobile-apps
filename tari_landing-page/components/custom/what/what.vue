@@ -5,9 +5,17 @@
         <v-col cols="12" md="5">
           <v-carousel class="rounded-lg" v-model="model">
             <v-carousel-item
-              v-for="(item, i) in items"
-              :key="i"
-              :src="item.src"
+              :src="require('@/assets/images/breadcumb/img1.png')"
+              reverse-transition="fade-transition"
+              transition="fade-transition"
+            ></v-carousel-item>
+            <v-carousel-item
+              :src="require('@/assets/images/breadcumb/img2.png')"
+              reverse-transition="fade-transition"
+              transition="fade-transition"
+            ></v-carousel-item>
+            <v-carousel-item
+              :src="require('@/assets/images/breadcumb/img3.jpg')"
               reverse-transition="fade-transition"
               transition="fade-transition"
             ></v-carousel-item>
@@ -76,10 +84,10 @@ export default {
     colors: ["primary", "secondary", "red", "blue", "orange"],
     items: [
       {
-        src: "https://api.ensiklotari.com/images/category/fiNBaPXYNLwbOhdcwbskT0MAPXVIOI2d03XOSh4O.jpg",
+        src: "",
       },
       {
-        src: "https://api.ensiklotari.com/images/category/o3LmUXaA2hGa192ycyAbcF1GDrN1sAXEU4XXBZGJ.jpg",
+        src: "@/assets/images/breadcumb/img2.png",
       },
       {
         src: "https://api.ensiklotari.com/images/category/0cOKASyNfM6rjHWftIZ9pS3UkDczINdZjSMkPWXm.jpg",

@@ -36,7 +36,10 @@
                 <span class="font-spartan-text">
                   {{ item.user.firstName }} {{ item.user.lastName }}</span>
                 <br>
-                <v-rating :value="item.ratings" />
+                <v-rating
+                  :value="item.ratings"
+                  readonly
+                />
 
                 <span class="font-spartan-small">
                   {{ item.body }}

@@ -59,14 +59,37 @@
                     {{ item.name }}
                   </h5>
                   <p class="font-14 mb-0">
-                    <v-rating small :value="2"></v-rating>
+                    <v-rating
+                      small
+                      readonly
+                      :value="computedList[i]"
+                    ></v-rating>
                   </p>
                   <br />
-                  <P v-if="item.img"> Level : {{ item.img.url }} </P>
-                  <p>Durasi : sdsa Menit</p>
-                  <p class="font-rp font-weight-bold">Rp sada</p>
+                  <v-row>
+                    <v-col
+                      cols="12"
+                      class="d-flex justify-center icon--sanggar"
+                    >
+                      <v-tooltip bottom color="primary">
+                        <template #activator="{ on, attrs }">
+                          <v-icon
+                            v-on="on"
+                            v-bind="attrs"
+                            v-for="(item, i) in itemIcon"
+                            :key="i"
+                            class="ml-2 primary--text"
+                            >{{ item.text }}</v-icon
+                          >
+                        </template>
+                        <span class="font-spartan font-9">
+                          facebook
+                        </span>
+                      </v-tooltip>
+                    </v-col>
+                  </v-row>
                 </v-card-text>
-                <v-card-actions>
+                <!-- <v-card-actions>
                   <v-btn
                     color="#4CAF50"
                     class="
@@ -83,7 +106,7 @@
                     <span>Lihat Studio</span>
                     <i class="mdi mdi-arrow-right"></i>
                   </v-btn>
-                </v-card-actions>
+                </v-card-actions> -->
               </v-card>
             </v-col>
           </v-row>
@@ -97,8 +120,10 @@
   </div>
 </template>
 <script>
+import Team from "./custom/team/Team.vue";
 // import axios from "@nuxtjs/axios";
 export default {
+  components: { Team },
   props: {
     data: {
       type: Object,
@@ -109,14 +134,38 @@ export default {
       default: null,
     },
   },
+  data: () => ({
+    itemIcon: [
+      { text: "mdi-facebook", color: "blue" },
+      { text: "mdi-whatsapp", color: "blue" },
+      { text: "mdi-twitter", color: "blue" },
+      { text: "mdi-instagram", color: "blue" },
+    ],
+  }),
   computed: {
-    // getData() {
-    //   return localStorage.getItem("studio");
-    // },
+    computedList() {
+      const arrayReviews = [];
+      // eslint-disable-next-line no-unused-vars
+      for (const item in this.data.data) {
+        if (Object.hasOwnProperty.call(this.data.data, item)) {
+          const studio = this.data.data[item];
+          let newReviews = [];
+          newReviews = studio.reviews;
+          const count = newReviews.map((x) => x.ratings);
+          if (count.length !== 0) {
+            const sum = count.filter((x) => x > 0).reduce((x, y) => x + y);
+            const avarage = sum / count.length;
+
+            arrayReviews.push(avarage);
+          }
+        }
+      }
+      return arrayReviews;
+    },
   },
   mounted() {
-    // this.getData();
-    // console.log(this.item_array);
+    // console.log(this.data.data);
+    // console.log(this.computedList);
   },
   methods: {
     // async getData() {
@@ -128,14 +177,22 @@ export default {
 </script>
 <style lang="sass">
 .font-spartan-small
-    font-family: "Spartan"
-    font-size: 13px
-    margin-left: 162px
-    margin-bottom: -27px !important
+  font-family: "Spartan"
+  font-size: 13px
+  margin-left: 162px
+  margin-bottom: -27px !important
 .font-rp
-    font-size: 21px
-    color: #4CAF50
-    margin-top: 20px
+  font-size: 21px
+  color: #4CAF50
+  margin-top: 20px
 .btn--margin
-    margin-top: -6%
+  margin-top: -6%
+.icon--sanggar
+  .v-icon
+    transition: 0.1s ease-in
+    cursor: pointer
+  &:hover
+    .v-icon
+      transform: scale(1.5)
+      margin-left: 6% !important
 </style>

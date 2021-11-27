@@ -86,7 +86,12 @@
                     md="9"
                     sm="6"
                   >
-                    <span class="font-spartan-small"> Hurip Studio </span>
+                    <span
+                      v-if="item.classes.studio"
+                      class="font-spartan-small"
+                    >
+                      {{ item.classes.studio.name }}
+                    </span>
                     <v-rating
                       :value="computedCount[i]"
                       readonly
@@ -149,10 +154,13 @@
               const reviews = studio.reviews
               const allRatings = reviews.map((x) => x.ratings)
 
-              const sum = allRatings.filter((x) => x > 0).reduce((x, y) => x + y)
-              const avarage = sum / allRatings.length
-
-              aay.push(avarage)
+              if (allRatings.length > 0) {
+                const sum = allRatings
+                  .filter((x) => x > 0)
+                  .reduce((x, y) => x + y)
+                const avarage = sum / allRatings.length
+                aay.push(avarage)
+              }
             }
           }
         }

@@ -1,7 +1,7 @@
 <template>
   <base-material-card
     color="btn_primary"
-    icon="mdi-account-group-outline"
+    icon="mdi-access-point"
   >
     <template #after-heading>
       <span

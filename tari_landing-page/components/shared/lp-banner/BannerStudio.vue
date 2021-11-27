@@ -14,7 +14,7 @@
         >
           <div class="text-center">
             <h1 class="banner-title font-weight-bold white--text text-nowrap">
-              Studio EnsikloTari
+              Sanggar EnsikloTari
             </h1>
             <h4 class="banner-subtitle mr-0 white--text text-nowrap font-weight-regular">
               Belajar Menari di mana pun & kapan pun

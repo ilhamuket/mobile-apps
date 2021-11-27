@@ -170,7 +170,7 @@
   export default {
     props: {
       classes: {
-        type: Object,
+        type: Array,
         default: null,
       },
     },
