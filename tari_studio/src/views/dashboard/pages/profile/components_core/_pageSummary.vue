@@ -7,12 +7,12 @@
       >
         <base-material-stats-card
           color="primary"
-          icon="mdi-twitter"
+          icon="mdi-access-point"
           :title="$t('classes')"
           :value="String(summary.classes)"
           sub-icon="mdi-heart-outline"
           sub-text="EnsikloTari"
-          style="cursor:pointer"
+          style="cursor: pointer"
           @click.native="toNavigate('/class')"
         />
       </v-col>
@@ -22,12 +22,12 @@
       >
         <base-material-stats-card
           color="primary"
-          icon="mdi-twitter"
+          icon="mdi-playlist-check"
           :title="$t('category')"
           :value="String(summary.category)"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
-          style="cursor:pointer"
+          style="cursor: pointer"
           @click.native="toNavigate('/category')"
         />
       </v-col>
@@ -37,12 +37,12 @@
       >
         <base-material-stats-card
           color="primary"
-          icon="mdi-account-group-outline"
+          icon="mdi-laptop"
           :title="$t('vidio_name_page')"
           :value="String(summary.vidio_profile)"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
-          style="cursor:pointer"
+          style="cursor: pointer"
           @click.native="toNavigate('/vidio')"
         />
       </v-col>
@@ -57,7 +57,7 @@
           :value="String(summary.instructor)"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
-          style="cursor:pointer"
+          style="cursor: pointer"
           @click.native="toNavigate('/instructor')"
         />
       </v-col>
@@ -67,12 +67,12 @@
       >
         <base-material-stats-card
           color="primary"
-          icon="mdi-account-cowboy-hat-outline"
+          icon="mdi-account-voice"
           :title="$t('discusses')"
           :value="String(summary.discuss)"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
-          style="cursor:pointer"
+          style="cursor: pointer"
           @click.native="navigateTabs('discussion')"
         />
       </v-col>
@@ -82,12 +82,12 @@
       >
         <base-material-stats-card
           color="primary"
-          icon="mdi-account-cowboy-hat-outline"
+          icon="mdi-message-draw"
           :title="$t('reviews')"
           :value="String(summary.reviews)"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
-          style="cursor:pointer"
+          style="cursor: pointer"
           @click.native="navigateTabs('reviews')"
         />
       </v-col>
@@ -97,12 +97,12 @@
       >
         <base-material-stats-card
           color="primary"
-          icon="mdi-account-cowboy-hat-outline"
+          icon="mdi-bank-outline"
           :title="$t('bank_account')"
           :value="String(summary.bank_account)"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
-          style="cursor:pointer"
+          style="cursor: pointer"
           @click.native="navigateTabs('bank-account')"
         />
       </v-col>

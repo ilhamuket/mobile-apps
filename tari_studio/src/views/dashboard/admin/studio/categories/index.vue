@@ -238,6 +238,7 @@
         this.$store
           .dispatch("studioCategories/deleteDataCategory", item)
           .then((res) => {
+            this.deleteById.open = false
             if (res.data.meta.status) {
               this.deleteById.open = false
               const Toast = this.$swal.mixin({
@@ -269,6 +270,7 @@
         this.$store
           .dispatch("studioCategories/deleteDataCategorySelected", item)
           .then((res) => {
+            this.dialogDeleteSelected.open = false
             if (res.data.meta.status) {
               this.dialogDeleteSelected.open = false
               const Toast = this.$swal.mixin({

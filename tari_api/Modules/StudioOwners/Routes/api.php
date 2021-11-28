@@ -144,7 +144,7 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
         Route::post('change-thumbnail', [CategoryImgController::class, 'changeThumbnail']);
         Route::patch('update/{id}', [StudioOwnerCategoryController::class, 'update']);
         Route::patch('approve/{id}', [StudioOwnerCategoryController::class, 'approve']);
-        Route::delete('/delete/{id}', [StudioOwnerCategoryController::class, 'destroy']);
+        Route::delete('delete/{id}', [StudioOwnerCategoryController::class, 'destroy']);
     });
 
     Route::prefix('discusses')->group(function () {

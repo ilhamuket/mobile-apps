@@ -68,7 +68,11 @@
                   <br />
                   <v-row>
                     <v-col
+                      v-for="(item, i) in itemIcon"
+                      :key="i"
                       cols="12"
+                      md="3"
+                      sm="3"
                       class="d-flex justify-center icon--sanggar"
                     >
                       <v-tooltip bottom color="primary">
@@ -76,14 +80,12 @@
                           <v-icon
                             v-on="on"
                             v-bind="attrs"
-                            v-for="(item, i) in itemIcon"
-                            :key="i"
-                            class="ml-2 primary--text"
+                            class="primary--text"
                             >{{ item.text }}</v-icon
                           >
                         </template>
-                        <span class="font-spartan font-9">
-                          facebook
+                        <span class="font-spartan text-h6 font-9">
+                          {{ item.tooltip }}
                         </span>
                       </v-tooltip>
                     </v-col>
@@ -136,10 +138,10 @@ export default {
   },
   data: () => ({
     itemIcon: [
-      { text: "mdi-facebook", color: "blue" },
-      { text: "mdi-whatsapp", color: "blue" },
-      { text: "mdi-twitter", color: "blue" },
-      { text: "mdi-instagram", color: "blue" },
+      { text: "mdi-facebook", color: "blue", tooltip: "Facebook" },
+      { text: "mdi-whatsapp", color: "blue", tooltip: "WhatsApp" },
+      { text: "mdi-twitter", color: "blue", tooltip: "Twitter" },
+      { text: "mdi-instagram", color: "blue", tooltip: "Instagram" },
     ],
   }),
   computed: {
@@ -194,5 +196,4 @@ export default {
   &:hover
     .v-icon
       transform: scale(1.5)
-      margin-left: 6% !important
 </style>

@@ -1,7 +1,7 @@
 <template>
   <v-app class="bg--login">
     <v-container class="container--custome mt-12">
-      <v-row>
+      <v-row class="d-flex justify-center">
         <!-- <v-col
           cols="12"
           md="8"
@@ -17,11 +17,13 @@
             </v-col>
           </v-row>
         </v-col> -->
-        <v-col cols="12">
+        <v-col
+          cols="12"
+          class="d-flex justify-center"
+        >
           <v-col
             cols="12"
             md="6"
-            class="d-flex justify-center"
           >
             <v-card>
               <v-card-text class="mb-2">
