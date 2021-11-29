@@ -410,6 +410,16 @@
               </v-container>
             </v-card-text>
           </v-col>
+          <v-col
+            cols="12"
+            class="d-flex flex-row-reverse"
+          >
+            <v-pagination
+              v-model="page"
+              :length="meta.last_page"
+              @input="nextPagination"
+            />
+          </v-col>
         </v-row>
         <v-row
           v-else
@@ -438,8 +448,13 @@
         type: Object,
         default: null,
       },
+      meta: {
+        type: Object,
+        default: null,
+      },
     },
     data: () => ({
+      page: 1,
       mean: 0,
       sum: 0,
       skill: 80,
@@ -587,6 +602,9 @@
           }
         }
         return time
+      },
+      nextPagination () {
+        this.$emit("paginate", { page: this.page })
       },
     },
   }

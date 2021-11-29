@@ -193,5 +193,7 @@
   "draft": "Draft",
   "concept": "Concept",
   "bank_account": "Bank Account",
-  "student": "Student"
+  "student": "Student",
+  "home": "Home",
+  "clasess": "Classes"
 }

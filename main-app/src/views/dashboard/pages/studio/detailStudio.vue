@@ -45,7 +45,7 @@
             :is-follow="isFollow"
             :me="computedMe"
             :ratings="ratings"
-            :data-reviews="computedReviews"
+            :data-reviews="computedRatings"
             class="d-none d-md-flex"
             @inputFollow="followStudio"
             @inputUnfoll="popUpUnfollowNotice"
@@ -58,21 +58,24 @@
       <v-tabs
         v-model="tabs"
         color="primary"
-        class="font-spartan font-cutomize"
+        class="font-spartan font-customize"
       >
-        <v-tab class="font-cutomize">
+        <v-tab class="font-customize">
           Home
         </v-tab>
-        <v-tab class="font-cutomize">
+        <v-tab class="font-customize">
           {{ $t("studioPage.class") }}
         </v-tab>
-        <v-tab class="font-cutomize">
+        <v-tab class="font-customize">
+          {{ $t("instructor") }}
+        </v-tab>
+        <v-tab class="font-customize">
           {{ $t("studioPage.review") }}
         </v-tab>
       </v-tabs>
       <v-tabs-items v-model="tabs">
         <v-tab-item>
-          <app-page-one
+          <app-page-home
             :list="autoPlay"
             :list-vidios="listVidio"
             :tabs="tabs"
@@ -80,7 +83,7 @@
           />
         </v-tab-item>
         <v-tab-item>
-          <app-page-two
+          <app-page-classes
             :classes="classes.data"
             :state-load="state_load"
             :studio-dates="studioDates"
@@ -88,9 +91,14 @@
           />
         </v-tab-item>
         <v-tab-item>
-          <app-page-three
+          <app-page-instructor />
+        </v-tab-item>
+        <v-tab-item>
+          <app-page-reviews
             :reviews="computedReviews"
             :value="valueReviews"
+            :meta="meta"
+            @paginate="nextPagination"
           />
         </v-tab-item>
       </v-tabs-items>
@@ -105,19 +113,21 @@
 
 <script>
   import topCardDetails from "./component_core/_cardDetailStudio.vue"
-  import pageOne from "./childPages/_pageOne.vue"
-  import pageTwo from "./childPages/_pageTwo.vue"
-  import pageThree from "./childPages/_pageThree.vue"
+  import pageHome from "./childPages/_pageHome.vue"
+  import pageClasses from "./childPages/_pageClasses.vue"
+  import pageReviews from "./childPages/_pageReviews.vue"
   import dialogLearnMore from "./childPages/component/__dialogLearnMore.vue"
   import dialogNotice from "./childPages/component/__dialogNotice.vue"
+  import pageInstructor from "./childPages/_pageInstructor.vue"
   export default {
     components: {
       "app-studio-card-detail": topCardDetails,
-      "app-page-one": pageOne,
-      "app-page-two": pageTwo,
-      "app-page-three": pageThree,
+      "app-page-home": pageHome,
+      "app-page-classes": pageClasses,
+      "app-page-reviews": pageReviews,
       "app-dialog-page-two": dialogLearnMore,
       "app-dialog-notice": dialogNotice,
+      "app-page-instructor": pageInstructor,
     },
     data: () => ({
       tabs: null,
@@ -165,6 +175,7 @@
         value: 0,
         people: 0,
       },
+      meta: {},
       mean: 0,
       page: 1,
     }),
@@ -184,6 +195,9 @@
       valueReviews () {
         return this.$store.state.studioReviews.value
       },
+      computedRatings () {
+        return this.$store.state.studioReviews.ratings
+      },
     },
     watch: {
       tabs () {
@@ -196,6 +210,10 @@
           const params = (this.$route.params.folder = this.folder)
           this.$router.push(params).catch(() => {})
         } else if (this.tabs === 2) {
+          this.folder = "instructor"
+          const params = (this.$route.params.folder = this.folder)
+          this.$router.push(params).catch(() => {})
+        } else if (this.tabs === 3) {
           this.folder = "reviews"
           const params = (this.$route.params.folder = this.folder)
           this.$router.push(params).catch(() => {})
@@ -219,6 +237,7 @@
       this.scroll()
       this.getDataStudioDate()
       this.getValueReviewsEnsiloVidio()
+      this.getDataReviewForRating()
     },
     methods: {
       ratingsStudio () {
@@ -232,20 +251,35 @@
           }
         }
       },
-      getDataReviewsStudio () {
-        this.$store.dispatch("studioReviews/getDataReviewsStudio", {
-          slug: this.$route.params.slug,
-          entities: "user.img,studio,class,likes,report,response",
-        })
+
+      getDataReviewsStudio (page) {
+        this.$store
+          .dispatch("studioReviews/getDataReviewsStudio", {
+            slug: this.$route.params.slug,
+            page: page,
+            entities: "user.img,studio,class,likes,report,response",
+          })
+          .then((res) => {
+            if (res.data.meta.status) {
+              this.meta = res.data.meta
+            }
+          })
       },
+
       getDataValueReviewsStudio () {
         this.$store
           .dispatch("studioReviews/getDataValueReviewsStudio", {
             id: this.$route.params.slug,
           })
           .then((res) => {
-            console.log(res.data.data)
+          // console.log(res.data.data)
           })
+      },
+      getDataReviewForRating () {
+        this.$store.dispatch("studioReviews/getDataReviewForRating", {
+          studio_slug: this.$route.params.slug,
+          entities: "user.img,studio,class,likes,report,response",
+        })
       },
       getDataStudioBySlug () {
         this.$store
@@ -324,7 +358,9 @@
       firstLoad () {
         if (this.$route.params.folder === "home") return (this.tabs = 0)
         else if (this.$route.params.folder === "class") return (this.tabs = 1)
-        else if (this.$route.params.folder === "reviews") return (this.tabs = 2)
+        else if (this.$route.params.folder === "instructor")
+          return (this.tabs = 2)
+        else if (this.$route.params.folder === "reviews") return (this.tabs = 3)
         else return (this.tabs = 0)
       },
       getDataClassSchedules (id) {
@@ -493,6 +529,9 @@
             }
           })
       },
+      nextPagination ({ page }) {
+        this.getDataReviewsStudio(page)
+      },
       likeStudio ({ item }) {
         this.$store
           .dispatch("studio/likeStudio", {
@@ -578,7 +617,9 @@
 .theme--dark
   .font-cutomize
     color: white !important
-.theme--light
-  .font-cutomize
-    color: black !important
+.font-cutomize
+  color: black !important
+  text-transform: capitalize !important
+  .v-tab
+    text-transform: capitalize !important
 </style>

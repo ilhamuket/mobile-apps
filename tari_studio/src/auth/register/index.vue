@@ -1,7 +1,7 @@
 <template>
-  <v-app>
-    <v-container class="">
-      <v-banner
+  <v-app class="pallet1">
+    <v-container>
+      <!-- <v-banner
         single-line
         color="pallet1"
         @click:icon="alert"
@@ -22,16 +22,15 @@
             Sudah Punya Akun
           </v-btn>
         </template>
-      </v-banner>
+      </v-banner> -->
       <v-row
         v-resize="onResize"
-        :class="isMobile ? 'mt-2' : 'row__margin'"
+        class="d-flex justify-center mt-6"
       >
         <v-col
           cols="12"
           md="8"
           sm="12"
-          class=""
         >
           <v-stepper v-model="e1">
             <v-stepper-header>
@@ -301,4 +300,6 @@
     color: #9dc5d1
 .navbar-brand
   margin-left: 20px
+.pallet1
+  background-color: #843839 !important
 </style>

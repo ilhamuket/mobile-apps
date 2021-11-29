@@ -4,7 +4,8 @@
       <v-row>
         <v-col
           class="border-right"
-          cols="6"
+          cols="12"
+          md="6"
         >
           <v-row>
             <v-col cols="3">
@@ -38,9 +39,7 @@
                       </v-chip>
                     </div>
                     <div class="d-flex flex-column flex-nowrap ml-2">
-                      <v-icon>
-                        mdi-map-marker
-                      </v-icon>
+                      <v-icon> mdi-map-marker </v-icon>
                     </div>
                     <div class="d-flex flex-column flex-nowrap text-capitalize">
                       {{ data.region }}
@@ -50,13 +49,13 @@
                       |
                     </div>
                     <div class="d-flex flex-column ml-2">
-                      20 {{ $t('studioPage.card_detail.folowers') }}
+                      20 {{ $t("studioPage.card_detail.folowers") }}
                     </div>
                     <div class="d-flex flex-column ml-2">
                       |
                     </div>
                     <div class="d-flex flex-column ml-2">
-                      20 {{ $t('studioPage.card_detail.folowers') }}
+                      20 {{ $t("studioPage.card_detail.folowers") }}
                     </div>
                   </div>
                 </v-col>
@@ -68,7 +67,7 @@
                       small
                       class="mb-2"
                     >
-                      {{ $t('studioPage.card_detail.btn.folow') }}
+                      {{ $t("studioPage.card_detail.btn.folow") }}
                     </v-btn>
                   </div>
                   <div class="d-flex flex-column ml-2">
@@ -78,9 +77,7 @@
                       small
                       class="mb-2"
                     >
-                      <v-icon>
-                        mdi-thumb-up-outline
-                      </v-icon>
+                      <v-icon> mdi-thumb-up-outline </v-icon>
                     </v-btn>
                   </div>
 
@@ -99,7 +96,10 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="4">
+        <v-col
+          cols="12"
+          md="4"
+        >
           <v-row>
             <v-col class="mr-6 d-flex justify-center">
               <div class="d-flex flex-row-reverse">

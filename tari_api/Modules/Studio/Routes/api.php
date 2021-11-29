@@ -130,6 +130,7 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
     Route::prefix('reviews')->group(function () {
         Route::post('class', [ReviewController::class, 'store']);
         Route::get('my-reviews', [ReviewController::class, 'myReviews']);
+        Route::get('rating/studio/{slug}', [ReviewController::class, 'dataReviewForRating']);
         Route::prefix('need-reviews')->group(function () {
             Route::get('', [UserHaveClassController::class, 'needReviews']);
             Route::post('reviews/{id}', [UserHaveClassController::class, 'userGiveReviews']);

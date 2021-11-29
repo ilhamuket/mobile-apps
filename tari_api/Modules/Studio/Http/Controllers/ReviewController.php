@@ -92,7 +92,7 @@ class ReviewController extends Controller
                 $query->where('slug', $studio_slug);
             })->entities($request->entities)
                 ->where('ratings', '!=', null)
-                ->get();
+                ->paginate($request->input("paginate", 3));
 
             // dd(array_sum(array($reviews['ratings'])));
             // $arr = array($reviews);
@@ -103,6 +103,25 @@ class ReviewController extends Controller
             // }
 
             return Json::response($reviews);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+
+    public function dataReviewForRating(Request $request, $studio_slug)
+    {
+        try {
+            $master = Reviews::whereHas('studio', function (Builder $query) use ($studio_slug) {
+                $query->where('slug', $studio_slug);
+            })->entities($request->entities)
+                ->where('ratings', '!=', null)
+                ->get();
+
+            return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         } catch (\Illuminate\Database\QueryException $e) {

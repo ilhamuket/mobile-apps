@@ -193,5 +193,7 @@
   "publish": "Publish",
   "draft": "Draft",
   "concept": "Konsep",
-  "student": "Murid"
+  "student": "Murid",
+  "home": "Home",
+  "class": "Kelas"
 }

@@ -9,17 +9,17 @@
           small
           dark
           color="primary"
+          @click="refresh"
         >
           <v-tooltip
             color="primary"
             bottom
           >
-            <template #activator="{on, attrs}">
+            <template #activator="{ on, attrs }">
               <v-icon
                 v-bind="attrs"
                 color="size__icon_refresh"
                 v-on="on"
-                @click="refresh"
               >
                 mdi-cached
               </v-icon>
@@ -64,9 +64,7 @@
             <v-list>
               <v-list-item-group>
                 <v-list-item>
-                  <v-list-item-title>
-                    Export
-                  </v-list-item-title>
+                  <v-list-item-title> Export </v-list-item-title>
                 </v-list-item>
               </v-list-item-group>
             </v-list>
@@ -123,7 +121,7 @@
             {{ $t(header.text) }}
           </template>
           <!-- Items -->
-          <template #[`item.id`]="{item}">
+          <template #[`item.id`]="{ item }">
             <v-avatar
               v-if="item.user.img"
               size="60"
@@ -139,12 +137,12 @@
               </span>
             </v-avatar>
           </template>
-          <template #[`item.class.name`]="{item}">
+          <template #[`item.class.name`]="{ item }">
             <span>
               {{ item.class ? item.class.name : "-" }}
             </span>
           </template>
-          <template #[`item.user.firstName`]="{item}">
+          <template #[`item.user.firstName`]="{ item }">
             <div class="mt-6">
               <span class="nickName"> {{ item.user.nickName }} </span>
             </div>
@@ -177,7 +175,7 @@
                         color="primary"
                         bottom
                       >
-                        <template #activator="{on,attrs}">
+                        <template #activator="{ on, attrs }">
                           <v-icon
                             v-bind="attrs"
                             color="blue"
@@ -197,7 +195,7 @@
               </div>
             </div>
           </template>
-          <template #[`item.ratings`]="{item}">
+          <template #[`item.ratings`]="{ item }">
             <v-rating
               v-model="item.ratings"
               readonly
@@ -206,23 +204,23 @@
               small
             />
           </template>
-          <template #[`item.status`]="{item}">
+          <template #[`item.status`]="{ item }">
             <v-chip
               label
               :color="setColorStatus(item.status)"
               text-color="white"
             >
-              {{ $t(item.status) }}
+              {{ item.status ? $t(item.status) : "Not Responded" }}
             </v-chip>
           </template>
-          <template #[`item.class_vidio.name`]="{item}">
+          <template #[`item.class_vidio.name`]="{ item }">
             <span v-if="item.class_vidio">
               <v-tooltip
                 v-if="item.class_vidio.name.length > 20"
                 color="primary"
                 bottom
               >
-                <template #activator="{on, attrs}">
+                <template #activator="{ on, attrs }">
                   <span
                     class="font-spartan-small"
                     v-bind="attrs"
@@ -307,6 +305,7 @@
       setColorStatus (status) {
         if (status === "belum ditanggapi") return "red"
         if (status === "ditanggapi") return "btn_primary"
+        else return "red"
       },
       hide (item) {
         this.$emit("hide", { item: item })

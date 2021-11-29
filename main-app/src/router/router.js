@@ -168,7 +168,11 @@ const router = new Router({
             requiresAuth: true,
           },
           beforeEnter (to, _, next) {
-            if (["home", "class", "reviews"].includes(to.params.folder)) {
+            if (
+              ["home", "class", "reviews", "instructor"].includes(
+                to.params.folder,
+              )
+            ) {
               next()
             } else next({ name: "Error" })
           },

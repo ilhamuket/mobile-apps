@@ -11,6 +11,7 @@ export default {
       one: 0,
       all: 0,
     },
+    ratings: [],
     need_reviews: {},
     load_data: true,
     load_page_tabs: true,
@@ -21,6 +22,7 @@ export default {
     GET_DATA: (state, payload) => (state.data = payload),
     GET_VALUE: (state, payload) => (state.value = payload),
     GET_DATA_NEED_REVIEWS: (state, payload) => (state.need_reviews = payload),
+    SET_REVIEWS: (state, payload) => (state.ratings = payload),
     LOAD: (state) => (state.load_data = false),
     LOAD_PAGE: (state) => (state.load_page_tabs = false),
     GET_MY_REVIEWS: (state, payload) => (state.my_reviews = payload),
@@ -122,6 +124,22 @@ export default {
           })
           .catch((e) => {
             reject(e)
+          })
+      })
+    },
+    getDataReviewForRating: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        "Bearer " + localStorage.getItem("access_token")
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        const params = { ...payload }
+        axios
+          .get(`studio/reviews/rating/studio/${payload.studio_slug}`, {
+            params: params,
+          })
+          .then((res) => {
+            commit("SET_REVIEWS", res.data.data)
           })
       })
     },

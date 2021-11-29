@@ -54,15 +54,16 @@ class StudioOwnerCategory extends Model
     {
         parent::boot();
         self::deleting(function ($categories) { // before delete() method call this
-            $categories->class()->each(function ($items) {
-                $items->delete(); // <-- direct deletion
-            });
-            $categories->img()->each(function ($items) {
-                $item->url;
-                if (File::exists(item)) {
-                    # code...
-                }
-            });
+            if ($categories->class()) {
+                $categories->class()->each(function ($items) {
+                    $items->delete(); // <-- direct deletion
+                });
+            }
+            if ($categories->img()) {
+                $categories->img()->each(function ($items) {
+                    $items->delete();
+                });
+            }
         });
     }
 
