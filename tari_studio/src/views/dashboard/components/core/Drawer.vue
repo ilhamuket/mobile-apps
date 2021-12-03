@@ -137,6 +137,11 @@
           title: "class_vidio",
           to: "/class-vidio",
         },
+        {
+          title: "student",
+          icon: "mdi-account-outline",
+          to: "/student",
+        },
 
         {
           icon: "mdi-account-cowboy-hat-outline",
@@ -154,14 +159,9 @@
         //   to: '/pages/user',
         // },
         {
-          title: "history_class",
-          icon: "mdi-clipboard-outline",
-          to: "/tables/regular-tables",
-        },
-        {
-          title: "typography",
-          icon: "mdi-format-font",
-          to: "/components/typography",
+          title: "artikel",
+          icon: "mdi-book-plus-multiple-outline",
+          to: "/article",
         },
         {
           title: "icons",

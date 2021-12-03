@@ -57,7 +57,8 @@
       "review": "Ulasan"
     },
     "review": "Ulasan",
-    "class": "Kelas"
+    "class": "EnsikloLive",
+    "video": "EnsikloVideo"
   },
   "dahsboard": {
     "cds": "Sanggar Populer",
@@ -127,5 +128,6 @@
   "article": "Artikel",
   "shop": "Toko",
   "review": "Ulasan",
-  "send_reviews": "Ulasan"
+  "send_reviews": "Ulasan",
+  "student": "Murid"
 }

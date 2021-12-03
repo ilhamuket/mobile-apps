@@ -39,6 +39,7 @@
               label
               small
               color="btn_primary"
+              text-color="white"
               class="
                 font-spartan-small
                 text-capitalize
@@ -91,8 +92,9 @@
             class="margin__icon__share"
             icon
             dark
+            @click="share(studio)"
           >
-            <v-icon color="grey">
+            <v-icon color="btn_primary">
               mdi-share-variant
             </v-icon>
           </v-btn>
@@ -150,6 +152,11 @@
         const decimal = parseFloat(value.toFixed(2))
         // console.log(decimal)
         return decimal
+      },
+    },
+    methods: {
+      share (studio) {
+        this.$emit("share", { item: studio })
       },
     },
   }

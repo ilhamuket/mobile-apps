@@ -3,6 +3,7 @@
 namespace Modules\StudioOwners\Entities;
 
 use App\Models\User;
+use Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -97,6 +98,13 @@ class OwnerStudio extends Model
             return  'https://www.twitter.com/' . $this->attributes['username_tw'];
         } else {
             return $this->attributes['username_tw'];
+        }
+    }
+    public function getLinkAttribute()
+    {
+        if ($this->attributes["link"] == null) {
+            return  env('IMAGE_URL', ' http://127.0.0.1:8000/app/') . $this->attributes['slug'] . '/home?created_at=' . now();
+            // return  env('IMAGE_URL', ' https://api.ensiklotari.com/app/') . $this->attributes['slug'];
         }
     }
 }

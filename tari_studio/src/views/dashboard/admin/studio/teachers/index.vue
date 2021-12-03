@@ -7,7 +7,7 @@
         lg="3"
       >
         <base-material-stats-card
-          color="primary"
+          color="info"
           icon="mdi-account-tie"
           title="All"
           :value="String(cumputedSummary.all)"
@@ -23,7 +23,7 @@
         lg="3"
       >
         <base-material-stats-card
-          color="secondary"
+          color="info"
           icon="mdi-account-check-outline"
           title="Approved"
           :value="String(cumputedSummary.approved)"
@@ -39,7 +39,7 @@
         lg="3"
       >
         <base-material-stats-card
-          color="red"
+          color="info"
           icon="mdi-account-cancel"
           title="Non Approved"
           :value="String(cumputedSummary.non_approved)"
@@ -55,7 +55,7 @@
         lg="3"
       >
         <base-material-stats-card
-          color="pallet1"
+          color="info"
           icon="mdi-account-reactivate-outline"
           title="New"
           :value="String(cumputedSummary.new)"

@@ -47,6 +47,7 @@
           v-if="!isMobile"
           :studio="computedStudio"
           :ratings="computedRatings"
+          @share="openDialogShare"
         />
       </v-col>
       <v-col cols="12">
@@ -213,6 +214,10 @@
       text-btn1="Activated"
       @input="activatedDataBankAccount"
     />
+    <base-share
+      :dialog="dialogShare"
+      @copy="copy"
+    />
   </v-container>
 </template>
 
@@ -300,6 +305,10 @@
         data: [],
       },
       dalogBankDeleteById: {
+        open: false,
+        data: {},
+      },
+      dialogShare: {
         open: false,
         data: {},
       },
@@ -409,6 +418,7 @@
           .then((res) => {
             if (res.data.meta.status) {
               this.is_load = false
+              localStorage.setItem("studio_id", res.data.data.id)
             }
           })
       },
@@ -501,6 +511,10 @@
         this.reply.open = true
         this.reply.data = item
       // console.log(item)
+      },
+      openDialogShare ({ item }) {
+        this.dialogShare.open = true
+        this.dialogShare.data = item
       },
       upReplyReviews ({ item }) {
         this.replyReviews.open = true
@@ -637,6 +651,27 @@
       upHideReviewSelected ({ item }) {
         this.dialogHideReviewsAll.open = true
         this.dialogHideReviewsAll.data = item
+      },
+      copy ({ text }) {
+        navigator.clipboard.writeText(text)
+        const Toast = this.$swal.mixin({
+          toast: true,
+          position: "bottom-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", this.$swal.stopTimer)
+            toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+          },
+          popup: "swal2-show",
+          backdrop: "swal2-backdrop-show",
+          icon: "swal2-icon-show",
+        })
+        Toast.fire({
+          icon: "success",
+          title: "Copy link successfully",
+        })
       },
       hideReviewSelected ({ item }) {
         this.$store

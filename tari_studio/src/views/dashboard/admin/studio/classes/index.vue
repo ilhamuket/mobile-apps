@@ -34,7 +34,7 @@
         lg="3"
       >
         <base-material-stats-card
-          color="secondary"
+          color="info"
           icon="mdi-billiards"
           title="Total"
           :value="String(computedSummary.all)"
@@ -50,7 +50,7 @@
         lg="3"
       >
         <base-material-stats-card
-          color="btn_primary"
+          color="info"
           icon="mdi-check-decagram-outline"
           title="Approved"
           :value="String(computedSummary.approved)"
@@ -67,7 +67,7 @@
         lg="3"
       >
         <base-material-stats-card
-          color="red"
+          color="info"
           icon="mdi-close"
           title="Not Approved"
           :value="String(computedSummary.non_approved)"
@@ -83,7 +83,7 @@
         lg="3"
       >
         <base-material-stats-card
-          color="primary"
+          color="info"
           icon="mdi-newspaper-plus"
           title="New"
           :value="String(computedSummary.new)"

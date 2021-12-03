@@ -23,6 +23,7 @@ use Modules\StudioOwners\Http\Controllers\StudioOwnersController;
 use Modules\StudioOwners\Http\Controllers\StudioOwnerVidioController;
 use Modules\StudioOwners\Http\Controllers\StudioTeacherController;
 use Modules\StudioOwners\Http\Controllers\SubClassOwnerStudioController;
+use Modules\StudioOwners\Http\Controllers\UserAndStudioController;
 use Modules\StudioOwners\Http\Controllers\UserHaveClassController;
 
 /*
@@ -145,6 +146,11 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
         Route::patch('update/{id}', [StudioOwnerCategoryController::class, 'update']);
         Route::patch('approve/{id}', [StudioOwnerCategoryController::class, 'approve']);
         Route::delete('delete/{id}', [StudioOwnerCategoryController::class, 'destroy']);
+    });
+
+    Route::prefix('user-and-studio')->group(function () {
+        Route::get('summary/{studio_id}', [UserAndStudioController::class, 'summary']);
+        Route::get('{studio_id}', [UserAndStudioController::class, 'studioHasUser']);
     });
 
     Route::prefix('discusses')->group(function () {

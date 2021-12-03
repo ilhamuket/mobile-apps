@@ -163,6 +163,16 @@
         "name_bank": "Nama Bank",
         "status": "Status"
       }
+    },
+    "student": {
+      "th": {
+        "nickName": "Nama Akun",
+        "fullname": "Atas Nama",
+        "email": "E-mail",
+        "notlp": "No Telepon",
+        "alamat": "Alamat",
+        "class": "Kelas"
+      }
     }
   },
   "reviews": "Ulasan",
@@ -194,6 +204,8 @@
   "draft": "Draft",
   "concept": "Konsep",
   "student": "Murid",
+  "student_has": "Murid",
   "home": "Home",
-  "class": "Kelas"
+  "class": "Kelas",
+  "artikel": "Artikel"
 }

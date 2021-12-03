@@ -26,6 +26,7 @@ use Modules\Studio\Http\Controllers\StudioController;
 use Modules\Studio\Http\Controllers\StudioInstructorController;
 use Modules\Studio\Http\Controllers\StudioVidioController;
 use Modules\Studio\Http\Controllers\FormRegisterEnsiklovideoController;
+use Modules\Studio\Http\Controllers\InstructorHasClassesController;
 use Modules\StudioOwners\Http\Controllers\ReviewOwnerController;
 use Modules\StudioOwners\Http\Controllers\StudioClassVidioController;
 use Modules\StudioOwners\Http\Controllers\UserHaveClassController;
@@ -149,6 +150,10 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
     Route::prefix('rooms')->group(function () {
         Route::get('', [RoomController::class, 'index']);
         Route::post('', [RoomController::class, 'store']);
+    });
+    // InstructorHasClass
+    Route::prefix('instructor-classes')->group(function () {
+        Route::get('{id}', [InstructorHasClassesController::class, 'index']);
     });
     // files
     Route::post('files/thumbnail', [ImagesStudioController::class, 'thumbnail']);

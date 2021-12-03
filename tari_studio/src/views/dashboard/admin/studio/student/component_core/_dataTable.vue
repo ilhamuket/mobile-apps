@@ -1,5 +1,5 @@
 <template>
-  <base-material-card icon="mdi-account">
+  <base-material-card icon="mdi-account-outline">
     <template #after-heading>
       <span class="font-spartan primary--text"> Index Student </span>
     </template>

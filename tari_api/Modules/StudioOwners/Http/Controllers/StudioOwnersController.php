@@ -16,6 +16,7 @@ use Modules\StudioOwners\Entities\OwnerStudio;
 use Modules\StudioOwners\Entities\StudioOwnerCategory;
 use Modules\StudioOwners\Entities\StudioOwnerVidio;
 use Modules\StudioOwners\Entities\StudioTeacher;
+use Modules\StudioOwners\Entities\UserHaveClass;
 
 class StudioOwnersController extends Controller
 {
@@ -74,7 +75,8 @@ class StudioOwnersController extends Controller
                 'vidio_profile' => 0,
                 'reviews' => 0,
                 "discuss" => 0,
-                "bank_account" => 0
+                "bank_account" => 0,
+                "registered_student" => 0
             ];
 
             $data['classes'] = ClassesOwnerStudio::whereHas('studio', function (Builder $query) use ($studio) {
@@ -97,6 +99,9 @@ class StudioOwnersController extends Controller
             })->count();
             $data["bank_account"] = BankAccount::whereHas('studio', function (Builder $query) use ($studio) {
                 $query->where('id', $studio->id);
+            })->count();
+            $data["registered_student"] = UserHaveClass::whereHas('classes', function (Builder $query) use ($studio) {
+                $query->where('studio_id', $studio->id);
             })->count();
 
             return Json::response($data);

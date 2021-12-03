@@ -6,7 +6,7 @@
         lg="6"
       >
         <base-material-stats-card
-          color="primary"
+          color="btn_primary"
           icon="mdi-access-point"
           :title="$t('classes')"
           :value="String(summary.classes)"
@@ -21,7 +21,7 @@
         lg="6"
       >
         <base-material-stats-card
-          color="primary"
+          color="btn_primary"
           icon="mdi-playlist-check"
           :title="$t('category')"
           :value="String(summary.category)"
@@ -36,7 +36,7 @@
         lg="6"
       >
         <base-material-stats-card
-          color="primary"
+          color="btn_primary"
           icon="mdi-laptop"
           :title="$t('vidio_name_page')"
           :value="String(summary.vidio_profile)"
@@ -51,7 +51,7 @@
         lg="6"
       >
         <base-material-stats-card
-          color="primary"
+          color="btn_primary"
           icon="mdi-account-cowboy-hat-outline"
           :title="$t('instrucktur')"
           :value="String(summary.instructor)"
@@ -66,7 +66,7 @@
         lg="6"
       >
         <base-material-stats-card
-          color="primary"
+          color="btn_primary"
           icon="mdi-account-voice"
           :title="$t('discusses')"
           :value="String(summary.discuss)"
@@ -81,7 +81,7 @@
         lg="6"
       >
         <base-material-stats-card
-          color="primary"
+          color="btn_primary"
           icon="mdi-message-draw"
           :title="$t('reviews')"
           :value="String(summary.reviews)"
@@ -96,7 +96,7 @@
         lg="6"
       >
         <base-material-stats-card
-          color="primary"
+          color="btn_primary"
           icon="mdi-bank-outline"
           :title="$t('bank_account')"
           :value="String(summary.bank_account)"
@@ -104,6 +104,21 @@
           sub-text="Just Updated"
           style="cursor: pointer"
           @click.native="navigateTabs('bank-account')"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        lg="6"
+      >
+        <base-material-stats-card
+          color="btn_primary"
+          icon="mdi-account-outline"
+          :title="$t('student')"
+          :value="String(summary.registered_student)"
+          sub-icon="mdi-clock"
+          sub-text="Just Updated"
+          style="cursor: pointer"
+          @click.native="toNavigate('/student')"
         />
       </v-col>
     </v-row>

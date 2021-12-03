@@ -163,6 +163,16 @@
         "name_bank": "Bank Name",
         "status": "Status"
       }
+    },
+    "student": {
+      "th": {
+        "nickName": "Username",
+        "fullname": "On Behalf Of",
+        "email": "E-mail",
+        "notlp": "Telephone Number",
+        "alamat": "Address",
+        "class": "Class"
+      }
     }
   },
   "reviews": "Reviews",
@@ -194,6 +204,8 @@
   "concept": "Concept",
   "bank_account": "Bank Account",
   "student": "Student",
+  "student_has": "Murid",
   "home": "Home",
-  "clasess": "Classes"
+  "clasess": "Classes",
+  "artikel": "Artikel"
 }

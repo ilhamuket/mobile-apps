@@ -1,7 +1,7 @@
 <template>
   <base-material-card
     icon="mdi-alpha-t-box"
-    color="primary"
+    color="btn_primary"
   >
     <template #after-heading>
       <span

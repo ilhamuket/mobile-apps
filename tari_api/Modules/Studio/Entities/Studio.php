@@ -108,4 +108,35 @@ class Studio extends Model
         // dd($avarage);
         $this->attributes["value"] = 2;
     }
+    public function getLinkAttribute()
+    {
+        if ($this->attributes["link"] == null) {
+            return  env('IMAGE_URL', ' http://127.0.0.1:8000/app/') . $this->attributes['slug'] . '/home';
+            // return  env('IMAGE_URL', ' https://api.ensiklotari.com/app/') . $this->attributes['slug'];
+        }
+    }
+    public function geturlIgAttribute()
+    {
+        if ($this->attributes['username_ig'] != null) {
+            return  'https://www.instagram.com/' . $this->attributes['username_ig'];
+        } else {
+            return $this->attributes['username_ig'];
+        }
+    }
+    public function getUrlFbAttribute()
+    {
+        if ($this->attributes['username_fb'] != null) {
+            return  'https://www.facebook.com/' . $this->attributes['username_fb'];
+        } else {
+            return $this->attributes['username_fb'];
+        }
+    }
+    public function getUrlTwAttribute()
+    {
+        if ($this->attributes['username_tw'] != null) {
+            return  'https://www.twitter.com/' . $this->attributes['username_tw'];
+        } else {
+            return $this->attributes['username_tw'];
+        }
+    }
 }

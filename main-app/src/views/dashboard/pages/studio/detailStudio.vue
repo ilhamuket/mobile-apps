@@ -57,7 +57,7 @@
 
       <v-tabs
         v-model="tabs"
-        color="primary"
+        color="btn_primary"
         class="font-spartan font-customize"
       >
         <v-tab class="font-customize">

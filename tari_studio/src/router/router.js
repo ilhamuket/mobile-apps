@@ -102,11 +102,14 @@ const router = new Router({
             requiresAuth: true,
           },
         },
-        // Upgrade
+        // article
         {
-          name: "Upgrade",
-          path: "upgrade",
-          component: () => import("@/views/dashboard/Upgrade"),
+          name: "artikel",
+          path: "/article",
+          component: () => import("@/views/dashboard/admin/studio/article"),
+          meta: {
+            requiresAuth: true,
+          },
         },
         // Tablle Cla
         {
@@ -138,6 +141,21 @@ const router = new Router({
             import("@/views/dashboard/admin/studio/sub_class/index"),
           meta: {
             requiresAuth: true,
+          },
+        },
+        {
+          name: "student_has",
+          path: "/student",
+          component: () =>
+            import("@/views/dashboard/admin/studio/hasStudent/index"),
+          meta: {
+            requiresAuth: true,
+            breadcumbs: [
+              {
+                text: "Dashboard",
+                to: "/",
+              },
+            ],
           },
         },
         {

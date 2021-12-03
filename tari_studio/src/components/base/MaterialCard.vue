@@ -38,7 +38,7 @@
 
         <div
           v-else-if="title && !icon"
-          class=" font-weight-light"
+          class="font-weight-light"
           v-text="title"
         />
 
@@ -51,7 +51,7 @@
 
         <div
           v-if="text"
-          class=" font-weight-thin"
+          class="font-weight-thin"
           v-text="text"
         />
       </v-sheet>
@@ -88,16 +88,16 @@
 
 <script>
   export default {
-    name: 'MaterialCard',
+    name: "MaterialCard",
 
     props: {
       avatar: {
         type: String,
-        default: '',
+        default: "",
       },
       color: {
         type: String,
-        default: 'primary',
+        default: "btn_primary",
       },
       icon: {
         type: String,
@@ -109,18 +109,18 @@
       },
       text: {
         type: String,
-        default: '',
+        default: "",
       },
       title: {
         type: String,
-        default: '',
+        default: "",
       },
     },
 
     computed: {
       classes () {
         return {
-          'v-card--material--has-heading': this.hasHeading,
+          "v-card--material--has-heading": this.hasHeading,
         }
       },
       hasHeading () {

@@ -15,10 +15,10 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .post(`studio/wishlist/${payload.id}`)
-          .then(res => {
+          .then((res) => {
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })
@@ -31,10 +31,10 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .post(`studio/wishlist/delete/${payload.id}`)
-          .then(res => {
+          .then((res) => {
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })

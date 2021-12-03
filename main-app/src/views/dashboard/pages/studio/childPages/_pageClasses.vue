@@ -242,9 +242,12 @@
     }),
     watch: {
       pickerDate (val) {},
-    },
-    mounted () {
-      console.log(this.allowedDates(), "Ini FUnction")
+      date (val) {
+        this.$router.push({ query: { ...this.$route.query, date: val } })
+      },
+      "$route.query.date": function (item) {
+        this.date = item
+      },
     },
     methods: {
       allowedDates (val) {

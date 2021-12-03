@@ -58,7 +58,8 @@
       "class": "Kelas"
     },
     "review": "Reviews",
-    "class": "Class"
+    "class": "EnsikloLive",
+    "video": "EnsikloVideo"
   },
   "dahsboard": {
     "cds": "Most Popular Studio",
@@ -128,5 +129,6 @@
   "article": "Article",
   "shop": "Store",
   "review": "Reviews",
-  "send_reviews": "Reviews"
+  "send_reviews": "Reviews",
+  "student": "Murid"
 }
