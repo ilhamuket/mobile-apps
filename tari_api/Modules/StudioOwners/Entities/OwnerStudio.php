@@ -103,8 +103,8 @@ class OwnerStudio extends Model
     public function getLinkAttribute()
     {
         if ($this->attributes["link"] == null) {
-            return  env('IMAGE_URL', ' http://127.0.0.1:8000/app/') . $this->attributes['slug'] . '/home?created_at=' . now();
-            // return  env('IMAGE_URL', ' https://api.ensiklotari.com/app/') . $this->attributes['slug'];
+            // return  env('FRONTEND_URL_PRODUCTION_MAIN_APP', ' http://127.0.0.1:8081/') . $this->attributes['slug'] . '/home?created_at=' . now();
+            return  env('FRONTEND_URL_PRODUCTION_MAIN_APP', ' https://app.ensiklotari.com/') . $this->attributes['slug'];
         }
     }
 }
