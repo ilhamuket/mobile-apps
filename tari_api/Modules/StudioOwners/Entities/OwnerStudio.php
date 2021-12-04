@@ -104,7 +104,7 @@ class OwnerStudio extends Model
     {
         if ($this->attributes["link"] == null) {
             // return  env('FRONTEND_URL_PRODUCTION_MAIN_APP', ' http://127.0.0.1:8081/') . $this->attributes['slug'] . '/home?created_at=' . now();
-            return 'https://app.ensiklotari.com/' . $this->attributes['slug'] . '/home/created_at=' . now();
+            return 'https://app.ensiklotari.com/' . $this->attributes['slug'] . '/home?created_at=' . now();
             // return  env('FRONTEND_URL_PRODUCTION_MAIN_APP', ' ') . $this->attributes['slug'] .  '/home?created_at=' . now();
         }
     }
