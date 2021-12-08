@@ -57,6 +57,10 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
             Route::get('{slug}', [InstructorProfileVidioController::class, 'index']);
             Route::get('auto-play/{slug}', [InstructorProfileVidioController::class, 'autoPlay']);
         });
+        // Instuctor
+        Route::prefix('studio')->group(function () {
+            Route::get('{studio_id}', [StudioController::class, 'studioHasInstructor']);
+        });
     });
     // u
     Route::prefix('u')->group(function () {

@@ -98,6 +98,7 @@
             :reviews="computedReviews"
             :value="valueReviews"
             :meta="meta"
+            :review="computedRatings"
             @paginate="nextPagination"
           />
         </v-tab-item>
@@ -148,6 +149,7 @@
         img: "",
         name: "",
       },
+      studio_id: 0,
       studio: {},
       autoPlay: {},
       listVidio: [],
@@ -238,6 +240,7 @@
       this.getDataStudioDate()
       this.getValueReviewsEnsiloVidio()
       this.getDataReviewForRating()
+      this.studioHasInstructor()
     },
     methods: {
       ratingsStudio () {
@@ -279,6 +282,11 @@
         this.$store.dispatch("studioReviews/getDataReviewForRating", {
           studio_slug: this.$route.params.slug,
           entities: "user.img,studio,class,likes,report,response",
+        })
+      },
+      studioHasInstructor () {
+        this.$store.dispatch("studioHasInstructor/getDataInstructor", {
+          studio_id: localStorage.getItem("studio_id"),
         })
       },
       getDataStudioBySlug () {

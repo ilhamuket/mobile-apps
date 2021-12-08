@@ -9,9 +9,26 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Modules\Studio\Entities\Studio;
+use Modules\StudioOwners\Entities\StudioTeacher;
 
 class StudioController extends Controller
 {
+    public function studioHasInstructor(Request $request, $studio_id)
+    {
+        try {
+            $master = StudioTeacher::where("studio_id", $studio_id)
+                ->entities($request->entities)
+                ->paginate($request->input('paginate', 3));
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     public function forAll(Request $request)
     {
         try {

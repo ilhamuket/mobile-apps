@@ -4,7 +4,7 @@
     icon="mdi-account-outline"
   >
     <template #after-heading>
-      <span class="font-spartan btn_primary--text"> Index Student </span>
+      <span class="font-spartan btn_primary--text"> {{ computedTitle }} </span>
     </template>
     <v-container>
       <v-row>
@@ -13,6 +13,7 @@
           md="4"
         >
           <v-text-field
+            v-model="search"
             append-icon="mdi-magnify"
             :label="$t('search')"
           />
@@ -30,6 +31,7 @@
             :headers="headers"
             :items="data"
             :items-per-page="5"
+            :search="search"
           >
             <!-- Header -->
             <template #[`header.student.nickName`]="{ header }">
@@ -56,7 +58,7 @@
                 <v-avatar
                   v-if="item.student"
                   tile
-                  size="90"
+                  size="60"
                 >
                   <v-img
                     v-if="item.student.img"
@@ -73,7 +75,7 @@
               >
                 {{ item.student.nickName }}
               </div>
-              <div class="bg-hover">
+              <!-- <div class="bg-hover">
                 <div class="d-flex flex-row flex-nowrap">
                   <div>
                     <div class="d-flex flex-column flex-nowrap mt-2">
@@ -104,7 +106,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </template>
             <template #[`item.form.cart.status`]="{ item }">
               <v-chip
@@ -189,7 +191,22 @@
       //   sortable: false,
       // },
       ],
+      selected: [],
+      search: "",
     }),
+    computed: {
+      computedTitle () {
+        let name = "Index Student - All"
+        if (this.$route.query.summary === "paid")
+          return (name = "Index Student - Paid")
+        if (this.$route.query.summary === "pending")
+          return (name = "Index Student - Pending")
+        if (this.$route.query.summary === "new") {
+          name = "Index Student - New"
+        }
+        return name
+      },
+    },
     methods: {
       setColorStatus (status) {
         if (status === "paid") return "btn_primary"

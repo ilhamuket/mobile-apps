@@ -151,7 +151,7 @@
                       </a>
                     </div>
                   </div>
-                  <div>
+                  <!-- <div>
                     <div class="d-flex flex-column mt-2">
                       <a
                         class="font-a-delete d-flex flex-nowrap"
@@ -177,7 +177,7 @@
                         </v-tooltip>
                       </a>
                     </div>
-                  </div>
+                  </div> -->
                   <div>
                     <div class="d-flex flex-column mt-2">
                       <a

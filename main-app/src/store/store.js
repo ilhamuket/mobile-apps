@@ -33,6 +33,7 @@ import instructorVidioProfile from "./module/instructor/vidio-profile/index"
 import myclass from "./module/myclass/index"
 import invoice from "./module/invoice"
 import payment from "./module/payment"
+import studioHasInstructor from "./module/studio/studioHasInstructor/index"
 
 Vue.use(Vuex)
 
@@ -61,6 +62,7 @@ export default new Vuex.Store({
     my_class: myclass,
     invoice: invoice,
     payment: payment,
+    studioHasInstructor: studioHasInstructor,
   },
   state: {
     barColor: "rgba(0, 0, 0, .8), rgba(0, 0, 0, .8)",

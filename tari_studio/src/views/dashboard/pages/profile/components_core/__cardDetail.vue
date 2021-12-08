@@ -80,7 +80,8 @@
       </v-col>
       <v-col
         class="mt-2"
-        cols="6"
+        cols="12"
+        md="6"
       >
         <div class="d-flex flex-row margin__headers__reviews">
           <div class="flex-column">
@@ -182,7 +183,7 @@
   margin-left: 228px !important
   margin-bottom: 10px
 .margin__icon__share
-  margin-left: 200px
+  margin-left: 60%
 .margin__value-people
   margin-top: -10px
 </style>

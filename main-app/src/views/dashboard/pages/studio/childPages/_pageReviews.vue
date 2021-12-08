@@ -27,7 +27,7 @@
                     justify-center
                   "
                 >
-                  {{ computedCount }}
+                  {{ count }}
                 </span>
                 <br>
                 <span
@@ -38,7 +38,7 @@
                     justify-center
                   "
                 >
-                  {{ reviews.length }} User
+                  {{ review.length }} Reviews
                 </span>
               </v-card-text>
             </v-card>
@@ -452,6 +452,10 @@
         type: Object,
         default: null,
       },
+      review: {
+        type: Array,
+        default: null,
+      },
     },
     data: () => ({
       page: 1,
@@ -540,6 +544,21 @@
           avarage = sum / this.reviews.length
         }
         const x = parseFloat(avarage.toFixed(2))
+
+        return x
+      },
+      count () {
+        let value = 0
+        if (this.review) {
+          const a = this.review.map((x) => x.ratings)
+
+          if (a.length > 0) {
+            const sum = a.filter((x) => x > 0).reduce((x, y) => x + y)
+            value = sum / this.review.length
+          }
+        }
+        const x = parseFloat(value.toFixed(2))
+        console.log(x)
 
         return x
       },
