@@ -58,18 +58,19 @@
       <v-tabs
         v-model="tabs"
         color="btn_primary"
-        class="font-spartan font-customize"
+        class="font-spartan customize--tabs"
       >
-        <v-tab class="font-customize">
+        <v-tab class="">
           Home
         </v-tab>
-        <v-tab class="font-customize">
+        <v-tab class="">
           {{ $t("studioPage.class") }}
         </v-tab>
-        <v-tab class="font-customize">
+        <v-tab> ensikloVidio </v-tab>
+        <v-tab class="">
           {{ $t("instructor") }}
         </v-tab>
-        <v-tab class="font-customize">
+        <v-tab class="">
           {{ $t("studioPage.review") }}
         </v-tab>
       </v-tabs>
@@ -91,7 +92,10 @@
           />
         </v-tab-item>
         <v-tab-item>
-          <app-page-instructor />
+          <app-page-ensiklovideo :data="dataEnsikloVidio.data" />
+        </v-tab-item>
+        <v-tab-item>
+          <app-page-instructor :item="computedHasInstructor" />
         </v-tab-item>
         <v-tab-item>
           <app-page-reviews
@@ -120,6 +124,7 @@
   import dialogLearnMore from "./childPages/component/__dialogLearnMore.vue"
   import dialogNotice from "./childPages/component/__dialogNotice.vue"
   import pageInstructor from "./childPages/_pageInstructor.vue"
+  import pageEnsikloVideo from "./childPages/_pageEnsikloVideo.vue"
   export default {
     components: {
       "app-studio-card-detail": topCardDetails,
@@ -129,6 +134,7 @@
       "app-dialog-page-two": dialogLearnMore,
       "app-dialog-notice": dialogNotice,
       "app-page-instructor": pageInstructor,
+      "app-page-ensiklovideo": pageEnsikloVideo,
     },
     data: () => ({
       tabs: null,
@@ -149,7 +155,7 @@
         img: "",
         name: "",
       },
-      studio_id: 0,
+      studio_id: localStorage.getItem("studio_id") || 0,
       studio: {},
       autoPlay: {},
       listVidio: [],
@@ -177,6 +183,11 @@
         value: 0,
         people: 0,
       },
+      dataEnsikloVidio: {
+        meta: {},
+        links: {},
+        data: [],
+      },
       meta: {},
       mean: 0,
       page: 1,
@@ -200,6 +211,9 @@
       computedRatings () {
         return this.$store.state.studioReviews.ratings
       },
+      computedHasInstructor () {
+        return this.$store.state.studioHasInstructor.data
+      },
     },
     watch: {
       tabs () {
@@ -212,10 +226,14 @@
           const params = (this.$route.params.folder = this.folder)
           this.$router.push(params).catch(() => {})
         } else if (this.tabs === 2) {
-          this.folder = "instructor"
+          this.folder = "ensiklo-video"
           const params = (this.$route.params.folder = this.folder)
           this.$router.push(params).catch(() => {})
         } else if (this.tabs === 3) {
+          this.folder = "instructor"
+          const params = (this.$route.params.folder = this.folder)
+          this.$router.push(params).catch(() => {})
+        } else if (this.tabs === 4) {
           this.folder = "reviews"
           const params = (this.$route.params.folder = this.folder)
           this.$router.push(params).catch(() => {})
@@ -241,6 +259,8 @@
       this.getValueReviewsEnsiloVidio()
       this.getDataReviewForRating()
       this.studioHasInstructor()
+      this.firstInstructor()
+      this.getDataStudioHasEnsikloVideo()
     },
     methods: {
       ratingsStudio () {
@@ -284,10 +304,14 @@
           entities: "user.img,studio,class,likes,report,response",
         })
       },
-      studioHasInstructor () {
+      studioHasInstructor (studioId) {
         this.$store.dispatch("studioHasInstructor/getDataInstructor", {
-          studio_id: localStorage.getItem("studio_id"),
+          studio_id: this.$route.params.id,
+          entities: "img",
         })
+      },
+      firstInstructor () {
+        this.studioHasInstructor(localStorage.getItem("studio_id"))
       },
       getDataStudioBySlug () {
         this.$store
@@ -363,12 +387,33 @@
             }
           })
       },
+      getDataStudioHasEnsikloVideo (page = 1) {
+        this.$store
+          .dispatch("studioHasEnsikloVideo/getDataStudioHasEnsikloVideo", {
+            studio_id: this.$route.params.id,
+            page: page,
+            paginate: 6,
+          })
+          .then((res) => {
+            if (res.data.meta.status) {
+              this.dataEnsikloVidio.meta = res.data.meta
+              this.dataEnsikloVidio.links = res.data.links
+              if (page === 1) {
+                this.dataEnsikloVidio.data = res.data.data
+              } else {
+                this.dataEnsikloVidio.data.push(...res.data.data)
+              }
+            }
+          })
+      },
       firstLoad () {
         if (this.$route.params.folder === "home") return (this.tabs = 0)
         else if (this.$route.params.folder === "class") return (this.tabs = 1)
-        else if (this.$route.params.folder === "instructor")
+        else if (this.$route.params.folder === "ensiklo-video")
           return (this.tabs = 2)
-        else if (this.$route.params.folder === "reviews") return (this.tabs = 3)
+        else if (this.$route.params.folder === "instructor")
+          return (this.tabs = 3)
+        else if (this.$route.params.folder === "reviews") return (this.tabs = 4)
         else return (this.tabs = 0)
       },
       getDataClassSchedules (id) {
@@ -388,10 +433,32 @@
         window.onscroll = () => {
           const bottomOfWindow =
             document.documentElement.scrollTop + window.innerHeight >=
-            document.documentElement.offsetHeight
+            document.documentElement.offsetHeight - 150
 
           if (bottomOfWindow) {
-            this.moreClass()
+            if (this.$route.params.folder === "class") {
+              this.moreClass()
+            } else if (this.$route.params.folder === "ensiklo-video") {
+              this.moreEnsikloVideo()
+              const Toast = this.$.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$.stopTimer)
+                  toast.addEventListener("mouseleave", this.$.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Fetch Data",
+              })
+            }
           }
         }
       },
@@ -410,6 +477,12 @@
         if (this.classes.links.next) {
           this.page++
           this.getDataStudioClasses(this.date, this.page)
+        }
+      },
+      moreEnsikloVideo () {
+        if (this.dataEnsikloVidio.links.next) {
+          this.page++
+          this.getDataStudioHasEnsikloVideo(this.page)
         }
       },
       fetchDataFromChild ({ item }) {
@@ -627,7 +700,10 @@
     color: white !important
 .font-cutomize
   color: black !important
-  text-transform: capitalize !important
   .v-tab
     text-transform: capitalize !important
+.customize--tabs
+  .v-tab
+    text-transform: capitalize !important
+    font-style: none !important
 </style>

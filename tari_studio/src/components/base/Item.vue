@@ -4,7 +4,7 @@
     :rel="href && href !== '#' ? 'noopener' : undefined"
     :target="href && href !== '#' ? '_blank' : undefined"
     :to="item.to"
-    :active-class="drawer && $vuetify.theme.dark ? 'primary' : 'pallet1--text'"
+    :active-class="`${!isDark ? 'white' : 'white'}--text`"
   >
     <!-- :active-class="
       drawer ? 'drawer--off' : `${!isDark ? 'green' : 'red'}--text`

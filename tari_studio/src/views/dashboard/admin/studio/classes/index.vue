@@ -38,8 +38,8 @@
           icon="mdi-billiards"
           title="Total"
           :value="String(computedSummary.all)"
-          sub-icon="mdi-tag"
-          sub-text="Tracked from Google Analytics"
+          sub-icon="mdi-heart-outline"
+          sub-text="EnsikloTari"
           style="cursor: pointer"
           @click.native="orderBy('all')"
         />
@@ -54,8 +54,8 @@
           icon="mdi-check-decagram-outline"
           title="Approved"
           :value="String(computedSummary.approved)"
-          sub-icon="mdi-tag"
-          sub-text="Tracked from Google Analytics"
+          sub-icon="mdi-heart-outline"
+          sub-text="EnsikloTari"
           style="cursor: pointer"
           @click.native="orderBy('approved')"
         />
@@ -71,8 +71,8 @@
           icon="mdi-close"
           title="Not Approved"
           :value="String(computedSummary.non_approved)"
-          sub-icon="mdi-tag"
-          sub-text="Tracked from Google Analytics"
+          sub-icon="mdi-heart-outline"
+          sub-text="EnsikloTari"
           style="cursor: pointer"
           @click.native="orderBy('non-approved')"
         />
@@ -87,8 +87,8 @@
           icon="mdi-newspaper-plus"
           title="New"
           :value="String(computedSummary.new)"
-          sub-icon="mdi-tag"
-          sub-text="Tracked from Google Analytics"
+          sub-icon="mdi-heart-outline"
+          sub-text="EnsikloTari"
           style="cursor: pointer"
           @click.native="orderBy('new')"
         />

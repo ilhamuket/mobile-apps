@@ -11,8 +11,8 @@
           icon="mdi-account-tie"
           title="All"
           :value="String(cumputedSummary.all)"
-          sub-icon="mdi-tag"
-          sub-text="Tracked from Google Analytics"
+          sub-icon="mdi-heart-outline"
+          sub-text="EnsikloTari"
           style="cursor: pointer"
           @click.native="orderBySummary('all')"
         />
@@ -27,8 +27,8 @@
           icon="mdi-account-check-outline"
           title="Approved"
           :value="String(cumputedSummary.approved)"
-          sub-icon="mdi-tag"
-          sub-text="Tracked from Google Analytics"
+          sub-icon="mdi-heart-outline"
+          sub-text="EnsikloTari"
           style="cursor: pointer"
           @click.native="orderBySummary('approved')"
         />
@@ -43,8 +43,8 @@
           icon="mdi-account-cancel"
           title="Non Approved"
           :value="String(cumputedSummary.non_approved)"
-          sub-icon="mdi-tag"
-          sub-text="Tracked from Google Analytics"
+          sub-icon="mdi-heart-outline"
+          sub-text="EnsikloTari"
           style="cursor: pointer"
           @click.native="orderBySummary('non_approved')"
         />
@@ -59,8 +59,8 @@
           icon="mdi-account-reactivate-outline"
           title="New"
           :value="String(cumputedSummary.new)"
-          sub-icon="mdi-tag"
-          sub-text="Tracked from Google Analytics"
+          sub-icon="mdi-heart-outline"
+          sub-text="EnsikloTari"
           style="cursor: pointer"
           @click.native="orderBySummary('new')"
         />

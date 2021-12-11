@@ -19,7 +19,8 @@ class PasswordResetController extends Controller
     public function create(Request $request)
     {
         $user = User::where('email', $request->email)->first();
-        if (!$user) return Json::exception("We cant find a user with that e-mail address.", null, false, 404);
+
+        if (!$user) return Json::exception("We can`t find a user with that e-mail address.", null, false, 404);
         $passwordReset = PasswordReset::updateOrCreate(
             ['email' => $user->email],
             [

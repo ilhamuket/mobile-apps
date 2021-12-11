@@ -4,7 +4,7 @@
     class="modified"
     absolute
     app
-    color="#E8F0F3"
+    :color="$vuetify.theme.dark ? '#283046' : '#E8F0F3'"
     flat
     height="75"
     elevation="3"
@@ -21,7 +21,28 @@
     </v-toolbar-title>
     <v-spacer />
 
-    <v-col cols="2">
+    <v-col
+      cols="12"
+      md="3"
+      class="mt-6 ml-2 col--searching"
+    >
+      <v-form @submit.enter.prevent="searching">
+        <v-text-field
+          v-model="search"
+          outlined
+          :placeholder="$t('type')"
+          class="ml-12"
+          dense
+          append-icon="mdi-magnify"
+          :label="$t('search')"
+        />
+      </v-form>
+    </v-col>
+
+    <v-col
+      cols="12"
+      md="2"
+    >
       <div class="d-flex flex-row mt-6 mr-2">
         <div class="d-flex flex-column justify-start ml-6">
           <v-select
@@ -76,6 +97,16 @@
         </div>
       </div>
     </v-col>
+    <v-switch
+      v-model="$vuetify.theme.dark"
+      :prepend-icon="
+        $vuetify.theme.dark ? 'mdi-theme-light-dark' : 'mdi-white-balance-sunny'
+      "
+      class="mt-2"
+      color="success"
+      hide-details
+      @click="toggle_theme"
+    />
 
     <v-menu
       bottom
@@ -289,6 +320,7 @@
           badge: false,
         },
       ],
+      search: "",
     }),
 
     computed: {
@@ -325,16 +357,14 @@
 
     mounted () {
       this.getMe()
-      const theme = localStorage.getItem("dark_theme")
-      if (theme === "true") {
-        this.$vuetify.theme.dark = true
-      } else {
-        this.$vuetify.theme.dark = false
-      }
+      this.firstLoad()
       this.getDataCart()
     },
 
     methods: {
+      searching () {
+        console.log(this.search)
+      },
       setLanguage (lang) {
         // console.log(lang)
         this.$moment().locale(lang)
@@ -359,6 +389,17 @@
       }),
       toogle_dark_theme () {
         localStorage.setItem("dark_theme", this.$vuetify.theme.dark.toString())
+      },
+      toggle_theme () {
+        localStorage.setItem("dark_theme", this.$vuetify.theme.dark.toString())
+      },
+      firstLoad () {
+        const theme = localStorage.getItem("dark_theme")
+        if (theme === "true") {
+          this.$vuetify.theme.dark = true
+        } else {
+          this.$vuetify.theme.dark = false
+        }
       },
       getMe () {
         this.$store
@@ -414,4 +455,6 @@
 .v-list
   background-color: white !important
   color: green !important
+.col--searching
+  margin-right: -5% !important
 </style>

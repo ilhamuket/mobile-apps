@@ -40,7 +40,8 @@ class PasswordResetRequest extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = env('APP_URL', 'http://127.0.0.1:8000') . '/v1/auth/password/find/' . $this->token;
+        $url = 'http://localhost:8081' . '/find/' . $this->token;
+        // $url = 'https://app.ensiklotari.com' . '/find/' . $this->token;
         return (new MailMessage)
             ->line('The introduction to the notification.')
             ->action('Reset Password', url($url))

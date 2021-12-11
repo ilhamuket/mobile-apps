@@ -24,57 +24,11 @@
         $vuetify.theme.dark ? 'customize-dark-scroll' : 'custumize-light-scroll'
       "
     >
-      <!-- <v-col
-        cols="12"
-        md="3"
-        class="mt-4"
-      > -->
-      <!-- <v-card> -->
-      <!-- <v-card-title>
-            <h4>
-              {{ $t('search') }}
-            </h4>
-          </v-card-title> -->
-      <!-- <v-card-text class="mt-6"> -->
-      <!-- <v-text-field
-              v-model="search"
-              :label="$t('search')"
-              outlined
-              dense
-              @input="searchMethods"
-            /> -->
-      <!-- <v-autocomplete
-                label="Search By Category"
-                outlined
-                dense
-                item-text="name"
-                item-value="name"
-              /> -->
-      <!-- </v-card-text> -->
-      <!-- <v-card-actions class="d-flex flex-row-reverse">
-            <div class="d-flex flex-row-reverse">
-              <div class="d-flex flex-column">
-                <v-btn
-                  outlined
-                  color="primary"
-                >
-                  {{ $t('search') }}
-                </v-btn>
-              </div>
-            </div>
-          </v-card-actions> -->
-      <!-- </v-card> -->
-      <!-- </v-col> -->
       <v-col
         cols="12"
         md="12"
         class="overflow"
       >
-        <!-- <v-card-title
-          class="d-flex justify-center font-spartan primary--text font-italic text-h2"
-        >
-          Studio
-        </v-card-title> -->
         <v-row>
           <v-col
             cols="12"
@@ -108,13 +62,10 @@
         >
           No Data Avalaible
         </span>
-        <!-- <app-data-list
-          v-else
-          :data="studio"
-        /> -->
+
         <app-data-list-page
           v-else
-          :data="studio"
+          :data="dataStudio.data"
           :user="user"
           @follow="followStudio"
           @unFollow="executeUnfollowStudio"
@@ -135,6 +86,12 @@
       "app-data-list-page": list_,
     },
     data: () => ({
+      dataStudio: {
+        meta: {},
+        links: {},
+        data: [],
+      },
+      page: 1,
       search: "",
       timer: null,
       isLoad: true,
@@ -143,7 +100,7 @@
         boilerplate: true,
         elevation: 2,
       },
-      is_loading: false,
+      is_loading: true,
     }),
     computed: {
       studio () {
@@ -154,37 +111,65 @@
       },
     },
     mounted () {
-      this.getDataStudio()
+      this.firstLoadStudio()
       this.getMe()
+      this.scroll()
     },
     methods: {
-      getDataStudio () {
+      firstLoadStudio () {
+        if (this.search !== null && this.search === "") {
+          this.getDataStudio()
+        } else {
+          this.getDataSearch()
+        }
+      },
+      getDataStudio (page) {
         this.$store
           .dispatch("studio/getDataStudio", {
             search: this.search,
             entities: "author,img,followers,likes,reviews",
+            page: page,
+            paginate: 6,
           })
-          .then(res => {
-            this.is_loading = false
-            if (this.studio.length === 0) {
-              const Toast = this.$swal.mixin({
-                toast: true,
-                position: "top-end",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: toast => {
-                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
-                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
-                },
-                popup: "swal2-show",
-                backdrop: "swal2-backdrop-show",
-                icon: "swal2-icon-show",
-              })
-              Toast.fire({
-                icon: "success",
-                title: "Data Not Found",
-              })
+          .then((res) => {
+            if (res.data.meta.status) {
+              if (this.search === "") {
+                this.is_loading = false
+                this.dataStudio.meta = res.data.meta
+                this.dataStudio.links = res.data.links
+                if (page === 1) {
+                  this.dataStudio.data = res.data.data
+                } else {
+                  this.dataStudio.data.push(...res.data.data)
+                  this.is_load = false
+                }
+              }
+              if (this.search !== "") {
+                this.dataStudio.data = res.data.data
+                page = 1
+                this.is_loading = false
+              }
+
+              if (this.studio.length === 0) {
+                const Toast = this.$swal.mixin({
+                  toast: true,
+                  position: "top-end",
+                  showConfirmButton: false,
+                  timer: 3000,
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                    toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                    toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                  },
+                  popup: "swal2-show",
+                  backdrop: "swal2-backdrop-show",
+                  icon: "swal2-icon-show",
+                })
+                Toast.fire({
+                  icon: "success",
+                  title: "Data Not Found",
+                })
+              }
             }
           })
       // .then(res => {
@@ -194,6 +179,38 @@
       // })
       // this.$store.commit('studio/GET_OFF')
       },
+      getDataSearch () {
+        this.$store
+          .dispatch("studio/getDataStudio", {
+            search: this.search,
+            entities: "author,img,followers,likes,reviews",
+            paginate: 6,
+          })
+          .then((res) => {
+            if (res.data.meta.status) {
+              this.dataStudio.data = res.data.data
+            }
+          })
+      },
+      scroll () {
+        window.onscroll = () => {
+          const bottomOfWindow =
+            document.documentElement.scrollTop + window.innerHeight >=
+            document.documentElement.offsetHeight - 150
+
+          if (bottomOfWindow) {
+            this.moreStudio()
+          }
+        }
+      },
+      moreStudio () {
+        if (this.dataStudio.links.next) {
+          this.page++
+          // console.log(this.page)
+          this.is_load = true
+          this.getDataStudio(this.page)
+        }
+      },
       getMe () {
         this.$store.dispatch("user/me")
       },
@@ -202,7 +219,7 @@
           .dispatch("studio/followStudio", {
             slug: item.slug,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               // this.isFollow = true
 
@@ -236,7 +253,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -265,7 +282,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -294,7 +311,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },

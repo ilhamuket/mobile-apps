@@ -115,6 +115,9 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
 
         // class - vidio
         Route::prefix('class-vidio')->group(function () {
+            Route::prefix('studio')->group(function () {
+                Route::get('{studio_id}', [StudioClassVidiosController::class, 'studioHaveEnsikloVideo']);
+            });
             Route::get("{slug}", [StudioClassVidiosController::class, 'show']);
         });
     });

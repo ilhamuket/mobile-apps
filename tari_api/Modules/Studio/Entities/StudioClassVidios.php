@@ -54,11 +54,13 @@ class StudioClassVidios extends Model
         return $query;
     }
 
-    public function scopeCategory($query, $category)
+    public function scopeCategory($query, $category, $studio_slug)
     {
         if ($category != '' || $category != null) {
-            $query->whereHas('category', function (Builder $query) {
-                $query->where('name', $category);
+            $query->whereHas('category', function (Builder $query) use ($category) {
+                $query->where('slug', $category);
+            })->whereHas('studio', function (Builder $query) use ($studio_slug) {
+                $query->where('slug', $studio_slug);
             });
         }
 

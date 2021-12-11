@@ -10,9 +10,27 @@ use Modules\Studio\Entities\StudioClass;
 use Modules\Studio\Entities\StudioClassVidios;
 use Modules\StudioOwners\Entities\OwnerStudio;
 use Modules\StudioOwners\Entities\StudioClassVidio;
+use Illuminate\Database\Eloquent\Builder;
 
 class StudioClassVidiosController extends Controller
 {
+    public function studioHaveEnsikloVideo(Request $request, $studio_id)
+    {
+        try {
+            $master = StudioClassVidios::whereHas('studio', function (Builder $query) use ($studio_id) {
+                $query->where('id', $studio_id);
+            })->entities($request->entities)
+                ->paginate($request->input('paginate', 3));
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     public function forAll(Request $request)
     {
         try {
@@ -38,7 +56,7 @@ class StudioClassVidiosController extends Controller
     {
         try {
             $master = StudioClassVidios::entities($request->entities)
-                ->category($request->category)
+                ->category($request->category, $request->studio_slug)
                 ->filterStatus($request->status)
                 ->filterLevel($request->level)
                 ->get();
@@ -122,9 +140,23 @@ class StudioClassVidiosController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function categoryHasEnsikloVideo(Request $request)
     {
-        return view('studio::edit');
+        try {
+            $master = StudioClassVidios::entities($request->entities)
+                ->category($request->category, $request->studio_slug)
+                ->filterStatus($request->status)
+                ->filterLevel($request->level)
+                ->get();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**

@@ -18,6 +18,12 @@
               width="400"
               height="300"
               gradient="to top right, rgba(0,0,0,.7), rgba(0,0,0,.7)"
+              style="cursor: pointer"
+              @click="
+                navigate(
+                  `/detail/class/live/${item.studio.slug}/${item.slug}/keyword/${item.keyword}`
+                )
+              "
             >
               <v-container>
                 <v-row>
@@ -57,8 +63,8 @@
                       color="orange"
                     /> -->
 
-                    <br>
-                    <v-btn
+                    <!-- <br> -->
+                    <!-- <v-btn
                       small
                       outlined
                       color="primary"
@@ -71,14 +77,10 @@
                       outlined
                       color="primary"
                       class="btn_explore ml-1"
-                      @click="
-                        navigate(
-                          `/detail/class/live/${item.studio.slug}/${item.slug}`
-                        )
-                      "
+
                     >
                       Explore
-                    </v-btn>
+                    </v-btn> -->
                   </v-col>
                 </v-row>
               </v-container>
@@ -89,7 +91,12 @@
               width="400"
               height="300"
               gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
-              style="cursor:pointer"
+              style="cursor: pointer"
+              @click="
+                navigate(
+                  `/detail/class/live/${item.studio.slug}/${item.slug}/keyword/${item.keyword}`
+                )
+              "
             >
               <v-container>
                 <v-row>
@@ -130,7 +137,7 @@
                     /> -->
 
                     <!-- <br> -->
-                    <v-btn
+                    <!-- <v-btn
                       small
                       outlined
                       color="primary"
@@ -145,11 +152,32 @@
                       class="btn_explore ml-1"
                     >
                       Explore
-                    </v-btn>
+                    </v-btn> -->
                   </v-col>
                 </v-row>
               </v-container>
             </v-img>
+            <v-container>
+              <v-row>
+                <v-col cols="12">
+                  <span class="font-spartan-small">
+                    Registration : {{ item.start_at | moment("MMMM Do") }} -
+                    {{ item.end_at | moment("MMMM Do YYYY") }}
+                  </span>
+                  <br>
+                  <span class="font-spartan-small">
+                    Levels :
+                    <v-chip
+                      small
+                      :color="setColorLevels(item.levels)"
+                      text-color="white"
+                    >
+                      {{ item.levels }}
+                    </v-chip>
+                  </span>
+                </v-col>
+              </v-row>
+            </v-container>
           </v-card>
         </v-hover>
       </v-col>
@@ -184,13 +212,18 @@
       navigate (link) {
         this.$router.push(link)
       },
+      setColorLevels (level) {
+        if (level.toLowerCase() === "beginner") return "info"
+        if (level.toLowerCase() === "intermediate") return "secondary"
+        if (level.toLowerCase() === "advance") return "btn_primary"
+      },
     },
   }
 </script>
 
 <style lang="sass">
 .cols__list_category
-    margin-top: 120px !important
+    margin-top: 44% !important
 .btn_explore
     &:hover
         background-color: #9DC4D1

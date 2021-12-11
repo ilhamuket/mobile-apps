@@ -15,7 +15,6 @@
 .banner-wrapper {
   background: #753437;
   padding: 20px 0 20px;
-  min-height: 600px;
   display: flex;
   align-items: center;
 }
@@ -29,7 +28,11 @@
     padding: 90px 0 20px;
   }
 }
-
+@media (max-width: 736px) {
+  .banner-wrapper {
+    width: 100%;
+  }
+}
 @media (min-width: 1200px) {
   .banner-subtitle {
     margin-right: 150px;

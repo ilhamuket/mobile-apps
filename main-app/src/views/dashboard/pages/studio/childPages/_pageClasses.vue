@@ -46,6 +46,7 @@
             :picker-date.sync="pickerDate"
             full-width
             show-week
+            class="date-picker__ensiklotari"
             @input="fetchTime(date)"
           />
         </v-card>
@@ -303,7 +304,7 @@
   }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 // @import url('https://fonts.googleapis.com/css2?family=Rampart+One&display=swap')
 // @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Shadows+Into+Light&display=swap')
 // @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Roboto+Mono:ital,wght@1,100&family=Shadows+Into+Light&display=swap')
@@ -321,6 +322,10 @@
 //   width: 600px
 //   .v-picker__body
 //     width: 500px !important
+.date-picker
+  &__ensiklotari
+    .v-picker__body .theme--dark
+      background-color: #141C31 !important
 .margin__img
   margin-top: -100px
 .theme--dark

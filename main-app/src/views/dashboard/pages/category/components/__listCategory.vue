@@ -65,7 +65,7 @@
                       class="btn_explore"
                       @click="
                         toPush(
-                          `/category/detail/${item.studio.slug}/${item.slug}`
+                          `/category/detail/${item.studio.slug}/${item.slug}/ensiklo-live`
                         )
                       "
                     >

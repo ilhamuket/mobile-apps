@@ -149,7 +149,7 @@ class StudioController extends Controller
             $master = Studio::entities($request->entities)
                 ->search($request->search)
                 ->sort($request->sort)
-                ->get();
+                ->paginate($request->input("paginate", 6));
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

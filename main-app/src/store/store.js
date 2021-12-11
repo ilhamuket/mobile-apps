@@ -34,6 +34,7 @@ import myclass from "./module/myclass/index"
 import invoice from "./module/invoice"
 import payment from "./module/payment"
 import studioHasInstructor from "./module/studio/studioHasInstructor/index"
+import studioHasEnsikloVideo from "./module/studio/studioHasEnsikloVideo/index"
 
 Vue.use(Vuex)
 
@@ -63,6 +64,7 @@ export default new Vuex.Store({
     invoice: invoice,
     payment: payment,
     studioHasInstructor: studioHasInstructor,
+    studioHasEnsikloVideo: studioHasEnsikloVideo,
   },
   state: {
     barColor: "rgba(0, 0, 0, .8), rgba(0, 0, 0, .8)",

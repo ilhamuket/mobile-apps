@@ -28,14 +28,26 @@
 
     <v-list nav>
       <v-list-item>
-        <v-list-item-avatar v-if="users.img">
+        <v-list-item-avatar
+          size="60"
+          :class="drawer ? '' : 'avatar--img'"
+          color="primary"
+        >
           <v-img
-            :src="require('@/assets/img/logoEnsiklo.png')"
+            v-if="users.img"
+            :src="users.img.url"
             width="12"
           />
+          <span
+            v-else
+            class="font-spartan-small white--text font-weight-bold"
+          >
+            {{ users.nickName.charAt(0) }}
+          </span>
         </v-list-item-avatar>
-        <v-list-item-content>
-          <v-list-item-title v-text="profile.title" />
+        <v-list-item-content v-if="drawer">
+          <v-list-item-title v-text="users.nickName" />
+          <v-list-item-subtitle v-text="'EnsikloTari Beta'" />
         </v-list-item-content>
 
         <v-btn
@@ -134,14 +146,14 @@
           to: "/classes",
         },
         {
-          icon: "mdi-account-cowboy-hat-outline",
-          title: "instrucktur",
-          to: "/instructor",
-        },
-        {
           title: "ensiklo_vidio",
           icon: "mdi-clipboard-outline",
           to: "/class-vidio",
+        },
+        {
+          icon: "mdi-account-cowboy-hat-outline",
+          title: "instrucktur",
+          to: "/instructor",
         },
         {
           title: "article",
@@ -306,6 +318,8 @@
 .custome-font
   font-size: 8px
   color: black
+.avatar--img
+  margin-left: -15% !important
 </style>
 
 <style>

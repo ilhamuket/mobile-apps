@@ -122,7 +122,8 @@
           />
           <v-chip
             label
-            color="primary"
+            color="btn_primary"
+            text-color="white"
             class="font-spartan-small font-italic font-weight-thin"
           >
             Capacity : 0 / {{ item.kapasitas }}

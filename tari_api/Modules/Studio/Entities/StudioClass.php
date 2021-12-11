@@ -197,11 +197,13 @@ class StudioClass extends Model
         return $query;
     }
 
-    public function scopeCategory($query, $categoryName)
+    public function scopeCategory($query, $categoryName, $studioSlug)
     {
         if ($categoryName != null && $categoryName != '') {
             $query->whereHas('category', function (Builder $query) use ($categoryName) {
                 $query->where('slug', $categoryName);
+            })->whereHas('studio', function (Builder $query) use ($studioSlug) {
+                $query->where('slug', $studioSlug);
             });
         }
 

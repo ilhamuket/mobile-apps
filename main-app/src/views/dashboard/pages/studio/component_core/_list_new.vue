@@ -76,7 +76,7 @@
                       outlined
                       color="primary"
                       class="btn-expolore-studio"
-                      @click="clickPush(item.slug)"
+                      @click="clickPush(item)"
                     >
                       Explore
                     </v-btn>
@@ -181,7 +181,7 @@
                       outlined
                       color="primary"
                       class="btn-expolore-studio"
-                      @click="clickPush(item.slug)"
+                      @click="clickPush(item)"
                     >
                       Explore
                     </v-btn>
@@ -349,8 +349,8 @@
           this.computedIsLikeYou.splice(index, 1, false)
         }
       },
-      clickPush (slug) {
-        this.$router.push(`/${slug}/home`)
+      clickPush (item) {
+        this.$router.push(`/studio/${item.id}/${item.slug}/home`)
       },
       clickSHow (item) {
         item.show = !item.show

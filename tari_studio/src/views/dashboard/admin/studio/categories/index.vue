@@ -11,8 +11,8 @@
           icon="mdi-all-inclusive"
           title="All"
           :value="String(summary.all)"
-          sub-icon="mdi-clock"
-          sub-text="Just Updated"
+          sub-icon="mdi-heart-outline"
+          sub-text="EnsikloTari"
           style="cursor: pointer"
           @click.native="setSummary('')"
         />
@@ -27,8 +27,8 @@
           icon="mdi-publish"
           title="Publish"
           :value="String(summary.publish)"
-          sub-icon="mdi-clock"
-          sub-text="Just Updated"
+          sub-icon="mdi-heart-outline"
+          sub-text="EnsikloTari"
           style="cursor: pointer"
           @click.native="setSummary('publish')"
         />
@@ -43,8 +43,8 @@
           icon="mdi-publish-off"
           title="Concept"
           :value="String(summary.concept)"
-          sub-icon="mdi-clock"
-          sub-text="Just Updated"
+          sub-icon="mdi-heart-outline"
+          sub-text="EnsikloTari"
           style="cursor: pointer"
           @click.native="setSummary('concept')"
         />
@@ -59,8 +59,8 @@
           icon="mdi-file"
           title="draft"
           :value="String(summary.draft)"
-          sub-icon="mdi-clock"
-          sub-text="Just Updated"
+          sub-icon="mdi-heart-outline"
+          sub-text="EnsikloTari"
           style="cursor: pointer"
           @click.native="setSummary('draft')"
         />

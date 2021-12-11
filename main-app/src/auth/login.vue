@@ -76,6 +76,8 @@
                       <v-chip
                         color="transparent"
                         text-color="red"
+                        to="/forgot-password"
+                        style="cursor: pointer"
                       >
                         <span class="font-spartan-small">
                           Lupa Password ?

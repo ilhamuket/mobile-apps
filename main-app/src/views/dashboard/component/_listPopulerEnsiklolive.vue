@@ -17,7 +17,7 @@
             style="cursor: pointer"
             gradient="to top right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.05)"
             @click="
-              toPush(`/detail/class/live/${item.studio.slug}/${item.slug}`)
+              toPush(item)
             "
           >
             <v-container>
@@ -92,7 +92,7 @@
             gradient="to top right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.05)"
             style="cursor: pointer"
             @click="
-              toPush(`/detail/class/live/${item.studio.slug}/${item.slug}`)
+              toPush(item)
             "
           >
             <v-container>
@@ -176,7 +176,9 @@
     },
     methods: {
       toPush (link) {
-        this.$router.push(link)
+        this.$router.push(
+          `/detail/class/live/${link.studio.slug}/${link.slug}/keyword/${link.keyword}`,
+        )
       },
     },
   }

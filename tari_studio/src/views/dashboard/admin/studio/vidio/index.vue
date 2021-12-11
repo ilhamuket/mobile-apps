@@ -11,9 +11,9 @@
           icon="mdi-twitter"
           title="All"
           :value="String(summary.all)"
-          sub-icon="mdi-clock"
-          sub-text="Just Updated"
-          style="cursor:pointer"
+          sub-icon="mdi-heart-outline"
+          sub-text="EnsikloTari"
+          style="cursor: pointer"
           @click.native="setStatus('all')"
         />
       </v-col>
@@ -26,9 +26,9 @@
           icon="mdi-twitter"
           title="Publish"
           :value="String(summary.publish)"
-          sub-icon="mdi-clock"
-          sub-text="Just Updated"
-          style="cursor:pointer"
+          sub-icon="mdi-heart-outline"
+          sub-text="EnsikloTari"
+          style="cursor: pointer"
           @click.native="setStatus('publish')"
         />
       </v-col>
@@ -41,9 +41,9 @@
           icon="mdi-twitter"
           title="New"
           :value="String(summary.new)"
-          sub-icon="mdi-clock"
-          sub-text="Just Updated"
-          style="cursor:pointer"
+          sub-icon="mdi-heart-outline"
+          sub-text="EnsikloTari"
+          style="cursor: pointer"
           @click.native="setStatus('new')"
         />
       </v-col>
@@ -93,7 +93,7 @@
                     :icon="item.icon"
                     :title="item.title"
                     :value="String(item.summary)"
-                    style="cursor: pointer;"
+                    style="cursor: pointer"
                     @click.native="setStatus(item.status)"
                   />
                 </v-col>
@@ -246,15 +246,17 @@
         })
       },
       getDataSummary () {
-        this.$store.dispatch("studioOwnerVidio/getDataSummary", {}).then(res => {
-          this.summary = res.data.data
-          this.setSummary(res.data.data)
-        // console.log(this.summary)
-        })
+        this.$store
+          .dispatch("studioOwnerVidio/getDataSummary", {})
+          .then((res) => {
+            this.summary = res.data.data
+            this.setSummary(res.data.data)
+          // console.log(this.summary)
+          })
       },
       setSummary (data) {
         this.summary = data
-        this.items.forEach(item => {
+        this.items.forEach((item) => {
           if (item.status === "all") {
             item.summary = this.summary.all
           } else if (item.status === "publish") {
@@ -290,7 +292,7 @@
             status: item.status,
             url: item.url,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               item.status = null
               item.url = null
@@ -301,7 +303,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -318,34 +320,36 @@
           })
       },
       publishVidio ({ item }) {
-        this.$store.dispatch("studioOwnerVidio/publishVidio", item).then(res => {
-          if (res.data.meta.status) {
-            this.goPublish.open = false
-            const Toast = this.$swal.mixin({
-              toast: true,
-              position: "top-end",
-              showConfirmButton: false,
-              timer: 3000,
-              timerProgressBar: true,
-              didOpen: toast => {
-                toast.addEventListener("mouseenter", this.$swal.stopTimer)
-                toast.addEventListener("mouseleave", this.$swal.resumeTimer)
-              },
-              popup: "swal2-show",
-              backdrop: "swal2-backdrop-show",
-              icon: "swal2-icon-show",
-            })
-            Toast.fire({
-              icon: "success",
-              title: "Data Approved Successfully",
-            })
-          }
-        })
+        this.$store
+          .dispatch("studioOwnerVidio/publishVidio", item)
+          .then((res) => {
+            if (res.data.meta.status) {
+              this.goPublish.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Data Approved Successfully",
+              })
+            }
+          })
       },
       deletesDataVidio ({ item }) {
         this.$store
           .dispatch("studioOwnerVidio/deletesDataVidio", item)
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.deleted.open = false
               const Toast = this.$swal.mixin({
@@ -354,7 +358,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -376,7 +380,7 @@
       deleteDataById ({ item }) {
         this.$store
           .dispatch("studioOwnerVidio/deleteDataById", { id: item.id })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.deletedById.open = false
               const Toast = this.$swal.mixin({
@@ -385,7 +389,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },

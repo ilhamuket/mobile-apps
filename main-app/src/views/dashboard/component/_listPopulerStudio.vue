@@ -16,7 +16,7 @@
             :src="item.img.url"
             style="cursor: pointer"
             gradient="to top right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.05)"
-            @click="toPush(`${item.slug}/home`)"
+            @click="toPush(item)"
           >
             <v-container>
               <v-row class="row__headers">
@@ -138,7 +138,7 @@
             src="https://ecs7.tokopedia.net/img/cache/300/default_picture_user/default_toped-22.jpg"
             style="cursor: pointer"
             gradient="to top right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.05)"
-            @click="toPush(`${item.slug}/home`)"
+            @click="toPush(item)"
           >
             <v-container>
               <v-row class="row__headers">
@@ -300,7 +300,7 @@
     },
     methods: {
       toPush (link) {
-        this.$router.push(link)
+        this.$router.push(`/studio/${link.id}/${link.slug}/home`)
       },
     },
   }

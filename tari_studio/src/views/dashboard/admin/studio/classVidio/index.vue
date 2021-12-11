@@ -11,8 +11,8 @@
           icon="mdi-twitter"
           title="All"
           :value="String(summary.all)"
-          sub-icon="mdi-clock"
-          sub-text="Just Updated"
+          sub-icon="mdi-heart-outline"
+          sub-text="EnsikloTari"
         />
       </v-col>
       <v-col
@@ -25,8 +25,8 @@
           icon="mdi-twitter"
           title="Publish"
           :value="String(summary.publish)"
-          sub-icon="mdi-clock"
-          sub-text="Just Updated"
+          sub-icon="mdi-heart-outline"
+          sub-text="EnsikloTari"
         />
       </v-col>
       <v-col
@@ -39,8 +39,8 @@
           icon="mdi-twitter"
           title="Draft"
           :value="String(summary.draft)"
-          sub-icon="mdi-clock"
-          sub-text="Just Updated"
+          sub-icon="mdi-heart-outline"
+          sub-text="EnsikloTari"
         />
       </v-col>
       <v-col
@@ -53,8 +53,8 @@
           icon="mdi-twitter"
           title="New"
           :value="String(summary.new)"
-          sub-icon="mdi-clock"
-          sub-text="Just Updated"
+          sub-icon="mdi-heart-outline"
+          sub-text="EnsikloTari"
         />
       </v-col>
       <v-col cols="12">

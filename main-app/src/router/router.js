@@ -150,7 +150,7 @@ const router = new Router({
         },
         {
           name: "DETAIL STUDIO",
-          path: "/:slug/:folder",
+          path: "/studio/:id/:slug/:folder",
           component: () =>
             import("@/views/dashboard/pages/studio/detailStudio"),
           meta: {
@@ -169,9 +169,13 @@ const router = new Router({
           },
           beforeEnter (to, _, next) {
             if (
-              ["home", "class", "reviews", "instructor"].includes(
-                to.params.folder,
-              )
+              [
+                "home",
+                "class",
+                "reviews",
+                "instructor",
+                "ensiklo-video",
+              ].includes(to.params.folder)
             ) {
               next()
             } else next({ name: "Error" })
@@ -257,7 +261,7 @@ const router = new Router({
         },
         {
           name: "detail_category",
-          path: "/category/detail/:studio_slug/:name",
+          path: "/category/detail/:studio_slug/:name/:folder",
           component: () =>
             import("@/views/dashboard/pages/category/detailCategory"),
           meta: {
@@ -458,6 +462,14 @@ const router = new Router({
       name: "auth-register",
       path: "/register",
       component: () => import("@/auth/register"),
+      meta: {
+        requiresVisitor: true,
+      },
+    },
+    {
+      name: "forgot-password",
+      path: "/forgot-password",
+      component: () => import("@/auth/forgot"),
       meta: {
         requiresVisitor: true,
       },
