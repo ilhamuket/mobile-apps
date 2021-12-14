@@ -6,9 +6,7 @@
           {{ $t("discussion") }} ({{ data.length }})
         </span>
         <br>
-        <span class="font-spartan-small">
-          Kecak - Hurip Studio
-        </span>
+        <span class="font-spartan-small"> Kecak - Hurip Studio </span>
       </v-col>
       <v-col cols="12">
         <v-alert
@@ -81,7 +79,7 @@
         cols="12"
       >
         <div v-if="item.user">
-          <div class="d-flex flex-row flex-nowrap flex_row ">
+          <div class="d-flex flex-row flex-nowrap flex_row">
             <div class="d-flex flex-column">
               <v-avatar v-if="item.user.img">
                 <v-img :src="item.user.img.url" />
@@ -103,9 +101,7 @@
 
             <div class="d-flex flex-row">
               <div class="d-flex flex-column">
-                <span class="font-spartan-small ml-2">
-                  -
-                </span>
+                <span class="font-spartan-small ml-2"> - </span>
               </div>
             </div>
             <div class="d-flex flex-row">
@@ -118,7 +114,7 @@
             <div class="d-flex flex-row margin__icon">
               <div class="d-flex flex-column">
                 <v-menu v-model="menu">
-                  <template #activator="{on,attrs}">
+                  <template #activator="{ on, attrs }">
                     <v-icon
                       v-bind="attrs"
                       v-on="on"
@@ -128,9 +124,7 @@
                   </template>
                   <v-list v-if="menu">
                     <v-list-item>
-                      <v-list-item-title>
-                        Report
-                      </v-list-item-title>
+                      <v-list-item-title> Report </v-list-item-title>
                     </v-list-item>
                   </v-list>
                 </v-menu>
@@ -155,7 +149,7 @@
             </div>
             <div class="d-flex-column ml-4">
               <span
-                style="cursor:pointer"
+                style="cursor: pointer"
                 class="font-spartan-small"
                 @click="replyParentActive(item)"
               >
@@ -232,9 +226,7 @@
 
             <div class="d-flex flex-row">
               <div class="d-flex flex-column">
-                <span class="font-spartan-small ml-2">
-                  -
-                </span>
+                <span class="font-spartan-small ml-2"> - </span>
               </div>
             </div>
             <div class="d-flex flex-row">
@@ -242,7 +234,9 @@
                 <v-chip
                   color="transparent"
                   :text-color="
-                    child.class.author_id === child.user.id ? 'red' : 'black'
+                    child.class.author_id === child.user.id
+                      ? 'btn_primary'
+                      : 'btn_primary'
                   "
                   class="font-spartan-small chip__status"
                 >
@@ -257,7 +251,7 @@
             <div class="d-flex flex-row margin__icon__reply">
               <div class="d-flex flex-column">
                 <v-menu v-model="menu">
-                  <template #activator="{on,attrs}">
+                  <template #activator="{ on, attrs }">
                     <v-icon
                       v-bind="attrs"
                       v-on="on"
@@ -267,9 +261,7 @@
                   </template>
                   <v-list v-if="menu">
                     <v-list-item>
-                      <v-list-item-title>
-                        Report
-                      </v-list-item-title>
+                      <v-list-item-title> Report </v-list-item-title>
                     </v-list-item>
                   </v-list>
                 </v-menu>
@@ -292,7 +284,7 @@
             </div>
             <div class="d-flex-column ml-4">
               <span
-                style="cursor:pointer"
+                style="cursor: pointer"
                 class="font-spartan-small"
                 @click="replyChildActive(child)"
               >
@@ -356,9 +348,7 @@
         class="d-flex justify-center"
         cols="12"
       >
-        <span class="font-spartan">
-          Tidak Ada Diskusi
-        </span>
+        <span class="font-spartan"> Tidak Ada Diskusi </span>
       </v-col>
     </v-row>
   </v-container>
@@ -452,7 +442,7 @@
         }
         return time
       },
-      sendDiscusses () {
+      sendDiscusses (item) {
         this.$emit("send", { item: this.content })
         this.content = null
       },
@@ -463,6 +453,7 @@
             content: this.contentReply,
           },
         })
+        item.isReplies = false
       },
     },
   }

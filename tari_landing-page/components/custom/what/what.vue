@@ -26,9 +26,7 @@
             <v-col cols="12">
               <span
                 class="
-                  font-spartan-text font-weight-bold
-                  primary--text1
-                  text-h1
+                  font-spartan-text font-weight-bold text-h1
                   mt-6
                 "
               >
@@ -38,7 +36,7 @@
               <br />
               <div class="overflow-scroll">
                 <span
-                  class="font-spartan-text width--text text-h6 mt-6 grey--text"
+                  class="font-spartan-text width--text text-h6 mt-6 black--text"
                 >
                   Seni Tari selalu identik sebagai bukti keragaman budaya
                   Nusantara. Dari Sabang sampai Merauke, masyarakat Indonesia

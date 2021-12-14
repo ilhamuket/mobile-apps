@@ -44,13 +44,16 @@
           <v-card>
             <v-card-title class="d-flex justify-center">
               {{ classes.name }} -
-              <v-chip
+              <span class="font-spartan-small btn_primary--text">
+                EnsikloLive
+              </span>
+              <!-- <v-chip
                 class="ml-2"
                 outlined
                 color="btn_primary"
               >
                 EnsikloLive
-              </v-chip>
+              </v-chip> -->
             </v-card-title>
             <v-card-text class="mt-2 d-flex justify-center">
               <span
@@ -63,15 +66,16 @@
                 color="transparent"
                 class="ml-2"
               >
-                (4)
+                ({{ computedRatings }})
                 <v-rating
-                  :value="4"
+                  :value="computedRatings"
                   color="orange"
                   background-color="grey"
                   half-increments
                   readonly
                 />
-                (200 Reviews)
+                ({{ classes.studio ? classes.studio.reviews.length : 0 }}
+                Reviews)
               </v-chip>
             </v-card-text>
             <v-card-text class="d-flex justify-center">
@@ -322,6 +326,17 @@
         }
         return bool
       },
+      computedRatings () {
+        let value = 0
+        if (this.classes.studio) {
+          const ratings = this.classes.studio.reviews.map((x) => x.ratings)
+          if (ratings.length > 0) {
+            const sum = ratings.filter((x) => x > 0).reduce((x, y) => x + y, 0)
+            value = sum / this.classes.studio.reviews.length
+          }
+        }
+        return value
+      },
     },
     mounted () {
       this.getDataClassesBySlug()
@@ -386,7 +401,7 @@
         window.onscroll = () => {
           const bottomOfWindow =
             document.documentElement.scrollTop + window.innerHeight >=
-            document.documentElement.offsetHeight
+            document.documentElement.offsetHeight - 150
           // console.log(bottomOfWindow)
           // console.log('heightOfsset : ', document.documentElement.offsetHeight)
           // console.log(
@@ -428,7 +443,8 @@
       getDataClassesBySlug () {
         this.$store
           .dispatch("classes/getDataClassesBySlug", {
-            entities: "listImg,img,studio.followers,category,wishlist",
+            entities:
+              "listImg,img,studio.followers,category,wishlist,studio.reviews",
             slug: this.$route.params.class_slug,
             studio_slug: this.$route.params.studio_slug,
             keyword: this.$route.params.keyword,
@@ -485,8 +501,13 @@
           })
           .then((res) => {
             if (res.data.meta.status) {
-              this.getDataDiscuss()
-              item.content = null
+              const index = this.discuss.data.findIndex(
+                (x) => x.id === item.data.id,
+              )
+              console.log(index)
+              this.discuss.data[index].child.unshift(res.data.data)
+              // this.getDataDiscuss()
+              item.content = ""
             }
           })
       },

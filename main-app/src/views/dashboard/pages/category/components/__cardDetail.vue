@@ -35,17 +35,16 @@
               text-color="btn_primary"
               outlined
             >
-              {{ category.display_name }}
+              {{ category.display_name ? category.display_name : "Category I" }}
             </v-chip>
             -
             <v-chip
-              v-if="category.studio"
               class="chip__category"
               color="transparent"
               text-color="btn_primary"
               outlined
             >
-              {{ category.studio.name }}
+              {{ category.studio ? category.studio.name : "Studio Name" }}
             </v-chip>
             <br>
             <v-btn
@@ -56,6 +55,7 @@
               width="200"
               outlined
               rounded
+              @click="followCategory(category)"
             >
               Follow
             </v-btn>
@@ -66,20 +66,58 @@
               class="mt-2"
               width="198"
               rounded
+              @click="unFollowCategory(category)"
             >
               Following
             </v-btn>
             <v-btn
+              v-if="!isLikesCategory"
               small
               color="btn_primary"
               class="mt-2 ml-1"
               width="200"
               outlined
               rounded
+              @click="likes(category)"
             >
-              <v-icon>
-                mdi-heart-outline
-              </v-icon>
+              <v-tooltip
+                bottom
+                color="btn_primary"
+              >
+                <template #activator="{ on, attrs }">
+                  <v-icon
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    mdi-heart-outline
+                  </v-icon>
+                </template>
+                <span class="font-spartan-small"> Like Category </span>
+              </v-tooltip>
+            </v-btn>
+            <v-btn
+              v-else
+              small
+              color="btn_primary"
+              class="mt-2 ml-1"
+              width="200"
+              rounded
+              @click="unLikes(category)"
+            >
+              <v-tooltip
+                bottom
+                color="btn_primary"
+              >
+                <template #activator="{ on, attrs }">
+                  <v-icon
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    mdi-heart
+                  </v-icon>
+                </template>
+                <span class="font-spartan-small"> Un-like Category </span>
+              </v-tooltip>
             </v-btn>
           </v-col>
         </v-row>
@@ -95,23 +133,32 @@
               v-if="category.class"
               color="transparent"
               text-color="btn_primary"
-              class="chip__category__class mt-2"
+              class="chip__category__class mt-6"
             >
-              {{ category.class.length }} Class -
+              {{ category.class.length }} EnsikloLive -
+              {{ category.video.length }} EnsikloVideo -
               {{ category.follow.length }} Followers
             </v-chip>
-            <br>
-            <span class="font-spartan-small value__ratings">
+            <v-chip
+              v-else
+              color="transparent"
+              text-color="btn_primary"
+              class="chip__category__class mt-6"
+            >
+              0 EnsikloLive - 0 EnsikloVideo - 0 Followers
+            </v-chip>
+            <!-- <br> -->
+            <!-- <span class="font-spartan-small value__ratings">
               ({{ ratings.float }})
-            </span>
-            <v-rating
+            </span> -->
+            <!-- <v-rating
               class="chip__category__ratings"
               :value="ratings.avarage"
               readonly
               background-color="grey"
               color="orange"
               size="20"
-            />
+            /> -->
           </v-col>
 
           <!-- <span class="chip__category__ratings__reviews">
@@ -146,7 +193,14 @@
       isFollowYoU () {
         let boolean = false
         if (this.category.follow !== undefined) {
-          boolean = this.category.follow.some(x => x.id === this.me.id)
+          boolean = this.category.follow.some((x) => x.id === this.me.id)
+        }
+        return boolean
+      },
+      isLikesCategory () {
+        let boolean = false
+        if (this.category.likes !== undefined) {
+          boolean = this.category.likes.some((x) => x.id === this.me.id)
         }
         return boolean
       },
@@ -156,6 +210,18 @@
       onResize () {
         if (window.innerWidth < 769) this.isMobile = true
         else this.isMobile = false
+      },
+      followCategory (category) {
+        this.$emit("follow", { item: category })
+      },
+      unFollowCategory (category) {
+        this.$emit("un-follow", { item: category })
+      },
+      likes (category) {
+        this.$emit("likes", { item: category })
+      },
+      unLikes (category) {
+        this.$emit("unLikes", { item: category })
       },
     },
   }

@@ -97,16 +97,20 @@
         </v-card-actions> -->
 
         <v-card-text class="text--primary">
-          <v-chip
+          <!-- <v-chip
             label
             outlined
             color="btn_primary"
             class="text-h4 font-spartan-small"
           >
             {{ item.name }}
-          </v-chip>
+          </v-chip> -->
+          <span class="font-spartan-small font-weight-bold btn_primary--text">
+            {{ item.name }} -
+            {{ item.studio ? item.studio.name : "Studio Ensiklo" }}
+          </span>
 
-          <v-chip
+          <!-- <v-chip
             v-if="item.category"
             label
             outlined
@@ -114,10 +118,10 @@
             class="text-h4 font-spartan-small ml-4"
           >
             Category : {{ item.category.display_name }}
-          </v-chip>
+          </v-chip> -->
 
           <v-divider
-            class="mt-1 mb-1 divider--opacity"
+            class="mt-2 mb-2 divider--opacity"
             dark
           />
           <v-chip
@@ -128,6 +132,13 @@
           >
             Capacity : 0 / {{ item.kapasitas }}
           </v-chip>
+          <br>
+          <span
+            v-if="item.category"
+            class="font-spartan-small btn_primary--text"
+          >
+            Category : {{ item.category.display_name }}
+          </span>
           <br>
           <span class="font-spartan-small">
             Registration : {{ item.start_at | moment("MMMM Do") }} -

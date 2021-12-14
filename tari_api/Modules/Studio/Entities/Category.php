@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\StudioOwners\Entities\CategoryImg;
+use Modules\StudioOwners\Entities\StudioClassVidio;
 
 class Category extends Model
 {
@@ -26,6 +27,11 @@ class Category extends Model
     public function studio()
     {
         return $this->belongsTo(Studio::class, 'studio_id');
+    }
+
+    public function video()
+    {
+        return $this->hasMany(StudioClassVidio::class, 'category_id');
     }
 
     public function img()

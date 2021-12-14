@@ -12,9 +12,69 @@
             :elevation="hover ? 12 : 4"
             :class="{ 'on-hover': hover }"
           >
-            <v-img :src="item.url_thumbnail">
-              <!--  -->
+            <v-img
+              :src="item.url_thumbnail"
+              style="cursor: pointer"
+              width="400"
+              height="276"
+              gradient="to top right, rgba(0,0,0,.33), rgba(0,0,10,.7)"
+              @click="toPush(`/class-vidio/detail/${item.slug}`)"
+            >
+              <v-container>
+                <v-row>
+                  <v-col
+                    class="d-flex flex-row-reverse"
+                    cols="12"
+                  >
+                    <v-icon color="primary">
+                      mdi-lock
+                    </v-icon>
+                    <!-- <v-icon
+                  v-else
+                  color="red"
+                  @click="unLike(item)"
+                >
+                  mdi-heart
+                </v-icon> -->
+                    <v-icon
+                      class="mr-2"
+                      color="primary"
+                    >
+                      mdi-share-variant
+                    </v-icon>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col
+                    cols="12"
+                    class="cols__class-vidio__category"
+                  >
+                    <span
+                      class="font-spartan-small font-weight-bold white--text"
+                    >
+                      {{ item.name }}
+                    </span>
+                  </v-col>
+                </v-row>
+              </v-container>
             </v-img>
+            <v-container>
+              <v-row>
+                <v-col cols="12">
+                  Levels :
+                  <v-chip
+                    :color="setColorLevels(item.levels)"
+                    text-color="white"
+                    label
+                    small
+                  >
+                    {{ item.levels }}
+                  </v-chip>
+                  <br>
+                  Price : {{ item.price }}
+                </v-col>
+              </v-row>
+            </v-container>
           </v-card>
         </v-hover>
       </v-col>
@@ -46,7 +106,21 @@
         },
       ],
     }),
+    methods: {
+      setColorLevels (level) {
+        if (level === "beginner") return "info"
+        if (level === "intermediate") return "secondary"
+        if (level === "advance") return "btn_primary"
+      },
+      toPush (link) {
+        this.$emit("push", { item: link })
+      },
+    },
   }
 </script>
 
-<style></style>
+<style lang="sass">
+.cols__class-vidio
+  &__category
+    margin-top: 40% !important
+</style>

@@ -128,7 +128,7 @@
                       color="btn_primary"
                       small
                       width="90"
-                      class="mr-2"
+                      class="ml-2"
                     >
                       See Detail
                     </v-btn>
@@ -141,9 +141,7 @@
       </v-col>
     </v-row>
     <v-row v-else>
-      <v-col
-        class="d-flex justify-center"
-      >
+      <v-col class="d-flex justify-center">
         <v-progress-circular
           indeterminate
           color="primary"

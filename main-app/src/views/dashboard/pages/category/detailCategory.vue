@@ -6,6 +6,10 @@
           :category="category"
           :me="me"
           :ratings="ratings"
+          @follow="followCategory"
+          @un-follow="unfollowCategory"
+          @likes="likeCategory"
+          @unLikes="unlikeCategory"
         />
       </v-col>
     </v-row>
@@ -24,7 +28,10 @@
             <app-page-all :classes="classes.data" />
           </v-tab-item>
           <v-tab-item>
-            <app-page-vidio :data="ensikloVidio.data" />
+            <app-page-vidio
+              :data="ensikloVidio.data"
+              @push="toPush"
+            />
           </v-tab-item>
         </v-tabs-items>
       </v-col>
@@ -93,12 +100,20 @@
       this.getDataCategoryShow()
       this.getDataEnsikloVidio()
       this.scroll()
+      this.firstLoad()
     // console.log(this.$route.params)
     },
     methods: {
+      firstLoad () {
+        if (this.$route.params.folder === "ensiklo-live") {
+          this.tabs = 0
+        } else if (this.$route.params.folder === "ensiklo-video") {
+          this.tabs = 1
+        }
+      },
       getDataCategoryShow () {
         this.$store.dispatch("category/getDataCategoryShow", {
-          entities: "studio.img,img,follow,class",
+          entities: "studio.img,img,follow,class,video,likes",
           name: this.$route.params.name,
         })
       },
@@ -178,6 +193,121 @@
           .then((res) => {
             if (res.data.meta.status) {
               console.log(res.data.data)
+            }
+          })
+      },
+      toPush ({ item }) {
+        this.$router.push(item)
+      },
+      followCategory ({ item }) {
+        this.$store
+          .dispatch("category/followCategory", {
+            id: item.id,
+          })
+          .then((res) => {
+            if (res.data.meta.status) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: `Follow category ${res.data.data.name}`,
+              })
+              this.getDataCategoryShow()
+            }
+          })
+      },
+      unfollowCategory ({ item }) {
+        this.$store
+          .dispatch("category/unfollowCategory", {
+            id: item.id,
+          })
+          .then((res) => {
+            if (res.data.meta.status) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: `UnFollow category ${res.data.data.name}`,
+              })
+              this.getDataCategoryShow()
+            }
+          })
+      },
+      likeCategory ({ item }) {
+        this.$store
+          .dispatch("category/likeCategory", { id: item.id })
+          .then((res) => {
+            if (res.data.meta.status) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Like Category Successfully",
+              })
+              this.getDataCategoryShow()
+            }
+          })
+      },
+      unlikeCategory ({ item }) {
+        this.$store
+          .dispatch("category/unlikeCategory", { id: item.id })
+          .then((res) => {
+            if (res.data.meta.status) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Unlikes category successfully",
+              })
+              this.getDataCategoryShow()
             }
           })
       },

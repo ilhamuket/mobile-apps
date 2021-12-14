@@ -111,6 +111,7 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
             Route::post('/follow/{id}', [CategoryController::class, 'follow']);
             Route::post('/unfollow/{id}', [CategoryController::class, 'unfollow']);
             Route::post('/likes/{id}', [CategoryController::class, 'likes']);
+            Route::post('/un-likes/{id}', [CategoryController::class, 'unLikes']);
         });
 
         // class - vidio

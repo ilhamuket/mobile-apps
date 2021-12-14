@@ -13,7 +13,7 @@ export default {
     GET_DATA_CATEGORY: (state, payload) => {
       state.data = payload
     },
-    STOP_LOAD: state => (state.load_first = false),
+    STOP_LOAD: (state) => (state.load_first = false),
     RATINGS: (state, payload) => (state.ratings = payload),
     GET_DATA_CATEGORY_OBJECT: (state, payload) => (state.category = payload),
   },
@@ -27,11 +27,11 @@ export default {
         const params = { ...payload }
         axios
           .get("studio/u/categories", { params: params })
-          .then(res => {
+          .then((res) => {
             commit("GET_DATA_CATEGORY", res.data.data)
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })
@@ -45,11 +45,11 @@ export default {
         const params = { ...payload }
         axios
           .get(`studio/u/categories/${payload.name}`, { params: params })
-          .then(res => {
+          .then((res) => {
             commit("GET_DATA_CATEGORY_OBJECT", res.data.data)
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })
@@ -62,11 +62,11 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .get(`studio/reviews/avarage/${payload.studio_slug}`)
-          .then(res => {
+          .then((res) => {
             commit("RATINGS", res.data.data)
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })
@@ -79,10 +79,10 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .post(`studio/u/categories/follow/${payload.id}`)
-          .then(res => {
+          .then((res) => {
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })
@@ -95,10 +95,10 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .post(`studio/u/categories/likes/${payload.id}`)
-          .then(res => {
+          .then((res) => {
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })
@@ -111,10 +111,26 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .post(`studio/u/categories/unfollow/${payload.id}`)
-          .then(res => {
+          .then((res) => {
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
+            reject(e)
+          })
+      })
+    },
+    unlikeCategory: (_, payload) => {
+      axios.defaults.headers.common.Authorization =
+        "Bearer " + localStorage.getItem("access_token")
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        axios
+          .post(`studio/u/categories/un-likes/${payload.id}`)
+          .then((res) => {
+            resolve(res)
+          })
+          .catch((e) => {
             reject(e)
           })
       })

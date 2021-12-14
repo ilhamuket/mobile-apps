@@ -15,8 +15,8 @@
             </h4> -->
             <div class="mt-16 pt-2">
               <v-btn
-                color="#9DC4D1"
-                class="mr-0 mr-md-8 mb-5 mb-md-0 btn-custom-md white--text font-weight-bold"
+                color="#4CAF50"
+                class="mr-0 mr-md-8 mb-5 btn-masuk mb-md-0 btn-custom-md white--text font-weight-bold"
                 nuxt
                 large
                 target="_blank"

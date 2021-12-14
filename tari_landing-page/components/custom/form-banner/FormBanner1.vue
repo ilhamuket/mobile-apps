@@ -8,10 +8,10 @@
         <v-row justify="center">
           <v-col cols="12" md="7" lg="5" class="d-flex align-center">
             <div class="text-center text-md-left">
-              <h2 class="formbanner1-title font-weight-bold primary--text1">
+              <h2 class="formbanner1-title font-weight-bold text-h1">
                 EnsikloTari & Sanggar
               </h2>
-              <p class="mt-16 pt-4 text-justify">
+              <p class="mt-16 pt-4 black--text text-justify">
                 Platform EnsikloTari memungkinkan para pemilik sanggar untuk
                 memperluas jaringan kelasnya, berkolaborasi, dan berbagi dengan
                 siapa pun, di mana pun. Tidak Sekedar meningkatkan pendapatan
