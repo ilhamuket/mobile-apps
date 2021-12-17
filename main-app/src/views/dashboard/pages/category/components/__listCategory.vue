@@ -22,10 +22,13 @@
               <v-container>
                 <v-row>
                   <v-col
-                    class="d-flex flex-row-reverse"
+                    class="d-flex flex-row-reverse cols__icon"
                     cols="12"
                   >
-                    <v-icon color="primary">
+                    <v-icon
+                      color="primary"
+                      class="hover__icon"
+                    >
                       mdi-heart-outline
                     </v-icon>
                     <v-icon
@@ -104,10 +107,13 @@
               <v-container>
                 <v-row>
                   <v-col
-                    class="d-flex flex-row-reverse"
+                    class="d-flex flex-row-reverse cols__icon"
                     cols="12"
                   >
-                    <v-icon color="primary">
+                    <v-icon
+                      class="hover__icon"
+                      color="primary"
+                    >
                       mdi-heart-outline
                     </v-icon>
                     <v-icon
@@ -277,6 +283,9 @@
     // &:hover
     //     background-color: #9DC4D1
     //     color: white !important
+.hover__icon
+  &:hover
+    transform: scale(1.1)
 </style>
 <style scoped>
 .v-card {

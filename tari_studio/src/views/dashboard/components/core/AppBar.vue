@@ -4,7 +4,7 @@
     absolute
     app
     :class="drawer ? 'modified--drawer' : 'modified'"
-    color="#E8F0F3"
+    :color="$vuetify.theme.dark ? '#283046' : '#E8F0F3'"
     flat
     height="75"
     elevation="3"
@@ -81,6 +81,17 @@
         </div>
       </div>
     </v-col>
+
+    <v-switch
+      v-model="$vuetify.theme.dark"
+      :prepend-icon="
+        $vuetify.theme.dark ? 'mdi-theme-light-dark' : 'mdi-white-balance-sunny'
+      "
+      class="mt-2"
+      color="success"
+      hide-details
+      @click="toggle_theme"
+    />
 
     <v-menu
       bottom
@@ -296,6 +307,9 @@
           })
       },
       toogle_dark_theme () {
+        localStorage.setItem("dark_theme", this.$vuetify.theme.dark.toString())
+      },
+      toggle_theme () {
         localStorage.setItem("dark_theme", this.$vuetify.theme.dark.toString())
       },
       getMe () {

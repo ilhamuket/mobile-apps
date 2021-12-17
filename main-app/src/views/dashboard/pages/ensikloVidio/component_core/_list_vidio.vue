@@ -55,9 +55,7 @@
                     {{ item.category.display_name }} - {{ item.studio.name }}
                   </span>
                   <br>
-                  <span class="font-spartan white--text">
-                    2000
-                  </span>
+                  <span class="font-spartan white--text"> 2000 </span>
                   <br>
 
                   <!-- <v-rating
@@ -74,7 +72,6 @@
                     outlined
                     width="190"
                     color="primary white--text"
-                    class="btn_explore-vidio"
                     @click="navigate(`/class-vidio/detail/${item.slug}`)"
                   >
                     Explore

@@ -164,7 +164,7 @@
           to: "/article",
         },
         {
-          title: "icons",
+          title: "event",
           icon: "mdi-chart-bubble",
           to: "/components/icons",
         },

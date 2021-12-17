@@ -72,7 +72,7 @@
                   <div class="d-flex flex-row margin--icon">
                     <div class="d-flex flex-column">
                       <v-tooltip
-                        bottom
+                        top
                         color="btn_primary"
                       >
                         <template #activator="{ on, attrs }">
@@ -80,6 +80,7 @@
                             v-bind="attrs"
                             color="red"
                             class="mr-2"
+                            style="cursor: pointer"
                             v-on="on"
                           >
                             mdi-instagram
@@ -92,7 +93,7 @@
                     </div>
                     <div class="d-flex flex-column">
                       <v-tooltip
-                        bottom
+                        top
                         color="btn_primary"
                       >
                         <template #activator="{ on, attrs }">
@@ -100,6 +101,7 @@
                             v-bind="attrs"
                             color="blue"
                             class="mr-2"
+                            style="cursor: pointer"
                             v-on="on"
                           >
                             mdi-facebook
@@ -112,13 +114,14 @@
                     </div>
                     <div class="d-flex flex-column">
                       <v-tooltip
-                        bottom
+                        top
                         color="btn_primary"
                       >
                         <template #activator="{ on, attrs }">
                           <v-icon
                             v-bind="attrs"
                             color="blue"
+                            style="cursor: pointer"
                             v-on="on"
                           >
                             mdi-twitter

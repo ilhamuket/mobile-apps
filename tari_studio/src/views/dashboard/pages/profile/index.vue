@@ -55,7 +55,7 @@
           v-model="tabs"
           background-color="btn_primary"
           color="btn_primary"
-          class="tabs-profile"
+          class="tabs-profile customize--tabs font-spartan"
           show-arrows
         >
           <v-tab class="font-spartan-small">
@@ -1011,9 +1011,25 @@
 </script>
 
 <style lang="sass">
-.theme--light
-    .tabs-profile > .v-tabs-bar
-        background-color: #F0F2F5 !important
-        margin-bottom: 2px
-        border-bottom: 1px double #9DC4D1 !important
+.theme--dark.v-skeleton-loader .v-skeleton-loader__actions, .theme--dark.v-skeleton-loader .v-skeleton-loader__article, .theme--dark.v-skeleton-loader .v-skeleton-loader__card-heading, .theme--dark.v-skeleton-loader .v-skeleton-loader__card-text, .theme--dark.v-skeleton-loader .v-skeleton-loader__date-picker, .theme--dark.v-skeleton-loader .v-skeleton-loader__list-item, .theme--dark.v-skeleton-loader .v-skeleton-loader__list-item-avatar, .theme--dark.v-skeleton-loader .v-skeleton-loader__list-item-text, .theme--dark.v-skeleton-loader .v-skeleton-loader__list-item-two-line, .theme--dark.v-skeleton-loader .v-skeleton-loader__list-item-avatar-two-line, .theme--dark.v-skeleton-loader .v-skeleton-loader__list-item-three-line, .theme--dark.v-skeleton-loader .v-skeleton-loader__list-item-avatar-three-line, .theme--dark.v-skeleton-loader .v-skeleton-loader__table-heading, .theme--dark.v-skeleton-loader .v-skeleton-loader__table-thead, .theme--dark.v-skeleton-loader .v-skeleton-loader__table-tbody, .theme--dark.v-skeleton-loader .v-skeleton-loader__table-tfoot
+  background: #283046 !important
+  background-image: initial
+  background-position-x: initial
+  background-position-y: initial
+  background-size: initial
+  background-repeat-x: initial
+  background-repeat-y: initial
+  background-attachment: initial
+  background-origin: initial
+  background-clip: initial
+  background-color: rgb(87, 38, 38)
+.tabs-profile > .v-tabs-bar
+    background-color: #F0F2F5 !important
+    margin-bottom: 2px
+    border-bottom: 1px double #9DC4D1 !important
+    font-weight: bold
+.customize--tabs
+  .v-tab
+    text-transform: capitalize !important
+    font-style: none !important
 </style>

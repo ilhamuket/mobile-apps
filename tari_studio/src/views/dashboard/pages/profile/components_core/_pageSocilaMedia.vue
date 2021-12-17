@@ -8,7 +8,7 @@
           type="info"
           color="primary"
           elevation="2"
-          class="font-spartan"
+          class="font-spartan alert__custom"
         >
           fill in your Username Social Media Instagram, Twitter, and Facebook,
           if you want to publish ..
@@ -87,10 +87,15 @@
     },
     methods: {
       save () {
-        this.$emit('save', { item: this.data })
+        this.$emit("save", { item: this.data })
       },
     },
   }
 </script>
 
-<style></style>
+<style lang="sass">
+.theme--dark
+  .alert
+    &__custom
+      background-color: #141C31 !important
+</style>

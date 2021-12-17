@@ -340,6 +340,9 @@
       toogle_dark_theme () {
         localStorage.setItem("dark_theme", this.$vuetify.theme.dark.toString())
       },
+      toggle_theme () {
+        localStorage.setItem("dark_theme", this.$vuetify.theme.dark.toString())
+      },
       getMe () {
         this.$store.dispatch("user/me")
       },

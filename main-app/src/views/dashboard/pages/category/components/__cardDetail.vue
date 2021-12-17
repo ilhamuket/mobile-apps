@@ -16,11 +16,12 @@
             :class="isMobile ? 'title_category__mobile' : ''"
           >
             <v-avatar
+              v-if="category.img"
               size="80"
               tile
               class="ml-2 rounded-xl"
             >
-              <v-img src="http://127.0.0.1:8000/images/776290.jpg" />
+              <v-img :src="category.img.url" />
             </v-avatar>
           </v-col>
           <v-col

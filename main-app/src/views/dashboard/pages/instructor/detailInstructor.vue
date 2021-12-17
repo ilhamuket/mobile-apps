@@ -9,7 +9,10 @@
         <v-col cols="12">
           <v-row>
             <v-col cols="12">
-              <v-tabs v-model="tabs">
+              <v-tabs
+                v-model="tabs"
+                class="customize--tabs font-spartan"
+              >
                 <v-tab> Profile </v-tab>
                 <v-tab> Class </v-tab>
               </v-tabs>
@@ -23,7 +26,7 @@
                   />
                 </v-tab-item>
                 <v-tab-item>
-                  <app-page-fix />
+                  <app-page-class :classes="classes.data" />
                 </v-tab-item>
               </v-tabs-items>
             </v-col>
@@ -38,17 +41,27 @@
   import rowDetail from "./component_core/_rowDetail.vue"
   import cardDetail from "./component_core/_cardDetail.vue"
   import pageProfile from "./component/__pageProfile.vue"
-  import fix from "./component_core/_class.vue"
+  // import fix from "./component_core/_class.vue"
+  import pageCLasses from "./component/__pageEnsikloLive.vue"
   export default {
     components: {
       "app-row-detail-img": rowDetail,
       "app-card-detail-profile": cardDetail,
       "app-page-profile": pageProfile,
-      "app-page-fix": fix,
+      // "app-page-fix": fix,
+      "app-page-class": pageCLasses,
     },
     data: () => ({
       tabs: null,
       list: [],
+      classes: {
+        meta: {},
+        links: {
+          next: null,
+        },
+        data: [],
+      },
+      page: 1,
     }),
     computed: {
       computedDetail () {
@@ -65,6 +78,8 @@
       this.fetchDataDetailInstructor()
       this.getDataVidioProfile()
       this.getDataAutoPlay()
+      this.classByInstructor()
+      this.scroll()
     },
     methods: {
       fetchDataDetailInstructor () {
@@ -88,6 +103,49 @@
           vidio_id: id,
         })
       },
+      classByInstructor (page) {
+        this.$store
+          .dispatch("classes/getDataClasses", {
+            paginate: 6,
+            page: page,
+            entities: "studio.img,img",
+            instructor_slug: this.$route.params.slug,
+            status: "publish",
+          })
+          .then((res) => {
+            if (res.data.meta.status) {
+              this.classes.meta = res.data.meta
+              this.classes.links.next = res.data.links.next
+              if (page === 1) {
+                this.classes.data = res.data.data
+              } else {
+                this.classes.data.push(...res.data.data)
+              }
+            }
+          })
+      },
+      moreClass () {
+        if (this.classes.links.next) {
+          this.page++
+          this.classByInstructor(this.page)
+        }
+      },
+      scroll () {
+        window.onscroll = () => {
+          const bottomOfWindow =
+            document.documentElement.scrollTop + window.innerHeight >=
+            document.documentElement.offsetHeight - 150
+
+          if (bottomOfWindow) {
+            // if (this.$route.params.folder === "ensiklo-live") {
+            this.moreClass()
+          // } else if (this.$route.params.folder === "ensiklo-video") {
+          // // this.moreEnsikloVideo()
+          // }
+          }
+        }
+      },
+      // Emit
       chooseVidio ({ item }) {
         this.getDataAutoPlay(item.id)
         console.log(item.id)
@@ -96,4 +154,9 @@
   }
 </script>
 
-<style lang="sass"></style>
+<style lang="sass">
+.customize--tabs
+  .v-tab
+    text-transform: capitalize !important
+    font-style: none !important
+</style>

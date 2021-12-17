@@ -175,6 +175,7 @@ class StudioClassController extends Controller
                 ->sort($request->sort)
                 ->filterByDate($request->date)
                 ->category($request->category_name, $request->studio_slug)
+                ->instructor($request->instructor_slug)
                 ->paginate($request->input('paginate', 3));
             // $master->appends(['search' => $search]);
 

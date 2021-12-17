@@ -42,11 +42,8 @@
       <v-row class="row__card">
         <v-col cols="12">
           <v-card>
-            <v-card-title class="d-flex justify-center">
-              {{ classes.name }} -
-              <span class="font-spartan-small btn_primary--text">
-                EnsikloLive
-              </span>
+            <v-card-title class="d-flex flex-row justify-center">
+              {{ classes.name }}
               <!-- <v-chip
                 class="ml-2"
                 outlined
@@ -79,24 +76,83 @@
               </v-chip>
             </v-card-text>
             <v-card-text class="d-flex justify-center">
-              <v-icon
-                class="icon__share"
-                color="red"
-              >
-                mdi-instagram
-              </v-icon>
-              <v-icon
-                class="icon__share"
+              <v-tooltip
+                bottom
                 color="blue"
               >
-                mdi-facebook
-              </v-icon>
-              <v-icon
-                class="icon__share"
+                <template #activator="{ on, attrs }">
+                  <v-icon
+                    v-bind="attrs"
+                    class="icon__share hover__icon"
+                    color="blue"
+                    v-on="on"
+                  >
+                    mdi-facebook
+                  </v-icon>
+                </template>
+                <span
+                  v-if="classes.studio"
+                  class="font-spartan-small"
+                >
+                  {{
+                    classes.studio.username_fb
+                      ? classes.studio.username_fb
+                      : "Facebook"
+                  }}
+                </span>
+              </v-tooltip>
+
+              <v-tooltip
+                bottom
                 color="blue"
               >
-                mdi-twitter
-              </v-icon>
+                <template #activator="{ on, attrs }">
+                  <v-icon
+                    v-bind="attrs"
+                    class="icon__share hover__icon"
+                    color="red"
+                    v-on="on"
+                  >
+                    mdi-instagram
+                  </v-icon>
+                </template>
+                <span
+                  v-if="classes.studio"
+                  class="font-spartan-small"
+                >
+                  {{
+                    classes.studio.username_ig
+                      ? classes.studio.username_ig
+                      : "Instagram"
+                  }}
+                </span>
+              </v-tooltip>
+
+              <v-tooltip
+                bottom
+                color="blue"
+              >
+                <template #activator="{ on, attrs }">
+                  <v-icon
+                    v-bind="attrs"
+                    class="icon__share hover__icon"
+                    color="blue"
+                    v-on="on"
+                  >
+                    mdi-twitter
+                  </v-icon>
+                </template>
+                <span
+                  v-if="classes.studio"
+                  class="font-spartan-small"
+                >
+                  {{
+                    classes.studio.username_tw
+                      ? classes.studio.username_tw
+                      : "Twitter"
+                  }}
+                </span>
+              </v-tooltip>
             </v-card-text>
             <v-card-actions class="d-flex justify-center">
               <v-btn
@@ -196,7 +252,16 @@
               <div class="d-flex flex-row">
                 <div class="d-flex flex-column">
                   <span class="font-spartan-price mt-2">
-                    {{ $t("ensiklolive.slot") }} : 0 / {{ classes.kapasitas }}
+                    {{ $t("ensiklolive.slot") }} :
+                    {{ computedClassUser.length }} / {{ classes.kapasitas }}
+                  </span>
+                </div>
+              </div>
+              <div class="d-flex flex-ro">
+                <div class="d-flex flex-column">
+                  <span class="font-spartan-price mt-2">
+                    Started Class :
+                    {{ classes.start_at | moment("MMMM Do YYYY") }}
                   </span>
                 </div>
               </div>
@@ -268,6 +333,7 @@
       :state-load="state_load"
       @send="replyDataDiscusses"
       @sendReply="replyDataDiscussesParent"
+      @replyNesting="replyDataNestingDiscustion"
     />
     <app-dialog-form
       :dialog="register"
@@ -337,14 +403,16 @@
         }
         return value
       },
+      computedClassUser () {
+        return this.$store.state.classes.class_user
+      },
     },
     mounted () {
       this.getDataClassesBySlug()
       this.getDataDiscuss()
       this.scroll()
       this.getMe()
-
-      console.log(this.classes.id, "my ID")
+      this.getDataClassHasUser()
     },
     methods: {
       time (val) {
@@ -453,6 +521,17 @@
             this.class_id = res.data.data.id
           })
       },
+
+      getDataClassHasUser () {
+        this.$store
+          .dispatch("classes/getDataClassHasUser", {
+            slug: this.$route.params.keyword,
+          })
+          .then((res) => {
+            console.log(res.data.data.length)
+          })
+      },
+
       getDataDiscuss (page) {
         this.$store
           .dispatch("studioDiscuses/getDataDiscusses", {
@@ -487,9 +566,9 @@
           })
           .then((res) => {
             if (res.data.meta.status) {
-              item = ""
               this.discuss.data.unshift(res.data.data)
             }
+            item = ""
           })
       },
       replyDataDiscussesParent ({ item }) {
@@ -504,9 +583,34 @@
               const index = this.discuss.data.findIndex(
                 (x) => x.id === item.data.id,
               )
-              console.log(index)
-              this.discuss.data[index].child.unshift(res.data.data)
+              // console.log(index)
+              if (index !== -1) {
+                this.discuss.data[index].child.unshift(res.data.data)
               // this.getDataDiscuss()
+              }
+              item.content = ""
+            }
+          })
+      },
+
+      replyDataNestingDiscustion ({ item }) {
+        // console.log(item)
+        // console.log(`@${item.data.user.nickName} ${item.content}`)
+        this.$store
+          .dispatch("studioDiscuses/replyDataDiscusses", {
+            body: `@${item.data.user.nickName} ${item.content}`,
+            slug: this.$route.params.class_slug,
+            parent_id: item.parent_id,
+          })
+          .then((res) => {
+            if (res.data.meta.status) {
+              const index = this.discuss.data.findIndex(
+                (x) => x.id === item.parent_id,
+              )
+              // console.log(index)
+              if (index !== -1) {
+                this.discuss.data[index].child.push(res.data.data)
+              }
               item.content = ""
             }
           })
@@ -615,7 +719,11 @@
     .size__icon
         font-size: 31px !important
 .list__item
-    .v-chip
-        &:hover
-            background-color: red
+  .v-chip
+      &:hover
+          background-color: red
+.hover__icon
+  &:hover
+    transform: scale(1.1)
+    cursor: pointer
 </style>

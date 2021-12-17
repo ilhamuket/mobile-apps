@@ -175,6 +175,7 @@
       }
     }
   },
+  "event": "Event",
   "reviews": "Reviews",
   "discusses": "Discussion",
   "vidio_name": "Index Video",

@@ -175,6 +175,7 @@
       }
     }
   },
+  "event": "Event",
   "reviews": "Ulasan",
   "discusses": "Diskusi",
   "vidio_name": "Index Vidio",

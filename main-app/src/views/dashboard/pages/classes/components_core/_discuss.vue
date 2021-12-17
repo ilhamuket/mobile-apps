@@ -191,137 +191,183 @@
           </div>
         </div>
         <div
-          v-for="(child, z) in item.child"
-          :key="z"
-          class="reply"
+          v-if="see"
+          class="d-flex flex-row justify-center"
         >
-          <div class="d-flex flex-row ml-12 mt-4">
-            <div class="d-flex flex-column">
-              <v-avatar
-                v-if="child.class.author_id === child.user.id"
-                size="37"
-              >
-                <v-img
-                  v-if="child.user.studio.img"
-                  :src="child.user.studio.img.url"
-                />
-              </v-avatar>
-              <v-avatar
-                v-else
-                color="primary"
-                size="30"
-              >
-                <v-img
-                  v-if="child.user.img"
-                  :src="child.user.img.url"
-                />
-                <span v-else> {{ child.user.nickName.charAt(0) }} </span>
-              </v-avatar>
-            </div>
-            <div class="d-flex flex-column">
-              <span class="font-spartan-small ml-2">
-                {{ child.user.nickName }}
-              </span>
-            </div>
-
-            <div class="d-flex flex-row">
-              <div class="d-flex flex-column">
-                <span class="font-spartan-small ml-2"> - </span>
-              </div>
-            </div>
-            <div class="d-flex flex-row">
-              <div class="d-flex flex-column">
-                <v-chip
-                  color="transparent"
-                  :text-color="
-                    child.class.author_id === child.user.id
-                      ? 'btn_primary'
-                      : 'btn_primary'
-                  "
-                  class="font-spartan-small chip__status"
-                >
-                  {{
-                    child.class.author_id === child.user.id
-                      ? "Studio"
-                      : "Visitor"
-                  }}
-                </v-chip>
-              </div>
-            </div>
-            <div class="d-flex flex-row margin__icon__reply">
-              <div class="d-flex flex-column">
-                <v-menu v-model="menu">
-                  <template #activator="{ on, attrs }">
-                    <v-icon
-                      v-bind="attrs"
-                      v-on="on"
-                    >
-                      mdi-dots-horizontal
-                    </v-icon>
-                  </template>
-                  <v-list v-if="menu">
-                    <v-list-item>
-                      <v-list-item-title> Report </v-list-item-title>
-                    </v-list-item>
-                  </v-list>
-                </v-menu>
-              </div>
-            </div>
+          <div class="d-flex flex-column">
+            <v-chip
+              v-if="item.child"
+              label
+              text-color="#7C9AD9"
+              color="transparent"
+              style="cursor: pointer"
+              class="mb-2 mt-2 font-spartan"
+              @click="see = !see"
+            >
+              <v-icon class="mr-2">
+                mdi-arrow-up-drop-circle-outline
+              </v-icon>
+              Hide {{ item.child.length }} Discussion
+            </v-chip>
           </div>
-          <div class="d-flex flex-column margin__reply__body">
-            <span class="font-spartan-small">
-              {{ child.body }}
-            </span>
+        </div>
+        <div
+          v-else
+          class="d-flex flex-row ml-12 mt-2"
+        >
+          <div class="d-flex flex-column">
+            <v-chip
+              v-if="item.child"
+              label
+              text-color="#7C9AD9"
+              color="transparent"
+              style="cursor: pointer"
+              class="mb-2 font-spartan mt-2"
+              @click="see = !see"
+            >
+              <v-icon class="mr-2">
+                mdi-arrow-down-drop-circle-outline
+              </v-icon>
+              See {{ item.child.length }} Reply
+            </v-chip>
           </div>
-          <div class="d-flex flex-row margin__actions__reply">
-            <div class="d-flex-column">
-              <span class="font-spartan-small">
-                {{ timeSince(child.created_at) }}
-              </span>
-            </div>
-            <div class="d-flex-column ml-4">
-              <v-icon>mdi-heart-outline</v-icon>
-            </div>
-            <div class="d-flex-column ml-4">
-              <span
-                style="cursor: pointer"
-                class="font-spartan-small"
-                @click="replyChildActive(child)"
-              >
-                Reply
-              </span>
-            </div>
-          </div>
+        </div>
+        <div v-if="see">
           <div
-            v-if="child.isChildReplies"
-            class="d-flex-row mt-2 margin__reply"
+            v-for="(child, z) in item.child"
+            :key="z"
+            class="reply"
           >
-            <div class="d-flex flex-column">
-              <v-text-field
-                v-if="child.user"
-                placeholder="Isi Komentar Disini"
-                label="Isi Komentar Disini"
-                append-icon="mdi-send"
-                :prefix="`@${child.user.nickName}`"
-              >
-                <template #prepend>
-                  <v-avatar
-                    v-if="me.img"
-                    size="30"
+            <div class="d-flex flex-row ml-12 mt-4">
+              <div class="d-flex flex-column">
+                <v-avatar
+                  v-if="child.class.author_id === child.user.id"
+                  size="37"
+                >
+                  <v-img
+                    v-if="child.user.studio.img"
+                    :src="child.user.studio.img.url"
+                  />
+                </v-avatar>
+                <v-avatar
+                  v-else
+                  color="primary"
+                  size="30"
+                >
+                  <v-img
+                    v-if="child.user.img"
+                    :src="child.user.img.url"
+                  />
+                  <span v-else> {{ child.user.nickName.charAt(0) }} </span>
+                </v-avatar>
+              </div>
+              <div class="d-flex flex-column">
+                <span class="font-spartan-small ml-2">
+                  {{ child.user.nickName }}
+                </span>
+              </div>
+
+              <div class="d-flex flex-row">
+                <div class="d-flex flex-column">
+                  <span class="font-spartan-small ml-2"> - </span>
+                </div>
+              </div>
+              <div class="d-flex flex-row">
+                <div class="d-flex flex-column">
+                  <v-chip
+                    color="transparent"
+                    :text-color="
+                      child.class.author_id === child.user.id
+                        ? 'btn_primary'
+                        : 'btn_primary'
+                    "
+                    class="font-spartan-small chip__status"
                   >
-                    <v-img :src="me.img.url" />
-                  </v-avatar>
-                  <v-avatar
-                    v-else
-                    color="primary"
-                    size="30"
-                  >
-                    <span class="font-spartan white--text">
-                      {{ me.nickName.charAt(0) }}
-                    </span>
-                  </v-avatar>
-                </template>
-              </v-text-field>
+                    {{
+                      child.class.author_id === child.user.id
+                        ? "Studio"
+                        : "Visitor"
+                    }}
+                  </v-chip>
+                </div>
+              </div>
+              <div class="d-flex flex-row margin__icon__reply">
+                <div class="d-flex flex-column">
+                  <v-menu v-model="menu">
+                    <template #activator="{ on, attrs }">
+                      <v-icon
+                        v-bind="attrs"
+                        v-on="on"
+                      >
+                        mdi-dots-horizontal
+                      </v-icon>
+                    </template>
+                    <v-list v-if="menu">
+                      <v-list-item>
+                        <v-list-item-title> Report </v-list-item-title>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex flex-column margin__reply__body">
+              <span class="font-spartan-small">
+                {{ child.body }}
+              </span>
+            </div>
+            <div class="d-flex flex-row margin__actions__reply">
+              <div class="d-flex-column">
+                <span class="font-spartan-small">
+                  {{ timeSince(child.created_at) }}
+                </span>
+              </div>
+              <div class="d-flex-column ml-4">
+                <v-icon>mdi-heart-outline</v-icon>
+              </div>
+              <div class="d-flex-column ml-4">
+                <span
+                  style="cursor: pointer"
+                  class="font-spartan-small"
+                  @click="replyChildActive(child)"
+                >
+                  Reply
+                </span>
+              </div>
+            </div>
+            <div
+              v-if="child.isChildReplies"
+              class="d-flex-row mt-2 margin__reply"
+            >
+              <div class="d-flex flex-column">
+                <v-text-field
+                  v-if="child.user"
+                  v-model="contentNestingReply"
+                  placeholder="Balas Diskusi"
+                  label="Balas Disini"
+                  append-icon="mdi-send"
+                  :prefix="`@${child.user.nickName}`"
+                  @click:append="replyNestingDiscustion(child)"
+                >
+                  <template #prepend>
+                    <v-avatar
+                      v-if="me.img"
+                      size="30"
+                    >
+                      <v-img :src="me.img.url" />
+                    </v-avatar>
+                    <v-avatar
+                      v-else
+                      color="primary"
+                      size="30"
+                    >
+                      <span class="font-spartan white--text">
+                        {{ me.nickName.charAt(0) }}
+                      </span>
+                    </v-avatar>
+                  </template>
+                </v-text-field>
+              </div>
             </div>
           </div>
         </div>
@@ -377,6 +423,8 @@
       isReplies: false,
       content: "",
       contentReply: "",
+      contentNestingReply: "",
+      see: false,
     }),
     methods: {
       replyParentActive (item) {
@@ -385,6 +433,7 @@
       },
       replyChildActive (item) {
         item.isChildReplies = !item.isChildReplies
+        console.log(item)
       },
       timeSince (time) {
         switch (typeof time) {
@@ -445,6 +494,17 @@
       sendDiscusses (item) {
         this.$emit("send", { item: this.content })
         this.content = null
+      },
+      replyNestingDiscustion (item) {
+        console.log(item)
+        this.$emit("replyNesting", {
+          item: {
+            data: item,
+            parent_id: item.parent_id,
+            content: this.contentNestingReply,
+          },
+        })
+        item.isChildReplies = false
       },
       sendReply (item) {
         this.$emit("sendReply", {

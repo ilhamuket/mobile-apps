@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Schema\Blueprint;
 use Modules\Media\Entities\Category;
 use Modules\StudioOwners\Entities\ImgClasses;
 use Modules\StudioOwners\Entities\ImgListClass;
@@ -204,6 +205,17 @@ class StudioClass extends Model
                 $query->where('slug', $categoryName);
             })->whereHas('studio', function (Builder $query) use ($studioSlug) {
                 $query->where('slug', $studioSlug);
+            });
+        }
+
+        return $query;
+    }
+
+    public function scopeInstructor($query, $instructor_slug)
+    {
+        if ($instructor_slug != null && $instructor_slug != '') {
+            $query->whereHas('instructor_v2', function (Builder $query) use ($instructor_slug) {
+                $query->where('slug', $instructor_slug);
             });
         }
 

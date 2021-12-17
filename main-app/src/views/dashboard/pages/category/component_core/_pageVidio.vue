@@ -1,6 +1,6 @@
 <template>
   <v-container class="mt-4">
-    <v-row>
+    <v-row v-if="data.length !== 0">
       <v-col
         v-for="(item, i) in data"
         :key="i"
@@ -77,6 +77,16 @@
             </v-container>
           </v-card>
         </v-hover>
+      </v-col>
+    </v-row>
+    <v-row v-else>
+      <v-col
+        cols="12"
+        class="d-flex justify-center"
+      >
+        <span class="font-spartan text-capitalize grey--text">
+          data not available
+        </span>
       </v-col>
     </v-row>
   </v-container>

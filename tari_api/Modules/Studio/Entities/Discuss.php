@@ -5,10 +5,11 @@ namespace Modules\Studio\Entities;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Discuss extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [];
 
@@ -46,6 +47,18 @@ class Discuss extends Model
     // {
     //     return $this->belongsToMany(User::class, 'discuss_report', 'discuss_id', 'user_id');
     // }
+
+    public static function boot()
+    {
+        parent::boot();
+        self::deleting(function ($discustion) { // before delete() method call this
+            if ($discustion->parent()) {
+                $discustion->parent()->each(function ($items) {
+                    $items->delete(); // <-- direct deletion
+                });
+            }
+        });
+    }
 
     // === Scope === //
     public function scopeEntities($query, $entities)
