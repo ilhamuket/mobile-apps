@@ -43,7 +43,7 @@
         <v-col cols="12">
           <v-card>
             <v-card-title class="d-flex flex-row justify-center">
-              {{ classes.name }}
+              {{ classes.name ? classes.name : "Classes Name" }}
               <!-- <v-chip
                 class="ml-2"
                 outlined
@@ -415,6 +415,8 @@
       this.getDataClassHasUser()
     },
     methods: {
+      // get Dom
+
       time (val) {
         if (val !== null) {
           const nameArray = val.split(":")
