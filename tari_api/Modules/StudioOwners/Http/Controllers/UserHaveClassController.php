@@ -47,11 +47,12 @@ class UserHaveClassController extends Controller
             return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         }
     }
-    public function classHasUser(Request $request, $slug)
+    public function classHasUser(Request $request, $keyword)
     {
         try {
-            $master = userHaveClass::whereHas("classes", function (Builder $query) use ($slug) {
-                $query->where('keyword', $slug);
+            $class_slug = $request->class_slug;
+            $master = userHaveClass::whereHas("classes", function (Builder $query) use ($keyword, $class_slug) {
+                $query->where('keyword', $keyword)->where('slug', $class_slug);
             })
                 ->entities($request->entities)
                 ->summary($request->summary)

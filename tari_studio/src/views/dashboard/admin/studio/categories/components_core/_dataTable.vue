@@ -4,7 +4,7 @@
     icon="mdi-playlist-check"
   >
     <template #after-heading>
-      <span class="text-h3 btn_primary--text font-spartan">
+      <span class="btn_primary--text font-spartan">
         {{ cumputedName }}
       </span>
     </template>

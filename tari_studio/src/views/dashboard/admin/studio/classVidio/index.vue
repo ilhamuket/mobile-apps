@@ -13,6 +13,8 @@
           :value="String(summary.all)"
           sub-icon="mdi-heart-outline"
           sub-text="EnsikloTari"
+          style="cursor: pointer"
+          @click.native="setSummary('')"
         />
       </v-col>
       <v-col
@@ -27,6 +29,8 @@
           :value="String(summary.publish)"
           sub-icon="mdi-heart-outline"
           sub-text="EnsikloTari"
+          style="cursor: pointer"
+          @click.native="setSummary('publish')"
         />
       </v-col>
       <v-col
@@ -41,6 +45,8 @@
           :value="String(summary.draft)"
           sub-icon="mdi-heart-outline"
           sub-text="EnsikloTari"
+          style="cursor: pointer"
+          @click.native="setSummary('draft')"
         />
       </v-col>
       <v-col
@@ -55,6 +61,8 @@
           :value="String(summary.new)"
           sub-icon="mdi-heart-outline"
           sub-text="EnsikloTari"
+          style="cursor: pointer"
+          @click.native="setSummary('new')"
         />
       </v-col>
       <v-col cols="12">
@@ -131,6 +139,7 @@
         open: false,
         data: [],
       },
+      dataSummary: "",
       hide: {
         open: false,
         data: {},
@@ -162,15 +171,25 @@
         return this.$store.state.classVidio.summary
       },
     },
+    watch: {
+      dataSummary (val) {
+        this.$router.push({ query: { ...this.$route.query, summary: val } })
+      },
+      "$route.query.summary": function (newVal) {
+        this.dataSummary = newVal
+      },
+    },
     mounted () {
       this.getDataClassVidio()
       this.getDataStudioCategories()
       this.getSummaryDataClassVidio()
     },
+
     methods: {
       getDataClassVidio () {
         this.$store.dispatch("classVidio/getDataClassVidio", {
           entities: "category",
+          summary: this.dataSummary,
         })
       },
       getSummaryDataClassVidio () {
@@ -203,6 +222,11 @@
       upPublishClassVidio ({ item }) {
         this.publish.open = true
         this.publish.data = item
+      },
+      setSummary (val) {
+        this.dataSummary = val
+        console.log(this.dataSummary)
+        this.getDataClassVidio()
       },
       publishDataClassVidio ({ item }) {
         this.$store

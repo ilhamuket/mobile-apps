@@ -53,4 +53,12 @@ class StudioClassVidio extends Model
             }
         }
     }
+
+    public function scopeSummary($query, $summary)
+    {
+        if ($summary == 'publish' || $summary == 'draft') return $query->where('status', $summary);
+        if ($summary == 'draft') return $query->whereDate('created_at', now());
+
+        return $query;
+    }
 }

@@ -42,7 +42,7 @@
                     </v-icon>
                   </v-col>
                 </v-row>
-                <v-row class="cols__list_category">
+                <v-row class="cols__list__ensiklolive">
                   <v-col
                     class="mt-8"
                     cols="12"
@@ -222,17 +222,18 @@
 </script>
 
 <style lang="sass">
-.cols__list_category
-    margin-top: 44% !important
+.cols
+  &__list
+    &__ensiklolive
+      margin-top: 44% !important
 .btn_explore
-    &:hover
-        background-color: #9DC4D1
-        color: white !important
+  &:hover
+    background-color: #9DC4D1
+    color: white !important
 .ratings__class__category
   margin-top: -6px
   margin-bottom: -20px
   margin-left: -8px
-  // .v-rating
 </style>
 <style scoped>
 .v-card {

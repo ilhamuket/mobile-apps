@@ -57,7 +57,7 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
         Route::post('send-reviews', [UserHaveClassController::class, 'sendAReviews']);
         Route::get('{id}', [UserHaveClassController::class, 'index']);
         // classes has user
-        Route::get('student/{slug}/class', [UserHaveClassController::class, 'classHasUser']);
+        Route::get('student/{keyword}/class', [UserHaveClassController::class, 'classHasUser']);
         Route::post('student/absent', [UserHaveClassController::class, 'absent']);
         // Summary
     });

@@ -55,7 +55,7 @@
     }
   },
   "index_class": "Index Class",
-  "classes": "Classes",
+  "classes": "EnsikloLive",
   "subject": "Subject",
   "sub_class_create": "Create SubClass",
   "instrucktur": "Instructor",
@@ -187,12 +187,13 @@
   "logout": "Logout",
   "Register": "Register",
   "belum ditanggapi": "Not Responded",
+  "respon": "Reviewed",
   "ditanggapi": "Responded",
   "sembunyikan": "hidden",
   "type": "Type Something ...",
   "Segarkan": "Refresh",
   "warn": "Information",
-  "class_vidio": "Class Vidio",
+  "class_vidio": "EnsikloVideo",
   "active": "Active",
   "not active": "Not Active",
   "hide_class": "Hide Class",
@@ -207,6 +208,7 @@
   "student": "Student",
   "student_has": "Murid",
   "home": "Home",
-  "clasess": "Classes",
-  "artikel": "Artikel"
+  "clasess": "EnsikloLive",
+  "artikel": "Artikel",
+  "pending": "Pending"
 }

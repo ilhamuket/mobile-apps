@@ -7,12 +7,13 @@
       <span
         :class="
           $vuetify.theme.dark
-            ? 'text-h3 white--text font-spartan'
-            : 'text-h3 btn_primary--text font-spartan'
+            ? 'btn_primary--text font-spartan'
+            : 'btn_primary--text font-spartan'
         "
       >
         <!-- {{ computudTitle }} -->
-        {{ $t("index_class_data_table") }}
+        <!-- {{ $t("index_class_data_table") }} -->
+        {{ computudTitle }}
       </span>
     </template>
     <v-container>
@@ -293,7 +294,13 @@
                 <v-chip
                   color="transparent"
                   :class="{ 'on-hover': hover }"
-                  :text-color="hover ? 'btn_primary' : 'black'"
+                  :text-color="
+                    hover
+                      ? 'btn_primary'
+                      : $vuetify.theme.dark
+                        ? 'white'
+                        : 'black'
+                  "
                   style="cursor: pointer"
                   class="mt-6"
                   @click="
@@ -509,18 +516,18 @@
     }),
     computed: {
       computudTitle () {
-        let name = "Class - All"
+        let name = "EnsikloLive - All"
         if (this.$route.query.summary === "all") {
-          name = "Class - All"
+          name = "EnsikloLive - All"
         }
         if (this.$route.query.summary === "approved") {
-          name = "Class - Approved"
+          name = "EnsikloLive - Approved"
         }
         if (this.$route.query.summary === "non-approved") {
-          name = "Class - Non Approved"
+          name = "EnsikloLive - Non Approved"
         }
         if (this.$route.query.summary === "new") {
-          name = "Class - New"
+          name = "EnsikloLive - New"
         }
         return name
       },
@@ -530,9 +537,9 @@
     },
     methods: {
       setColorLevels (levels) {
-        if (levels === "Beginner" || levels === "beginner") return "pallet1"
-        if (levels === "Advance") return "secondary"
-        if (levels === "Intermediate") return "btn_primary"
+        if (levels === "beginner" || levels === "beginner") return "pallet1"
+        if (levels === "advance") return "secondary"
+        if (levels === "intermediate") return "btn_primary"
       },
       setColorStatus (status) {
         if (status === "publish") return "btn_primary"

@@ -3,7 +3,7 @@
     <v-col cols="6">
       <v-btn
         width="185"
-        color="primary"
+        color="btn_primary"
       >
         <v-icon class="mr-1">
           mdi-cart
@@ -43,7 +43,7 @@
           <v-btn
             width="183"
             small
-            color="primary"
+            color="btn_primary"
             @click="openDialogShare"
           >
             <v-icon class="mr-2">

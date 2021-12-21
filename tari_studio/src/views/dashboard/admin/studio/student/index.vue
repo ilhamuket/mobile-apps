@@ -96,7 +96,7 @@
       getDataStudent () {
         this.$store
           .dispatch("student/getDataStudent", {
-            slug: this.$route.params.keyword,
+            class_slug: this.$route.params.slug,
             keyword: this.$route.params.keyword,
             entities: "form,classes",
             summary: this.$route.query.summary,

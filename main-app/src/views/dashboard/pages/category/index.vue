@@ -21,6 +21,8 @@
           :me="me"
           @follow="followCategory"
           @unfollow="unfollowCategory"
+          @like="likeCategory"
+          @unLike="unlikeCategory"
         />
       </v-col>
     </v-row>
@@ -58,12 +60,12 @@
       getDataCategory (page) {
         this.$store
           .dispatch("category/getDataCategory", {
-            entities: "studio.img,img,follow",
+            entities: "studio.img,img,follow,likes",
             page: page,
             paginate: 6,
-            status: 'publish',
+            status: "publish",
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.load_first = false
               this.category.meta = res.data.meta
@@ -101,7 +103,7 @@
             id: item.id,
             user: this.me,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               const Toast = this.$swal.mixin({
                 toast: true,
@@ -109,7 +111,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -129,7 +131,7 @@
           .dispatch("category/unfollowCategory", {
             id: item.id,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               const Toast = this.$swal.mixin({
                 toast: true,
@@ -137,7 +139,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener("mouseenter", this.$swal.stopTimer)
                   toast.addEventListener("mouseleave", this.$swal.resumeTimer)
                 },
@@ -148,6 +150,62 @@
               Toast.fire({
                 icon: "success",
                 title: `UnFollow category ${res.data.data.name}`,
+              })
+            }
+          })
+      },
+      likeCategory ({ item }) {
+        this.$store
+          .dispatch("category/likeCategory", {
+            id: item.id,
+          })
+          .then((res) => {
+            if (res.data.meta.status) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Like Category",
+              })
+            }
+          })
+      },
+      unlikeCategory ({ item }) {
+        this.$store
+          .dispatch("category/unlikeCategory", {
+            id: item.id,
+          })
+          .then((res) => {
+            if (res.data.meta.status) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "UnLike Category",
               })
             }
           })

@@ -9,7 +9,7 @@
           <v-img
             v-if="user.img"
             :src="user.img.url"
-            style="cursor:pointer"
+            style="cursor: pointer"
             @click="see(user.img.url)"
           />
           <v-img
@@ -49,7 +49,7 @@
       </div>
 
       <v-col cols="12">
-        <v-expansion-panels>
+        <v-expansion-panels class="user__expand">
           <v-expansion-panel>
             <v-expansion-panel-header disable-icon-rotate>
               {{ $t("pembelian") }}
@@ -181,4 +181,12 @@
     margin-right: -20px !important
 .cols--profile
     margin-top: -20px
+.theme--dark
+  .v-expansion-panels
+    .v-expansion-panel
+      background-color: #283046 !important
+      .v-expansion-panel-content
+        &__wrap
+          .v-list
+            background-color: #283046 !important
 </style>

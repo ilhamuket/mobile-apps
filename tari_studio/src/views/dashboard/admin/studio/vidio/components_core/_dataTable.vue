@@ -4,11 +4,11 @@
       <span
         :class="
           $vuetify.theme.dark
-            ? 'text-h3 btn_primary--text font-spartan'
-            : 'text-h3 btn_primary--text font-spartan'
+            ? 'btn_primary--text font-spartan'
+            : 'btn_primary--text font-spartan'
         "
       >
-        Index Video
+        {{ computedTitle }}
       </span>
     </template>
     <v-container>
@@ -27,7 +27,7 @@
               color="primary"
               bottom
             >
-              <template #activator="{on, attrs}">
+              <template #activator="{ on, attrs }">
                 <v-icon
                   v-bind="attrs"
                   color="size__icon_refresh"
@@ -144,9 +144,7 @@
             class="ml-2"
             @click="addVidio"
           >
-            <v-icon>
-              mdi-plus
-            </v-icon>
+            <v-icon> mdi-plus </v-icon>
             Add Vidio Profile
           </v-btn>
 
@@ -158,9 +156,7 @@
             color="blue"
             @click="approve(selected)"
           >
-            <v-icon>
-              mdi-check-decagram
-            </v-icon>
+            <v-icon> mdi-check-decagram </v-icon>
             Approve {{ selected.length }} item
           </v-btn>
           <v-btn
@@ -170,9 +166,7 @@
             color="red"
             @click="deletedVidio(selected)"
           >
-            <v-icon>
-              mdi-delete-empty-outline
-            </v-icon>
+            <v-icon> mdi-delete-empty-outline </v-icon>
             Delete {{ selected.length }} item
           </v-btn>
         </v-col>
@@ -210,13 +204,13 @@
               {{ $t(header.text) }}
             </template>
             <!-- Itmes -->
-            <template #[`item.id`]="{item}">
+            <template #[`item.id`]="{ item }">
               <v-img
                 :src="item.url_thumbnail_youtube"
                 width="100"
               />
             </template>
-            <template #[`item.name`]="{item}">
+            <template #[`item.name`]="{ item }">
               <div class="d-flex flex-row">
                 <div class="d-flex flex-column ml-2">
                   <span>{{ item.name }}</span>
@@ -230,7 +224,7 @@
                               bottom
                               close-delay
                             >
-                              <template #activator="{on, attrs}">
+                              <template #activator="{ on, attrs }">
                                 <v-icon
                                   v-bind="attrs"
                                   small
@@ -259,7 +253,7 @@
                               bottom
                               close-delay
                             >
-                              <template #activator="{on, attrs}">
+                              <template #activator="{ on, attrs }">
                                 <v-icon
                                   v-bind="attrs"
                                   color="red"
@@ -287,7 +281,7 @@
                               bottom
                               close-delay
                             >
-                              <template #activator="{on, attrs}">
+                              <template #activator="{ on, attrs }">
                                 <v-icon
                                   v-bind="attrs"
                                   color="red"
@@ -312,7 +306,7 @@
 
               <!-- </v-list-item-avatar> -->
             </template>
-            <template #[`item.status`]="{item}">
+            <template #[`item.status`]="{ item }">
               <v-chip
                 label
                 :color="setColourStatus(item.status)"
@@ -321,7 +315,7 @@
                 {{ item.status }}
               </v-chip>
             </template>
-            <template #[`item.comment`]="{item}">
+            <template #[`item.comment`]="{ item }">
               {{ item.comment ? item.comment.length : 0 }}
             </template>
           </v-data-table>
@@ -359,7 +353,15 @@
         },
       ],
     }),
-    mounted () {},
+    computed: {
+      computedTitle () {
+        let name = "Video - All"
+        if (this.$route.query.summary === "publish")
+          return (name = "Video - Publish")
+        if (this.$route.query.summary === "new") return (name = "Video - New")
+        return name
+      },
+    },
     methods: {
       onResize () {
         if (window.innerWidth < 769) this.isMobile = true
@@ -393,7 +395,7 @@
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
-          didOpen: toast => {
+          didOpen: (toast) => {
             toast.addEventListener("mouseenter", this.$swal.stopTimer)
             toast.addEventListener("mouseleave", this.$swal.resumeTimer)
           },

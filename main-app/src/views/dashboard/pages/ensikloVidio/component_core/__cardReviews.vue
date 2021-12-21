@@ -34,7 +34,7 @@
                 justify-center
               "
             >
-              {{ value.all }} User
+              {{ value.all }} Reviews
             </span>
           </v-card-text>
         </v-card>

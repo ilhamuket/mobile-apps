@@ -5,11 +5,11 @@
         <span
           :class="
             $vuetify.theme.dark
-              ? 'text-h3 white--text font-spartan'
-              : 'text-h3 btn_primary--text font-spartan'
+              ? 'btn_primary--text font-spartan'
+              : 'btn_primary--text font-spartan'
           "
         >
-          Class Vidio
+          {{ computedTitle }}
         </span>
       </template>
       <v-row class="mt-2">
@@ -304,6 +304,16 @@
           bool = this.selected.some((x) => x.status === "publish")
         }
         return bool
+      },
+      computedTitle () {
+        let name = "EnsikloVideo - All"
+        if (this.$route.query.summary === "publish")
+          return (name = "EnsikloVideo - Publish")
+        if (this.$route.query.summary === "draft")
+          return (name = "EnsikloVideo - Draft")
+        if (this.$route.query.summary === "new")
+          return (name = "EnskloVideo - New")
+        return name
       },
     },
     methods: {

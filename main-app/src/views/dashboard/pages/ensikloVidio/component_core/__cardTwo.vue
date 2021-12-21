@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-chip
-      color="primary"
+      color="btn_primary"
       text-color="white"
       label
       class="bg--title text-center"
@@ -86,7 +86,7 @@
         v-if="computedIsFollowing"
         class="btn__studio"
         small
-        color="primary"
+        color="btn_primary"
       >
         Following
       </v-btn>

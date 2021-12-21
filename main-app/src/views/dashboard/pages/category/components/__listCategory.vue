@@ -26,10 +26,20 @@
                     cols="12"
                   >
                     <v-icon
+                      v-if="!computedIsLikeYou[i]"
                       color="primary"
                       class="hover__icon"
+                      @click="likeCategory(item)"
                     >
                       mdi-heart-outline
+                    </v-icon>
+                    <v-icon
+                      v-if="computedIsLikeYou[i]"
+                      color="red"
+                      class="hover__icon"
+                      @click="unLikeCategory(item)"
+                    >
+                      mdi-heart
                     </v-icon>
                     <v-icon
                       class="mr-2"
@@ -65,7 +75,7 @@
                       outlined
                       width="200"
                       color="primary"
-                      class="btn_explore"
+                      class=""
                       @click="
                         toPush(
                           `/category/detail/${item.studio.slug}/${item.slug}/ensiklo-live`
@@ -79,7 +89,7 @@
                       small
                       outlined
                       color="primary"
-                      class="ml-1 btn_explore"
+                      class="ml-1"
                       @click="followCategory(item)"
                     >
                       Follow
@@ -87,8 +97,8 @@
                     <v-btn
                       v-else
                       small
-                      color="primary"
-                      class="ml-1 btn_explore"
+                      color="btn_primary"
+                      class="ml-1"
                       @click="unFollowCategory(item)"
                     >
                       Following
@@ -111,10 +121,20 @@
                     cols="12"
                   >
                     <v-icon
-                      class="hover__icon"
+                      v-if="!computedIsLikeYou[i]"
                       color="primary"
+                      class="hover__icon"
+                      @click="likeCategory(item)"
                     >
                       mdi-heart-outline
+                    </v-icon>
+                    <v-icon
+                      v-if="computedIsLikeYou[i]"
+                      color="red"
+                      class="hover__icon"
+                      @click="unLikeCategory(item)"
+                    >
+                      mdi-heart
                     </v-icon>
                     <v-icon
                       class="mr-2"
@@ -151,7 +171,7 @@
                       width="200"
                       class="btn_explore"
                     >
-                      Explore222
+                      Explore
                     </v-btn>
                     <v-btn
                       v-if="!isFollowYouComputed[i]"
@@ -166,7 +186,7 @@
                     <v-btn
                       v-else
                       small
-                      color="primary"
+                      color="btn_primary"
                       class="ml-1 btn_explore"
                       @click="unFollowCategory(item)"
                     >
@@ -236,8 +256,36 @@
 
         return finalBool
       },
+      computedIsLikeYou () {
+        const arr = []
+        let boolLikes = false
+        if (this.data.length > 0) {
+          const booleanArr = this.data.filter((x) => x.likes)
+          for (const item in booleanArr) {
+            if (Object.hasOwnProperty.call(booleanArr, item)) {
+              const likes = booleanArr[item]
+              const itemLikes = likes.likes
+              // console.log(itemLikes.length)
+              if (itemLikes.length === 0) {
+                boolLikes = false
+              } else {
+                for (const item in itemLikes) {
+                  if (Object.hasOwnProperty.call(itemLikes, item)) {
+                    const x = itemLikes[item]
+                    boolLikes = x.id === this.me.id
+                  }
+                }
+              }
+              arr.push(boolLikes)
+            }
+          }
+        }
+        return arr
+      },
     },
-    mounted () {},
+    mounted () {
+      console.log(this.computedIsLikeYou)
+    },
     methods: {
       isFollowingYou (item) {
         let boolean = false
@@ -269,6 +317,17 @@
       },
       likeCategory (item) {
         this.$emit("like", { item: item })
+        const indexCategory = this.data.findIndex((x) => x.id === item.id)
+        if (indexCategory !== -1) {
+          this.computedIsLikeYou.splice(indexCategory, 1, true)
+        }
+      },
+      unLikeCategory (item) {
+        this.$emit("unLike", { item: item })
+        const indexCategory = this.data.findIndex((x) => x.id === item.id)
+        if (indexCategory !== -1) {
+          this.computedIsLikeYou.splice(indexCategory, 1, false)
+        }
       },
     },
   }
@@ -278,14 +337,10 @@
 .cols__list_category
     margin-top: 120px !important
 .btn_explore
-    // margin-left: 70px
     margin-top: 15px
-    // &:hover
-    //     background-color: #9DC4D1
-    //     color: white !important
 .hover__icon
   &:hover
-    transform: scale(1.1)
+    transform: scale(1.5)
 </style>
 <style scoped>
 .v-card {

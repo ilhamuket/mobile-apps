@@ -93,6 +93,7 @@ class StudioClassVidioController extends Controller
             $studio = OwnerStudio::where('author_id', $request->user()->id)->first();
             $master = StudioClassVidio::entities($request->entities)
                 ->where('studio_id', $studio->id)
+                ->summary($request->summary)
                 ->get();
 
             return Json::response($master);

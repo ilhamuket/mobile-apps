@@ -114,7 +114,6 @@
       left
       offset-y
       origin="top right"
-      max-width="1000px"
       transition="scale-transition"
       rounded
     >

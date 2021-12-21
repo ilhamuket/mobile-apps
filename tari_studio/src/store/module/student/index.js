@@ -42,7 +42,7 @@ export default {
       return new Promise((resolve, reject) => {
         const params = { ...payload }
         axios
-          .get(`owner/have-class/student/${payload.slug}/class`, {
+          .get(`owner/have-class/student/${payload.keyword}/class`, {
             params: params,
           })
           .then((res) => {

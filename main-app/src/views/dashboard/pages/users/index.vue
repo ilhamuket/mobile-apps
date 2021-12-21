@@ -352,11 +352,15 @@
 <style lang="sass">
 .tabs-profile
   .v-item-group
-        border-bottom: 2px double #9DACC2 !important
-        .v-tab
-            text-transform: capitalize
-            font-family: "Spartan", sans-serif
-            font-size: 14px
-        .v-tab--active
-          color: black !important
+    border-bottom: 2px double #9DACC2 !important
+    .v-tab
+        text-transform: capitalize
+        font-family: "Spartan", sans-serif
+        font-size: 14px
+    .theme--dark
+      .v-tab--active
+        color: white !important
+    .theme--light
+      .v-tab--active
+        color: black !important
 </style>

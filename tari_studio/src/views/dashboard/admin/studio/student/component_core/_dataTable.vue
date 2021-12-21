@@ -1,7 +1,7 @@
 <template>
   <base-material-card icon="mdi-account-outline">
     <template #after-heading>
-      <span class="font-spartan primary--text"> Index Student </span>
+      <span class="font-spartan btn_primary--text"> Index Student </span>
     </template>
     <v-container>
       <v-row>
@@ -52,9 +52,15 @@
           <v-btn
             :disabled="computedDisable"
             color="btn_primary"
+            class="ml-1"
             @click="sendRequest(selected)"
           >
             Send {{ selected.length }} Review
+          </v-btn>
+          <v-btn color="btn_primary">
+            <v-icon class="mr-1">
+              mdi-check-outline
+            </v-icon>Mark done
           </v-btn>
         </v-col>
         <v-col cols="12">
@@ -81,7 +87,11 @@
                 text-color="white"
                 class="text-capitalize"
               >
-                {{ item.status_responded ? item.status_responded : "-----" }}
+                {{
+                  item.status_responded
+                    ? $t(item.status_responded)
+                    : "Belum Diulas"
+                }}
               </v-chip>
             </template>
             <template #[`item.absent`]="{ item }">
@@ -173,8 +183,8 @@
     methods: {
       setColorStatus (status) {
         if (status === "ongoing") return "btn_primary"
-        if (status === "upcoming") return "primary"
-        if (status === "responded") return "btn_primary"
+        if (status === "pending") return "secondary"
+        if (status === "respon") return "btn_primary"
         else return "red"
       },
       absent (item) {

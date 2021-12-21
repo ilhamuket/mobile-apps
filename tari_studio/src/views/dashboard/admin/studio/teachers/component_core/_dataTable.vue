@@ -7,8 +7,8 @@
       <span
         :class="
           $vuetify.theme.dark
-            ? 'text-h3 btn_primary--text font-spartan'
-            : 'text-h3 btn_primary--text font-spartan'
+            ? 'btn_primary--text font-spartan'
+            : 'btn_primary--text font-spartan'
         "
       >
         {{ computedTitle }}
