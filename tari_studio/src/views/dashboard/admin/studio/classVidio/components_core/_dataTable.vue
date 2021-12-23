@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <base-material-card icon="mdi-account">
+    <base-material-card icon="mdi-laptop">
       <template #after-heading>
         <span
           :class="

@@ -12,6 +12,7 @@ use Modules\StudioOwners\Http\Controllers\CategoryImgController;
 use Modules\StudioOwners\Http\Controllers\ClassesOwnerStudioController;
 use Modules\StudioOwners\Http\Controllers\DiscussController;
 use Modules\StudioOwners\Http\Controllers\FormRegisterController;
+use Modules\StudioOwners\Http\Controllers\FormRegisterEnsiklovideoController;
 use Modules\StudioOwners\Http\Controllers\ImagesStudioController;
 use Modules\StudioOwners\Http\Controllers\ImgClassesController;
 use Modules\StudioOwners\Http\Controllers\ImgListClassController;
@@ -64,6 +65,7 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
     // Form Register
     Route::prefix('form-register')->group(function () {
         Route::post('', [FormRegisterController::class, 'store']);
+        Route::post('video', [FormRegisterEnsiklovideoController::class, 'store']);
         Route::get('{id}', [FormRegisterController::class, 'show']);
     });
     // Classes

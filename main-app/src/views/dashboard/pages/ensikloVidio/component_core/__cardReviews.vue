@@ -543,4 +543,8 @@
 .font-progresss
   font-size: 9px
   margin-left: 580px
+@media screen and (max-width: 831px)
+  .progres--ratings
+    margin-left: -2px
+    margin-top: 2px
 </style>

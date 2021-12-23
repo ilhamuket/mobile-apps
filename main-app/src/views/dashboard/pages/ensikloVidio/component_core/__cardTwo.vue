@@ -1,15 +1,19 @@
 <template>
   <v-card>
-    <v-chip
-      color="btn_primary"
-      text-color="white"
-      label
-      class="bg--title text-center"
-    >
-      <span
-        class="text-center text-capitalize"
-      ><v-icon class="mr-2">mdi-label-multiple</v-icon>Video</span>
-    </v-chip>
+    <div class="d-flex flex-row justify-end pr-2 pt-2">
+      <div class="d-flex flex-column">
+        <v-chip
+          color="btn_primary"
+          text-color="white"
+          label
+          class="text-center d-flex justify-end"
+        >
+          <span
+            class="text-capitalize"
+          ><v-icon class="mr-2">mdi-label-multiple</v-icon>Video</span>
+        </v-chip>
+      </div>
+    </div>
     <v-card-title>
       <span class="font-spartan-text font-weight-bold primary--text">
         {{ data.name }}
@@ -39,10 +43,10 @@
         </v-tab-item>
       </v-tabs-items>
     </v-card-text>
-    <v-divider />
+    <v-divider class="mb-2 mt-2" />
     <v-card-text
       v-if="data.studio"
-      class=""
+      class="mt-6"
     >
       <v-avatar v-if="data.studio.img">
         <v-img :src="data.studio.img.url" />
@@ -84,7 +88,8 @@
       </v-card-actions>
       <v-btn
         v-if="computedIsFollowing"
-        class="btn__studio"
+        v-resize="onResize"
+        :class="isMobile ? 'btn__studio__resize' : 'btn__studio'"
         small
         color="btn_primary"
       >
@@ -92,7 +97,8 @@
       </v-btn>
       <v-btn
         v-else
-        class="btn__studio"
+        v-resize="onResize"
+        :class="isMobile ? 'btn__studio__resize' : 'btn__studio'"
         small
         color="btn_primary"
         outlined
@@ -123,6 +129,7 @@
       tabs: null,
       rating: 4,
       isFollowYou: true,
+      isMobile: false,
     }),
     computed: {
       count () {
@@ -151,9 +158,16 @@
         return bool
       },
     },
+    mounted () {
+      this.onResize()
+    },
     methods: {
       toPush (data) {
         this.$router.push(`/${data.slug}/home`)
+      },
+      onResize () {
+        if (window.innerWidth < 883) this.isMobile = true
+        else this.isMobile = false
       },
     },
   }
@@ -185,8 +199,8 @@
   margin-left: 49px
   margin-top: -33px
 .bg--title
-    margin-top: 20px !important
-    margin-left: 640px
+    padding-top: 20px !important
+    padding-left : 640px
 .font__studio__title
     font-size: 13px !important
     margin-top: -41px
@@ -203,9 +217,15 @@
     margin-left: -1px !important
     font-weight: 900
 .btn__studio
+    &__resize
+      margin-left: 74%
+      margin-top: -41%
     margin-top: -90px !important
     margin-left: 605px !important
     font-weight: 900
-// .theme--light
-//     .v-tabs
+@media screen and (min-width: 887px)
+  .btn__studio
+    margin-top: -90px !important
+  // margin-left: 605px !important
+    font-weight: 900
 </style>

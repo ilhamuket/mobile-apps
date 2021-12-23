@@ -41,18 +41,19 @@ class FormRegisterEnsiklovideoController extends Controller
     {
         try {
             DB::beginTransaction();
+            $user = $request->user();
             $cart = new CartVideo();
             $cart->status = 'pending';
-            $cart->type = $request->type;
+            $cart->type = "EnsikloVideo";
             $cart->user_id = $request->user()->id;
             $cart->video_id = $request->video_id;
             $cart->save();
 
             $master = new FormRegisterEnsiklovideo();
-            $master->fullName = $request->fullName;
-            $master->address = $request->address;
-            $master->email = $request->email;
-            $master->ttl = $request->ttl;
+            $master->fullName = $user->firstName . $user->lastName;
+            $master->address = $request->input("address", $user->homeAddress);
+            $master->email = $user->email;
+            $master->ttl = $request->input('ttl', $user->dateOfBirth);
             $master->cart_vidio_id = $cart->id;
             $master->user_id = $request->user()->id;
             $master->video_id = $request->video_id;

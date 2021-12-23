@@ -45,6 +45,21 @@ export default {
           })
       })
     },
-    // EnsikloVideo
+    formRegisterEnsikloVideo: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        "Bearer " + localStorage.getItem("access_token")
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        axios
+          .post("/owner/form-register/video", { ...payload })
+          .then((res) => {
+            resolve(res)
+          })
+          .catch((e) => {
+            reject(e)
+          })
+      })
+    },
   },
 }

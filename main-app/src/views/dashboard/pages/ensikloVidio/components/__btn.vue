@@ -1,6 +1,9 @@
 <template>
-  <v-row class="row__buyying">
-    <v-col cols="6">
+  <v-row
+    class=""
+    :class="isMobile ? 'd-flex justify-center' : 'row__buyying'"
+  >
+    <!-- <v-col md="6" cols="12">
       <v-btn
         width="185"
         color="btn_primary"
@@ -10,10 +13,13 @@
         </v-icon>
         Cart
       </v-btn>
-    </v-col>
-    <v-col cols="6">
+    </v-col> -->
+    <v-col
+      v-resize="onResize"
+      cols="12"
+    >
       <v-btn
-        width="185"
+        :width="isMobile ? '313' : '370'"
         outlined
         color="btn_primary"
       >
@@ -22,13 +28,16 @@
       </v-btn>
     </v-col>
     <v-col
-      class="col__buying__modified"
+      :class="isMobile ? '' : 'col__buying__modified'"
       cols="12"
     >
       <v-row>
-        <v-col cols="6">
+        <v-col
+          v-resize="onResize"
+          :cols="isMobile ? '12' : '6'"
+        >
           <v-btn
-            width="183"
+            :width="isMobile ? '313' : '183'"
             small
             outlined
             color="red"
@@ -39,9 +48,12 @@
             WishList
           </v-btn>
         </v-col>
-        <v-col cols="6">
+        <v-col
+          v-resize="onResize"
+          :cols="isMobile ? '12' : '6'"
+        >
           <v-btn
-            width="183"
+            :width="isMobile ? '313' : '183'"
             small
             color="btn_primary"
             @click="openDialogShare"
@@ -68,10 +80,22 @@
       share: {
         open: false,
       },
+      isMobile: false,
     }),
+    created () {
+      this.onResize()
+      console.log("IsmObile :", this.isMobile)
+      console.log("Tinggi : ", window.innerHeight)
+      console.log("Lebar : ", window.innerWidth)
+    },
     methods: {
       openDialogShare () {
         this.share.open = true
+      },
+      onResize () {
+        if (window.innerWidth < 883) this.isMobile = true
+        // if (window.innerWidth > 883) this.isMobile = false
+        else this.isMobile = false
       },
     },
   }

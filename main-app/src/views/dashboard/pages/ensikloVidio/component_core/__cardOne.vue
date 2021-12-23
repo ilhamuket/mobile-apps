@@ -1,5 +1,5 @@
 <template>
-  <v-card class="bg-img__class-vidio rounded-xl">
+  <v-card class="rounded-xl">
     <v-img
       width="348"
       height="348"

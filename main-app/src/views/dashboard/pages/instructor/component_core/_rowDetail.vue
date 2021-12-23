@@ -8,7 +8,9 @@
           cycle
           height="400"
           hide-delimiter-background
+          delimiter-icon="mdi-minus"
           show-arrows-on-hover
+          hide-delimiters
         >
           <v-carousel-item
             v-for="(color, i) in colors"

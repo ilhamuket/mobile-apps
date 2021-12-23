@@ -134,6 +134,7 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
         });
         Route::prefix('video')->group(function () {
             Route::get('', [CartVideoController::class, 'index']);
+            Route::get('user', [CartVideoController::class, 'userCartVideo']);
         });
     });
     Route::prefix('reviews')->group(function () {

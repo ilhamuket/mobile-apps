@@ -46,7 +46,9 @@
       "app-card-reviews": cardReviews,
       "app-btn-buy": btn,
     },
-    data: () => ({}),
+    data: () => ({
+      isMobile: false,
+    }),
     computed: {
       computedClass () {
         return this.$store.state.ensikloVidio.show
@@ -65,8 +67,13 @@
       this.showDataEnsikloVidio()
       this.getValueReviewsEnsiloVidio()
       this.getDataEnsikloVidioReviews()
+      this.onResize()
     },
     methods: {
+      onResize () {
+        if (window.innerWidth < 883) this.isMobile = true
+        else this.isMobile = false
+      },
       showDataEnsikloVidio () {
         this.$store
           .dispatch("ensikloVidio/showDataEnsikloVidio", {
