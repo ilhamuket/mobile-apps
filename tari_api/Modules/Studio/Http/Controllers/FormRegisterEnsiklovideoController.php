@@ -39,19 +39,20 @@ class FormRegisterEnsiklovideoController extends Controller
     {
         try {
             DB::beginTransaction();
+            $user = $request->user();
             $cart = new CartVideo();
             $cart->status = 'pending';
-            $cart->type = $request->type;
+            $cart->type = "EnsikloVideo";
             $cart->user_id = $request->user()->id;
             $cart->video_id = $request->video_id;
             $cart->save();
 
             $master = new FormRegisterEnsiklovideo();
-            $master->fullName = $request->fullName;
-            $master->address = $request->address;
-            $master->email = $request->email;
-            $master->contact = $request->contact;
-            $master->ttl = $request->ttl;
+            $master->fullName = $user->firstName . ' ' . $user->lastName;
+            $master->contact = $request->input("contact", $user->noHp);
+            $master->address = $request->input("address", $user->homeAddress);
+            $master->email = $user->email;
+            $master->ttl = $request->input('ttl', $user->dateOfBirth);
             $master->cart_video_id = $cart->id;
             $master->user_id = $request->user()->id;
             $master->video_id = $request->video_id;
@@ -60,10 +61,13 @@ class FormRegisterEnsiklovideoController extends Controller
             DB::commit();
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
             return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
             return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         } catch (\ErrorException $e) {
+            DB::rollBack();
             return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         }
     }

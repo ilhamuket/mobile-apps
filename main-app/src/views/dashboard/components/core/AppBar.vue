@@ -275,7 +275,7 @@
         {
           icon: "mdi-cart",
           text: "cart_video",
-          to: "/cart",
+          to: "/cart-video",
           badge: true,
           content: "0",
         },
@@ -403,21 +403,40 @@
       getMe () {
         this.$store
           .dispatch("user/me", {
-            entities: "cart,myClass,img",
+            entities: "cart,myClass,img,cartEnsikloVideo",
           })
           .then((res) => {
             if (res.data.meta.status) {
               this.dataUser = res.data.data
 
+              // find Index Items EnsikloVideo
+              const findIndexCartVideo = this.items.findIndex(
+                (x) => x.text === "cart_video",
+              )
+              // Summary Your Cart Video
+              const cartVideoActive = this.dataUser.cart_ensiklo_video.filter(
+                (x) => x.status !== "paid",
+              )
+
+              // Actions Summary Your Cart Videos
+              this.items[findIndexCartVideo].content = cartVideoActive.length
+
+              // find index Item EnsikloLive
               const index = this.items.findIndex((x) => x.text === "cart")
+              // Summary your cart live
+
               const cartActive = this.dataUser.cart.filter(
                 (x) => x.status !== "paid",
               )
+
+              // actions summary your cart live
               this.items[index].content = cartActive.length
 
+              // items my class
               const findMyClass = this.items.findIndex(
                 (x) => x.text === "my_class",
               )
+              // actions execute My class
               this.items[findMyClass].content = this.dataUser.my_class.length
             }
           })

@@ -52,7 +52,7 @@ export default {
 
       return new Promise((resolve, reject) => {
         axios
-          .post("/owner/form-register/video", { ...payload })
+          .post("/studio/form-register-ensiklovidio/", { ...payload })
           .then((res) => {
             resolve(res)
           })

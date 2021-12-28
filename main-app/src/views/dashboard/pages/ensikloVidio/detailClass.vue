@@ -8,7 +8,7 @@
           sm="12"
         >
           <app-card-one :data="computedClass" />
-          <app-btn-buy />
+          <app-btn-buy @buyNow="clickBuyNow" />
         </v-col>
         <v-col
           cols="12"
@@ -31,6 +31,10 @@
         </v-col>
       </v-row>
     </v-card>
+    <app-dialog-buy
+      :dialog="dialogBuy"
+      @input="submit"
+    />
   </v-container>
 </template>
 
@@ -39,15 +43,21 @@
   import cardTwo from "./component_core/__cardTwo.vue"
   import cardReviews from "./component_core/__cardReviews.vue"
   import btn from "./components/__btn.vue"
+  import componentDialogBuy from "./components/child/___dialogBuyNow.vue"
   export default {
     components: {
       "app-card-one": cardOne,
       "app-card-two": cardTwo,
       "app-card-reviews": cardReviews,
       "app-btn-buy": btn,
+      "app-dialog-buy": componentDialogBuy,
     },
     data: () => ({
       isMobile: false,
+      dialogBuy: {
+        open: false,
+        user: {},
+      },
     }),
     computed: {
       computedClass () {
@@ -92,6 +102,44 @@
           class_slug: this.$route.params.slug,
           entities: "user,response",
         })
+      },
+      clickBuyNow () {
+        this.dialogBuy.open = true
+        this.dialogBuy.user = this.computedMe
+        console.log(this.$route.params.id)
+      },
+      submit ({ item }) {
+        // console.log(item)
+        this.$store
+          .dispatch("my_class/formRegisterEnsikloVideo", {
+            video_id: this.$route.params.id,
+            address: item.homeAddress,
+            email: item.email,
+            ttl: item.dateOfBirth,
+            contact: item.noHp,
+          })
+          .then((res) => {
+            if (res.data.meta.status) {
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Waiting for payment",
+              })
+            }
+          })
       },
     },
   }

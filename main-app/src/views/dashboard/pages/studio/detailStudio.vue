@@ -59,6 +59,7 @@
         v-model="tabs"
         color="btn_primary"
         class="font-spartan customize--tabs"
+        show-arrows
       >
         <v-tab class="">
           Home

@@ -12,6 +12,7 @@ use Modules\Classes\Entities\Schedule;
 use Modules\Classes\Entities\Theory;
 use Modules\Room\Entities\Room;
 use Modules\Studio\Entities\CartClass;
+use Modules\Studio\Entities\CartVideo;
 use Modules\Studio\Entities\ClassesScheduleStudio;
 use Modules\Studio\Entities\Studio;
 use Modules\Studio\Entities\StudioClass;
@@ -72,6 +73,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(CartClass::class, 'user_id');
     }
 
+    public function cartEnsikloVideo()
+    {
+        return $this->hasMany(CartVideo::class, 'user_id');
+    }
+
     // public function saveTheories()
     // {
     //     return $this->hasMany(Theory::class, 'user_id');
@@ -81,6 +87,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(Studio::class, 'author_id');
     }
+
     public function img()
     {
         return $this->hasOne(ImageUser::class, 'user_id');

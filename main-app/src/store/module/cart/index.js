@@ -4,10 +4,12 @@ export default {
   state: {
     data: [],
     summary: { all: 0, paid: 0, pending: 0 },
+    cart_video: [],
   },
   getters: {},
   mutations: {
     GET_DATA: (state, payload) => (state.data = payload),
+    GET_CART_VIDEO: (state, payload) => (state.cart_video = payload),
     GET_SUMMARY: (state, payload) => (state.summary = payload),
   },
   actions: {
@@ -40,6 +42,27 @@ export default {
           .then((res) => {
             commit("GET_SUMMARY", res.data.data)
             resolve(res)
+          })
+          .catch((e) => {
+            reject(e)
+          })
+      })
+    },
+    // ensiklovideo cart
+    getDataEnsikloVideoCart: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        "Bearer " + localStorage.getItem("access_token")
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        const params = { ...payload }
+        axios
+          .get("/studio/cart/video/user", {
+            params: params,
+          })
+          .then((res) => {
+            resolve(res)
+            commit("GET_CART_VIDEO", res.data.data)
           })
           .catch((e) => {
             reject(e)

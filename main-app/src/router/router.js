@@ -289,6 +289,22 @@ const router = new Router({
             requiresAuth: true,
           },
         },
+        // EnsikloVideo Cart
+        {
+          name: "cart_video",
+          path: "cart-video",
+          component: () =>
+            import("@/views/dashboard/pages/cartEnsikloVideo/index"),
+          meta: {
+            breadcumbs: [
+              {
+                text: "Dashboard",
+                to: "/",
+              },
+            ],
+            requiresAuth: true,
+          },
+        },
         // Detail Card
         {
           name: "detail_cart",
@@ -321,7 +337,7 @@ const router = new Router({
         },
         {
           name: "detail_ensiklo-vidio",
-          path: "/class-vidio/detail/:slug",
+          path: "/class-vidio/:id/detail/:slug",
           component: () =>
             import("@/views/dashboard/pages/ensikloVidio/detailClass"),
           meta: {

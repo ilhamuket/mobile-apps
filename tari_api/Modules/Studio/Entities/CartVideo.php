@@ -4,6 +4,7 @@ namespace Modules\Studio\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\StudioOwners\Entities\StudioClassVidio;
 
 class CartVideo extends Model
 {
@@ -14,6 +15,11 @@ class CartVideo extends Model
     protected static function newFactory()
     {
         return \Modules\Studio\Database\factories\CartVideoFactory::new();
+    }
+
+    public function video()
+    {
+        return $this->belongsTo(StudioClassVidio::class, 'video_id');
     }
 
     // ==== Scope === //

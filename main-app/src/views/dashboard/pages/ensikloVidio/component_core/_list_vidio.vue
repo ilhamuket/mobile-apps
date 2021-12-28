@@ -72,7 +72,9 @@
                     outlined
                     width="190"
                     color="primary white--text"
-                    @click="navigate(`/class-vidio/detail/${item.slug}`)"
+                    @click="
+                      navigate(`/class-vidio/${item.id}/detail/${item.slug}`)
+                    "
                   >
                     Explore
                   </v-btn>
@@ -81,7 +83,9 @@
                     width="120"
                     color="btn_primary"
                     class="btn_explore-vidio white--text ml-1"
-                    @click="navigate(`/class-vidio/detail/${item.slug}`)"
+                    @click="
+                      navigate(`/class-vidio/${item.id}/detail/${item.slug}`)
+                    "
                   >
                     Register Now !
                   </v-btn>

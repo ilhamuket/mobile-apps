@@ -17,17 +17,20 @@
     <v-col
       v-resize="onResize"
       cols="12"
+      class="mobile__col--buynow mobile__cols--375 cols__btn"
     >
       <v-btn
-        :width="isMobile ? '313' : '370'"
         outlined
         color="btn_primary"
+        class="width--btn-buynow width-375 width-desktop"
+        @click="buyNow"
       >
         <v-icon>mdi-cart-check</v-icon>
         Buy Now
       </v-btn>
     </v-col>
     <v-col
+      class="mobile__col--buynow mobile__cols--375 cols__btn--two"
       :class="isMobile ? '' : 'col__buying__modified'"
       cols="12"
     >
@@ -37,10 +40,10 @@
           :cols="isMobile ? '12' : '6'"
         >
           <v-btn
-            :width="isMobile ? '313' : '183'"
             small
             outlined
             color="red"
+            class="width--btn-buynow width-375 btn--two"
           >
             <v-icon class="mr-2">
               mdi-heart
@@ -53,9 +56,9 @@
           :cols="isMobile ? '12' : '6'"
         >
           <v-btn
-            :width="isMobile ? '313' : '183'"
             small
             color="btn_primary"
+            class="width--btn-buynow width-375 btn--share"
             @click="openDialogShare"
           >
             <v-icon class="mr-2">
@@ -97,6 +100,9 @@
         // if (window.innerWidth > 883) this.isMobile = false
         else this.isMobile = false
       },
+      buyNow () {
+        this.$emit("buyNow")
+      },
     },
   }
 </script>
@@ -107,4 +113,30 @@
 .col__buying__modified
     margin-top: -20px !important
     margin-left: -1px !important
+</style>
+<style lang="sass">
+@media screen and (min-width: 884px)
+  .cols
+    &__btn
+      padding-left: 3%
+      .width-desktop
+        width: 95% !important
+    &__btn--two
+      padding-left: 3%
+      .btn--two
+        width: 110% !important
+      .btn--share
+        width: 90% !important
+@media screen and (min-width: 410px) and (max-width: 883px)
+  .mobile
+    &__col--buynow
+      padding-left: 3%
+      .width--btn-buynow
+        width: 95% !important
+@media screen and (max-width: 376px)
+  .mobile
+    &__cols--375
+      padding-left: 3%
+      .width-375
+        width: 95% !important
 </style>

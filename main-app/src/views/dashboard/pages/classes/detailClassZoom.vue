@@ -42,26 +42,24 @@
       <v-row class="row__card">
         <v-col cols="12">
           <v-card>
-            <v-card-title class="d-flex flex-row justify-center">
+            <v-card-title
+              class="d-flex flex-row justify-center mobile__classname"
+            >
               {{ classes.name ? classes.name : "Classes Name" }}
-              <!-- <v-chip
-                class="ml-2"
-                outlined
-                color="btn_primary"
-              >
-                EnsikloLive
-              </v-chip> -->
             </v-card-title>
-            <v-card-text class="mt-2 d-flex justify-center">
+            <v-card-text
+              class="mt-2 mobile__cardtext"
+              :class="!isMobile ? 'd-flex justify-center' : ''"
+            >
               <span
                 v-if="classes.studio"
-                class="font-spartan mt-2"
+                class="font-spartan mt-2 mobile__studioname"
               >
                 {{ classes.studio.name }}
               </span>
               <v-chip
                 color="transparent"
-                class="ml-2"
+                class="mobile__ratings"
               >
                 ({{ computedRatings }})
                 <v-rating
@@ -75,7 +73,10 @@
                 Reviews)
               </v-chip>
             </v-card-text>
-            <v-card-text class="d-flex justify-center">
+            <!-- <v-card-text v-if="isMobile">
+
+            </v-card-text> -->
+            <v-card-text class="d-flex justify-center mobile__icon">
               <v-tooltip
                 bottom
                 color="blue"
@@ -154,7 +155,7 @@
                 </span>
               </v-tooltip>
             </v-card-text>
-            <v-card-actions class="d-flex justify-center">
+            <v-card-actions class="d-flex justify-center mobile__actions">
               <v-btn
                 color="btn_primary"
                 class="mr-12"
@@ -163,7 +164,7 @@
                 Register Class
               </v-btn>
             </v-card-actions>
-            <v-card-actions class="d-flex justify-center mr-12">
+            <v-card-actions class="d-flex justify-center mr-12 mobile__etc">
               <v-btn
                 class="size__icon"
                 color="btn_primary"
@@ -368,6 +369,7 @@
         state_load: false,
         user: {},
         class_id: 0,
+        isMobile: false,
       }
     },
     computed: {
@@ -407,12 +409,13 @@
         return this.$store.state.classes.class_user
       },
     },
-    mounted () {
+    created () {
       this.getDataClassesBySlug()
       this.getDataDiscuss()
       this.scroll()
       this.getMe()
       this.getDataClassHasUser()
+      this.onResize()
     },
     methods: {
       // get Dom
@@ -676,6 +679,10 @@
             }
           })
       },
+      onResize () {
+        if (window.innerWidth < 883) this.isMobile = true
+        else this.isMobile = false
+      },
     },
   }
 </script>
@@ -728,4 +735,24 @@
   &:hover
     transform: scale(1.1)
     cursor: pointer
+@media screen and (max-width: 883px)
+  .row__card
+    width: 400px !important
+    margin-left: -32px
+    .v-card
+      .mobile
+        &__studioname
+          margin-left: 33%
+          margin-top: 10%
+          margin-bottom: 10%
+        &__ratings
+          margin-left: 12% !important
+          margin-top: 4%
+          margin-bottom: 4%
+        &__icon
+          padding-left: 16%
+        &__actions
+          padding-left: 16%
+        &__etc
+          padding-left: 16%
 </style>
