@@ -26,7 +26,7 @@ class Discuss extends Model
 
     public function parent()
     {
-        return $this->belongsTo(Discuss::class, 'parent_id');
+        return $this->belongsTo(self::class, 'parent_id');
     }
 
     public function child()
@@ -73,5 +73,13 @@ class Discuss extends Model
                 return Json::exception(null, validator()->errors());
             }
         }
+    }
+
+    public function scopeParent($query, $parent)
+    {
+        if ($parent === 'null') {
+            $query->whereNull('parent_id');
+        }
+        return $query;
     }
 }

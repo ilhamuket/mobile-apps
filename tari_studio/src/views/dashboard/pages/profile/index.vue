@@ -135,6 +135,7 @@
     <app-dialog-reply
       :dialog="reply"
       @send="replyDataStudioDiscuss"
+      @send-child="replyDataStudioDiscussChild"
     />
     <app-dialog-notice
       :dialog="deleteDiscuss"
@@ -504,7 +505,7 @@
       },
       getDataStudioDiscusses () {
         this.$store.dispatch("studioDiscusses/getDataStudioDiscusses", {
-          entities: "class.img,user.img,child,likes",
+          entities: "class.img,user.img,child,likes,parent.user",
         })
       },
       upReply ({ item }) {
@@ -538,6 +539,39 @@
           .dispatch("studioDiscusses/replyDataStudioDiscuss", {
             body: item.content,
             parent_id: item.data.id,
+            id: item.data.class_id,
+          })
+          .then((res) => {
+            if (res.data.meta.status) {
+              this.reply.open = false
+              item = null
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Data Repllied Successfully",
+              })
+            }
+          })
+      // console.log(item)
+      },
+      replyDataStudioDiscussChild ({ item }) {
+        this.$store
+          .dispatch("studioDiscusses/replyDataStudioDiscuss", {
+            body: "@" + item.data.parent.user.nickName + " " + item.content,
+            parent_id: item.data.parent_id,
             id: item.data.class_id,
           })
           .then((res) => {

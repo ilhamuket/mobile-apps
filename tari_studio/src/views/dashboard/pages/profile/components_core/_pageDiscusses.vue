@@ -15,7 +15,7 @@
             color="primary"
             bottom
           >
-            <template #activator="{on, attrs}">
+            <template #activator="{ on, attrs }">
               <v-icon
                 v-bind="attrs"
                 color="size__icon_refresh"
@@ -64,9 +64,7 @@
             <v-list>
               <v-list-item-group>
                 <v-list-item>
-                  <v-list-item-title>
-                    Export
-                  </v-list-item-title>
+                  <v-list-item-title> Export </v-list-item-title>
                 </v-list-item>
               </v-list-item-group>
             </v-list>
@@ -80,9 +78,7 @@
           color="blue"
           @click="upHide(selected)"
         >
-          <v-icon>
-            mdi-check-decagram
-          </v-icon>
+          <v-icon> mdi-check-decagram </v-icon>
           Hide {{ selected.length }} item
         </v-btn>
         <v-btn
@@ -91,9 +87,7 @@
           color="red"
           @click="upDelete(selected)"
         >
-          <v-icon>
-            mdi-delete-empty-outline
-          </v-icon>
+          <v-icon> mdi-delete-empty-outline </v-icon>
           Delete {{ selected.length }} item
         </v-btn>
       </v-col>
@@ -117,7 +111,7 @@
           <template #[`header.class.name`]="{ header }">
             {{ $t(header.text) }}
           </template>
-          <template #[`header.child.firstName`]="{ header }">
+          <template #[`header.parent_id`]="{ header }">
             {{ $t(header.text) }}
           </template>
           <template #[`header.likes`]="{ header }">
@@ -125,7 +119,7 @@
           </template>
 
           <!-- Items -->
-          <template #[`item.id`]="{item}">
+          <template #[`item.id`]="{ item }">
             <div v-if="item.user">
               <v-avatar
                 v-if="item.user.img"
@@ -146,7 +140,7 @@
               </v-avatar>
             </div>
           </template>
-          <template #[`item.user.firstName`]="{item}">
+          <template #[`item.user.firstName`]="{ item }">
             <div class="mt-6">
               <span class="nickName">
                 {{ item.user.nickName }}
@@ -197,9 +191,7 @@
                       <v-icon
                         color="red"
                         small
-                      >
-                        mdi-delete
-                      </v-icon>
+                      > mdi-delete </v-icon>
                       Delete
                     </a>
                   </div>
@@ -207,23 +199,28 @@
               </div>
             </div>
           </template>
-          <template #[`item.class.name`]="{item}">
+          <template #[`item.class.name`]="{ item }">
             {{ item.class.name }}
           </template>
-          <template #[`item.child.firstName`]="{item}">
+          <template #[`item.child.firstName`]="{ item }">
             {{ item.child.length }}
           </template>
-          <template #[`item.likes`]="{item}">
+          <template #[`item.likes`]="{ item }">
             {{ item.likes.length }}
           </template>
 
-          <template #[`item.status`]="{item}">
+          <template #[`item.status`]="{ item }">
             <v-chip
               label
               :color="setColorStatus(item.status)"
               text-color="white"
             >
               {{ $t(item.status) }}
+            </v-chip>
+          </template>
+          <template #[`item.parent_id`]="{ item }">
+            <v-chip :color="setColorParent(item.parent_id)">
+              {{ item.parent_id ? "child" : "parent" }}
             </v-chip>
           </template>
         </v-data-table>
@@ -264,12 +261,12 @@
           sortable: false,
           value: "class.name",
         },
-        // {
-        //   text: "table.discusses.th.comments",
-        //   align: "start",
-        //   sortable: false,
-        //   value: "child.firstName",
-        // },
+        {
+          text: "table.discusses.th.comments",
+          align: "start",
+          sortable: false,
+          value: "parent_id",
+        },
         // {
         //   text: "table.discusses.th.like",
         //   align: "start",
@@ -306,6 +303,10 @@
       upHide (item) {
         this.$emit("hideSelected", { item: item })
         console.log("ja")
+      },
+      setColorParent (parent) {
+        if (parent === null) return "btn_primary"
+        else return "secondary"
       },
     },
   }

@@ -544,6 +544,7 @@
             entities:
               "class,user.img,child.user.img, child.class,child.user.studio.img",
             page: page,
+            parent: "null",
           })
           .then((res) => {
             if (res.data.meta.status) {

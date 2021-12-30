@@ -102,9 +102,7 @@
               </div> -->
               <div class="d-flex flex-row mt-2">
                 <div class="d-flex flex-column">
-                  <span class="font-spartan text-h4">
-                    Content :
-                  </span>
+                  <span class="font-spartan text-h4"> Content : </span>
                 </div>
               </div>
 
@@ -120,7 +118,15 @@
 
             <v-col cols="12">
               <v-textarea
+                v-if="!dialog.data.parent_id"
                 v-model="content"
+                label="Reply as Studio"
+                :placeholder="$t('type')"
+              />
+              <v-textarea
+                v-else
+                v-model="content"
+                :prefix="`@${dialog.data.parent.user.nickName}`"
                 label="Reply as Studio"
                 :placeholder="$t('type')"
               />
@@ -130,10 +136,18 @@
               class="d-flex flex-row-reverse"
             >
               <v-btn
-                color="primary"
+                v-if="!dialog.data.parent_id"
+                color="btn_primary"
                 @click="send"
               >
-                Kirim
+                Send
+              </v-btn>
+              <v-btn
+                v-else
+                color="btn_primary"
+                @click="sendChild"
+              >
+                Send
               </v-btn>
               <v-btn
                 text
@@ -170,6 +184,14 @@
           },
         })
       },
+      sendChild () {
+        this.$emit("send-child", {
+          item: {
+            data: this.dialog.data,
+            content: this.content,
+          },
+        })
+      },
       cancel () {
         this.dialog.open = false
         const Toast = this.$swal.mixin({
@@ -178,7 +200,7 @@
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
-          didOpen: toast => {
+          didOpen: (toast) => {
             toast.addEventListener("mouseenter", this.$swal.stopTimer)
             toast.addEventListener("mouseleave", this.$swal.resumeTimer)
           },

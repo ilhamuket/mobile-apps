@@ -7,7 +7,7 @@
         cols="12"
         md="4"
       >
-        <v-card class="mx-auto">
+        <v-card class="mx-auto card__poluler--studio">
           <v-img
             v-if="item.img"
             class="white--text align-end"
@@ -27,7 +27,7 @@
                   <v-chip
                     label
                     class="font-spartan mr-1 text-uppercase"
-                    color="primary"
+                    color="btn_primary"
                     text-color="white"
                     small
                     @click.stop=""
@@ -149,7 +149,7 @@
                   <v-chip
                     label
                     class="font-spartan mr-1 text-uppercase"
-                    color="primary"
+                    color="btn_primary"
                     text-color="white"
                     small
                     @click.stop=""
@@ -309,4 +309,9 @@
 <style lang="sass">
 .row__populer
     margin-top: 77% !important
+.card
+  &__poluler--studio
+    &:hover
+      transform: scale(.9)
+      border: 2px double #9DC4D1
 </style>

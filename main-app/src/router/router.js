@@ -128,6 +128,16 @@ const router = new Router({
             requiresAuth: true,
           },
         },
+        {
+          name: "view_video",
+          path: "my-video/:id/slug/:slug",
+          component: () =>
+            import("@/views/dashboard/pages/me/ensiklovideo/view"),
+          meta: {
+            breadcumbs: [],
+            requiresAuth: true,
+          },
+        },
         // Studio
         {
           name: "Studio",
@@ -295,6 +305,22 @@ const router = new Router({
           path: "cart-video",
           component: () =>
             import("@/views/dashboard/pages/cartEnsikloVideo/index"),
+          meta: {
+            breadcumbs: [
+              {
+                text: "Dashboard",
+                to: "/",
+              },
+            ],
+            requiresAuth: true,
+          },
+        },
+
+        {
+          name: "detail_cart_video",
+          path: "/cart/video/detail/:id",
+          component: () =>
+            import("@/views/dashboard/pages/cartEnsikloVideo/detailCart.vue"),
           meta: {
             breadcumbs: [
               {

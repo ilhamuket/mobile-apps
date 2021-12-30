@@ -11,6 +11,7 @@
           <v-card
             :elevation="hover ? 12 : 2"
             :class="{ 'on-hover': hover }"
+            class="card__list"
           >
             <v-img
               v-if="item.img"

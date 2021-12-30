@@ -6,19 +6,20 @@ use Brryfrmnn\Transformers\Json;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Studio\Entities\CartVideo;
+use Modules\Studio\Entities\UserHasVideo;
 
-class CartVideoController extends Controller
+class UserHasVideoController extends Controller
 {
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index(Request $request)
+    public function userHasVideo(Request $request)
     {
         try {
-            $master = CartVideo::entities($request->entites)
-                ->get();
+            $master = UserHasVideo::entities($request->entities)->where('user_id', $request->user()->id)
+                ->paginate($request->input("paginate", 2));
+
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
@@ -33,21 +34,9 @@ class CartVideoController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function userCartVideo(Request $request)
+    public function create()
     {
-        try {
-            $master = CartVideo::entities($request->entities)
-                ->where('user_id', $request->user()->id)
-                ->get();
-
-            return Json::response($master);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
-        } catch (\Illuminate\Database\QueryException $e) {
-            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
-        } catch (\ErrorException $e) {
-            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
-        }
+        return view('studio::create');
     }
 
     /**
@@ -65,19 +54,9 @@ class CartVideoController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function detailCartVideo(Request $request, $id)
+    public function show($id)
     {
-        try {
-            $master = CartVideo::entities($request->entities)
-                ->findOrFail($id);
-            return Json::response($master);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
-        } catch (\Illuminate\Database\QueryException $e) {
-            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
-        } catch (\ErrorException $e) {
-            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
-        }
+        return view('studio::show');
     }
 
     /**

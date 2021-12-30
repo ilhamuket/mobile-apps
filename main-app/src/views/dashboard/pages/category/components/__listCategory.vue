@@ -9,6 +9,7 @@
       >
         <v-hover v-slot="{ hover }">
           <v-card
+            class="card__list--category"
             :elevation="hover ? 12 : 2"
             :class="{ 'on-hover': hover }"
           >
@@ -341,6 +342,12 @@
 .hover__icon
   &:hover
     transform: scale(1.5)
+
+.card
+  &__list--category
+    &:hover
+      transform: scale(.9)
+      border: 2px double #9DC4D1
 </style>
 <style scoped>
 .v-card {

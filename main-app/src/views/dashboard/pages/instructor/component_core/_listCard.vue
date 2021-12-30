@@ -11,7 +11,7 @@
           <v-card
             width="400"
             height="400"
-            class="rounded-lg"
+            class="rounded-lg card__list"
             :elevation="hover ? 12 : 2"
           >
             <div class="img--instructor">

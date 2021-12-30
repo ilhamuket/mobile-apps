@@ -34,8 +34,8 @@
           color="primary"
         >
           <v-img
-            v-if="users.img"
-            :src="users.img.url"
+            v-if="user.img"
+            :src="user.img.url"
             width="12"
           />
           <span
@@ -171,6 +171,11 @@
           to: "/me/class",
         },
         {
+          title: "me_ensiklovidio",
+          icon: "mdi-video-check-outline",
+          to: "/me/ensiklovideo",
+        },
+        {
           title: "shop",
           icon: "mdi-cart",
           to: "/store",
@@ -202,12 +207,19 @@
 
         return users
       },
+      user () {
+        return this.$store.state.user.me
+      },
       profile () {
         return {
           avatar: true,
           title: "EnsikloTari Beta",
         }
       },
+    },
+
+    mounted () {
+      this.getMe()
     },
 
     methods: {
@@ -217,6 +229,11 @@
           children: item.children ? item.children.map(this.mapItem) : undefined,
           title: this.$t(item.title),
         }
+      },
+      getMe () {
+        this.$store.dispatch("user/me", {
+          entities: "img",
+        })
       },
       drawerBtn () {
         this.$store.state.drawer = !this.$store.state.drawer

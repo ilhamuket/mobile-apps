@@ -3,15 +3,16 @@
     id="app-bar"
     absolute
     app
-    :color="$vuetify.theme.dark ? 'secondary' : 'pallet1'"
+    :color="$vuetify.theme.dark ? '#283046' : '#E8F0F3'"
     flat
     height="75"
+    elevation="3"
   >
     <v-btn
       v-if="$vuetify.breakpoint.mdAndDown && !drawer"
       outlined
       elevation="1"
-      :color="$vuetify.theme.dark ? 'pallet1' : 'primary'"
+      :color="$vuetify.theme.dark ? 'primary' : 'primary'"
       fab
       small
       @click="setDrawer(!drawer)"
@@ -27,7 +28,10 @@
     <div class="mr-2" />
 
     <v-toolbar-title
-      class="hidden-sm-and-down font-weight-light font-size-ather-roboto-mono-name-page"
+      class="
+        hidden-sm-and-down
+        font-weight-light font-size-ather-roboto-mono-name-page
+      "
       :class="!drawer ? 'ml-6' : ''"
       v-text="$route.name"
     />
@@ -161,13 +165,11 @@
       lenguage: [
         {
           name: "en",
-          img:
-            "https://media.istockphoto.com/vectors/flag-of-great-britain-vector-id497118178?s=612x612",
+          img: "https://media.istockphoto.com/vectors/flag-of-great-britain-vector-id497118178?s=612x612",
         },
         {
           name: "id",
-          img:
-            "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg",
+          img: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg",
         },
       ],
       items: [

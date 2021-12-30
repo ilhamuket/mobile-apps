@@ -3,6 +3,7 @@
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 // use Illuminate\Routing\Route;
+// use Illuminate\Routing\Route;
 use Modules\Studio\Entities\ClassesScheduleStudio;
 use Modules\Studio\Entities\FormRegisterEnsiklovideo;
 use Modules\Studio\Entities\InstructorProfieVidio;
@@ -27,6 +28,7 @@ use Modules\Studio\Http\Controllers\StudioInstructorController;
 use Modules\Studio\Http\Controllers\StudioVidioController;
 use Modules\Studio\Http\Controllers\FormRegisterEnsiklovideoController;
 use Modules\Studio\Http\Controllers\InstructorHasClassesController;
+use Modules\Studio\Http\Controllers\UserHasVideoController;
 use Modules\StudioOwners\Http\Controllers\ReviewOwnerController;
 use Modules\StudioOwners\Http\Controllers\StudioClassVidioController;
 use Modules\StudioOwners\Http\Controllers\UserHaveClassController;
@@ -135,7 +137,12 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
         Route::prefix('video')->group(function () {
             Route::get('', [CartVideoController::class, 'index']);
             Route::get('user', [CartVideoController::class, 'userCartVideo']);
+            Route::get('{id}', [CartVideoController::class, 'detailCartVideo']);
         });
+    });
+
+    Route::prefix('has-video')->group(function () {
+        Route::get('user', [UserHasVideoController::class, 'userHasVideo']);
     });
     Route::prefix('reviews')->group(function () {
         Route::post('class', [ReviewController::class, 'store']);

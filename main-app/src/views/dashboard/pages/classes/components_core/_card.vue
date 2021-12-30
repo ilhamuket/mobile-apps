@@ -6,7 +6,7 @@
       cols="12"
       md="4"
     >
-      <v-card class="card__class">
+      <v-card class="card__class card__list">
         <v-img
           v-if="item.img"
           :src="item.img.url"

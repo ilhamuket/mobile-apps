@@ -123,6 +123,7 @@
   "profil_instrutors": "Profile Instruktor",
   "my_class": "My Class",
   "detail_cart": "View Invoice",
+  "detail_cart_video": "View Invoice",
   "me_ensiklovidio": "My Video",
   "cart_video": "EnsikloVideo Cart",
   "tutorial": "Tutorial",
@@ -131,5 +132,6 @@
   "review": "Reviews",
   "send_reviews": "Reviews",
   "student": "Murid",
-  "forgot-password": "Forgot Password"
+  "forgot-password": "Forgot Password",
+  "view_video": "Video"
 }

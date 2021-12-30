@@ -11,9 +11,7 @@
             v-resize="onResize"
             cols="12"
             md="2"
-            sm="2"
-            class="title_category"
-            :class="isMobile ? 'title_category__mobile' : ''"
+            class="title_category mobile__img"
           >
             <v-avatar
               v-if="category.img"
@@ -27,8 +25,7 @@
           <v-col
             cols="12"
             md="9"
-            sm="9"
-            class="title__category"
+            class="title__category mobile__title"
           >
             <v-chip
               class="chip__category"
@@ -52,7 +49,7 @@
               v-if="!isFollowYoU"
               small
               color="btn_primary"
-              class="mt-2"
+              class="mt-2 width__foll"
               width="200"
               outlined
               rounded
@@ -63,7 +60,7 @@
             <v-btn
               v-else
               small
-              color="btn_primary"
+              color="btn_primary width__foll"
               class="mt-2"
               width="198"
               rounded
@@ -75,7 +72,7 @@
               v-if="!isLikesCategory"
               small
               color="btn_primary"
-              class="mt-2 ml-1"
+              class="mt-2 ml-1 width__foll"
               width="200"
               outlined
               rounded
@@ -100,7 +97,7 @@
               v-else
               small
               color="btn_primary"
-              class="mt-2 ml-1"
+              class="mt-2 ml-1 width__foll"
               width="200"
               rounded
               @click="unLikes(category)"
@@ -127,6 +124,7 @@
         cols="12"
         md="6"
         sm="6"
+        class="mobile__info"
       >
         <v-row>
           <v-col cols="12">
@@ -251,4 +249,34 @@
 .chip__category__ratings__reviews
   margin-left: 345px
   margin-top: -38px
+@media screen and (min-width: 378px) and (max-width: 883px)
+  .mobile
+    &__img
+      padding-left: 37%
+    &__title
+      padding-left: 17%
+      .width
+        &__foll
+          width: 238px !important
+          margin-left: 0px !important
+    &__info
+      margin-left: -100px !important
+      display: none
+      .chip__category__class
+        word-wrap: break-word
+@media screen and (max-width: 377px)
+  .mobile
+    &__img
+      padding-left: 39%
+    &__title
+      padding-left: 15%
+      .width
+        &__foll
+          width: 238px !important
+          margin-left: 0px !important
+    &__info
+      margin-left: -108px !important
+      display: none
+      .chip__category__class
+        word-wrap: break-word
 </style>

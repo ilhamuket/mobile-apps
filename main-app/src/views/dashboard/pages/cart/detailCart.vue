@@ -17,13 +17,10 @@
                   <v-chip
                     v-if="computedInvoice.cart"
                     width="200"
-                    class="
-                      text-h2 text-capitalize
-                      font-weight-bold
-                      chips--status--views
-                    "
+                    class="text-h2 text-capitalize font-weight-bold ml-2"
                     color="btn_primary"
                     text-color="white"
+                    label
                   >{{ computedInvoice.cart.status }}</v-chip>
                 </span>
               </v-col>
@@ -37,12 +34,12 @@
                     computedInvoice.created_at | moment("dddd, MMMM Do YYYY")
                   }}
                   <br>
-                  Payment Method Indomaret/Alfamart (Otomatis)
+                  Payment Method {{ methods }} (Otomatis)
                 </span>
               </v-col>
             </v-row>
           </v-container>
-          <v-divider />
+          <v-divider class="divider__dark" />
           <v-container>
             <v-row>
               <v-col
@@ -76,7 +73,7 @@
               </v-col>
             </v-row>
           </v-container>
-          <v-divider />
+          <v-divider class="divider__dark" />
           <v-container>
             <v-row>
               <v-col cols="12">
@@ -119,10 +116,11 @@
         </v-card>
       </v-col>
       <v-col
+        v-if="computedInvoice.cart"
         cols="12"
         md="3"
       >
-        <v-card>
+        <v-card v-if="computedInvoice.cart.status !== 'paid'">
           <v-container>
             <v-row>
               <v-col>
@@ -133,7 +131,7 @@
                 <span class="font-spartan-small grey--text"> Actions </span>
               </v-col>
             </v-row>
-            <v-divider class="mt-2 mb-2" />
+            <!-- <v-divider class="divider__dark"class="mt-2 mb-2" /> -->
             <v-row>
               <v-col cols="12">
                 <v-select
@@ -142,7 +140,7 @@
                 />
               </v-col>
             </v-row>
-            <v-divider class="mt-2 mb-2" />
+            <!-- <v-divider class="divider__dark"class="mt-2 mb-2" /> -->
             <v-row>
               <v-col cols="12">
                 <span
@@ -161,7 +159,6 @@
                 </span>
               </v-col>
             </v-row>
-            <v-divider class="mt-2 mb-2" />
             <v-row>
               <v-col cols="12">
                 <span
@@ -193,6 +190,15 @@
             </v-row>
           </v-container>
         </v-card>
+        <span
+          v-else
+          class="
+            font-spartan-small
+            btn_primary--text
+            text--download
+            mobile__query
+          "
+        >Download</span>
       </v-col>
     </v-row>
   </v-container>
@@ -270,4 +276,16 @@
     width: 81px !important
     .v-chip__content
         font-size: 15px !important
+.text--download
+  cursor: pointer
+hr.divider__dark.v-divider.theme--dark
+    opacity: .2
+@media screen and (max-width: 883px)
+  .mobile
+    &__query
+      padding-left: 40%
+@media screen and (min-width: 884px)
+  .mobile
+    &__query
+      padding-left: 3%
 </style>

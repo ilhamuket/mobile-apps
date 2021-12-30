@@ -23,10 +23,10 @@ class DiscussController extends Controller
             $master = Discuss::whereHas('class', function (Builder $query) use ($slug) {
                 $query->where('slug', $slug);
             })
-                ->whereNull('parent_id')
+                ->parent($request->parent)
                 ->entities($request->entities)
                 ->orderBy('id', 'desc')
-                ->paginate(2);
+                ->paginate($request->input("paginaate", 2));
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');

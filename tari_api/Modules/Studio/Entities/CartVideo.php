@@ -22,6 +22,11 @@ class CartVideo extends Model
         return $this->belongsTo(StudioClassVidio::class, 'video_id');
     }
 
+    public function form()
+    {
+        return $this->hasOne(FormRegisterEnsiklovideo::class, 'cart_video_id');
+    }
+
     // ==== Scope === //
     public function scopeEntities($query, $entities)
     {

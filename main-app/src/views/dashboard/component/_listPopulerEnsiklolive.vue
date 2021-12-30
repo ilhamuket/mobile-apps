@@ -7,7 +7,7 @@
         cols="12"
         md="4"
       >
-        <v-card>
+        <v-card class="card__populer--love">
           <v-img
             v-if="item.img"
             class="white--text align-end"
@@ -16,9 +16,7 @@
             height="400"
             style="cursor: pointer"
             gradient="to top right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.05)"
-            @click="
-              toPush(item)
-            "
+            @click="toPush(item)"
           >
             <v-container>
               <v-row v-if="item.category">
@@ -91,9 +89,7 @@
             src="https://ecs7.tokopedia.net/img/cache/300/default_picture_user/default_toped-22.jpg"
             gradient="to top right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.05)"
             style="cursor: pointer"
-            @click="
-              toPush(item)
-            "
+            @click="toPush(item)"
           >
             <v-container>
               <v-row v-if="item.category">
@@ -187,4 +183,9 @@
 <style lang="sass">
 .rows__populer
     margin-top: 72% !important
+.card
+  &__populer--love
+    &:hover
+      transform: scale(.9)
+      border: 2px double #9DC4D1
 </style>

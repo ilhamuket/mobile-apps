@@ -16,6 +16,11 @@ class UserHasVideo extends Model
         return \Modules\Studio\Database\factories\UserHasVideoFactory::new();
     }
 
+    public function video()
+    {
+        return $this->belongsTo(StudioClassVidios::class, 'video_id');
+    }
+
     public function getStatusKelasAttribute()
     {
         $status = '';
@@ -29,5 +34,21 @@ class UserHasVideo extends Model
         }
 
         return $status;
+    }
+
+    // === scopee === //
+
+    public function scopeEntities($query, $entities)
+    {
+        if ($entities != null || $entities != '') {
+            $entities = str_replace(' ', '', $entities);
+            $entities = explode(',', $entities);
+
+            try {
+                return $query = $query->with($entities);
+            } catch (\Throwable $th) {
+                return Json::exception(null, validator()->errors());
+            }
+        }
     }
 }

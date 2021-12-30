@@ -20,7 +20,26 @@
             :headers="headers"
             show-select
             :search="search"
-          />
+          >
+            <template #[`item.img`]="{ item }">
+              <v-img
+                :src="item.video.url_thumbnail"
+                width="200"
+                class="img__video"
+              />
+            </template>
+            <template #[`item.actions`]="{ item }">
+              <v-btn
+                v-if="item"
+                icon
+                :to="`/cart/video/detail/${item.id}`"
+              >
+                <v-icon color="btn_primary">
+                  mdi-eye
+                </v-icon>
+              </v-btn>
+            </template>
+          </v-data-table>
         </v-col>
       </v-row>
     </v-container>
@@ -62,8 +81,15 @@
           value: "actions",
         },
       ],
+      search: "",
     }),
   }
 </script>
 
-<style></style>
+<style lang="sass">
+.img
+  &__video
+    &:hover
+      transform: scale(.9)
+      box-shadow: inset 0px 33px 25px 0 red
+</style>
