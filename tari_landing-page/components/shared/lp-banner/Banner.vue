@@ -5,7 +5,7 @@
             Start Banner
         ----------------------------------------------- -->
       <v-row>
-        <v-col cols="12" md="6" class="d-flex align-center">
+        <v-col cols="12" md="6" class="d-flex align-center mobile__cols">
           <div class="text-start">
             <h1 class="banner-title font-spartan font-weight-bold primary--text1">
               Selamat datang <br> di EnsikloTari
@@ -63,3 +63,12 @@ export default {
   },
 };
 </script>
+<style lang="sass">
+@media screen and (max-width: 883px)
+  .banner-wrapper
+    .mobile
+      &__cols
+        .banner-title
+          padding-top: 3%
+          padding-left: 14% 
+</style>

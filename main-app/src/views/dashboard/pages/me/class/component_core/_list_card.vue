@@ -9,7 +9,7 @@
       >
         <v-hover v-slot="{ hover }">
           <v-card
-            v-if="item.classes"
+            v-if="item.classess"
             class="card__list"
             :elevation="hover ? 12 : 2"
             :class="{ 'on-hover': hover }"

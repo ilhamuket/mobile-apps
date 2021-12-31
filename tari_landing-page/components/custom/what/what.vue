@@ -101,7 +101,13 @@ export default {
   overflow-y: auto
   text-justify: justify
   text-align: justify
-  width: 120%
+
+@media screen and (max-width: 883px)
+  .overflow-scroll
+    width: 99%
+@media screen and (min-width: 884px)
+  .overflow-scroll
+    width: 120%
   /* width */
 ::-webkit-scrollbar
   width: 6px
