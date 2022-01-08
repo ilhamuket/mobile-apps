@@ -7,6 +7,8 @@ use Modules\Media\Http\Controllers\ArticleController;
 use Modules\Media\Http\Controllers\ImgAllController;
 use Modules\Media\Http\Controllers\MediaController;
 use Modules\Media\Http\Controllers\PostController;
+use Modules\Studio\Http\Controllers\StudioArticleController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -32,14 +34,19 @@ Route::prefix('media')->middleware(['auth:sanctum'])->group(function () {
     Route::patch('category/{id}', [MediaController::class, 'update']);
     Route::delete('category/{id}', [MediaController::class, 'destroy']);
 
-    Route::get('article', [ArticleController::class, 'index']);
-    Route::post('article', [ArticleController::class, 'store']);
-    Route::get('article/{id}', [ArticleController::class, 'show']);
-    Route::patch('article/{id}', [ArticleController::class, 'update']);
-    Route::delete('article/{id}', [ArticleController::class, 'destroyById']);
-    Route::post('article/deletes', [ArticleController::class, 'destroy']);
-    Route::post('article/approves', [ArticleController::class, 'approves']);
-    Route::patch('article/approve/{id}', [ArticleController::class, 'approveById']);
+
+    Route::prefix('article')->group(function () {
+        Route::get('', [ArticleController::class, 'index']);
+        Route::post('', [ArticleController::class, 'store']);
+        Route::get('{id}', [ArticleController::class, 'show']);
+        Route::patch('{id}', [ArticleController::class, 'update']);
+        Route::delete('{id}', [ArticleController::class, 'destroyById']);
+        Route::get('{id}/studio/{studio_slug}/{slug}', [StudioArticleController::class, 'showArticle']);
+        Route::post('deletes', [ArticleController::class, 'destroy']);
+        Route::post('approves', [ArticleController::class, 'approves']);
+        Route::patch('approve/{id}', [ArticleController::class, 'approveById']);
+    });
+
 
     Route::prefix('all')->group(function () {
         Route::post('', [ImgAllController::class, 'store']);

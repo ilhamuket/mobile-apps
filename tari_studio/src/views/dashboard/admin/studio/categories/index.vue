@@ -65,7 +65,10 @@
           @click.native="setSummary('draft')"
         />
       </v-col>
-      <v-col cols="12">
+      <v-col
+        class="ml-2"
+        cols="12"
+      >
         <app-data-category
           :data="categories"
           @create="popUpDialogCreate"

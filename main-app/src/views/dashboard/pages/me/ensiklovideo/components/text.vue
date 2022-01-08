@@ -60,6 +60,14 @@
               20
             </span>
           </div>
+          <div class="d-flex flex-column ml-2">
+            <v-btn
+              color="btn_primary"
+              small
+            >
+              Reviews
+            </v-btn>
+          </div>
         </div>
       </v-col>
     </v-row>

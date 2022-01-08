@@ -8,7 +8,11 @@
     <template v-slot:after-heading>
       <div class="ml-auto text-right font-size-ather-roboto-mono">
         <div
-          class="body-3 grey--text font-weight-light font-size-ather-roboto-mono-name-page"
+          class="
+            body-3
+            grey--text
+            font-weight-light font-size-ather-roboto-mono-name-page
+          "
           v-text="title"
         />
 
@@ -42,10 +46,10 @@
 </template>
 
 <script>
-  import Card from './Card'
+  import Card from "./Card"
 
   export default {
-    name: 'MaterialStatsCard',
+    name: "MaterialStatsCard",
 
     inheritAttrs: false,
 
@@ -114,4 +118,6 @@
 .v-card .icon--head
   &:hover
     top: -8px
+.cols__modified
+  border: 2px double red
 </style>

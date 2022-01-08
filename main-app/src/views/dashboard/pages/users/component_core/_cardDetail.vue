@@ -17,7 +17,7 @@
               />
             </v-col>
             <v-col cols="9">
-              <div class="d-flex flex-row  mt-2">
+              <div class="d-flex flex-row mt-2">
                 <div class="d-flex flex-column">
                   <span
                     class="text-h4 font-size-ather-roboto-mono font-weight-bold"
@@ -42,7 +42,10 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="6">
+        <v-col
+          cols="12"
+          md="6"
+        >
           <v-row>
             <v-col>
               <div class="d-flex flex-row mt-5 ml-6">
@@ -85,7 +88,7 @@
     },
     computed: {
       fullname () {
-        return this.me.firstName + ' ' + this.me.lastName
+        return this.me.firstName + " " + this.me.lastName
       },
     },
   }

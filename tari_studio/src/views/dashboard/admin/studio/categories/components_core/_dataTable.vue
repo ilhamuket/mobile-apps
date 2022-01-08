@@ -41,7 +41,10 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="4">
+        <v-col
+          cols="12"
+          md="4"
+        >
           <v-text-field
             v-model="search"
             append-icon="mdi-magnify"
@@ -51,7 +54,8 @@
         </v-col>
         <v-col
           class="d-flex flex-row-reverse"
-          cols="8"
+          cols="12"
+          md="8"
         >
           <v-btn
             color="btn_primary"

@@ -91,10 +91,7 @@
       :dialog="dialogEditContact"
       @input="updateProfile"
     />
-    <app-edit-contact
-      :dialog="dialogEditSocmed"
-      @input="updateProfile"
-    />
+    <app-dialog-socmed :dialog="dialogEditSocmed" />
   </v-container>
 </template>
 
@@ -106,6 +103,7 @@
   import editContact from "./component/__changeContact.vue"
   import waiting from "./component_core/_waitingForReviews.vue"
   import myreviews from "./component_core/_myReviews.vue"
+  import ___dialogChangeSocmedVue from "./component/___dialogChangeSocmed.vue"
 
   // import dialogEditProfile from "./component/_dialogEdit.vue"
   export default {
@@ -118,6 +116,7 @@
       "app-edit-contact": editContact,
       "app-tabs-waiting": waiting,
       "app-tabs-myreviews": myreviews,
+      "app-dialog-socmed": ___dialogChangeSocmedVue,
     },
     data: () => ({
       isLoader: true,

@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-dialog
       v-model="dialog.open"
-      width="90%"
+      width="70%"
     >
       <v-card size-avatar="120">
         <v-avatar
@@ -18,9 +18,7 @@
           class="custome-bg-profile elevation-6 mt-2"
           color="primary"
         >
-          <span>
-            s
-          </span>
+          <span> s </span>
         </v-list-item-avatar>
         <div class="d-flex flex-row justify-center">
           <div class="d-flex flex-column">
@@ -28,7 +26,7 @@
               bottom
               color="primary"
             >
-              <template #activator="{on, attrs}">
+              <template #activator="{ on, attrs }">
                 <v-btn
                   v-bind="attrs"
                   class="mt-2"
@@ -54,7 +52,7 @@
               bottom
               color="primary"
             >
-              <template #activator="{on, attrs}">
+              <template #activator="{ on, attrs }">
                 <v-btn
                   v-bind="attrs"
                   class="mt-2"
@@ -288,12 +286,12 @@
 </template>
 
 <script>
-  import axios from 'axios'
-  import regional from '../database/regional.json'
-  import changeProfile from './___changePhotoProfile.vue'
+  import axios from "axios"
+  import regional from "../database/regional.json"
+  import changeProfile from "./___changePhotoProfile.vue"
   export default {
     components: {
-      'app-change-profile': changeProfile,
+      "app-change-profile": changeProfile,
     },
     props: {
       dialog: {
@@ -324,44 +322,44 @@
     },
     methods: {
       update () {
-        this.$emit('input', { item: this.dialog.data })
+        this.$emit("input", { item: this.dialog.data })
       },
       openDialog () {
         this.dialogData.open = true
       },
       changeProfileMethods ({ item }) {
         axios.defaults.headers.common.Authorization =
-          'Bearer ' + localStorage.getItem('access_token')
+          "Bearer " + localStorage.getItem("access_token")
         axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
-        const URL = 'user/change-thumbnail'
+        const URL = "user/change-thumbnail"
         const data = new FormData()
-        data.append('img', item)
+        data.append("img", item)
         const config = {
           header: {
-            'Content-Type': 'image/png',
+            "Content-Type": "image/png",
           },
         }
-        axios.post(URL, data, config).then(response => {
+        axios.post(URL, data, config).then((response) => {
           if (response.data.meta.status) {
             this.dialogData.open = false
             const Toast = this.$swal.mixin({
               toast: true,
-              position: 'bottom-end',
+              position: "bottom-end",
               showConfirmButton: false,
               timer: 3000,
               timerProgressBar: true,
-              didOpen: toast => {
-                toast.addEventListener('mouseenter', this.$swal.stopTimer)
-                toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+              didOpen: (toast) => {
+                toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                toast.addEventListener("mouseleave", this.$swal.resumeTimer)
               },
-              popup: 'swal2-show',
-              backdrop: 'swal2-backdrop-show',
-              icon: 'swal2-icon-show',
+              popup: "swal2-show",
+              backdrop: "swal2-backdrop-show",
+              icon: "swal2-icon-show",
             })
             Toast.fire({
-              icon: 'success',
-              title: 'Image Profile Edited Successfully',
+              icon: "success",
+              title: "Image Profile Edited Successfully",
             })
             this.getMe()
           }
@@ -369,10 +367,10 @@
       },
       getMe () {
         this.$store
-          .dispatch('user/me', {
-            entities: 'followingStudio.followers,followingStudio.likes',
+          .dispatch("user/me", {
+            entities: "followingStudio.followers,followingStudio.likes",
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.isLoader = false
             }

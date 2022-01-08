@@ -17,6 +17,7 @@
               :src="item.img.url"
               width="400"
               height="400"
+              class="layout__fhd"
               gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
               style="background-color: grey"
             >
@@ -123,6 +124,7 @@
               src="https://ecs7.tokopedia.net/img/cache/300/default_picture_user/default_toped-22.jpg"
               width="400"
               height="400"
+              class="layout__fhd"
               gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
               style="background-color: grey"
             >

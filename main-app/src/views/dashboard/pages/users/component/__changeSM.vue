@@ -1,6 +1,9 @@
 <template>
   <v-container>
-    <v-dialog v-model="dialog.open">
+    <v-dialog
+      v-model="dialog.open"
+      width="70%"
+    >
       <v-card>
         <v-system-bar
           :color="$vuetify.theme.dark ? '#141C31' : '#F0F8FF'"
@@ -12,9 +15,7 @@
             <v-icon :color="$vuetify.theme.dark ? 'white' : 'black'">
               mdi-pencil
             </v-icon>
-            <span class="font-spartan-small">
-              Edit Profile
-            </span>
+            <span class="font-spartan-small"> Edit Profile </span>
           </v-toolbar-title>
 
           <v-spacer />

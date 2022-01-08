@@ -60,7 +60,7 @@
                       type="submit"
                       :width="isMobile ? '298' : '100'"
                       :class="isMobile ? '' : 'custom--margin--btn'"
-                      class="width--btn"
+                      class="width--btn layout__FHD"
                     >
                       Masuk
                     </v-btn>
@@ -241,6 +241,11 @@
   margin-top: -2%
 .width--btn
     margin-left: 78px !important
+@media screen and (min-width: 1800px)
+  .layout
+    &__FHD
+      margin-left: 40% !important
+      width: 50% !important
 </style>
 <style>
 @media screen and (max-width: 322px) {
@@ -250,16 +255,10 @@
   }
 }
 
-@media screen and (max-width: 412px) {
+@media screen and (min-width: 374px) and (max-width: 415px) {
   .width--btn {
     width: 300px !important;
     margin-left: 15px !important;
-  }
-}
-@media screen and (max-width: 415px) {
-  .width--btn {
-    width: 300px !important;
-    margin-left: 33px !important;
   }
 }
 </style>

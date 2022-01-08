@@ -23,7 +23,13 @@
         :max-height="icon ? 90 : undefined"
         :width="icon ? 'auto' : '100%'"
         elevation="6"
-        class="text-start v-card--material__heading icon--head mb-n6"
+        class="
+          text-start
+          v-card--material__heading
+          icon--head
+          mb-n6
+          sheet__icon
+        "
         dark
       >
         <slot
@@ -145,4 +151,7 @@
     top: -40px
     transition: .3s ease
     z-index: 1
+.sheet__icon
+  .v-icon
+    // border: 2px double red !important
 </style>

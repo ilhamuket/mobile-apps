@@ -10,7 +10,7 @@
         <v-card class="card__populer--love">
           <v-img
             v-if="item.img"
-            class="white--text align-end"
+            class="white--text layout__fhd align-end"
             :src="item.img.url"
             width="400"
             height="400"
@@ -85,7 +85,7 @@
           </v-img>
           <v-img
             v-else
-            class="white--text align-end"
+            class="white--text layout__fhd align-end"
             src="https://ecs7.tokopedia.net/img/cache/300/default_picture_user/default_toped-22.jpg"
             gradient="to top right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.05)"
             style="cursor: pointer"
@@ -188,4 +188,8 @@
     &:hover
       transform: scale(.9)
       border: 2px double #9DC4D1
+// @media screen and (min-width: 1600px)
+//   .layout
+//     &__fhd
+//       width: 100% !important
 </style>

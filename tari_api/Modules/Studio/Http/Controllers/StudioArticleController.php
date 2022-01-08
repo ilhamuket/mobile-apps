@@ -38,9 +38,26 @@ class StudioArticleController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function showArticle(Request $request, $studio_slug, $slug, $id)
     {
-        return view('studio::create');
+        try {
+            $master = Article::whereHas('studio', function (Builder $query) use ($studio_slug) {
+                $query->where('slug', $studio_slug);
+            })
+                ->where('id', $id)
+                ->where("slug", $slug)
+                ->get();
+
+
+            $master->views->increment('views');
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**
@@ -48,9 +65,26 @@ class StudioArticleController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function deleteBroadcast(Request $request)
     {
-        //
+        try {
+            $array_id = $request->id;
+
+            if (is_array($array_id)) {
+                foreach ($array_id as $id) {
+                    $master = Article::findOrFail($id);
+                    $master->delete();
+                }
+            }
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**

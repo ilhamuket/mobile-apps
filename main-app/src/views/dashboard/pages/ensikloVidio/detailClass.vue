@@ -119,6 +119,7 @@
             contact: item.noHp,
           })
           .then((res) => {
+            this.$router.push("/cart-video")
             if (res.data.meta.status) {
               const Toast = this.$swal.mixin({
                 toast: true,
