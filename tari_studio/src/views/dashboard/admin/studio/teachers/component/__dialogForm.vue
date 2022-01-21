@@ -3,6 +3,7 @@
     <v-dialog
       v-model="dialog.open"
       class="rounded-xl"
+      width="70%"
     >
       <v-card>
         <v-system-bar
@@ -105,7 +106,7 @@
 </template>
 
 <script>
-  import city from '../database/city.json'
+  import city from "../database/city.json"
 
   export default {
     props: {
@@ -119,19 +120,19 @@
     data: () => ({
       form: {
         open: false,
-        name: '',
-        email: '',
-        region: '',
-        contact: '',
-        profession: '',
-        about: '',
+        name: "",
+        email: "",
+        region: "",
+        contact: "",
+        profession: "",
+        about: "",
       },
       itemsRegional: city,
     }),
 
     methods: {
       addTeachers () {
-        this.$emit('input', { item: this.form })
+        this.$emit("input", { item: this.form })
       },
     },
   }

@@ -65,7 +65,10 @@
           @click.native="orderBySummary('new')"
         />
       </v-col>
-      <v-col cols="12">
+      <v-col
+        cols="12"
+        lg="12"
+      >
         <app-data-table
           :data="computedInstructor"
           @create="popDialogForm"

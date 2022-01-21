@@ -54,19 +54,17 @@
             </template>
             <!-- items -->
             <template #[`item.img`]="{ item }">
-              <v-card>
-                <v-avatar
-                  v-if="item.student"
-                  tile
-                  size="60"
-                >
-                  <v-img
-                    v-if="item.student.img"
-                    :src="item.student.img.url"
-                  />
-                  <span v-else> {{ item.student.nickName.charAt(0) }} </span>
-                </v-avatar>
-              </v-card>
+              <v-avatar
+                v-if="item.student"
+                tile
+                size="60"
+              >
+                <v-img
+                  v-if="item.student.img"
+                  :src="item.student.img.url"
+                />
+                <span v-else> {{ item.student.nickName.charAt(0) }} </span>
+              </v-avatar>
             </template>
             <template #[`item.student.nickName`]="{ item }">
               <div

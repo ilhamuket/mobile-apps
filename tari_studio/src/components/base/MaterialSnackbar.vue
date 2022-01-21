@@ -4,7 +4,7 @@
     class="v-snackbar--material"
     v-bind="{
       ...$attrs,
-      'color': 'transparent'
+      color: 'transparent',
     }"
   >
     <base-material-alert
@@ -21,7 +21,7 @@
 </template>
 <script>
   export default {
-    name: 'BaseMaterialSnackbar',
+    name: "BaseMaterialSnackbar",
 
     props: {
       dismissible: {
@@ -30,7 +30,7 @@
       },
       type: {
         type: String,
-        default: '',
+        default: "",
       },
       value: Boolean,
     },
@@ -45,7 +45,7 @@
       internalValue (val, oldVal) {
         if (val === oldVal) return
 
-        this.$emit('input', val)
+        this.$emit("input", val)
       },
       value (val, oldVal) {
         if (val === oldVal) return
@@ -57,15 +57,15 @@
 </script>
 
 <style lang="sass">
-  .v-snackbar--material
-    margin-top: 32px
-    margin-bottom: 32px
+.v-snackbar--material
+  margin-top: 32px
+  margin-bottom: 32px
 
-    .v-alert--material,
-    .v-snack__wrapper
-      border-radius: 4px
+  .v-alert--material,
+  .v-snack__wrapper
+    border-radius: .5rem
 
-    .v-snack__content
-      overflow: visible
-      padding: 0
+  .v-snack__content
+    overflow: visible
+    padding: 0
 </style>

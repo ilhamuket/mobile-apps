@@ -180,55 +180,31 @@
 
             <!-- Item -->
             <template #[`item.#`]="{ item }">
-              <v-hover
+              <div
                 v-if="item.img"
-                v-slot="{ hover }"
+                class="mt-2 mb-2"
               >
-                <v-card
-                  :elevation="hover ? 12 : 2"
-                  :class="{ 'on-hover': hover }"
-                >
-                  <v-img
-                    width="100"
-                    height="100"
-                    :src="item.img.url"
-                    gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
-                    style="cursor: pointer"
-                    @click="clickImg(item)"
-                  />
-                  <input
-                    ref="fileUpload"
-                    type="file"
-                    style="display: none"
-                    accept="image/*"
-                    @change="changePictProfile"
-                  >
-                </v-card>
-              </v-hover>
-              <v-hover
+                <v-img
+                  class="img--hover"
+                  width="200"
+                  :src="item.img.url"
+                  gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
+                  style="cursor: pointer"
+                  @click="clickImg(item)"
+                />
+              </div>
+              <div
                 v-else
-                v-slot="{ hover }"
+                class="mt-2 mb-2"
               >
-                <v-card
-                  :elevation="hover ? 12 : 2"
-                  :class="{ 'on-hover': hover }"
-                >
-                  <v-img
-                    width="100"
-                    src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/zeus/kratos/62cb37c4.png"
-                    gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
-                    style="cursor: pointer"
-                    @click="clickImgPicture(item)"
-                  />
-                  <input
-                    ref="upload"
-                    type="file"
-                    style="display: none"
-                    accept="image/*"
-                    @change="uploadPictProfile"
-                  >
-                </v-card>
-              </v-hover>
+                <v-img
+                  width="200"
+                  src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/zeus/kratos/62cb37c4.png"
+                  gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
+                  style="cursor: pointer"
+                  @click="clickImgPicture(item)"
+                />
+              </div>
             </template>
             <template #[`item.name`]="{ item }">
               <div class="mt-6">
@@ -239,16 +215,24 @@
                 >
                   <template #activator="{ on, attrs }">
                     <v-hover v-slot="{ hover }">
-                      <v-chip
+                      <!-- <v-chip
                         v-bind="attrs"
-                        :text-color="hover ? 'btn_primary' : 'black'"
+                        :text-color="hover ? 'btn_primary' : 'white'"
                         color="transparent"
                         style="cursor: pointer"
                         v-on="on"
                         @click="navigate(item)"
                       >
                         {{ item.name.substr(0, 9) + ".." }}
-                      </v-chip>
+                      </v-chip> -->
+                      <span
+                        :class="`${hover ? '' : ''} font-spartan`"
+                        v-bind="attrs"
+                        v-on="on"
+                        @click="navigate(item)"
+                      >
+                        {{ item.name.substr(0, 9) + " ... " }}
+                      </span>
                     </v-hover>
                   </template>
                   <span>{{ item.name }}</span>
@@ -257,15 +241,25 @@
                   v-else
                   v-slot="{ hover }"
                 >
-                  <v-chip
-                    :text-color="hover ? 'btn_primary' : 'black'"
+                  <!-- <v-chip
+                    :text-color="hover ? 'btn_primary' : 'white'"
                     color="transparent"
                     style="cursor: pointer"
-                    class="font-spartan-small font-weight-bold"
+                    class="font-spartan font-weight-bold"
                     @click="navigate(item)"
                   >
                     {{ item.name }}
-                  </v-chip>
+                  </v-chip> -->
+                  <span
+                    :class="`${
+                      hover ? 'hover--name cursor-pointer' : ''
+                    } font-spartan-small`"
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="navigate(item)"
+                  >
+                    {{ item.name }}
+                  </span>
                 </v-hover>
               </div>
               <div class="bg-hover">
@@ -394,6 +388,20 @@
         </v-col>
       </v-row>
     </v-container>
+    <input
+      ref="upload"
+      type="file"
+      style="display: none"
+      accept="image/*"
+      @change="uploadPictProfile"
+    >
+    <input
+      ref="fileUpload"
+      type="file"
+      style="display: none"
+      accept="image/*"
+      @change="changePictProfile"
+    >
   </base-material-card>
 </template>
 
@@ -577,9 +585,19 @@
   }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
+$primary: '#9DC4D1'
 .v-input--selection-controls__input
     .mdi
         width: 100%
         color: #4CAF50 !important
+.cursor-pointer
+  cursor: pointer
+.hover--name
+  color: #04C40D
+.img--hover
+  border-radius: .5rem !important
+  &:hover
+    transform: scale(.9) !important
+    border: 2px double #9DC4D1 !important
 </style>

@@ -42,10 +42,10 @@
 </template>
 
 <script>
-  import Card from './Card'
+  import Card from "./Card"
 
   export default {
-    name: 'MaterialStatsCard',
+    name: "MaterialStatsCard",
 
     inheritAttrs: false,
 
@@ -97,7 +97,7 @@
     justify-content: space-between
 
   .v-card
-    border-radius: 4px
+    border-radius: .5rem
     flex: 0 1 auto
 
   .v-card__text

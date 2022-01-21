@@ -16,7 +16,7 @@
             <v-img
               v-if="item.img"
               :src="item.img.url"
-              width="400"
+              width="100%"
               height="276"
               gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
             >
@@ -112,7 +112,7 @@
               v-else-if="item.studio"
               src="http://localhost:8081/img/ensiklotariLogo.bf423a85.svg"
               gradient="to top right, rgba(0,0,0,.7), rgba(0,0,0,.7)"
-              width="400"
+              width="100%"
               height="276"
             >
               <v-container>

@@ -79,6 +79,7 @@
           @input="postPicture"
           @change="onChangePicture"
           @refresh="refreshCategory"
+          @hideById="hideDataCategories"
         />
       </v-col>
     </v-row>
@@ -111,6 +112,19 @@
       :dialog="update"
       @input="updateDataCategory"
     />
+    <app-dialog-hide
+      :dialog="dialogHide"
+      :by-id="true"
+      icon-color="red"
+      text-body="Are you sure want to publish category with name"
+      text-btn="Hide"
+      color-btn1="red"
+      color-btn2="btn_primary"
+      icon-btn="mdi-check-decagram"
+      icon="mdi-check-decagram"
+      title="Hide"
+      text-btn-selected="Approve"
+    />
   </v-container>
 </template>
 
@@ -125,6 +139,7 @@
       "app-data-create": dialogForm,
       "app-data-notice": dialogNotice,
       "app-data-update": dialogUpdate,
+      "app-dialog-hide": dialogNotice,
     },
     data: () => ({
       dialogCreate: {
@@ -142,6 +157,10 @@
         open: false,
         data: [],
       },
+      dialogHide: {
+        open: false,
+        data: {},
+      },
       update: {
         open: false,
         data: {},
@@ -158,7 +177,9 @@
     },
     watch: {
       itemSummary (val) {
-        this.$router.push({ query: { ...this.$route.query, summary: val } })
+        this.$router
+          .push({ query: { ...this.$route.query, summary: val } })
+          .catch(() => {})
       },
       "$route.query.summary": function (val) {
         this.itemSummary = val
@@ -444,6 +465,10 @@
           icon: "success",
           title: "Refresh Data Category",
         })
+      },
+      hideDataCategories ({ item }) {
+        this.dialogHide.open = true
+        this.dialogHide.data = item
       },
     },
   }

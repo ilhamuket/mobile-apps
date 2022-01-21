@@ -59,11 +59,11 @@
           md="4"
           class="ml-1"
         >
-          <v-card class="ml-1">
+          <v-card class="ml-2">
             <v-img
               v-if="item.img"
               :src="item.img.url"
-              width="450"
+              width="100%"
               height="276"
               gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
               style="background-color: grey; cursor: pointer"

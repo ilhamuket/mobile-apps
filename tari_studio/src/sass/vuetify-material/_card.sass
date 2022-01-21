@@ -1,10 +1,11 @@
 .v-card
-  border-radius: 6px
+  font-family: 'Spartan', sans-serif
   margin-top: 30px
   margin-bottom: 15px
-  border-radius: 10px !important
+  border-radius: .5rem !important
 
   .card-title
+    font-family: 'Spartan', sans-serif
     font-size: 18px
 
   .v-card--material__heading
@@ -40,7 +41,7 @@
 
 .v-card--material .v-image
   .v-image__image
-    border-radius: 6px
+    border-radius: .2rem
 
 .v-card__title
   font-size: 18px
@@ -106,3 +107,9 @@
 
 .ct-square:before
   float: none
+
+.card
+  &__list
+    &:hover
+      transform: scale(.9)
+      border: 2px double #9DC4D1

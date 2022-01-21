@@ -126,6 +126,7 @@
   import dialogNotice from "./childPages/component/__dialogNotice.vue"
   import pageInstructor from "./childPages/_pageInstructor.vue"
   import pageEnsikloVideo from "./childPages/_pageEnsikloVideo.vue"
+  // import cardDetail from './component_core/_detailCardStudio.vue'
   export default {
     components: {
       "app-studio-card-detail": topCardDetails,
@@ -136,6 +137,7 @@
       "app-dialog-notice": dialogNotice,
       "app-page-instructor": pageInstructor,
       "app-page-ensiklovideo": pageEnsikloVideo,
+    // "app-card-detail"
     },
     data: () => ({
       tabs: null,

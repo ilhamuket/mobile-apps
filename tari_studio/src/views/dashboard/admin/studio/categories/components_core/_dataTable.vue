@@ -398,7 +398,7 @@
                     <div class="d-flex flex-column mt-2">
                       <a
                         class="font-a-delete d-flex flex-nowrap"
-                        @click="deleteById(item)"
+                        @click="hideDataById(item)"
                       >
                         <v-tooltip
                           color="primary"
@@ -546,6 +546,9 @@
       deleteById (item) {
         this.$emit("deleteById", { item: item })
       },
+      hideDataById (item) {
+        this.$emit("hideById", { item: item })
+      },
       deleteSelected (item) {
         this.$emit("deleteSelected", { item: item })
         this.selected = []
@@ -656,6 +659,7 @@
 
 <style lang="sass">
 .img__hover
+  transition: .3s
   &:hover
     .show-btn
       color: white !important

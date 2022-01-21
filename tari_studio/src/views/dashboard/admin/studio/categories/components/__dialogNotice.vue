@@ -13,7 +13,7 @@
             :class="$vuetify.theme.dark ? 'white--text' : ' black--text'"
             class="font-spartan-small"
           >
-            <v-icon :color="$vuetify.theme.dark ? 'white' : 'black'">
+            <v-icon :color="iconColor">
               {{ icon }}
             </v-icon>
             {{ title }}
@@ -88,16 +88,16 @@
       },
       icon: {
         type: String,
-        default: 'mdi-trash-can-outline',
+        default: "mdi-trash-can-outline",
       },
       title: {
         type: String,
-        default: 'Delete',
+        default: "Delete",
       },
       textBody: {
         type: String,
         default:
-          ' Are You sure want to delete Everyting that related With Category Name :',
+          " Are You sure want to delete Everyting that related With Category Name :",
       },
       byId: {
         type: Boolean,
@@ -105,23 +105,27 @@
       },
       textBtn: {
         type: String,
-        default: 'Delete',
+        default: "Delete",
       },
       iconBtn: {
         type: String,
-        default: 'mdi-trash-can-outline',
+        default: "mdi-trash-can-outline",
       },
       colorBtn1: {
         type: String,
-        default: 'red',
+        default: "red",
       },
       colorBtn2: {
         type: String,
-        default: 'primary',
+        default: "primary",
       },
       textBtnSelected: {
         type: String,
-        default: 'Delete',
+        default: "Delete",
+      },
+      iconColor: {
+        type: String,
+        default: "btn_primary",
       },
     },
     data: () => ({
@@ -129,10 +133,10 @@
     }),
     methods: {
       actionsById () {
-        this.$emit('input', { item: this.dialog.data })
+        this.$emit("input", { item: this.dialog.data })
       },
       actionSelected () {
-        this.$emit('input', { item: this.dialog.data })
+        this.$emit("input", { item: this.dialog.data })
       },
       onResize () {
         if (window.innerWidth < 769) this.isMobile = true

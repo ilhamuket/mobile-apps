@@ -294,7 +294,7 @@
     background-color: #8f2929
     width: 1300px
     margin-left: -80px
-    border-radius: 10px
+    border-radius: .5rem
 .btn__account
   .v-btn__content
     color: #9dc5d1

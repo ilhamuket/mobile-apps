@@ -2,7 +2,7 @@
   <v-card
     v-bind="$attrs"
     :class="classes"
-    class="v-card--material pa-3"
+    class="v-card--material pa-3 ml-3"
   >
     <div class="d-flex grow flex-wrap">
       <v-avatar
@@ -38,7 +38,7 @@
 
         <div
           v-else-if="title && !icon"
-          class=" font-weight-light"
+          class="font-weight-light"
           v-text="title"
         />
 
@@ -50,7 +50,7 @@
 
         <div
           v-if="text"
-          class=" font-weight-thin"
+          class="font-weight-thin"
           v-text="text"
         />
       </v-sheet>
@@ -87,16 +87,16 @@
 
 <script>
   export default {
-    name: 'MaterialCard',
+    name: "MaterialCard",
 
     props: {
       avatar: {
         type: String,
-        default: '',
+        default: "",
       },
       color: {
         type: String,
-        default: 'success',
+        default: "success",
       },
       icon: {
         type: String,
@@ -108,11 +108,11 @@
       },
       text: {
         type: String,
-        default: '',
+        default: "",
       },
       title: {
         type: String,
-        default: '',
+        default: "",
       },
       sizeAvatar: {
         type: Number,
@@ -123,7 +123,7 @@
     computed: {
       classes () {
         return {
-          'v-card--material--has-heading': this.hasHeading,
+          "v-card--material--has-heading": this.hasHeading,
         }
       },
       hasHeading () {

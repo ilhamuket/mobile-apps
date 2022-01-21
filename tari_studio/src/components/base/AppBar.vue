@@ -356,7 +356,7 @@
 .font-customize
   font-style: italic
 .modified
-  border-radius: 10px !important
+  border-radius: .5rem !important
   margin-left: 57px !important
   margin-right: 27px !important
   margin-top: 21px !important

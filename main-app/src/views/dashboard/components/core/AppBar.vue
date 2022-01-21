@@ -474,5 +474,5 @@
   background-color: white !important
   color: green !important
 .col--searching
-  margin-right: -5% !important
+  margin-right: -3% !important
 </style>

@@ -1,3 +1,8 @@
+
+@media screen and (min-width: 1904px)
+  .container
+    max-width: 1685px !important
+
 .v-content__wrap
   .container--fluid
     padding-left: 30px
@@ -16,29 +21,28 @@
   small
     font-weight: 400
 .theme--light .v-application
-  // background-color: #F0F2F5 !important
-  // background-color: #84383A !important
-  // 8F8F38
 .theme--dark .v-application
   // background-color: #141C31 !important
 .theme--dark .v-list
-  // background-color: #294F50 !important
   background-color: #283046 !important
   .v-list-item
-    // background-color: #283046 !important
+    background-color: #283046 !important
     .v-list-item__title
       color: white
   .v-list-item--active
     .v-list-item__icon
-      color: #8F8F38 !important
+      color: #9DC5D1 !important
     .v-list-item__title
-      color: #8F8F38 !important
+      color: #9DC5D1 !important
     // background-color: #283046 !important
     // color: white !important
 
 .theme--light .v-list
-  // background-color: #9DC4D1 !important
-  background-color: #E8F0F3 !important
+  background-color: #e8f0f3 !important
+  .v-list-item__subtitle
+    color: black !important
+  // .v-list-item__title
+  //   color: white !important
   .v-list-item--active
     .v-list-item
       background-color: red !important
@@ -47,13 +51,11 @@
     .v-list-item__title
       color: #9DC5D1 !important
 .theme--light.v-list-item:hover::before
-  opacity: 0.3
+  opacity: 0.1
 .theme--dark.v-list-item:hover::before
-  opacity: 0.3
+  opacity: .1
 .v-navigation-drawer--mini-variant
   width: 100px !important
-  .v-list-item--active
-    background-color: transparent !important
 .drawer--off
   .theme--dark
     .v-list-item--active

@@ -8,7 +8,13 @@
       >
         <v-list-item-action-text v-if="!comment.parent_id">
           <div
-            class="d-flex flex-row flex-nowrap justify-start align-start border-comments"
+            class="
+              d-flex
+              flex-row flex-nowrap
+              justify-start
+              align-start
+              border-comments
+            "
           >
             <div class="d-flex flex-column align-center">
               <v-avatar
@@ -34,11 +40,11 @@
                   {{ comment.user.nickName }}
                   -
                   <span>
-                    {{ comment.created_at | moment('dddd D MMM YYYY') }}
+                    {{ comment.created_at | moment("dddd D MMM YYYY") }}
                   </span>
                   -
                   {{
-                    comment.user.id === vidio.author.id ? 'Creator' : 'Visitor'
+                    comment.user.id === vidio.author.id ? "Creator" : "Visitor"
                   }}
                 </h4>
               </div>
@@ -46,7 +52,7 @@
                 {{ comment.comment }}
               </v-card-text>
               <div
-                style="cursor:pointer"
+                style="cursor: pointer"
                 class="d-flex flex-column justify-end"
               >
                 <h4
@@ -58,56 +64,56 @@
               </div>
               <div
                 v-if="comment.isReplies"
-                class="d-flex flex-no-wrap justify-start align-start"
+                class=""
               >
-                <div class="d-flex flex-column align-center">
-                  <v-avatar
-                    v-if="comment.user"
-                    color="brown"
-                    class="ma-3"
-                    size="32"
+                <!-- <div class="d-flex flex-column align-start flex-grow-1"> -->
+                <v-form
+                  style="width: 100%"
+                  class="padding-form-replies"
+                  @submit.prevent.enter="repliesComments(comment)"
+                >
+                  <v-text-field
+                    v-model="data.repliesComment"
+                    style="width: 100%"
+                    :label="`Comment as ${me.nickName}`"
                   >
-                    <!-- <v-img
+                    <template #prepend>
+                      <v-avatar
+                        v-if="comment.user"
+                        color="brown"
+                        class="ma-3"
+                        size="32"
+                      >
+                        <!-- <v-img
                       src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
                     /> -->
-                    <span class="text-capitalize">{{
-                      comment.user.nickName.charAt(0)
-                    }}</span>
-                  </v-avatar>
-                </div>
-
-                <div class="d-flex flex-column align-start flex-grow-1">
-                  <v-form
-                    style="width: 100%"
-                    class="padding-form-replies"
-                    @submit.prevent.enter="repliesComments(comment)"
-                  >
-                    <v-text-field
-                      v-model="data.repliesComment"
-                      :label="`Comment as ${me.nickName}`"
-                    />
-                  </v-form>
-                </div>
-
-                <div class="d-flex align-center align-self-sm-center mr-3">
-                  <v-tooltip
-                    right
-                    color="blue"
-                  >
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-icon
-                        v-bind="attrs"
-                        color="blue"
-                        type="submit"
-                        v-on="on"
-                        @click="repliesComments(comment)"
-                      >
-                        mdi-send
-                      </v-icon>
+                        <span class="text-capitalize">{{
+                          comment.user.nickName.charAt(0)
+                        }}</span>
+                      </v-avatar>
                     </template>
-                    <span>send</span>
-                  </v-tooltip>
-                </div>
+                    <template #append>
+                      <v-tooltip
+                        right
+                        color="blue"
+                      >
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-icon
+                            v-bind="attrs"
+                            color="blue"
+                            type="submit"
+                            v-on="on"
+                            @click="repliesComments(comment)"
+                          >
+                            mdi-send
+                          </v-icon>
+                        </template>
+                        <span>send</span>
+                      </v-tooltip>
+                    </template>
+                  </v-text-field>
+                </v-form>
+                <!-- </div> -->
               </div>
             </div>
           </div>
@@ -119,25 +125,22 @@
         >
           <div class="d-flex flex-column">
             <v-chip
-              v-if="comment.seeReplies"
               label
               text-color="#7C9AD9"
               color="transparent"
-              style="cursor:pointer"
+              style="cursor: pointer"
               class="mb-2"
-              @click="seeComments(comment)"
+              @click="comment.seeReplies = !comment.seeReplies"
             >
-              <v-icon>
-                mdi-arrow-down-drop-circle-outline
-              </v-icon>
+              <v-icon> mdi-arrow-down-drop-circle-outline </v-icon>
 
               Hide {{ comment.child.length }} replies
             </v-chip>
-            <v-chip
+            <!-- <v-chip
               v-else
               text-color="#7C9AD9"
               color="transparent"
-              style="cursor:pointer"
+              style="cursor: pointer"
               class="mb-2"
               @click="seeComments(comment)"
             >
@@ -146,7 +149,7 @@
               </v-icon>
 
               See {{ comment.child.length }} replies
-            </v-chip>
+            </v-chip> -->
           </div>
         </div>
 
@@ -181,15 +184,15 @@
                     style="font-weight: bold"
                     class=""
                   >
-                    {{ child.user.firstName + ' ' + child.user.lastName }}
+                    {{ child.user.firstName + " " + child.user.lastName }}
                     -
                     <span class="text-date">
-                      {{ child.created_at | moment('dddd D MMM YYYY') }}
+                      {{ child.created_at | moment("dddd D MMM YYYY") }}
                       -
                       {{
                         child.user.id === vidio.author.id
-                          ? 'Creator'
-                          : 'Visitor'
+                          ? "Creator"
+                          : "Visitor"
                       }}
                     </span>
                   </h5>
@@ -197,7 +200,7 @@
                     {{ child.comment }}
                   </v-card-text>
                   <div
-                    style="cursor:pointer"
+                    style="cursor: pointer"
                     class="d-flex flex-column justify-end"
                   >
                     <h5
@@ -210,88 +213,87 @@
                 </div>
                 <div
                   v-if="child.isReplies"
-                  class="d-flex flex-no-wrap justify-start align-start"
+                  class=""
                 >
-                  <div class="d-flex flex-column align-center">
-                    <v-avatar
-                      class="ma-3"
-                      size="32"
+                  <!-- <div class="d-flex flex-column align-start flex-grow-1"> -->
+                  <v-form
+                    style="width: 100%"
+                    class="padding-form-replies-child"
+                    @submit.prevent.enter="repliesNestingComments(child)"
+                  >
+                    <v-text-field
+                      v-model="data.repliesNestingComment"
+                      :placeholder="`Type Something as ${me.nickName} ...`"
+                      :prefix="`@${
+                        child.user.firstName + ' ' + child.user.lastName
+                      }`"
                     >
-                      <v-img
-                        src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
-                      />
-                    </v-avatar>
-                  </div>
-
-                  <div class="d-flex flex-column align-start flex-grow-1">
-                    <v-form
-                      style="width: 100%"
-                      class="padding-form-replies"
-                      @submit.prevent.enter="repliesNestingComments(child)"
-                    >
-                      <v-text-field
-                        v-model="data.repliesNestingComment"
-                        :placeholder="`Type Something as ${me.nickName} ...`"
-                        :prefix="
-                          `@${child.user.firstName + ' ' + child.user.lastName}`
-                        "
-                      />
-                    </v-form>
-                  </div>
-
-                  <div class="d-flex align-center align-self-sm-center mr-3">
-                    <v-tooltip
-                      right
-                      color="blue"
-                    >
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-icon
-                          v-bind="attrs"
-                          color="blue"
-                          type="submit"
-                          v-on="on"
-                          @click="repliesNestingComments(child)"
+                      <template #prepend>
+                        <v-avatar
+                          color="brown"
+                          size="32"
                         >
-                          mdi-send
-                        </v-icon>
+                          <span>
+                            {{ me.nickName.charAt(0) }}
+                          </span>
+                        </v-avatar>
                       </template>
-                      <span>send</span>
-                    </v-tooltip>
-                  </div>
+                      <template #append>
+                        <v-tooltip
+                          right
+                          color="blue"
+                        >
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-icon
+                              v-bind="attrs"
+                              color="blue"
+                              type="submit"
+                              v-on="on"
+                              @click="repliesNestingComments(child)"
+                            >
+                              mdi-send
+                            </v-icon>
+                          </template>
+                          <span>send</span>
+                        </v-tooltip>
+                      </template>
+                    </v-text-field>
+                  </v-form>
+                  <!-- </div> -->
                 </div>
               </div>
             </div>
           </v-list-item-subtitle>
         </div>
       </v-list-item-content>
-      <v-list-item-content>
-        <div class="d-flex flex-nowrap justify-start">
-          <div class="d-flex flex-column align-center">
+      <!-- <v-list-item-content> -->
+      <!-- <div class="d-flex"> -->
+      <!-- <div class="d-flex"> -->
+      <v-form
+        class="padding-form"
+        style="width: 100%"
+        @submit.prevent.enter="sendComments"
+      >
+        <v-text-field
+          v-model="data.comment"
+          style="width: 100%"
+          :label="`Comment as ${me.nickName}`"
+          append-icon="mdi-send"
+          @click:append="sendComments"
+        >
+          <template #prepend>
             <v-avatar
-              class="ma-3"
+              color="primary"
               size="32"
             >
-              <v-img
-                src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
-              />
+              <span>{{ me.nickName.charAt(0) }}</span>
             </v-avatar>
-          </div>
-          <div class="d-flex flex-nowrap flex-column align-start flex-grow-1">
-            <v-form
-              class="padding-form"
-              style="width: 100%"
-              @submit.prevent.enter="sendComments"
-            >
-              <v-text-field
-                v-model="data.comment"
-                :label="`Comment as ${me.nickName}`"
-                append-icon="mdi-send"
-                @click:append="sendComments"
-              />
-            </v-form>
-          </div>
-        </div>
-      </v-list-item-content>
+          </template>
+        </v-text-field>
+      </v-form>
+      <!-- </div> -->
+      <!-- </div> -->
+      <!-- </v-list-item-content> -->
     </v-col>
   </v-row>
 </template>
@@ -318,9 +320,9 @@
     },
     data: () => ({
       data: {
-        comment: '',
-        repliesComment: '',
-        repliesNestingComment: '',
+        comment: "",
+        repliesComment: "",
+        repliesNestingComment: "",
       },
       seeReplies: false,
     }),
@@ -329,13 +331,13 @@
         item.isReplies = !item.isReplies
       },
       sendComments () {
-        this.$emit('comments', { item: this.data })
+        this.$emit("comments", { item: this.data })
       },
       repliesParents (item) {
         item.isReplies = !item.isReplies
       },
       repliesComments (item) {
-        this.$emit('Replies', {
+        this.$emit("Replies", {
           item: {
             item: this.data,
             parent_id: item.id,
@@ -343,7 +345,7 @@
         })
       },
       repliesNestingComments (item) {
-        this.$emit('nestingReplies', {
+        this.$emit("nestingReplies", {
           item: {
             item: this.data,
             parent_id: item.id,
@@ -354,6 +356,7 @@
       },
       seeComments (item) {
         item.seeReplies = !item.seeReplies
+        console.log("why :", item.seeReplies)
       },
     },
   }
@@ -376,10 +379,13 @@
   padding: 0 -100px !important
 .padding-form
   padding: 0 1px !important
-  width: 640px !important
+  width: 100% !important
 .padding-form-replies
   padding: 0 1px !important
-  width: 470px !important
+  width: 393% !important
+.padding-form-replies-child
+  padding: 0 1px !important
+  width: 264% !important
 .font-weight-bold
   font-weight: bold !important
 .opacity

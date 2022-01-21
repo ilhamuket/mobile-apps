@@ -28,6 +28,7 @@
       <v-col
         cols="12"
         md="8"
+        xl="8"
       >
         <v-card>
           <iframe
@@ -94,13 +95,11 @@
               <v-chip
                 label
                 color="transparent"
-                style="cursor:pointer"
+                style="cursor: pointer"
                 class="mb-2"
               >
                 See {{ computedComments.length }} Comments
-                <v-icon>
-                  mdi-chevron-down
-                </v-icon>
+                <v-icon> mdi-chevron-down </v-icon>
               </v-chip>
             </div>
           </div>
@@ -125,6 +124,7 @@
       <v-col
         cols="12"
         md="4"
+        xl="4"
       >
         <v-card color="transparent">
           <v-app-bar
@@ -141,9 +141,7 @@
             </template>
 
             <v-app-bar-title v-if="is_field === false">
-              <h3>
-                Studio Vidio
-              </h3>
+              <h3>Studio Vidio</h3>
             </v-app-bar-title>
 
             <v-spacer />
@@ -189,8 +187,8 @@
                 >
                   <div v-if="n.id !== list.id">
                     <v-img
-                      style="cursor:pointer"
-                      width="400"
+                      style="cursor: pointer"
+                      width="100%"
                       height="200"
                       :src="n.url_thumbnail_youtube"
                       @click="play(n)"
@@ -368,7 +366,7 @@
             comment: item.comment,
             vidio_id: localStorage.getItem("vidio_id"),
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.getDataComments()
               item.comment = ""
@@ -382,7 +380,7 @@
             parent_id: item.parent_id,
             vidio_id: localStorage.getItem("vidio_id"),
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.getDataComments()
               item.item.repliesComment = ""
@@ -403,7 +401,7 @@
             vidio_id: localStorage.getItem("vidio_id"),
             parent_id: item.custome.parent_id,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta) {
               this.getDataComments()
               item.item.repliesNestingComment = ""
@@ -516,7 +514,7 @@
             slug: this.$route.params.slug,
             page: this.page,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status) {
               this.state_loading = false
               this.article.meta = res.data.meta

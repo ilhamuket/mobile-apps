@@ -31,7 +31,6 @@
       </v-col>
       <v-col
         cols="12"
-        sm="6"
         lg="3"
       >
         <base-material-stats-card
