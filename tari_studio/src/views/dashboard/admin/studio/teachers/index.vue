@@ -14,6 +14,7 @@
           sub-icon="mdi-heart-outline"
           sub-text="EnsikloTari"
           style="cursor: pointer"
+          :class="`${$route.query.summary === 'all' ? 'selected' : ''}`"
           @click.native="orderBySummary('all')"
         />
       </v-col>
@@ -30,6 +31,7 @@
           sub-icon="mdi-heart-outline"
           sub-text="EnsikloTari"
           style="cursor: pointer"
+          :class="`${$route.query.summary === 'approved' ? 'selected' : ''}`"
           @click.native="orderBySummary('approved')"
         />
       </v-col>
@@ -46,6 +48,9 @@
           sub-icon="mdi-heart-outline"
           sub-text="EnsikloTari"
           style="cursor: pointer"
+          :class="`${
+            $route.query.summary === 'non_approved' ? 'selected' : ''
+          }`"
           @click.native="orderBySummary('non_approved')"
         />
       </v-col>
@@ -62,6 +67,7 @@
           sub-icon="mdi-heart-outline"
           sub-text="EnsikloTari"
           style="cursor: pointer"
+          :class="`${$route.query.summary === 'new' ? 'selected' : ''}`"
           @click.native="orderBySummary('new')"
         />
       </v-col>

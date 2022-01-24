@@ -114,6 +114,7 @@
                                 <v-img
                                   v-if="item.img"
                                   height="360"
+                                  width="100%"
                                   gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
                                   :src="item.img.url"
                                 >

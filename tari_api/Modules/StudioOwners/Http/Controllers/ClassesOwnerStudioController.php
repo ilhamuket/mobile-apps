@@ -22,7 +22,10 @@ class ClassesOwnerStudioController extends Controller
                 'approved' => 0,
                 'non_approved' => 0,
                 'new' => 0,
-                'hided' => 0
+                'hided' => 0,
+                'verified' => 0,
+                'un_verified' => 0,
+                'deleted' => 0,
             ];
             $me = $request->user();
             $studio = OwnerStudio::where('author_id', $me->id)->first();
@@ -35,7 +38,7 @@ class ClassesOwnerStudioController extends Controller
                 ->count();
             $data['non_approved'] = ClassesOwnerStudio::whereHas('studio', function (Builder $query) use ($studio) {
                 $query->where('id', $studio->id);
-            })->where('status', 'Draft')
+            })->where('status', 'draft')
                 ->count();
             $data['new'] = ClassesOwnerStudio::whereHas('studio', function (Builder $query) use ($studio) {
                 $query->where('id', $studio->id);
@@ -43,7 +46,15 @@ class ClassesOwnerStudioController extends Controller
                 ->count();
             $data['hided'] = ClassesOwnerStudio::whereHas('studio', function (Builder $query) use ($studio) {
                 $query->where('id', $studio->id);
-            })->where('status', 'Hide')
+            })->where('status', 'hide')
+                ->count();
+            $data["verified"] = ClassesOwnerStudio::whereHas('studio', function (Builder $query) use ($studio) {
+                $query->where('id', $studio->id);
+            })->where('isVerified', 1)
+                ->count();
+            $data["un_verified"] = ClassesOwnerStudio::whereHas('studio', function (Builder $query) use ($studio) {
+                $query->where('id', $studio->id);
+            })->where('isVerified', 0)
                 ->count();
             return Json::response($data);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
@@ -128,9 +139,21 @@ class ClassesOwnerStudioController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function hideEnsikloLive(Request $request)
     {
-        return view('studioowners::create');
+        try {
+            $studioClasses = ClassesOwnerStudio::findOrFail($request->id);
+            $studioClasses->status = 'hide';
+            $studioClasses->save();
+
+            return Json::response($studioClasses);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**

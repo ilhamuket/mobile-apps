@@ -7,19 +7,22 @@
         class="border-right"
       >
         <v-row>
-          <v-col cols="3">
+          <v-col
+            cols="12"
+            md="3"
+          >
             <v-avatar
               v-if="studio.img"
               tile
-              size="70"
-              class="ml-2 rounded-xl mt-2"
+              size="80"
+              class="ml-2 rounded-xl"
             >
               <v-img :src="`${studio.img.url}`" />
             </v-avatar>
             <v-avatar
               v-else
               tile
-              size="70"
+              size="80"
               class="ml-2 rounded-xl mt-2"
             >
               <v-img

@@ -4,7 +4,9 @@
     :rel="href && href !== '#' ? 'noopener' : undefined"
     :target="href && href !== '#' ? '_blank' : undefined"
     :to="item.to"
-    :active-class="`${!isDark ? 'white' : 'white'}--text`"
+    :active-class="`${
+      !isDark ? 'btn_primary' : 'btn_primary'
+    }--text item__list--active`"
   >
     <!-- :active-class="
       drawer ? 'drawer--off' : `${!isDark ? 'green' : 'red'}--text`
@@ -16,7 +18,7 @@
     />
 
     <v-list-item-icon v-else-if="item.icon">
-      <div>
+      <div class="">
         <v-icon v-text="item.icon" />
         <p
           v-if="!drawer"
@@ -39,10 +41,10 @@
 </template>
 
 <script>
-  import Themeable from 'vuetify/lib/mixins/themeable'
+  import Themeable from "vuetify/lib/mixins/themeable"
 
   export default {
-    name: 'Item',
+    name: "Item",
 
     mixins: [Themeable],
 
@@ -72,18 +74,18 @@
         return this.$store.state.drawer
       },
       computedText () {
-        if (!this.item || !this.item.title) return ''
+        if (!this.item || !this.item.title) return ""
 
-        let text = ''
+        let text = ""
 
-        this.item.title.split(' ').forEach(val => {
+        this.item.title.split(" ").forEach((val) => {
           text += val.substring(0, 1)
         })
 
         return text
       },
       href () {
-        return this.item.href || (!this.item.to ? '#' : undefined)
+        return this.item.href || (!this.item.to ? "#" : undefined)
       },
     },
   }
@@ -91,4 +93,7 @@
 <style lang="sass" scoped>
 .fs-12
   font-size: 12px !important
+// .item__list--active
+//   border: 2px double red
+//   padding: 0 0 0 20px !important
 </style>

@@ -14,6 +14,7 @@
           sub-icon="mdi-heart-outline"
           sub-text="EnsikloTari"
           style="cursor: pointer"
+          :class="`${$route.query.summary === '' ? 'selected' : ''}`"
           @click.native="setSummary('')"
         />
       </v-col>
@@ -30,6 +31,7 @@
           sub-icon="mdi-heart-outline"
           sub-text="EnsikloTari"
           style="cursor: pointer"
+          :class="`${$route.query.summary === 'paid' ? 'selected' : ''}`"
           @click.native="setSummary('paid')"
         />
       </v-col>
@@ -46,6 +48,7 @@
           sub-icon="mdi-heart-outline"
           sub-text="EnsikloTari"
           style="cursor: pointer"
+          :class="`${$route.query.summary === 'pending' ? 'selected' : ''}`"
           @click.native="setSummary('pending')"
         />
       </v-col>
@@ -62,6 +65,7 @@
           sub-icon="mdi-heart-outline"
           sub-text="EnsikloTari"
           style="cursor: pointer"
+          :class="`${$route.query.summary === 'new' ? 'selected' : ''}`"
           @click.native="setSummary('new')"
         />
       </v-col>

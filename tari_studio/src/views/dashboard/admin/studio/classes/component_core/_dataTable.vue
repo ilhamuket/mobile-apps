@@ -99,7 +99,6 @@
           </div>
           <v-btn
             v-if="studio.bank"
-            outlined
             :disabled="studio.bank.length === 0"
             color="btn_primary"
             class="ml-2"
@@ -143,7 +142,7 @@
             <template #expanded-item="{ headers, item }">
               <td :colspan="headers.length">
                 <v-container>
-                  <v-row>
+                  <v-row class="d-flex justify-around">
                     <v-col
                       cols="12"
                       class="d-flex flex-row-reverse"
@@ -154,7 +153,9 @@
                     </v-col>
                     <v-col
                       cols="12"
-                      md="3"
+                      lg="6"
+                      md="6"
+                      xl="6"
                     >
                       <base-material-stats-card
                         v-if="item.student"
@@ -162,52 +163,80 @@
                         icon="mdi-account-multiple-plus-outline"
                         title="Registrant"
                         :value="String(item.student.length)"
-                        sub-icon="mdi-clock"
-                        sub-text="Just Updated"
+                        sub-icon="mdi-heart-outline"
+                        sub-text="EnsikloTari"
                       />
                     </v-col>
                     <v-col
                       cols="12"
-                      md="3"
+                      md="6"
+                      lg="6"
+                      xl="6"
                     >
                       <base-material-stats-card
                         color="info"
                         icon="mdi-twitter"
-                        title="Followers"
-                        value="+245"
-                        sub-icon="mdi-clock"
-                        sub-text="Just Updated"
+                        title="Visitor"
+                        :value="String(item.views)"
+                        sub-icon="mdi-heart-outline"
+                        sub-text="EnsikloTari"
                       />
                     </v-col>
-                    <v-col
-                      cols="12"
-                      md="3"
-                    >
-                      <base-material-stats-card
-                        color="info"
-                        icon="mdi-twitter"
-                        title="Followers"
-                        value="+245"
-                        sub-icon="mdi-clock"
-                        sub-text="Just Updated"
-                      />
-                    </v-col>
-                    <v-col
-                      cols="12"
-                      md="3"
-                    >
-                      <base-material-stats-card
-                        color="info"
-                        icon="mdi-twitter"
-                        title="Followers"
-                        value="+245"
-                        sub-icon="mdi-clock"
-                        sub-text="Just Updated"
-                      />
+                    <v-col cols="12">
+                      <div class="detail-class__title">
+                        <span class="font-spartan btn_primary--text">
+                          Detail Class Live
+                        </span>
+                      </div>
+                      <div class="detail-class__body">
+                        <div class="pl-2 pt-2">
+                          <span>Name Class : {{ item.name }}</span>
+                        </div>
+                        <div
+                          v-if="item.category"
+                          class="pl-2 pt-2"
+                        >
+                          <span>Category : {{ item.category.display_name }}</span>
+                        </div>
+                        <div class="pl-2 pt-2 secondary--text">
+                          <span> Duration : {{ item.durasi }} Minutes </span>
+                        </div>
+                        <div class="pl-2 pt-2">
+                          <span class="btn_primary--text">
+                            Registration :
+                            {{ item.start_at | moment("MMMM Do") }} -
+                            {{ item.end_at | moment("MMMM Do YYYY") }}</span>
+                          -
+                          <v-chip
+                            :color="setStatusClass(item.status_kelas)"
+                            text-color="white"
+                          >
+                            {{ item.status_kelas }}
+                          </v-chip>
+                        </div>
+                        <div class="pl-2 pt-2 btn_primary--text">
+                          <span> Price : Rp{{ item.harga }} </span>
+                        </div>
+                        <div class="pl-2 pt-2 pb-2">
+                          Link Meet:
+                          <a
+                            :href="item.url_meets"
+                            target="__blank"
+                          >{{
+                            item.url_meets ? item.url_meets : "-"
+                          }}</a>
+                        </div>
+                        <div class="pl-2">
+                          <span>
+                            #About
+                            <br>
+                            {{ item.about }}
+                          </span>
+                        </div>
+                      </div>
                     </v-col>
                   </v-row>
                 </v-container>
-                Helo {{ item.name }}
               </td>
             </template>
             <!-- Header -->
@@ -290,19 +319,9 @@
               </v-hover>
             </template>
             <template #[`item.name`]="{ item }">
-              <v-hover v-slot="{ hover }">
-                <v-chip
-                  color="transparent"
-                  :class="{ 'on-hover': hover }"
-                  :text-color="
-                    hover
-                      ? 'btn_primary'
-                      : $vuetify.theme.dark
-                        ? 'white'
-                        : 'black'
-                  "
-                  style="cursor: pointer"
-                  class="mt-6"
+              <div class="ensiklo--live__name">
+                <span
+                  class="font-spartan-small cursor-pointer"
                   @click="
                     navigate(
                       `/class/${item.slug}/keyword/${item.keyword}/student`
@@ -310,8 +329,9 @@
                   "
                 >
                   {{ item.name }}
-                </v-chip>
-              </v-hover>
+                </span>
+              </div>
+              <!--  -->
               <div class="bg-hover">
                 <div class="d-flex flex-row flex-nowrap">
                   <div>
@@ -341,7 +361,7 @@
                     </div>
                   </div>
                   <div>
-                    <div class="d-flex flex-column mt-2 ml-1">
+                    <!-- <div class="d-flex flex-column mt-2 ml-1">
                       <a
                         class="d-flex blue--text flex-nowrap"
                         @click="upInfoClass(item)"
@@ -363,7 +383,7 @@
                           <span class="font-spartan-small"> Info </span>
                         </v-tooltip>
                       </a>
-                    </div>
+                    </div> -->
                   </div>
                   <div>
                     <div class="d-flex flex-column mt-2 ml-1">
@@ -532,14 +552,23 @@
         return name
       },
     },
+    watch: {
+      search (value) {
+        this.$router.push({ query: { ...this.$route.query, search: value } })
+      },
+      "$route.query.search": function (value) {
+        this.search = value
+      },
+    },
     mounted () {
     // console.log(this.studio)
     },
     methods: {
       setColorLevels (levels) {
-        if (levels === "beginner" || levels === "beginner") return "pallet1"
+        if (levels === "beginner" || levels === "beginner") return "third"
         if (levels === "advance") return "secondary"
-        if (levels === "intermediate") return "btn_primary"
+        if (levels === "intermediate" || levels === "Intermediate")
+          return "btn_primary"
       },
       setColorStatus (status) {
         if (status === "publish") return "btn_primary"
@@ -547,8 +576,8 @@
         else return "red"
       },
       setStatusClass (status) {
-        if (status === "ongoing") return "primary"
-        if (status === "upcoming") return "btn_primary"
+        if (status === "ongoing") return "btn_primary"
+        if (status === "upcoming") return "secondary"
         else return "red"
       },
       upDialog () {
@@ -633,8 +662,7 @@
 </script>
 
 <style lang="sass" scoped>
-// .font-customize
-//   color:
+$btn_primary: #4CAF50
 .font-a-delete
   color: #4CAF50 !important
 .show-btns
@@ -642,4 +670,15 @@
 .col__img__class
   margin-top: 19px
   margin-left: 40px
+.detail-class
+  &__title
+    border-bottom: 1px solid
+    border-color: linear-gradient(to left, #00C853, #B2FF59)
+    margin: 5px 0
+.ensiklo--live
+  &__name > .cursor-pointer
+    cursor: pointer
+    transition: .9s
+    &:hover
+     color: $btn_primary
 </style>

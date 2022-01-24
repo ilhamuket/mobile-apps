@@ -41,6 +41,13 @@
           sub-icon="mdi-heart-outline"
           sub-text="EnsikloTari"
           style="cursor: pointer"
+          :selected="summary"
+          :class="`${
+            $route.query.summary === 'all' || $route.query.summary === ''
+              ? 'selected'
+              : ''
+          }`"
+          :item-selected="$route.query.summary"
           @click.native="orderBy('all')"
         />
       </v-col>
@@ -57,6 +64,9 @@
           sub-icon="mdi-heart-outline"
           sub-text="EnsikloTari"
           style="cursor: pointer"
+          :selected="summary"
+          :class="`${$route.query.summary === 'approved' ? 'selected' : ''}`"
+          :item-selected="$route.query.summary"
           @click.native="orderBy('approved')"
         />
       </v-col>
@@ -74,6 +84,11 @@
           sub-icon="mdi-heart-outline"
           sub-text="EnsikloTari"
           style="cursor: pointer"
+          :selected="summary"
+          :class="`${
+            $route.query.summary === 'non-approved' ? 'selected' : ''
+          }`"
+          :item-selected="$route.query.summary"
           @click.native="orderBy('non-approved')"
         />
       </v-col>
@@ -90,6 +105,9 @@
           sub-icon="mdi-heart-outline"
           sub-text="EnsikloTari"
           style="cursor: pointer"
+          :selected="summary"
+          :class="`${$route.query.summary === 'new' ? 'selected' : ''}`"
+          :item-selected="$route.query.summary"
           @click.native="orderBy('new')"
         />
       </v-col>
@@ -107,11 +125,12 @@
             color="info"
             icon="mdi-twitter"
             title="Verified"
-            value="1"
+            :value="String(computedSummary.verified)"
             sub-icon="mdi-clock"
             sub-text="Just Updated"
             style="cursor: pointer"
-            @click.native="sortByType('verified')"
+            :class="`${$route.query.summary === 'verified' ? 'selected' : ''}`"
+            @click.native="orderBy('verified')"
           />
         </v-col>
         <v-col
@@ -123,11 +142,14 @@
             color="info"
             icon="mdi-twitter"
             title="UnVerified"
-            value="1"
+            :value="String(computedSummary.un_verified)"
             sub-icon="mdi-clock"
             sub-text="Just Updated"
             style="cursor: pointer"
-            @click.native="sortByType('unverified')"
+            :class="`${
+              $route.query.summary === 'un_verified' ? 'selected' : ''
+            }`"
+            @click.native="orderBy('un_verified')"
           />
         </v-col>
         <v-col
@@ -138,12 +160,13 @@
           <base-material-stats-card
             color="info"
             icon="mdi-twitter"
-            title="Deleted"
-            value="1"
+            title="Hided"
+            :value="String(computedSummary.hided)"
             sub-icon="mdi-clock"
             sub-text="Just Updated"
             style="cursor: pointer"
-            @click.native="sortByType('deleted')"
+            :class="`${$route.query.summary === 'hided' ? 'selected' : ''}`"
+            @click.native="orderBy('hided')"
           />
         </v-col>
       </v-row>
@@ -870,4 +893,4 @@
   }
 </script>
 
-<style></style>
+<style lang="sass"></style>

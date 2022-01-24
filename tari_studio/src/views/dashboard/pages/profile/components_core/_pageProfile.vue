@@ -12,11 +12,7 @@
             </span>
             <v-icon
               color="blue"
-              :class="
-                isMobile
-                  ? 'margin__icon__pencil__mobile'
-                  : 'margin__icon__pencils__user'
-              "
+              class="actions__edit"
               @click="editProfile(data)"
             >
               mdi-pencil
@@ -34,14 +30,14 @@
                   v-if="data.img"
                   width="300"
                   height="300"
-                  class="rounded-xl"
+                  class="rounded-lg"
                   :src="`${data.img.url}`"
                 />
                 <v-img
                   v-else
                   width="300"
                   height="300"
-                  class="rounded-xl"
+                  class="rounded-lg"
                   src="https://ecs7.tokopedia.net/img/cache/300/default_picture_user/default_toped-22.jpg"
                 />
 
@@ -58,9 +54,7 @@
                       color="primary"
                       @click="onPickFileInput"
                     >
-                      <v-icon>
-                        mdi-camera
-                      </v-icon>
+                      <v-icon> mdi-camera </v-icon>
                     </v-btn>
                     <input
                       ref="fileUpload"
@@ -86,7 +80,7 @@
                         bottom
                         color="primary"
                       >
-                        <template #activator="{on, attrs}">
+                        <template #activator="{ on, attrs }">
                           <v-icon
                             v-bind="attrs"
                             large
@@ -111,7 +105,7 @@
                       bottom
                       color="primary"
                     >
-                      <template #activator="{on,attrs}">
+                      <template #activator="{ on, attrs }">
                         <v-btn
                           v-bind="attrs"
                           dark
@@ -207,20 +201,16 @@
                   <div class="d-flex flex-column font-spartan font-weight-bold">
                     #Account Profile
                   </div>
-                  <div class="d-flex flex-column">
+                  <div class="d-flex flex-column actions__edit">
                     <v-tooltip
                       color="primary"
                       bottom
                     >
-                      <template #activator="{on, attrs}">
+                      <template #activator="{ on, attrs }">
                         <v-icon
                           color="blue"
                           v-bind="attrs"
-                          :class="
-                            isMobile
-                              ? 'margin__icon__pencil__mobile__account'
-                              : 'margin__icon__penci__account'
-                          "
+                          class=""
                           v-on="on"
                         >
                           mdi-account-edit-outline
@@ -289,13 +279,13 @@
                 </div>
 
                 <!-- end Account Profile -->
-                <div class="d-flex flex-row margin__icon__dashboard mt-12">
+                <div class="d-flex flex-row justify-center mt-12">
                   <div class="d-flex flex-column ml-2">
                     <v-tooltip
                       bottom
                       color="primary"
                     >
-                      <template #activator="{on, attrs}">
+                      <template #activator="{ on, attrs }">
                         <a
                           v-bind="attrs"
                           :href="data.url_ig"
@@ -305,9 +295,7 @@
                           <v-icon
                             color="red"
                             large
-                          >
-                            mdi-instagram
-                          </v-icon>
+                          > mdi-instagram </v-icon>
                         </a>
                       </template>
                       <span class="font-spartan-small">
@@ -320,7 +308,7 @@
                       bottom
                       color="primary"
                     >
-                      <template #activator="{on, attrs}">
+                      <template #activator="{ on, attrs }">
                         <a
                           target="__blank"
                           :href="data.url_fb"
@@ -345,7 +333,7 @@
                       bottom
                       color="primary"
                     >
-                      <template #activator="{on, attrs}">
+                      <template #activator="{ on, attrs }">
                         <a
                           target="__blank"
                           :href="data.url_tw"
@@ -421,7 +409,7 @@
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
-            didOpen: toast => {
+            didOpen: (toast) => {
               toast.addEventListener("mouseenter", this.$swal.stopTimer)
               toast.addEventListener("mouseleave", this.$swal.resumeTimer)
             },
@@ -469,7 +457,7 @@
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
-            didOpen: toast => {
+            didOpen: (toast) => {
               toast.addEventListener("mouseenter", this.$swal.stopTimer)
               toast.addEventListener("mouseleave", this.$swal.resumeTimer)
             },
@@ -495,19 +483,17 @@
 </script>
 
 <style lang="sass">
-.margin__icon__pencils__user
-    margin-left: 1072px
-    margin-top: -50px !important
+.actions
+  &__edit
+    margin: 0 0 0 89%
 .padding--text
     padding-left: 2px
 .margin__icon__dashboard
   margin-left: 200px
 a
   text-decoration: none
-.margin__icon__pencil__mobile
-  margin-left: 240px
-.margin__icon__pencil__mobile__account
-  margin-left: 220px
-.margin__icon__penci__account
-  margin-left: 633px
+@media screen and (max-width: 500px)
+  .actions
+    &__edit
+      margin: 0 0 0 41%
 </style>

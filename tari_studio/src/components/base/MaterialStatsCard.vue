@@ -1,7 +1,7 @@
 <template>
   <base-material-card
     :icon="icon"
-    class="v-card--material-stats"
+    :class="`v-card--material-stats summary--card__box`"
     v-bind="$attrs"
     v-on="$listeners"
   >
@@ -87,6 +87,24 @@
         type: String,
         default: undefined,
       },
+      selected: {
+        type: String,
+        default: "all",
+      },
+      itemSelected: {
+        type: String,
+        default: "all",
+      },
+    },
+    computed: {
+      newClass () {
+        let nameClass = ""
+        if (this.selected === "all") nameClass = "selected"
+        if (this.selected === "approved") nameClass = "selected"
+        if (this.selected === "non-approved") nameClass = "selected"
+        if (this.selected === "new") nameClass = "selected"
+        return nameClass
+      },
     },
   }
 </script>
@@ -114,6 +132,9 @@
 
   .v-card__actions
     flex: 1 0 100%
+
+  &.selected
+    border: 2px solid #4CAF50 !important
 
 .v-card .icon--head
   &:hover

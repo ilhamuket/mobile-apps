@@ -14,6 +14,7 @@
     width="260"
     v-bind="$attrs"
     permanent
+    class="overflow--hide"
   >
     <template v-slot:img="props">
       <v-img
@@ -125,33 +126,33 @@
         {
           icon: "mdi-playlist-check",
           title: "category",
-          to: "/category",
+          to: "/category?summary=",
         },
         {
           icon: "mdi-access-point",
           title: "classes",
-          to: "/class",
+          to: "/class?summary=all",
         },
         {
           icon: "mdi-laptop",
           title: "class_vidio",
-          to: "/class-vidio",
+          to: "/class-vidio?summary=",
         },
         {
           title: "student",
           icon: "mdi-account-outline",
-          to: "/student",
+          to: "/student?summary=all",
         },
 
         {
           icon: "mdi-account-cowboy-hat-outline",
           title: "instrucktur",
-          to: "/instructor",
+          to: "/instructor?summary=all",
         },
         {
           icon: "mdi-alpha-v-box",
           title: "vidio_name_page",
-          to: "/vidio",
+          to: "/vidio?summary=all",
         },
         // {
         //   icon: 'mdi-account',
@@ -161,7 +162,7 @@
         {
           title: "artikel",
           icon: "mdi-book-plus-multiple-outline",
-          to: "/article",
+          to: "/article?summary=all",
         },
         {
           title: "event",
@@ -297,11 +298,14 @@
   border-bottom: 1px double #848E84 !important
 .on-hover
   overflow-y: hidden !important
-// .height-max
-//   height: 500px !important
+.height-max
+  height: 100vh !important
+  overflow: auto
 .custumize-dark
   font-weight: bold
   font-family: 'Roboto', sans-serif !important
+.overflow--hide
+  height: 100vh !important
 </style>
 
 <style>
