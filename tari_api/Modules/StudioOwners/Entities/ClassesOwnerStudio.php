@@ -102,6 +102,21 @@ class ClassesOwnerStudio extends Model
                 $query->where('id', $studio);
             })->whereDate('created_at', now());
         }
+        if ($summary === 'verified') {
+            $query->whereHas('studio', function (Builder $query) use ($studio) {
+                $query->where('id', $studio);
+            })->where('isVerified', 1);
+        }
+        if ($summary === 'un_verified') {
+            $query->whereHas('studio', function (Builder $query) use ($studio) {
+                $query->where('id', $studio);
+            })->where('isVerified', 0);
+        }
+        if ($summary === 'deleted') {
+            $query->whereHas('studio', function (Builder $query) use ($studio) {
+                $query->where('id', $studio);
+            })->where('deleted_at', '!=', null);
+        }
 
         return $query;
     }

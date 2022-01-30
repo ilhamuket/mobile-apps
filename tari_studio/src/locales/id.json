@@ -44,6 +44,7 @@
   "wizard": "Wizard",
   "Lihat Sanggar": "Detail",
   "Studio": "Sanggar",
+  "pending": "Menunggu",
   "vidio-instructor": "Vidio Instruktur",
   "studioPage": {
     "card_detail": {
@@ -173,8 +174,17 @@
         "alamat": "Alamat",
         "class": "Kelas"
       }
+    },
+    "article": {
+      "th": {
+        "title": "Judul",
+        "views": "Melihat",
+        "created_at": "Created At"
+      }
     }
   },
+  "article":"Article",
+  "create_article": "Create Article",
   "event": "Event",
   "reviews": "Ulasan",
   "discusses": "Diskusi",

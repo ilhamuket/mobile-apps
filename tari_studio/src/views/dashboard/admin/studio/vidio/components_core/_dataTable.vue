@@ -33,7 +33,7 @@
                   color="size__icon_refresh"
                   v-on="on"
                 >
-                  mdi-cached
+                  mdi-refresh
                 </v-icon>
               </template>
               <span class="font-spartan-small">

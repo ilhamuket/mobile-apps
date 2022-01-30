@@ -8,14 +8,52 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Modules\Media\Entities\Article;
+use Modules\StudioOwners\Entities\OwnerStudio;
 
 class ArticleController extends Controller
 {
+
+    public function summary(Request $request)
+    {
+        try {
+            $data = [
+                "all" => 0,
+                "draft" => 0,
+                "publish" => 0,
+                "new" => 0,
+            ];
+
+            $me = $request->user();
+            $studio = OwnerStudio::where('author_id', $me->id)->first();
+
+            $data["all"] = Article::where("studio_id", $studio->id)
+                ->count();
+            $data["draft"] = Article::where('studio_id', $studio->id)
+                ->where('status', 'draft')
+                ->count();
+            $data["publish"] = Article::where('studio_id', $studio->id)
+                ->where('status', 'publish')
+                ->count();
+            $data["new"] = Article::where('studio_id', $studio->id)
+                ->whereDate('created_at', now())
+                ->count();
+
+            return Json::response($data);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+
     public function approveById($id)
     {
         try {
             $master = Article::findOrFail($id);
             $master->isVerified = true;
+            $master->status = "publish";
             $master->save();
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
@@ -33,6 +71,7 @@ class ArticleController extends Controller
                 foreach ($request->id as $id) {
                     $master = Article::findOrFail($id);
                     $master->isVerified = true;
+                    $master->status = "publish";
                     $master->save();
                 }
                 return Json::response($master);
@@ -61,6 +100,24 @@ class ArticleController extends Controller
             return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         }
     }
+
+    public function deleteDatas(Request $request)
+    {
+        try {
+            if (is_array($request->id)) {
+                foreach ($request->id as $id) {
+                    $master = Article::findOrFail($id);
+                    $master->dekete();
+                }
+            }
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
     /**
      * Display a listing of the resource.
      * @return Renderable
@@ -68,7 +125,12 @@ class ArticleController extends Controller
     public function index(Request $request)
     {
         try {
-            $master = Article::with('author', 'studio')->get();
+            $me = $request->user();
+            $studio = OwnerStudio::where('author_id', $me->id)->first();
+            $master = Article::entities($request->entities)
+                ->where('studio_id', $studio->id)
+                ->summary($request->summary, $studio->id)
+                ->get();
 
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
@@ -97,28 +159,27 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         try {
-            DB::beginTransaction();
+
+            $me = $request->user();
+            $studio = OwnerStudio::where('author_id', $me->id)->first();
 
             $master = new Article();
             $master->title = $request->title;
             $master->content = $request->content;
             $master->views = 0;
             $master->author_id = $request->user()->id;
-            $master->status = $request->status;
-            $master->studio_id = $request->studio_id;
-            $master->thumbnail_url = $request->thumbnail_url;
+            $master->status = 'draft';
+            $master->studio_id = $studio->id;
+            $master->thumbnail_url = 'https://images.unsplash.com/photo-1476242906366-d8eb64c2f661?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1769&q=80';
             $master->save();
 
             DB::commit();
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            DB::rollBack();
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         } catch (\Illuminate\Database\QueryException $e) {
-            DB::rollBack();
             return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         } catch (\ErrorException $e) {
-            DB::rollBack();
             return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         }
     }

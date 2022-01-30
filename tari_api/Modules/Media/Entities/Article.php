@@ -28,4 +28,29 @@ class Article extends Model
     {
         return $this->belongsTo(Studio::class, 'studio_id');
     }
+
+    // === scope === //
+
+    public function scopeEntities($query, $entities)
+    {
+        if ($entities != null || $entities != '') {
+            $entities = str_replace(' ', '', $entities);
+            $entities = explode(',', $entities);
+
+            try {
+                return $query = $query->with($entities);
+            } catch (\Throwable $th) {
+                return Json::exception(null, validator()->errors());
+            }
+        }
+    }
+
+    public function scopeSummary($query, $summary, $studio_id)
+    {
+        if ($summary == 'publish') $query->where('studio_id', $studio_id)->where('status', 'publish');
+        if ($summary == 'draft') $query->where('studio_id', $studio_id)->where('status', 'draft');
+        if ($summary == 'new') $query->where('studio_id', $studio_id)->whereDate('created_at', now());
+
+        return $query;
+    }
 }

@@ -146,10 +146,10 @@
                 cols="12"
                 md="9"
               >
-                <div class="d-flex flex-row">
-                  <div class="d-flex flex-column font-spartan font-weight-bold">
+                <div class="">
+                  <span class="font-spartan font-weight-bold">
                     #Studio Profile
-                  </div>
+                  </span>
                 </div>
                 <v-divider class="mt-2 mb-2" />
                 <div class="d-flex flex-row mt-2">
@@ -174,15 +174,7 @@
                 </div>
                 <div class="d-flex flex-row mt-2">
                   <div class="d-flex flex-column font-spartan-small">
-                    Address :
-                  </div>
-                  <div class="d-flex flex-column">
-                    <v-icon color="blue">
-                      mdi-map-marker
-                    </v-icon>
-                  </div>
-                  <div class="d-flex flex-column font-spartan-small ml-2">
-                    {{ data.address ? data.address : "-" }}
+                    Address : {{ data.address ? data.address : " - " }}
                   </div>
                 </div>
                 <div class="d-flex flex-row mt-2">
@@ -212,6 +204,7 @@
                           v-bind="attrs"
                           class=""
                           v-on="on"
+                          @click="editProfileAccountName(user)"
                         >
                           mdi-account-edit-outline
                         </v-icon>
@@ -234,6 +227,13 @@
                   <div class="d-flex flex-column">
                     <span class="font-spartan-small">
                       LastName : {{ user.lastName }}
+                    </span>
+                  </div>
+                </div>
+                <div class="d-flex flex-row mt-2">
+                  <div class="d-flex flex-column">
+                    <span class="font-spartan-small">
+                      Email : {{ user.nickName }}
                     </span>
                   </div>
                 </div>
@@ -279,83 +279,78 @@
                 </div>
 
                 <!-- end Account Profile -->
-                <div class="d-flex flex-row justify-center mt-12">
-                  <div class="d-flex flex-column ml-2">
-                    <v-tooltip
-                      bottom
-                      color="primary"
-                    >
-                      <template #activator="{ on, attrs }">
-                        <a
-                          v-bind="attrs"
-                          :href="data.url_ig"
-                          target="__blank"
-                          v-on="on"
-                        >
-                          <v-icon
-                            color="red"
-                            large
-                          > mdi-instagram </v-icon>
-                        </a>
-                      </template>
-                      <span class="font-spartan-small">
-                        {{ data.username_ig }}
-                      </span>
-                    </v-tooltip>
-                  </div>
-                  <div class="d-flex flex-column ml-2">
-                    <v-tooltip
-                      bottom
-                      color="primary"
-                    >
-                      <template #activator="{ on, attrs }">
-                        <a
-                          target="__blank"
-                          :href="data.url_fb"
-                        >
-                          <v-icon
-                            v-bind="attrs"
-                            large
-                            color="blue"
-                            v-on="on"
-                          >
-                            mdi-facebook
-                          </v-icon>
-                        </a>
-                      </template>
-                      <span class="font-spartan-small">
-                        {{ data.username_fb }}
-                      </span>
-                    </v-tooltip>
-                  </div>
-                  <div class="d-flex flex-column ml-2">
-                    <v-tooltip
-                      bottom
-                      color="primary"
-                    >
-                      <template #activator="{ on, attrs }">
-                        <a
-                          target="__blank"
-                          :href="data.url_tw"
-                        >
-                          <v-icon
-                            v-bind="attrs"
-                            large
-                            color="blue"
-                            v-on="on"
-                          >
-                            mdi-twitter
-                          </v-icon>
-                        </a>
-                      </template>
-                      <span class="font-spartan-small">
-                        {{ data.username_tw }}
-                      </span>
-                    </v-tooltip>
-                  </div>
-                </div>
               </v-col>
             </v-row>
+          </v-card-text>
+          <v-card-text>
+            <div class="d-flex justify-center icon--studio">
+              <v-tooltip
+                bottom
+                color="btn_primary"
+              >
+                <template #activator="{ on, attrs }">
+                  <a
+                    v-bind="attrs"
+                    :href="data.url_ig"
+                    target="__blank"
+                    v-on="on"
+                  >
+                    <v-icon color="red"> mdi-instagram </v-icon>
+                  </a>
+                </template>
+                <span class="font-spartan-small">
+                  {{ data.username_ig }}
+                </span>
+              </v-tooltip>
+
+              <v-tooltip
+                bottom
+                color="btn_primary"
+              >
+                <template #activator="{ on, attrs }">
+                  <a
+                    target="__blank"
+                    :href="data.url_fb"
+                  >
+                    <v-icon
+                      class="ml-2"
+                      v-bind="attrs"
+                      color="blue"
+                      v-on="on"
+                    >
+                      mdi-facebook
+                    </v-icon>
+                  </a>
+                </template>
+                <span class="font-spartan-small">
+                  {{ data.username_fb }}
+                </span>
+              </v-tooltip>
+
+              <v-tooltip
+                bottom
+                color="btn_primary"
+              >
+                <template #activator="{ on, attrs }">
+                  <a
+                    target="__blank"
+                    :href="data.url_tw"
+                  >
+                    <v-icon
+                      class="ml-2"
+                      v-bind="attrs"
+                      color="blue"
+                      v-on="on"
+                    >
+                      mdi-twitter
+                    </v-icon>
+                  </a>
+                </template>
+                <span class="font-spartan-small">
+                  {{ data.username_tw }}
+                </span>
+              </v-tooltip>
+            </div>
           </v-card-text>
         </v-card>
       </v-col>
@@ -478,6 +473,9 @@
           })
         }
       },
+      editProfileAccountName (item) {
+        this.$emit("edit-profile", { item: item })
+      },
     },
   }
 </script>
@@ -492,6 +490,12 @@
   margin-left: 200px
 a
   text-decoration: none
+.icon--studio
+  .v-icon.v-icon
+    font-size: 50px
+    transform: .9s
+    &:hover
+      transform: scale(1.2)
 @media screen and (max-width: 500px)
   .actions
     &__edit

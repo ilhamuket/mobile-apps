@@ -137,8 +137,6 @@
     border: 2px solid #4CAF50 !important
 
 .v-card .icon--head
-  &:hover
-    top: -8px
 .cols__modified
   border: 2px double red
 </style>

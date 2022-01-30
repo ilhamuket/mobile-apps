@@ -179,6 +179,40 @@ class UserController extends Controller
         }
     }
 
+    // version 2 
+
+    /** 
+     * @param Request
+     */
+
+    public function userUpdate(Request $request)
+    {
+        try {
+            $master = User::findOrFail($request->user()->id);
+
+            $master->firstName = $request->input('firstName', $master->firstName);
+            $master->lastName = $request->input('lastName', $master->lastName);
+            $master->email = $request->input('email', $master->email);
+            $master->homeAddress = $request->input('homeAddress', $master->homeAddress);
+            $master->dateOfBirth = $request->input('dateOfBirth', $master->dateOfBirth);
+            $master->nickName = $request->input('nickname', $master->nickName);
+            $master->noHp = $request->input('noHp', $master->noHp);
+            $master->about = $request->input('about', $master->about);
+            $master->username_ig = $request->input('ig', $master->username_ig);
+            $master->username_fb = $request->input('fb', $master->username_fb);
+            $master->username_tw = $request->input('tw', $master->username_tw);
+            $master->save();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      * @param int $id

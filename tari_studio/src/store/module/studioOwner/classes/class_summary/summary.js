@@ -9,7 +9,7 @@ export default {
       new: 0,
       verified: 0,
       un_verified: 0,
-      deleted: 0,
+      hide: 0,
     },
   },
   getters: {},

@@ -5,6 +5,7 @@
         <v-col
           cols="12"
           md="5"
+          sm="5"
           class="d-flex flex-column"
         >
           <!-- <v-col
@@ -54,6 +55,7 @@
                     v-resize="onResize"
                     cols="12"
                     sm="6"
+                    md="6"
                   >
                     <v-btn
                       color="btn_primary"
@@ -241,6 +243,7 @@
   margin-top: -2%
 .width--btn
     margin-left: 78px !important
+    box-sizing: border-box !important
 @media screen and (min-width: 1800px)
   .layout
     &__FHD
@@ -259,6 +262,12 @@
   .width--btn {
     width: 300px !important;
     margin-left: 15px !important;
+  }
+}
+
+@media screen and (width: 360px) and (height: 740px) {
+  .width--btn {
+    margin-left: 2px !important;
   }
 }
 </style>

@@ -104,13 +104,24 @@ const router = new Router({
         },
         // article
         {
-          name: "artikel",
+          name: "article",
           path: "/article",
           component: () => import("@/views/dashboard/admin/studio/article"),
           meta: {
             requiresAuth: true,
           },
         },
+
+        {
+          name: "create_article",
+          path: "/create-article",
+          component: () =>
+            import("@/views/dashboard/admin/studio/article/create"),
+          meta: {
+            requiresAuth: true,
+          },
+        },
+
         // Tablle Cla
         {
           name: "index_class",

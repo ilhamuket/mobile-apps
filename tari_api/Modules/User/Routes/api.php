@@ -33,6 +33,7 @@ Route::prefix('user')->middleware(['auth:sanctum'])->group(function () {
     Route::patch('changepassword', [AuthController::class, 'changePassword']);
     Route::post('img', [ImageUserController::class, 'thumbnail']);
     Route::post('change-thumbnail', [ImageUserController::class, 'changeThumbnail']);
+    Route::patch('edit', [UserController::class, 'userUpdate']);
     Route::patch('{id}', [UserController::class, 'update']);
 
     Route::get('summary', [UserController::class, 'summary']);

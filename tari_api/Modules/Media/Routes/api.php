@@ -38,12 +38,13 @@ Route::prefix('media')->middleware(['auth:sanctum'])->group(function () {
     Route::prefix('article')->group(function () {
         Route::get('', [ArticleController::class, 'index']);
         Route::post('', [ArticleController::class, 'store']);
+        Route::get('summary', [ArticleController::class, 'summary']);
+        Route::post('deletes', [ArticleController::class, 'deleteDatas']);
+        Route::post('approves', [ArticleController::class, 'approves']);
         Route::get('{id}', [ArticleController::class, 'show']);
         Route::patch('{id}', [ArticleController::class, 'update']);
         Route::delete('{id}', [ArticleController::class, 'destroyById']);
         Route::get('{id}/studio/{studio_slug}/{slug}', [StudioArticleController::class, 'showArticle']);
-        Route::post('deletes', [ArticleController::class, 'destroy']);
-        Route::post('approves', [ArticleController::class, 'approves']);
         Route::patch('approve/{id}', [ArticleController::class, 'approveById']);
     });
 

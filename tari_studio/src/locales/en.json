@@ -173,8 +173,17 @@
         "alamat": "Address",
         "class": "Class"
       }
+    },
+    "article": {
+      "th": {
+        "title": "Title",
+        "views": "Views",
+        "created_at": "Created At"
+      }
     }
   },
+  "article": "Article",
+  "create_article": "Create Article",
   "event": "Event",
   "reviews": "Reviews",
   "discusses": "Discussion",

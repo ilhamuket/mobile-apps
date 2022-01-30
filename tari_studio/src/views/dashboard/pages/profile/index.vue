@@ -91,6 +91,7 @@
               @edit="upEditProfile"
               @input="inputPictureImgStudio"
               @change="changePictureImgStudio"
+              @edit-profile="editAccountProfile"
             />
           </v-tab-item>
           <v-tab-item>
@@ -215,6 +216,10 @@
       text-btn1="Activated"
       @input="activatedDataBankAccount"
     />
+    <app-dialog-account-edit
+      :dialog="dialogEditAccountProfile"
+      @save="updateDataAccount"
+    />
     <base-share
       :dialog="dialogShare"
       @copy="copy"
@@ -236,6 +241,7 @@
   import dialogFormAddPayment from "./components/__dialogAddPayment.vue"
   import dialogEditBankAccount from "./components/__dialogEditBankAccount.vue"
   import dialogNoticeBankAccount from "./components/__dialogNoticeBank.vue"
+  import pageDialogEditPageAccount from "./components/__dialogEditAccountProfile.vue"
   export default {
     components: {
       "app-card": card,
@@ -251,6 +257,7 @@
       "app-dialog-add-form": dialogFormAddPayment,
       "app-dialog-edit-bank-account": dialogEditBankAccount,
       "app-dialog-notice-bank-account": dialogNoticeBankAccount,
+      "app-dialog-account-edit": pageDialogEditPageAccount,
     },
     data: () => ({
       tabs: null,
@@ -316,6 +323,10 @@
       activatedBankAccount: {
         open: false,
         data: [],
+      },
+      dialogEditAccountProfile: {
+        open: false,
+        data: {},
       },
       params: "",
       users: {},
@@ -1036,6 +1047,64 @@
               Toast.fire({
                 icon: "success",
                 title: "Data Activated Successfully",
+              })
+            }
+          })
+      },
+      editAccountProfile ({ item }) {
+        this.dialogEditAccountProfile.open = true
+        this.dialogEditAccountProfile.data = item
+      },
+      updateDataAccount ({ item }) {
+        this.$store
+          .dispatch("user/updateDataAccount", {
+            firstName: item.firstName,
+            lastName: item.lastName,
+            nickName: item.nickName,
+            email: item.email,
+            homeAddress: item.homeAddress,
+            noHp: item.noHp,
+          })
+          .then((res) => {
+            if (res.data.meta.status) {
+              this.dialogEditAccountProfile.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Update Successfully",
+              })
+            } else {
+              this.dialogEditAccountProfile.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "error",
+                title: "Wrong Format",
               })
             }
           })

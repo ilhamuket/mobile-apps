@@ -103,7 +103,7 @@
       },
       color: {
         type: String,
-        default: "btn_primary",
+        default: "info",
       },
       icon: {
         type: String,
