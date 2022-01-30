@@ -111,7 +111,7 @@
                 </span>
               </div>
             </div>
-            <div class="d-flex flex-row margin__icon">
+            <!-- <div class="d-flex flex-row margin__icon">
               <div class="d-flex flex-column">
                 <v-menu v-model="menu">
                   <template #activator="{ on, attrs }">
@@ -129,7 +129,7 @@
                   </v-list>
                 </v-menu>
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="d-flex flex-row margin__body mb-2">
             <div class="d-flex flex-column">

@@ -3,7 +3,6 @@
     id="core-navigation-drawer"
     v-model="drawer"
     :right="$vuetify.rtl"
-    mobile-breakpoint="960"
     app
     width="260"
     bottom
@@ -16,7 +15,8 @@
       />
     </template>
 
-    <!-- <v-divider class="mb-1" /> -->
+    <!-- <v-divider class="mb-1"
+    mobile-breakpoint="960" /> -->
 
     <v-list nav>
       <v-list-item>
@@ -109,10 +109,10 @@
 
 <script>
 // Utilities
-  import { mapState } from 'vuex'
+  import { mapState } from "vuex"
 
   export default {
-    name: 'DashboardCoreDrawer',
+    name: "DashboardCoreDrawer",
 
     props: {
       expandOnHover: {
@@ -124,63 +124,63 @@
     data: () => ({
       items: [
         {
-          icon: 'mdi-view-dashboard',
-          title: 'dashboard',
-          to: '/',
+          icon: "mdi-view-dashboard",
+          title: "dashboard",
+          to: "/",
         },
         {
-          icon: 'mdi-shopping-music',
-          title: 'Studio',
-          to: '/studio',
+          icon: "mdi-shopping-music",
+          title: "Studio",
+          to: "/studio",
         },
         {
-          icon: 'mdi-account',
-          title: 'user',
-          to: '/pages/user',
+          icon: "mdi-account",
+          title: "user",
+          to: "/pages/user",
         },
         {
-          title: 'rtables',
-          icon: 'mdi-clipboard-outline',
-          to: '/tables/regular-tables',
+          title: "rtables",
+          icon: "mdi-clipboard-outline",
+          to: "/tables/regular-tables",
         },
         {
-          title: 'typography',
-          icon: 'mdi-format-font',
-          to: '/components/typography',
+          title: "typography",
+          icon: "mdi-format-font",
+          to: "/components/typography",
         },
         {
-          title: 'icons',
-          icon: 'mdi-chart-bubble',
-          to: '/components/icons',
+          title: "icons",
+          icon: "mdi-chart-bubble",
+          to: "/components/icons",
         },
         {
-          title: 'google',
-          icon: 'mdi-map-marker',
-          to: '/maps/google-maps',
+          title: "google",
+          icon: "mdi-map-marker",
+          to: "/maps/google-maps",
         },
         {
-          title: 'notifications',
-          icon: 'mdi-bell',
-          to: '/components/notifications',
+          title: "notifications",
+          icon: "mdi-bell",
+          to: "/components/notifications",
         },
       ],
     }),
 
     computed: {
-      ...mapState(['barColor', 'barImage']),
+      ...mapState(["barColor", "barImage"]),
       drawer: {
         get () {
           return this.$store.state.drawer
         },
         set (val) {
-          this.$store.commit('SET_DRAWER', val)
+          this.$store.commit("SET_DRAWER", val)
         },
       },
       computedItems () {
         return this.items.map(this.mapItem)
       },
       users () {
-        const Me = localStorage.getItem('ME')
+        const Me = localStorage.getItem("ME")
         const users = JSON.parse(Me)
 
         return users
@@ -188,7 +188,7 @@
       profile () {
         return {
           avatar: true,
-          title: 'EnsikloTari',
+          title: "EnsikloTari",
         }
       },
     },

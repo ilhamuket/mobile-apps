@@ -26,7 +26,7 @@
       md="3"
       class="mt-6 ml-2 col--searching"
     >
-      <v-form @submit.enter.prevent="searching">
+      <v-form>
         <v-text-field
           v-model="search"
           outlined

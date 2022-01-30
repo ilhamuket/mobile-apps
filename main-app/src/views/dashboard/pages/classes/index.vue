@@ -11,7 +11,6 @@
           <v-col
             cols="12"
             md="4"
-            class="ml-6"
           >
             <v-text-field
               v-model="search"
@@ -24,10 +23,12 @@
             />
           </v-col>
           <v-col
-            class="col__filter"
-            cols="2"
+            cols="12"
+            md="2"
+            sm="12"
+            class="d-flex justify-end"
           >
-            <span class="text__filter">{{ $t("sort") }}</span>
+            <span class="mt-2 mr-2 ml-2">{{ $t("sort") }}</span>
             <v-select
               v-model="filter"
               outlined
@@ -277,4 +278,12 @@
     margin-top: -2px !important
   .v-input
     margin-top: -29px
+@media screen and (max-width: 500px)
+  .col__filter
+    // margin-left: 541px !important
+    .text__filter
+      margin-left: -67px !important
+      margin-top: -2px !important
+    .v-input
+      margin-top: -29px
 </style>

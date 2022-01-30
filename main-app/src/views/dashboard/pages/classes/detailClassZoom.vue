@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container fluid>
+    <v-container>
       <v-row>
         <v-col
           class=""
@@ -8,7 +8,7 @@
         >
           <v-carousel
             v-if="classes.list_img"
-            class="rounded-xl width--carousel ml-5"
+            class="rounded-sm width--carousel ml-5"
           >
             <v-carousel-item
               v-for="(item, i) in classes.list_img"
@@ -23,7 +23,7 @@
           </v-carousel>
           <v-carousel
             v-else
-            class="rounded-xl width--carousel ml-5"
+            class="rounded-sm width--carousel ml-5"
           >
             <!-- <v-carousel-item
               v-for="(item, i) in items"
@@ -38,19 +38,19 @@
         </v-col>
       </v-row>
     </v-container>
-    <v-container class="container--row">
+    <v-container class="container--row justify-center">
       <v-row class="row__card">
-        <v-col cols="12">
+        <v-col
+          cols="12"
+          class=""
+        >
           <v-card>
             <v-card-title
               class="d-flex flex-row justify-center mobile__classname"
             >
               {{ classes.name ? classes.name : "Classes Name" }}
             </v-card-title>
-            <v-card-text
-              class="mt-2 mobile__cardtext"
-              :class="!isMobile ? 'd-flex justify-center' : ''"
-            >
+            <v-card-text class="mt-2 mobile__cardtext">
               <span
                 v-if="classes.studio"
                 class="font-spartan mt-2 mobile__studioname"
@@ -692,14 +692,14 @@
 .container--row
     margin-top: -100px
 .width--carousel
-    .v-carousel__controls
-        background-color: transparent !important
-        height: 142px
-        margin-right: 200px !important
-        // width: 1163px
+  .v-carousel__controls
+    background-color: transparent !important
+    height: 142px
+    // margin-right: 200px !important
+    // width: 1163px
 .row__card
-    width: 1270px
-    margin-left: -32px
+    // width: 1270px
+    margin-left: 32px
     .v-card
         // height: 100px
     .ratings__users
@@ -736,10 +736,10 @@
   &:hover
     transform: scale(1.1)
     cursor: pointer
-@media screen and (max-width: 883px)
+@media screen and (max-width: 500px)
   .row__card
-    width: 400px !important
-    margin-left: -32px
+    // width: 100% !important
+    // margin-left: 32px
     .v-card
       .mobile
         &__studioname
