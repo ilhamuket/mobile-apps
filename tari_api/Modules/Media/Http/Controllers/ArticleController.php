@@ -170,6 +170,7 @@ class ArticleController extends Controller
             $master->author_id = $request->user()->id;
             $master->status = 'draft';
             $master->studio_id = $studio->id;
+            $master->keyword = $request->keyword;
             $master->thumbnail_url = 'https://images.unsplash.com/photo-1476242906366-d8eb64c2f661?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1769&q=80';
             $master->save();
 
@@ -229,6 +230,7 @@ class ArticleController extends Controller
             $master->content = $request->input('content', $master->content);
             $master->status = $request->input('status', $master->status);
             $master->studio_id = $request->input('studio_id', $master->studio_id);
+            $master->keyword = $request->input("keyword", $master->keyword);
             $master->save();
 
             DB::commit();

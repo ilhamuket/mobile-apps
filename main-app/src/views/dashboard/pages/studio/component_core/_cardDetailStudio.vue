@@ -1,5 +1,5 @@
 <template>
-  <v-card class="rounded-xl">
+  <v-card class="rounded-sm">
     <v-container>
       <v-row>
         <v-col
@@ -11,14 +11,14 @@
             <v-col cols="3">
               <v-img
                 v-if="data.img"
-                class="rounded-lg"
+                class="rounded-sm"
                 :src="data.img.url"
                 width="120"
                 height="120"
               />
               <v-img
                 v-else
-                class="rounded-lg"
+                class="rounded-sm"
                 src="https://ecs7.tokopedia.net/img/cache/300/default_picture_user/default_toped-22.jpg"
               />
             </v-col>

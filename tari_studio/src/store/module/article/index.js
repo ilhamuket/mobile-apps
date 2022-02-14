@@ -10,10 +10,12 @@ export default {
       draft: 0,
       new: 0,
     },
+    show: {},
   },
   getters: {},
   mutations: {
     GET_DATA: (state, payload) => (state.data = payload),
+    SHOW_DATA: (state, payload) => (state.show = payload),
     GET_SUMMARY: (state, payload) => (state.summary = payload),
     INSERT_DATA: (state, payload) => {
       state.data.push(payload)
@@ -49,6 +51,19 @@ export default {
         state.data[indexArticle].content = payload.content
       }
     },
+    DELETE_DATA_ARTICLE: (state, payload) => {
+      const index = state.data.findIndex((x) => x.id === payload.id)
+      console.log("index", index)
+      if (index !== -1) {
+        state.data.splice(index, 1)
+      }
+    },
+    HIDE_DATA_ARTICLE: (state, payload) => {
+      const index = state.data.findIndex((x) => x.id === payload.id)
+      if (index !== -1) {
+        state.data[index].status = "hide"
+      }
+    },
   },
   actions: {
     getDataArticle ({ commit }, payload) {
@@ -63,6 +78,24 @@ export default {
           .then((res) => {
             commit("GET_DATA", res.data.data)
             resolve(res)
+          })
+          .catch((e) => {
+            reject(e)
+          })
+      })
+    },
+    showDataArticle: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        "Bearer " + localStorage.getItem("access_token")
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        const params = { ...payload }
+        axios
+          .get(`media/article/${payload.id}`, { params: params })
+          .then((res) => {
+            resolve(res)
+            commit("SHOW_DATA", res.data.data)
           })
           .catch((e) => {
             reject(e)
@@ -147,10 +180,44 @@ export default {
 
       return new Promise((resolve, reject) => {
         axios
-          .post(`media/article/${payload.id}`, { ...payload })
+          .patch(`media/article/${payload.id}`, { ...payload })
           .then((res) => {
             commit("UPDATE_DATA", payload)
             resolve(res)
+          })
+          .catch((e) => {
+            reject(e)
+          })
+      })
+    },
+    hideDataArticle: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        "Bearer " + localStorage.getItem("access_token")
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        axios
+          .patch(`media/article/${payload.id}`, { ...payload })
+          .then((res) => {
+            commit("HIDE_DATA_ARTICLE", payload)
+            resolve(res)
+          })
+          .catch((e) => {
+            reject(e)
+          })
+      })
+    },
+    deleteDataArticle: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        "Bearer " + localStorage.getItem("access_token")
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        axios
+          .delete(`media/article/${payload.id}`)
+          .then((res) => {
+            resolve(res)
+            commit("DELETE_DATA_ARTICLE", payload)
           })
           .catch((e) => {
             reject(e)

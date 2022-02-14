@@ -8,7 +8,7 @@
       >
         <base-material-stats-card
           color="info"
-          icon="mdi-poll"
+          icon="mdi-book-plus-multiple-outline"
           title="All"
           :value="String(computedSummary.all)"
           :class="`${$route.query.summary === 'all' ? 'selected' : ''}`"
@@ -71,6 +71,9 @@
           @deletes="methodsPopUpDialogDeletes"
           @refresh="refresh"
           @approves="methodPopUpDialogApproves"
+          @updateDialog="methodPopUpDialogEditForm"
+          @delete="methodPopUpDialogDeleteArticle"
+          @hide="methodsPopUpDialogHide"
         />
       </v-col>
     </v-row>
@@ -92,17 +95,48 @@
       name-button="Publish"
       @input="publishDataArticles"
     />
+    <app-dialog-edit-article
+      :dialog="dataDialogEditForm"
+      icon-system-bar="mdi-pencil"
+      title-system-bar="Edit"
+      color-system-bar="blue"
+      @input="updateDataArticle"
+    />
+    <app-dialog-delete
+      :is-data-array="false"
+      :dialog="dataDialogDelete"
+      title="Do you Want to deletes Article"
+      title-system-bar="Deletes"
+      color-system-bar="red"
+      icon-system-bar="mdi-delete"
+      name-button="Deletes"
+      @input="deleteDataArticle"
+    />
+    <app-dialog-hide
+      :is-data-array="false"
+      :dialog="dataDialogHide"
+      title="Do You Want to Hide Article"
+      title-system-bar="Hide"
+      color-system-bar="red"
+      icon-system-bar="mdi-eye-off"
+      name-button="Hide"
+      @input="hideDataArticle"
+    />
   </v-container>
 </template>
 
 <script>
   import dataTable from "./componets_core/_dataTable.vue"
   import dialogNotice from "./components/__dialogNotice.vue"
+  import __dialogEditVue from "./components/__dialogEditForm.vue"
   export default {
     components: {
       "app-data-table": dataTable,
       "app-dialog-deletes": dialogNotice,
       "app-dialog-approves": dialogNotice,
+      "app-dialog-delete": dialogNotice,
+      "app-dialog-hide": dialogNotice,
+      "app-dialog-edit-article": __dialogEditVue,
     },
     data: () => ({
       dataArticle: [],
@@ -113,6 +147,18 @@
       dataDialogPublish: {
         open: false,
         data: [],
+      },
+      dataDialogEditForm: {
+        open: false,
+        data: {},
+      },
+      dataDialogDelete: {
+        open: false,
+        data: {},
+      },
+      dataDialogHide: {
+        open: false,
+        data: {},
       },
       summary: "",
     }),
@@ -207,6 +253,18 @@
         this.dataDialogPublish.open = true
         this.dataDialogPublish.data = item
       },
+      methodPopUpDialogEditForm ({ item }) {
+        this.dataDialogEditForm.open = true
+        this.dataDialogEditForm.data = item
+      },
+      methodPopUpDialogDeleteArticle ({ item }) {
+        this.dataDialogDelete.open = true
+        this.dataDialogDelete.data = item
+      },
+      methodsPopUpDialogHide ({ item }) {
+        this.dataDialogHide.open = true
+        this.dataDialogHide.data = item
+      },
       refresh () {
         this.getDataArticle()
         const Toast = this.$swal.mixin({
@@ -227,6 +285,94 @@
           icon: "success",
           title: "Fetch Data",
         })
+      },
+      updateDataArticle ({ item }) {
+        this.$store
+          .dispatch("article/updateDataArticle", {
+            id: item.id,
+            title: item.title,
+            content: item.content,
+          })
+          .then((res) => {
+            if (res.data.meta.status) {
+              this.dataDialogEditForm.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Update Data Article Sucessfully",
+              })
+            }
+          })
+      },
+      deleteDataArticle ({ item }) {
+        this.$store
+          .dispatch("article/deleteDataArticle", { id: item.id })
+          .then((res) => {
+            if (res.data.meta.status) {
+              this.dataDialogDelete.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Deletes Article Successfully",
+              })
+            }
+          })
+      },
+      hideDataArticle ({ item }) {
+        this.$store
+          .dispatch("article/hideDataArticle", {
+            id: item.id,
+            status: "hide",
+          })
+          .then((res) => {
+            if (res.data.meta.status) {
+              this.dataDialogHide.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Fetch Data",
+              })
+            }
+          })
       },
     },
   }

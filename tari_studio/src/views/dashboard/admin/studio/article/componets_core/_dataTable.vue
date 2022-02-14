@@ -115,11 +115,47 @@
                   color="grey"
                 >
                   <v-img
+                    v-if="item.thumbnail_url"
                     width="140"
                     height="100"
                     gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
                     style="cursor: pointer"
                     :src="item.thumbnail_url"
+                    class="img__hover"
+                  >
+                    <template v-slot:placeholder>
+                      <v-row
+                        class="fill-height ma-0"
+                        align="center"
+                        justify="center"
+                      >
+                        <v-progress-circular
+                          indeterminate
+                          color="grey lighten-5"
+                        />
+                      </v-row>
+                    </template>
+                    <v-container>
+                      <v-row>
+                        <v-col cols="12">
+                          <v-icon
+                            large
+                            class="mt-5 ml-10 show-btn"
+                            color="transparent"
+                          >
+                            mdi-camera-flip
+                          </v-icon>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-img>
+                  <v-img
+                    v-else
+                    width="140"
+                    height="100"
+                    gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
+                    style="cursor: pointer"
+                    src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/zeus/kratos/62cb37c4.png"
                     class="img__hover"
                   >
                     <template v-slot:placeholder>
@@ -168,9 +204,10 @@
             </template>
             <template #[`item.title`]="{ item }">
               <div class="mt-6 item--title">
-                <span class="font-spartan-small cursor-pointer">{{
-                  item.title
-                }}</span>
+                <span
+                  class="font-spartan-small cursor-pointer"
+                  @click="push(`/show/${item.id}/article`)"
+                >{{ item.title }}</span>
               </div>
               <div class="bg-hover">
                 <div class="d-flex flex-row flex-nowrap">
@@ -201,34 +238,7 @@
                       </a>
                     </div>
                   </div>
-                  <div>
-                    <div class="d-flex flex-column mt-2 ml-1 mr-1">
-                      <a
-                        class="d-flex blue--text flex-nowrap"
-                        @click="upInfoClass(item)"
-                      >
-                        <v-tooltip
-                          bottom
-                          color="primary"
-                        >
-                          <template #activator="{ on, attrs }">
-                            <v-icon
-                              v-bind="attrs"
-                              small
-                              class="ml-1"
-                              color="blue"
-                              v-on="on"
-                            >
-                              mdi-eye
-                            </v-icon>
-                          </template>
-                          <span class="font-spartan-small blue--text">
-                            Info
-                          </span>
-                        </v-tooltip>
-                      </a>
-                    </div>
-                  </div>
+
                   <div>
                     <div class="d-flex flex-column mt-2">
                       <a
@@ -344,6 +354,20 @@
       approveDataArticle (item) {
         this.$emit("approves", { item: item })
         this.selected = []
+      },
+      upDialogUpdateCategory (item) {
+        this.$emit("updateDialog", {
+          item: item,
+        })
+      },
+      deleteById (item) {
+        this.$emit("delete", { item: item })
+      },
+      hideDataById (item) {
+        this.$emit("hide", { item: item })
+      },
+      push (link) {
+        this.$router.push(link)
       },
     },
   }

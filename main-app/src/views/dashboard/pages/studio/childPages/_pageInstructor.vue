@@ -26,117 +26,34 @@
           <v-card
             :elevation="hover ? 12 : 2"
             :class="{ hover: 'on-hover' }"
+            width="400"
+            height="400"
           >
             <v-img
               v-if="data.img"
               :src="data.img.url"
-              style="cursor: pointer"
+              width="400"
+              height="400"
+              gradient="to top right, rgba(0,0,0,.3), rgba(0,0,0,.3)"
             >
-              <v-container>
-                <v-row class="row--instructor">
-                  <v-col cols="12">
-                    <span class="font-spartan font-weight-bold white--text">
-                      {{ data.name }}
+              <div style="margin: 76% 0 0 4%">
+                <div class="d-flex flex-column">
+                  <div class="d-flex">
+                    <span :class="`font-spartan font-weight-bold white--text`">
+                      {{ data.name }} - {{ data.profession }}
                     </span>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-img>
-            <v-container>
-              <v-row>
-                <v-col
-                  cols="12"
-                  class="d-flex flex-row-reverse margin-callbacks"
-                >
-                  <div class="d-flex flex-row margin--icon">
-                    <div class="d-flex flex-column">
-                      <v-tooltip
-                        bottom
-                        color="btn_primary"
-                      >
-                        <template #activator="{ on, attrs }">
-                          <v-icon
-                            v-bind="attrs"
-                            color="red"
-                            class="mr-2"
-                            v-on="on"
-                          >
-                            mdi-instagram
-                          </v-icon>
-                        </template>
-                        <span
-                          v-if="data.username_ig"
-                          class="font-spartan-small"
-                        >
-                          {{ data.username_ig }}
-                        </span>
-                        <span
-                          v-else
-                          class="font-spartan-small"
-                        >
-                          Instagram
-                        </span>
-                      </v-tooltip>
-                    </div>
-                    <div class="d-flex flex-column">
-                      <v-tooltip
-                        bottom
-                        color="btn_primary"
-                      >
-                        <template #activator="{ on, attrs }">
-                          <v-icon
-                            v-bind="attrs"
-                            color="blue"
-                            class="mr-2"
-                            v-on="on"
-                          >
-                            mdi-facebook
-                          </v-icon>
-                        </template>
-                        <span
-                          v-if="data.username_fb"
-                          class="font-spartan-small"
-                        >
-                          {{ data.username_fb }}
-                        </span>
-                        <span
-                          v-else
-                          class="font-spartan-small"
-                        >
-                          Facebook
-                        </span>
-                      </v-tooltip>
-                    </div>
-                    <div class="d-flex flex-column">
-                      <v-tooltip
-                        bottom
-                        color="btn_primary"
-                      >
-                        <template #activator="{ on, attrs }">
-                          <v-icon
-                            v-bind="attrs"
-                            color="blue"
-                            v-on="on"
-                          >
-                            mdi-twitter
-                          </v-icon>
-                        </template>
-                        <span
-                          v-if="data.username_tw"
-                          class="font-spartan-small"
-                        >
-                          {{ data.username_tw }}
-                        </span>
-                        <span
-                          v-else
-                          class="font-spartan-small"
-                        > Twitter </span>
-                      </v-tooltip>
-                    </div>
                   </div>
-                </v-col>
-              </v-row>
-            </v-container>
+                </div>
+                <div class="d-flex flex-column mt-2">
+                  <v-btn
+                    color="btn_primary"
+                    width="50%"
+                  >
+                    Detail
+                  </v-btn>
+                </div>
+              </div>
+            </v-img>
           </v-card>
         </v-hover>
       </v-col>
@@ -152,7 +69,22 @@
         default: null,
       },
     },
-    data: () => ({}),
+    data: () => ({
+      icon: [
+        {
+          name: "instagram",
+          color: "red",
+        },
+        {
+          name: "facebook",
+          color: "blue",
+        },
+        {
+          name: "twitter",
+          color: "blue",
+        },
+      ],
+    }),
     computed: {},
 
     methods: {},

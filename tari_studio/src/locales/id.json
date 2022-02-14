@@ -183,8 +183,9 @@
       }
     }
   },
-  "article":"Article",
+  "article": "Article",
   "create_article": "Create Article",
+  "show_article": "Show Article",
   "event": "Event",
   "reviews": "Ulasan",
   "discusses": "Diskusi",

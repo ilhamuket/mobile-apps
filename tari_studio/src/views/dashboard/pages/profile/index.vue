@@ -1060,7 +1060,7 @@
           .dispatch("user/updateDataAccount", {
             firstName: item.firstName,
             lastName: item.lastName,
-            nickName: item.nickName,
+            nickname: item.nickName,
             email: item.email,
             homeAddress: item.homeAddress,
             noHp: item.noHp,

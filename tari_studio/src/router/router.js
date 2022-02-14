@@ -121,6 +121,21 @@ const router = new Router({
             requiresAuth: true,
           },
         },
+        {
+          name: "show_article",
+          path: "/show/:id/article",
+          component: () =>
+            import("@/views/dashboard/admin/studio/article/show"),
+          meta: {
+            requiresAuth: true,
+            breadcumbs: [
+              {
+                text: "Article",
+                to: "/article",
+              },
+            ],
+          },
+        },
 
         // Tablle Cla
         {
@@ -339,9 +354,10 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    if (localStorage.getItem("access_token") === null) {
-      // console.log(, 'from')
-
+    if (
+      localStorage.getItem("access_token") === null ||
+      localStorage.getItem("access_token") === ""
+    ) {
       next({
         path: "/login",
         query: { redirect: to.fullPath },
@@ -349,19 +365,6 @@ router.beforeEach((to, from, next) => {
     } else {
       // console.log('Dari ', from.name, 'Ke ', to.name)
       next()
-      // const Me = localStorage.getItem('ME')
-      // const users = JSON.parse(Me)
-      // if (users.isVerified === 1) {
-      //   if (to.name === 'WaitingEmail') {
-      //     next({ path: '/error' })
-      //   } else if (to.name === 'Verifications') {
-      //     next({ path: '/error' })
-      //   }
-      // } else {
-      //   next({
-      //     query: { redirect: to.fullPath },
-      //   })
-      // }
     }
 
     // console.log(to.fullPath, 'normal')
@@ -383,38 +386,6 @@ router.beforeEach((to, from, next) => {
         }
       }
     }
-
-    // if (to.matched.some(record => record.meta.requiresTeachers)) {
-    //   if (auth.state.token) {
-    //     const Me = localStorage.getItem('ME')
-    //     const users = JSON.parse(Me)
-    //     if (users !== null) {
-    //       if (users.roles.some(x => x.name === 'teacher')) {
-    //         next()
-    //       } else {
-    //         next({
-    //           path: '/',
-    //         })
-    //       }
-    //     }
-    //   }
-    // }
-
-    // if (to.matched.some(record => record.meta.requiresStudent)) {
-    //   if (auth.state.token) {
-    //     const Me = localStorage.getItem('ME')
-    //     const users = JSON.parse(Me)
-    //     if (users !== null) {
-    //       if (users.roles.some(x => x.name === 'student')) {
-    //         next()
-    //       } else {
-    //         next({
-    //           path: '/',
-    //         })
-    //       }
-    //     }
-    //   }
-    // }
   } else if (to.matched.some((record) => record.meta.requiresVisitor)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.

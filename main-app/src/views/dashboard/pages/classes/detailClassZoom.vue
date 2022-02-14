@@ -50,7 +50,7 @@
             >
               {{ classes.name ? classes.name : "Classes Name" }}
             </v-card-title>
-            <v-card-text class="mt-2 mobile__cardtext">
+            <v-card-text class="mt-2 d-flex justify-center mobile__cardtext">
               <span
                 v-if="classes.studio"
                 class="font-spartan mt-2 mobile__studioname"

@@ -13,6 +13,9 @@ class Article extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [];
+    protected $cast = [
+        "keyword" => "array"
+    ];
 
     protected static function newFactory()
     {

@@ -13,8 +13,8 @@
           :class="{ 'on-hover': hover }"
         >
           <v-img
-            width="400"
-            height="276"
+            width="100%"
+            height="300"
             gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
             style="background-color: grey"
             :src="item.url_thumbnail"
@@ -118,7 +118,7 @@
 
 <style lang="sass">
 .cols__class-vidio
-    margin-top: 110px !important
+    margin-top: 137px !important
 .ratings__ensiklotari-vidio
     margin-top: -7px
 .btn_explore-vidio

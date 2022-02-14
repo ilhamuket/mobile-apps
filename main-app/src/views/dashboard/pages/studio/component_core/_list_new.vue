@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="overflow--hiden">
     <v-row>
       <v-col
         v-for="(item, i) in data"
@@ -383,6 +383,8 @@
     // &:hover
     //     background-color: #9DC4D1
     //     color: white !important
+.overflow--hiden
+  overflow: hidden !important
 </style>
 <style scoped>
 .v-card {

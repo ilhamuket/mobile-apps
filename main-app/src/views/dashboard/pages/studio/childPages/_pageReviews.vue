@@ -19,24 +19,13 @@
             >
               <v-card-text class="">
                 <span
-                  class="
-                    font-spartan
-                    ratings__modified
-                    btn_primary--text
-                    d-flex
-                    justify-center
-                  "
+                  class="font-spartan ratings__modified btn_primary--text d-flex justify-center"
                 >
                   {{ count }}
                 </span>
                 <br>
                 <span
-                  class="
-                    font-spartan font__users_rating
-                    btn_primary--text
-                    d-flex
-                    justify-center
-                  "
+                  class="font-spartan font__users_rating btn_primary--text d-flex justify-center"
                 >
                   {{ review.length }} Reviews
                 </span>
@@ -391,7 +380,9 @@
             </v-card-text>
             <v-card-text
               v-if="item.response.length !== 0"
-              class="ml-12 card-response"
+              :class="`ml-12 ${
+                $vuetify.theme.dark ? 'card-response__dark' : 'card-response'
+              }`"
             >
               <v-container>
                 <v-row>
@@ -416,6 +407,7 @@
           >
             <v-pagination
               v-model="page"
+              class="pagination__custom"
               :length="meta.last_page"
               @input="nextPagination"
             />
@@ -679,9 +671,19 @@
   .divider--opacity
     opacity: .2
 .card-response
+  border-radius: .5rem
   background-color: #F5F5F5
+  &__dark
+    border-radius: .5rem
+    background-color: #283046
   width: 1080px
 .font-progresss
   font-size: 9px
   margin-left: 580px
+.pagination__custom
+  .theme--dark
+    ul
+      li
+        button
+          background-color: #141C31 !important
 </style>

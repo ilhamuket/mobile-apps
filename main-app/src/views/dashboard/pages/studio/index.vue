@@ -349,6 +349,7 @@
     color: #FFFFFF
 .relative
   overflow-y: hidden !important
+  overflow-x: hidden !important
   position: relative !important
 </style>
 <style lang="sass" scoped>

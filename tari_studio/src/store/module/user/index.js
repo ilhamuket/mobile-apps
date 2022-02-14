@@ -53,6 +53,7 @@ export default {
           .then((res) => {
             commit("UPDATE_DATA", payload)
             resolve(res)
+            console.log(res.data.data)
           })
           .catch((e) => {
             reject(e)

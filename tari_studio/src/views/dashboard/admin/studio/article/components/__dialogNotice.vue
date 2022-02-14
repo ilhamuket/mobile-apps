@@ -14,8 +14,12 @@
         <v-container>
           <v-row>
             <v-col cols="12">
-              <span class="font-spartan"> {{ title }}</span>
-              <ol class="list-decimal">
+              <span class="font-spartan">
+                {{ title }} - {{ isDataArray ? "" : dialog.data.title }}</span>
+              <ol
+                v-if="isDataArray"
+                class="list-decimal"
+              >
                 <li
                   v-for="(item, i) in dialog.data"
                   :key="i"
@@ -73,6 +77,10 @@
       nameButton: {
         type: String,
         default: "",
+      },
+      isDataArray: {
+        type: Boolean,
+        default: true,
       },
     },
     methods: {

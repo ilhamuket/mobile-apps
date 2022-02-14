@@ -233,7 +233,7 @@
                 <div class="d-flex flex-row mt-2">
                   <div class="d-flex flex-column">
                     <span class="font-spartan-small">
-                      Email : {{ user.nickName }}
+                      Username : {{ user.nickName }}
                     </span>
                   </div>
                 </div>
