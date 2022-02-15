@@ -23,7 +23,7 @@ Route::middleware('auth:api')->get('/auth', function (Request $request) {
 });
 
 Route::prefix('auth')->group(function () {
-    Route::post('register/superadmin', [AuthController::class, 'registerAsSuperAdmin']);
+    Route::post('register/superadmin', [AuthController::class, 'registerAsAdmin']);
     Route::post('register/user', [AuthController::class, 'registerForUser']);
     Route::post('register/instructor', [AuthController::class, 'registerAsInstructor']);
     Route::post('register', [AuthController::class, 'register']);

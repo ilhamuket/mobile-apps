@@ -52,11 +52,11 @@
 
 <script>
 // Utilities
-  import kebabCase from 'lodash/kebabCase'
-  import { mapState } from 'vuex'
+  import kebabCase from "lodash/kebabCase"
+  import { mapState } from "vuex"
 
   export default {
-    name: 'ItemGroup',
+    name: "ItemGroup",
 
     inheritAttrs: false,
 
@@ -81,19 +81,19 @@
     },
 
     computed: {
-      ...mapState(['barColor']),
+      ...mapState(["barColor"]),
       children () {
-        return this.item.children.map(item => ({
+        return this.item.children.map((item) => ({
           ...item,
           to: !item.to ? undefined : `${this.item.group}/${item.to}`,
         }))
       },
       computedText () {
-        if (!this.item || !this.item.title) return ''
+        if (!this.item || !this.item.title) return ""
 
-        let text = ''
+        let text = ""
 
-        this.item.title.split(' ').forEach(val => {
+        this.item.title.split(" ").forEach((val) => {
           text += val.substring(0, 1)
         })
 
@@ -107,8 +107,8 @@
     methods: {
       genGroup (children) {
         return children
-          .filter(item => item.to)
-          .map(item => {
+          .filter((item) => item.to)
+          .map((item) => {
             const parent = item.group || this.item.group
             let group = `${parent}/${kebabCase(item.to)}`
 
@@ -118,7 +118,7 @@
 
             return group
           })
-          .join('|')
+          .join("|")
       },
     },
   }

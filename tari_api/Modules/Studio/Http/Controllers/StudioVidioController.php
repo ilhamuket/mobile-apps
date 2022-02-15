@@ -28,7 +28,7 @@ class StudioVidioController extends Controller
                     return Json::exception('Error Vidio Not Found');
                 }
             } else {
-                return Json::exception('Error Studio Not Found');
+                return Json::exception('Error Studio Not Found !');
             }
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');

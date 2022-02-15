@@ -1,4 +1,5 @@
 <template>
+
   <div class="banner-wrapper" style="background-color:#a23131">
     <v-container>
       <!-- -----------------------------------------------

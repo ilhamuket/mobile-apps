@@ -93,6 +93,7 @@ class AuthController extends Controller
             $master->save();
             $master->assignRole('superadmin');
             DB::commit();
+            return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');

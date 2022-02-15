@@ -33,6 +33,7 @@ class StudioController extends Controller
     {
         try {
             $master = Studio::entities($request->entities)
+                ->where('isVerified', 1)
                 ->paginate($request->input('paginate', 6));
             return Json::response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
@@ -47,6 +48,7 @@ class StudioController extends Controller
     {
         try {
             $master = Studio::orderBy('views', 'desc')
+                ->where('isVerified', 1)
                 ->entities($request->entities)
                 ->orderBy('id')->paginate(3);
 
@@ -148,6 +150,7 @@ class StudioController extends Controller
         try {
             $master = Studio::entities($request->entities)
                 ->search($request->search)
+                ->where('isVerified', 1)
                 ->sort($request->sort)
                 ->paginate($request->input("paginate", 6));
 
