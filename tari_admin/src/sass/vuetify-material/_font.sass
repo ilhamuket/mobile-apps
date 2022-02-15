@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Roboto+Mono:ital,wght@1,100&family=Shadows+Into+Light&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Rampart+One&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Spartan&display=swap')
+// @import url('https://fonts.googleapis.com/css2?family=Rampart+One&family=Roboto+Condensed:wght@300&display=swap')
+// @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Roboto+Mono:wght@100&family=Shadows+Into+Light&display=swap')
+
+@mixin fontVariable ($family,$family2, $color, $size)
+    font-size: $size
+    font-family: $family, $family2 !important
+    color: $color
+
+.theme--dark
+    .font-spartan-text
+    @include fontVariable ('Spartan', sans-serif , #f8f1f1 , 14px )
+    .font-title-rampart-one
+        @include fontVariable ('Rampart One', Roboto Condensed,#FFFFFF , 22px)
+    .font-title-rampart-one-black
+        @include fontVariable ('Rampart One',Roboto Condensed,#0e0101 , 22px)
+    .font-size-ather-roboto-mono
+        @include fontVariable ('Roboto Condensed' ,Roboto Condensed, #FFFFFF , 12px)
+        font-weight: 200
+    .font-indie-flower
+        @include fontVariable ('Indie Flower',Roboto Condensed, #FFFFFF, 16px)
+    .font-title-rampart-one-small
+        @include fontVariable ('Rampart One',Roboto Condensed,#D7480A , 12px)
+    .font-size-ather-roboto-mono-name-page
+        @include fontVariable ('Roboto' ,Roboto Condensed, #FFFFFF , 19px)
+    .font-spartan
+        @include fontVariable ('Spartan', sans-serif , #FFFFFF , 19px )
+    .font-spartan-small
+        @include fontVariable ('Spartan', sans-serif , #FFFFFF , 12px )
+
+    .custome-brad-pallet1
+        font-size: 22px !important
+        color: #843839 !important
+.theme--light
+    .font-spartan-text
+    @include fontVariable ('Spartan', sans-serif , #0e0101 , 14px )
+    .font-title-rampart-one
+        @include fontVariable ('Rampart One',Roboto Condensed,#D7480A , 22px)
+    .font-title-rampart-one-black
+        @include fontVariable ('Rampart One',Roboto Condensed,#843839 , 22px)
+    .font-size-ather-roboto-mono
+        @include fontVariable ('Roboto Condensed' ,Roboto Condensed, #2D170D , 12px)
+        font-weight: bold !important
+    .font-indie-flower
+        @include fontVariable ('Indie Flower',Roboto Condensed, #0e0101, 16px)
+    .font-title-rampart-one-small
+        @include fontVariable ('Rampart One',Roboto Condensed,#D7480A , 12px)
+    .font-size-ather-roboto-mono-name-page
+        @include fontVariable ('Roboto' ,Roboto Condensed, #100101 , 19px)
+    .font-spartan
+        @include fontVariable ('Spartan', sans-serif , #0e0101 , 19px )
+    .font-spartan-small
+        @include fontVariable ('Spartan', sans-serif , #0e0101 , 12px )
+    .custome-brad
+        font-size: 20px !important
+        color: #843839 !important
+.v-label
+    font-family: 'Spartan', sans-serif
+.v-textarea
+    font-family: 'Spartan', sans-serif
+.v-list-item__title
+    font-family: 'Spartan', sans-serif
+.v-breadcrumbs__item
+    font-family: 'Spartan', sans-serif
+    font-size: 15px
+    color: #9DC4D1
+    font-weight: 500
+.style--italic
+    font-style: italic
