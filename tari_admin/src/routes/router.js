@@ -198,30 +198,33 @@ const router = new Router({
         requiresAuth: true,
       },
     },
-    {
-      path: '/landingpage',
-      component: () => import('@/views/landingpage/index'),
-      meta: {
-        requiresVisitor: true,
-      },
-      children: [
-        {
-          path: '',
-          component: () => import('@/views/landingpage/landingPage'),
-          meta: {
-            requiresVisitor: true,
-          },
-        },
-      ],
-    },
+    // {
+    //   path: '/landingpage',
+    //   component: () => import('@/views/landingpage/index'),
+    //   meta: {
+    //     requiresVisitor: true,
+    //   },
+    //   children: [
+    //     {
+    //       path: '',
+    //       component: () => import('@/views/landingpage/landingPage'),
+    //       meta: {
+    //         requiresVisitor: true,
+    //       },
+    //     },
+    //   ],
+    // },
   ],
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    if (localStorage.getItem('access_token') === null || localStorage.getItem('access_token') === '') {
+    if (
+      localStorage.getItem('access_token') === null ||
+      localStorage.getItem('access_token') === ''
+    ) {
       // console.log(, 'from')
 
       next({
@@ -234,13 +237,13 @@ router.beforeEach((to, from, next) => {
 
     // console.log(to.fullPath, 'normal')
 
-    if (to.matched.some(record => record.meta.requiresAdmin)) {
+    if (to.matched.some((record) => record.meta.requiresAdmin)) {
       if (auth.state.token) {
         const Me = localStorage.getItem('ME')
         const users = JSON.parse(Me)
         if (users !== null) {
           if (
-            users.role.some(x => x.name === 'admin' || 'superadministrator')
+            users.role.some((x) => x.name === 'admin' || 'superadministrator')
           ) {
             next()
           } else {
@@ -283,7 +286,7 @@ router.beforeEach((to, from, next) => {
     //     }
     //   }
     // }
-  } else if (to.matched.some(record => record.meta.requiresVisitor)) {
+  } else if (to.matched.some((record) => record.meta.requiresVisitor)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     if (localStorage.getItem('access_token')) {

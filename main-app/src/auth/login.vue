@@ -1,104 +1,103 @@
 <template>
-  <v-app class="bg--login">
-    <v-container class="container--custome mt-12">
-      <v-row class="d-flex justify-center">
-        <!-- <v-col
-          cols="12"
-          md="8"
-          class="d-flex flex-column bg-img"
-        >
-          <v-row>
-            <v-col cols="12">
-              <v-img
-                width="1200"
-                class="mr-2"
-                :src="imgUrl"
-              />
-            </v-col>
-          </v-row>
-        </v-col> -->
-        <v-col
-          cols="12"
-          class="d-flex justify-center"
-        >
-          <v-col
-            cols="12"
-            md="6"
-          >
-            <v-card>
-              <v-card-text class="mb-2">
-                <span class="font-spartan-title">
-                  Daftarkan diri dan mulai pertualanganmu 👋
-                </span>
-              </v-card-text>
-              <v-card-text class="card--margin">
-                <v-form @submit.prevent.enter="login">
-                  <v-row>
-                    <v-col cols="12">
-                      <v-text-field
-                        v-model="email"
-                        label="Email Or Username *"
-                        color="btn_primary"
-                        placeholder="E-mail Or Username"
-                        outlined
-                        dense
-                      />
-                    </v-col>
-                    <v-col cols="12">
-                      <v-text-field
-                        v-model="password"
-                        label="Password *"
-                        placeholder="Password"
-                        outlined
-                        color="btn_primary"
-                        dense
-                        :append-icon="!show ? 'mdi-eye' : 'mdi-eye-off'"
-                        :type="show ? 'text' : 'password'"
-                        @click:append="show = !show"
-                      />
-                    </v-col>
-                  </v-row>
-
-                  <div class="d-flex flex-row justify-center ml-8 mt-7">
-                    <div class="d-flex flex-coloumn">
-                      <v-btn
-                        color="btn_primary"
-                        width="370"
-                        type="submit"
-                      >
-                        Masuk
-                      </v-btn>
-                    </div>
+  <v-app class="bg--login overflow-hidden">
+    <v-container class="">
+      <v-row class="">
+        <v-col class="">
+          <v-container>
+            <v-row class="d-flex justify-center my-auto">
+              <v-col
+                cols="12"
+                md="4"
+                sm="12"
+                class=""
+              >
+                <v-card class="position__card">
+                  <!-- <v-card-title class="d-flex justify-center pt-8"> -->
+                  <!-- <span class="font-spartan-title">
+                      Daftarkan diri dan mulai pertualanganmu 👋
+                    </span> -->
+                  <div
+                    style="width: 220px"
+                    class="mx-auto pt-6"
+                  >
+                    <v-img
+                      src="@/assets/img/ensiklotariLogo.svg"
+                      class=""
+                    />
                   </div>
+                  <!-- </v-card-title> -->
+                  <v-card-text class="pt-6">
+                    <v-form @submit.prevent.enter="login">
+                      <v-row>
+                        <v-container>
+                          <v-col cols="12">
+                            <v-text-field
+                              v-model="email"
+                              label="Email Or Username *"
+                              color="btn_primary"
+                              placeholder="E-mail Or Username"
+                              outlined
+                              dense
+                            />
+                            <v-text-field
+                              v-model="password"
+                              label="Password *"
+                              placeholder="Password"
+                              outlined
+                              color="btn_primary"
+                              dense
+                              :append-icon="!show ? 'mdi-eye' : 'mdi-eye-off'"
+                              :type="show ? 'text' : 'password'"
+                              @click:append="show = !show"
+                            />
+                            <v-btn
+                              color="btn_primary"
+                              type="submit"
+                              width="100%"
+                            >
+                              Masuk
+                            </v-btn>
+                          </v-col>
+                          <v-col
+                            cols="12"
+                            md="12"
+                            class="d-flex justify-center"
+                          >
+                            <v-chip
+                              color="transparent"
+                              to="/forgot-password"
+                              style="cursor: pointer"
+                            >
+                              <span
+                                style="font-size: 1rem"
+                                class="text--forgot font-weight-bold black--text"
+                              >
+                                Lupa Password ?
+                              </span>
+                            </v-chip>
+                          </v-col>
+                        </v-container>
+                      </v-row>
 
-                  <div class="d-flex flex-row justify-center mt- 4">
-                    <div class="d-flex flex-column">
-                      <v-chip
-                        color="transparent"
-                        text-color="red"
-                        to="/forgot-password"
-                        style="cursor: pointer"
-                      >
-                        <span class="font-spartan-small">
-                          Lupa Password ?
+                      <div class="text-center font-questions mt-8 pb-6">
+                        <span
+                          class="color-black-2"
+                        >Baru Di Platform Kami?
                         </span>
-                      </v-chip>
-                    </div>
-                  </div>
-                  <div class="text-center font-questions mt-8">
-                    <span class="color-black-2">Baru Di Platform Kami? </span>
-                    <br>
-                    <a
-                      class="color-a"
-                      @click="pushToRegister"
-                    >
-                      <span>&nbsp;Daftar Sekarang</span>
-                    </a>
-                  </div>
-                </v-form>
-              </v-card-text>
-            </v-card>
-          </v-col>
+                        <br>
+                        <a
+                          class="color-a"
+                          @click="pushToRegister"
+                        >
+                          <span>&nbsp;Daftar Sekarang</span>
+                        </a>
+                      </div>
+                    </v-form>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-container>
         </v-col>
       </v-row>
     </v-container>
@@ -181,6 +180,7 @@
   background-color: #fff
 .bg--login
   background-color: #843839 !important
+  // width: max-content !important
 // .bg-img
 //   background-color: #E1F3F9
 .tmp-opacity
@@ -208,5 +208,22 @@
 .text-custome-2
   color: #2E4DA7 !important
 .card--margin
- margin-top: 10% !important
+ margin-top: 15% !important
+.row
+  margin: 0 !important
+.position_text
+  position: absolute
+  left: 15px
+  top: 24px
+.col
+  padding: 5px !important
+.overflow-hidden
+  overflow: hidden !important
+.text--forgot
+  &:hover
+    text-decoration: underline
+@media screen and (max-width:813px)
+  .position__card
+    position: absolute
+    right: 0px
 </style>

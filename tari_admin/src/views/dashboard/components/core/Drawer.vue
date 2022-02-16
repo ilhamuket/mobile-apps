@@ -129,7 +129,7 @@
           outlined
           class="ml-3 mt-3"
           small
-          color="pallet1"
+          :color="$vuetify.theme.dark ? 'white' : 'black'"
           @click.stop="drawerBtn"
         >
           <v-icon dark>
@@ -187,20 +187,21 @@
           to: '/',
         },
         {
+          icon: 'mdi-account',
+          title: 'users',
+          to: '/user?summary=',
+        },
+        {
           icon: 'mdi-shopping-music',
           title: 'studio',
-          to: '/studio',
+          to: '/studio?summary=',
         },
         {
           icon: 'mdi-notebook-multiple',
           title: 'journal',
           to: '/journal',
         },
-        {
-          icon: 'mdi-account',
-          title: 'users',
-          to: '/user',
-        },
+
         {
           title: 'class',
           icon: 'mdi-google-classroom',

@@ -10,5 +10,6 @@
     "StudioOwners": true,
     "Room": true,
     "Payment": true,
-    "Tutorial": true
+    "Tutorial": true,
+    "Administrator": true
 }

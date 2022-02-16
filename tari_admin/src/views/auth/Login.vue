@@ -1,110 +1,80 @@
 <template>
-  <v-app>
-    <v-img
-      src="https://aws1.discourse-cdn.com/elastic/original/3X/9/0/90df22ab443662d632838fd82f6ea38b2cba025a.png"
-      max-height="620"
-      class="my-auto"
-    >
-      <app-navigations
-        color="#DD5B87"
-        class="mb-12"
-        :page-login="true"
-      />
-
-      <v-container>
-        <v-row>
-          <v-col>
-            <v-container>
-              <v-row class="d-flex justify-center">
-                <v-col cols="4">
-                  <v-card :color="$vuetify.theme.dark ? 'FFFFFF' : ''">
-                    <v-card-title class="d-flex justify-center">
-                      <h3 class="d-flex justify-center mr-4">
-                        Login
-                      </h3>
-                    </v-card-title>
-                    <v-card-text class="mt-12">
-                      <v-form @submit.enter="login">
-                        <v-text-field
-                          v-model="email"
-                          outlined
-                          dense
-                          label="Input Your Emaill"
-                          placeholder="E-mail"
-                          prepend-icon="mdi-email"
-                        />
-                        <v-text-field
-                          v-model="password"
-                          outlined
-                          dense
-                          label="Input Your Password"
-                          placeholder="Password"
-                          prepend-icon="mdi-lock"
-                          append-icon="mdi-eye"
-                          :type="show ? 'text' : 'password'"
-                          @click:append="show = !show"
-                        />
-                        <div class="d-flex flex-row justify-center mr-2">
-                          <div class="d-flex flex-column">
-                            <v-chip
-                              class="transparent"
-                              text-color="primary"
-                              style="cursor:pointer"
-                            >
-                              {{ $t('categories.login.forget') }}
-                            </v-chip>
-                          </div>
-                        </div>
-                        <div class="d-flex flex-row justify-center mt-2">
-                          <div class="d-flex flex-column">
+  <v-app class="bg--login">
+    <v-container>
+      <v-row>
+        <v-col>
+          <v-container>
+            <v-row class="d-flex justify-md-center">
+              <v-col
+                cols="12"
+                md="4"
+              >
+                <v-card :color="$vuetify.theme.dark ? 'FFFFFF' : ''">
+                  <!-- <v-card-title class="d-flex justify-center">
+                    <h3 class="d-flex justify-center mr-4">
+                      Login
+                    </h3>
+                  </v-card-title> -->
+                  <div
+                    style="width: 220px"
+                    class="mx-auto pt-6"
+                  >
+                    <v-img
+                      src="@/assets/img/ensiklotariLogo.svg"
+                      class=""
+                    />
+                  </div>
+                  <v-card-text class="pb-6">
+                    <v-form @submit.enter="login">
+                      <v-row>
+                        <v-container>
+                          <v-col>
+                            <v-text-field
+                              v-model="email"
+                              outlined
+                              dense
+                              label="Input Your Emaill"
+                              placeholder="E-mail"
+                            />
+                            <v-text-field
+                              v-model="password"
+                              outlined
+                              dense
+                              label="Input Your Password"
+                              placeholder="Password"
+                              append-icon="mdi-eye"
+                              :type="show ? 'text' : 'password'"
+                              @click:append="show = !show"
+                            />
                             <v-btn
                               type="submit"
-                              color="#DD5B87"
+                              color="btn_primary"
+                              width="100%"
+                              class=""
                               @click.prevent="login"
                             >
                               Login
                             </v-btn>
-                          </div>
-                        </div>
-
-                        <div class="d-flex flex-row justify-center mt-6">
-                          <div class="d-flex flex-column">
-                            <h5 class="text--blue">
-                              {{ $t('categories.login.haveAcc') }}
-                            </h5>
-                          </div>
-                        </div>
-                        <div class="d-flex flex-row justify-center mt-2">
-                          <div class="d-flex flex-column">
-                            <v-btn
-                              outlined
-                              rounded
-                              color="info"
-                              width="200"
-                              to="sign-up"
-                            >
-                              Sign-Up
-                            </v-btn>
-                          </div>
-                        </div>
-                      </v-form>
-                    </v-card-text>
-                  </v-card>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-img>
+                          </v-col>
+                        </v-container>
+                      </v-row>
+                    </v-form>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-col>
+      </v-row>
+    </v-container>
   </v-app>
 </template>
 
 <script>
-  import navigations from '../landingpage/components/Navigation.vue'
+// import navigations from '../landingpage/components/Navigation.vue'
   export default {
     components: {
-      'app-navigations': navigations,
+    // 'app-navigations': navigations,
     },
     data: () => ({
       email: '',
@@ -127,7 +97,7 @@
             email: this.email,
             password: this.password,
           })
-          .then(response => {
+          .then((response) => {
             if (response.data.meta.status === true) {
               this.$router.push('/')
             } else {
@@ -139,7 +109,7 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                didOpen: toast => {
+                didOpen: (toast) => {
                   toast.addEventListener('mouseenter', this.$swal.stopTimer)
                   toast.addEventListener('mouseleave', this.$swal.resumeTimer)
                 },
@@ -183,4 +153,6 @@
   width: 100px
 .text--blue
   color: blue !important
+.bg--login
+  background-color: #843839 !important
 </style>

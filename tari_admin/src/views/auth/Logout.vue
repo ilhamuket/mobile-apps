@@ -15,10 +15,10 @@
           .dispatch('auth/logout')
           .then(() => {
             localStorage.setItem('dark_theme', 'false')
-            this.$router.push('/landingpage')
+            this.$router.push('/logout')
           })
-          .catch(e => {
-            this.$router.push('/landingpage')
+          .catch((e) => {
+            this.$router.push('/logout')
           })
       },
     },

@@ -4,18 +4,25 @@ export default {
   namespaced: true,
   state: {
     data: [],
+    summary: {
+      all: 0,
+      approved: 0,
+      non_approved: 0,
+      new: 0,
+    },
   },
   getters: {},
   mutations: {
     GET_DATA: (state, payload) => (state.data = payload),
+    GET_SUMMARY: (state, payload) => (state.summary = payload),
     APPROVED_DATA: (state, payload) => {
-      const indexData = state.data.findIndex(x => x.id === payload.id)
+      const indexData = state.data.findIndex((x) => x.id === payload.id)
       if (indexData !== -1) {
         state.data[indexData].isVerified = true
       }
     },
     DELETE_DATA: (state, id) => {
-      const index = state.data.findIndex(x => x.id === id)
+      const index = state.data.findIndex((x) => x.id === id)
       state.data.splice(index, 1)
     },
     INSERT_DATA: (state, payload) => {
@@ -33,13 +40,30 @@ export default {
       return new Promise((resolve, reject) => {
         const params = { ...payload }
         axios
-          .get('studio', { params: params })
-          .then(res => {
+          .get('administrator/studio', { params: params })
+          .then((res) => {
             const data = res.data.data
             commit('GET_DATA', data)
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
+            reject(e)
+          })
+      })
+    },
+    getDataStudioSummary: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        'Bearer ' + localStorage.getItem('access_token')
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        axios
+          .get('administrator/studio/summary')
+          .then((res) => {
+            commit('GET_SUMMARY', res.data.data)
+            resolve(res)
+          })
+          .catch((e) => {
             reject(e)
           })
       })
@@ -52,12 +76,12 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .post('studio/approve', { ...payload })
-          .then(res => {
+          .then((res) => {
             //   const data = res.data.data
             commit('APPROVED_DATA', payload.id)
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })
@@ -70,12 +94,12 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .patch('studio', { ...payload })
-          .then(res => {
+          .then((res) => {
             // const data = res.data.data
             commit('DELETE_DATA', payload.id)
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })
@@ -88,11 +112,11 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .delete(`studio/${payload.id}`)
-          .then(res => {
+          .then((res) => {
             commit('DELETE_DATA', payload.id)
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })
@@ -105,12 +129,12 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .post('studio', { ...payload })
-          .then(res => {
+          .then((res) => {
             const data = res.data.data
             commit('INSERT_DATA', data)
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })
@@ -123,12 +147,12 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .patch(`studio/${payload.id}`)
-          .then(res => {
+          .then((res) => {
             // const data = res.data.data
             commit('APPROVED_DATA', payload.id)
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })

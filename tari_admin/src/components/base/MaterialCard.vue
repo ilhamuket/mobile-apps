@@ -61,7 +61,7 @@
 
         <div
           v-else-if="title && !icon"
-          class=" font-weight-light"
+          class="font-weight-light"
           v-text="title"
         />
 
@@ -73,7 +73,7 @@
 
         <div
           v-if="text"
-          class=" font-weight-thin"
+          class="font-weight-thin"
           v-text="text"
         />
       </v-sheet>
@@ -119,7 +119,7 @@
       },
       color: {
         type: String,
-        default: 'pallet1',
+        default: 'btn_primary',
       },
       icon: {
         type: String,

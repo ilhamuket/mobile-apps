@@ -48,6 +48,7 @@ class AuthStudioController extends Controller
             $studios->about = $request->about;
             $studios->author_id = $users->id;
             $studios->type = 'studio';
+            $studios->isVerified = true;
             // $studios->username_ig = 'mahardikakdenie';
             // $studios->username_fb = 'mahardika.kessuma';
             // $studios->username_tw = 'kessumaD';
