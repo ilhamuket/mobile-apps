@@ -15,10 +15,22 @@ export default {
   mutations: {
     GET_DATA: (state, payload) => (state.data = payload),
     GET_SUMMARY: (state, payload) => (state.summary = payload),
-    APPROVED_DATA: (state, payload) => {
-      const indexData = state.data.findIndex((x) => x.id === payload.id)
-      if (indexData !== -1) {
-        state.data[indexData].isVerified = true
+    VERIFICATION_DATAS: (state, payload) => {
+      // eslint-disable-next-line no-unused-vars
+      for (const item in payload) {
+        if (Object.hasOwnProperty.call(payload, item)) {
+          const element = payload[item]
+          const indexStudio = state.data.findIndex((x) => x.id === element.id)
+          if (indexStudio !== -1) {
+            state.data[indexStudio].author.isVerified = 1
+          }
+        }
+      }
+    },
+    VERIFICATION_DATA: (state, payload) => {
+      const indexStudio = state.data.findIndex((x) => x.id === payload.id)
+      if (indexStudio !== -1) {
+        state.data[indexStudio].author.isVerified = true
       }
     },
     DELETE_DATA: (state, id) => {
@@ -68,17 +80,19 @@ export default {
           })
       })
     },
-    approvedData: ({ commit }, payload) => {
+    verificationDataStudios: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
         'Bearer ' + localStorage.getItem('access_token')
       axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
       return new Promise((resolve, reject) => {
+        const userId = payload.map((x) => x.author.id)
         axios
-          .post('studio/approve', { ...payload })
+          .post('administrator/studio/verifications', {
+            user_id: userId,
+          })
           .then((res) => {
-            //   const data = res.data.data
-            commit('APPROVED_DATA', payload.id)
+            commit('VERIFICATION_DATAS', payload)
             resolve(res)
           })
           .catch((e) => {
@@ -86,6 +100,7 @@ export default {
           })
       })
     },
+    verificationDataStudio: ({ commit }, payload) => {},
     DeleteDataStudios: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
         'Bearer ' + localStorage.getItem('access_token')

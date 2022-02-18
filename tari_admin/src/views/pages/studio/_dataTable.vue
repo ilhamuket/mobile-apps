@@ -45,6 +45,8 @@
             append-icon="mdi-magnify"
             color="btn_primary"
             dense
+            :placeholder="$t('search')"
+            :label="$t('search')"
           />
         </v-col>
         <v-col
@@ -56,7 +58,7 @@
             :disabled="selected.length === 0"
             color="btn_primary"
             class="ml-2"
-            @click="approved(selected)"
+            @click="approves(selected)"
           >
             {{ selected.length }} Approved
           </v-btn>
@@ -70,8 +72,84 @@
             show-select
             :items-per-page="5"
           >
+            <template #[`item.id`]="{ item }">
+              <v-card width="150">
+                <v-img
+                  v-if="item.img.url"
+                  width="140"
+                  height="100"
+                  gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
+                  style="cursor: pointer"
+                  :src="item.img.url"
+                  class="img__hover"
+                >
+                  <template v-slot:placeholder>
+                    <v-row
+                      class="fill-height ma-0"
+                      align="center"
+                      justify="center"
+                    >
+                      <v-progress-circular
+                        indeterminate
+                        color="grey lighten-5"
+                      />
+                    </v-row>
+                  </template>
+                  <v-container>
+                    <v-row>
+                      <v-col cols="12">
+                        <v-icon
+                          large
+                          class="mt-5 ml-10 show-btn"
+                          color="transparent"
+                        >
+                          mdi-camera-flip
+                        </v-icon>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-img>
+                <v-img
+                  v-else
+                  width="140"
+                  height="100"
+                  gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
+                  style="cursor: pointer"
+                  src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/zeus/kratos/62cb37c4.png"
+                  class="img__hover"
+                >
+                  <template v-slot:placeholder>
+                    <v-row
+                      class="fill-height ma-0"
+                      align="center"
+                      justify="center"
+                    >
+                      <v-progress-circular
+                        indeterminate
+                        color="grey lighten-5"
+                      />
+                    </v-row>
+                  </template>
+                  <v-container>
+                    <v-row>
+                      <v-col cols="12">
+                        <v-icon
+                          large
+                          class="mt-5 ml-10 show-btn"
+                          color="transparent"
+                        >
+                          mdi-camera-flip
+                        </v-icon>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-img>
+              </v-card>
+            </template>
             <template #[`item.name`]="{ item }">
-              <div class="mt-7 text-capitalize d-flex flex-nowrap">
+              <div
+                class="mt-7 text-capitalize d-flex flex-nowrap font-clickfont-clickv"
+              >
                 {{ item.name }}
               </div>
               <div class="bg-hover">
@@ -159,8 +237,8 @@
               {{ item.created_at | moment('D MMM YYYY') }}
             </template>
             <template #[`item.isVerified`]="{ item }">
-              <v-chip :color="setColorAppoved(item.isVerified)">
-                {{ item.author.isVerified === 1 ? 'Approved' : 'Not Approved' }}
+              <v-chip :color="setColorAppoved(item.author.isVerified)">
+                {{ item.author.isVerified === 1 ? 'Verified' : 'Not Verified' }}
               </v-chip>
             </template>
           </v-data-table>
@@ -180,22 +258,20 @@
     },
     data: () => ({
       headers: [
-        // {
-        //   text: '#',
-        //   value: 'id',
-        // },
+        {
+          text: '#',
+          value: 'id',
+        },
         {
           text: 'Name',
           value: 'name',
           sortable: false,
         },
-        { text: 'Prefix', value: 'prefix', sortable: false },
-        { text: 'Username', value: 'username', sortable: false },
         { text: 'Email', value: 'email', sortable: false },
         { text: 'Region', value: 'address', sortable: false },
         { text: 'Contact', value: 'contact', sortable: false },
         { text: 'Created At', value: 'created_at', sortable: false },
-        { text: 'Approve', value: 'isVerified', sortable: false },
+        { text: 'Owner Verification', value: 'isVerified', sortable: false },
       // { text: 'author', value: 'isSubcribe', sortable: false },
 
       // { text: 'Actions', value: 'actions', align: 'start', justify: 'end' },
@@ -215,12 +291,6 @@
       },
     },
     methods: {
-      popUpDelete (item) {
-        this.$emit('delete', { item: item })
-      },
-      popUpApproved (item) {
-        this.$emit('approve', { item: item })
-      },
       setColorAppoved (status) {
         if (status === 1) return 'btn_primary'
         else return 'red'
@@ -237,8 +307,8 @@
       refresh () {
         this.$emit('refresh')
       },
-      approved (item) {
-        this.$emit('approved', { item: item })
+      approves (item) {
+        this.$emit('approves', { item: item })
         this.selected = []
       },
     },

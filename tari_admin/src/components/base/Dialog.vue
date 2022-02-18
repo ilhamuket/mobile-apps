@@ -9,7 +9,7 @@
           :icon="iconSystemBar"
           :title="titleSystemBar"
           :color="colorSystemBar"
-          @close="open = false"
+          @close="closeDialog"
         />
         <v-card-text v-if="$slots.form">
           <slot name="form" />
@@ -40,6 +40,11 @@
       colorSystemBar: {
         type: String,
         default: null,
+      },
+    },
+    methods: {
+      closeDialog () {
+        this.$emit('close')
       },
     },
   }

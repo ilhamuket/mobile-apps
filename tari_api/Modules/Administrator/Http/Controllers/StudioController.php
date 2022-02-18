@@ -2,6 +2,7 @@
 
 namespace Modules\Administrator\Http\Controllers;
 
+use App\Models\User;
 use Brryfrmnn\Transformers\Json;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Builder;
@@ -69,21 +70,56 @@ class StudioController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param Request $request
+     * @param int user_id as Array
      * @return Renderable
      */
-    public function store(Request $request)
+    public function verificationStudios(Request $request)
     {
-        //
+        try {
+            if (is_array($request->user_id)) {
+                foreach ($request->user_id as $user_id) {
+                    $master = User::whereHas('studio', function (Builder $query) use ($user_id) {
+                        $query->where('author_id', $user_id);
+                    })
+                        ->first();
+                    $master->isVerified = true;
+                    $master->save();
+                }
+
+                return Json::response($master);
+            }
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**
      * Show the specified resource.
-     * @param int $id
+     * @param int $user_id
      * @return Renderable
      */
-    public function show($id)
+    public function verificationStudio(Request $request, $user_id)
     {
-        return view('administrator::show');
+        try {
+            $master = User::whereHas('studio', function (Builder $query) use ($user_id) {
+                $query->where('author_id', $user_id);
+            })->first();
+
+            $master->isVerified = true;
+            $master->save();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Exceptions ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**

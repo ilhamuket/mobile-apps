@@ -22,5 +22,7 @@ Route::prefix('administrator')->middleware(['auth:sanctum'])->group(function () 
     Route::prefix('studio')->group(function () {
         Route::get('', [StudioController::class, 'index']);
         Route::get('summary', [StudioController::class, 'summary']);
+        Route::post('verifications', [StudioController::class, 'verificationStudios']);
+        Route::patch('{user_id}', [StudioController::class, 'verificationStudio']);
     });
 });

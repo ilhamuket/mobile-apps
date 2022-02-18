@@ -76,7 +76,7 @@
           <app-data-table
             :data="studio"
             @refresh="refresh"
-            @approved="popUpdialogNoticeApproved"
+            @approves="popUpdialogNoticeApproved"
           />
         </v-col>
       </v-row>
@@ -87,6 +87,7 @@
       title-system-bar="approved"
       icon-system-bar="mdi-check"
       title="Are you sure want to approveds Studio"
+      @input="approvedDataStudios"
     />
   </v-app>
 </template>
@@ -142,12 +143,12 @@
     mounted () {
       this.getDataStudioSummary()
       this.getDataStudio()
-      console.log('query: ', this.$route.query)
+    // console.log('query: ', this.$route.query)
     },
     methods: {
       getDataStudio () {
         this.$store.dispatch('studio/getData', {
-          entities: 'author',
+          entities: 'author,img',
           summary: this.summary,
         })
       },
@@ -181,6 +182,33 @@
       popUpdialogNoticeApproved ({ item }) {
         this.dataDialogDataApproves.open = true
         this.dataDialogDataApproves.data = item
+      },
+      approvedDataStudios ({ item }) {
+        this.$store
+          .dispatch('studio/verificationDataStudios', item)
+          .then((res) => {
+            if (res.data.meta.status) {
+              this.dataDialogDataApproves.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                },
+                popup: 'swal2-show',
+                backdrop: 'swal2-backdrop-show',
+                icon: 'swal2-icon-show',
+              })
+              Toast.fire({
+                icon: 'success',
+                title: 'Approves Data Successfully',
+              })
+            }
+          })
       },
     },
   }

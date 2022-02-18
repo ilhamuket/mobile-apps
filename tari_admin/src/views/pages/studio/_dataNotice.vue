@@ -4,6 +4,7 @@
     :icon-system-bar="iconSystemBar"
     :title-system-bar="titleSystemBar"
     :color-system-bar="colorSystemBar"
+    @close="dialog.open = false"
   >
     <template #notice>
       <v-container>
@@ -20,6 +21,24 @@
                 {{ item.name }} - {{ item.address }}
               </li>
             </ol>
+          </v-col>
+          <v-col
+            cols="12"
+            class="d-flex justify-end"
+          >
+            <v-btn
+              text
+              color="red"
+              @click="dialog.open = false"
+            >
+              Cancel
+            </v-btn>
+            <v-btn
+              color="btn_primary"
+              @click="actionClick"
+            >
+              Approved
+            </v-btn>
           </v-col>
         </v-row>
       </v-container>
@@ -49,6 +68,11 @@
       title: {
         type: String,
         default: null,
+      },
+    },
+    methods: {
+      actionClick () {
+        this.$emit('input', { item: this.dialog.data })
       },
     },
   }
