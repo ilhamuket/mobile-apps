@@ -12,27 +12,17 @@
         <v-card
           class="mt-5"
           height="120"
+          width="92%"
         >
           <v-card-text class="">
             <span
-              class="
-                font-spartan
-                ratings__modified
-                primary--text
-                d-flex
-                justify-center
-              "
+              class="font-spartan ratings__modified primary--text d-flex justify-center"
             >
               {{ computedCount }}
             </span>
             <br>
             <span
-              class="
-                font-spartan font__users_rating
-                primary--text
-                d-flex
-                justify-center
-              "
+              class="font-spartan font__users_rating primary--text d-flex justify-center"
             >
               {{ value.all }} Reviews
             </span>
@@ -275,7 +265,7 @@
         </v-row>
       </v-col>
     </v-row>
-    <v-divider class="mt-5 mb-2 divider--opacity" />
+    <!-- <v-divider class="mt-5 mb-2 divider--opacity" /> -->
     <span class="font-spartan-small ml-4">
       All Reviews ({{ reviews.length }})
     </span>
@@ -518,10 +508,11 @@
   }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 .progres--ratings
     margin-left: 50px
     margin-top: -20px
+    width: 93%
 .ratings__users__reviews
     margin-left: 46px
     margin-top: -35px
@@ -538,8 +529,8 @@
 .cols__img_list
   margin-top: -20px
 .card-response
-  background-color: #F5F5F5
-  width: 1080px
+  background-color: #a3373 !important
+  width: 77%
 .font-progresss
   font-size: 9px
   margin-left: 580px
@@ -547,4 +538,5 @@
   .progres--ratings
     margin-left: -2px
     margin-top: 2px
+    width: 93%
 </style>

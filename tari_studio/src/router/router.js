@@ -299,7 +299,7 @@ const router = new Router({
     {
       name: "Register",
       path: "/register",
-      component: () => import("@/auth/register/index"),
+      component: () => import("@/auth/registerStudio/index"),
       meta: {
         requiresVisitor: true,
       },
@@ -314,12 +314,9 @@ const router = new Router({
     },
 
     // {
-    //   name: 'Register',
-    //   path: '/register',
-    //   component: () => import('@/auth/register/index'),
-    //   meta: {
-    //     requiresVisitor: true,
-    //   },
+    //   name: "Register",
+    //   path: "/daftar",
+    //   component: () => import("@/auth/registerStudio/index"),
     // },
     {
       name: "Verifications",

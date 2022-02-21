@@ -15,7 +15,6 @@
       </v-btn>
     </v-col> -->
     <v-col
-      v-resize="onResize"
       cols="12"
       class="mobile__col--buynow mobile__cols--375 cols__btn"
     >
@@ -30,15 +29,12 @@
       </v-btn>
     </v-col>
     <v-col
-      class="mobile__col--buynow mobile__cols--375 cols__btn--two"
+      class="mobile__col--buynow mobile__cols--375 mt-2 cols__btn--two"
       :class="isMobile ? '' : 'col__buying__modified'"
       cols="12"
     >
       <v-row>
-        <v-col
-          v-resize="onResize"
-          :cols="isMobile ? '12' : '6'"
-        >
+        <v-col class="mr-2">
           <v-btn
             small
             outlined
@@ -51,10 +47,7 @@
             WishList
           </v-btn>
         </v-col>
-        <v-col
-          v-resize="onResize"
-          :cols="isMobile ? '12' : '6'"
-        >
+        <v-col>
           <v-btn
             small
             color="btn_primary"
@@ -133,6 +126,8 @@
       padding-left: 3%
       .width--btn-buynow
         width: 95% !important
+    &:nth-child(1)
+      margin-left: -8px !important
 @media screen and (max-width: 376px)
   .mobile
     &__cols--375

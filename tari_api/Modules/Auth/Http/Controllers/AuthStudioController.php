@@ -13,7 +13,9 @@ use Modules\Studio\Entities\Studio;
 use Modules\Studio\Entities\StudioVidio;
 use GuzzleHttp\Client;
 use Modules\Studio\Entities\ImagesStudio;
+use Modules\User\Entities\Otp;
 use Modules\User\Notifications\VerifiedAccount;
+use Modules\User\Notifications\VerifiedOtp;
 use Modules\User\Notifications\VerifiedStudio;
 
 class AuthStudioController extends Controller
@@ -41,11 +43,11 @@ class AuthStudioController extends Controller
             $studios = new Studio();
             $studios->name = $request->input('name_studio', $users->firstName . ' ' . $users->lastName);
             $studios->slug = \Str::slug($studios->name);
-            $studios->prefix = $request->prefix;
+            $studios->prefix = $request->input('prefix', 'std');
             $studios->username = $request->input('username', $users->nickName);
             $studios->contact = $request->input('contact', $users->noHp);
             $studios->email = $request->input('email_studio', $users->email);
-            $studios->about = $request->about;
+            $studios->about = $request->input("about", "About");
             $studios->author_id = $users->id;
             $studios->type = 'studio';
             $studios->isVerified = true;
@@ -116,11 +118,24 @@ class AuthStudioController extends Controller
                 $studiosVidios->save();
             }
 
-            $users->notify(new VerifiedStudio());
+            $expectedOtp = strval(random_int(100000, 999999));
+            $otp = new Otp();
+            $otp->otp = $expectedOtp;
+            $otp->user_id = $request->input('user_id', $users->id);
+            $otp->save();
+
+            $users->notify(new VerifiedOtp($expectedOtp, $users));
+
+            // $users->notify(new VerifiedStudio());
             $accessToken = $users->createToken('auth')->plainTextToken;
 
+            $result = [
+                'access_token' => $accessToken,
+                'otp' => $otp->otp,
+            ];
+
             DB::commit();
-            return Json::response($accessToken, 'Waiting For Verfications');
+            return Json::response($result, 'Waiting For Verfications');
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollback();
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');

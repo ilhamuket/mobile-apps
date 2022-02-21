@@ -19,6 +19,7 @@ use Modules\Studio\Entities\StudioClass;
 use Modules\StudioOwners\Entities\ClassesOwnerStudio;
 use Modules\StudioOwners\Entities\OwnerStudio;
 use Modules\User\Entities\ImageUser;
+use Modules\User\Entities\Otp;
 use Modules\User\Entities\Role;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Permission\Traits\HasPermissions;
@@ -121,6 +122,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function myClass()
     {
         return $this->belongsToMany(ClassesOwnerStudio::class, 'has_class', 'user_id', 'class_id');
+    }
+
+    public function otp()
+    {
+        return $this->hasOne(Otp::class, 'user_id');
     }
 
     public function scopeByRole($query, $role_id)

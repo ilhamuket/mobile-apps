@@ -58,9 +58,9 @@
             :disabled="selected.length === 0"
             color="btn_primary"
             class="ml-2"
-            @click="approves(selected)"
+            @click="verificationOwners(selected)"
           >
-            {{ selected.length }} Approved
+            Verification {{ selected.length }} Studio
           </v-btn>
         </v-col>
         <v-col cols="12">
@@ -159,7 +159,7 @@
                       color="transparent"
                       small
                       text
-                      @click="approveDataById"
+                      @click="verificationOwnerByUserId(item)"
                     >
                       <v-tooltip
                         color="btn_primary"
@@ -233,6 +233,20 @@
                 </div>
               </div>
             </template>
+            <template #[`item.email`]="{ item }">
+              <span class="font-spartan">
+                {{
+                  item.email.length > 15
+                    ? item.email.substr(0, 15) + '...'
+                    : item.email
+                }}
+              </span>
+            </template>
+            <template #[`item.author.firstName`]="{ item }">
+              <span class="">
+                {{ item.author.firstName + ' ' + item.author.lastName }}
+              </span>
+            </template>
             <template #[`item.created_at`]="{ item }">
               {{ item.created_at | moment('D MMM YYYY') }}
             </template>
@@ -258,16 +272,17 @@
     },
     data: () => ({
       headers: [
+        // {
+        //   text: '#',
+        //   value: 'id',
+        // },
         {
-          text: '#',
-          value: 'id',
-        },
-        {
-          text: 'Name',
+          text: 'Name Studio',
           value: 'name',
           sortable: false,
         },
-        { text: 'Email', value: 'email', sortable: false },
+        // { text: 'Email Studio', value: 'email', sortable: false },
+        { text: 'Owner Name', value: 'author.firstName', sortable: false },
         { text: 'Region', value: 'address', sortable: false },
         { text: 'Contact', value: 'contact', sortable: false },
         { text: 'Created At', value: 'created_at', sortable: false },
@@ -301,14 +316,14 @@
       removeData (item) {
         this.$emit('remove', { item: item })
       },
-      approveDataById (item) {
-        this.$emit('aproveById', { item: item })
+      verificationOwnerByUserId (item) {
+        this.$emit('verificationOwner', { item: item })
       },
       refresh () {
         this.$emit('refresh')
       },
-      approves (item) {
-        this.$emit('approves', { item: item })
+      verificationOwners (item) {
+        this.$emit('verificationOwners', { item: item })
         this.selected = []
       },
     },

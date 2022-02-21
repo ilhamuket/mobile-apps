@@ -76,18 +76,28 @@
           <app-data-table
             :data="studio"
             @refresh="refresh"
-            @approves="popUpdialogNoticeApproved"
+            @verificationOwners="popUpDialogVerifications"
+            @verificationOwner="popDialogVerification"
           />
         </v-col>
       </v-row>
     </v-container>
-    <app-dialog-approves
-      :dialog="dataDialogDataApproves"
+    <app-dialog-verifications
+      :dialog="dataDialogVerifications"
       color-system-bar="info"
-      title-system-bar="approved"
-      icon-system-bar="mdi-check"
-      title="Are you sure want to approveds Studio"
-      @input="approvedDataStudios"
+      title-system-bar="Verification"
+      icon-system-bar="mdi-check-decagram"
+      title="Are you sure want to Verification Studio"
+      @input="verificationDataStudios"
+    />
+    <app-dialog-verification
+      :is-data-array="false"
+      :dialog="dataDialogVerification"
+      color-system-bar="info"
+      title-system-bar="Verification"
+      icon-system-bar="mdi-check-decagram"
+      title="Are you sure want to Verification Studio"
+      @input="verificationDataStudio"
     />
   </v-app>
 </template>
@@ -98,28 +108,22 @@
   export default {
     components: {
       'app-data-table': dataTable,
-      'app-dialog-approves': dataNotice,
+      'app-dialog-verifications': dataNotice,
+      'app-dialog-verification': dataNotice,
     },
     data: () => ({
       dialog: {
         open: false,
         data: [],
       },
-      dialogDelete: {
+
+      dataDialogVerifications: {
         open: false,
         data: [],
       },
-      dialogAdd: {
+      dataDialogVerification: {
         open: false,
-      },
-      dialogEditById: {
-        id: 0,
-        open: false,
-        title: '',
-      },
-      dataDialogDataApproves: {
-        open: false,
-        data: [],
+        data: {},
       },
       summary: '',
     }),
@@ -143,7 +147,6 @@
     mounted () {
       this.getDataStudioSummary()
       this.getDataStudio()
-    // console.log('query: ', this.$route.query)
     },
     methods: {
       getDataStudio () {
@@ -179,16 +182,20 @@
           title: 'Fetch Data',
         })
       },
-      popUpdialogNoticeApproved ({ item }) {
-        this.dataDialogDataApproves.open = true
-        this.dataDialogDataApproves.data = item
+      popUpDialogVerifications ({ item }) {
+        this.dataDialogVerifications.open = true
+        this.dataDialogVerifications.data = item
       },
-      approvedDataStudios ({ item }) {
+      popDialogVerification ({ item }) {
+        this.dataDialogVerification.open = true
+        this.dataDialogVerification.data = item
+      },
+      verificationDataStudios ({ item }) {
         this.$store
           .dispatch('studio/verificationDataStudios', item)
           .then((res) => {
             if (res.data.meta.status) {
-              this.dataDialogDataApproves.open = false
+              this.dataDialogVerifications.open = false
               const Toast = this.$swal.mixin({
                 toast: true,
                 position: 'bottom-end',
@@ -207,6 +214,38 @@
                 icon: 'success',
                 title: 'Approves Data Successfully',
               })
+            }
+          })
+      },
+      verificationDataStudio ({ item }) {
+        this.$store
+          .dispatch('studio/verificationDataStudio', {
+            id: item.author_id,
+          })
+          .then((res) => {
+            if (res.data.meta.status) {
+              this.dataDialogVerification.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                },
+                popup: 'swal2-show',
+                backdrop: 'swal2-backdrop-show',
+                icon: 'swal2-icon-show',
+              })
+              Toast.fire({
+                icon: 'success',
+                title: 'Verification Studio Successfully',
+              })
+            } else {
+              console.log('error')
+              console.log(res)
             }
           })
       },

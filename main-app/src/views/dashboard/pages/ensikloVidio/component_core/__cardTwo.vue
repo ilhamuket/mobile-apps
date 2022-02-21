@@ -88,8 +88,7 @@
       </v-card-actions>
       <v-btn
         v-if="computedIsFollowing"
-        v-resize="onResize"
-        :class="isMobile ? 'btn__studio__resize' : 'btn__studio'"
+        :class="'btn__studio'"
         small
         color="btn_primary"
       >
@@ -97,8 +96,7 @@
       </v-btn>
       <v-btn
         v-else
-        v-resize="onResize"
-        :class="isMobile ? 'btn__studio__resize' : 'btn__studio'"
+        :class="'btn__studio'"
         small
         color="btn_primary"
         outlined
@@ -223,9 +221,9 @@
     margin-top: -90px !important
     margin-left: 605px !important
     font-weight: 900
-@media screen and (min-width: 887px)
+@media screen and (max-width: 887px)
   .btn__studio
     margin-top: -90px !important
-  // margin-left: 605px !important
+    margin-left: 219px !important
     font-weight: 900
 </style>

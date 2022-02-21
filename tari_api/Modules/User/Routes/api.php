@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Modules\Auth\Http\Controllers\AuthController;
 use Modules\Studio\Http\Controllers\ImagesStudioController;
 use Modules\User\Http\Controllers\ImageUserController;
+use Modules\User\Http\Controllers\OtpController;
 use Modules\User\Http\Controllers\PasswordResetController;
 use Modules\User\Http\Controllers\RoleController;
 use Modules\User\Http\Controllers\UserController;
@@ -29,11 +30,13 @@ Route::prefix('user')->middleware(['auth:sanctum'])->group(function () {
 
     Route::get('', [UserController::class, 'index']);
     Route::get('me', [UserController::class, 'me']);
+    Route::post('otp', [OtpController::class, 'requestOtp']);
     Route::get('indexAll', [UserController::class, 'indexAll']);
     Route::patch('changepassword', [AuthController::class, 'changePassword']);
     Route::post('img', [ImageUserController::class, 'thumbnail']);
     Route::post('change-thumbnail', [ImageUserController::class, 'changeThumbnail']);
     Route::patch('edit', [UserController::class, 'userUpdate']);
+    Route::get('verification/{otp}', [OtpController::class, 'verifyOtp']);
     Route::patch('{id}', [UserController::class, 'update']);
 
     Route::get('summary', [UserController::class, 'summary']);

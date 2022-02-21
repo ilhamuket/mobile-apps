@@ -1,112 +1,132 @@
 <template>
   <v-app :class="!isMobile ? 'app-isMobile' : 'app-not--isMobile'">
     <v-container>
-      <v-row class="d-flex justify-center mt-12">
+      <v-row class="">
         <v-col
           cols="12"
-          md="5"
-          sm="5"
-          class="d-flex flex-column"
+          class=""
         >
-          <!-- <v-col
-            v-resize="onResize"
-            cols="12"
-            class="bg-auth"
-          > -->
-          <v-card :width="isMobile ? '' : '900'">
-            <v-card-title class="font-spartan text-h6 mt-2 text-nowrap">
-              Selamat datang di Studio EnsikloTari!👋
-            </v-card-title>
-            <v-card-text class="mb-2 font-spartan customize--subtitle">
-              Masuk Dan Jelajahi Bersama Kami
-            </v-card-text>
-
-            <v-card-text
-              class="mt-6"
-              color="transparent"
-            >
-              <v-form @submit.prevent.enter="login">
-                <v-row>
-                  <v-col cols="12">
-                    <v-text-field
-                      v-model="email"
-                      label="Email Or Username"
-                      placeholder="E-mail Or Username"
-                      outlined
-                      dense
-                    />
-                  </v-col>
-                  <v-col cols="12">
-                    <v-text-field
-                      v-model="password"
-                      label="Password"
-                      placeholder="Password"
-                      outlined
-                      dense
-                      :append-icon="!show ? 'mdi-eye' : 'mdi-eye-off'"
-                      :type="show ? 'text' : 'password'"
-                      @click:append="show = !show"
-                    />
-                  </v-col>
-                </v-row>
-
-                <v-row class="d-flex flex-row-reverse">
-                  <v-col
-                    v-resize="onResize"
-                    cols="12"
-                    sm="6"
-                    md="6"
+          <v-container>
+            <v-row class="d-flex justify-center mt-12">
+              <v-col
+                cols="12"
+                md="4"
+              >
+                <v-card>
+                  <div
+                    style="width: 220px"
+                    class="mx-auto pt-6"
                   >
-                    <v-btn
-                      color="btn_primary"
-                      type="submit"
-                      :width="isMobile ? '298' : '100'"
-                      :class="isMobile ? '' : 'custom--margin--btn'"
-                      class="width--btn layout__FHD"
-                    >
-                      Masuk
-                    </v-btn>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                  >
-                    <div class="d-flex flex-row justify-center">
-                      <div class="d-flex flex-column">
-                        <v-chip
-                          color="transparent"
-                          style="cursor: pointer"
+                    <v-img
+                      src="@/assets/img/logo.svg"
+                      class=""
+                    />
+                  </div>
+
+                  <v-card-text class="mt-6">
+                    <v-form @submit.prevent.enter="login">
+                      <v-row>
+                        <v-container>
+                          <v-col>
+                            <v-text-field
+                              v-model="email"
+                              label="Email Or Username"
+                              placeholder="E-mail Or Username"
+                              outlined
+                              dense
+                            />
+                            <v-text-field
+                              v-model="password"
+                              label="Password"
+                              placeholder="Password"
+                              outlined
+                              dense
+                              :append-icon="!show ? 'mdi-eye' : 'mdi-eye-off'"
+                              :type="show ? 'text' : 'password'"
+                              @click:append="show = !show"
+                            />
+                            <v-btn
+                              color="btn_primary"
+                              type="submit"
+                              width="100%"
+                            >
+                              Masuk
+                            </v-btn>
+                            <div class="d-flex justify-end mt-2">
+                              <span class="font-spartan-small forgot-password">
+                                Lupa Password
+                              </span>
+                            </div>
+                          </v-col>
+                        </v-container>
+                      </v-row>
+
+                      <!-- <v-row class="d-flex flex-row-reverse">
+                        <v-col
+                          v-resize="onResize"
+                          cols="12"
+                          sm="6"
+                          md="6"
                         >
-                          <span class="font-spartan-small">
-                            Lupa Password ?
-                          </span>
-                        </v-chip>
+                          <v-btn
+                            color="btn_primary"
+                            type="submit"
+                            :width="isMobile ? '298' : '100'"
+                            :class="isMobile ? '' : 'custom--margin--btn'"
+                            class="width--btn layout__FHD"
+                          >
+                            Masuk
+                          </v-btn>
+                        </v-col>
+                        <v-col
+                          cols="12"
+                          sm="6"
+                        >
+                          <div class="d-flex flex-row justify-center">
+                            <div class="d-flex flex-column">
+                              <v-chip
+                                color="transparent"
+                                style="cursor: pointer"
+                              >
+                                <span class="font-spartan-small">
+                                  Lupa Password ?
+                                </span>
+                              </v-chip>
+                            </div>
+                          </div>
+                        </v-col>
+                      </v-row> -->
+                      <div
+                        class="text-center create--studio"
+                        style="padding: 10px"
+                      >
+                        <!-- <span class="color-black-2">New on our platform? </span> -->
+                        <a
+                          class="color-a p-5"
+                          @click="signUp"
+                        >
+                          <span>&nbsp;Buat Studio</span>
+                        </a>
                       </div>
-                    </div>
-                  </v-col>
-                </v-row>
-                <div class="text-center font-questions mt-12">
-                  <!-- <span class="color-black-2">New on our platform? </span> -->
-                  <a
-                    class="color-a"
-                    style="text-decoration: underline"
-                    @click="signUp"
-                  >
-                    <span>&nbsp;Daftar Sekarang</span>
-                  </a>
-                </div>
-              </v-form>
-            </v-card-text>
-          </v-card>
-          <!-- </v-col> -->
+                    </v-form>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-container>
         </v-col>
       </v-row>
     </v-container>
+    <dashboard-core-settings />
   </v-app>
 </template>
 
 <script>
   export default {
+    components: {
+      DashboardCoreSettings: () =>
+      import("./registerStudio/component/settings/settings.vue"),
+    },
     data: () => ({
       show: false,
       email: "",
@@ -196,60 +216,7 @@
   }
 </script>
 
-<style lang="sass">
-@import url('https://fonts.googleapis.com/css2?family=Rampart+One&display=swap')
-@import url('https://fonts.googleapis.com/css2?family=Rampart+One&family=Roboto+Condensed:wght@300&display=swap')
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Roboto+Mono:wght@100&family=Shadows+Into+Light&display=swap')
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,700&display=swap')
-.bg-opocity
-   background: linear-gradient(to right, rgba(226,226,226,1) 0%, rgba(254,254,254,1) 100%)
-   border-color: white !important
-.bg-auth
-  background-color: #ffff
-.bg-img
-  background-color: #F8F8F8
-.tmp-opacity
-  opacity: 0
-.font-title
-  font-family: 'Rampart One', cursive !important
-  color: #6B75AA !important
-.font-subtitle
-  font-family: 'Rampart One', cursive
-  font-family: 'Roboto Condensed', sans-serif
-.cols
-  padding: 26px !important
-.font-questions
-  font-family: 'Roboto Mono', monospace
-.color-black-2
-  color: black !important
-  font-weight: bold !important
-.color-a
-  color: #6B75AA !important
-  font-weight: bold !important
-  text-decoration: underline
-.force--opacity
-  opacity: 0
-.v-label
-  font-family: 'Spartan', sans-serif !important
-.cord--login
-  margin-left: 33% !important
-.app-not--isMobile
-  background-color: #843839 !important
-.app-isMobile
-  height: 20% !important
-  background-color: #843839 !important
-.custom--margin--btn
-  margin-left: 28% !important
-  margin-top: -2%
-.width--btn
-    margin-left: 78px !important
-    box-sizing: border-box !important
-@media screen and (min-width: 1800px)
-  .layout
-    &__FHD
-      margin-left: 40% !important
-      width: 50% !important
-</style>
+<style lang="sass"></style>
 <style>
 @media screen and (max-width: 322px) {
   .width--btn {

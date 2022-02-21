@@ -103,23 +103,22 @@
     props: {},
     data: () => ({
       data: {
-        firstName: '',
-        lastName: '',
-        userName: '',
-        phoneNumber: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
+        firstName: "",
+        lastName: "",
+        userName: "",
+        phoneNumber: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
       },
-
       invalid: true,
       show: false,
       rules: {
-        required: value => !!value || 'Required.',
-        min: v => (v && v.length >= 8) || 'Min 8 characters',
-        emailRules: v =>
+        required: (value) => !!value || "Required.",
+        min: (v) => (v && v.length >= 8) || "Min 8 characters",
+        emailRules: (v) =>
           /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
-          'E-mail must be valid',
+          "E-mail must be valid",
       },
     }),
     computed: {
@@ -129,10 +128,10 @@
     },
     methods: {
       cancel () {
-        this.$router.push('/login')
+        this.$router.push("/login")
       },
       nextStep () {
-        this.$emit('next', { item: this.data })
+        this.$emit("next", { item: this.data })
       },
     },
   }

@@ -9,7 +9,10 @@
     <template #notice>
       <v-container>
         <v-row>
-          <v-col cols="12">
+          <v-col
+            v-if="isDataArray"
+            cols="12"
+          >
             <span class="font-spartan">
               {{ title }}
             </span>
@@ -21,6 +24,11 @@
                 {{ item.name }} - {{ item.address }}
               </li>
             </ol>
+          </v-col>
+          <v-col v-else>
+            <span class="font-spartan">
+              {{ title }} - {{ dialog.data.name }}
+            </span>
           </v-col>
           <v-col
             cols="12"
@@ -68,6 +76,10 @@
       title: {
         type: String,
         default: null,
+      },
+      isDataArray: {
+        type: Boolean,
+        default: true,
       },
     },
     methods: {
