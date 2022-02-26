@@ -186,12 +186,12 @@
               </div>
             </template>
             <template #[`item.bank.bank_name`]="{ item }">
-              <span>
+              <span v-if="item.bank">
                 {{ item.bank.bank_name ? item.bank.bank_name : '-' }}
               </span>
             </template>
             <template #[`item.account_bank_number`]="{ item }">
-              <span>
+              <span v-if="item.bank">
                 {{
                   item.bank.account_bank_number
                     ? item.bank.account_bank_number
