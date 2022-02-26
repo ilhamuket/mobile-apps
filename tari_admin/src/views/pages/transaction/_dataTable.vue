@@ -1,86 +1,39 @@
 <template>
-  <base-material-card icon="mdi-shopping-music">
-    <template v-slot:after-heading>
-      <h2 class="btn_primary--text">
-        {{ computedTableTitle }}
-      </h2>
+  <base-material-card icon="mdi-cart">
+    <template #after-heading>
+      <span class="font-spartan btn_primary--text">
+        {{ computedTitle }}
+      </span>
     </template>
     <v-container>
-      <v-row>
-        <v-col cols="12">
-          <v-btn
-            class="mr-1"
-            outlined
-            rounded
-            small
-            dark
-            color="primary"
-            @click="refresh"
-          >
-            <v-tooltip
-              color="btn_primary"
-              bottom
-            >
-              <template #activator="{ on, attrs }">
-                <v-icon
-                  v-bind="attrs"
-                  color="size__icon_refresh"
-                  v-on="on"
-                >
-                  mdi-refresh
-                </v-icon>
-              </template>
-              <span class="font-spartan-small"> Refresh </span>
-            </v-tooltip>
-          </v-btn>
-        </v-col>
-      </v-row>
       <v-row>
         <v-col
           cols="12"
           md="4"
         >
           <v-text-field
-            v-model="search"
-            append-icon="mdi-magnify"
-            color="btn_primary"
-            dense
-            :placeholder="$t('search')"
             :label="$t('search')"
+            :placeholder="$t('search')"
+            append-icon="mdi-magnify"
           />
-        </v-col>
-        <v-col
-          cols="12"
-          md="8"
-          class="d-flex justify-end"
-        >
-          <v-btn
-            :disabled="selected.length === 0"
-            color="btn_primary"
-            class="ml-2"
-            @click="verificationOwners(selected)"
-          >
-            Verification {{ selected.length }} Studio
-          </v-btn>
         </v-col>
         <v-col cols="12">
           <v-data-table
-            v-model="selected"
             :search="search"
-            :items="data"
-            :headers="headers"
             show-select
-            :items-per-page="5"
+            :headers="headers"
+            :items="data"
+            show-expand
           >
             <template #[`item.id`]="{ item }">
               <v-card width="150">
                 <v-img
-                  v-if="item.img"
+                  v-if="item.image_url"
                   width="140"
                   height="100"
                   gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
                   style="cursor: pointer"
-                  :src="item.img.url"
+                  :src="item.image_url"
                   class="img__hover"
                 >
                   <template v-slot:placeholder>
@@ -146,11 +99,11 @@
                 </v-img>
               </v-card>
             </template>
-            <template #[`item.name`]="{ item }">
+            <template #[`item.form.fullName`]="{ item }">
               <div
                 class="mt-7 text-capitalize d-flex flex-nowrap font-clickfont-clickv"
               >
-                {{ item.name }}
+                {{ item.form.fullName }}
               </div>
               <div class="bg-hover">
                 <div class="d-flex flex-row flex-nowrap">
@@ -159,7 +112,6 @@
                       color="transparent"
                       small
                       text
-                      @click="verificationOwnerByUserId(item)"
                     >
                       <v-tooltip
                         color="btn_primary"
@@ -201,7 +153,7 @@
                             mdi-whatsapp
                           </v-icon>
                         </template>
-                        <span class="font-spartan-small">Contact Owner</span>
+                        <span class="font-spartan-small">Contact Whatsapp</span>
                       </v-tooltip>
                     </a>
                   </div>
@@ -223,7 +175,7 @@
                             class="ml-1"
                             v-on="on"
                           >
-                            mdi-star-check
+                            mdi-panorama-variant-outline
                           </v-icon>
                         </template>
                         <span class="font-spartan-small">Nonactive</span>
@@ -233,32 +185,19 @@
                 </div>
               </div>
             </template>
-            <template #[`item.email`]="{ item }">
-              <span class="font-spartan">
+            <template #[`item.bank.bank_name`]="{ item }">
+              <span>
+                {{ item.bank.bank_name ? item.bank.bank_name : '-' }}
+              </span>
+            </template>
+            <template #[`item.account_bank_number`]="{ item }">
+              <span>
                 {{
-                  item.email.length > 15
-                    ? item.email.substr(0, 15) + '...'
-                    : item.email
+                  item.bank.account_bank_number
+                    ? item.bank.account_bank_number
+                    : '-'
                 }}
               </span>
-            </template>
-            <template #[`item.address`]="{ item }">
-              <span>
-                {{ item.address ? item.address : '-' }}
-              </span>
-            </template>
-            <template #[`item.author.firstName`]="{ item }">
-              <span class="">
-                {{ item.author.firstName + ' ' + item.author.lastName }}
-              </span>
-            </template>
-            <template #[`item.created_at`]="{ item }">
-              {{ item.created_at | moment('D MMM YYYY') }}
-            </template>
-            <template #[`item.isVerified`]="{ item }">
-              <v-chip :color="setColorAppoved(item.author.isVerified)">
-                {{ item.author.isVerified === 1 ? 'Verified' : 'Not Verified' }}
-              </v-chip>
             </template>
           </v-data-table>
         </v-col>
@@ -280,57 +219,37 @@
         {
           text: '#',
           value: 'id',
-        },
-        {
-          text: 'Name Studio',
-          value: 'name',
           sortable: false,
         },
-        // { text: 'Email Studio', value: 'email', sortable: false },
-        { text: 'Owner Name', value: 'author.firstName', sortable: false },
-        { text: 'Region', value: 'address', sortable: false },
-        { text: 'Contact', value: 'contact', sortable: false },
-        { text: 'Created At', value: 'created_at', sortable: false },
-        { text: 'Owner Verification', value: 'isVerified', sortable: false },
-        { text: 'Views', value: 'views', sortable: false },
-      // { text: 'author', value: 'isSubcribe', sortable: false },
-
-      // { text: 'Actions', value: 'actions', align: 'start', justify: 'end' },
+        {
+          text: 'Student Name',
+          value: 'form.fullName',
+          sortable: false,
+        },
+        { text: 'Student Email', value: 'form.email', sortable: false },
+        { text: 'UserName Account', value: 'user.nickName' },
+        { text: 'Contact WA', value: 'user.noHp', sortable: false },
+        { text: 'Payment Method', value: 'bank.bank_name', sortable: false },
+        { text: 'Bank Account', value: 'account_bank_number', sortable: false },
+        { text: 'Status', value: 'status', sortable: false },
+      // { text: 'Last Login', value: 'last_login', sortable: false },
       ],
-      selected: [],
       search: '',
     }),
     computed: {
-      computedTableTitle () {
-        let title = 'Studio - All'
-        if (this.$route.query.summary === 'approved') title = 'Studio - Approved'
-        if (this.$route.query.summary === 'non_approved') {
-          title = 'Studio - Non Approved'
+      computedTitle () {
+        let title = 'Transaction EnsikloLive - All'
+        if (this.$route.query.summary === 'paid') {
+          title = 'Transaction EnsikloLive - Paid'
         }
-        if (this.$route.query.summary === 'new') title = 'Studio - New'
+        if (this.$route.query.summary === 'waiting') {
+          title = 'Transaction EnsikloLive - Waiting'
+        }
+        if (this.$route.query.summary === 'new') {
+          title = 'Transaction EnsikloLive - New'
+        }
+
         return title
-      },
-    },
-    methods: {
-      setColorAppoved (status) {
-        if (status === 1) return 'btn_primary'
-        else return 'red'
-      },
-      dialogAdd () {
-        this.$emit('add')
-      },
-      removeData (item) {
-        this.$emit('remove', { item: item })
-      },
-      verificationOwnerByUserId (item) {
-        this.$emit('verificationOwner', { item: item })
-      },
-      refresh () {
-        this.$emit('refresh')
-      },
-      verificationOwners (item) {
-        this.$emit('verificationOwners', { item: item })
-        this.selected = []
       },
     },
   }

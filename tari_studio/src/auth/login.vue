@@ -122,6 +122,7 @@
 </template>
 
 <script>
+  import axios from "axios"
   export default {
     components: {
       DashboardCoreSettings: () =>
@@ -147,6 +148,39 @@
       onResize () {
         if (window.innerWidth < 769) this.isMobile = true
         else this.isMobile = false
+      },
+      exampleLogin () {
+        axios
+          .post("https://api.ensiklotari.com/v1/auth/login", {
+            email: this.email,
+            password: this.password,
+          })
+          .then((res) => {
+            if (res.data.meta.status) {
+              localStorage.setItem("access_token", res.data.data) //  to push to your localstorage
+              console.log("Token : ", res.data.data)
+              this.$router.push("/")
+              //
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "login",
+              })
+            }
+          })
       },
       login () {
         this.$store

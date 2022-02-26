@@ -8,13 +8,14 @@
           lg="3"
         >
           <base-material-stats-card
-            color="pallet1"
+            color="info"
             icon=" mdi-account-group-outline"
             title="Total"
-            :value="String(summary.total)"
-            sub-icon="mdi-clock"
-            sub-text="Just Updated"
-            style="cursor:pointer"
+            :value="String(computedSummary.total)"
+            sub-icon="mdi-heart-outline"
+            sub-text="EnsikloTari"
+            style="cursor: pointer"
+            :class="`${$route.query.summary === '' ? 'selected' : ''}`"
             @click.native="setSummary('')"
           />
         </v-col>
@@ -24,13 +25,16 @@
           lg="3"
         >
           <base-material-stats-card
-            color="primary"
+            color="info"
             icon="mdi-account-tie"
             title="SuperAdministrator"
-            :value="String(summary.superadmin)"
-            sub-icon="mdi-clock"
-            sub-text="Just Updated"
-            style="cursor:pointer"
+            :value="String(computedSummary.superadministrator)"
+            sub-icon="mdi-heart-outline"
+            sub-text="EnsikloTari"
+            style="cursor: pointer"
+            :class="`${
+              $route.query.summary === 'superadministrator' ? 'selected' : ''
+            }`"
             @click.native="setSummary('superadministrator')"
           />
         </v-col>
@@ -40,14 +44,15 @@
           lg="3"
         >
           <base-material-stats-card
-            color="#529A27"
+            color="info"
             icon="mdi-account-tie-outline"
-            title="Admin"
-            :value="String(summary.admin)"
-            sub-icon="mdi-clock"
-            sub-text="Just Updated"
-            style="cursor:pointer"
-            @click.native="setSummary('administrator')"
+            title="Student"
+            :value="String(computedSummary.student)"
+            sub-icon="mdi-heart-outline"
+            sub-text="EnsikloTari"
+            style="cursor: pointer"
+            :class="`${$route.query.summary === 'student' ? 'selected' : ''}`"
+            @click.native="setSummary('student')"
           />
         </v-col>
         <v-col
@@ -56,14 +61,15 @@
           lg="3"
         >
           <base-material-stats-card
-            color="#DF0EE5"
+            color="info"
             icon="mdi-account-music-outline"
-            title="Instructor"
-            :value="String(summary.instructor)"
-            sub-icon="mdi-clock"
-            sub-text="Just Updated"
-            style="cursor:pointer"
-            @click.native="setSummary('instructor')"
+            title="Owner"
+            :value="String(computedSummary.owner)"
+            sub-icon="mdi-heart-outline"
+            sub-text="EnsikloTari"
+            style="cursor: pointer"
+            :class="`${$route.query.summary === 'owner' ? 'selected' : ''}`"
+            @click.native="setSummary('owner')"
           />
         </v-col>
 
@@ -85,37 +91,35 @@
       'app-data-table': dataTable,
     },
     data: () => ({
-      type: '',
+      summary: '',
     }),
     computed: {
       user () {
         return this.$store.state.user.indexAll
       },
-      summary () {
+      computedSummary () {
         return this.$store.state.user.summary
       },
       cumputedTitle () {
-        if (this.type === 'superadministrator') {
+        if (this.summary === 'superadministrator') {
           return 'User - Super Administrator'
         }
-        if (this.type === 'administrator') {
-          return 'User - Administrator'
+        if (this.summary === 'student') {
+          return 'User - Student'
         }
-        if (this.type === 'administrator') {
-          return 'User - Administrator'
+        if (this.summary === 'owner') {
+          return 'User - Owner Studio'
         }
-        if (this.type === 'instructor') {
-          return 'User - instructor'
-        }
+
         return 'User - All'
       },
     },
     watch: {
-      type (newVal) {
-        this.$router.push({ query: { ...this.$route.query, type: newVal } })
+      summary (newVal) {
+        this.$router.push({ query: { ...this.$route.query, summary: newVal } })
       },
-      '$route.query.type': function (val) {
-        this.type = val
+      '$route.query.summary': function (val) {
+        this.summary = val
       },
     },
     mounted () {
@@ -125,14 +129,15 @@
     methods: {
       getIndexUser () {
         this.$store.dispatch('user/getIndexUser', {
-          type: this.type,
+          summary: this.summary,
+          entities: 'roles',
         })
       },
       getSummary () {
         this.$store.dispatch('user/getSummary')
       },
       setSummary (val) {
-        this.type = val
+        this.summary = val
         this.getIndexUser()
       },
     },

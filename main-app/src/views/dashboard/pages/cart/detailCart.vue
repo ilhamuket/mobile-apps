@@ -136,8 +136,27 @@
               <v-col cols="12">
                 <v-select
                   v-model="methods"
-                  :items="items"
-                />
+                  :items="computedListBank"
+                  item-text="bank_name"
+                  item-value="id"
+                >
+                  <template #selecton="data">
+                    <slot
+                      name="item"
+                      v-bind="data"
+                    >
+                      {{ data.item.bank_name }} -
+                      {{ data.item.account_bank_number }} -
+                      {{ data.item.name }}
+                    </slot>
+                    {{ data.item.item.id }}
+                  </template>
+                  <template #item="data">
+                    {{ data.item.bank_name }} -
+                    {{ data.item.account_bank_number }} -
+                    {{ data.item.name }}
+                  </template>
+                </v-select>
               </v-col>
             </v-row>
             <!-- <v-divider class="divider__dark"class="mt-2 mb-2" /> -->
@@ -192,12 +211,7 @@
         </v-card>
         <span
           v-else
-          class="
-            font-spartan-small
-            btn_primary--text
-            text--download
-            mobile__query
-          "
+          class="font-spartan-small btn_primary--text text--download mobile__query"
         >Download</span>
       </v-col>
     </v-row>
@@ -208,7 +222,7 @@
   export default {
     data: () => ({
       items: ["AlfaMart", "VA BCA"],
-      methods: "VA BCA",
+      methods: 1,
       invoice: {
         class: {},
       },
@@ -217,10 +231,13 @@
       computedInvoice () {
         return this.$store.state.invoice.data
       },
+      computedListBank () {
+        return this.$store.state.bank.data
+      },
     },
     mounted () {
       this.getDataInvoice()
-      console.log(this.$route.params)
+      this.getDataBank()
     },
     methods: {
       getDataInvoice () {
@@ -266,6 +283,9 @@
               })
             }
           })
+      },
+      getDataBank () {
+        this.$store.dispatch("bank/getDataBank", {})
       },
     },
   }

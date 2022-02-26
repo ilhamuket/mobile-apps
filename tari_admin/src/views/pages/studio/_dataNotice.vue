@@ -1,6 +1,6 @@
 <template>
   <base-dialog
-    :open="dialog.open"
+    :open="dialogAction"
     :icon-system-bar="iconSystemBar"
     :title-system-bar="titleSystemBar"
     :color-system-bar="colorSystemBar"
@@ -21,7 +21,9 @@
                 v-for="(item, i) in dialog.data"
                 :key="i"
               >
-                {{ item.name }} - {{ item.address }}
+                {{ item.name }} -
+                {{ item.address ? item.address : 'not filled in yet' }} -
+                {{ item.author.noHp }}
               </li>
             </ol>
           </v-col>
@@ -80,6 +82,16 @@
       isDataArray: {
         type: Boolean,
         default: true,
+      },
+    },
+    computed: {
+      dialogAction: {
+        get () {
+          return this.dialog.open
+        },
+        set () {
+          this.dialog.open = !this.dialog.open
+        },
       },
     },
     methods: {

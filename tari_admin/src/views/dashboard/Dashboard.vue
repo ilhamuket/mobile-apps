@@ -67,7 +67,7 @@
                 mdi-clock-outline
               </v-icon>
               <span
-                class=" grey--text font-weight-light"
+                class="grey--text font-weight-light"
               >updated 10 minutes ago</span>
             </template>
           </base-material-chart-card>
@@ -141,7 +141,7 @@
                 mdi-clock-outline
               </v-icon>
               <span
-                class=" grey--text font-weight-light"
+                class="grey--text font-weight-light"
               >updated 4 minutes ago</span>
             </template>
           </base-material-chart-card>
@@ -208,7 +208,7 @@
                 mdi-clock-outline
               </v-icon>
               <span
-                class=" grey--text font-weight-light"
+                class="grey--text font-weight-light"
               >campaign sent 26 minutes ago</span>
             </template>
           </base-material-chart-card>
@@ -284,11 +284,11 @@
             class="px-5 py-3"
           >
             <template v-slot:heading>
-              <div class=" font-weight-light">
+              <div class="font-weight-light">
                 Employees Stats
               </div>
 
-              <div class=" font-weight-light">
+              <div class="font-weight-light">
                 New employees on 15th September, 2016
               </div>
             </template>
@@ -555,18 +555,15 @@
         tasks: {
           0: [
             {
-              text:
-                'Sign contract for "What are conference organizers afraid of?"',
+              text: 'Sign contract for "What are conference organizers afraid of?"',
               value: true,
             },
             {
-              text:
-                'Lines From Great Russian Literature? Or E-mails From My Boss?',
+              text: 'Lines From Great Russian Literature? Or E-mails From My Boss?',
               value: false,
             },
             {
-              text:
-                'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit',
+              text: 'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit',
               value: false,
             },
             {
@@ -576,30 +573,25 @@
           ],
           1: [
             {
-              text:
-                'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit',
+              text: 'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit',
               value: true,
             },
             {
-              text:
-                'Sign contract for "What are conference organizers afraid of?"',
+              text: 'Sign contract for "What are conference organizers afraid of?"',
               value: false,
             },
           ],
           2: [
             {
-              text:
-                'Lines From Great Russian Literature? Or E-mails From My Boss?',
+              text: 'Lines From Great Russian Literature? Or E-mails From My Boss?',
               value: false,
             },
             {
-              text:
-                'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit',
+              text: 'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit',
               value: true,
             },
             {
-              text:
-                'Sign contract for "What are conference organizers afraid of?"',
+              text: 'Sign contract for "What are conference organizers afraid of?"',
               value: true,
             },
           ],

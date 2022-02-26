@@ -158,6 +158,42 @@
     data: () => ({
       items: [
         {
+          icon: 'mdi-view-dashboard',
+          title: 'menu',
+          to: '/',
+        },
+        {
+          icon: 'mdi-account',
+          title: 'users',
+          to: '/user?summary=',
+        },
+        {
+          icon: 'mdi-shopping-music',
+          title: 'studio',
+          to: '/studio?summary=',
+        },
+        {
+          icon: 'mdi-cart',
+          title: 'Transaction',
+          to: '/transaction',
+        },
+        {
+          icon: 'mdi-notebook-multiple',
+          title: 'journal',
+          to: '/journal',
+        },
+
+        {
+          title: 'class',
+          icon: 'mdi-google-classroom',
+          to: '/class',
+        },
+        {
+          icon: 'mdi-shape-outline',
+          title: 'category',
+          to: '/category',
+        },
+        {
           icon: 'mdi-view-dashboard-variant-outline',
           title: 'dashboard',
           to: '/dashboard',
@@ -180,39 +216,7 @@
           to: '/u/journal',
         },
       ],
-      itemsAdmin: [
-        {
-          icon: 'mdi-view-dashboard',
-          title: 'menu',
-          to: '/',
-        },
-        {
-          icon: 'mdi-account',
-          title: 'users',
-          to: '/user?summary=',
-        },
-        {
-          icon: 'mdi-shopping-music',
-          title: 'studio',
-          to: '/studio?summary=',
-        },
-        {
-          icon: 'mdi-notebook-multiple',
-          title: 'journal',
-          to: '/journal',
-        },
-
-        {
-          title: 'class',
-          icon: 'mdi-google-classroom',
-          to: '/class',
-        },
-        {
-          icon: 'mdi-shape-outline',
-          title: 'category',
-          to: '/category',
-        },
-      ],
+      itemsAdmin: [],
     }),
 
     computed: {

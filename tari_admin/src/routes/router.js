@@ -172,6 +172,14 @@ const router = new Router({
             requiresAuth: true,
           },
         },
+        {
+          name: 'Transaction',
+          path: '/transaction',
+          component: () => import('@/views/pages/transaction/index'),
+          meta: {
+            requiresAuth: true,
+          },
+        },
       ],
     },
     {

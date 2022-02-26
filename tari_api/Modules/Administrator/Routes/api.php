@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Http\Request;
+use Modules\Administrator\Http\Controllers\BankController;
 use Modules\Administrator\Http\Controllers\StudioController;
+use Modules\Administrator\Http\Controllers\TransactionEnsikloLiveController;
+use Modules\Administrator\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,10 +22,23 @@ Route::middleware('auth:api')->get('/administrator', function (Request $request)
 });
 
 Route::prefix('administrator')->middleware(['auth:sanctum'])->group(function () {
+    Route::prefix('user')->group(function () {
+        Route::get('', [UserController::class, 'index']);
+    });
     Route::prefix('studio')->group(function () {
         Route::get('', [StudioController::class, 'index']);
         Route::get('summary', [StudioController::class, 'summary']);
         Route::post('verifications', [StudioController::class, 'verificationStudios']);
         Route::patch('{user_id}', [StudioController::class, 'verificationStudio']);
+    });
+    Route::prefix('transaction')->group(function () {
+        Route::prefix('ensiklo-live')->group(function () {
+            Route::get('', [TransactionEnsikloLiveController::class, 'index']);
+            Route::get('summary', [TransactionEnsikloLiveController::class, 'summary']);
+        });
+    });
+    Route::prefix("bank")->group(function () {
+        Route::get('', [BankController::class, 'index']);
+        // Route::get('summary', [BankController::class, 'summary']);
     });
 });

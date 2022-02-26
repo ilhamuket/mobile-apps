@@ -150,10 +150,14 @@
     },
     methods: {
       getDataStudio () {
-        this.$store.dispatch('studio/getData', {
-          entities: 'author,img',
-          summary: this.summary,
-        })
+        this.$store
+          .dispatch('studio/getData', {
+            entities: 'author,img',
+            summary: this.summary,
+          })
+          .then((res) => {
+            console.log(res.data.data)
+          })
       },
       getDataStudioSummary () {
         this.$store.dispatch('studio/getDataStudioSummary')

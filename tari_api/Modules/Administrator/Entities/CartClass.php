@@ -1,10 +1,11 @@
 <?php
 
-namespace Modules\Studio\Entities;
+namespace Modules\Administrator\Entities;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Studio\Entities\StudioClass;
 use Modules\StudioOwners\Entities\FormRegister;
 
 class CartClass extends Model
@@ -15,7 +16,7 @@ class CartClass extends Model
 
     protected static function newFactory()
     {
-        return \Modules\Studio\Database\factories\CartClassFactory::new();
+        return \Modules\Administrator\Database\factories\CartClassFactory::new();
     }
 
     public function class()
@@ -33,7 +34,12 @@ class CartClass extends Model
         return $this->hasOne(FormRegister::class, 'cart_id');
     }
 
-    // === Scope === //
+    public function bank()
+    {
+        return $this->belongsTo(Bank::class, 'bank_id');
+    }
+
+    // === scope === // 
 
     public function scopeEntities($query, $entities)
     {
@@ -49,22 +55,11 @@ class CartClass extends Model
         }
     }
 
-
-    public function scopeType($query, $type)
+    public function scopeSummary($query, $summary)
     {
-        if ($type != null || $type != '') {
-            $query->where('type', $type);
-        }
-
-        return $query;
-    }
-
-    public function scopeSummary($query, $status)
-    {
-        if ($status != null || $status != '') {
-            $query->where("status", $status);
-        }
-
+        if ($summary == 'paid') return $query->Where('status', 'paid')->where('isPaid', true);
+        if ($summary == 'waiting') return $query->where("status", 'waiting')->where("isPaid", false);
+        if ($summary == 'new') return $query->whereDate("created_at", now());
         return $query;
     }
 }

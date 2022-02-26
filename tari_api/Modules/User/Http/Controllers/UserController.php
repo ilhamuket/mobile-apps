@@ -29,17 +29,25 @@ class UserController extends Controller
     public function summary(Request $request)
     {
         try {
-            $master = User::selectRaw(
-                '
-                    count(id) as total,
-                    (SELECT COUNT(*) from users inner join model_has_roles on users.id = model_has_roles.model_id where model_has_roles.role_id = 1) as superadmin,
-                    (SELECT COUNT(*) from users inner join model_has_roles on users.id = model_has_roles.model_id where model_has_roles.role_id = 2) as admin,
-                    (SELECT COUNT(*) from users inner join model_has_roles on users.id = model_has_roles.model_id where model_has_roles.role_id = 3) as instructor,
-                    (SELECT COUNT(*) from users inner join model_has_roles on users.id = model_has_roles.model_id where model_has_roles.role_id = 4) as student
-                '
-            )->first();
+            $data = [
+                'total' => 0,
+                'superadministrator' => 0,
+                "owner" => 0,
+                "student" => 0
+            ];
 
-            return Json::response($master);
+            $data["total"] = User::count();
+            $data["superadministrator"] = User::whereHas('role', function (Builder $query) {
+                $query->where('role_id', 1);
+            })->count();
+            $data["student"] = User::whereHas('role', function (Builder $query) {
+                $query->where('role_id', 2);
+            })->count();
+            $data["owner"] = User::whereHas('role', function (Builder $query) {
+                $query->where('role_id', 3);
+            })->count();
+
+            return Json::response($data);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         } catch (\Illuminate\Database\QueryException $e) {
@@ -51,7 +59,7 @@ class UserController extends Controller
     public function indexAll(Request $request)
     {
         try {
-            $master = User::with('roles')->summary($request->type)->get();
+            $master = User::with('roles')->summary($request->summary)->get();
 
             return Json::response($master);
         } catch (\Spatie\Permission\Exceptions\UnauthorizedException $e) {

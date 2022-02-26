@@ -7,6 +7,7 @@ import classes from './modules/media/class'
 import category from './modules/media/category'
 import studio from './modules/studio'
 import article from './modules/article'
+import transaction from './modules/transaction'
 
 Vue.use(Vuex)
 
@@ -19,6 +20,7 @@ export default new Vuex.Store({
     category: category,
     studio: studio,
     article: article,
+    transaction: transaction,
   },
   state: {
     barColor: 'rgba(0, 0, 0, .8), rgba(0, 0, 0, .8)',

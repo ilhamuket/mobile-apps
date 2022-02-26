@@ -1,7 +1,8 @@
 <template>
   <v-container>
     <v-dialog
-      v-model="open"
+      v-model="openDialog"
+      persistent
       width="70%"
     >
       <v-card>
@@ -40,6 +41,16 @@
       colorSystemBar: {
         type: String,
         default: null,
+      },
+    },
+    computed: {
+      openDialog: {
+        get () {
+          return this.open
+        },
+        set () {
+          this.open = !this.open
+        },
       },
     },
     methods: {

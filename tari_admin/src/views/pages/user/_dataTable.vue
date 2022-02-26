@@ -15,8 +15,6 @@
           <v-text-field
             v-model="search"
             append-icon="mdi-magnify"
-            outlined
-            rounded
             color="pallet1"
             dense
           />
@@ -54,17 +52,26 @@
                       text-color="blue"
                       @click="editItem(item)"
                     >
-                      <v-icon
-                        small
-                        color="blue"
-                        class="ml-1"
+                      <v-tooltip
+                        bottom
+                        color="btn_primary"
                       >
-                        mdi-pencil
-                      </v-icon>
-                      Edit
+                        <template #activator="{ on, attrs }">
+                          <v-icon
+                            v-bind="attrs"
+                            small
+                            color="btn_primary"
+                            class="ml-1"
+                            v-on="on"
+                          >
+                            mdi-whatsapp
+                          </v-icon>
+                        </template>
+                        <span> Contact </span>
+                      </v-tooltip>
                     </a>
                   </div>
-                  <div class="d-flex flex-column mt-1">
+                  <!-- <div class="d-flex flex-column mt-1">
                     <a
                       color="transparent"
                       small
@@ -80,7 +87,7 @@
                       </v-icon>
                       Verification
                     </a>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </template>
@@ -140,7 +147,7 @@
                     :text-color="$vuetify.theme.dark ? 'white' : 'white'"
                     :color="setColorRoleName(role.name)"
                     class="text-capitalize"
-                    v-text="role.name"
+                    v-text="setRoleName(role.name)"
                   />
                 </v-list-item>
               </div>
@@ -206,22 +213,30 @@
       },
       search: '',
     }),
+    computed: {},
     mounted () {},
     methods: {
       setColorVerification (status) {
-        if (status === 1) return 'primary'
+        if (status === 1) return 'btn_primary'
         if (status === 0) return '#F44336'
       },
       setColorSubcribe (status) {
-        if (status === 1) return 'primary'
+        if (status === 1) return 'btn_primary'
         if (status === 0) return '#F44336'
       },
       setColorRoleName (name) {
-        if (name === 'superadministrator') return 'primary'
-        if (name === 'administrator') return '#529A27'
-        if (name === 'instructor') return '#DF0EE5'
+        if (name === 'superadmin') return 'accent'
+        if (name === 'studio') return 'info'
+        if (name === 'user') return 'btn_primary'
       },
       editItem (item) {},
+      setRoleName (name) {
+        let roleName = ''
+        if (name === 'superadmin') return (roleName = 'Superadministrator')
+        if (name === 'studio') return (roleName = 'Owner Studio')
+        if (name === 'user') return (roleName = 'Student')
+        return roleName
+      },
     },
   }
 </script>

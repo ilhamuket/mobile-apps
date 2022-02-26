@@ -144,11 +144,11 @@ class User extends Authenticatable implements MustVerifyEmail
             $query->whereHas('roles', function (Builder $query) {
                 $query->where('id', 1);
             });
-        } else if ($summary == 'administrator') {
+        } else if ($summary == 'student') {
             $query->whereHas('roles', function (Builder $query) {
                 $query->where('id', 2);
             });
-        } else if ($summary == 'instructor') {
+        } else if ($summary == 'owner') {
             $query->whereHas('roles', function (Builder $query) {
                 $query->where('id', 3);
             });

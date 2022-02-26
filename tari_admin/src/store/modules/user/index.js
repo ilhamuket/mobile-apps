@@ -7,9 +7,8 @@ export default {
     indexAll: [],
     summary: {
       total: 0,
-      superadmin: 0,
-      admin: 0,
-      instructor: 0,
+      superadministrator: 0,
+      owner: 0,
       student: 0,
     },
   },
@@ -31,13 +30,13 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .get('user/me')
-          .then(response => {
+          .then((response) => {
             const data = response.data.data
             commit('ME', data)
             localStorage.setItem('ME', JSON.stringify(data))
             resolve(response)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })
@@ -50,13 +49,13 @@ export default {
       return new Promise((resolve, reject) => {
         const params = { ...payload }
         axios
-          .get('user/indexAll', { params: params })
-          .then(res => {
+          .get('administrator/user', { params: params })
+          .then((res) => {
             const data = res.data.data
             commit('GET_DATA_ALL', data)
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })
@@ -70,12 +69,12 @@ export default {
         const params = { ...payload }
         axios
           .get('user', { params: params })
-          .then(res => {
+          .then((res) => {
             const data = res.data.data
             commit('GET_DATA', data)
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })
@@ -88,12 +87,12 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .patch(`user/${payload.id}`, { ...payload })
-          .then(res => {
+          .then((res) => {
             const data = res.data.data
             commit('ME', data)
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })
@@ -106,12 +105,12 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .get('user/summary')
-          .then(res => {
+          .then((res) => {
             const data = res.data.data
             commit('GET_SUMMARY', data)
             resolve(res)
           })
-          .catch(e => {
+          .catch((e) => {
             reject(e)
           })
       })

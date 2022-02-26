@@ -36,6 +36,7 @@ import payment from "./module/payment"
 import studioHasInstructor from "./module/studio/studioHasInstructor/index"
 import studioHasEnsikloVideo from "./module/studio/studioHasEnsikloVideo/index"
 import myVideo from "./module/my_video"
+import bank from "./module/bank"
 
 Vue.use(Vuex)
 
@@ -67,6 +68,7 @@ export default new Vuex.Store({
     studioHasInstructor: studioHasInstructor,
     studioHasEnsikloVideo: studioHasEnsikloVideo,
     my_video: myVideo,
+    bank: bank,
   },
   state: {
     barColor: "rgba(0, 0, 0, .8), rgba(0, 0, 0, .8)",
