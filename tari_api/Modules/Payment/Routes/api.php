@@ -20,5 +20,11 @@ Route::middleware('auth:api')->get('/payment', function (Request $request) {
 });
 
 Route::prefix("payments")->middleware(['auth:sanctum'])->group(function () {
-    Route::post('pay', [PaymentController::class, 'store']);
+    Route::get('', [PaymentController::class, 'index']);
+    Route::post('verification-live', [PaymentController::class, 'verificationPaidLive']);
+    Route::post('pay-live/{id}', [PaymentController::class, 'payLive']);
+    Route::post(
+        'photo/{id}',
+        [PaymentController::class, 'sendProof']
+    );
 });

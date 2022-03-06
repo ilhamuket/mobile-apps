@@ -42,8 +42,63 @@
           @click.native="toNavigate('pending')"
         />
       </v-col>
+      <v-col
+        cols="12"
+        lg="3"
+      >
+        <base-material-stats-card
+          color="orange"
+          icon="mdi-sofa"
+          title="Waiting Proof Of Transfer"
+          :value="String(computedSummary.waiting_proof)"
+          style="cursor: pointer"
+          @click.native="toNavigate('waiting_proof')"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        lg="3"
+      >
+        <base-material-stats-card
+          color="orange"
+          icon="mdi-sofa"
+          title="Waiting Payment"
+          :value="String(computedSummary.waiting_payment)"
+          style="cursor: pointer"
+          @click.native="toNavigate('waiting_payment')"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        lg="3"
+      >
+        <base-material-stats-card
+          color="orange"
+          icon="mdi-sofa"
+          title="Waiting Confirmation"
+          :value="String(computedSummary.waiting_confirmation)"
+          style="cursor: pointer"
+          @click.native="toNavigate('waiting_confirmation')"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        lg="3"
+      >
+        <base-material-stats-card
+          color="orange"
+          icon="mdi-sofa"
+          title="Cancelled"
+          :value="String(computedSummary.cancelled)"
+          style="cursor: pointer"
+          @click.native="toNavigate('cancelled')"
+        />
+      </v-col>
       <v-col cols="12">
-        <app-data-table :data="cart" />
+        <app-data-table
+          :data="cart"
+          @refresh="refresh"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -97,6 +152,27 @@
       toNavigate (link) {
         this.summary = link
         this.getDataCart()
+      },
+      refresh () {
+        this.getDataCart()
+        const Toast = this.$swal.mixin({
+          toast: true,
+          position: "bottom-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", this.$swal.stopTimer)
+            toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+          },
+          popup: "swal2-show",
+          backdrop: "swal2-backdrop-show",
+          icon: "swal2-icon-show",
+        })
+        Toast.fire({
+          icon: "success",
+          title: "Fetch Data",
+        })
       },
     },
   }

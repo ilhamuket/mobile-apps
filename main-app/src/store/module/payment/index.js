@@ -16,9 +16,36 @@ export default {
 
       return new Promise((resolve, reject) => {
         axios
-          .post("payments/pay", {
+          .post(`payments/pay-live/${payload.id}`, {
             ...payload,
           })
+          .then((res) => {
+            resolve(res)
+          })
+          .catch((e) => {
+            reject(e)
+          })
+      })
+    },
+    sendProofPayment: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        "Bearer " + localStorage.getItem("access_token")
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        const URL = `payments/photo/${payload.id}`
+        const data = new FormData()
+        console.log("files : ", payload.files)
+        data.append("img", payload.files)
+
+        const config = {
+          header: {
+            "Content-Type": "image/png",
+          },
+        }
+
+        axios
+          .post(URL, data, config)
           .then((res) => {
             resolve(res)
           })

@@ -5,6 +5,7 @@ namespace Modules\Studio\Entities;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Administrator\Entities\Bank;
 use Modules\StudioOwners\Entities\FormRegister;
 
 class CartClass extends Model
@@ -31,6 +32,11 @@ class CartClass extends Model
     public function form()
     {
         return $this->hasOne(FormRegister::class, 'cart_id');
+    }
+
+    public function bank()
+    {
+        return $this->belongsTo(Bank::class, 'bank_id');
     }
 
     // === Scope === //
@@ -66,5 +72,15 @@ class CartClass extends Model
         }
 
         return $query;
+    }
+
+    public function getImageUrlAttribute()
+    {
+        if ($this->attributes['image_url'] != null) {
+            return  env('IMAGE_URL', ' http://127.0.0.1:8000/app/') . $this->attributes['image_url'];
+            // return env('IMAGE_URL', ' https://api.ensiklotari.com/app/') . $this->attributes['url'];
+        } else {
+            return $this->attributes['image_url'];
+        }
     }
 }

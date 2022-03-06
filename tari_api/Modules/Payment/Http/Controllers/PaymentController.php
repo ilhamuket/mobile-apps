@@ -20,12 +20,30 @@ class PaymentController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function summary()
     {
         try {
-            $master = Payment::get();
-        } catch (\Throwable $th) {
-            //throw $th;
+            $data = [
+                "total" => 0,
+                "waiting_transfer" => 0,
+                "cancelled" => 0,
+                "new" => 0,
+            ];
+
+            $data["total"] = Payment::count();
+            $data["waiting_transfer"] = Payment::where('status', 'waiting_transfer')->count();
+            $data["cancled"] = Payment::where('status', 'cancelled')->count();
+            $data["new"] = Payment::where('status', 'new')->count();
+
+            return Json::response($master);
+        } catch (\Spatie\Permission\Exceptions\UnauthorizedException $e) {
+            return Json::exception('Error UnauthorizedException ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         }
     }
 
@@ -33,9 +51,23 @@ class PaymentController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function index(Request $request)
     {
-        return view('payment::create');
+        try {
+            $master = Payment::entities($request->entities)
+                ->orderBy('id', 'desc')
+                ->get();
+
+            return Json::response($master);
+        } catch (\Spatie\Permission\Exceptions\UnauthorizedException $e) {
+            return Json::exception('Error UnauthorizedException ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**
@@ -107,9 +139,29 @@ class PaymentController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
+    public function payLive(Request $request, $id)
     {
-        return view('payment::show');
+        try {
+
+            $master = CartClass::findOrFail($id);
+            if ($master->isPaid == 1) {
+                return Json::exception('Already Paid');
+            }
+            $master->status = $request->input('status', 'waiting_payment');
+            $master->isPaid = false;
+            $master->bank_id = $request->bank_id;
+            $master->save();
+
+            return Json::response($master);
+        } catch (\Spatie\Permission\Exceptions\UnauthorizedException $e) {
+            return Json::exception('Error UnauthorizedException ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**
@@ -117,9 +169,50 @@ class PaymentController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function verificationPaidLive(Request $request, $id)
     {
-        return view('payment::edit');
+        try {
+            DB::beginTransaction();
+            $check = $request->check;
+            $cartClass = CartClass::findOrFail($id);
+            $cartClass->isPaid = $request->input("isPaid", $request->isPaid);
+            $cartClass->save();
+            $
+            // make Payment Success
+            $payment = new Payment();
+            $payment->status = 'waiting_proof';
+            $payment->type = $request->type_class;
+            $payment->methods = "transfer";
+            $payment->user_id = $request->user()->id;
+            $payment->class_id = $request->class_id;
+            $payment->cart_class_id = $cartClass->id;
+
+            // user has class
+            $user_has = new UserHaveClass();
+            $user_has->status = 'waiting';
+            $user_has->user_id = $request->user()->id;
+            $user_has->class_id = $request->class_id;
+            $user_has->form_id = $cartClass->form->id;
+            $user_has->absent = 0;
+            $user_has->save();
+            $me = User::findOrFail($request->user()->id);
+            $me->myClass()->attach($request->class_id);
+
+            DB::commit();
+            return Json::response($payment);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            DB::rollBack();
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Spatie\Permission\Exceptions\UnauthorizedException $e) {
+            DB::rollBack();
+            return Json::exception('Error UnauthorizedException ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**
@@ -128,9 +221,25 @@ class PaymentController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function sendProof(Request $request, $id)
     {
-        //
+        try {
+            $master = CartClass::findOrFail($id);
+            $path = $request->img->store("images");
+            $master->image_url = $path;
+            $master->status = 'waiting_confirmation';
+            $master->save();
+
+            return Json::response($master);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Spatie\Permission\Exceptions\UnauthorizedException $e) {
+            return Json::exception('Error UnauthorizedException ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**

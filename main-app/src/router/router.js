@@ -334,8 +334,22 @@ const router = new Router({
         // Detail Card
         {
           name: "detail_cart",
-          path: "/cart/detail/:id",
+          path: "/cart/:cart_id/detail/:id",
           component: () => import("@/views/dashboard/pages/cart/detailCart"),
+          meta: {
+            breadcumbs: [
+              {
+                text: "cart",
+                to: "/cart",
+              },
+            ],
+            requiresAuth: true,
+          },
+        },
+        {
+          name: "send_img",
+          path: "/cart/:id/send-img",
+          component: () => import("@/views/dashboard/pages/cart/sendPhoto"),
           meta: {
             breadcumbs: [
               {

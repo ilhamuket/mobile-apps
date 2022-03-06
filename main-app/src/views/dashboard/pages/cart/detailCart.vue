@@ -140,7 +140,7 @@
                   item-text="bank_name"
                   item-value="id"
                 >
-                  <template #selecton="data">
+                  <template #selection="data">
                     <slot
                       name="item"
                       v-bind="data"
@@ -149,12 +149,16 @@
                       {{ data.item.account_bank_number }} -
                       {{ data.item.name }}
                     </slot>
-                    {{ data.item.item.id }}
+                    <!-- {{ data.item.item.id }} -->
                   </template>
                   <template #item="data">
-                    {{ data.item.bank_name }} -
-                    {{ data.item.account_bank_number }} -
-                    {{ data.item.name }}
+                    <div>
+                      <h3>{{ data.item.name }}</h3>
+                      <p>
+                        {{ data.item.account_bank_number }} -
+                        {{ data.item.bank_name }}
+                      </p>
+                    </div>
                   </template>
                 </v-select>
               </v-col>
@@ -248,19 +252,17 @@
           })
           .then((res) => {
             this.invoice.class = res.data.data.class
-            console.log(this.invoice.class)
+          // console.log(this.invoice.class)
           })
       },
       paymentData () {
         this.$store
           .dispatch("payment/paymentData", {
-            check: "ensiklo-live",
-            class_id: this.computedInvoice.class.id,
-            methods: this.methods,
-            cart_id: this.computedInvoice.cart_id,
+            id: this.$route.params.cart_id,
+            bank_id: this.methods,
           })
           .then((res) => {
-            console.log(res)
+            console.log(this.methods)
             if (res.data.meta.status) {
               this.$router.push("/cart")
               const Toast = this.$swal.mixin({

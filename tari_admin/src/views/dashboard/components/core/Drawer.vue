@@ -163,6 +163,11 @@
           to: '/',
         },
         {
+          icon: 'mdi-cart',
+          title: 'Payment / Monetisasi',
+          to: '/payment',
+        },
+        {
           icon: 'mdi-account',
           title: 'users',
           to: '/user?summary=',

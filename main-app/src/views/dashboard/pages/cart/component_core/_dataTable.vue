@@ -7,6 +7,37 @@
     </template>
     <v-container>
       <v-row>
+        <v-col cols="12">
+          <v-btn
+            class="mr-1"
+            outlined
+            rounded
+            small
+            dark
+            color="primary"
+            @click="refresh"
+          >
+            <v-tooltip
+              color="primary"
+              bottom
+            >
+              <template #activator="{ on, attrs }">
+                <v-icon
+                  v-bind="attrs"
+                  color="size__icon_refresh"
+                  v-on="on"
+                >
+                  mdi-cached
+                </v-icon>
+              </template>
+              <span class="font-spartan-small">
+                {{ $t("Segarkan") }}
+              </span>
+            </v-tooltip>
+          </v-btn>
+        </v-col>
+      </v-row>
+      <v-row>
         <v-col
           cols="12"
           md="4"
@@ -116,7 +147,7 @@
                 text-color="white"
                 label
               >
-                {{ item.status }}
+                {{ setStatusName(item.status) }}
               </v-chip>
             </template>
             <template #[`item.actions`]="{ item }">
@@ -129,6 +160,11 @@
                 <v-icon> mdi-contactless-payment-circle-outline </v-icon>
               </v-btn>
             </template>
+            <!-- <template #[`item.status`]="{ item }">
+              <span>
+
+              </span>
+            </template> -->
           </v-data-table>
         </v-col>
       </v-row>
@@ -186,7 +222,11 @@
     },
     methods: {
       navigate (link) {
-        this.$router.push(`/cart/detail/${link.form.id}`)
+        if (link.status === "waiting_payment") {
+          this.$router.push(`/cart/${link.id}/send-img`)
+        } else {
+          this.$router.push(`/cart/${link.id}/detail/${link.form.id}`)
+        }
       },
       computedDateFormattedMomentjs (date) {
         return date ? moment(date).format("dddd, MMMM Do YYYY") : ""
@@ -204,6 +244,20 @@
         if (status === "paid") {
           return "btn_primary"
         } else return "red"
+      },
+      setStatusName (status) {
+        let variableStatus = ""
+        if (status === "paid") return (variableStatus = "Paid")
+        if (status === "pending") return (variableStatus = "Pending")
+        if (status === "waiting_proof") return (variableStatus = "Waiting Proof")
+        if (status === "waiting_payment")
+          return (variableStatus = "Waiting Payment")
+        if (status === "waiting_confirmation")
+          return (variableStatus = "Waiting Confirmation")
+        return variableStatus
+      },
+      refresh () {
+        this.$emit("refresh")
       },
     },
   }

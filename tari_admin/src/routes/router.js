@@ -180,6 +180,14 @@ const router = new Router({
             requiresAuth: true,
           },
         },
+        {
+          name: 'payment',
+          path: '/payment',
+          component: () => import('@/views/pages/payment/index'),
+          meta: {
+            requiresAuth: true,
+          },
+        },
       ],
     },
     {

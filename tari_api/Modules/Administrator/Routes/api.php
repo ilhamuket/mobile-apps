@@ -41,4 +41,8 @@ Route::prefix('administrator')->middleware(['auth:sanctum'])->group(function () 
         Route::get('', [BankController::class, 'index']);
         // Route::get('summary', [BankController::class, 'summary']);
     });
+    Route::prefix('confirmation')->group(function () {
+        Route::post('live/{cart_id}', [TransactionEnsikloLiveController::class, 'confirmationPaidEnsikloLive']);
+        Route::post('live/{cart_id}/rejected', [TransactionEnsikloLiveController::class, 'rejectedConfirmationEnsikloLive']);
+    });
 });

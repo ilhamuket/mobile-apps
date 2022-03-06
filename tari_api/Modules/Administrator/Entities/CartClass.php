@@ -58,8 +58,23 @@ class CartClass extends Model
     public function scopeSummary($query, $summary)
     {
         if ($summary == 'paid') return $query->Where('status', 'paid')->where('isPaid', true);
-        if ($summary == 'waiting') return $query->where("status", 'waiting')->where("isPaid", false);
-        if ($summary == 'new') return $query->whereDate("created_at", now());
+        if ($summary == 'waiting_payment') return $query->where("status", 'waiting_payment')->where("isPaid", false);
+        if ($summary == 'waiting_confirmation') return $query->where("status", 'waiting_confirmation');
+        if ($summary == 'waiting_proof') return $query->where("status", 'waiting_proof');
+        if ($summary == 'pending') return $query->where("status", 'pending');
+        if ($summary == 'canceled') return $query->where("status", 'canceled');
+        // if ($summary == '')
+
         return $query;
+    }
+
+    public function getImageUrlAttribute()
+    {
+        if ($this->attributes['image_url'] != null) {
+            return  env('IMAGE_URL', ' http://127.0.0.1:8000/app/') . $this->attributes['image_url'];
+            // return env('IMAGE_URL', ' https://api.ensiklotari.com/app/') . $this->attributes['url'];
+        } else {
+            return $this->attributes['image_url'];
+        }
     }
 }
