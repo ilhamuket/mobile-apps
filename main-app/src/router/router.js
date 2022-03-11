@@ -393,6 +393,22 @@ const router = new Router({
             requiresAuth: true,
           },
         },
+
+        {
+          name: "send_img",
+          path: "/cart-video/:id/send-img",
+          component: () =>
+            import("@/views/dashboard/pages/cartEnsikloVideo/sendPhoto"),
+          meta: {
+            breadcumbs: [
+              {
+                text: "cart",
+                to: "/cart",
+              },
+            ],
+            requiresAuth: true,
+          },
+        },
         // Article
         {
           name: "article",

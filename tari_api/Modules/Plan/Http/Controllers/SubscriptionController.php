@@ -6,9 +6,8 @@ use Brryfrmnn\Transformers\Json;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Plan\Entities\Plan;
 
-class PlanController extends Controller
+class SubscriptionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +16,9 @@ class PlanController extends Controller
     public function index(Request $request)
     {
         try {
-            $plan = Plan::entities($request->entities)->get();
-
-            return Json::response($plan);
+            $subscription = Subscription::entities($request->entities)
+                ->get();
+            return Json::response($subscription);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         } catch (\Illuminate\Database\QueryException $e) {
@@ -45,22 +44,7 @@ class PlanController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            $plan = new Plan();
-            $plan->name = $request->name;
-            $plan->type = $request->input('type', "free");
-            $plan->status = $request->input('status', "non_active");
-            $plan->role = $request->input("roles", 3);
-            $plan->save();
-
-            return Json::response($plan);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
-        } catch (\Illuminate\Database\QueryException $e) {
-            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
-        } catch (\ErrorException $e) {
-            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
-        }
+        //
     }
 
     /**

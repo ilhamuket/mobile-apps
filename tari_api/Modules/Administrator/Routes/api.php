@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Modules\Administrator\Http\Controllers\BankController;
 use Modules\Administrator\Http\Controllers\StudioController;
 use Modules\Administrator\Http\Controllers\TransactionEnsikloLiveController;
+use Modules\Administrator\Http\Controllers\TransactionEnsikloVideoController;
 use Modules\Administrator\Http\Controllers\UserController;
 
 /*
@@ -36,6 +37,10 @@ Route::prefix('administrator')->middleware(['auth:sanctum'])->group(function () 
             Route::get('', [TransactionEnsikloLiveController::class, 'index']);
             Route::get('summary', [TransactionEnsikloLiveController::class, 'summary']);
         });
+        Route::prefix("ensiklo-video")->group(function () {
+            Route::get('', [TransactionEnsikloVideoController::class, 'index']);
+            Route::get('summary', [TransactionEnsikloVideoController::class, 'summary']);
+        });
     });
     Route::prefix("bank")->group(function () {
         Route::get('', [BankController::class, 'index']);
@@ -44,5 +49,6 @@ Route::prefix('administrator')->middleware(['auth:sanctum'])->group(function () 
     Route::prefix('confirmation')->group(function () {
         Route::post('live/{cart_id}', [TransactionEnsikloLiveController::class, 'confirmationPaidEnsikloLive']);
         Route::post('live/{cart_id}/rejected', [TransactionEnsikloLiveController::class, 'rejectedConfirmationEnsikloLive']);
+        Route::post('video/{cart_id}', [TransactionEnsikloVideoController::class, 'confirmationPaidVideo']);
     });
 });

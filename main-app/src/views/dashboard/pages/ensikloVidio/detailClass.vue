@@ -33,7 +33,8 @@
     </v-card>
     <app-dialog-buy
       :dialog="dialogBuy"
-      @input="submit"
+      :subcription="computedPlans"
+      @input="storeCartEnsikloVideo"
     />
   </v-container>
 </template>
@@ -56,7 +57,7 @@
       isMobile: false,
       dialogBuy: {
         open: false,
-        user: {},
+        data: {},
       },
     }),
     computed: {
@@ -72,12 +73,16 @@
       computedReviews () {
         return this.$store.state.ensikloVidio.reviews
       },
+      computedPlans () {
+        return this.$store.state.plan.data
+      },
     },
     mounted () {
       this.showDataEnsikloVidio()
       this.getValueReviewsEnsiloVidio()
       this.getDataEnsikloVidioReviews()
       this.onResize()
+      this.getDataPlans()
     },
     methods: {
       onResize () {
@@ -105,7 +110,7 @@
       },
       clickBuyNow () {
         this.dialogBuy.open = true
-        this.dialogBuy.user = this.computedMe
+        this.dialogBuy.data = this.computedClass
         console.log(this.$route.params.id)
       },
       submit ({ item }) {
@@ -138,6 +143,40 @@
               Toast.fire({
                 icon: "success",
                 title: "Waiting for payment",
+              })
+            }
+          })
+      },
+      getDataPlans () {
+        this.$store.dispatch("plan/getDataPlans")
+      },
+      storeCartEnsikloVideo ({ item, planId }) {
+        this.$store
+          .dispatch("cart/storeCartEnsikloVideo", {
+            video_id: item.id,
+            plan_id: planId,
+          })
+          .then((res) => {
+            if (res.data.meta.status) {
+              this.$router.push("/cart-video")
+              this.dialogBuy.open = false
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", this.$swal.stopTimer)
+                  toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+                },
+                popup: "swal2-show",
+                backdrop: "swal2-backdrop-show",
+                icon: "swal2-icon-show",
+              })
+              Toast.fire({
+                icon: "success",
+                title: "Created Cart Successfully",
               })
             }
           })

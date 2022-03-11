@@ -6,11 +6,11 @@
           color="btn_primary"
           text-color="white"
           label
-          class="text-center d-flex justify-end"
+          class="mr-2 text-center d-flex justify-end"
         >
           <span
             class="text-capitalize"
-          ><v-icon class="mr-2">mdi-label-multiple</v-icon>Video</span>
+          ><v-icon class="">mdi-label-multiple</v-icon>Video</span>
         </v-chip>
       </div>
     </div>
@@ -48,61 +48,77 @@
       v-if="data.studio"
       class="mt-6"
     >
-      <v-avatar v-if="data.studio.img">
-        <v-img :src="data.studio.img.url" />
-      </v-avatar>
-      <v-avatar
-        v-else
-        size="48"
-        color="btn_primary"
-      >
-        <span>{{ data.studio.name.charAt(0) }}</span>
-      </v-avatar>
-      <p
-        v-if="data.studio"
-        class="ml-2 font-spartan font__studio__title"
-        style="cursor: pointer"
-        @click="toPush(data.studio)"
-      >
-        {{ data.studio.name }}
-      </p>
-      <v-card-actions>
-        <v-rating
-          v-model="count"
-          class="font__studio__start"
-          small
-          :length="count"
-          readonly
-        >
-          <template v-slot:item="props">
-            <v-icon
-              :color="'orange'"
-              small
-              @click="props.click"
+      <v-container>
+        <v-row>
+          <v-col
+            cols="12"
+            md="12"
+          >
+            <v-avatar v-if="data.studio.img">
+              <v-img
+                class="rounded-sm"
+                width="120"
+                :src="data.studio.img.url"
+              />
+            </v-avatar>
+
+            <v-avatar
+              v-else
+              size="48"
+              color="btn_primary"
             >
-              mdi-star-circle
-            </v-icon>
-          </template>
-        </v-rating>
-        <span class="font__studio__ratings orange--text"> ({{ count }}) </span>
-      </v-card-actions>
-      <v-btn
-        v-if="computedIsFollowing"
-        :class="'btn__studio'"
-        small
-        color="btn_primary"
-      >
-        Following
-      </v-btn>
-      <v-btn
-        v-else
-        :class="'btn__studio'"
-        small
-        color="btn_primary"
-        outlined
-      >
-        Follow
-      </v-btn>
+              <span>{{ data.studio.name.charAt(0) }}</span>
+            </v-avatar>
+            <p
+              v-if="data.studio"
+              class="ml-2 font-spartan font__studio__title"
+              style="cursor: pointer"
+              @click="toPush(data.studio)"
+            >
+              {{ data.studio.name }}
+            </p>
+            <div class="d-flex justify-end">
+              <v-btn
+                v-if="computedIsFollowing"
+                small
+                color="btn_primary"
+              >
+                Following
+              </v-btn>
+              <v-btn
+                v-else
+                small
+                color="btn_primary"
+                outlined
+              >
+                Follow
+              </v-btn>
+            </div>
+            <v-card-actions>
+              <v-rating
+                v-model="count"
+                class="font__studio__start"
+                small
+                :length="count"
+                readonly
+              >
+                <template v-slot:item="props">
+                  <v-icon
+                    :color="'orange'"
+                    small
+                    @click="props.click"
+                  >
+                    mdi-star-circle
+                  </v-icon>
+                </template>
+              </v-rating>
+              <span class="font__studio__ratings orange--text">
+                ({{ count }})
+              </span>
+            </v-card-actions>
+          </v-col>
+        </v-row>
+      </v-container>
     </v-card-text>
   </v-card>
 </template>
@@ -195,23 +211,23 @@
     font-size: 14px !important
 .font__studio__start
   margin-left: 49px
-  margin-top: -33px
+  margin-top: -64px
 .bg--title
     padding-top: 20px !important
-    padding-left : 640px
+    padding-left: 640px
 .font__studio__title
     font-size: 13px !important
-    margin-top: -41px
+    margin-top: -57px
     margin-left: 69px !important
     font-weight: 900
 .margin-studio-ratings
     font-size: 7px !important
-    margin-top: -37px !important
+    margin-top: -64x !important
     margin-left: 48px !important
     font-weight: 900
 .font__studio__ratings
     font-size: 12px !important
-    margin-top: -32px !important
+    margin-top: -64px !important
     margin-left: -1px !important
     font-weight: 900
 .btn__studio

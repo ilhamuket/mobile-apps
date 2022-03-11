@@ -59,4 +59,22 @@ class Payment extends Model
             }
         }
     }
+
+    public function scopeSummary($query, $summary)
+    {
+        if ($summary != null && $summary != '' && $summary != 'new') return $query->where('status', $summary);
+        if ($summary == 'new') return $query->whereDate('created_at', now());
+        return $query;
+    }
+
+
+    public function getImageUrlAttribute()
+    {
+        if ($this->attributes['image_url'] != null) {
+            return  env('IMAGE_URL', ' http://127.0.0.1:8000/app/') . $this->attributes['image_url'];
+            // return env('IMAGE_URL', ' https://api.ensiklotari.com/app/') . $this->attributes['url'];
+        } else {
+            return $this->attributes['image_url'];
+        }
+    }
 }

@@ -97,9 +97,16 @@
                 <div class="d-flex flex-row mt-7">
                   <div class="d-flex flex-column">
                     <span class="font-spartan font-weight-bold grey--text">
-                      {{ computedDetail.video.name }} -
+                      {{
+                        computedDetail.video ? computedDetail.video.name : "-"
+                      }}
+                      -
                       <span class="text-capitalize">
-                        {{ computedDetail.video.levels }}
+                        {{
+                          computedDetail.video
+                            ? computedDetail.video.levels
+                            : "-"
+                        }}
                       </span>
                     </span>
                   </div>
@@ -107,8 +114,14 @@
 
                 <div class="d-flex flex-row mt-4">
                   <div class="d-flex flex-column">
-                    <span class="font-spartan font-weight-bold grey--text">
-                      Total : {{ computedDetail.video.price }}
+                    <span
+                      v-if="computedDetail.video"
+                      class="font-spartan font-weight-bold grey--text"
+                    >
+                      Total :
+                      {{
+                        computedDetail.video ? computedDetail.video.price : "-"
+                      }}
                     </span>
                   </div>
                 </div>
@@ -121,7 +134,7 @@
         cols="12"
         md="3"
       >
-        <v-card>
+        <v-card v-if="computedDetail.status === 'pending'">
           <v-container>
             <v-row>
               <v-col cols="12">
@@ -143,14 +156,43 @@
                     <v-select
                       v-model="methods"
                       outlined
-                      :items="items"
-                    />
+                      :items="computedListBank"
+                      item-text="bank_name"
+                      item-value="id"
+                    >
+                      <template #selection="data">
+                        <slot
+                          name="item"
+                          v-bind="data"
+                        >
+                          {{ data.item.bank_name }} -
+                          {{ data.item.account_bank_number }} -
+                          {{ data.item.name }}
+                        </slot>
+                        <!-- {{ data.item.item.id }} -->
+                      </template>
+                      <template #item="data">
+                        <div>
+                          <h3>{{ data.item.name }}</h3>
+                          <p>
+                            {{ data.item.account_bank_number }} -
+                            {{ data.item.bank_name }}
+                          </p>
+                        </div>
+                      </template>
+                    </v-select>
                   </div>
                 </div>
                 <v-divider class="divider__dark mt-2 mb-2" />
                 <div class="d-flex flex-row mt-2">
                   <div class="d-flex flex-column">
-                    Total : {{ computedDetail.video.price }}
+                    Total :
+                    {{
+                      computedDetail.video && computedDetail.form
+                        ? computedDetail.video.price *
+                          computedDetail.form.plan.date_count
+                        : 0
+                    }}
                   </div>
                 </div>
                 <div class="d-flex flex-row-reverse mt-2">
@@ -174,6 +216,14 @@
             </v-row>
           </v-container>
         </v-card>
+        <div
+          v-else
+          class="mt-4"
+        >
+          <span class="mt-4 font-spartan btn_primary--text">
+            {{ setNameStatus(computedDetail.status) }}
+          </span>
+        </div>
       </v-col>
     </v-row>
   </v-container>
@@ -183,34 +233,37 @@
   export default {
     data: () => ({
       items: ["BCA", "Alfa"],
-      methods: "BCA",
+      methods: 1,
     }),
     computed: {
       computedDetail () {
         return this.$store.state.cart.detail_cart_video
       },
+      computedListBank () {
+        return this.$store.state.bank.data
+      },
     },
     mounted () {
       this.getDataDetailCartEnsikloVideo()
+      this.getDataBank()
     },
     methods: {
       getDataDetailCartEnsikloVideo () {
         this.$store.dispatch("cart/getDataDetailCartEnsikloVideo", {
           id: this.$route.params.id,
-          entities: "form,video",
+          entities: "form.plan,video",
         })
+      },
+      getDataBank () {
+        this.$store.dispatch("bank/getDataBank", {})
       },
       paymentData () {
         this.$store
-          .dispatch("payment/paymentData", {
-            check: "ensiklo-video",
-            type: "video",
-            video_id: this.computedDetail.video.id,
-            methods: this.methods,
+          .dispatch("payment/paymentDataVideo", {
+            bank_id: this.methods,
             cart_id: this.$route.params.id,
           })
           .then((res) => {
-            console.log(res)
             if (res.data.meta.status) {
               this.$router.push("/cart-video")
               const Toast = this.$swal.mixin({
@@ -233,6 +286,15 @@
               })
             }
           })
+      },
+      setNameStatus (status) {
+        if (status === "waiting_confirmation") {
+          return "Waiting Confirmation"
+        } else if (status === "waiting_payment") {
+          return "Waiting Payment"
+        } else if (status === "paid") {
+          return "Paid"
+        }
       },
     },
   }

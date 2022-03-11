@@ -21,16 +21,16 @@ class UserHasVideo extends Model
         return $this->belongsTo(StudioClassVidios::class, 'video_id');
     }
 
-    public function getStatusKelasAttribute()
+    public function getStatusAttribute()
     {
         $status = '';
 
-        if ($this->class->end_at  == now()->toDateString()) {
-            $status = 'ongoing';
-        } else if ($this->start_at > now()->toDateString()) {
-            $status = 'upcoming';
-        } else if ($this->start_at < now()->toDateString()) {
-            $status = 'missed';
+        if ($this->start_subscription != null && $this->end_subscription != null) {
+            if ($this->start_subscription >= now()->toDateString() && $this->end_subscription >= now()->toDateString()) {
+                return $status = 'active';
+            } else if ($this->end_subscripton < now()->toDateString()) {
+                return $status = 'non_active';
+            }
         }
 
         return $status;

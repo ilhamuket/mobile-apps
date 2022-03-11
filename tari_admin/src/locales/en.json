@@ -87,5 +87,7 @@
   "journal.create": "Create Journal",
   "journal.show": "Journal Page",
   "journal.update": "Edit Journal",
-  "journal_page": "Journal"
+  "journal_page": "Journal",
+  "transaction_live": "Transaction EnsikloLive",
+  "transaction_video": "Trasaction EnsikloVideo"
 }

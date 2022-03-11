@@ -13,14 +13,16 @@
     />
 
     <v-list-item-icon v-else-if="item.icon">
-      <div>
+      <div class="ml-2">
         <v-icon v-text="item.icon" />
-        <p
-          v-if="!drawer"
-          class="font-weight-light fs-12"
-        >
-          {{ item.title }}
-        </p>
+        <div class="d-flex align-center">
+          <p
+            v-if="!drawer"
+            class="font-weight-light fs-12"
+          >
+            {{ item.title }}
+          </p>
+        </div>
       </div>
     </v-list-item-icon>
 
@@ -70,7 +72,7 @@
 
         let text = ''
 
-        this.item.title.split(' ').forEach(val => {
+        this.item.title.split(' ').forEach((val) => {
           text += val.substring(0, 1)
         })
 

@@ -30,13 +30,12 @@
             </template>
             <template #[`item.actions`]="{ item }">
               <v-btn
-                v-if="item"
-                icon
-                :to="`/cart/video/detail/${item.id}`"
+                color="btn_primary"
+                small
+                outlined
+                @click="navigate(item)"
               >
-                <v-icon color="btn_primary">
-                  mdi-eye
-                </v-icon>
+                <v-icon> mdi-contactless-payment-circle-outline </v-icon>
               </v-btn>
             </template>
           </v-data-table>
@@ -83,6 +82,15 @@
       ],
       search: "",
     }),
+    methods: {
+      navigate (link) {
+        if (link.status === "waiting_payment") {
+          this.$router.push(`/cart-video/${link.id}/send-img`)
+        } else {
+          this.$router.push(`/cart/video/detail/${link.id}`)
+        }
+      },
+    },
   }
 </script>
 

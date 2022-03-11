@@ -8,6 +8,7 @@ import category from './modules/media/category'
 import studio from './modules/studio'
 import article from './modules/article'
 import transaction from './modules/transaction'
+import transactionVideo from './modules/transaction-video'
 import payment from './modules/payment'
 
 Vue.use(Vuex)
@@ -23,6 +24,7 @@ export default new Vuex.Store({
     article: article,
     transaction: transaction,
     payment: payment,
+    transaction_video: transactionVideo,
   },
   state: {
     barColor: 'rgba(0, 0, 0, .8), rgba(0, 0, 0, .8)',

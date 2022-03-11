@@ -179,8 +179,13 @@
         },
         {
           icon: 'mdi-cart',
-          title: 'Transaction',
-          to: '/transaction',
+          title: 'transaction_live',
+          to: '/transaction-live',
+        },
+        {
+          icon: 'mdi-cart',
+          title: 'transaction_video',
+          to: '/transaction-video',
         },
         {
           icon: 'mdi-notebook-multiple',

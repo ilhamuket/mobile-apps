@@ -21,10 +21,19 @@ Route::middleware('auth:api')->get('/payment', function (Request $request) {
 
 Route::prefix("payments")->middleware(['auth:sanctum'])->group(function () {
     Route::get('', [PaymentController::class, 'index']);
+    Route::get('summary', [PaymentController::class, 'summary']);
     Route::post('verification-live', [PaymentController::class, 'verificationPaidLive']);
     Route::post('pay-live/{id}', [PaymentController::class, 'payLive']);
+    Route::post('pay-video/{id}', [PaymentController::class, 'payVideo']);
     Route::post(
         'photo/{id}',
         [PaymentController::class, 'sendProof']
     );
+    Route::post(
+        'photo/{id}/video',
+        [PaymentController::class, 'sendProofVideo']
+    );
+    Route::post('transfer/{id}', [PaymentController::class, 'transferToStudio']);
+    Route::delete('delete/{id}', [PaymentController::class, 'deletePayment']);
+    Route::patch('update/{id}', [PaymentController::class, 'updatePayment']);
 });

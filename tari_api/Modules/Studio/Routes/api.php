@@ -136,7 +136,9 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
         });
         Route::prefix('video')->group(function () {
             Route::get('', [CartVideoController::class, 'index']);
+            Route::get('summary', [CartVideoController::class, 'summary']);
             Route::get('user', [CartVideoController::class, 'userCartVideo']);
+            Route::post('{id}', [CartVideoController::class, 'store']);
             Route::get('{id}', [CartVideoController::class, 'detailCartVideo']);
         });
         Route::get('detail-cart/{id}', [CartClassController::class, 'detailCart']);
@@ -144,6 +146,7 @@ Route::prefix('studio')->middleware(['auth:sanctum'])->group(function () {
 
     Route::prefix('has-video')->group(function () {
         Route::get('user', [UserHasVideoController::class, 'userHasVideo']);
+        Route::post('paid/{id}', [UserHasVideoController::class, 'paidCart']);
     });
     Route::prefix('reviews')->group(function () {
         Route::post('class', [ReviewController::class, 'store']);

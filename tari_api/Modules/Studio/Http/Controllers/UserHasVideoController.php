@@ -6,6 +6,9 @@ use Brryfrmnn\Transformers\Json;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
+use Modules\Studio\Entities\CartClass;
+use Modules\Studio\Entities\CartVideo;
 use Modules\Studio\Entities\UserHasVideo;
 
 class UserHasVideoController extends Controller
@@ -34,9 +37,34 @@ class UserHasVideoController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function paidCart(Request $request, $cart_id)
     {
-        return view('studio::create');
+        try {
+            DB::beginTransaction();
+            $payment = CartVideo::findOrFail($cart_id);
+            $payment->status = $request->input('status', "waiting_payment");
+            $payment->save();
+
+            // $userHasVideo = new UserHasVideo();
+            // $userHasVideo->status = $request->input('status', '');
+            // $userHasVideo->type = $request->input('type', 'video');
+            // $userHasVideo->user_id = $request->user()->id;
+            // $userHasVideo->video_id = $payment->video_id;
+            // $userHasVideo->start_subscription = $request->input('start_subscription', now());
+            // $userHasVideo->end_subscription = date('Y-m-d', strtotime($request->input('start_subscription', now()) . ' +1 month'));
+            // $userHasVideo->save();
+            DB::commit();
+            return Json::response($userHasVideo);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            DB::rollBack();
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**

@@ -4,7 +4,7 @@
       v-model="dialog.open"
       width="70%"
     >
-      <v-card>
+      <v-card class="card--buy__dialog">
         <v-system-bar
           :color="$vuetify.theme.dark ? '#141C31' : '#F0F8FF'"
           window
@@ -29,78 +29,50 @@
             <v-row>
               <v-col cols="12">
                 <v-text-field
-                  :value="fullName"
-                  label="Fullname"
-                  prepend-icon="mdi-account"
+                  :value="dialog.data.name"
+                  label="Video Name"
                   disabled
                 />
               </v-col>
-              <v-col cols="12">
-                <v-text-field
-                  v-model="dialog.user.email"
-                  label="E-mail"
-                  prepend-icon="mdi-email-box"
-                  disabled
-                />
-              </v-col>
-              <v-col cols="12">
-                <v-text-field
-                  v-model="dialog.user.noHp"
-                  label="Contact"
-                  prepend-icon="mdi-account-box-outline"
-                />
-              </v-col>
-              <v-col cols="12">
-                <v-text-field
-                  v-model="dialog.user.homeAddress"
-                  label="Address"
-                  prepend-icon="mdi-map-marker"
-                />
-              </v-col>
-              <v-col cols="12">
-                <v-menu
-                  ref="menu"
-                  v-model="menu"
-                  :close-on-content-click="false"
-                  :return-value.sync="dialog.user.dateOfBirth"
-                  transition="scale-transition"
-                  offset-y
-                  min-width="auto"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                      v-model="dialog.user.dateOfBirth"
-                      label="Date Of Birth"
-                      prepend-icon="mdi-calendar"
-                      readonly
-                      v-bind="attrs"
-                      v-on="on"
-                    />
-                  </template>
-                  <v-date-picker
-                    v-model="dialog.user.dateOfBirth"
-                    no-title
-                    scrollable
-                    class="picker__register"
+
+              <v-container>
+                <v-row class="d-flex justify-center">
+                  <v-col
+                    class="d-flex justify-start"
+                    cols="12"
                   >
-                    <v-spacer />
-                    <v-btn
-                      text
-                      color="primary"
-                      @click="menu = false"
+                    <div class="font-spartan primary--text">
+                      Type Subscription
+                    </div>
+                  </v-col>
+                  <v-col
+                    v-for="(data, i) in subcription"
+                    :key="i"
+                    cols="12"
+                    md="3"
+                  >
+                    <v-card
+                      :class="`form__card cursor-pointer ${
+                        selectedType === data.id ? 'selected' : ''
+                      }`"
+                      width="250"
+                      @click.native="setPacketBuy(data.id)"
                     >
-                      Cancel
-                    </v-btn>
-                    <v-btn
-                      text
-                      color="primary"
-                      @click="$refs.menu.save(dialog.user.dateOfBirth)"
-                    >
-                      OK
-                    </v-btn>
-                  </v-date-picker>
-                </v-menu>
-              </v-col>
+                      <v-card-text>
+                        <div>{{ data.name }}</div>
+                        <p class="text-h4 text--primary">
+                          Harga : Rp. {{ dialog.data.price * data.date_count }}
+                        </p>
+                        <p>{{ data.date_count * 30 }} Days</p>
+                        <div class="text--primary">
+                          {{ data.about }}
+                        </div>
+                      </v-card-text>
+                    </v-card>
+                  </v-col>
+                </v-row>
+              </v-container>
+
               <v-col class="d-flex flex-row-reverse">
                 <v-btn
                   color="btn_primary"
@@ -132,6 +104,10 @@
         type: Object,
         default: null,
       },
+      subcription: {
+        type: Array,
+        default: null,
+      },
     },
     data: () => ({
       date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
@@ -145,6 +121,33 @@
         address: "",
         ttl: "",
       },
+      // subcription: [
+      //   {
+      //     name: "Paket 1",
+      //     date: 1,
+      //     levels: "30 Days",
+      //     about: `Lorem ipsum dolor, sit amet consectetur adipisicing
+      //                     elit. Repellendus non error vero quibusdam dignissimos
+      //                     sapiente repellat quis quidem doloribus commodi.`,
+      //   },
+      //   {
+      //     name: "Paket 2",
+      //     date: 2,
+      //     levels: "60 Days",
+      //     about: `Lorem ipsum dolor, sit amet consectetur adipisicing
+      //                     elit. Repellendus non error vero quibusdam dignissimos
+      //                     sapiente repellat quis quidem doloribus commodi.`,
+      //   },
+      //   {
+      //     name: "Paket 3",
+      //     date: 3,
+      //     levels: "90 Days",
+      //     about: `Lorem ipsum dolor, sit amet consectetur adipisicing
+      //                     elit. Repellendus non error vero quibusdam dignissimos
+      //                     sapiente repellat quis quidem doloribus commodi.`,
+      //   },
+      // ],
+      selectedType: "",
     }),
     computed: {
       fullName () {
@@ -157,7 +160,10 @@
     },
     methods: {
       registerEnsikloVideo () {
-        this.$emit("input", { item: this.dialog.user })
+        this.$emit("input", { item: this.dialog.data, planId: this.selectedType })
+      },
+      setPacketBuy (item) {
+        this.selectedType = item
       },
     },
   }
@@ -173,4 +179,20 @@
         .v-picker
             &__actions
                 background-color: #252935 !important
+.form
+  &__card
+    z-index: 43000
+    &.selected
+      border: 2px double #9DC4D1
+      box-sizing: border-box !important
+    // position: fixed
+    &:hover
+      transform: scale(.9)
+      border: 2px double #9DC4D1
+      box-sizing: border-box !important
+.card--buy
+  &__dialog
+    position: relative !important
+    top: 0
+    left: 0
 </style>

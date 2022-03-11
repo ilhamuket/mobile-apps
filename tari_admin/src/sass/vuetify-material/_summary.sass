@@ -1,7 +1,22 @@
 .summary--card
     &__box
-        transform: .1s
+        // transform: .1s
+        top: 5px
         cursor: pointer
+        transition: .5s
         &.selected , &:hover
             border: 2px solid #4CAF50 !important
-            top: 2px
+            // top: 2px
+.summary--card__box::after
+    content: ''
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background: rgba(0, 0, 0, .5)
+    border-radius: 4px
+    opacity: 0
+    transition: .5s
+    &.selected
+        opacity: 1

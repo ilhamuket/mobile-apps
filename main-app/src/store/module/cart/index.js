@@ -12,6 +12,15 @@ export default {
       waiting_confirmation: 0,
       waiting_proof: 0,
     },
+    summary_video: {
+      all: 0,
+      paid: 0,
+      pending: 0,
+      unPaid: 0,
+      waiting_confirmation: 0,
+      waiting_payment: 0,
+      cancelled: 0,
+    },
     detail: {},
     cart_video: [],
     detail_cart_video: {},
@@ -21,6 +30,7 @@ export default {
     GET_DATA: (state, payload) => (state.data = payload),
     GET_CART_VIDEO: (state, payload) => (state.cart_video = payload),
     GET_SUMMARY: (state, payload) => (state.summary = payload),
+    GET_SUMMARY_VIDEO: (state, payload) => (state.summary_video = payload),
     GET_DETAIL_CART_VIDEO: (state, payload) =>
       (state.detail_cart_video = payload),
     GET_DETAIL_CART_ENSIKLO_LIVE: (state, payload) => (state.detail = payload),
@@ -82,6 +92,23 @@ export default {
           })
       })
     },
+    getSummaryDataEnsikloVideoCart: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        "Bearer " + localStorage.getItem("access_token")
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        axios
+          .get("/studio/cart/video/summary")
+          .then((res) => {
+            commit("GET_SUMMARY_VIDEO", res.data.data)
+            resolve(res)
+          })
+          .catch((e) => {
+            reject(e)
+          })
+      })
+    },
     getDataDetailCartEnsikloVideo: ({ commit }, payload) => {
       axios.defaults.headers.common.Authorization =
         "Bearer " + localStorage.getItem("access_token")
@@ -112,6 +139,23 @@ export default {
           .then((res) => {
             resolve(res)
             commit("GET_DETAIL_CART_ENSIKLO_LIVE", res.data.data)
+          })
+          .catch((e) => {
+            reject(e)
+          })
+      })
+    },
+    storeCartEnsikloVideo: ({ commit }, payload) => {
+      axios.defaults.headers.common.Authorization =
+        "Bearer " + localStorage.getItem("access_token")
+      axios.defaults.baseURL = process.env.VUE_APP_API_URL
+
+      return new Promise((resolve, reject) => {
+        axios
+          .post(`studio/cart/video/${payload.video_id}`, { ...payload })
+          .then((res) => {
+            resolve(res)
+            // commit()
           })
           .catch((e) => {
             reject(e)

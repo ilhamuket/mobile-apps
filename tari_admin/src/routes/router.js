@@ -173,9 +173,17 @@ const router = new Router({
           },
         },
         {
-          name: 'Transaction',
-          path: '/transaction',
+          name: 'transaction_live',
+          path: '/transaction-live',
           component: () => import('@/views/pages/transaction/index'),
+          meta: {
+            requiresAuth: true,
+          },
+        },
+        {
+          name: 'transaction_video',
+          path: '/transaction-video',
+          component: () => import('@/views/pages/transaction-video/index'),
           meta: {
             requiresAuth: true,
           },

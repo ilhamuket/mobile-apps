@@ -1,12 +1,11 @@
 <?php
 
-namespace Modules\Studio\Entities;
+namespace Modules\Plan\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\Plan\Entities\Plan;
 
-class FormRegisterEnsiklovideo extends Model
+class Plan extends Model
 {
     use HasFactory;
 
@@ -14,16 +13,15 @@ class FormRegisterEnsiklovideo extends Model
 
     protected static function newFactory()
     {
-        return \Modules\Studio\Database\factories\FormRegisterEnsiklovideoFactory::new();
+        return \Modules\Plan\Database\factories\PlanFactory::new();
     }
 
-    // === relations === //
-    public function plan()
+    // === Relation === //
+    public function subscription()
     {
-        return $this->belongsTo(Plan::class, 'plan_id');
+        return $this->hasMany(Subscription::class, 'plan_id');
     }
-
-    // ==== Scope === //
+    // === scope === //
     public function scopeEntities($query, $entities)
     {
         if ($entities != null || $entities != '') {
