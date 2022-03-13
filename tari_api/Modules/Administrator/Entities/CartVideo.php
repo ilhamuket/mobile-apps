@@ -92,7 +92,7 @@ class CartVideo extends Model
     {
         if ($this->attributes['image_url'] != null) {
             // return  env('IMAGE_URL', ' http://127.0.0.1:8000/app/') . $this->attributes['image_url'];
-            return env('IMAGE_URL', ' https://api.ensiklotari.com/app/') . $this->attributes['url'];
+            return env('IMAGE_URL', ' https://api.ensiklotari.com/app/') . $this->attributes['image_url'];
         } else {
             return $this->attributes['image_url'];
         }
