@@ -47,15 +47,8 @@ class TransactionEnsikloLiveController extends Controller
     public function summary(Request $request)
     {
         try {
-            $data = [
-                "total" => 0,
-                "paid" => 0,
-                "pending" => 0,
-                "cancelled" => 0,
-                "waiting_confirmation" => 0,
-                "waiting_payment" => 0,
-                "waiting_proof" => 0,
-            ];
+
+
 
             $data["total"] = CartClass::count();
             $data["paid"] = CartClass::where('status', 'paid')->where('isPaid', true)->count();
@@ -108,8 +101,8 @@ class TransactionEnsikloLiveController extends Controller
             $user_has->absent = 0;
             $user_has->save();
             // user 
-            $me = User::findOrFail($cartClass->user_id);
-            $me->myClass()->attach($cartClass->user_id);
+            // $me = User::findOrFail($cartClass->user_id);
+            // $me->myClass()->attach($cartClass->user_id);
 
             DB::commit();
             return Json::response($payment);
