@@ -3,16 +3,19 @@
     id="core-navigation-drawer"
     v-model="drawer"
     color="#141C31"
-    class="on-hover"
+    class="on-hover overflow--hide"
     :mini-variant="!drawer"
     :right="$vuetify.rtl"
-    :class="$vuetify.theme.dark ? 'custumize-dark' : 'custumize-light'"
+    :class="
+      $vuetify.theme.dark
+        ? 'custumize-dark height-max'
+        : 'custumize-light height-max'
+    "
     mobile-breakpoint="960"
     app
     width="260"
     v-bind="$attrs"
     permanent
-    hide-overlay
   >
     <template v-slot:img="props">
       <v-img
@@ -66,35 +69,7 @@
     <v-list
       expand
       nav
-    >
-      <!-- Style cascading bug  -->
-      <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
-
-      <template v-for="(item, i) in computedItemsForAdmin">
-        <base-item-group
-          v-if="item.children"
-          :key="`group-${i}`"
-          :item="item"
-          text
-        >
-          <!--  -->
-        </base-item-group>
-
-        <base-item
-          v-else
-          :key="`item-${i}`"
-          :item="item"
-        />
-      </template>
-
-      <!-- Style cascading bug  -->
-      <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
-      <div />
-    </v-list>
-
-    <v-list
-      expand
-      nav
+      class="height-max"
     >
       <!-- Style cascading bug  -->
       <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
@@ -176,6 +151,11 @@
           icon: 'mdi-shopping-music',
           title: 'studio',
           to: '/studio?summary=',
+        },
+        {
+          icon: 'mdi-notebook-outline',
+          title: 'plan',
+          to: '/plan?summary=',
         },
         {
           icon: 'mdi-cart',
@@ -323,6 +303,7 @@
       &__icon--text,
       &__icon:first-child
         margin-top: 10px
+        margin-left: 10px
 
   .v-list-group--sub-group
     .v-list-item
@@ -356,20 +337,22 @@
   font-family: 'Roboto', sans-serif !important
   font-weight: bold
   font-size: 20px
-  height: 100% !important
 .bg--light
   border-bottom: 1px double #fff !important
 .bg--dark
   border-bottom: 1px double #848E84 !important
 on-hover
   overflow-y: hidden !important
-.height-max
-  height: 68%
 .custumize-dark
   font-weight: bold
   font-family: 'Roboto', sans-serif !important
 .text-capitalize
   text-transform: capitalize
+.height-max
+  height: 100vh !important
+  overflow: auto
+.overflow--hide
+  height: 100vh !important
 </style>
 <style>
 .custumize-dark

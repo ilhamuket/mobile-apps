@@ -17,7 +17,10 @@ class PlanController extends Controller
     public function index(Request $request)
     {
         try {
-            $plan = Plan::entities($request->entities)->get();
+            $plan = Plan::entities($request->entities)
+                ->summary($request->summary)
+                ->active($request->active)
+                ->get();
 
             return Json::response($plan);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
@@ -33,9 +36,29 @@ class PlanController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function summary(Request $request)
     {
-        return view('plan::create');
+        try {
+            $data = [
+                "total" => 0,
+                "active" => 0,
+                "inactive" => 0,
+                'new' => 0,
+            ];
+
+            $data["total"] = Plan::count();
+            $data["active"] = Plan::where('status', 'active')->count();
+            $data["inactive"] = Plan::where('status', 'inactive')->count();
+            $data["new"] = Plan::where('status', 'new')->count();
+
+            return Json::response($data);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**
@@ -48,9 +71,11 @@ class PlanController extends Controller
         try {
             $plan = new Plan();
             $plan->name = $request->name;
-            $plan->type = $request->input('type', "free");
-            $plan->status = $request->input('status', "non_active");
-            $plan->role = $request->input("roles", 3);
+            $plan->slug = Plan::GenerateSlug($request->name);
+            $plan->type = $request->type;
+            $plan->date_count = $request->duration;
+            $plan->status = 'inactive';
+            $plan->about = $request->about;
             $plan->save();
 
             return Json::response($plan);
@@ -68,9 +93,21 @@ class PlanController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
+    public function activatedPlan(Request $request, $id)
     {
-        return view('plan::show');
+        try {
+            $plan = Plan::findOrFail($id);
+            $plan->status = 'active';
+            $plan->save();
+
+            return Json::response($plan);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**
@@ -78,9 +115,24 @@ class PlanController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        return view('plan::edit');
+        try {
+            $plan = Plan::findOrFail($id);
+            $plan->name = $request->input('name', $request->name);
+            $plan->slug = Plan::GenerateSlug($request->input('name', $plan->name));
+            $plan->type = $request->input('type', $plan->type);
+            $plan->date_count = $request->input('duration', $plan->date_count);
+            $plan->status = $request->input('status', $plan->status);
+            $plan->about = $request->input('about', $plan->about);
+            $plan->save();
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**
@@ -101,6 +153,17 @@ class PlanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $plan = Plan::findOrFail($id);
+            $plan->delete();
+
+            return Json::response($plan);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 }

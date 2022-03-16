@@ -4,6 +4,7 @@ namespace Modules\StudioOwners\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Plan\Entities\Subscription;
 
 class CartVideo extends Model
 {
@@ -19,6 +20,11 @@ class CartVideo extends Model
     public function form()
     {
         return $this->hasOne(FormRegisterEnsiklovideo::class, 'cart_video_id');
+    }
+
+    public function subscription()
+    {
+        return $this->belongsTo(Subscription::class, 'subscription_id');
     }
 
     public function getImageUrlAttribute()

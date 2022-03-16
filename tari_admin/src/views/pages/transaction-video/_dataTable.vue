@@ -52,7 +52,10 @@
           md="8"
           class="d-flex justify-end"
         >
-          <v-btn color="red">
+          <v-btn
+            :disabled="selected.length === 0"
+            color="red"
+          >
             Delete {{ selected.length }} Items
           </v-btn>
         </v-col>
@@ -64,6 +67,52 @@
             show-expand
             show-select
           >
+            <template #expanded-item="{ headers, item }">
+              <td :colspan="headers.length">
+                <v-container v-if="item.form">
+                  <v-row class="d-flex justify-center">
+                    <v-col
+                      cols="12"
+                      md="1"
+                    >
+                      <v-card width="150">
+                        <v-img
+                          v-if="item.video"
+                          :src="item.video.url_thumbnail"
+                          aspect-ratio="1"
+                        />
+                      </v-card>
+                    </v-col>
+                    <v-col
+                      v-if="item.form.plan"
+                      cols="12"
+                      md="11"
+                      class="mt-8"
+                    >
+                      <div>
+                        <span> {{ item.form.plan.name }} </span>
+                      </div>
+                      <v-divider class="mt-2 mb-2" />
+                      <div>
+                        <span>
+                          Price : Rp
+                          {{ item.video.price * item.form.plan.date_count }}
+                        </span>
+                      </div>
+                      <v-divider class="mt-2 mb-2" />
+                      <div>{{ item.form.plan.date_count * 30 }}</div>
+                      <v-divider class="mt-2 mb-2" />
+                      <div>
+                        <span>
+                          {{ item.form.plan.about }}
+                        </span>
+                      </div>
+                      <v-divider class="mt-2 mb-2" />
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </td>
+            </template>
             <template #[`item.id`]="{ item }">
               <v-card width="150">
                 <v-img
@@ -221,7 +270,7 @@
                             small
                             class="ml-1"
                             v-on="on"
-                            @click="rejectEnsiklolive(item)"
+                            @click="rejectAction(item)"
                           >
                             mdi-close
                           </v-icon>
@@ -319,7 +368,7 @@
       },
       setColorStatus (status) {
         if (status === 'waiting_confirmation') {
-          return 'info'
+          return 'warning'
         } else if (status === 'waiting_payment') {
           return 'warning'
         } else if (status === 'rejected') {
@@ -344,6 +393,16 @@
         }
 
         return status
+      },
+      confirmationAction (item) {
+        this.$emit('confirmation', {
+          item: item,
+        })
+      },
+      rejectAction (item) {
+        this.$emit('reject', {
+          item: item,
+        })
       },
     },
   }

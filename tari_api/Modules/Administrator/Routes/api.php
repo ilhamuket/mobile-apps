@@ -44,11 +44,15 @@ Route::prefix('administrator')->middleware(['auth:sanctum'])->group(function () 
     });
     Route::prefix("bank")->group(function () {
         Route::get('', [BankController::class, 'index']);
+        Route::prefix('studio')->group(function () {
+            Route::get('{studio_id}', [BankController::class, 'bankAccountStudio']);
+        });
         // Route::get('summary', [BankController::class, 'summary']);
     });
     Route::prefix('confirmation')->group(function () {
         Route::post('live/{cart_id}', [TransactionEnsikloLiveController::class, 'confirmationPaidEnsikloLive']);
         Route::post('live/{cart_id}/rejected', [TransactionEnsikloLiveController::class, 'rejectedConfirmationEnsikloLive']);
         Route::post('video/{cart_id}', [TransactionEnsikloVideoController::class, 'confirmationPaidVideo']);
+        Route::post('video/{cart_id}/rejected', [TransactionEnsikloVideoController::class, 'reject']);
     });
 });

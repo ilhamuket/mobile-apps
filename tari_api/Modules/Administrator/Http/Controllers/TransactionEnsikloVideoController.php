@@ -3,12 +3,15 @@
 namespace Modules\Administrator\Http\Controllers;
 
 use Brryfrmnn\Transformers\Json;
+use Illuminate\Support\Facades\File;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Modules\Administrator\Entities\CartVideo;
 use Modules\Payment\Entities\Payment;
+use Modules\Plan\Entities\Subscription;
 use Modules\Studio\Entities\UserHasVideo;
 
 class TransactionEnsikloVideoController extends Controller
@@ -25,12 +28,25 @@ class TransactionEnsikloVideoController extends Controller
                 "total" => 0,
                 "paid" => 0,
                 "pending" => 0,
-                "cancelled" => 0,
+                "new" => 0,
                 "waiting_confirmation" => 0,
                 "waiting_payment" => 0,
             ];
-        } catch (\Throwable $th) {
-            //throw $th;
+
+            $data["total"] = CartVideo::count();
+            $data["paid"] = CartVideo::where('status', 'paid')->count();
+            $data["pending"] = CartVideo::where('status', 'pending')->count();
+            $data["new"] = CartVideo::whereDate('created_at', now())->count();
+            $data["waiting_confirmation"] = CartVideo::where('status', 'waiting_confirmation')->count();
+            $data["waiting_payment"] = CartVideo::where('status', 'waiting_payment')->count();
+
+            return Json::response($data);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         }
     }
     /**
@@ -42,6 +58,7 @@ class TransactionEnsikloVideoController extends Controller
         try {
             $master = CartVideo::entities($request->entities)
                 ->sort($request->sort)
+                ->summary($request->summary)
                 ->get();
             return Json::Response($master);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
@@ -120,9 +137,65 @@ class TransactionEnsikloVideoController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function reject(Request $request, $cart_id)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $cart = CartVideo::findOrFail($cart_id);
+            if ($cart->status == 'pending') return Json::exception("Cart Video is Pending");
+            if ($cart->status == 'paid') {
+                $cart->status = 'pending';
+                if ($cart->image_url != null) {
+                    $new_array = explode('/', $cart->image_url);
+                    $image_path = $new_array[3] . '/' . $new_array[4] . '/' . $new_array[5];
+                    if (File::exists($image_path)) {
+                        File::delete($image_path);
+                    }
+                    $cart->image_url = null;
+                }
+                $subscription_id = $cart->subscription_id;
+                $cart->subscription_id = null;
+                $cart->save();
+
+
+                // subscription delete
+                $subscription = Subscription::where('id', $subscription_id)->first();
+                $subscription->delete();
+
+                // user has video delete
+                $user_has_video = UserHasVideo::where('cart_video_id', $cart_id)->first();
+                $user_has_video->delete();
+
+                // payment status rejected
+                $payment = Payment::where('cart_video_id', $cart->id)->first();
+                if ($payment->status == 'paid') return Json::exception("Payment is Paid to Studio");
+                $payment->status = 'rejected';
+                $payment->save();
+            } else {
+                $cart->status = 'pending';
+                $subscription_id = $cart->subscription_id;
+                $cart->subscription_id = null;
+                $cart->save();
+
+                // subscription delete
+                $subscription = Subscription::where('id', $subscription_id)->first();
+                $subscription->delete();
+            }
+            DB::commit();
+            return Json::response($cart);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            DB::rollBack();
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Spatie\Permission\Exceptions\UnauthorizedException $e) {
+            DB::rollBack();
+            return Json::exception('Error UnauthorizedException ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**

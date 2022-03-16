@@ -120,33 +120,59 @@
           </v-col>
         </v-row>
       </v-container>
+    </template>
+    <template #form>
       <v-container v-if="isDataArray && !isTransfer">
         <v-row v-if="isDataListBank">
-          <v-col v-if="dialog.data.class">
-            <span class="font-spartan">
-              {{ title }}
-            </span>
+          <!-- <div> -->
+          <span
+            v-if="isLoading"
+            class="font-spartan"
+          >
+            {{ title }}
+          </span>
+          <!-- </div> -->
+
+          <v-col
+            v-if="isLoading"
+            cols="12"
+            md="5"
+            class="d-flex justify-center mt-6"
+          >
+            <!-- <v-col cols="12"> -->
+            <v-progress-circular
+              indeterminate
+              color="primary"
+            />
+            <!-- </v-col> -->
+          </v-col>
+          <!-- <div v-else> -->
+          <v-col v-if="dialog.data.class && !isLoading">
             <div v-if="dialog.data.class.studio && dialog.data.type === 'live'">
+              <span class="font-spartan">
+                {{ title }}
+              </span>
               <v-radio-group
                 v-model="bank"
                 column
               >
                 <v-radio
-                  v-for="(item, index) in dialog.data.class.studio.bank"
+                  v-for="(item, index) in propsBank"
                   :key="index"
                   :label="item.name"
                   :value="item"
                 >
                   <template #label>
                     <span>
-                      {{ item.name }} - {{ item.no_rek }} - {{ item.bank_name }}
+                      {{ item.name }} - {{ item.no_rek }} -
+                      {{ item.bank_name }}
                     </span>
                   </template>
                 </v-radio>
               </v-radio-group>
             </div>
           </v-col>
-          <v-col v-if="dialog.data.video">
+          <v-col v-if="dialog.data.video && !isLoading">
             <span class="font-spartan">
               {{ title }}
             </span>
@@ -158,19 +184,21 @@
                 column
               >
                 <v-radio
-                  v-for="(item, index) in dialog.data.video.studio.bank"
+                  v-for="(item, index) in propsBank"
                   :key="index"
                   :value="item"
                 >
                   <template #label>
                     <span>
-                      {{ item.name }} - {{ item.no_rek }} - {{ item.bank_name }}
+                      {{ item.name }} - {{ item.no_rek }} -
+                      {{ item.bank_name }}
                     </span>
                   </template>
                 </v-radio>
               </v-radio-group>
             </div>
           </v-col>
+          <!-- </div> -->
           <v-col
             cols="12"
             class="d-flex justify-end"
@@ -216,6 +244,10 @@
 <script>
   export default {
     props: {
+      propsBank: {
+        type: Array,
+        default: () => [],
+      },
       dialog: {
         type: Object,
         default: null,
@@ -271,6 +303,10 @@
       textBtnColor2: {
         type: String,
         default: '',
+      },
+      isLoading: {
+        type: Boolean,
+        default: true,
       },
     },
     data: () => ({

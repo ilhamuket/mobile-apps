@@ -47,9 +47,6 @@ class TransactionEnsikloLiveController extends Controller
     public function summary(Request $request)
     {
         try {
-
-
-
             $data["total"] = CartClass::count();
             $data["paid"] = CartClass::where('status', 'paid')->where('isPaid', true)->count();
             $data["pending"] = CartClass::where('status', 'pending')->where('isPaid', false)->count();

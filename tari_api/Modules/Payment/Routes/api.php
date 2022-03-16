@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
+use Modules\Administrator\Http\Controllers\ChartController;
 use Modules\Payment\Http\Controllers\PaymentController;
 
 /*
@@ -22,6 +23,9 @@ Route::middleware('auth:api')->get('/payment', function (Request $request) {
 Route::prefix("payments")->middleware(['auth:sanctum'])->group(function () {
     Route::get('', [PaymentController::class, 'index']);
     Route::get('summary', [PaymentController::class, 'summary']);
+    Route::prefix('chart')->group(function () {
+        Route::get('', [ChartController::class, 'index']);
+    });
     Route::post('verification-live', [PaymentController::class, 'verificationPaidLive']);
     Route::post('pay-live/{id}', [PaymentController::class, 'payLive']);
     Route::post('pay-video/{id}', [PaymentController::class, 'payVideo']);

@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Administrator\Entities\Bank;
+use Modules\Plan\Entities\Subscription;
 use Modules\StudioOwners\Entities\StudioClassVidio;
 
 class CartVideo extends Model
@@ -37,6 +38,11 @@ class CartVideo extends Model
     public function bank()
     {
         return $this->belongsTo(Bank::class, 'bank_id');
+    }
+
+    public function subscription()
+    {
+        return $this->belongsTo(Subscription::class, 'subscription_id');
     }
 
     // ==== Scope === //

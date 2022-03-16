@@ -10,6 +10,8 @@ import article from './modules/article'
 import transaction from './modules/transaction'
 import transactionVideo from './modules/transaction-video'
 import payment from './modules/payment'
+import plan from './modules/plan'
+import bank from './modules/bank'
 
 Vue.use(Vuex)
 
@@ -25,6 +27,8 @@ export default new Vuex.Store({
     transaction: transaction,
     payment: payment,
     transaction_video: transactionVideo,
+    plan: plan,
+    bank: bank,
   },
   state: {
     barColor: 'rgba(0, 0, 0, .8), rgba(0, 0, 0, .8)',

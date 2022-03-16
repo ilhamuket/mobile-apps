@@ -43,7 +43,7 @@ class Payment extends Model
 
     public function cartVideo()
     {
-        return $this->belongsTo(CartVideo::class, 'cart_id');
+        return $this->belongsTo(CartVideo::class, 'cart_video_id');
     }
 
     public function scopeEntities($query, $entities)

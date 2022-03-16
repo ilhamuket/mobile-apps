@@ -361,6 +361,21 @@
                 </v-tooltip>
               </div>
             </template>
+            <template #[`item.price`]="{ item }">
+              <div v-if="item.type === 'live'">
+                <span>{{ item.class ? item.class.harga : '-' }}</span>
+              </div>
+              <div v-else>
+                <span>
+                  {{
+                    item.video && item.cart_video.subscription
+                      ? item.video.price *
+                        item.cart_video.subscription.plan.date_count
+                      : '-'
+                  }}
+                </span>
+              </div>
+            </template>
             <template #[`item.status`]="{ item }">
               <v-chip
                 class="text-capitalize"
@@ -422,7 +437,7 @@
         { text: 'Studio Email', value: 'class.studio.email', sortable: false },
         { text: 'Studio Contact', value: 'class.studio.contact' },
         { text: 'Class Name', value: 'class.name', sortable: false },
-        // { text: 'Payment Method', value: 'bank.bank_name', sortable: false },
+        { text: 'Price', value: 'price', sortable: false },
         { text: 'Status', value: 'status', sortable: false },
         { text: 'Bank Account', value: 'bank', sortable: false },
       // { text: 'Last Login', value: 'last_login', sortable: false },

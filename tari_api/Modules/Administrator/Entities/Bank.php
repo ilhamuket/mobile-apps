@@ -31,4 +31,11 @@ class Bank extends Model
             return $query->where('summary', $summary);
         }
     }
+
+    public function scopeStatus($query, $status)
+    {
+        if ($status === 'active') {
+            return $query->where('status', 'active');
+        } else return $query;
+    }
 }

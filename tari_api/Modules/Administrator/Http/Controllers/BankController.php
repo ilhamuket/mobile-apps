@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Administrator\Entities\Bank;
+use Modules\StudioOwners\Entities\BankAccount;
 
 class BankController extends Controller
 {
@@ -19,6 +20,7 @@ class BankController extends Controller
         try {
             $master = Bank::entities($request->entities)
                 ->summary($request->summary)
+                ->status($request->status)
                 ->get();
 
             return Json::response($master);
@@ -37,9 +39,18 @@ class BankController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function bankAccountStudio(Request $request, $studio_id)
     {
-        return view('administrator::create');
+        try {
+            $bankAccount = BankAccount::where('studio_id', $studio_id)->get();
+            return Json::response($bankAccount);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**

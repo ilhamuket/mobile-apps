@@ -196,6 +196,20 @@ const router = new Router({
             requiresAuth: true,
           },
         },
+        {
+          name: 'plan',
+          path: '/plan',
+          component: () => import('@/views/pages/plan/index'),
+          meta: {
+            requiresAuth: true,
+            breadcumbs: [
+              {
+                text: 'Dashboard',
+                to: '/',
+              },
+            ],
+          },
+        },
       ],
     },
     {

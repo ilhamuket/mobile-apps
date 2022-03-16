@@ -96,6 +96,8 @@
       @upload="uploadProof"
     />
     <app-dialog-list-bank
+      :props-bank="computedBank"
+      :is-loading="isLoading"
       :is-data-list-bank="true"
       :is-data-array="true"
       :dialog="dialogListBank"
@@ -148,6 +150,7 @@
         open: false,
         data: [],
       },
+      isLoading: true,
     }),
     computed: {
       computedPayment () {
@@ -155,6 +158,9 @@
       },
       computedSummary () {
         return this.$store.state.payment.summary
+      },
+      computedBank () {
+        return this.$store.state.bank.data
       },
     },
     watch: {
@@ -169,12 +175,13 @@
     mounted () {
       this.getDataPayment()
       this.getSummaryPayment()
+      this.getDataBankAccountStuio(null)
     },
     methods: {
       getDataPayment () {
         this.$store.dispatch('payment/getDataPayment', {
           entities:
-            'user,class.studio.bank,video.studio.bank,cart.form,cartVideo',
+            'user,class.studio.bank,video.studio.bank,cart.form,cartVideo,cartVideo.subscription.plan',
           summary: this.summary || this.$route.query.summary,
         })
       },
@@ -195,7 +202,13 @@
       methodDialogListBank ({ item }) {
         this.dialogListBank.open = true
         this.dialogListBank.data = item
-        console.log(item)
+        if (item.type === 'live') {
+          this.getDataBankAccountStuio(item.class.studio_id)
+        }
+        if (item.type === 'video') {
+          this.getDataBankAccountStuio(item.video.studio_id)
+        }
+      // console.log(item)
       },
       deleteDataPayment ({ item }) {
         this.$store
@@ -354,6 +367,21 @@
                   title: 'Transfer has been sent',
                 })
               }
+            })
+        }
+      },
+      getDataBankAccountStuio (id) {
+        if (id != null || id !== '') {
+          this.isLoading = true
+          this.$store
+            .dispatch('bank/getDataBankAccountStuio', { id: id })
+            .then((res) => {
+              if (res.data.meta.status) {
+                this.isLoading = false
+              }
+            })
+            .catch((e) => {
+              console.log(e)
             })
         }
       },

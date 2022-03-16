@@ -148,7 +148,9 @@
           })
       },
       getDataPlans () {
-        this.$store.dispatch("plan/getDataPlans")
+        this.$store.dispatch("plan/getDataPlans", {
+          active: "active",
+        })
       },
       storeCartEnsikloVideo ({ item, planId }) {
         this.$store

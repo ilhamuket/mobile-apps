@@ -23,7 +23,6 @@
   "multi": "Multi Level Collapse",
   "notifications": "Notifications",
   "pages": "Pages",
-  "plan": "Choose Plan",
   "pricing": "Pricing",
   "my-profile": "My Profile",
   "edit-profile": "Edit Profile",
@@ -89,5 +88,7 @@
   "journal.update": "Edit Journal",
   "journal_page": "Journal",
   "transaction_live": "Transaction EnsikloLive",
-  "transaction_video": "Trasaction EnsikloVideo"
+  "transaction_video": "Trasaction EnsikloVideo",
+  "plan": "Plan",
+  "type": "Type Something"
 }
