@@ -23,9 +23,10 @@ Route::prefix("plan")->middleware(['auth:sanctum'])->group(function () {
     Route::get('', [PlanController::class, 'index']);
     Route::post('', [PlanController::class, 'store']);
     Route::get('summary', [PlanController::class, 'summary']);
+    Route::post('activate', [PlanController::class, 'activateItems']);
     Route::post('{id}', [PlanController::class, 'activatedPlan']);
     Route::patch('{id}', [PlanController::class, 'edit']);
-    Route::delete('{id}', [PlanController::class, 'destroy']);
+    Route::delete('{id}', [PlanController::class, 'inactivate']);
 });
 Route::prefix("subscription")->middleware(['auth:sanctum'])->group(function () {
     Route::get('', [SubscriptionController::class, 'index']);

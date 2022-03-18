@@ -148,9 +148,13 @@
           })
       },
       getDataPlans () {
-        this.$store.dispatch("plan/getDataPlans", {
-          active: "active",
-        })
+        this.$store
+          .dispatch("plan/getDataPlans", {
+            summary: "active",
+          })
+          .then((res) => {
+            console.log(res.data.data)
+          })
       },
       storeCartEnsikloVideo ({ item, planId }) {
         this.$store

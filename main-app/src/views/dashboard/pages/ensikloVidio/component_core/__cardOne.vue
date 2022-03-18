@@ -1,7 +1,7 @@
 <template>
   <v-card class="rounded-xl">
     <v-img
-      width="348"
+      width="100%"
       height="348"
       :src="data.url_thumbnail"
       gradient="to top right, rgba(56,57,56,.33), rgba(56,57,56,.7)"

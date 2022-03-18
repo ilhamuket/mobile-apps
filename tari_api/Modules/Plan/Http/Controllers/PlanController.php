@@ -126,6 +126,8 @@ class PlanController extends Controller
             $plan->status = $request->input('status', $plan->status);
             $plan->about = $request->input('about', $plan->about);
             $plan->save();
+
+            return Json::response($plan);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
         } catch (\Illuminate\Database\QueryException $e) {
@@ -141,9 +143,26 @@ class PlanController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function activateItems(Request $request)
     {
-        //
+        try {
+            $id = $request->id;
+            if (is_array($id)) {
+                foreach ($id as $key => $value) {
+                    $plan = Plan::findOrFail($value);
+                    $plan->status = 'active';
+                    $plan->save();
+                }
+            } else {
+                return Json::exception("Error");
+            }
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Json::exception('Error Model ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return Json::exception('Error Query' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        } catch (\ErrorException $e) {
+            return Json::exception('Error Exception ' . $debug = env('APP_DEBUG', false) == true ? $e : '');
+        }
     }
 
     /**
@@ -151,11 +170,13 @@ class PlanController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function inactivate($id)
     {
         try {
-            $plan = Plan::findOrFail($id);
-            $plan->delete();
+            $plan = Plan::with('subscription')->findOrFail($id);
+            if ($plan->subscription != null) return Json::exception("can`t inactive plan with subscription");
+            $plan->status = 'inactive';
+            $plan->save();
 
             return Json::response($plan);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

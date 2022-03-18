@@ -1,69 +1,60 @@
 <template>
-  <v-row
-    class=""
-    :class="isMobile ? 'd-flex justify-center' : 'row__buyying'"
-  >
-    <!-- <v-col md="6" cols="12">
-      <v-btn
-        width="185"
-        color="btn_primary"
-      >
-        <v-icon class="mr-1">
-          mdi-cart
-        </v-icon>
-        Cart
-      </v-btn>
-    </v-col> -->
-    <v-col
-      cols="12"
-      class="mobile__col--buynow mobile__cols--375 cols__btn"
+  <v-container>
+    <v-row
+      class=""
+      :class="isMobile ? 'd-flex justify-center' : 'row__buyying'"
     >
-      <v-btn
-        outlined
-        color="btn_primary"
-        class="width--btn-buynow width-375 width-desktop"
-        @click="buyNow"
-      >
-        <v-icon>mdi-cart-check</v-icon>
-        Buy Now
-      </v-btn>
-    </v-col>
-    <v-col
-      class="mobile__col--buynow mobile__cols--375 mt-2 cols__btn--two"
-      :class="isMobile ? '' : 'col__buying__modified'"
-      cols="12"
-    >
-      <v-row>
-        <v-col class="mr-2">
-          <v-btn
-            small
-            outlined
-            color="red"
-            class="width--btn-buynow width-375 btn--two"
+      <v-col cols="12">
+        <v-btn
+          outlined
+          color="btn_primary"
+          x-large
+          width="100%"
+          @click="buyNow"
+        >
+          <v-icon>mdi-cart-check</v-icon>
+          Buy Now
+        </v-btn>
+      </v-col>
+      <v-col cols="12">
+        <v-row>
+          <v-col
+            cols="12"
+            md="6"
           >
-            <v-icon class="mr-2">
-              mdi-heart
-            </v-icon>
-            WishList
-          </v-btn>
-        </v-col>
-        <v-col>
-          <v-btn
-            small
-            color="btn_primary"
-            class="width--btn-buynow width-375 btn--share"
-            @click="openDialogShare"
+            <v-btn
+              width="100%"
+              small
+              outlined
+              color="red"
+            >
+              <v-icon class="mr-2">
+                mdi-heart
+              </v-icon>
+              WishList
+            </v-btn>
+          </v-col>
+          <v-col
+            cols="12"
+            md="6"
           >
-            <v-icon class="mr-2">
-              mdi-share-variant
-            </v-icon>
-            Share
-          </v-btn>
-        </v-col>
-      </v-row>
-    </v-col>
-    <app-dialog-share :dialog="share" />
-  </v-row>
+            <v-btn
+              color="btn_primary"
+              width="100%"
+              small
+              @click="openDialogShare"
+            >
+              <v-icon class="mr-2">
+                mdi-share-variant
+              </v-icon>
+              Share
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-col>
+      <app-dialog-share :dialog="share" />
+    </v-row>
+  </v-container>
 </template>
 
 <script>

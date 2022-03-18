@@ -5,6 +5,35 @@
     </template>
     <v-container>
       <v-row>
+        <v-col cols="12">
+          <v-btn
+            class="mr-1"
+            outlined
+            rounded
+            small
+            dark
+            color="primary"
+            @click="refresh"
+          >
+            <v-tooltip
+              color="btn_primary"
+              bottom
+            >
+              <template #activator="{ on, attrs }">
+                <v-icon
+                  v-bind="attrs"
+                  color="size__icon_refresh"
+                  v-on="on"
+                >
+                  mdi-refresh
+                </v-icon>
+              </template>
+              <span class="font-spartan-small"> Refresh </span>
+            </v-tooltip>
+          </v-btn>
+        </v-col>
+      </v-row>
+      <v-row>
         <v-col
           cols="12"
           md="4"
@@ -22,11 +51,12 @@
           class="d-flex justify-end"
         >
           <v-btn
-            color="red"
-            @click="deleteItems(selected)"
+            color="info"
+            class="mr-2"
           >
-            Delete {{ selected.length }} Items
+            Activated {{ selected.length }} Items
           </v-btn>
+
           <v-btn
             class="ml-2"
             color="btn_primary"
@@ -53,7 +83,7 @@
                       color="transparent"
                       small
                       text
-                      @click="confirmationAction(item)"
+                      @click="activedItem(item)"
                     >
                       <v-tooltip
                         color="btn_primary"
@@ -70,7 +100,7 @@
                             mdi-check-decagram
                           </v-icon>
                         </template>
-                        <span class="font-spartan-small">Confirmation</span>
+                        <span class="font-spartan-small">Actived Plan</span>
                       </v-tooltip>
                     </a>
                   </div>
@@ -79,6 +109,7 @@
                       color="transparent"
                       small
                       text
+                      @click="editForm(item)"
                     >
                       <v-tooltip
                         color="btn_primary"
@@ -92,17 +123,14 @@
                             class="ml-1"
                             v-on="on"
                           >
-                            mdi-pencils
+                            mdi-pencil
                           </v-icon>
                         </template>
-                        <span class="font-spartan-small">Contact Whatsapp</span>
+                        <span class="font-spartan-small">Edit Plan</span>
                       </v-tooltip>
                     </a>
                   </div>
-                  <div
-                    v-if="item.status !== 'pending'"
-                    class="d-flex flex-column mt-1"
-                  >
+                  <div class="d-flex flex-column mt-1">
                     <a
                       color="transparent"
                       small
@@ -119,12 +147,12 @@
                             small
                             class="ml-1"
                             v-on="on"
-                            @click="rejectAction(item)"
+                            @click="activate(item)"
                           >
-                            mdi-delete
+                            mdi-close
                           </v-icon>
                         </template>
-                        <span class="font-spartan-small">Reject</span>
+                        <span class="font-spartan-small">Inactivate</span>
                       </v-tooltip>
                     </a>
                   </div>
@@ -133,6 +161,9 @@
             </template>
             <template #[`item.date_count`]="{ item }">
               <span> {{ item.date_count }} Months </span>
+            </template>
+            <template #[`item.type`]="{ item }">
+              {{ setType(item.type) }}
             </template>
             <template #[`item.status`]="{ item }">
               <v-chip
@@ -191,6 +222,21 @@
       },
       createItem () {
         this.$emit('open')
+      },
+      activedItem (item) {
+        this.$emit('actived', { item: item })
+      },
+      editForm (item) {
+        this.$emit('edit', { item: item })
+      },
+      refresh () {
+        this.$emit('refresh')
+      },
+      setType (type) {
+        if (type === 'ensiklo-video') return 'Ensiklo Video'
+      },
+      activate (item) {
+        this.$emit('activate', { item: item })
       },
     },
   }
