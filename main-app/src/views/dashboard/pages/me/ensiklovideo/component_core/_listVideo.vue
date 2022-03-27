@@ -34,6 +34,10 @@
                     <span class="font-spartan-small white--text">
                       {{ item.video.name }}
                     </span>
+                    <br>
+                    <span class="font-spartan-small white--text">{{
+                      item.status
+                    }}</span>
                   </v-col>
                 </v-row>
               </v-container>

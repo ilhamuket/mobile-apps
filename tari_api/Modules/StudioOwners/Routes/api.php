@@ -8,6 +8,7 @@ use Modules\StudioOwners\Entities\StudioTeacher;
 use Modules\StudioOwners\Entities\SubClassOwnerStudio;
 use Modules\StudioOwners\Entities\UserHaveClass;
 use Modules\StudioOwners\Http\Controllers\BankAccountController;
+use Modules\StudioOwners\Http\Controllers\CartClassController;
 use Modules\StudioOwners\Http\Controllers\CategoryImgController;
 use Modules\StudioOwners\Http\Controllers\ClassesOwnerStudioController;
 use Modules\StudioOwners\Http\Controllers\DiscussController;
@@ -26,6 +27,7 @@ use Modules\StudioOwners\Http\Controllers\StudioTeacherController;
 use Modules\StudioOwners\Http\Controllers\SubClassOwnerStudioController;
 use Modules\StudioOwners\Http\Controllers\UserAndStudioController;
 use Modules\StudioOwners\Http\Controllers\UserHaveClassController;
+use Modules\User\Entities\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -198,5 +200,10 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
         Route::post('activated', [BankAccountController::class, 'activated']);
         Route::delete('{id}', [BankAccountController::class, 'destroy']);
         Route::patch('{id}', [BankAccountController::class, 'update']);
+    });
+
+    Route::prefix('cart')->group(function () {
+        Route::get('', [CartClassController::class, 'index']);
+        Route::get('summary', [CartClassController::class, 'summary']);
     });
 });

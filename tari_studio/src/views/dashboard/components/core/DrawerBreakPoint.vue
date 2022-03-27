@@ -110,10 +110,10 @@
 
 <script>
 // Utilities
-  import { mapState } from 'vuex'
+  import { mapState } from "vuex"
 
   export default {
-    name: 'DashboardCoreDrawer',
+    name: "DashboardCoreDrawer",
 
     props: {
       expandOnHover: {
@@ -125,30 +125,45 @@
     data: () => ({
       items: [
         {
-          icon: 'mdi-view-dashboard',
-          title: 'dashboard',
-          to: '/dashboard/home',
+          icon: "mdi-view-dashboard",
+          title: "dashboard",
+          to: "/dashboard/home",
         },
         {
-          icon: 'mdi-playlist-check',
-          title: 'category',
-          to: '/category',
+          icon: "mdi-cart",
+          title: "cart_live",
+          to: "/cart-live",
         },
         {
-          icon: 'mdi-account-group-outline',
-          title: 'classes',
-          to: '/class',
+          icon: "mdi-playlist-check",
+          title: "category",
+          to: "/category?summary=",
+        },
+        {
+          icon: "mdi-access-point",
+          title: "classes",
+          to: "/class?summary=all",
+        },
+        {
+          icon: "mdi-laptop",
+          title: "class_vidio",
+          to: "/class-vidio?summary=",
+        },
+        {
+          title: "student",
+          icon: "mdi-account-outline",
+          to: "/student?summary=all",
         },
 
         {
-          icon: 'mdi-account-cowboy-hat-outline',
-          title: 'instrucktur',
-          to: '/instructor',
+          icon: "mdi-account-cowboy-hat-outline",
+          title: "instrucktur",
+          to: "/instructor?summary=all",
         },
         {
-          icon: 'mdi-alpha-v-box',
-          title: 'vidio_name_page',
-          to: '/vidio',
+          icon: "mdi-alpha-v-box",
+          title: "vidio_name_page",
+          to: "/vidio?summary=all",
         },
         // {
         //   icon: 'mdi-account',
@@ -156,41 +171,36 @@
         //   to: '/pages/user',
         // },
         {
-          title: 'history_class',
-          icon: 'mdi-clipboard-outline',
-          to: '/tables/regular-tables',
+          title: "artikel",
+          icon: "mdi-book-plus-multiple-outline",
+          to: "/article?summary=all",
         },
         {
-          title: 'typography',
-          icon: 'mdi-format-font',
-          to: '/components/typography',
+          title: "event",
+          icon: "mdi-chart-bubble",
+          to: "/components/icons",
         },
         {
-          title: 'icons',
-          icon: 'mdi-chart-bubble',
-          to: '/components/icons',
+          title: "google",
+          icon: "mdi-map-marker",
+          to: "/maps/google-maps",
         },
         {
-          title: 'google',
-          icon: 'mdi-map-marker',
-          to: '/maps/google-maps',
-        },
-        {
-          title: 'notifications',
-          icon: 'mdi-bell',
-          to: '/components/notifications',
+          title: "notifications",
+          icon: "mdi-bell",
+          to: "/components/notifications",
         },
       ],
     }),
 
     computed: {
-      ...mapState(['barColor', 'barImage']),
+      ...mapState(["barColor", "barImage"]),
       drawer: {
         get () {
           return this.$store.state.drawer
         },
         set (val) {
-          this.$store.commit('SET_DRAWER', val)
+          this.$store.commit("SET_DRAWER", val)
         },
       },
       computedItems () {
@@ -199,7 +209,7 @@
       profile () {
         return {
           avatar: true,
-          title: this.$t('avatar'),
+          title: this.$t("avatar"),
         }
       },
     },

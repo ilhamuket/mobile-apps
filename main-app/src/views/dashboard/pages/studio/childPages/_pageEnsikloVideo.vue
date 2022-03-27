@@ -25,7 +25,7 @@
           >
             <v-img
               style="cursor: pointer"
-              width="400"
+              width="100%"
               height="276"
               gradient="to top right, rgba(0,0,0,.33), rgba(0,0,10,.7)"
               :src="item.url_thumbnail"

@@ -27,30 +27,16 @@
     <div class="mr-2" />
 
     <v-toolbar-title
-      class="hidden-sm-and-down font-weight-light font-size-ather-roboto-mono-name-page"
+      class="
+        hidden-sm-and-down
+        font-weight-light font-size-ather-roboto-mono-name-page
+      "
       :class="!drawer ? 'ml-6' : ''"
       v-text="$t($route.name)"
     />
 
     <v-spacer />
-    <v-toolbar-title
-      class="ml-12"
-      dark
-    >
-      <!-- <v-img
-        src="@/assets/logo-e-color (2).png"
-        width="200"
-        height="79"
-        class="bg-red"
-      /> -->
-      <v-list-item-title
-        class="font-title-rampart-one-black custome-brad-pallet1"
-      >
-        <h3>
-          ENSIKLOTARI
-        </h3>
-      </v-list-item-title>
-    </v-toolbar-title>
+
     <v-spacer />
 
     <!-- <v-col cols="2">
@@ -271,10 +257,10 @@
 // import { VHover, VListItem } from 'vuetify/lib'
 
 // Utilities
-  import { mapState, mapMutations } from 'vuex'
+  import { mapState, mapMutations } from "vuex"
 
   export default {
-    name: 'DashboardCoreAppBar',
+    name: "DashboardCoreAppBar",
 
     props: {
       value: {
@@ -285,36 +271,34 @@
 
     data: () => ({
       notifications: [
-        'Mike John Responded to your email',
-        'You have 5 new tasks',
+        "Mike John Responded to your email",
+        "You have 5 new tasks",
         "You're now friends with Andrew",
-        'Another Notification',
-        'Another one',
+        "Another Notification",
+        "Another one",
       ],
       notify: false,
       model: null,
       lenguage: [
         {
-          name: 'en',
-          img:
-            'https://media.istockphoto.com/vectors/flag-of-great-britain-vector-id497118178?s=612x612',
+          name: "en",
+          img: "https://media.istockphoto.com/vectors/flag-of-great-britain-vector-id497118178?s=612x612",
         },
         {
-          name: 'id',
-          img:
-            'https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg',
+          name: "id",
+          img: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg",
         },
       ],
       items: [
         {
-          icon: 'mdi-account-outline',
-          text: 'myaccount',
-          to: '/user/myaccount',
+          icon: "mdi-account-outline",
+          text: "myaccount",
+          to: "/user/myaccount",
         },
         {
-          icon: 'mdi-account',
-          text: 'user',
-          to: '/user/settings',
+          icon: "mdi-account",
+          text: "user",
+          to: "/user/settings",
         },
         // {
         //   icon: 'mdi-bluetooth',
@@ -322,17 +306,17 @@
         //   to: '/index/announcement',
         // },
         {
-          icon: 'mdi-logout',
-          text: 'logout',
-          to: '/logout',
+          icon: "mdi-logout",
+          text: "logout",
+          to: "/logout",
         },
       ],
     }),
 
     computed: {
-      ...mapState(['drawer']),
+      ...mapState(["drawer"]),
       users () {
-        const me = localStorage.getItem('ME')
+        const me = localStorage.getItem("ME")
         const users = JSON.parse(me)
 
         return users
@@ -340,7 +324,7 @@
       fullName () {
         return (
           this.$store.state.user.me.firstName +
-          ' ' +
+          " " +
           this.$store.state.user.me.lastName
         )
       },
@@ -355,8 +339,8 @@
 
     mounted () {
       this.getMe()
-      const theme = localStorage.getItem('dark_theme')
-      if (theme === 'true') {
+      const theme = localStorage.getItem("dark_theme")
+      if (theme === "true") {
         this.$vuetify.theme.dark = true
       } else {
         this.$vuetify.theme.dark = false
@@ -364,13 +348,13 @@
     },
     methods: {
       ...mapMutations({
-        setDrawer: 'SET_DRAWER',
+        setDrawer: "SET_DRAWER",
       }),
       toogle_dark_theme () {
-        localStorage.setItem('dark_theme', this.$vuetify.theme.dark.toString())
+        localStorage.setItem("dark_theme", this.$vuetify.theme.dark.toString())
       },
       getMe () {
-        this.$store.dispatch('user/me')
+        this.$store.dispatch("user/me")
       },
     },
   }

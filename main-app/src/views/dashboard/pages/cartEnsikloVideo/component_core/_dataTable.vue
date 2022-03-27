@@ -28,6 +28,14 @@
                 class="img__video"
               />
             </template>
+            <template #[`item.status`]="{ item }">
+              <v-chip
+                class="text-capitalize"
+                :color="setColor(item.status)"
+              >
+                {{ setNameStatus(item.status) }}
+              </v-chip>
+            </template>
             <template #[`item.actions`]="{ item }">
               <v-btn
                 color="btn_primary"
@@ -89,6 +97,18 @@
         } else {
           this.$router.push(`/cart/video/detail/${link.id}`)
         }
+      },
+      setNameStatus (status) {
+        if (status === "waiting_payment") return "Waiting Payment"
+        if (status === "waiting_confirmation") return "Waiting Confirmation"
+        else return status
+      },
+      setColor (status) {
+        if (status === "waiting_payment") return "warning"
+        if (status === "waiting_confirmation") return "warning"
+        // else return "success"
+        if (status === "paid") return "btn_primary"
+        else return "error"
       },
     },
   }

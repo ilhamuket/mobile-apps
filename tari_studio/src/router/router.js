@@ -293,6 +293,20 @@ const router = new Router({
             requiresAuth: true,
           },
         },
+        {
+          name: "cart_live",
+          path: "/cart-live",
+          component: () => import("@/views/dashboard/cart/index"),
+          meta: {
+            breadcumbs: [
+              {
+                text: "Dashboard",
+                to: "/",
+              },
+            ],
+            requiresAuth: true,
+          },
+        },
       ],
     },
 

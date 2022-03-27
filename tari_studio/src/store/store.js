@@ -50,6 +50,7 @@ import vidioInstructor from "./module/studioOwner/instructor/vidio"
 import student from "./module/student"
 import studioHasStudio from "./module/studioOwner/studioHasStudent/index"
 import article from "./module/article"
+import cart from "./module/cart"
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -82,6 +83,7 @@ export default new Vuex.Store({
     student: student,
     studioHasStudio: studioHasStudio,
     article: article,
+    cart: cart,
   },
   state: {
     barColor: "rgba(0, 0, 0, .8), rgba(0, 0, 0, .8)",

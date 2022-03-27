@@ -1,6 +1,7 @@
 <template>
   <v-main>
     <div
+      v-if="!is_screen"
       class="d-flex flex-row flex-nowrap mt-6"
       :class="!drawer ? 'ml-4' : 'mr-2'"
     >
@@ -22,6 +23,14 @@
         </v-breadcrumbs>
       </div>
     </div>
+    <div
+      v-else
+      class="mt-6"
+    >
+      <span class="ml-7 font-spartan">
+        {{ $t($route.name) }}
+      </span>
+    </div>
     <router-view />
 
     <!-- <dashboard-core-footer /> -->
@@ -36,6 +45,9 @@
     // components: {
     //   DashboardCoreFooter: () => import('./Footer'),
     // },
+    data: () => ({
+      is_screen: false,
+    }),
     computed: {
       ...mapState(["drawer"]),
       cumputedStore () {
@@ -43,7 +55,11 @@
       },
     },
     mounted () {
-    // console.log(this.cumputedStore)
+      // console.log(this.cumputedStore)
+      console.log("screen : ", screen.width)
+      if (screen.width < 400) {
+        this.is_screen = true
+      } else return (this.is_screen = false)
     },
     methods: {
       ...mapMutations({
