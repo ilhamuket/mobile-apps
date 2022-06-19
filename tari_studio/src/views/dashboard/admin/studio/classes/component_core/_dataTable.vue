@@ -303,10 +303,14 @@
                   <v-img
                     v-else
                     src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/zeus/kratos/62cb37c4.png"
-                    width="140"
+                    width="100%"
                     height="100"
                     gradient="to top right, rgba(0, 0, 0, 0.05), rgba(20, 20, 20, 0.05)"
-                    style="background-color: rgba(0, 0, 0, 0.05)"
+                    style="
+                      background-color: rgba(0, 0, 0, 0.05);
+                      cursor: pointer;
+                    "
+                    @click="uploadPict(item)"
                   />
                   <input
                     ref="fileUpload"
@@ -314,6 +318,13 @@
                     style="display: none"
                     accept="image/*"
                     @change="changePictProfile"
+                  >
+                  <input
+                    ref="upload"
+                    type="file"
+                    style="display: none"
+                    accept="image/*"
+                    @change="uploadPicture"
                   >
                 </v-card>
               </v-hover>
@@ -650,6 +661,49 @@
           })
         } else {
           this.$emit("change", {
+            item: {
+              files: this.files,
+              id: this.dataItem.id,
+            },
+          })
+        }
+      },
+      uploadPict (item) {
+        this.$refs.upload.click()
+        this.dataItem = item
+      },
+      uploadPicture (event) {
+        const files = event.target.files
+        const fileName = files[0].name
+        console.log(fileName)
+        const fileReader = new FileReader()
+        fileReader.addEventListener("load", () => {
+          this.imageUrl = fileReader.result
+        })
+        fileReader.readAsDataURL(files[0])
+        this.files = files[0]
+        if (files[0].size > 2000000) {
+          console.log("too big")
+          const Toast = this.$swal.mixin({
+            toast: true,
+            position: "bottom-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener("mouseenter", this.$swal.stopTimer)
+              toast.addEventListener("mouseleave", this.$swal.resumeTimer)
+            },
+            popup: "swal2-show",
+            backdrop: "swal2-backdrop-show",
+            icon: "swal2-icon-show",
+          })
+          Toast.fire({
+            icon: "error",
+            title: "file too big",
+          })
+        } else {
+          this.$emit("uploadPict", {
             item: {
               files: this.files,
               id: this.dataItem.id,

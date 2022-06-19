@@ -48,6 +48,15 @@ class Article extends Model
         }
     }
 
+    public function scopeSearch($query, $search)
+    {
+        if ($search != "" || $search != null) {
+            $query->where("title", "like", "%" . $search . "%");
+        }
+
+        return $query;
+    }
+
     public function scopeSummary($query, $summary, $studio_id)
     {
         if ($summary == 'publish') $query->where('studio_id', $studio_id)->where('status', 'publish');

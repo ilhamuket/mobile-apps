@@ -16,7 +16,7 @@
             <v-img
               :src="item.url_thumbnail"
               style="cursor: pointer"
-              width="400"
+              width="100%"
               height="276"
               gradient="to top right, rgba(0,0,0,.33), rgba(0,0,10,.7)"
               @click="toPush(`/class-vidio/detail/${item.slug}`)"
@@ -45,22 +45,24 @@
                     </v-icon>
                   </v-col>
                 </v-row>
-                <v-row>
-                  <v-col
-                    cols="12"
-                    class="cols__class-vidio__category"
-                  >
-                    <span
-                      class="font-spartan-small font-weight-bold white--text"
-                    >
-                      {{ item.name }}
-                    </span>
-                  </v-col>
-                </v-row>
+                <!-- <v-row>
+                </v-row> -->
               </v-container>
             </v-img>
             <v-container>
               <v-row>
+                <v-col
+                  cols="12"
+                  class="d-flex align-center"
+                >
+                  <span
+                    :class="`font-spartan-small font-weight-bold ${
+                      $vuetify.theme.dark ? 'white--text' : 'black--text'
+                    }`"
+                  >
+                    {{ item.name }}
+                  </span>
+                </v-col>
                 <v-col cols="12">
                   Levels :
                   <v-chip

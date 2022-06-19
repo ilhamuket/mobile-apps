@@ -9,6 +9,7 @@ use Modules\StudioOwners\Entities\SubClassOwnerStudio;
 use Modules\StudioOwners\Entities\UserHaveClass;
 use Modules\StudioOwners\Http\Controllers\BankAccountController;
 use Modules\StudioOwners\Http\Controllers\CartClassController;
+use Modules\StudioOwners\Http\Controllers\CartVideoController;
 use Modules\StudioOwners\Http\Controllers\CategoryImgController;
 use Modules\StudioOwners\Http\Controllers\ClassesOwnerStudioController;
 use Modules\StudioOwners\Http\Controllers\DiscussController;
@@ -205,5 +206,10 @@ Route::prefix('owner')->middleware(['auth:sanctum'])->group(function () {
     Route::prefix('cart')->group(function () {
         Route::get('', [CartClassController::class, 'index']);
         Route::get('summary', [CartClassController::class, 'summary']);
+    });
+
+    Route::prefix('cart-video')->group(function () {
+        Route::get('', [CartVideoController::class, 'index']);
+        Route::get('summary', [CartVideoController::class, 'summary']);
     });
 });

@@ -129,6 +129,11 @@
           to: "/cart-live",
         },
         {
+          icon: "mdi-cart",
+          title: "cart_video",
+          to: "/cart-video",
+        },
+        {
           icon: "mdi-playlist-check",
           title: "category",
           to: "/category?summary=",

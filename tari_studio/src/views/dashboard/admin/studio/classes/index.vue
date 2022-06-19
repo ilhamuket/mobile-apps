@@ -211,6 +211,7 @@
           @change="changePicture"
           @refresh="refresh"
           @hide="hideDataClass"
+          @uploadPict="inputPicture"
         />
       </v-col>
     </v-row>

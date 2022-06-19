@@ -7,10 +7,10 @@
         cols="12"
         md="4"
       >
-        <v-card class="mx-auto card__poluler--studio">
+        <v-card class="mx-auto">
           <v-img
             v-if="item.img"
-            class="white--text layout__fhd align-end"
+            class="white--text layout__fhd align-end card__poluler--studio"
             width="400"
             height="400"
             :src="item.img.url"
@@ -132,7 +132,7 @@
           </v-img>
           <v-img
             v-else
-            class="white--text layout__fhd align-end"
+            class="white--text layout__fhd align-end card__poluler--studio"
             width="400"
             height="400"
             src="https://ecs7.tokopedia.net/img/cache/300/default_picture_user/default_toped-22.jpg"
@@ -312,8 +312,7 @@
 .card
   &__poluler--studio
     &:hover
-      transform: scale(.9)
-      border: 2px double #9DC4D1
+      border: 10px double #9DC4D1
 // @media screen and (min-width: 1600px)
 //   .layout
 //     &__fhd

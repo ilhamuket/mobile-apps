@@ -221,5 +221,6 @@
   "clasess": "EnsikloLive",
   "artikel": "Artikel",
   "pending": "Pending",
-  "cart_live": "Cart EnsikloTari"
+  "cart_live": "Cart EnsikloTari",
+  "cart_video": "Cart EnsikloVideo"
 }

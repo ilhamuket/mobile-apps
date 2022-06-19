@@ -16,7 +16,7 @@
             <v-img
               v-if="item.img"
               :src="item.img.url"
-              width="400"
+              width="100%"
               height="300"
               gradient="to top right, rgba(0,0,0,.7), rgba(0,0,0,.7)"
               style="cursor: pointer"
@@ -43,47 +43,6 @@
                     </v-icon>
                   </v-col>
                 </v-row>
-                <v-row class="cols__list__ensiklolive">
-                  <v-col
-                    class="mt-8"
-                    cols="12"
-                  >
-                    <span class="font-spartan btn_primary--text">
-                      {{ item.name }}
-                    </span>
-                    <br>
-                    <span class="font-spartan btn_primary--text">
-                      Rp.{{ item.harga }}
-                    </span>
-
-                    <!-- <v-rating
-                      :value="2"
-                      class="ratings__class__category"
-                      small
-                      background-color="grey"
-                      color="orange"
-                    /> -->
-
-                    <!-- <br> -->
-                    <!-- <v-btn
-                      small
-                      outlined
-                      color="primary"
-                      class="btn_explore"
-                    >
-                      Rp.2000
-                    </v-btn>
-                    <v-btn
-                      small
-                      outlined
-                      color="primary"
-                      class="btn_explore ml-1"
-
-                    >
-                      Explore
-                    </v-btn> -->
-                  </v-col>
-                </v-row>
               </v-container>
             </v-img>
             <v-img
@@ -101,6 +60,18 @@
             >
               <v-container>
                 <v-row>
+                  <v-col
+                    cols="12"
+                    class="d-flex align-center"
+                  >
+                    <span
+                      :class="`font-spartan-small font-weight-bold ${
+                        $vuetify.theme.dark ? 'white--text' : 'black--text'
+                      }`"
+                    >
+                      {{ item.name }}
+                    </span>
+                  </v-col>
                   <v-col
                     class="d-flex flex-row-reverse"
                     cols="12"
@@ -159,6 +130,47 @@
               </v-container>
             </v-img>
             <v-container>
+              <v-row class="">
+                <v-col
+                  class="mt-8"
+                  cols="12"
+                >
+                  <span class="font-spartan btn_primary--text">
+                    {{ item.name }}
+                  </span>
+                  <br>
+                  <span class="font-spartan btn_primary--text">
+                    Rp.{{ item.harga }}
+                  </span>
+
+                  <!-- <v-rating
+                      :value="2"
+                      class="ratings__class__category"
+                      small
+                      background-color="grey"
+                      color="orange"
+                    /> -->
+
+                  <!-- <br> -->
+                  <!-- <v-btn
+                      small
+                      outlined
+                      color="primary"
+                      class="btn_explore"
+                    >
+                      Rp.2000
+                    </v-btn>
+                    <v-btn
+                      small
+                      outlined
+                      color="primary"
+                      class="btn_explore ml-1"
+
+                    >
+                      Explore
+                    </v-btn> -->
+                </v-col>
+              </v-row>
               <v-row>
                 <v-col cols="12">
                   <span class="font-spartan-small">
