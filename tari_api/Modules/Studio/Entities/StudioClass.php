@@ -13,6 +13,7 @@ use Modules\Media\Entities\Category;
 use Modules\StudioOwners\Entities\ImgClasses;
 use Modules\StudioOwners\Entities\ImgListClass;
 use Modules\StudioOwners\Entities\StudioTeacher;
+use Illuminate\Support\Str;
 
 class StudioClass extends Model
 {
@@ -111,6 +112,30 @@ class StudioClass extends Model
         }
 
         return $status;
+    }
+
+    public function scopeGenerateSlug($q, $title)
+    {
+        $new_slug = Str::slug($title);
+        $slug_check = $this->where('slug', $new_slug)->count();
+        if ($slug_check == 0) {
+            $slug = $new_slug;
+        } else {
+            $check = 0;
+            $unique = false;
+            while ($unique == false) {
+                $inc_id = ++$check;
+                $check = $this->where('slug', $new_slug . '-' . $inc_id)->count();
+                if ($check > 0) {
+                    $unique = false;
+                } else {
+                    $unique = true;
+                }
+            }
+            $slug = $new_slug . '-' . $inc_id;
+        }
+
+        return $slug;
     }
 
     public function scopeEntities($query, $entities)

@@ -282,7 +282,7 @@ class StudioClassController extends Controller
             $master->status = $request->status;
             $master->levels = $request->levels;
             $master->about = $request->about;
-            $master->slug = \Str::slug($master->name);
+            $master->slug = StudioClass::generateSlug($request->name);
             $master->author_id = $request->user()->id;
             $master->studio_id = $request->studio_id;
             $master->save();

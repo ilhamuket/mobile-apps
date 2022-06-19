@@ -307,6 +307,20 @@ const router = new Router({
             requiresAuth: true,
           },
         },
+        {
+          name: "cart_video",
+          path: "/cart-video",
+          component: () => import("@/views/dashboard/cartVideo/index.vue"),
+          meta: {
+            breadcumbs: [
+              {
+                text: "Dashboard",
+                to: "/",
+              },
+            ],
+            requiresAuth: true,
+          },
+        },
       ],
     },
 

@@ -186,8 +186,7 @@
 .card
   &__populer--love
     &:hover
-      transform: scale(.9)
-      border: 2px double #9DC4D1
+      border: 10px double #9DC4D1
 // @media screen and (min-width: 1600px)
 //   .layout
 //     &__fhd
