@@ -6,6 +6,7 @@ import "@/sass/overrides.sass"
 Vue.use(Vuetify)
 
 const theme = {
+  btn_primary: "#4CAF50",
   primary: "#9DC4D1",
   secondary: "#8F8F38",
   third: "294F50",
@@ -13,7 +14,6 @@ const theme = {
   info: "#00CAE3",
   pallet1: "#843839",
   landingpage: "#171B34",
-  btn_primary: "#4CAF50",
 }
 
 export default new Vuetify({
