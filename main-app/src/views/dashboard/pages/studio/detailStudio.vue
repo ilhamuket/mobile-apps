@@ -52,8 +52,13 @@
             @inputLike="likeStudio"
             @inputUnLike="unLikeStudio"
           />
+          <app-studio-card-detail-mobile class="d-md-none" />
         </v-col>
       </v-row>
+      <!-- <v-row>
+        <v-col cols="12">
+        </v-col>
+      </v-row> -->
 
       <v-tabs
         v-model="tabs"
@@ -130,6 +135,8 @@
   export default {
     components: {
       "app-studio-card-detail": topCardDetails,
+      "app-studio-card-detail-mobile": () =>
+      import("./component_core/_cardDetailStudioMobile.vue"),
       "app-page-home": pageHome,
       "app-page-classes": pageClasses,
       "app-page-reviews": pageReviews,
@@ -709,4 +716,11 @@
   .v-tab
     text-transform: capitalize !important
     font-style: none !important
+// .d-mobile
+//   @media screen and (min-width: 490px) and (max-width: 1900px) {
+//     display: none !important
+//   }
+//   @media screen and (max-width: 400px) {
+//     display: block !important
+//   }
 </style>
