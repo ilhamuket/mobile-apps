@@ -1,8 +1,5 @@
-import 'dart:ui';
 
-import 'package:ensiklotari/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
-import 'package:ensiklotari/app/data/models/models.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 

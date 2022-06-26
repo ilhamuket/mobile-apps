@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginController extends GetxController {
-  //TODO: Implement LoginController
-
-}
+class LoginController extends GetxController {}
 
 class TextForm extends StatelessWidget {
   final TextEditingController? controller;
