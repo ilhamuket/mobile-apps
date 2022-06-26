@@ -69,7 +69,7 @@ class HomeView extends GetView<HomeController> {
                             Row(
                               children: [
                                 Text(
-                                  "Selamat datang",
+                                  "Selamat Tinggal",
                                   style: GoogleFonts.poppins(
                                     textStyle: TextStyle(
                                         fontWeight: FontWeight.bold,
