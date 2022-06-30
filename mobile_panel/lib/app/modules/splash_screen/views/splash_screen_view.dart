@@ -8,9 +8,14 @@ class SplashScreenView extends GetView<SplashScreenController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Container(
-          child: Image.asset("assets/image/logo.svg"),
+      backgroundColor: Color(0xFF84383A),
+      body: SafeArea(
+        child: Center(
+          child: Container(
+            child: Image(
+              image: AssetImage("assets/images/ensiklotari.png"),
+            ),
+          ),
         ),
       ),
     );

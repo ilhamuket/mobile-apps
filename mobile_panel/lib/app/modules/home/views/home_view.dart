@@ -52,7 +52,7 @@ class HomeView extends GetView<HomeController> {
                           width: 180,
                           height: 180,
                           child: Image.asset(
-                            "assets/images/ensiklotari.png",
+                            "assets/images/tari.png",
                             fit: BoxFit.contain,
                           ),
                         ),
