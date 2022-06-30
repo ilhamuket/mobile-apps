@@ -8,6 +8,8 @@ import 'package:ensiklotari/app/modules/introduction/bindings/introduction_bindi
 import 'package:ensiklotari/app/modules/introduction/views/introduction_view.dart';
 import 'package:ensiklotari/app/modules/login/bindings/login_binding.dart';
 import 'package:ensiklotari/app/modules/login/views/login_view.dart';
+import 'package:ensiklotari/app/modules/new_password/bindings/new_password_binding.dart';
+import 'package:ensiklotari/app/modules/new_password/views/new_password_view.dart';
 import 'package:ensiklotari/app/modules/register/bindings/register_binding.dart';
 import 'package:ensiklotari/app/modules/register/views/register_view.dart';
 import 'package:ensiklotari/app/modules/splash_screen/bindings/splash_screen_binding.dart';
@@ -50,6 +52,11 @@ class AppPages {
       name: _Paths.SPLASH_SCREEN,
       page: () => SplashScreenView(),
       binding: SplashScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.NEW_PASSWORD,
+      page: () => NewPasswordView(),
+      binding: NewPasswordBinding(),
     ),
   ];
 }

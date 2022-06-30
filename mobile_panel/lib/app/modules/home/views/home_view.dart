@@ -127,7 +127,7 @@ class HomeView extends GetView<HomeController> {
                         style: GoogleFonts.poppins(
                           textStyle: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontSize: 20,
+                            fontSize: 18,
                             shadows: [
                               Shadow(
                                 blurRadius: 4,
@@ -161,7 +161,7 @@ class HomeView extends GetView<HomeController> {
                         style: GoogleFonts.poppins(
                           textStyle: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontSize: 20,
+                            fontSize: 18,
                           ),
                         ),
                       ),
@@ -171,7 +171,7 @@ class HomeView extends GetView<HomeController> {
                           color: Color(0xFF4CAF50),
                           textStyle: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontSize: 16,
+                            fontSize: 14,
                           ),
                         ),
                       ),

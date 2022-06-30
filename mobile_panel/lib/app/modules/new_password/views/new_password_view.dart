@@ -1,23 +1,13 @@
-import 'package:ensiklotari/app/data/Service/api.dart';
 import 'package:ensiklotari/app/data/ikon_ensiklotari_icons.dart';
-
 import 'package:ensiklotari/app/routes/app_pages.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../controllers/login_controller.dart';
+import '../controllers/new_password_controller.dart';
 
-class LoginView extends GetView<LoginController> {
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  ApiService _apiService = ApiService();
-
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-
+class NewPasswordView extends GetView<NewPasswordController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,11 +45,12 @@ class LoginView extends GetView<LoginController> {
                         child: Column(
                           children: [
                             controller.makeInput(
-                                iconPref: Icon(IkonEnsiklotari.email),
-                                hintText: "Email"),
+                                iconPref: Icon(IkonEnsiklotari.password),
+                                hintText: "New password",
+                                obsureText: true),
                             controller.makeInput(
                                 iconPref: Icon(IkonEnsiklotari.password),
-                                hintText: "Password",
+                                hintText: "Re - enter new password",
                                 obsureText: true),
                           ],
                         ),
@@ -68,49 +59,18 @@ class LoginView extends GetView<LoginController> {
                         height: 20,
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              "Doesn't have an account? ",
-                              style: GoogleFonts.spartan(
-                                textStyle: TextStyle(
-                                    fontSize: 10, fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () => Get.toNamed(Routes.REGISTER),
-                              child: Text(
-                                "Sign Up",
-                                style: GoogleFonts.spartan(
-                                  textStyle: TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w500,
-                                      decoration: TextDecoration.underline),
-                                  color: Color(0xFF274F50),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Padding(
                         padding: EdgeInsets.symmetric(horizontal: 40),
                         child: MaterialButton(
                           minWidth: double.infinity,
                           height: 30,
                           onPressed: () {
-                            Get.offAndToNamed(Routes.HOME);
+                            Get.offAndToNamed(Routes.LOGIN);
                           },
                           color: Color(0xFF84383A),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(40)),
                           child: Text(
-                            "Sign In",
+                            "Submit",
                             style: GoogleFonts.spartan(
                               textStyle: TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.w500),
@@ -130,14 +90,11 @@ class LoginView extends GetView<LoginController> {
                 ),
                 GestureDetector(
                   onTap: () => Get.toNamed(Routes.FORGOT_PASSWORD),
-                  child: Text(
-                    "Forgot your password?",
-                    style: GoogleFonts.spartan(
-                      textStyle: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w500,
-                          decoration: TextDecoration.underline),
-                      color: Colors.white,
+                  child: Container(
+                    width: 35,
+                    child: Image(
+                      image: AssetImage("assets/images/arrow.png"),
+                      fit: BoxFit.fill,
                     ),
                   ),
                 ),

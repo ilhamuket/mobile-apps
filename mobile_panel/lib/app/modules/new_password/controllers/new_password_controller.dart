@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class RegisterController extends GetxController {
+class NewPasswordController extends GetxController {
   Widget makeInput({iconPref, hintText, obsureText = false}) {
     return TextField(
       cursorColor: Colors.black,

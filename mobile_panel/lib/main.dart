@@ -7,9 +7,14 @@ import 'app/routes/app_pages.dart';
 void main() {
   runApp(
     GetMaterialApp(
+      theme: ThemeData(
+        colorScheme: ThemeData().colorScheme.copyWith(
+              primary: Colors.black,
+            ),
+      ),
       debugShowCheckedModeBanner: false,
       title: "Application",
-      initialRoute: Routes.LOGIN,
+      initialRoute: Routes.SPLASH_SCREEN,
       getPages: AppPages.routes,
     ),
   );

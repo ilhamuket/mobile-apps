@@ -24,4 +24,7 @@ flutter:
 
   assets:
     - assets/images/
-    - font/Ikon.ttf
+  fonts:
+    - family: IkonEnsiklotari # the name of your font family
+      fonts:
+        - asset: fonts/IkonEnsiklotari.ttf # your font file name and the directory
