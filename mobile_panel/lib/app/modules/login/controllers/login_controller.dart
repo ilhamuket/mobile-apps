@@ -1,35 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginController extends GetxController {}
-
-class TextForm extends StatelessWidget {
-  final TextEditingController? controller;
-  final bool? obs;
-  final String? label;
-  const TextForm({
-    this.controller,
-    this.obs,
-    this.label,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      validator: (value) {
-        if (value!.isEmpty) {
-          return "harus diisi";
-        } else {
-          return null;
-        }
-      },
-      obscureText: obs ?? false,
-      decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        labelText: label,
-      ),
+class LoginController extends GetxController {
+  Widget makeInput({hintText, obsureText = false}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TextField(
+          autocorrect: true,
+          obscureText: obsureText,
+          decoration: InputDecoration(
+            hintText: hintText,
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.black.withOpacity(0.5)),
+            ),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.black),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

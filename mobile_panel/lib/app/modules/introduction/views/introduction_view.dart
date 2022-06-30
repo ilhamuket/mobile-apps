@@ -1,3 +1,4 @@
+import 'package:ensiklotari/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -46,7 +47,9 @@ class IntroductionView extends GetView<IntroductionController> {
                 MaterialButton(
                   minWidth: double.infinity,
                   height: 35,
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.offAndToNamed(Routes.LOGIN);
+                  },
                   color: Color(0xFFD9D9D9).withOpacity(0.4),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(40)),
@@ -62,7 +65,9 @@ class IntroductionView extends GetView<IntroductionController> {
                 MaterialButton(
                   minWidth: double.infinity,
                   height: 35,
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.offAndToNamed(Routes.REGISTER);
+                  },
                   color: Color(0xFF9DC5D1),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(40)),
