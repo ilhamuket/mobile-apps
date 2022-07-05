@@ -12,12 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  ApiService _apiService = ApiService();
-
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-
+  var loginController = Get.put(LoginController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,12 +50,15 @@ class LoginView extends GetView<LoginController> {
                         child: Column(
                           children: [
                             controller.makeInput(
+                                controller:
+                                    loginController.emailEditingController,
                                 iconPref: Icon(IkonEnsiklotari.email),
                                 hintText: "Email"),
                             controller.makeInput(
+                                controller:
+                                    loginController.passwordEditingController,
                                 iconPref: Icon(IkonEnsiklotari.password),
-                                hintText: "Password",
-                                obsureText: true),
+                                hintText: "Password"),
                           ],
                         ),
                       ),
@@ -103,9 +101,7 @@ class LoginView extends GetView<LoginController> {
                         child: MaterialButton(
                           minWidth: double.infinity,
                           height: 30,
-                          onPressed: () {
-                            Get.offAndToNamed(Routes.HOME);
-                          },
+                          onPressed: loginController.loginModel,
                           color: Color(0xFF84383A),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(40)),

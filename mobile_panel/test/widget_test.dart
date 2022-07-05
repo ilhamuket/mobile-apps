@@ -8,7 +8,7 @@ void main() async {
   List data = (json.decode(res.body) as Map<String, dynamic>)["data"];
 
   // annas
-  // print(data[113]);
+  print(data[113]);
 
   // api ke object
   //  surahAnnas = Surah.fromJson(data[113]);Surah

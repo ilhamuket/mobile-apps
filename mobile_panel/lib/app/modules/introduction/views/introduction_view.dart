@@ -8,6 +8,9 @@ import '../controllers/introduction_controller.dart';
 
 class IntroductionView extends GetView<IntroductionController> {
   @override
+  // TODO: implement controller
+  IntroductionController get controller => super.controller;
+  @override
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(

@@ -11,7 +11,7 @@ import '../../../data/ikon_ensiklotari_icons.dart';
 import '../controllers/register_controller.dart';
 
 class RegisterView extends GetView<RegisterController> {
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  var registerController = Get.put(RegisterController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,16 +50,24 @@ class RegisterView extends GetView<RegisterController> {
                     child: Column(
                       children: [
                         controller.makeInput(
+                            controller:
+                                registerController.nameEditingController,
                             iconPref: Icon(IkonEnsiklotari.profile),
                             hintText: "Name"),
                         controller.makeInput(
+                            controller:
+                                registerController.emailEditingController,
                             iconPref: Icon(IkonEnsiklotari.email),
                             hintText: "Email"),
                         controller.makeInput(
+                            controller:
+                                registerController.passwordEditingController,
                             iconPref: Icon(IkonEnsiklotari.password),
                             hintText: "Password",
                             obsureText: true),
                         controller.makeInput(
+                            controller:
+                                registerController.passwordEditingController,
                             iconPref: Icon(IkonEnsiklotari.password),
                             hintText: "Re-enter password",
                             obsureText: true),
@@ -105,7 +113,9 @@ class RegisterView extends GetView<RegisterController> {
                     child: MaterialButton(
                       minWidth: double.infinity,
                       height: 30,
-                      onPressed: () {},
+                      onPressed: () {
+                        registerController.register();
+                      },
                       color: Color(0xFF84383A),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(40)),

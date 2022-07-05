@@ -1,12 +1,36 @@
+import 'dart:convert';
+
+import 'package:ensiklotari/app/data/Service/network_handler.dart';
+import 'package:ensiklotari/app/data/models/register_model.dart';
+import 'package:ensiklotari/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RegisterController extends GetxController {
-  Widget makeInput({iconPref, hintText, obsureText = false}) {
+  TextEditingController emailEditingController = TextEditingController();
+  TextEditingController passwordEditingController = TextEditingController();
+  TextEditingController nameEditingController = TextEditingController();
+  void register() async {
+    RegisterModel registerModel = RegisterModel(
+        email: emailEditingController.text,
+        password: passwordEditingController.text,
+        firstName: nameEditingController.text,
+        lastName: "last");
+    var response = await NetworkHandler.post(
+        registerModelToJson(registerModel), "register");
+
+    print(response);
+    var data = json.decode(response);
+    await NetworkHandler.storeToken(data["data"]);
+    Get.offAll(Routes.LOGIN);
+  }
+
+  Widget makeInput({controller, iconPref, hintText, obsureText = false}) {
     return TextField(
       cursorColor: Colors.black,
       obscureText: obsureText,
+      controller: controller,
       decoration: InputDecoration(
         prefixIconColor: Colors.black,
         contentPadding: EdgeInsets.symmetric(vertical: 15),

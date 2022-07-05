@@ -1,20 +1,22 @@
+import 'package:ensiklotari/app/data/Service/network_handler.dart';
 import 'package:get/get.dart';
 
 class IntroductionController extends GetxController {
-  //TODO: Implement IntroductionController
-
-  final count = 0.obs;
+  RxString? token;
+  RxBool loggedIn = false.obs;
   @override
   void onInit() {
     super.onInit();
+    checkLogin();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  void checkLogin() async {
+    var scopedToken = await NetworkHandler.getToken();
+    if (scopedToken != null) {
+      token?.value = scopedToken;
+      loggedIn.value = true;
+      var response = NetworkHandler.get("login", scopedToken);
+      print(response);
+    }
   }
-
-  @override
-  void onClose() {}
-  void increment() => count.value++;
 }
