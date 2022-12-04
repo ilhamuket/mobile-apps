@@ -1,3 +1,5 @@
+import 'package:ensiklotari/app/data/models/studio_model.dart';
+import 'package:ensiklotari/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,7 +21,9 @@ class HomeView extends GetView<HomeController> {
             icon: Icon(Icons.cast, color: Colors.black),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed(Routes.INTRODUCTION);
+            },
             icon: Icon(Icons.shopping_cart_outlined, color: Colors.black),
           ),
         ],
@@ -182,72 +186,90 @@ class HomeView extends GetView<HomeController> {
                   ),
                   Container(
                     height: 250,
-                    child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 5,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            width: 150,
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(20.0),
-                                child: Column(
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(13.5),
-                                      child: Container(
-                                        // width: 80,
-                                        height: 100,
-                                        child: Image.asset(
-                                          "assets/images/saman.jpg",
-                                          fit: BoxFit.fill,
-                                        ),
+                    child: FutureBuilder<List<StudioModel>>(
+                        future: controller.getAllStudio(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: Text("tidak ada data"),
+                            );
+                          }
+                          return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (context, index) {
+                                StudioModel studio = snapshot.data![index];
+                                return Container(
+                                  width: 150,
+                                  child: Card(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(20.0),
+                                      child: Column(
+                                        children: [
+                                          ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(13.5),
+                                            child: Container(
+                                              // width: 80,
+                                              height: 100,
+                                              child: Image.network(
+                                                "https://picsum.photos/250?image=9",
+                                                fit: BoxFit.fill,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            "${studio.id}",
+                                            style: GoogleFonts.poppins(
+                                              textStyle: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 15,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            "${studio.category!.name}",
+                                            style: GoogleFonts.poppins(
+                                              textStyle: TextStyle(
+                                                color: Color(0xFF828282),
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            "${studio.price}",
+                                            maxLines: 1,
+                                            style: GoogleFonts.poppins(
+                                              textStyle: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 18,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      "Tari Saman",
-                                      style: GoogleFonts.poppins(
-                                        textStyle: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 15,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      "60 Menit",
-                                      style: GoogleFonts.poppins(
-                                        textStyle: TextStyle(
-                                          color: Color(0xFF828282),
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      "Rp.20.000",
-                                      style: GoogleFonts.poppins(
-                                        textStyle: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 18,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          );
+                                  ),
+                                );
+                              });
                         }),
                   ),
                   const SizedBox(

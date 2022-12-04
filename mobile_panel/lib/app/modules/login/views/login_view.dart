@@ -1,16 +1,14 @@
-import 'package:ensiklotari/app/data/Service/api.dart';
 import 'package:ensiklotari/app/data/ikon_ensiklotari_icons.dart';
 
 import 'package:ensiklotari/app/routes/app_pages.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../controllers/login_controller.dart';
 
+// ignore: must_be_immutable
 class LoginView extends GetView<LoginController> {
   var loginController = Get.put(LoginController());
   @override

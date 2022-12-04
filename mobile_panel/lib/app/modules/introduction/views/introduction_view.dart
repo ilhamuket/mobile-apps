@@ -6,12 +6,12 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../controllers/introduction_controller.dart';
 
+// ignore: must_be_immutable
 class IntroductionView extends GetView<IntroductionController> {
-  @override
-  // TODO: implement controller
-  IntroductionController get controller => super.controller;
+  var introductionController = Get.put(IntroductionController());
   @override
   Widget build(BuildContext context) {
+    // controller.checkLogin();
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -50,7 +50,8 @@ class IntroductionView extends GetView<IntroductionController> {
                 minWidth: double.infinity,
                 height: 35,
                 onPressed: () {
-                  Get.offAndToNamed(Routes.LOGIN);
+                  // controller.checkLogin();
+                  Get.toNamed(Routes.LOGIN);
                 },
                 color: Color(0xFFD9D9D9).withOpacity(0.4),
                 shape: RoundedRectangleBorder(
@@ -68,7 +69,7 @@ class IntroductionView extends GetView<IntroductionController> {
                 minWidth: double.infinity,
                 height: 35,
                 onPressed: () {
-                  Get.offAndToNamed(Routes.REGISTER);
+                  Get.toNamed(Routes.REGISTER);
                 },
                 color: Color(0xFF9DC5D1),
                 shape: RoundedRectangleBorder(

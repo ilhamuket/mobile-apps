@@ -7,16 +7,16 @@ class IntroductionController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    checkLogin();
+    // checkLogin();
   }
 
-  void checkLogin() async {
-    var scopedToken = await NetworkHandler.getToken();
-    if (scopedToken != null) {
-      token?.value = scopedToken;
-      loggedIn.value = true;
-      var response = NetworkHandler.get("login", scopedToken);
-      print(response);
-    }
-  }
+  // void checkLogin() async {
+  //   var scopedToken = await NetworkHandler.getToken();
+  //   if (scopedToken != null) {
+  //     token?.value = scopedToken;
+  //     loggedIn.value = true;
+  //     var response = await NetworkHandler.get("/api/login", scopedToken);
+  //     print(response);
+  //   }
+  // }
 }

@@ -7,7 +7,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../controllers/forgot_password_controller.dart';
 
+// ignore: must_be_immutable
 class ForgotPasswordView extends GetView<ForgotPasswordController> {
+  var forgotController = Get.put(ForgotPasswordController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +47,7 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
                         child: Column(
                           children: [
                             controller.makeInput(
+                                controller: forgotController.emailController,
                                 iconPref: Icon(IkonEnsiklotari.email),
                                 hintText: "Email"),
                             Row(
@@ -52,7 +55,9 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
                               children: [
                                 MaterialButton(
                                   height: 20,
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    forgotController.forgotPassword();
+                                  },
                                   color: Color(0xFF9DC5D1),
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(40)),

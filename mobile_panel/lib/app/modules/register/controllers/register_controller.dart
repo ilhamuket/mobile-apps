@@ -18,12 +18,12 @@ class RegisterController extends GetxController {
         firstName: nameEditingController.text,
         lastName: "last");
     var response = await NetworkHandler.post(
-        registerModelToJson(registerModel), "register");
+        registerModelToJson(registerModel), "/auth/register");
 
-    print(response);
     var data = json.decode(response);
-    await NetworkHandler.storeToken(data["data"]);
-    Get.offAll(Routes.LOGIN);
+    print(data);
+    // await NetworkHandler.storeToken(data[" "]);
+    Get.toNamed(Routes.LOGIN);
   }
 
   Widget makeInput({controller, iconPref, hintText, obsureText = false}) {

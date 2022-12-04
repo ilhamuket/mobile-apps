@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:ensiklotari/app/data/Service/network_handler.dart';
 import 'package:ensiklotari/app/data/models/login_model.dart';
+import 'package:ensiklotari/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,9 +16,17 @@ class LoginController extends GetxController {
         email: emailEditingController.text,
         password: passwordEditingController.text);
     var response =
-        await NetworkHandler.post(loginModelToJson(loginModel), "login");
-    var data = json.decode(response);
+        await NetworkHandler.post(loginModelToJson(loginModel), "/api/login");
+    var data = json.decode(response)["meta"];
+    var dataisi = json.decode(response)["data"];
+    var token = dataisi["token"];
+    print(token);
     print(data);
+    await NetworkHandler.storeToken(token);
+
+    if (data["code"] == 200) {
+      Get.toNamed(Routes.HOME);
+    } else {}
   }
 
   Widget makeInput({controller, iconPref, hintText, obsureText = false}) {

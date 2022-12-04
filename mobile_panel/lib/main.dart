@@ -14,7 +14,7 @@ void main() {
       ),
       debugShowCheckedModeBanner: false,
       title: "Application",
-      initialRoute: Routes.SPLASH_SCREEN,
+      initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
     ),
   );

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:ensiklotari/app/routes/app_pages.dart';
 import 'package:get/get.dart';
-import 'package:flutter/material.dart';
 
 class SplashScreenController extends GetxController {
   @override

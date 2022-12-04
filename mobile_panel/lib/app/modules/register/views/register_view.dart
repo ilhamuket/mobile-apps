@@ -1,8 +1,5 @@
-import 'package:ensiklotari/app/modules/login/controllers/login_controller.dart';
 import 'package:ensiklotari/app/routes/app_pages.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../data/ikon_ensiklotari_icons.dart';
 import '../controllers/register_controller.dart';
 
+// ignore: must_be_immutable
 class RegisterView extends GetView<RegisterController> {
   var registerController = Get.put(RegisterController());
   @override

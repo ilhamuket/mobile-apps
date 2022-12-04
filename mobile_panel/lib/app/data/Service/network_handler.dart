@@ -12,17 +12,15 @@ class NetworkHandler {
     return response.body;
   }
 
-  static Future<dynamic> get(String endpoint, String? token) async {
+  static Future<dynamic> get(String endpoint) async {
     var response = await client.get(buildUrl(endpoint), headers: {
-      'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
     });
     return response.body;
   }
 
   static Uri buildUrl(String endpoint) {
-    String host = "https://api.ensiklotari.com/v1/auth/";
+    String host = "http://127.0.0.1:8000";
     final apiPath = host + endpoint;
     return Uri.parse(apiPath);
   }
